@@ -26,7 +26,9 @@
             <td>
                 <ul class="list-inline">
                     <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar', array('action'=>'edit/'.$d['Driver']['id']), array('escape'=>false))?></li>
-                    <!--<li><?php echo $this->Html->link('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('action'=>'remove/'.$d['Driver']['id']), array('escape'=>false))?></li>-->
+                    <?php if($d['Driver']['role'] == 'driver_tester'):?>
+                    <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('action'=>'remove/'.$d['Driver']['id']), array('escape'=>false))?></li>
+                    <?php endif;?>
                 </ul>
             </td>
         </tr>

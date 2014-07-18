@@ -67,7 +67,10 @@ class PagesController extends AppController {
         }
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         
-        if($page === 'home') $this->set('localities', $this->Locality->getAsSuggestions());
+        if($page === 'home') {
+            $this->layout = 'home';
+            $this->set('localities', $this->Locality->getAsSuggestions());
+        }
 
         try {
             $this->render(implode('/', $path));

@@ -26,7 +26,7 @@ body {
 /**
 Some Boostrap 3 fixes
 */
-.navbar-nav > li > a, .navbar-brand {padding-top:5px !important; padding-bottom:5px !important;}
+/*.navbar-nav > li > a, .navbar-brand {padding-top:5px !important; padding-bottom:5px !important;}
 .navbar {min-height:30px !important}
 #app-navbar {height: 35px;}
 
@@ -45,7 +45,7 @@ Some Boostrap 3 fixes
 .navbar-inverse .divider-vertical {
     border-right-color: #222222;
     border-left-color: #111111;
-}
+}*/
 
 
 .dropdown-submenu{position:relative;}

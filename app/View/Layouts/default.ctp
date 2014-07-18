@@ -194,13 +194,11 @@ if($isLoggedIn) {
                         </div>
                         <div class="col-md-6" style="text-align: center">
                             <p class="text-muted" style="margin: 20px 0;">
-                                <!--<?php echo $this->Html->link('¿Cómo usarlo?', array('controller'=>'pages', 'action'=>'display', 'tour')); ?>
-                                |-->
                                <?php echo $this->Html->link('Contactar', array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                                 |
                                <?php echo $this->Html->link('Preguntas Frecuentes', array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
-                                |
-                               <?php echo $this->Html->link('Términos de Uso', array('controller'=>'pages', 'action'=>'display', 'use_terms')); ?>
+                              <!--  |
+                               <?php echo $this->Html->link('Términos de Uso', array('controller'=>'pages', 'action'=>'display', 'use_terms')); ?>-->
                             </p>
                             
                         </div>

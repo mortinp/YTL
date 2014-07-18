@@ -120,7 +120,7 @@ class BootstrapFormHelper extends FormHelper {
             'class'=>'datepicker', //Needs datepicker at ... 
             'type'=>'text', 
             'div'=>'form-group input-group', 
-            'after'=>'<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>'
+            'after'=>'<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>'
         );
         $options = array_merge_recursive($defaultOptions, $options);
         
