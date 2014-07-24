@@ -88,14 +88,14 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
                         <label for="TravelOrigin">Origen del Viaje</label>
                         <!--<div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>-->
-                            <input name="data[PendingTravel][origin]" class="form-control locality-typeahead" required="required" value="" autofocus="autofocus" type="text" id="TravelOrigin"/>
+                            <input name="data[PendingTravel][origin]" class="form-control locality-typeahead" required="required" value="" autofocus="autofocus" type="text" id="PendingTravelOrigin"/>
                         <!--</div>-->
                     </div>
                     <div class="form-group">
                         <label for="TravelDestination">Destino del Viaje</label>
                         <!--<div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>-->
-                            <input name="data[PendingTravel][destination]" class="form-control locality-typeahead" required="required" value="" type="text" id="TravelDestination"/>
+                            <input name="data[PendingTravel][destination]" class="form-control locality-typeahead" required="required" value="" type="text" id="PendingTravelDestination"/>
                         <!--</div>-->
                     </div>
                     <?php 

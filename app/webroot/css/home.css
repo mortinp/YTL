@@ -1,18 +1,60 @@
-a.list-item:hover {
-    text-decoration: none;
+.destination-thumb {
+    background-position:center;
+    width:100%;
+    height:200px;
+    text-align:center;
 }
 
-a.list-item:hover > .list-item-ref {
-    text-decoration: underline;
+.destination-thumb .action {
+    visibility: hidden;
+    opacity:1 !important;
+}
+
+.destination-thumb .dest {
+    visibility: visible;
+}
+
+.destination-thumb:hover {
+    opacity:0.6
+}
+
+.destination-thumb:hover .action {
+    visibility: visible;
+}
+
+.destination-thumb:hover .dest {
+    visibility: hidden;
+}
+
+.trinidad {
+    background-image:url(../img/trinidad.jpg);    
+}
+
+.varadero {
+    background-image:url(../img/varadero.jpg);   
+}
+
+.vinales {
+    background-image:url(../img/vinales.jpg);    
+}
+
+.all-around {
+    background-image:url(../img/all-around.jpg);
+}
+
+.action {
+    font-size: 16pt !important;
+    /*position: absolute;
+    bottom: 0;*/
 }
 
 
 #front-page-bg {
-	background-image:url(../img/road4.jpg);
-	background-position:center;
-	width:100%;
-	height:550px;
-	text-align:center
+    background-image:url(../img/road4.jpg);
+    background-position:center;
+    width:100%;
+    height:550px;
+    text-align:center
 }
 #front-page-bg #navbar{background-color:transparent}
 
@@ -20,7 +62,7 @@ a.list-item:hover > .list-item-ref {
 .handwritten-2{font-family:'Engagement', cursive;font-size:24px;text-shadow:0 -1px 1px rgba(0,0,0,0.6)}
 
 @media (max-width: 767px) {
-	.handwritten{font-size:50px}
+    .handwritten{font-size:50px}
 }
 
 .white{color:white !important}
@@ -28,15 +70,15 @@ a.list-item:hover > .list-item-ref {
 
 
 #navbar #nav a.nav-link{
-color:white;
-font-family:'Montserrat', sans-serif;
-font-size:13px;
-margin-top:4px;
-text-transform:uppercase
+    color:white;
+    font-family:'Montserrat', sans-serif;
+    font-size:13px;
+    margin-top:4px;
+    text-transform:uppercase
 }
 #navbar #nav a.nav-link:hover,#navbar #nav a.nav-link:focus{
-background-color:transparent;
-text-decoration:none
+    background-color:transparent;
+    text-decoration:none
 }
 
 .sell{margin:20px 0;padding:0 100px}

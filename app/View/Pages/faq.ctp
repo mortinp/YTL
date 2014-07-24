@@ -1,3 +1,5 @@
+<?php $isLoggedIn = AuthComponent::user('id') ? true : false;?>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -12,15 +14,17 @@
             <p>
                 Es muy fácil! Para crear un Anuncio de Viaje sólo tienes que 
                 <?php
-                
+                if(!$isLoggedIn) echo $this->Html->link('ir al formulario de anuncios', array('controller'=>'pages', 'action'=>'home'));
+                else echo $this->Html->link('ir al formulario de anuncios', array('controller'=>'travels', 'action'=>'add'));
                 ?>
-                ir al formulario de anuncios y completarlo.
+                y completarlo.
             </p>
             
             <p><b>¿Qué pasa cuando creo un Anuncio de Viaje?</b></p>
             <p>
                 Enseguida hasta 3 de nuestros choferes reciben una notificación con los detalles del viaje
-                y la manera para contactarte que escribiste al llenar el formulario.
+                y la manera para contactarte que escribiste al llenar el formulario. Con esta información, los choferes 
+                pueden contactarte para acordar los detalles.
             </p>
             
             <p><b>¿Por qué 3 choferes? ¿No basta con uno?</b></p>
