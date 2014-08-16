@@ -12,7 +12,7 @@ class DriverTravel extends AppModel {
             'counterCache'=>'travel_count'
         ),
         'Travel'=>array(
-            'fields'=>array('id')
+            'fields'=>array('id', 'user_id')
         )
     );
 }

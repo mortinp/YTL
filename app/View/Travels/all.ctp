@@ -10,7 +10,14 @@
                 <?php foreach ($travels as $travel) :?>                
                     <li style="margin-bottom: 20px">
                         <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false))?>
-                        <b>Creado por:</b> <?php echo $travel['User']['username']?>
+                        <p><b>Creado por:</b> <?php echo $travel['User']['username']?></p>
+                        <p><b>Conversaciones:</b>
+                            <ul>
+                            <?php foreach ($travel['DriverTravel'] as $sent) :?>
+                                <li><?php echo $this->Html->link($sent['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$sent['id'])) ?></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        </p>
                     </li>                
                 <?php endforeach; ?>
                 </ul>

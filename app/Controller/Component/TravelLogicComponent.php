@@ -48,23 +48,31 @@ class TravelLogicComponent extends Component {
             $drivers_sent_count = 0;
             
             if($OK) {
-                $subject = 'Nuevo Anuncio de Viaje (#'.$travel[$modelType]['id'].' '.$this->Travel->travelType.')';
                 
-                //$send_to_drivers = $travel['User']['role'] === 'regular';
-                //if($send_to_drivers) {
+                $emailConfig = 'no_responder';
+                if(!User::isRegular($travel['User'])) $emailConfig = 'viajero';
                     
-                    foreach ($drivers as $d) {
+                foreach ($drivers as $d) {
+                    $this->DriverTravel->create();
+                    $driverTravel = array('driver_id'=>$d['Driver']['id'], 'travel_id'=>$travel[$modelType]['id']);
+                    $OK = $this->DriverTravel->save(array('Driver'.$modelType=>$driverTravel));
+
+                    if($OK) {
+
+                        $conversation = $this->DriverTravel->getLastInsertID();
+                        $subject = 'Nuevo Anuncio de Viaje [['.$conversation/*$travel[$modelType]['id'].' '.$this->Travel->travelType*/.']]';
+                        
                         if(Configure::read('enqueue_mail')) {
                             ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                                     $d['Driver']['username'], 
-                                    array('travel' => $travel), 
+                                    array('travel' => $travel, 'conversation_id'=>$conversation), 
                                     array(
                                         'template'=>'new_'.$inflectedTravelType,
                                         'format'=>'html',
                                         'subject'=>$subject,
-                                        'config'=>'no_responder'));
+                                        'config'=>$emailConfig));
                         } else {
-                            $Email = new CakeEmail('no_responder');
+                            $Email = new CakeEmail($emailConfig);
                             $Email->template('new_'.$inflectedTravelType)
                             ->viewVars(array('travel' => $travel))
                             ->emailFormat('html')
@@ -80,39 +88,38 @@ class TravelLogicComponent extends Component {
                                     continue;
                                 }
                             }
-                        }                        
-                        
-                        if($OK) {
-                            $drivers_sent_count++;
-                            $this->DriverTravel->create();
-                            $this->DriverTravel->save(array('Driver'.$modelType=>array('driver_id'=>$d['Driver']['id'], 'travel_id'=>$travel[$modelType]['id'])));
                         }
                     }
-                //}
-                    
-                    // Always send an email to me ;) 
-                    if(Configure::read('enqueue_mail')) {
-                        ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                                'mproenza@grm.desoft.cu',
-                                array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']), 
-                                array(
-                                    'template'=>'new_'.$inflectedTravelType,
-                                    'format'=>'html',
-                                    'subject'=>$subject,
-                                    'config'=>'no_responder'));
-                    } else {
-                        $Email = new CakeEmail('no_responder');
-                        $Email->template('new_'.$inflectedTravelType)
-                        ->viewVars(array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']))
-                        ->emailFormat('html')
-                        ->to('mproenza@grm.desoft.cu')
-                        ->subject($subject);
-                        try {
-                            $Email->send();
-                        } catch ( Exception $e ) {
-                            // TODO: Should I do something here???
-                        }
+
+                    if($OK) {
+                        $drivers_sent_count++;
                     }
+                }
+
+                // Always send an email to me ;) 
+                $subject = 'Nuevo Anuncio de Viaje ('.$travel[$modelType]['id'].' '.$this->Travel->travelType.')';
+                if(Configure::read('enqueue_mail')) {
+                    ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                            'mproenza@grm.desoft.cu',
+                            array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']), 
+                            array(
+                                'template'=>'new_'.$inflectedTravelType,
+                                'format'=>'html',
+                                'subject'=>$subject,
+                                'config'=>$emailConfig));
+                } else {
+                    $Email = new CakeEmail($emailConfig);
+                    $Email->template('new_'.$inflectedTravelType)
+                    ->viewVars(array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']))
+                    ->emailFormat('html')
+                    ->to('mproenza@grm.desoft.cu')
+                    ->subject($subject);
+                    try {
+                        $Email->send();
+                    } catch ( Exception $e ) {
+                        // TODO: Should I do something here???
+                    }
+                }
             }
             
             
@@ -140,7 +147,7 @@ class TravelLogicComponent extends Component {
                 
                 $travel['Travel']['user_id'] = $userId;
                 
-                $OK = $this->Travel->save($travel);
+                $OK = $this->Travel->save($travel); // 
                 $travel['Travel']['id'] = $this->Travel->getLastInsertID();
                 $travel = $this->Travel->findById($travel['Travel']['id']);
                 
@@ -170,8 +177,6 @@ class TravelLogicComponent extends Component {
         }
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
-    
-    
     
 }
 ?>

@@ -16,7 +16,6 @@
                 </div>
                 <div class="navbar-collapse navbar-ex1-collapse collapse" style="height: 1px; ">
                     <ul class="nav navbar-nav navbar-right">
-                        <!--<li><a class="nav-link" href="https://www.truckplease.com/jobs/contents-of-a-2-400-sq-foot-house-including">Example Job</a></li>-->
                         <li><?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class'=>'nav-link'))?></li>
                         <li><?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class'=>'nav-link')) ?></li>
                     </ul>
@@ -25,16 +24,16 @@
         </div>
 
     </div>
-    <h1 id="sell" class="handwritten white">Desata la creatividad en tus viajes</h1>
+    <h1 id="sell" class="handwritten white"><?php echo __('Desata la creatividad en tus viajes')?></h1>
     <h2 class="handwritten-2 white">
-		  Contacta con uno de nuestros <big><big><span class="text-info"><b>taxis</b></span></big></big> 
-		  para moverte por <big><big><span class="text-info"><b>Cuba</b></span></big></big>
+        <?php echo __('Contacta con uno de nuestros')?> <big><big><span class="text-info"><b>taxis</b></span></big></big> 
+        <?php echo __('para moverte por')?> <big><big><span class="text-info"><b>Cuba</b></span></big></big>
     </h2>
     <div style="padding-top:50px">
-        <a href="#!" class="btn btn-success show-travel-form" style="font-size:20pt;white-space: normal;max-width:500px">
-				Contactar un taxi
+        <a href="#!" class="btn btn-success show-travel-form" style="font-size:20pt;white-space: normal;max-width:400px">
+            <?php echo __('Contactar un taxi')?>
             <div style="font-size:12pt;padding-left:50px;padding-right:50px">
-			Completa nuestro formulario y acuerda los términos del viaje con tu chofer
+                <?php echo __('Acuerda enseguida los detalles del viaje con tu chofer')?>
             </div>
         </a>
     </div>
@@ -46,14 +45,14 @@
         <span class="glyphicon glyphicon-user"></span>
         <span class="glyphicon glyphicon-user"></span>
         <p class="sell-text">
-            Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes el viaje directamente con ellos.
+            <?php echo __('Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes el viaje directamente con ellos')?>.
         </p>
     </div>
     <div class="col-md-4 center">
         <span class="glyphicon glyphicon-comment"></span>
         <span class="glyphicon glyphicon-usd"></span>
         <p class="sell-text">
-            Escoge el chofer que mejor se ajuste a tus requerimientos. Acuerda tus recorridos, horarios y el precio del viaje o ruta.
+            <?php echo __('Escoge el chofer que mejor se ajuste a tus requerimientos. Acuerda tus recorridos, horarios y el precio del viaje o ruta')?>.
         </p>
     </div>
     <div class="col-md-4 center">
@@ -62,7 +61,7 @@
         <span class="glyphicon glyphicon-camera"></span>
         <span class="glyphicon glyphicon-music"></span>
         <p class="sell-text">
-            Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica.
+            <?php echo __('Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica')?>.
         </p>
     </div>
 </div>
@@ -71,14 +70,14 @@
 <div class="row sell">
     <div class="col-md-12 center">        
         <p class="sell-text">
-            Viajes populares con origen en <span class="handwritten" style="font-size: 24pt">La Habana</span>
+            <?php echo __('Viajes populares con origen en')?> <span class="handwritten" style="font-size: 24pt;display:inline-block"><?php echo __('La Habana')?></span>
         </p>
     </div>
     <div class="col-md-3 center">
         <a href="#!" style="text-decoration: none">
             <div class="destination-thumb varadero">
                 <p class="handwritten white dest" style="font-size: 24pt">Varadero</p>
-                <h1 class="action white">Conseguir taxi <b>La Habana-Varadero</b></h1>
+                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Varadero</b></h1>
             </div>
         </a>
     </div>
@@ -86,7 +85,7 @@
         <a href="#!" style="text-decoration: none">
             <div class="destination-thumb trinidad">
                 <p class="handwritten white dest" style="font-size: 24pt">Trinidad</p>
-                <h1 class="action white">Conseguir taxi <b>La Habana-Trinidad</b></h1>
+                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Trinidad</b></h1>
             </div>
         </a>
     </div>
@@ -94,15 +93,15 @@
         <a href="#!" style="text-decoration: none">
             <div class="destination-thumb vinales">
                 <p class="handwritten white dest" style="font-size: 24pt">Viñales</p>
-                <h1 class="action white">Conseguir taxi <b>La Habana-Viñales</b></h1>
+                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Viñales</b></h1>
             </div>
         </a>
     </div>
     <div class="col-md-3 center">
         <a href="#!" style="text-decoration: none">
             <div class="destination-thumb all-around">
-                <p class="handwritten white dest" style="font-size: 24pt">Recorrido por la isla</p>
-                <h1 class="action white">Conseguir taxi <b>La Habana-Recorrido por la isla</b></h1>
+                <p class="handwritten white dest" style="font-size: 24pt"><?php echo __('Recorrido por la isla')?></p>
+                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-<?php echo __('Recorrido por la isla')?></b></h1>
             </div>
         </a>
     </div>
@@ -114,8 +113,8 @@
     <div class="row">
         <div id="FormContainer">
             <legend style="text-align:center">
-                Crea un <b>Anuncio de Viaje</b> para conseguir un taxi
-                <div><small><small>¿Ya estás registrado en <em>YoTeLlevo</em>? <?php echo $this->Html->link(__('Entra y mira tus anuncios'), array('controller' => 'users', 'action' => 'login')) ?></small></small></div>
+                <?php echo __('Crea un')?> <b><?php echo __('Anuncio de Viaje')?></b> <?php echo __('para conseguir un taxi')?>
+                <div><small><small><?php echo __('¿Ya estás registrado en')?> <em>YoTeLlevo</em>? <?php echo $this->Html->link(__('Entra y gestiona tus viajes'), array('controller' => 'users', 'action' => 'login')) ?></small></small></div>
             </legend>
             <?php echo $this->Session->flash(); ?>
             <?php echo $this->element('pending_travel_form', array('bigButton'=>true, 'horizontal'=>true)); ?>

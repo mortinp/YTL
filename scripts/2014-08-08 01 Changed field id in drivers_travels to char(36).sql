@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers_travels` CHANGE  `id`  `id` CHAR( 36 ) NOT NULL

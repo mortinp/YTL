@@ -27,13 +27,13 @@ else
 $origin = '';
 $destination = '';
 if(isset ($travel) && !empty ($travel)) {
-    $saveButtonText = 'Salvar Datos';
+    $saveButtonText = __('Salvar Datos');
     
     $origin = $travel['Travel']['origin'];
     $destination = $travel['Travel']['destination'];
     
 } else {
-    $saveButtonText = 'Crear Anuncio';
+    $saveButtonText = __('Crear Anuncio');
 }
 
 $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') > 0 && !AuthComponent::user('email_confirmed')*/;
@@ -41,11 +41,11 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
 
 <?php if($intent === 'add' && $form_disabled):?>
     <div class="alert alert-warning">
-        <b>Verifica tu cuenta de correo electrónico</b> para crear más anuncios de viajes. 
-        El formulario de viajes permanecerá desactivado hasta que verifiques tu cuenta. 
+        <?php echo __('<b>Verifica tu cuenta de correo electrónico</b> para crear más anuncios de viajes. 
+        El formulario de viajes permanecerá desactivado hasta que verifiques tu cuenta')?>. 
         <div style="padding-top: 10px">
-            <big><big><b><?php echo $this->Html->link('<i class="glyphicon glyphicon-ok"></i> Enviar correo de verificación', array('controller'=>'users', 'action'=>'send_confirm_email'), array('escape'=>false))?></b></big></big>
-            <div><small>(Enviaremos un correo a <b><?php echo AuthComponent::user('username')?></b> con las instrucciones)</small></div>
+            <big><big><b><?php echo $this->Html->link('<i class="glyphicon glyphicon-ok"></i> '.__('Enviar correo de verificación'), array('controller'=>'users', 'action'=>'send_confirm_email'), array('escape'=>false))?></b></big></big>
+            <div><small>(<?php echo __('Enviaremos un correo a')?> <b><?php echo AuthComponent::user('username')?></b> <?php echo __('con las instrucciones')?>)</small></div>
         </div>        
     </div>
 <?php else:?>
@@ -55,14 +55,13 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         <?php echo $this->Form->create('Travel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'style' => $style, 'id'=>'TravelForm'));?>
         <fieldset>
             <?php
-            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => 'Origen del Viaje', 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
-            echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => 'Destino del Viaje', 'required'=>true, 'value'=>$destination));
-
+            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
+            echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Destino del Viaje'), 'required'=>true, 'value'=>$destination));
             echo $this->Form->custom_date('date', array('label' => __('Cuándo'), 'dateFormat' => 'dd/mm/yyyy'));
             echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
-            echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>'Preferencias <small class="text-info">(selecciona sólo si quieres esto obligatoriamente)</small>'));
             echo $this->Form->input('contact', array('label' => __('Información de Contacto'), 
-                'placeholder' => 'Explica a los choferes la forma de contactarte (número de teléfono, correo electrónico o cualquier otra forma que prefieras). Escribe algo como: llamar al teléfono 12-3456 a Pepito.'));
+                'placeholder' => __('Explica a los choferes la forma de contactarte. Escribe algo como: escribirme al correo nombre@dominio.com')));
+            echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>__('Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
 
             $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit');
@@ -78,8 +77,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             if($intent == 'add'):?>
             <br/>
             <div class="alert alert-warning">
-                La <b>Información de Contacto</b> es importante para que los choferes lleguen a tí. 
-                Asegúrate de que esta información sea correcta.
+                <?php echo __('La <b>Información de Contacto</b> es importante para que los choferes lleguen a tí. Asegúrate de que esta información sea correcta.')?>
             </div>
         <?php endif?>
     </div>
@@ -113,7 +111,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
     $(document).ready(function() {        
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",
-            language: 'es',
+            language: '<?php echo Configure::read('Config.language')?>',
             startDate: 'today',
             todayBtn: "linked",
             autoclose: true,
@@ -134,7 +132,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 //$('#TravelFormDiv').prop('disabled', true);
                 
                 $('#TravelSubmit').attr('disabled', true);
-                $('#TravelSubmit').val('Espera ...');
+                $('#TravelSubmit').val('<?php echo __('Espera')?> ...');
             })
         <?php endif?>
     })

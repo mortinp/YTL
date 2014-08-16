@@ -51,8 +51,17 @@ class TravelsController extends AppController {
     
     // Admins only
     public function all() {
+        $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
         $this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'regular'))));
         $this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'regular'))));
+    }
+    
+    // Admins only
+    public function all_admins() {
+        $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        $this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'admin'))));
+        $this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'admin'))));
+        $this->render('all');
     }
     
     // Admins only
@@ -103,7 +112,7 @@ class TravelsController extends AppController {
         $OK = true;
         
         if($travel != null && Travel::isConfirmed($travel['Travel']['state'])) {
-            $this->setErrorMessage('Este viaje ya ha sido confirmado.');
+            $this->setErrorMessage(__('Este viaje ya ha sido confirmado.'));
             $OK = false;
         }
         
@@ -152,7 +161,7 @@ class TravelsController extends AppController {
             } else {
                 CakeLog::write('travels_failed', 'Travel Failed (edit) - Unknown origin and destination: '.$this->request->data['Travel']['origin'].' - '.$this->request->data['Travel']['destination']);
                 if($this->autoRender == false) {
-                    throw new NotFoundException('El origen y el destino del viaje no son reconocidos.');
+                    throw new NotFoundException(__('El origen y el destino del viaje no son reconocidos.'));
                 } else {
                     $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
                     $this->redirect($this->referer());
@@ -256,7 +265,7 @@ class TravelsController extends AppController {
             } else {
                 CakeLog::write('travels_failed', 'Travel Failed (edit_pending) - Unknown origin and destination: '.$this->request->data['PendingTravel']['origin'].' - '.$this->request->data['PendingTravel']['destination']);
                 if($this->autoRender == false) {
-                    throw new NotFoundException('El origen y el destino del viaje no son reconocidos.');
+                    throw new NotFoundException(__('El origen y el destino del viaje no son reconocidos.'));
                 } else {
                     $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
                     $this->redirect($this->referer());

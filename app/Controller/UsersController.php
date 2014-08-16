@@ -55,8 +55,8 @@ class UsersController extends AppController {
     public function register() {
         if ($this->request->is('post')) {
             if($this->User->loginExists($this->request->data['User']['username'])) {
-                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o 
-                    <a href="'.Router::url(array('action'=>'login')).'">entra con tu cuenta</a>.'));// TODO: esta direccion estatica es un hack
+                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o').' '. 
+                    '<a href="'.Router::url(array('action'=>'login')).'">'.__('entra con tu cuenta').'</a>.');// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
 
@@ -69,11 +69,6 @@ class UsersController extends AppController {
             $datasource->begin();
             
             $OK = $this->do_register($this->request->data['User']);
-            
-            /*$OK = true;            
-            $OK = $this->User->save($this->request->data['User']);
-            if($OK) $this->request->data['User']['id'] = $this->User->getLastInsertID();
-            if($OK) $OK = $this->do_send_confirm_email($this->request->data['User'], true);*/
                 
             if($OK) {
                 $datasource->commit();
@@ -88,8 +83,8 @@ class UsersController extends AppController {
     public function register_and_create($pendingTravelId) {
         if ($this->request->is('post')) {
             if($this->User->loginExists($this->request->data['User']['username'])) {
-                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o 
-                    <a href="'.Router::url(array('action'=>'login')).'">entra con tu cuenta</a>.'));// TODO: esta direccion estatica es un hack
+                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o'). 
+                    '<a href="'.Router::url(array('action'=>'login')).'">'.__('entra con tu cuenta').'</a>.');// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
 
@@ -101,12 +96,23 @@ class UsersController extends AppController {
             $datasource = $this->User->getDataSource();
             $datasource->begin();
             
+            $result = array();
+            
             $OK = $this->do_register($this->request->data['User']);
+            if(!$OK) $result['message'] = 'Ocurrió un error registrando tu usuario. Intenta nuevamente.';
             
             if($OK) $result = $this->TravelLogic->confirmPendingTravel($pendingTravelId, $this->request->data['User']['id']);
             
+            
             if(!$result['success']) {
                 $OK = false;
+                
+                /**
+                 * Hack: Al guardarse el viaje antes de confirmarlo, se ejecuta el afterSave() de Travel. Esto incrementa la variable travel_count de la sesión.
+                 * Si la transacción falla, hay que decrementar esa variable nuevamente.
+                 * TODO: existirá un metodo más o menos como afterSaveFail() en los modelos???
+                 */
+                CakeSession::delete('Auth.User');
             }
                 
             if($OK) {
@@ -117,8 +123,8 @@ class UsersController extends AppController {
                 }
             } else {
                 $datasource->rollback();
-                $this->setErrorMessage(__('Ocurrió un error registrando tu usuario y confirmando el viaje. Intenta de nuevo'));
-                $this->redirect($this->referer());
+                $this->setErrorMessage(__($result['message']));
+                $this->redirect($this->referer()/*array('controller'=>'travels', 'action'=>'view_pending/'.$pendingTravelId)*/);
             }
         }
     } 
@@ -142,7 +148,6 @@ class UsersController extends AppController {
                 $this->Session->write('Auth.User.display_name', $user['User']['display_name']);
                 if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
                 
-                // TODO: redirect???
                 $this->setSuccessMessage('Tu nueva información ha sido guardada');
             } else {
                 $this->setErrorMessage('Ocurrió un problema guardando la información. Intenta de nuevo.');

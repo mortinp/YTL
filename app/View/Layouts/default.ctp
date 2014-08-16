@@ -68,7 +68,7 @@ if($isLoggedIn) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <div class="navbar-brand">YoTeLlevo</div>
+                        <div class="navbar-brand"><i class="glyphicon glyphicon-road"></i> <big>Yo</big>Te<big>Llevo</big></div>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -78,18 +78,18 @@ if($isLoggedIn) {
                                 <?php if($role === 'regular' || $role === 'admin' || $role === 'tester') :?>
                                     <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('escape'=>false));?></li>
                                     <li class="divider-vertical"></li>
-                                    <li><?php echo $this->Html->link(__('<span class="text-info"><b>Anunciar Viaje</b></span>'), array('controller' => 'travels', 'action' => 'add'), array('escape'=>false));?></li> 
+                                    <li><?php echo $this->Html->link('<span class="text-info"><b>'.__('Anunciar Viaje').'</b></span>', array('controller' => 'travels', 'action' => 'add'), array('escape'=>false));?></li> 
                                     
                                     <?php if($role === 'admin') :?>
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                            Administrar
+                                            <?php echo __('Administrar')?>
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Administrar</a>
+                                                <a tabindex="-1" href="#"><?php echo __('Administrar')?></a>
                                                 <ul class="dropdown-menu">
                                                     <li><?php echo $this->Html->link(__('Usuarios'), array('controller' => 'users', 'action' => 'index')) ?></li>
                                                     <li><?php echo $this->Html->link(__('Choferes'), array('controller' => 'drivers', 'action' => 'index')) ?></li>                                            
@@ -100,7 +100,7 @@ if($isLoggedIn) {
                                                 </ul>
                                             </li>
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Ver</a>
+                                                <a tabindex="-1" href="#"><?php echo __('Ver')?></a>
                                                 <ul class="dropdown-menu">
                                                     <li><?php echo $this->Html->link(__('Viajes (Todos)'), array('controller' => 'travels', 'action' => 'all')) ?></li>
                                                     <li><?php echo $this->Html->link(__('Pendientes (Todos)'), array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
@@ -109,11 +109,18 @@ if($isLoggedIn) {
                                                 </ul>
                                             </li>
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Logs</a>
+                                                <a tabindex="-1" href="#"><?php echo __('Logs')?></a>
                                                 <ul class="dropdown-menu">
                                                     <li><?php echo $this->Html->link(__('Info Requerida'), array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
                                                     <li><?php echo $this->Html->link(__('Viajes por Correo'), array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>
                                                     <li><?php echo $this->Html->link(__('Viajes Fallidos'), array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
+                                                </ul>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="#"><?php echo __('Tests')?></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><?php echo $this->Html->link(__('Ver Viajes Admins'), array('controller' => 'travels', 'action' => 'all_admins')) ?></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -122,7 +129,7 @@ if($isLoggedIn) {
                                 <?php endif;?>
                                     
                             <?php else: ?>
-                                <li><?php echo $this->Html->link(__('<i class="glyphicon glyphicon-home"></i> Inicio'), '/', array('escape'=>false));?></li>
+                                <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('escape'=>false));?></li>
                             <?php endif;?>            
                         </ul>
 
@@ -189,16 +196,14 @@ if($isLoggedIn) {
                     <div class="row">
                         <div class="col-md-3">
                             <p class="text-muted" style="margin: 20px 0;">
-                                Creado por <a href="http://ksabes.com">Casabe&trade;</a>
+                                <?php echo __('Creado por')?> <a href="http://ksabes.com">Casabe&trade;</a>
                             </p>
                         </div>
                         <div class="col-md-6" style="text-align: center">
                             <p class="text-muted" style="margin: 20px 0;">
-                               <?php echo $this->Html->link('Contactar', array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
+                               <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                                 |
-                               <?php echo $this->Html->link('Preguntas Frecuentes', array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
-                              <!--  |
-                               <?php echo $this->Html->link('Términos de Uso', array('controller'=>'pages', 'action'=>'display', 'use_terms')); ?>-->
+                               <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
                             </p>
                             
                         </div>

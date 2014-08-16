@@ -6,16 +6,16 @@ App::uses('CakeEmail', 'Network/Email');
 App::uses('ComponentCollection', 'Controller');
 App::uses('Controller', 'Controller');
 App::uses('TravelLogicComponent', 'Controller/Component');
+App::uses('LocalityRouterComponent', 'Controller/Component');
 
 require_once("PlancakeEmailParser.php");
 
 class IncomingMailShell extends AppShell {   
     
     private $TravelLogic;
+    private $LocalityRouter;
     
-    private static $MAX_MATCHING_OFFSET = 0.3;
-    
-    public $uses = array('Locality', 'DriverLocality', 'TravelByEmail', 'User', 'LocalityThesaurus');
+    public $uses = array('Locality', 'DriverLocality', 'TravelByEmail', 'User', 'LocalityThesaurus', 'DriverTravel', 'Driver', 'DriverTravelerConversation');
 
     public function main() {
         $this->out('IncomingMail shell reporting.');
@@ -55,7 +55,6 @@ class IncomingMailShell extends AppShell {
             $subject = str_replace("'", "", $subject);
             $subject = str_replace('"', "", $subject);
 
-            // TODO: Verificar que origen y destino se pudieron sacar del asunto
             $parseOK = preg_match('/(?<from>.+)-(?<to>.+)/', $subject, $matches);
             if($parseOK) {
                 $origin = trim($matches['from']);
@@ -120,57 +119,84 @@ class IncomingMailShell extends AppShell {
                     // TODO: What to do here?
                 }
             }
-        }    
+        } else if($to === 'chofer@yotellevo.ahiteva.net') {
+            $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
+            if($parseOK) {
+                $conversation = $matches[1];
+                $this->out($conversation);
+                
+                $driverTravel = $this->DriverTravel->findById($conversation);
+                
+                $respondTo = $driverTravel['Driver']['username'];
+                
+                print_r($driverTravel);
+                $this->out($respondTo);
+                $this->out($body);
+                
+                $datasource = $this->DriverTravelerConversation->getDataSource();
+                $datasource->begin();
+                
+                $OK = $this->DriverTravelerConversation->save(array(
+                    'conversation_id'=>$conversation,
+                    'response_by'=>'traveler',
+                    'response_text'=>$body
+                ));
+                
+                if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                    $respondTo,
+                    array('conversation'=>$conversation, 'response'=>$body),
+                    array(
+                        'template'=>'response_traveler2driver',
+                        'format'=>'html',
+                        'subject'=>$subject,
+                        'config'=>'viajero') // TODO: habilitar una cuenta para respuestas de viajeros a choferes
+                );
+                
+                if($OK) $datasource->commit();
+                else $datasource->rollback();
+            }
+        }  else if($to === 'viajero@yotellevo.ahiteva.net') {
+            $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
+            if($parseOK) {
+                $conversation = $matches[1];
+                $this->out($conversation);
+                
+                $this->DriverTravel->recursive = 2;
+                $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// TODO: como hacer que solo se haga recursive el Travel, de una mejor forma
+                $driverTravel = $this->DriverTravel->findById($conversation);
+                
+                $respondTo = $driverTravel['Travel']['User']['username'];
+                
+                print_r($driverTravel);
+                $this->out($respondTo);
+                $this->out($body);                
+                
+                $datasource = $this->DriverTravelerConversation->getDataSource();
+                $datasource->begin();
+                
+                $OK = $this->DriverTravelerConversation->save(array(
+                    'conversation_id'=>$conversation,
+                    'response_by'=>'driver',
+                    'response_text'=>$body
+                ));
+                
+                if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                    $respondTo,
+                    array('conversation'=>$conversation, 'response'=>$body),
+                    array(
+                        'template'=>'response_driver2traveler',
+                        'format'=>'html',
+                        'subject'=>$subject,
+                        'config'=>'chofer') // TODO: habilitar una cuenta para respuestas de choferes a viajeros
+                );
+                
+                if($OK) $datasource->commit();
+                else $datasource->rollback();
+            }
+        }  
     }
     
     private function do_process($sender, $origin, $destination, $description, $hashtags = array()) {
-        $shortest = -1;
-        $closest = array();
-        $perfectMatch = false;
-        
-        $localities = $this->Locality->getAsList();
-        foreach ($localities as $province => $municipalities) {            
-            foreach ($municipalities as $munId=>$munName) {
-                
-                $result = $this->match($origin, $destination, $munName, $shortest);
-                if($result != null && !empty ($result)) {
-                    $closest = $result + array('locality_id'=>$munId);                    
-                    $shortest = $closest['distance'];
-                    
-                    //$this->out($munName.':'.$shortest);
-                    
-                    if($shortest == 0) {
-                        $perfectMatch = true;
-                        break;
-                    }
-                }
-            }
-            
-            if($perfectMatch) break;
-        }
-        
-        if(!$perfectMatch) { // Si no hay match perfecto, ver si hay un mejor matcheo con el tesauro
-            $thesaurus = $this->LocalityThesaurus->find('all');
-            foreach ($thesaurus as $t) {
-                
-                $target = $t['LocalityThesaurus']['fake_name'];
-                $split = explode('|', $target);
-                $target = $split[0];
-                //$this->out($t['LocalityThesaurus']['fake_name']);
-                
-                
-                $result = $this->match($origin, $destination, $target, $shortest);
-                if($result != null && !empty ($result)) {
-                    $closest = $result + array('locality_id'=>$t['LocalityThesaurus']['locality_id']);
-                    $shortest = $closest['distance'];
-                    
-                    if($shortest == 0) {
-                        $perfectMatch = true;
-                        break;
-                    }
-                }
-            }
-        }
         
         $datasource = $this->TravelByEmail->getDataSource();
         $datasource->begin();
@@ -202,6 +228,9 @@ class IncomingMailShell extends AppShell {
                 $OK = $this->User->saveField('email_confirmed', '1');
             }
         }
+        
+        $this->LocalityRouter =& new LocalityRouterComponent(new ComponentCollection());
+        $closest = $this->LocalityRouter->getMatch($origin, $destination);
         
         $result = array();        
         if($OK && $closest != null && !empty ($closest)) {
@@ -247,7 +276,7 @@ class IncomingMailShell extends AppShell {
         
         if($OK) {
             $datasource->commit();
-            CakeLog::write('travels_by_email', $travelText.' Mejor coincidencia: '.  $closest['name'].' -> '.(1.0 - $shortest/strlen($closest['name'])).' [ACEPTADO]');
+            CakeLog::write('travels_by_email', $travelText.' Mejor coincidencia: '.  $closest['name'].' -> '.(1.0 - $closest['distance']/strlen($closest['name'])).' [ACEPTADO]');
             
             if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
@@ -279,6 +308,9 @@ class IncomingMailShell extends AppShell {
             CakeLog::write('travels_by_email', $travelText.' [NO ACEPTADO: '.$result['message'].']');
             
             $this->out('Fail');
+            
+            $localities = $this->Locality->getAsList();
+            $thesaurus = $this->LocalityThesaurus->find('all');
             if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $sender,
@@ -316,48 +348,6 @@ class IncomingMailShell extends AppShell {
             } 
         }
     }
-    
-    private function match($origin, $destination, $target, $shortestSoFar) {
-        $closest = null;
-        
-        $levOrigin = levenshtein(strtoupper($target), strtoupper($origin));
-        $levDestination = levenshtein(strtoupper($target), strtoupper($destination));
-
-        $percentOrigin = $levOrigin/strlen($target);
-        $percentDestination = $levDestination/strlen($target);
-        
-        //$this->out($origin.'|'.$target.': '.$percentOrigin);
-        //$this->out($destination.'|'.$target.': '.$percentDestination);
-
-        // Calculate only if inside offset
-        if($percentOrigin > IncomingMailShell::$MAX_MATCHING_OFFSET && 
-           $percentDestination > IncomingMailShell::$MAX_MATCHING_OFFSET) return null;
-            
-        // Check for an exact match
-        if ($levOrigin == 0 || $levDestination == 0) {
-            $direction = $levOrigin == 0? 0 : 1;
-
-            // Closest locality (exact match)
-            $shortestSoFar = 0;
-            $closest = array('name'=>$target, 'direction'=>$direction, 'distance'=>$shortestSoFar);                
-            return $closest;
-        }
-
-        if ($levOrigin < $shortestSoFar || $shortestSoFar < 0) {
-            // set the closest match, and shortest distance
-            $shortestSoFar = $levOrigin;
-            $closest = array('name'=>$target, 'direction'=>0, 'distance'=>$shortestSoFar);                
-        }
-        if ($levDestination < $shortestSoFar || $shortestSoFar < 0) {
-            // set the closest match, and shortest distance
-            $shortestSoFar = $levDestination;
-            $closest = array('name'=>$target, 'direction'=>1, 'distance'=>$shortestSoFar);                
-        } 
-        
-        return $closest;
-        
-    }   
-    
 }
 
 ?>

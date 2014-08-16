@@ -6,8 +6,8 @@
         <?php echo $this->Form->create('User'); ?>
         <fieldset>
             <?php
-            echo $this->Form->input('display_name', array('label' => 'Nombre', 'type' => 'hidden'));
-            echo $this->Form->input('password', array('label'=>'Contraseña'));
+            echo $this->Form->input('display_name', array('label' => __('Nombre'), 'type' => 'hidden'));
+            echo $this->Form->input('password', array('label'=>__('Contraseña')));
             echo $this->Form->input('id', array('type' => 'hidden'));
             echo $this->Form->input('username', array('type' => 'hidden'));
             echo $this->Form->input('role', array('type' => 'hidden'));

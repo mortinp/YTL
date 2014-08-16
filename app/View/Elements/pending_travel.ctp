@@ -7,10 +7,10 @@
 // INIT
 if (!isset($actions)) $actions = true;
 
-$months_es = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
-$days_es = array('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado');
+$months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
+$days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
 
-$pretty_people_count = $travel['PendingTravel']['people_count'].' persona';
+$pretty_people_count = $travel['PendingTravel']['people_count'].' '.__('persona');
 if($travel['PendingTravel']['people_count'] > 1) $pretty_people_count .='s';
 
 $date_converted = strtotime($travel['PendingTravel']['date']);
@@ -43,7 +43,7 @@ foreach (Travel::$preferences as $key => $value) {
     }
 ?>
 
-<?php if($expired) echo '<s>'?>
+<!--<?php if($expired) echo '<s>'?>-->
 
 <legend>
    
@@ -59,11 +59,11 @@ foreach (Travel::$preferences as $key => $value) {
     <!--<span><small style="color:<?php echo $notice['color']?>">(<?php echo $notice['label']?>)</small></span>-->
 </legend>
     
-<p><b>Día del viaje:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
+<p><b><?php echo __('Día del viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
 
 <div id="preferences-place">
 <?php if($hasPreferences):?>
-    <p><b>Preferencias:</b>
+    <p><b><?php echo __('Preferencias')?>:</b>
         <span id='travel-preferences-label'>
         <?php
             $sep = '';
@@ -79,7 +79,7 @@ foreach (Travel::$preferences as $key => $value) {
 <?php endif?>
 </div>
 
-<p><b>Información de Contacto:</b> <span id='travel-contact-label'><?php echo $travel['PendingTravel']['contact']?></span></p>
+<p><b><?php echo __('Información de Contacto')?>:</b> <span id='travel-contact-label'><?php echo $travel['PendingTravel']['contact']?></span></p>
 
 <?php if($actions):?>
     <ul style="list-style-type: none;padding:0px">
@@ -122,4 +122,4 @@ foreach (Travel::$preferences as $key => $value) {
     </ul>
 <?php endif?>
 
-<?php if($expired) echo '</s>'?>
+<!--<?php if($expired) echo '</s>'?>-->

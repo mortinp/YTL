@@ -8,16 +8,16 @@ App::uses('Auth', 'Component');
 
             <div id="travel">
                 <p>
-                    Tienes el siguiente viaje 
+                    <?php echo __('Tienes el siguiente viaje')?>
                     <span style="color:<?php echo Travel::$STATE[$travel['PendingTravel']['state']]['color']?>">
                         <b><?php echo Travel::$STATE[$travel['PendingTravel']['state']]['label']?></b>
                     </span>:
                 </p>
                 <?php echo $this->element('pending_travel', array('actions'=>false))?>
-                <a title="Edita este viaje" href="#!" class="edit-travel">&ndash; Editar este Viaje</a>
+                <a title="<?php echo __('Editar este Viaje')?>" href="#!" class="edit-travel">&ndash; <?php echo __('Editar este Viaje')?></a>
             </div>
             <div id='travel-form' style="display:none">
-                <legend>Edita los datos de este viaje antes de confirmarlo <div><a href="#!" class="cancel-edit-travel">&ndash; no editar este viaje</a></div></legend>
+                <legend><?php echo __('Edita los datos de este viaje antes de confirmarlo')?> <div><a href="#!" class="cancel-edit-travel">&ndash; <?php echo __('no editar este viaje')?></a></div></legend>
                 <?php echo $this->element('pending_travel_form', array('do_ajax' => true, 'form_action' => 'edit_pending', 'intent'=>'edit')); ?>
                 <br/>
             </div>
@@ -31,28 +31,25 @@ App::uses('Auth', 'Component');
     <div class="col-md-8 col-md-offset-2">
         
         <div class="col-md-6">
-            <p><b>Estás a sólo un paso</b> de que los choferes puedan contactarte para acordar los términos del viaje.</p>
+            <p><?php echo __('<b>Estás a sólo un paso</b> de que los choferes puedan contactarte para acordar los términos del viaje')?>.</p>
         
             <p>
-            <big><big><b>Regístrate para confirmar este viaje</b></big></big> <span style="display: inline-block">(usa el formulario de la derecha)</span>
-                <!--<div>Para confirmar y notificar a los choferes debes estar registrado.</div>-->
-                
+            <?php echo __('<big><big><b>Regístrate para confirmar este viaje</b></big></big> <span style="display: inline-block">(usa el formulario de la derecha)</span>')?>
                 <br/>
-                <p>Además podrás:</p>
+                <p><?php echo __('Además podrás')?>:</p>
                 <ul>
-                    <li>Entrar a <em>YoTeLlevo</em> y crear un número ilimitado de viajes.</li>
-                    <li>Tener acceso a todas las funcionalidades de <em>YoTeLlevo</em>.</li>
+                    <li><?php echo __('Entrar a <em>YoTeLlevo</em> y crear un número ilimitado de viajes')?>.</li>
+                    <li><?php echo __('Tener acceso a todas las funcionalidades de <em>YoTeLlevo</em>')?>.</li>
                 </ul>
             </p>
         </div>
-        <!--<div style="background-color: lightblue;width: 20px;height: 20px"></div>-->
         <div class="col-md-6">
             <?php echo $this->Form->create('User', array('controller' => 'users', 'action' => 'register_and_create/'.$travel['PendingTravel']['id'])); ?>
             <fieldset>
                 <?php
-                echo $this->Form->input('username', array('label' => 'Correo electrónico', 'type' => 'email', 'id'=>'UserRegisterForm'));
-                echo $this->Form->input('password', array('label'=> 'Contraseña', 'placeholder'=>'Escribe la contraseña que usarás para YoTeLlevo'));
-                echo $this->Form->checkbox('remember_me').' Recordarme';
+                echo $this->Form->input('username', array('label' => __('Correo electrónico'), 'type' => 'email', 'id'=>'UserRegisterForm'));
+                echo $this->Form->input('password', array('label'=> __('Contraseña'), 'placeholder'=>__('Escribe la contraseña que usarás para YoTeLlevo')));
+                echo $this->Form->checkbox('remember_me').' '.__('Recordarme') ;
                 echo $this->Form->submit(__('Registrarme y Confirmar este Anuncio de Viaje'));
                 ?>
             </fieldset>

@@ -88,16 +88,14 @@ if($isLoggedIn) {
                 <div class="row">
                     <div class="col-md-3">
                         <p class="text-muted" style="margin: 20px 0;">
-                            Creado por <a href="http://ksabes.com">Casabe&trade;</a>
+                            <?php echo __('Creado por')?> <a href="http://ksabes.com">Casabe&trade;</a>
                         </p>
                     </div>
                     <div class="col-md-6" style="text-align: center">
                         <p class="text-muted" style="margin: 20px 0;">
-                           <?php echo $this->Html->link('Contactar', array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
+                           <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                             |
-                           <?php echo $this->Html->link('Preguntas Frecuentes', array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
-                           <!-- |
-                           <?php echo $this->Html->link('Términos de Uso', array('controller'=>'pages', 'action'=>'display', 'use_terms')); ?>-->
+                           <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
                         </p>
 
                     </div>

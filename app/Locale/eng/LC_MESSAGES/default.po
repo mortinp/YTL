@@ -1,0 +1,1059 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-07-30 10:43-0400\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/DriversController.php:40
+msgid "El chofer se guardó exitosamente."
+msgstr ""
+
+#: Controller/DriversController.php:43
+msgid "Ocurrió un error guardando el chofer."
+msgstr ""
+
+#: Controller/DriversController.php:51
+msgid "Chofer inválido."
+msgstr ""
+
+#: Controller/DriversController.php:73
+#: Controller/UsersController.php:163;185;205
+msgid "Invalid user"
+msgstr ""
+
+#: Controller/LocalitiesController.php:21
+msgid "La localidad se guardó exitosamente."
+msgstr ""
+
+#: Controller/LocalitiesController.php:24
+msgid "Ocurrió un error guardando la localidad."
+msgstr ""
+
+#: Controller/LocalitiesController.php:32
+msgid "Localidad inválida."
+msgstr ""
+
+#: Controller/LocalitiesController.php:53
+msgid "Localidad inválida"
+msgstr ""
+
+#: Controller/LocalitiesController.php:67
+msgid "Ocurió un error eliminando la localidad"
+msgstr ""
+
+#: Controller/LocalityThesaurusController.php:21
+msgid "La entrada se guardó exitosamente."
+msgstr ""
+
+#: Controller/LocalityThesaurusController.php:24
+msgid "Ocurrió un error guardando la entrada."
+msgstr ""
+
+#: Controller/LocalityThesaurusController.php:32
+msgid "Entrada inválida."
+msgstr ""
+
+#: Controller/LocalityThesaurusController.php:53
+msgid "Entrada inválida"
+msgstr ""
+
+#: Controller/LocalityThesaurusController.php:61
+msgid "Ocurió un error eliminando la entrada"
+msgstr ""
+
+#: Controller/ProvincesController.php:19
+msgid "La provincia se guardó exitosamente."
+msgstr ""
+
+#: Controller/ProvincesController.php:22
+msgid "Ocurrió un error guardando la provincia."
+msgstr ""
+
+#: Controller/ProvincesController.php:29
+msgid "Provincia inválida."
+msgstr ""
+
+#: Controller/ProvincesController.php:49
+msgid "Provincia inválida"
+msgstr ""
+
+#: Controller/ProvincesController.php:57
+msgid "Ocurió un error eliminando la provincia"
+msgstr ""
+
+#: Controller/TravelsController.php:89;221
+msgid "Error al crear el viaje"
+msgstr ""
+
+#: Controller/TravelsController.php:92;157;224;261
+msgid "El origen y el destino del viaje no son reconocidos."
+msgstr ""
+
+#: Controller/TravelsController.php:151;255
+msgid "Ocurrió un error guardando los datos de este viaje. Intenta de nuevo."
+msgstr ""
+
+#: Controller/TravelsController.php:176
+msgid "Ocurrió un error eliminando el viaje. Intenta de nuevo."
+msgstr ""
+
+#: Controller/TravelsController.php:179
+msgid "Este viaje no se puede eliminar porque ya está confirmado."
+msgstr ""
+
+#: Controller/TravelsController.php:182
+msgid "Este viaje no existe."
+msgstr ""
+
+#: Controller/UsersController.php:36
+msgid "El usuario o la contraseña son inválidos. Intenta de nuevo."
+msgstr ""
+
+#: Controller/UsersController.php:58;91
+msgid "Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o \n                    <a href=\""
+msgstr ""
+
+#: Controller/UsersController.php:83
+msgid "Ocurrió un error registrando su usuario. Intente de nuevo"
+msgstr ""
+
+#: Controller/UsersController.php:120
+msgid "Ocurrió un error registrando tu usuario y confirmando el viaje. Intenta de nuevo"
+msgstr "Error registering your account and confirming your travel. Try again."
+
+#: Controller/UsersController.php:175;189
+msgid "The user has been saved"
+msgstr ""
+
+#: Controller/UsersController.php:178;192
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:208
+msgid "User deleted"
+msgstr ""
+
+#: Controller/UsersController.php:211
+msgid "User was not deleted"
+msgstr ""
+
+#: View/Elements/contact_form.ctp:8
+msgid "Nombre"
+msgstr "Name"
+
+#: View/Elements/contact_form.ctp:8
+msgid "Tu nombre"
+msgstr "Your Name"
+
+#: View/Elements/contact_form.ctp:9
+#: View/Elements/register_form.ctp:4
+#: View/Travels/view_pending.ctp:50
+#: View/Users/forgot_password.ctp:13
+#: View/Users/login.ctp:15
+msgid "Correo electrónico"
+msgstr "Email"
+
+#: View/Elements/contact_form.ctp:9
+msgid "Tu correo para contactarte"
+msgstr "Your email to contact you"
+
+#: View/Elements/contact_form.ctp:10
+msgid "Texto"
+msgstr "Your Words"
+
+#: View/Elements/contact_form.ctp:10
+msgid "Lo que quieras decirnos, escríbelo aquí"
+msgstr "Anything you want to tell us, write it here"
+
+#: View/Elements/contact_form.ctp:12
+msgid "Estás contactándonos a nombre de"
+msgstr "You are contacting us as"
+
+#: View/Elements/contact_form.ctp:13
+msgid "Enviar"
+msgstr "Send"
+
+#: View/Elements/driver_form.ctp:43
+msgid "Localidades <small class=\"text-info\">(seleccionar con <b>Ctrl + Click</b>)</small>"
+msgstr "Localities <small class=\"text-info\">(select with <b>Ctrl + Click</b>)</small>"
+
+#: View/Elements/driver_form.ctp:53
+#: View/Elements/locality_form.ctp:36
+#: View/Elements/locality_thesaurus_form.ctp:38
+#: View/Elements/province_form.ctp:35
+#: View/Elements/travel_form.ctp:71
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: View/Elements/email_sent_tips.ctp:3
+msgid "<b>IMPORTANTE</b>: Si no recibes un correo de <em>YoTeLlevo</em> en pocos minutos, revisa tu carpeta de correos spam o no deseados. \n        Si esto no funciona, configura las opciones de correos entrantes, habilita el dominio <em>yotellevo.ahiteva.net</em> y vuelve a"
+msgstr "<b>IMPORTANT</b>: If you don't receive an email from <em>YoTeLlevo</em> in a few minutes, check your spam folder. \n        If this doesn't work, configure the incoming emails options, enable the domain <em>yotellevo.ahiteva.net</em> and go back to"
+
+#: View/Elements/email_sent_tips.ctp:8
+#: View/Pages/contact.ctp:5
+#: View/Pages/faq.ctp:76
+msgid "Contáctanos"
+msgstr "Contact Us"
+
+#: View/Elements/email_sent_tips.ctp:8
+msgid "si los problemas persisten"
+msgstr "if problems persist"
+
+#: View/Elements/locality_form.ctp:33
+msgid "Provincia"
+msgstr "Province"
+
+#: View/Elements/locality_thesaurus_form.ctp:34
+msgid "Localidad de Referencia"
+msgstr "Reference Locality"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Enero"
+msgstr "January"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Febrero"
+msgstr "February"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Marzo"
+msgstr "March"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Abril"
+msgstr "April"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Mayo"
+msgstr "May"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Junio"
+msgstr "June"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Julio"
+msgstr "July"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Agosto"
+msgstr "August"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Septiembre"
+msgstr "September"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Octubre"
+msgstr "October"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Noviembre"
+msgstr "November"
+
+#: View/Elements/pending_travel.ctp:10
+#: View/Elements/travel.ctp:10
+msgid "Diciembre"
+msgstr "December"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Domingo"
+msgstr "Sunday"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Lunes"
+msgstr "Monday"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Martes"
+msgstr "Tuesday"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Miércoles"
+msgstr "Wednesday"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Jueves"
+msgstr "Thursday"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Viernes"
+msgstr "Friday"
+
+#: View/Elements/pending_travel.ctp:11
+#: View/Elements/travel.ctp:11
+msgid "Sábado"
+msgstr "Saturday"
+
+#: View/Elements/pending_travel.ctp:13
+#: View/Elements/travel.ctp:13
+msgid "persona"
+msgstr "traveler"
+
+#: View/Elements/pending_travel.ctp:62
+#: View/Elements/travel.ctp:61
+msgid "Día del viaje"
+msgstr "Travel Date"
+
+#: View/Elements/pending_travel.ctp:82
+#: View/Elements/travel.ctp:81
+#: View/Elements/travel_form.ctp:62
+msgid "Información de Contacto"
+msgstr "Contact Information"
+
+#: View/Elements/pending_travel_form.ctp:29
+#: View/Elements/travel_form.ctp:30
+msgid "Salvar Datos"
+msgstr "Save this"
+
+#: View/Elements/pending_travel_form.ctp:35
+#: View/Elements/travel_form.ctp:36
+msgid "Crear Anuncio"
+msgstr "Create Request"
+
+#: View/Elements/pending_travel_form.ctp:44
+msgid "Enseguida contactarás con hasta 3 de nuestros choferes"
+msgstr "Up to 3 of our drivers will contact you right away"
+
+#: View/Elements/pending_travel_form.ctp:71;88;96
+#: View/Elements/travel_form.ctp:58
+msgid "Origen del Viaje"
+msgstr "Travel Origin"
+
+#: View/Elements/pending_travel_form.ctp:72;92;97
+#: View/Elements/travel_form.ctp:59
+msgid "Destino del Viaje"
+msgstr "Travel Destination"
+
+#: View/Elements/pending_travel_form.ctp:74;98
+msgid "Fecha del Viaje"
+msgstr "Travel Date"
+
+#: View/Elements/pending_travel_form.ctp:75;99
+#: View/Elements/travel_form.ctp:61
+msgid "Personas que viajan <small class=\"text-info\">(máximo número de personas)</small>"
+msgstr "People traveling <small class=\"text-info\">(maximum number of people)</small>"
+
+#: View/Elements/pending_travel_form.ctp:76;104
+msgid "Tu Información de Contacto"
+msgstr "Your Contact Information"
+
+#: View/Elements/pending_travel_form.ctp:77;105
+#: View/Elements/travel_form.ctp:63
+msgid "Explica a los choferes la forma de contactarte. Escribe algo como: escribirme al correo nombre@dominio.com"
+msgstr "Explain the drivers how to contact you. Type something like: contact me at name@domain.com"
+
+#: View/Elements/pending_travel_form.ctp:78;109
+#: View/Elements/travel.ctp:65
+#: View/Elements/travel_form.ctp:64
+msgid "Preferencias"
+msgstr "Preferences"
+
+#: View/Elements/pending_travel_form.ctp:113
+msgid "Auto Moderno"
+msgstr "Modern Car"
+
+#: View/Elements/pending_travel_form.ctp:117
+msgid "Aire Acondicionado"
+msgstr "Air Conditioner"
+
+#: View/Elements/pending_travel_form.ctp:137
+#: View/Elements/travel_form.ctp:80
+msgid "La <b>Información de Contacto</b> es importante para que los choferes lleguen a tí. Asegúrate de que esta información sea correcta."
+msgstr "Your <b>Contact Information</b> is important to enable drivers to contact you. Make sure this information is accurate."
+
+#: View/Elements/pending_travel_form.ctp:192
+#: View/Elements/travel_form.ctp:136
+msgid "Espera"
+msgstr "Wait"
+
+#: View/Elements/register_form.ctp:5
+#: View/Travels/view_pending.ctp:51
+#: View/Users/change_password.ctp:10
+#: View/Users/login.ctp:16
+#: View/Users/profile.ctp:10
+msgid "Contraseña"
+msgstr "Password"
+
+#: View/Elements/register_form.ctp:5
+#: View/Travels/view_pending.ctp:51
+msgid "Escribe la contraseña que usarás para YoTeLlevo"
+msgstr "Type the password you'll use for YoTeLlevo"
+
+#: View/Elements/register_form.ctp:6
+#: View/Travels/view_pending.ctp:52
+#: View/Users/login.ctp:17
+msgid "Recordarme"
+msgstr "Remember Me"
+
+#: View/Elements/register_form.ctp:7
+msgid "Registrarme y Crear mi primer Anuncio de Viaje"
+msgstr "Register and create my Travel Request"
+
+#: View/Elements/travel.ctp:89
+msgid "Ver"
+msgstr "View"
+
+#: View/Elements/travel.ctp:91
+msgid "Ver este viaje"
+msgstr "View this travel"
+
+#: View/Elements/travel.ctp:99;115
+msgid "Eliminar"
+msgstr "Delete"
+
+#: View/Elements/travel.ctp:101;117
+msgid "Eliminar este viaje"
+msgstr "Delete this travel"
+
+#: View/Elements/travel.ctp:101;117
+msgid "¿Estás seguro que quieres eliminar este viaje?"
+msgstr "Are you sure you wish to delete this travel?"
+
+#: View/Elements/travel.ctp:107
+msgid "Confirmar"
+msgstr "Confirm"
+
+#: View/Elements/travel.ctp:109
+msgid "Confirmar y Enviar este viaje a los choferes"
+msgstr "Confirm and get quotes from drivers right away"
+
+#: View/Elements/travel_by_email.ctp:16
+msgid "Detalles del viaje"
+msgstr "Travel Details"
+
+#: View/Elements/travel_form.ctp:44
+msgid "<b>Verifica tu cuenta de correo electrónico</b> para crear más anuncios de viajes. \n        El formulario de viajes permanecerá desactivado hasta que verifiques tu cuenta"
+msgstr "<b>Verify your email account</b> to create more travel requests. \n        The travel request form will remain disbaled until you do it"
+
+#: View/Elements/travel_form.ctp:47
+msgid "Enviar correo de verificación"
+msgstr "Send confirmation email"
+
+#: View/Elements/travel_form.ctp:48
+msgid "Enviaremos un correo a"
+msgstr "We will send an email to"
+
+#: View/Elements/travel_form.ctp:48
+msgid "con las instrucciones"
+msgstr "with the instructions"
+
+#: View/Elements/travel_form.ctp:60
+msgid "Cuándo"
+msgstr "Travel Date"
+
+#: View/Emails/html/change_password.ctp:6
+#: View/Emails/html/email_confirmation.ctp:7
+msgid "este enlace"
+msgstr "this link"
+
+#: View/Emails/html/recover_password.ctp:1
+msgid "Tu nueva contraseña es"
+msgstr "Your new password is"
+
+#: View/Emails/html/welcome-old.ctp:2
+msgid "Ya has sido registrado en <em>YoTeLlevo</em> y casi estás listo para usar sus servicios. Solamente falta que confirmes tu cuenta en "
+msgstr "You successfuly signed up in <em>YoTeLlevo</em> and are almost ready to start. The only step left is confirming your account in"
+
+#: View/Emails/html/welcome-old.ctp:4
+msgid "este link"
+msgstr "this link"
+
+#: View/Emails/html/welcome-old.ctp:8
+msgid "Si este correo te llegó por error, simplemente bórralo y olvida lo ocurrido"
+msgstr "If this email got to you by mistake, simply delete it and forget this ever happended"
+
+#: View/Emails/html/welcome-old.ctp:10
+msgid "Da click aquí para confirmar"
+msgstr "Click here to confirm"
+
+#: View/Layouts/default.ctp:79
+msgid "Mis Anuncios"
+msgstr "My Requests"
+
+#: View/Layouts/default.ctp:81
+msgid "Anunciar Viaje"
+msgstr "Create Request"
+
+#: View/Layouts/default.ctp:94
+msgid "Usuarios"
+msgstr "Users"
+
+#: View/Layouts/default.ctp:95
+msgid "Choferes"
+msgstr "Drivers"
+
+#: View/Layouts/default.ctp:97
+msgid "Provincias"
+msgstr "Provinces"
+
+#: View/Layouts/default.ctp:98
+msgid "Localidades"
+msgstr "Localities"
+
+#: View/Layouts/default.ctp:99
+msgid "Tesauro"
+msgstr "Thesaurus"
+
+#: View/Layouts/default.ctp:105
+msgid "Viajes (Todos)"
+msgstr "Travels (All)"
+
+#: View/Layouts/default.ctp:106
+msgid "Pendientes (Todos)"
+msgstr "Pending (All)"
+
+#: View/Layouts/default.ctp:108
+msgid "Email Queue"
+msgstr "Email Queue"
+
+#: View/Layouts/default.ctp:114
+msgid "Info Requerida"
+msgstr "Info Required"
+
+#: View/Layouts/default.ctp:115
+msgid "Viajes por Correo"
+msgstr "Travels By Email"
+
+#: View/Layouts/default.ctp:116
+msgid "Viajes Fallidos"
+msgstr "Travels Failed"
+
+#: View/Layouts/default.ctp:125
+msgid "Inicio"
+msgstr "Home"
+
+#: View/Layouts/default.ctp:137
+msgid "Perfil"
+msgstr "Profile"
+
+#: View/Layouts/default.ctp:139
+msgid "Salir"
+msgstr "Logout"
+
+#: View/Layouts/default.ctp:144
+#: View/Pages/home.ctp:19
+#: View/Users/login.ctp:19
+msgid "Entrar"
+msgstr "Login"
+
+#: View/Layouts/default.ctp:147
+#: View/Pages/home.ctp:20
+msgid "Registrarse"
+msgstr "Sign Up"
+
+#: View/Layouts/default.ctp:192
+#: View/Layouts/home.ctp:91
+msgid "Creado por"
+msgstr "Created by"
+
+#: View/Layouts/default.ctp:197
+#: View/Layouts/home.ctp:96
+msgid "Contactar"
+msgstr "Contact"
+
+#: View/Layouts/default.ctp:199
+#: View/Layouts/home.ctp:98
+#: View/Pages/faq.ctp:6
+msgid "Preguntas Frecuentes"
+msgstr "FAQ"
+
+#: View/Pages/by_email.ctp:24
+msgid "Ve al Inicio"
+msgstr "Go to Home"
+
+#: View/Pages/by_email.ctp:25
+#: View/Pages/deprecated/home2.ctp:66
+#: View/Pages/deprecated/home3.ctp:69
+#: View/Pages/deprecated/home4.ctp:41
+msgid "Entra con tu cuenta"
+msgstr "Login with your account"
+
+#: View/Pages/contact.ctp:8
+msgid "Escríbenos para saber tu opinión, sugerencia o pregunta sobre <em>YoTeLlevo</em>"
+msgstr "Let us know your opinion, suggestion or question about <em>YoTeLlevo</em>"
+
+#: View/Pages/contact.ctp:11
+msgid "Más que todo, <b>nos gustaría saber qué problemas has tenido con <em>YoTeLlevo</em> y qué podemos hacer para resolverlo</b>.\n                        Estamos dispuestos a hacer cualquier cosa: ¿No puedes usarlo porque no tienes correo o Internet? Explícanos aquí\n                        y pudiéramos hacer algo por tí"
+msgstr "<b>We would like to know what problems you've had with <em>YoTeLlevo</em> and what we can do about it</b>. We are willing to do anything to make you feel confortable"
+
+#: View/Pages/faq.ctp:7
+msgid "¿Qué hace <em>YoTeLlevo</em>?"
+msgstr "What does <em>YoTeLlevo</em> do?"
+
+#: View/Pages/faq.ctp:9
+msgid "<em>YoTeLlevo</em> conecta viajeros interesados en moverse en taxi por Cuba con choferes independientes \n                propietarios de un taxi y dispuestos a atender sus peticiones."
+msgstr "<em>YoTeLlevo</em> connects travelers interested in moving around Cuba in taxi, with independent drivers who own a taxi and are willing to help them."
+
+#: View/Pages/faq.ctp:13
+msgid "¿Cómo puedo crear un Anuncio de Viaje?"
+msgstr "How do I create a Travel Request?"
+
+#: View/Pages/faq.ctp:15
+msgid "Es muy fácil! Para crear un Anuncio de Viaje sólo tienes que"
+msgstr "It's very easy! To create a Travel Request you just have to"
+
+#: View/Pages/faq.ctp:17
+msgid "ir al formulario de anuncios"
+msgstr "go to the requests form"
+
+#: View/Pages/faq.ctp:20
+msgid "y completarlo"
+msgstr "and complete it"
+
+#: View/Pages/faq.ctp:23
+msgid "¿Qué pasa cuando creo un Anuncio de Viaje?"
+msgstr "What happens after I create a Travel Request?"
+
+#: View/Pages/faq.ctp:25
+msgid "Enseguida hasta 3 de nuestros choferes reciben una notificación con los detalles del viaje\n                y la manera para contactarte que escribiste al llenar el formulario. Con esta información, los choferes \n                pueden contactarte para acordar los detalles"
+msgstr "Instantly, 3 of our drivers get a notification with the details of your request and the way to contact you. With this information they start quoting you to agree the travel in more detail."
+
+#: View/Pages/faq.ctp:30
+msgid "¿Por qué 3 choferes? ¿No basta con uno?"
+msgstr "Why 3 drivers? Isn't it enough with only one?"
+
+#: View/Pages/faq.ctp:32
+msgid "Nuestros choferes son pilotos retirados, pescadores, profesionales, todos propietarios de un taxi que nos ayudan a moverte por la isla; \n                ellos están a disposición de los viajeros, pero a la vez son personas independientes que tienen sus propias agendas. \n                Para incrementar las posibilidades de que tu viaje reciba atención, le enviamos la notificación a 3 de ellos"
+msgstr "Our drivers are retired pilots, fishermen, professionals, all owners of a taxi that help us move you around the island; they are at travelers' disposal, but at the same time are independent people with their own agenda. To increase the probabilities of your travel getting attention, we notify 3 of them"
+
+#: View/Pages/faq.ctp:37
+msgid "¿Qué pasa si ninguno me contacta?"
+msgstr "What happens if none of them contacts me?"
+
+#: View/Pages/faq.ctp:39
+msgid "Esto es muy difícil que suceda. Sin embargo, en caso de que suceda, puedes escribirnos a "
+msgstr "Wait, what? It's really difficult this happens. However, in case it does happen, you can write an email to"
+
+#: View/Pages/faq.ctp:40
+msgid "soporte@yotellevo.ahiteva.net"
+msgstr "soporte@yotellevo.ahiteva.net"
+
+#: View/Pages/faq.ctp:41
+msgid "y plantearnos el problema; con mucho gusto lo resolveremos"
+msgstr "and tell us about it; we'll make it up to you gladly, and your problem will be solved"
+
+#: View/Pages/faq.ctp:44
+msgid "¿Qué pasa si me contacta más de un chofer?"
+msgstr "What happens if more than 1 driver contacts me?"
+
+#: View/Pages/faq.ctp:46
+msgid "Elijes el chofer que creas que se ajuste mejor a tus requerimientos, o con el que más hayas congeniado. Tienes la posibilidad de poder negociar\n                todos los detalles directamente con ellos y escoger el de tu elección"
+msgstr "You choose the driver that best fits your requirements, or the one you empathized the most with. You have the possibility to negotiate your travel directly with them, so why not take advantage of this and put them to compete? ;)"
+
+#: View/Pages/faq.ctp:50
+msgid "¿Estoy obligado a viajar con uno de los choferes que me contacte?"
+msgstr "Am I obligated to travel with one of these drivers?"
+
+#: View/Pages/faq.ctp:52
+msgid "Claro que NO. Crear un Anuncio de Viaje en <em>YoTeLlevo</em> no te compromete a viajar con nuestros choferes. Simplemente rechaza gentilmente\n                las ofertas de los choferes que te contacten y sigue sin más distracciones"
+msgstr "Of course NOT. Creating a Travel Request in <em>YoTeLlevo</em> is made without commitments or strings attached. Gently reject their offers and move on without any more distractions"
+
+#: View/Pages/faq.ctp:56
+msgid "¿Qué pasa cuando llega el momento del viaje?"
+msgstr "What happens when the travel date arrives?"
+
+#: View/Pages/faq.ctp:58
+msgid "El chofer debe irte a buscar en su taxi; esto es parte del acuerdo que hagan tú y tu chofer. Acuerda con el chofer todos los detalles: \n                lugar de recogida, fecha y hora, recorridos, paradas, precios, estancias. El chofer puede darte su número de teléfono para gestiones\n                de último minuto, en caso de contratiempos"
+msgstr "The driver should pick you up in the agreed place and time. Agree with your driver every detail: pick up place, date and time, journeys, stops, prices, stayings. The driver may give you his phone number for last minute arrangements"
+
+#: View/Pages/faq.ctp:63
+msgid "¿Puedo hacer cambios al acuerdo que ya hice con el chofer?"
+msgstr "Can I modify what I agreed with my driver?"
+
+#: View/Pages/faq.ctp:65
+msgid "Definitivamente sí. Puedes hacer todos los cambios que quieras. Nuestros choferes se ajustan a todas tus necesidades e improvisaciones.\n                De hecho, para conocer mejor Cuba es mejor aprender en el camino y ajustarte"
+msgstr "Definitely YES. You can make any changes you want. Our drivers adjust themselves to all your needs and improvisations. In fact, the best way to meet Cuba is to learn as you go and adjust everything"
+
+#: View/Pages/faq.ctp:69
+msgid "¿Cómo pago los servicios de <em>YoTeLlevo</em>?"
+msgstr "How do I pay the taxi rides to <em>YoTeLlevo</em>?"
+
+#: View/Pages/faq.ctp:71
+msgid "El pago lo haces directamente al chofer de tu taxi, en la manera acordada entre ustedes (normalmente es en efectivo)"
+msgstr "You don't. You pay directly to your taxi driver, in the way you both agreed (normally cash)"
+
+#: View/Pages/faq.ctp:76
+msgid "¿Tienes otras preguntas que quieras hacernos?"
+msgstr "Do you have any other questions?"
+
+#: View/Pages/home.ctp:27
+msgid "Desata la creatividad en tus viajes"
+msgstr "Unleash your creativity during your travels"
+
+#: View/Pages/home.ctp:29
+msgid "Contacta con uno de nuestros"
+msgstr "Contact one of our"
+
+#: View/Pages/home.ctp:30
+msgid "para moverte por"
+msgstr "to move around"
+
+#: View/Pages/home.ctp:34
+msgid "Contactar un taxi"
+msgstr "Contact a taxi"
+
+#: View/Pages/home.ctp:36
+msgid "Acuerda enseguida los detalles del viaje con tu chofer"
+msgstr "Agree the details of your travel directly with your driver"
+
+#: View/Pages/home.ctp:48
+msgid "Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes el viaje directamente con ellos"
+msgstr "We connect you with up to 3 of our drivers to agree your travel directly with them"
+
+#: View/Pages/home.ctp:55
+msgid "Escoge el chofer que mejor se ajuste a tus requerimientos. Acuerda tus recorridos, horarios y el precio del viaje o ruta"
+msgstr "Choose the driver that best fits your requirements. Agree your paths, schedules and price of your travel or journey"
+
+#: View/Pages/home.ctp:64
+msgid "Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica"
+msgstr "When time comes, travel the way you agreed, improvise along your journey and create the best memories of this fantastic island"
+
+#: View/Pages/home.ctp:73
+msgid "Viajes populares con origen en"
+msgstr "Popular destinations with origin in"
+
+#: View/Pages/home.ctp:73;80;88;96;104
+msgid "La Habana"
+msgstr "Havana"
+
+#: View/Pages/home.ctp:80;88;96;104
+msgid "Conseguir taxi"
+msgstr "Get a taxi"
+
+#: View/Pages/home.ctp:103;104
+msgid "Recorrido por la isla"
+msgstr "All around the island"
+
+#: View/Pages/home.ctp:116
+msgid "Crea un"
+msgstr "Create a"
+
+#: View/Pages/home.ctp:116
+msgid "Anuncio de Viaje"
+msgstr "Travel Request"
+
+#: View/Pages/home.ctp:116
+msgid "para conseguir un taxi"
+msgstr "to get a taxi"
+
+#: View/Pages/home.ctp:117
+msgid "¿Ya estás registrado en"
+msgstr "Already signed up in"
+
+#: View/Pages/home.ctp:117
+#: View/Users/login.ctp:11
+msgid "Entra y gestiona tus viajes"
+msgstr "Login and manage your travels"
+
+#: View/Pages/deprecated/home1.ctp:9
+msgid "Entra"
+msgstr "Login"
+
+#: View/Pages/deprecated/home1.ctp:11
+msgid "Regístrate"
+msgstr "Sign Up"
+
+#: View/Pages/deprecated/home1.ctp:66
+#: View/Users/confirm_email.ctp:16
+msgid "Entra ahora"
+msgstr "Login now"
+
+#: View/Pages/deprecated/home1.ctp:67
+msgid "Aprender cómo usarlo"
+msgstr "Learn how to use it"
+
+#: View/Pages/deprecated/home5.ctp:27
+#: View/Pages/deprecated/home6.ctp:23;33
+msgid "Entra y mira tus anuncios"
+msgstr "Login and manae your travels"
+
+#: View/Travels/add.ctp:4
+#: View/Travels/index.ctp:34;43
+msgid "Crear Anuncio de Viaje"
+msgstr "Create a Travel Request"
+
+#: View/Travels/add_pending.ctp:6
+msgid "entra con tu cuenta"
+msgstr ""
+
+#: View/Travels/index.ctp:5
+msgid "Tus Anuncios de Viajes"
+msgstr "Your Travel Requests"
+
+#: View/Travels/index.ctp:20
+msgid "Creados por Correo"
+msgstr "Created by Email"
+
+#: View/Travels/index.ctp:41
+msgid "No tienes ningún anuncio de viaje todavía. Crea uno ahora."
+msgstr "You don't have any Travel Requests yet. Create one now."
+
+#: View/Travels/view.ctp:17
+#: View/Travels/view_pending.ctp:11
+#: View/Users/register_welcome.ctp:10
+msgid "Tienes el siguiente viaje"
+msgstr "The following travel is"
+
+#: View/Travels/view.ctp:24
+#: View/Travels/view_pending.ctp:17
+msgid "Editar este Viaje"
+msgstr "Edit this travel"
+
+#: View/Travels/view.ctp:27
+msgid "Confirmar este Anuncio de Viaje"
+msgstr "Confirm this Travel Request"
+
+#: View/Travels/view.ctp:28
+msgid "Estos datos serán enviados enseguida a algunos choferes que pudieran atenderte"
+msgstr "The details of this travel will be sent to some drivers right away"
+
+#: View/Travels/view.ctp:35
+msgid "Los datos de este viaje fueron eviados a"
+msgstr "The details of this travel were sent to"
+
+#: View/Travels/view_pending.ctp:20
+#: View/Travels/view.ctp:45
+msgid "Edita los datos de este viaje antes de confirmarlo"
+msgstr "Edit this travel before confirmation"
+
+#: View/Travels/view_pending.ctp:20
+#: View/Travels/view.ctp:45
+msgid "no editar este viaje"
+msgstr "cancel editing"
+
+#: View/Travels/view_pending.ctp:34
+msgid "<b>Estás a sólo un paso</b> de que los choferes puedan contactarte para acordar los términos del viaje"
+msgstr "<b>You are one step away</b> to agree the details of this travel with your driver"
+
+#: View/Travels/view_pending.ctp:37
+msgid "<big><big><b>Regístrate para confirmar este viaje</b></big></big> <span style=\"display: inline-block\">(usa el formulario de la derecha)</span>"
+msgstr "<big><big><b>Sign up to confirm this travel</b></big></big> <span style=\"display: inline-block\">(use the form at your right)</span>"
+
+#: View/Travels/view_pending.ctp:39
+msgid "Además podrás"
+msgstr "You will be able to"
+
+#: View/Travels/view_pending.ctp:41
+msgid "Entrar a <em>YoTeLlevo</em> y crear un número ilimitado de viajes"
+msgstr "Login to <em>YoTeLlevo</em> and create more travels as needed"
+
+#: View/Travels/view_pending.ctp:42
+msgid "Tener acceso a todas las funcionalidades de <em>YoTeLlevo</em>"
+msgstr "Have access to every feature of <em>YoTeLlevo</em>"
+
+#: View/Travels/view_pending.ctp:53
+msgid "Registrarme y Confirmar este Anuncio de Viaje"
+msgstr "Sign up and Confirm this Travel Request"
+
+#: View/Users/add.ctp:4
+msgid "Crear Usuario"
+msgstr "Create User"
+
+#: View/Users/add.ctp:11
+#: View/Users/profile.ctp:15
+msgid "Salvar"
+msgstr "Save"
+
+#: View/Users/change_password.ctp:5
+msgid "Cambia tu contraseña"
+msgstr "Change your password"
+
+#: View/Users/change_password.ctp:15
+msgid "Cambiar Contraseña"
+msgstr "Change Password"
+
+#: View/Users/confirm_email.ctp:14
+msgid "<big>Anunciar Viaje</big>"
+msgstr "<big>Create a Travel Request</big>"
+
+#: View/Users/forgot_password.ctp:14
+msgid "Enviarme instrucciones"
+msgstr "Send instructions to me"
+
+#: View/Users/password_changed.ctp:2
+msgid "Tu contraseña ha sido cambiada y ya te la enviamos a tu correo electrónico. Cuando estes list@, puedes"
+msgstr "Your password has been changed and sent to your email inbox. When you are ready, you can"
+
+#: View/Users/password_changed.ctp:3
+msgid "entrar"
+msgstr "login"
+
+#: View/Users/password_changed.ctp:3
+msgid "a la aplicación usando tu nueva contraseña"
+msgstr "into the app using your new password"
+
+#: View/Users/password_changed.ctp:6
+msgid "Te recomendamos que cambies tu contraseña nuevamente en "
+msgstr "We recommend you to reset your pasword in"
+
+#: View/Users/password_changed.ctp:6
+msgid "tus preferencias"
+msgstr "your preferences"
+
+#: View/Users/profile.ctp:5
+msgid "Edita tu perfil"
+msgstr "Edit your profile"
+
+#: View/Users/register.ctp:5
+msgid "Regístrate (o "
+msgstr "Sign Up (or "
+
+#: View/Users/register_welcome.ctp:5
+msgid "Bienvenido a"
+msgstr "Welcome to"
+
+#: View/Users/register_welcome.ctp:5
+msgid "Ahora te será mucho más fácil viajar en Cuba"
+msgstr "Now it will be easier to travel around Cuba"
+
+#: View/Users/register_welcome.ctp:18
+msgid "Ya puedes crear tu primer anuncio de viaje"
+msgstr "You can create your first Travel Request already"
+
+#: View/Users/register_welcome.ctp:18
+msgid "Crear Viaje"
+msgstr "Create Request"
+
+#: Model/Driver.php:validation for field username
+msgid "El correo electrónico es obligatorio"
+msgstr "You must enter the email"
+
+#: Model/Driver.php:validation for field password
+msgid "La contraseña es obligatoria"
+msgstr "You must enter the password"
+
+#: Model/Driver.php:validation for field description
+msgid "La descripción es obligatoria."
+msgstr "You must enter the description"
+
+#: Model/Driver.php:validation for field max_people_count
+#: Model/PendingTravel.php:validation for field people_count
+#: Model/Travel.php:validation for field people_count
+msgid "La cantidad de personas debe ser un número entero."
+msgstr "People count must be an integer number"
+
+#: Model/Locality.php:validation for field name
+#: Model/Province.php:validation for field name
+msgid "El nombre es obligatorio."
+msgstr "You must enter the name"
+
+#: Model/LocalityThesaurus.php:validation for field fake_name
+msgid "El alias es obligatorio."
+msgstr "You must enter the alias"
+
+#: Model/LocalityThesaurus.php:validation for field real_name
+msgid "El nombre real es obligatorio."
+msgstr "You must enter the real name"
+
+#: Model/PendingTravel.php:validation for field where
+#: Model/Travel.php:validation for field where
+msgid "El destino no puede estar vacío."
+msgstr "You must enter the dstination"
+
+#: Model/PendingTravel.php:validation for field date
+#: Model/Travel.php:validation for field date
+msgid "La fecha tiene un formato incorrecto."
+msgstr "You must enter the date in a proper format (dd/mm/yyyy)"
+
+#: Model/PendingTravel.php:validation for field people_count
+#: Model/Travel.php:validation for field people_count
+msgid "La cantidad de personas no puede ser 0."
+msgstr "People count must be 1 or greater"
+
+#: Model/PendingTravel.php:validation for field contact
+#: Model/Travel.php:validation for field contact
+msgid "Debe escribir la forma de contacto."
+msgstr "You must enter the contact info"
+
+#: Model/PendingUser.php:validation for field username
+#: Model/User.php:validation for field username
+msgid "El correo electrónico es obligatorio."
+msgstr "You must enter the email."
+
+#: Model/PendingUser.php:validation for field password
+#: Model/User.php:validation for field password
+msgid "La contraseña es obligatoria."
+msgstr "You must enter the password"
+
+#: Model/PendingUser.php:validation for field role
+#: Model/User.php:validation for field role
+msgid "Por favor, entre un rol válido."
+msgstr "You must enter a valid role"
+
+#: View/Users/confirm_email.ctp:16
+#: View/Users/login.ctp:8
+msgid "para crear anuncios de viajes"
+msgstr "to create travel requests"
+
+#: View/Users/login.ctp:6
+msgid "¿No tienes una cuenta todavía?"
+msgstr "Not signed up yet?"
+
+#: View/Users/login.ctp:7
+msgid "Regístrate en <em>YoTeLlevo</em>"
+msgstr "Sign Up in <em>YoTeLlevo</em>"
+
+#: View/Users/login.ctp:23
+msgid "¿Olvidaste tu contraseña?"
+msgstr "Forgot your password?"
+
+#: View/Users/register.ctp:5
+msgid "si ya tienes una cuenta)"
+msgstr "if you already have an account)"
+
+#: View/Layouts/default.ctp:87
+#: View/Layouts/default.ctp:92
+msgid "Administrar"
+msgstr "Manage"
+
+#: View/Users/profile.ctp:9
+msgid "Nombre vacío significa que quieres usar tu correo como nombre"
+msgstr "Empty name means no change"
+
+#: View/Users/profile.ctp:10
+msgid "Contraseña vacía significa que no quieres cambiarla"
+msgstr "Empty password means no change"
+
+#: View/Users/profile.ctp:25
+msgid "Otras acciones"
+msgstr "Other actions"
+
+#: View/Users/profile.ctp:28
+msgid "Eliminar mi Cuenta de Usuario"
+msgstr "Delete my User Account"
+
+#: View/Users/profile.ctp:33
+msgid "No podrás crear más viajes ni ver tus datos"
+msgstr "You won't be able to create more travel requests or access your data"
+
+#: Controller/AppController.php:109
+msgid "Consigue un taxi para ir a cualquier parte del país"
+msgstr "Find a taxi to go anywhere in the country"

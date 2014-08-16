@@ -1,5 +1,7 @@
 <?php
 
+App::uses('Component', 'Controller');
+
 class LocalityRouterComponent extends Component {
     
     private static $MAX_MATCHING_OFFSET = 0.3;
