@@ -266,10 +266,14 @@ class IncomingMailShell extends AppShell {
                 }
             }
         } else if($to === 'chofer@yotellevo.ahiteva.net') {
+            CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
+            
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
+                
+                CakeLog::write('conversations', 'Split Conversation:'.$conversation);
                 
                 $driverTravel = $this->DriverTravel->findById($conversation);
                 
@@ -278,6 +282,8 @@ class IncomingMailShell extends AppShell {
                             $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
                         $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
                     else $deliverTo = $driverTravel['Driver']['username'];
+                    
+                    CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
 
                     //print_r($driverTravel);
                     //$this->out($deliverTo);
@@ -303,17 +309,24 @@ class IncomingMailShell extends AppShell {
                             'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de viajeros a choferes
                     );
 
-                    if($OK) $datasource->commit();
+                    if($OK) {
+                        $datasource->commit();
+                        CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
+                    }
                     else $datasource->rollback();
                 } else {
                     $this->out("No se encontro la conversacion");// TODO: 
                 }
             }
         }  else if($to === 'viajero@yotellevo.ahiteva.net') {
+            CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
+            
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
+                
+                CakeLog::write('conversations', 'Split Conversation:'.$conversation);
                 
                 $this->DriverTravel->recursive = 2;
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// TODO: como hacer que solo se haga recursive el Travel, de una mejor forma
@@ -321,6 +334,8 @@ class IncomingMailShell extends AppShell {
                 
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     $deliverTo = $driverTravel['Travel']['User']['username'];
+                    
+                    CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
                 
                     //print_r($driverTravel);
                     //$this->out($deliverTo);
@@ -359,7 +374,10 @@ class IncomingMailShell extends AppShell {
                             'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de choferes a viajeros
                     );
 
-                    if($OK) $datasource->commit();
+                    if($OK) {
+                        $datasource->commit();
+                        CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
+                    }
                     else $datasource->rollback();
                 }else {
                     $this->out("No se encontro la conversacion");// TODO: 
