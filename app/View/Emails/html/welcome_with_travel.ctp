@@ -2,8 +2,7 @@
 <h4>Hola y bienvenido a <em>YoTeLlevo</em>. <small>Gracias por preferir viajar con nosotros.</small></h4>
 
 <p>
-    Ahora que has sido registrado exitosamente, puedes <?php echo $this->Html->link('crear un Anuncio de Viaje', array('controller' => 'travels', 'action' => 'add')) ?> .
-    Enseguida te asignaremos <b>hasta 3 posibles choferes, quienes te contactarán para acordar los detalles del viaje</b>. Esta comunicación directa con los posibles
+    Tu viaje ya fue asignado y notificado y <b>pronto recibirás respuestas de nuestros choferes en tu correo</b>. Esta comunicación directa con los posibles
     choferes de tu taxi es una buena oportunidad para aprovechar y detallar algunas cuestiones que quizás te interesen:    
 </p>
 <ul>
@@ -29,8 +28,8 @@
     tus destinos favoritos.
 </p>
 <p>
-    Algo más: puedes <?php echo $this->Html->link('entrar con tu cuenta', array('controller' => 'users', 'action' => 'login')) ?>
-    en cualquier momento y crear otros viajes. Es muy fácil! Pero antes de crear un segundo viaje en <em>YoTeLlevo</em> debes 
+    Algo más: ahora que has sido registrado exitosamente, puedes <?php echo $this->Html->link('entrar con tu cuenta', array('controller' => 'users', 'action' => 'login')) ?>
+    en cualquier momento y crear otros viajes. Es muy fácil! Pero antes de crear un nuevo viaje en <em>YoTeLlevo</em> debes 
     <b>confirmar tu cuenta</b> dando click en <a href='<?php echo $this->Html->url($urlDef, true) ?>'>este enlace</a>.
 </p>
 
@@ -38,4 +37,4 @@
 
 
 <p><small>Si este correo te llegó por error, simplemente bórralo y olvida lo ocurrido.</small></p>
-<a href='<?php echo $this->Html->url($urlDef, true) ?>'><?php echo __('Da click aquí para confirmar ut cuenta')?></a>
+<a href='<?php echo $this->Html->url($urlDef, true) ?>'><?php echo __('Da click aquí para confirmar')?></a>

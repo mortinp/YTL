@@ -68,7 +68,7 @@ class UsersController extends AppController {
             $datasource = $this->User->getDataSource();
             $datasource->begin();
             
-            $OK = $this->do_register($this->request->data['User']);
+            $OK = $this->do_register($this->request->data['User'], 'welcome');
                 
             if($OK) {
                 $datasource->commit();
@@ -98,7 +98,7 @@ class UsersController extends AppController {
             
             $result = array();
             
-            $OK = $this->do_register($this->request->data['User']);
+            $OK = $this->do_register($this->request->data['User'], 'welcome_with_travel');
             if(!$OK) $result['message'] = 'Ocurrió un error registrando tu usuario. Intenta nuevamente.';
             
             if($OK) $result = $this->TravelLogic->confirmPendingTravel($pendingTravelId, $this->request->data['User']['id']);
@@ -129,11 +129,11 @@ class UsersController extends AppController {
         }
     } 
     
-    private function do_register(&$user) {
+    private function do_register(&$user, $emailTemplate) {
         $OK = true;            
         $OK = $this->User->save($user);
         if($OK) $user['id'] = $this->User->getLastInsertID();
-        if($OK) $OK = $this->do_send_confirm_email($user, true);
+        if($OK) $OK = $this->do_send_confirm_email($user, $emailTemplate);
         
         return $OK;
     }
@@ -268,7 +268,7 @@ class UsersController extends AppController {
         $datasource = $this->User->getDataSource();
         $datasource->begin();
         
-        if($this->do_send_confirm_email(AuthComponent::user())) {
+        if($this->do_send_confirm_email(AuthComponent::user(), 'email_confirmation')) {
             $datasource->commit();
         } else {
             $datasource->rollback();
@@ -277,7 +277,7 @@ class UsersController extends AppController {
         }
     }
     
-    private function do_send_confirm_email($user, $welcome = false) {
+    private function do_send_confirm_email($user, $emailTemplate) {
         $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
             'user_id'=>$user['id'],
             'interaction_due'=>'confirm email',
@@ -299,11 +299,11 @@ class UsersController extends AppController {
         }
         
         if($OK) {
-            if($welcome) $template = 'welcome';
-            else $template = 'email_confirmation';
+            /*if($welcome) $template = 'welcome';
+            else $template = 'email_confirmation';*/
             
             $Email = new CakeEmail('no_responder');
-            $Email->template($template)
+            $Email->template($emailTemplate)
             ->viewVars(array('confirmation_code' => $code))
             ->emailFormat('html')
             ->to($user['username'])

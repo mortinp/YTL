@@ -311,6 +311,14 @@ class PlancakeEmailParser {
         }
         return '';
     }
+    
+    public function getRawFields() {
+        return $this->rawFields;
+    }
+    
+    public function getRawBodyLines() {
+        return $this->rawBodyLines;
+    }
 
     /**
      *

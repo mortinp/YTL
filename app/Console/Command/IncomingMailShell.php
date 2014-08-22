@@ -8,9 +8,10 @@ App::uses('Controller', 'Controller');
 App::uses('TravelLogicComponent', 'Controller/Component');
 App::uses('LocalityRouterComponent', 'Controller/Component');
 
-require_once("PlancakeEmailParser.php");
+//require_once("PlancakeEmailParser.php");
+require_once ("helper/mailReader.php");
 
-class IncomingMailShell extends AppShell {   
+class IncomingMailShell extends AppShell {
     
     private $TravelLogic;
     private $LocalityRouter;
@@ -30,8 +31,133 @@ class IncomingMailShell extends AppShell {
         $this->do_process($sender, $origin, $destination, $description);
     }
     
+    /*public function test() {
+        $parser = new mailReader();
+        //$parser->debug = true;
+
+        $parser->readEmail();
+        
+        $text = $sender = $parser->from;
+        preg_match('#\<(.*?)\>#', $text, $match);
+        $sender = $match[1];
+        if($sender == null || strlen($sender) == 0) $sender = $text;
+        
+        $to = $parser->to;
+        $to = str_replace('<', '', $to);
+        $to = str_replace('>', '', $to);
+        
+        $subject = $parser->subject;
+        
+        $body = $parser->body; // h() para escapar los caracteres html
+        
+        //echo $body;
+        
+        if($to === 'chofer@yotellevo.ahiteva.net') {
+            $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
+            if($parseOK) {
+                $conversation = $matches[1];
+                $this->out($conversation);
+                
+                $driverTravel = $this->DriverTravel->findById($conversation);
+                
+                if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
+                    if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
+                            $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
+                        $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
+                    else $deliverTo = $driverTravel['Driver']['username'];
+
+                    //print_r($driverTravel);
+                    //$this->out($deliverTo);
+                    //$this->out($body);
+
+                    $datasource = $this->DriverTravelerConversation->getDataSource();
+                    $datasource->begin();
+
+                    $OK = $this->DriverTravelerConversation->save(array(
+                        'conversation_id'=>$conversation,
+                        'response_by'=>'traveler',
+                        'response_text'=>$body
+                    ));
+
+                    if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $deliverTo,
+                        array('conversation'=>$conversation, 'response'=>$body),
+                        array(
+                            'template'=>'response_traveler2driver',
+                            'format'=>'html',
+                            'subject'=>$subject,
+                            'config'=>'viajero',
+                            'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de viajeros a choferes
+                    );
+
+                    if($OK) $datasource->commit();
+                    else $datasource->rollback();
+                } else {
+                    $this->out("No se encontro la conversacion");// TODO: 
+                }
+            }
+        }  else if($to === 'viajero@yotellevo.ahiteva.net') {
+            $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
+            if($parseOK) {
+                $conversation = $matches[1];
+                $this->out($conversation);
+                
+                $this->DriverTravel->recursive = 2;
+                $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// TODO: como hacer que solo se haga recursive el Travel, de una mejor forma
+                $driverTravel = $this->DriverTravel->findById($conversation);
+                
+                if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
+                    $deliverTo = $driverTravel['Travel']['User']['username'];
+                
+                    //print_r($driverTravel);
+                    //$this->out($deliverTo);
+                    //$this->out($body);
+
+                    $datasource = $this->DriverTravelerConversation->getDataSource();
+                    $datasource->begin();
+                    $OK = true;
+
+                    if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
+
+                            ($driverTravel['DriverTravel']['last_driver_email'] == null ||
+                            strlen($driverTravel['DriverTravel']['last_driver_email']) == 0 ||
+                            $driverTravel['DriverTravel']['last_driver_email'] != $sender)) {
+
+                        $driverTravel['DriverTravel']['last_driver_email'] = $sender;
+                        $this->DriverTravel->id = $conversation;
+                        $this->DriverTravel->order = null;
+                        $OK = $this->DriverTravel->saveField('last_driver_email', $driverTravel['DriverTravel']['last_driver_email']);
+                    }
+
+                    if($OK) $OK = $this->DriverTravelerConversation->save(array(
+                        'conversation_id'=>$conversation,
+                        'response_by'=>'driver',
+                        'response_text'=>$body
+                    ));
+
+                    if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $deliverTo,
+                        array('conversation'=>$conversation, 'response'=>$body),
+                        array(
+                            'template'=>'response_driver2traveler',
+                            'format'=>'html',
+                            'subject'=>$subject,
+                            'config'=>'chofer',
+                            'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de choferes a viajeros
+                    );
+
+                    if($OK) $datasource->commit();
+                    else $datasource->rollback();
+                }else {
+                    $this->out("No se encontro la conversacion");// TODO: 
+                }
+                
+            }
+        } 
+    }*/
+    
     public function process2() {        
-        $stdin = fopen('php://stdin', 'r');
+        /*$stdin = fopen('php://stdin', 'r');
         $emailParser = new PlancakeEmailParser(stream_get_contents($stdin));
         fclose($stdin);
         
@@ -48,6 +174,26 @@ class IncomingMailShell extends AppShell {
         $subject = trim($emailParser->getSubject());
         
         $body = h($emailParser->getPlainBody()); // h() para escapar los caracteres html
+        
+        //print_r($emailParser->getRawFields());*/
+        
+        $parser = new mailReader();
+        //$parser->debug = true;
+
+        $parser->readEmail();
+        
+        $text = $sender = $parser->from;
+        preg_match('#\<(.*?)\>#', $text, $match);
+        $sender = $match[1];
+        if($sender == null || strlen($sender) == 0) $sender = $text;
+        
+        $to = $parser->to;
+        $to = str_replace('<', '', $to);
+        $to = str_replace('>', '', $to);
+        
+        $subject = trim($parser->subject);
+        
+        $body = /*h(*/$parser->body/*)*/; // h() para escapar los caracteres html
         
         if($to === 'viajes@yotellevo.ahiteva.net') {
             CakeLog::write('travels_by_email', 'Travel Created - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
@@ -127,33 +273,41 @@ class IncomingMailShell extends AppShell {
                 
                 $driverTravel = $this->DriverTravel->findById($conversation);
                 
-                $respondTo = $driverTravel['Driver']['username'];
-                
-                print_r($driverTravel);
-                $this->out($respondTo);
-                $this->out($body);
-                
-                $datasource = $this->DriverTravelerConversation->getDataSource();
-                $datasource->begin();
-                
-                $OK = $this->DriverTravelerConversation->save(array(
-                    'conversation_id'=>$conversation,
-                    'response_by'=>'traveler',
-                    'response_text'=>$body
-                ));
-                
-                if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                    $respondTo,
-                    array('conversation'=>$conversation, 'response'=>$body),
-                    array(
-                        'template'=>'response_traveler2driver',
-                        'format'=>'html',
-                        'subject'=>$subject,
-                        'config'=>'viajero') // TODO: habilitar una cuenta para respuestas de viajeros a choferes
-                );
-                
-                if($OK) $datasource->commit();
-                else $datasource->rollback();
+                if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
+                    if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
+                            $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
+                        $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
+                    else $deliverTo = $driverTravel['Driver']['username'];
+
+                    //print_r($driverTravel);
+                    //$this->out($deliverTo);
+                    //$this->out($body);
+
+                    $datasource = $this->DriverTravelerConversation->getDataSource();
+                    $datasource->begin();
+
+                    $OK = $this->DriverTravelerConversation->save(array(
+                        'conversation_id'=>$conversation,
+                        'response_by'=>'traveler',
+                        'response_text'=>$body
+                    ));
+
+                    if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $deliverTo,
+                        array('conversation'=>$conversation, 'response'=>$body),
+                        array(
+                            'template'=>'response_traveler2driver',
+                            'format'=>'html',
+                            'subject'=>$subject,
+                            'config'=>'viajero',
+                            'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de viajeros a choferes
+                    );
+
+                    if($OK) $datasource->commit();
+                    else $datasource->rollback();
+                } else {
+                    $this->out("No se encontro la conversacion");// TODO: 
+                }
             }
         }  else if($to === 'viajero@yotellevo.ahiteva.net') {
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
@@ -165,35 +319,54 @@ class IncomingMailShell extends AppShell {
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// TODO: como hacer que solo se haga recursive el Travel, de una mejor forma
                 $driverTravel = $this->DriverTravel->findById($conversation);
                 
-                $respondTo = $driverTravel['Travel']['User']['username'];
+                if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
+                    $deliverTo = $driverTravel['Travel']['User']['username'];
                 
-                print_r($driverTravel);
-                $this->out($respondTo);
-                $this->out($body);                
+                    //print_r($driverTravel);
+                    //$this->out($deliverTo);
+                    //$this->out($body);
+
+                    $datasource = $this->DriverTravelerConversation->getDataSource();
+                    $datasource->begin();
+                    $OK = true;
+
+                    if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
+
+                            ($driverTravel['DriverTravel']['last_driver_email'] == null ||
+                            strlen($driverTravel['DriverTravel']['last_driver_email']) == 0 ||
+                            $driverTravel['DriverTravel']['last_driver_email'] != $sender)) {
+
+                        $driverTravel['DriverTravel']['last_driver_email'] = $sender;
+                        $this->DriverTravel->id = $conversation;
+                        $this->DriverTravel->order = null;
+                        $OK = $this->DriverTravel->saveField('last_driver_email', $driverTravel['DriverTravel']['last_driver_email']);
+                    }
+
+                    if($OK) $OK = $this->DriverTravelerConversation->save(array(
+                        'conversation_id'=>$conversation,
+                        'response_by'=>'driver',
+                        'response_text'=>$body
+                    ));
+
+                    if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $deliverTo,
+                        array('conversation'=>$conversation, 'response'=>$body),
+                        array(
+                            'template'=>'response_driver2traveler',
+                            'format'=>'html',
+                            'subject'=>$subject,
+                            'config'=>'chofer',
+                            'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de choferes a viajeros
+                    );
+
+                    if($OK) $datasource->commit();
+                    else $datasource->rollback();
+                }else {
+                    $this->out("No se encontro la conversacion");// TODO: 
+                }
                 
-                $datasource = $this->DriverTravelerConversation->getDataSource();
-                $datasource->begin();
-                
-                $OK = $this->DriverTravelerConversation->save(array(
-                    'conversation_id'=>$conversation,
-                    'response_by'=>'driver',
-                    'response_text'=>$body
-                ));
-                
-                if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                    $respondTo,
-                    array('conversation'=>$conversation, 'response'=>$body),
-                    array(
-                        'template'=>'response_driver2traveler',
-                        'format'=>'html',
-                        'subject'=>$subject,
-                        'config'=>'chofer') // TODO: habilitar una cuenta para respuestas de choferes a viajeros
-                );
-                
-                if($OK) $datasource->commit();
-                else $datasource->rollback();
             }
-        }  
+        }
     }
     
     private function do_process($sender, $origin, $destination, $description, $hashtags = array()) {

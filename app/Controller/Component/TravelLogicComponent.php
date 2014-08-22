@@ -106,7 +106,7 @@ class TravelLogicComponent extends Component {
                                 'template'=>'new_'.$inflectedTravelType,
                                 'format'=>'html',
                                 'subject'=>$subject,
-                                'config'=>$emailConfig));
+                                'config'=>'no_responder'));
                 } else {
                     $Email = new CakeEmail($emailConfig);
                     $Email->template('new_'.$inflectedTravelType)
