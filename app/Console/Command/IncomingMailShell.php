@@ -187,6 +187,7 @@ class IncomingMailShell extends AppShell {
                         'response_by'=>'traveler',
                         'response_text'=>$body
                     ));
+                    if(!$OK) CakeLog::write('conversations', 'Error: No se pudo salvar la conversación en driver_traveler_conversations');
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
@@ -198,12 +199,15 @@ class IncomingMailShell extends AppShell {
                             'config'=>'viajero',
                             'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de viajeros a choferes
                     );
+                    if(!$OK) CakeLog::write('conversations', 'Error: No se pudo salvar en emails_queue');
 
                     if($OK) {
                         $datasource->commit();
                         CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
+                    } else {
+                        $datasource->rollback();
+                        CakeLog::write('conversations', 'Conversation Failed!');
                     }
-                    else $datasource->rollback();
                 } else {
                     $this->out("No se encontró la conversacion");// TODO: 
                 }
@@ -256,6 +260,7 @@ class IncomingMailShell extends AppShell {
                         $this->DriverTravel->id = $conversation;
                         $this->DriverTravel->order = null;
                         $OK = $this->DriverTravel->saveField('last_driver_email', $driverTravel['DriverTravel']['last_driver_email']);
+                        if(!$OK) CakeLog::write('conversations', 'Error: No se pudo actulizar el campo last_driver_email en la tabla drivers_travels');
                     }
 
                     if($OK) $OK = $this->DriverTravelerConversation->save(array(
@@ -263,6 +268,7 @@ class IncomingMailShell extends AppShell {
                         'response_by'=>'driver',
                         'response_text'=>$body
                     ));
+                    if(!$OK) CakeLog::write('conversations', 'Error: No se pudo salvar la conversación en driver_traveler_conversations');
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
@@ -274,12 +280,15 @@ class IncomingMailShell extends AppShell {
                             'config'=>'chofer',
                             'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de choferes a viajeros
                     );
+                    if(!$OK) CakeLog::write('conversations', 'Error: No se pudo salvar en emails_queue');
 
                     if($OK) {
                         $datasource->commit();
                         CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
+                    }else {
+                        $datasource->rollback();
+                        CakeLog::write('conversations', 'Conversation Failed!');
                     }
-                    else $datasource->rollback();
                 }else {
                     $this->out("No se encontro la conversacion");// TODO: 
                 }

@@ -29,8 +29,12 @@ class EmailAttachment extends AppModel {
             }
         }
 
-        fwrite($outfile,$contents);
-        fclose($outfile);       
+        CakeLog::write('conversations', 'Saving file: '.$name);
+        $OK = fwrite($outfile,$contents);
+        fclose($outfile);
+        
+        if($OK) CakeLog::write('conversations', 'File saved successfully: '.$name);
+        else CakeLog::write('conversations', 'Failed saving file: '.$name);
         
         $this->data[$this->alias]['filepath'] = './tmp/files/'.$name;
         
