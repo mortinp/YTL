@@ -25,7 +25,7 @@ if($isConfirmed) {
                 <br/>
                 <br/>
                 <?php echo $this->Html->link(__('Confirmar este Anuncio de Viaje').' 
-                <div style="font-size:10pt;padding-left:50px;padding-right:50px">'.__('Estos datos serán enviados enseguida a algunos choferes que pudieran atenderte').'</div>', 
+                <div style="font-size:10pt;padding-left:50px;padding-right:50px">'.__('Acuerda enseguida los detalles del viaje con tu chofer').'</div>', 
                     array('controller'=>'travels', 'action'=>'confirm/'.$travel['Travel']['id']), 
                     array('class'=>'btn btn-primary', 'style'=>'font-size:16pt;white-space: normal;', 'escape'=>false));?>
             <?php else:?>   

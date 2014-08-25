@@ -32,7 +32,7 @@ else
         echo $this->Form->input('name', array('type'=>'text'));        
         echo $this->Form->submit($saveButtonText);
         if ($is_modal)
-            echo $this->Form->button(__('Cancelar'), array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
+            echo $this->Form->button('Cancelar', array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
         ?>
     </fieldset>
     <?php echo $this->Form->end(); ?>

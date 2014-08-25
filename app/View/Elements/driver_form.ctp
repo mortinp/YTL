@@ -40,7 +40,7 @@ else
         
         //if($form_action == 'add') 
             echo $this->Form->input('Locality', array('id'=>'LocalitiesSelect', 'type' => 'select', 'multiple'=>'multiple', /*'options' => $localities,*/ 'showParents' => true, 
-                'label' => __('Localidades <small class="text-info">(seleccionar con <b>Ctrl + Click</b>)</small>')));
+                'label' => 'Localidades <small class="text-info">(seleccionar con <b>Ctrl + Click</b>)</small>'));
             
         echo $this->Form->input('role', array(
             'options' => array('driver' => 'Chofer', 'driver_tester' => 'Chofer de Prueba')
@@ -50,7 +50,7 @@ else
         
         echo $this->Form->submit($saveButtonText);
         if ($is_modal)
-            echo $this->Form->button(__('Cancelar'), array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
+            echo $this->Form->button('Cancelar', array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
         ?>
     </fieldset>
     <?php echo $this->Form->end(); ?>

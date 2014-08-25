@@ -14,6 +14,7 @@ class TravelLogicComponent extends Component {
             $this->DriverLocality = ClassRegistry::init('DriverLocality');
             $this->DriverTravel = ClassRegistry::init('Driver'.$modelType);
             $this->Travel = ClassRegistry::init($modelType);
+            $this->Driver = ClassRegistry::init('Driver');
             
             $drivers_conditions = array(
                 'DriverLocality.locality_id'=>$travel[$modelType]['locality_id'], 
@@ -28,7 +29,7 @@ class TravelLogicComponent extends Component {
             $inflectedTravelType = Inflector::underscore($modelType);
             $drivers = $this->DriverLocality->find('all', array(
                 'conditions'=>$drivers_conditions, 
-                'order'=>'Driver.'.$inflectedTravelType.'_count ASC',
+                'order'=>'Driver.'.'last_notification_date ASC, Driver.'.$inflectedTravelType.'_count'.' ASC',
                 'limit'=>3));
             
             if (count($drivers) > 0) {
@@ -50,13 +51,22 @@ class TravelLogicComponent extends Component {
             if($OK) {
                 
                 $emailConfig = 'no_responder';
-                if(!User::isRegular($travel['User'])) $emailConfig = 'viajero';
+                if(!User::isRegular($travel['User'])) $emailConfig = 'viajero'; // TODO: quitar la negacion en la condicion. Ahora está así porque es para admins nada mas.
                     
                 foreach ($drivers as $d) {
                     $this->DriverTravel->create();
                     $driverTravel = array('driver_id'=>$d['Driver']['id'], 'travel_id'=>$travel[$modelType]['id']);
                     $OK = $this->DriverTravel->save(array('Driver'.$modelType=>$driverTravel));
-
+                                        
+                    if($OK) {
+                        $this->Driver->id = $d['Driver']['id'];
+                        
+                        $OK = $this->Driver->saveField(
+                                'last_notification_date',
+                                gmdate('Y-m-d H:i:s')
+                                /*$this->Driver->getFormattedDate('last_notification_date', time())*/);
+                    }
+                    
                     if($OK) {
 
                         $conversation = $this->DriverTravel->getLastInsertID();
@@ -108,7 +118,7 @@ class TravelLogicComponent extends Component {
                                 'subject'=>$subject,
                                 'config'=>'no_responder'));
                 } else {
-                    $Email = new CakeEmail($emailConfig);
+                    $Email = new CakeEmail('no_responder');
                     $Email->template('new_'.$inflectedTravelType)
                     ->viewVars(array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']))
                     ->emailFormat('html')

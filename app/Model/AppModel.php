@@ -34,4 +34,18 @@ App::uses('Model', 'Model');
 class AppModel extends Model {
     
     public $useDbConfig = 'mysql';
+    
+    protected function getFormattedField($formatter, $fieldName, $time) {
+        $default = array('formatter' => $formatter);
+        $colType = array_merge(
+                $default, 
+                $this->getDataSource()->columns[$this->getColumnType($fieldName)]);
+        if (!array_key_exists('format', $colType)) {
+            $formatted = $time;
+        } else {
+            $formatted = call_user_func($colType['formatter'], $colType['format']);
+        }
+        
+        return $formatted;
+    }
 }

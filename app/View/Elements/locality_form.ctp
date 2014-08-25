@@ -30,10 +30,10 @@ else
         <?php
         echo $this->Form->input('id', array('type'=>'hidden'));
         echo $this->Form->input('name', array('type'=>'text'));  
-        echo $this->Form->input('province_id', array('type' => 'select', 'options' => $provinces, 'label' => __('Provincia')));
+        echo $this->Form->input('province_id', array('type' => 'select', 'options' => $provinces, 'label' => 'Provincia'));
         echo $this->Form->submit($saveButtonText);
         if ($is_modal)
-            echo $this->Form->button(__('Cancelar'), array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
+            echo $this->Form->button('Cancelar', array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
         ?>
     </fieldset>
     <?php echo $this->Form->end(); ?>

@@ -31,11 +31,11 @@ else
         echo $this->Form->input('id', array('type'=>'hidden'));
         echo $this->Form->input('fake_name', array('type'=>'text', 'label'=>'Alias')); 
         echo $this->Form->input('real_name', array('type'=>'text', 'label'=>'Nombre Real')); 
-        echo $this->Form->input('locality_id', array('type' => 'select', 'options' => $localities, 'showParents' => true, 'label' => __('Localidad de Referencia')));
+        echo $this->Form->input('locality_id', array('type' => 'select', 'options' => $localities, 'showParents' => true, 'label' => 'Localidad de Referencia'));
         echo $this->Form->checkbox('use_as_hint').' Sugerir';
         echo $this->Form->submit($saveButtonText);
         if ($is_modal)
-            echo $this->Form->button(__('Cancelar'), array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
+            echo $this->Form->button('Cancelar', array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));
         ?>
     </fieldset>
     <?php echo $this->Form->end(); ?>

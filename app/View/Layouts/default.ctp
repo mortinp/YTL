@@ -24,7 +24,7 @@ if($isLoggedIn) {
     <head>        
         <?php echo $this->Html->charset(); ?>
         <title><?php echo "YoTeLlevo - Cuba | ".$page_title ?></title>
-        <meta name="description" content="¿Necesitas alquilar un taxi para ir a cualquier parte de Cuba? Crea un anuncio de viaje en YoTeLlevo y enseguida conseguirás un chofer con carro que te lleve."/>
+        <meta name="description" content="<?php echo $page_description?>"/>
         
         <?php
         // META
@@ -84,43 +84,43 @@ if($isLoggedIn) {
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                            <?php echo __('Administrar')?>
+                                            Administrar
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#"><?php echo __('Administrar')?></a>
+                                                <a tabindex="-1" href="#">Administrar</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link(__('Usuarios'), array('controller' => 'users', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link(__('Choferes'), array('controller' => 'drivers', 'action' => 'index')) ?></li>                                            
+                                                    <li><?php echo $this->Html->link('Usuarios', array('controller' => 'users', 'action' => 'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Choferes', array('controller' => 'drivers', 'action' => 'index')) ?></li>                                            
                                                     <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link(__('Provincias'), array('controller' => 'provinces', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link(__('Localidades'), array('controller' => 'localities', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link(__('Tesauro'), array('controller' => 'locality_thesaurus', 'action' => 'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Provincias', array('controller' => 'provinces', 'action' => 'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Localidades', array('controller' => 'localities', 'action' => 'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Tesauro', array('controller' => 'locality_thesaurus', 'action' => 'index')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#"><?php echo __('Ver')?></a>
+                                                <a tabindex="-1" href="#">Ver</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link(__('Viajes (Todos)'), array('controller' => 'travels', 'action' => 'all')) ?></li>
-                                                    <li><?php echo $this->Html->link(__('Pendientes (Todos)'), array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'all')) ?></li>
+                                                    <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
                                                     <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link(__('Email Queue'), array('controller' => 'email_queues', 'action' => 'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#"><?php echo __('Logs')?></a>
+                                                <a tabindex="-1" href="#">Logs</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link(__('Info Requerida'), array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
-                                                    <li><?php echo $this->Html->link(__('Viajes por Correo'), array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>
-                                                    <li><?php echo $this->Html->link(__('Viajes Fallidos'), array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
+                                                    <li><?php echo $this->Html->link('Info Requerida', array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="divider"></li>
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#"><?php echo __('Tests')?></a>
+                                                <a tabindex="-1" href="#">Tests</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link(__('Ver Viajes Admins'), array('controller' => 'travels', 'action' => 'all_admins')) ?></li>
+                                                    <li><?php echo $this->Html->link('Ver Viajes Admins', array('controller' => 'travels', 'action' => 'all_admins')) ?></li>
                                                 </ul>
                                             </li>
                                         </ul>

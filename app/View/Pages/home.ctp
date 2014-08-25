@@ -67,45 +67,45 @@
 </div>
 
 <div class="well" style="background-color: #bce8f1">
-<div class="row sell">
-    <div class="col-md-12 center">        
-        <p class="sell-text">
-            <?php echo __('Viajes populares con origen en')?> <span class="handwritten" style="font-size: 24pt;display:inline-block"><?php echo __('La Habana')?></span>
-        </p>
+    <div class="row sell">
+        <div class="col-md-12 center">        
+            <p class="sell-text">
+                <?php echo __('Viajes populares con origen en')?> <span class="handwritten" style="font-size: 24pt;display:inline-block"><?php echo __('La Habana')?></span>
+            </p>
+        </div>
+        <div class="col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb varadero">
+                    <p class="handwritten white dest" style="font-size: 24pt">Varadero</p>
+                    <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Varadero</b></h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb trinidad">
+                    <p class="handwritten white dest" style="font-size: 24pt">Trinidad</p>
+                    <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Trinidad</b></h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb vinales">
+                    <p class="handwritten white dest" style="font-size: 24pt">Viñales</p>
+                    <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Viñales</b></h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb all-around">
+                    <p class="handwritten white dest" style="font-size: 24pt"><?php echo __('Recorrido por la isla')?></p>
+                    <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-<?php echo __('Recorrido por la isla')?></b></h1>
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="col-md-3 center">
-        <a href="#!" style="text-decoration: none">
-            <div class="destination-thumb varadero">
-                <p class="handwritten white dest" style="font-size: 24pt">Varadero</p>
-                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Varadero</b></h1>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-3 center">
-        <a href="#!" style="text-decoration: none">
-            <div class="destination-thumb trinidad">
-                <p class="handwritten white dest" style="font-size: 24pt">Trinidad</p>
-                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Trinidad</b></h1>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-3 center">
-        <a href="#!" style="text-decoration: none">
-            <div class="destination-thumb vinales">
-                <p class="handwritten white dest" style="font-size: 24pt">Viñales</p>
-                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-Viñales</b></h1>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-3 center">
-        <a href="#!" style="text-decoration: none">
-            <div class="destination-thumb all-around">
-                <p class="handwritten white dest" style="font-size: 24pt"><?php echo __('Recorrido por la isla')?></p>
-                <h1 class="action white"><?php echo __('Conseguir taxi')?> <b><?php echo __('La Habana')?>-<?php echo __('Recorrido por la isla')?></b></h1>
-            </div>
-        </a>
-    </div>
-</div>
 </div>
 
 </br>

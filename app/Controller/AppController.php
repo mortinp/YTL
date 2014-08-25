@@ -33,7 +33,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     
-    private $pageTitles = array(
+    /*private $pageTitles = array(
         'pages.display' =>array(
             'contact'=>'Contactar', 
             'use_terms'=>'Términos de Uso', 
@@ -61,7 +61,7 @@ class AppController extends Controller {
         'travels.add' =>'Crear Anuncio de Viaje',
         'travels.view' =>'Ver Anuncio de Viaje',
         'travels.add_pending' =>'Crear Anuncio de Viaje',
-    );
+    );*/
     
     public $helpers = array(
         'Html' => array(
@@ -107,18 +107,24 @@ class AppController extends Controller {
     
     private function setPageTitle() {
         $page_title = __('Consigue un taxi para ir a cualquier parte de la isla');
-        $key = $this->request->params['controller'].'.'.$this->request->params['action'];
-        
+        $page_description = __('Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.');
+        $key = $this->request->params['controller'].'.'.$this->request->params['action'];        
         
         $partialTitle = $this->_getPageTitle($key);
         if($partialTitle != null) {
             if($this->request->params['controller'] === 'pages') {
-                if(isset($partialTitle[$this->request->params['pass'][0]]))
-                    $page_title = $partialTitle[$this->request->params['pass'][0]];
-            } else $page_title = $partialTitle;
-            
+                if(isset($partialTitle[$this->request->params['pass'][0]])) {
+                    $page_title = $partialTitle[$this->request->params['pass'][0]]['title'];
+                    if(isset ($partialTitle[$this->request->params['pass'][0]]['description'])) $page_description = $partialTitle[$this->request->params['pass'][0]]['description'];
+                }
+                    
+            } else {
+                $page_title = $partialTitle['title'];
+                if(isset ($partialTitle['description'])) $page_description = $partialTitle['description'];
+            }
         }
         $this->set('page_title', $page_title);
+        $this->set('page_description', $page_description);
     }
 
     public function isAuthorized($user) {
@@ -155,32 +161,32 @@ class AppController extends Controller {
     private function _getPageTitle($key) {
         $pageTitles = array(
             'pages.display' =>array(
-                'contact'=>__('Contactar'), 
-                'use_terms'=>__('Términos de Uso'), 
-                'tour'=>__('¿Cómo usarlo?'),
-                'faq'=>__('Preguntas Frecuentes'),
-                'by_email'=>__('Consigue un taxi usando tu correo electrónico')),
+                'contact'=>array('title'=>__('Contactar'), 'description'=>__('Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo.')), 
+                'use_terms'=>array('title'=>__('Términos de Uso')), 
+                'tour'=>array('title'=>__('¿Cómo usarlo?')),
+                'faq'=>array('title'=>__('Preguntas Frecuentes'), 'description'=>__('Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo.')),
+                'by_email'=>array('title'=>__('Consigue un taxi usando tu correo electrónico'))),
 
-            'users.index' =>__('Usuarios'),
-            'users.add' =>__('Crear Nuevo Usuario'),
+            'users.index' =>array('title'=>__('Usuarios')),
+            'users.add' =>array('title'=>__('Crear Nuevo Usuario')),
 
-            'users.login' =>__('Entra y encuentra un taxi enseguida'),
-            'users.register' =>__('Regístrate y encuentra un taxi enseguida'),
-            'users.profile' =>__('Preferencias'),
+            'users.login' =>array('title'=>__('Entra y encuentra un taxi enseguida')),
+            'users.register' =>array('title'=>__('Regístrate y encuentra un taxi enseguida')),
+            'users.profile' =>array('title'=>__('Preferencias')),
 
-            'users.change_password' =>__('Cambiar Contraseña'),
-            'users.confirm_email' =>__('Confirmación de Correo'),
-            'users.forgot_password' =>__('Contraseña Olvidada'),
-            'users.send_change_password' =>__('Instrucciones para Cambio de Contraseña'),
-            'users.send_confirm_email' =>__('Instrucciones para Verificación de Correo'),
+            'users.change_password' =>array('title'=>__('Cambiar Contraseña')),
+            'users.confirm_email' =>array('title'=>__('Confirmación de Correo')),
+            'users.forgot_password' =>array('title'=>__('Contraseña Olvidada')),
+            'users.send_change_password' =>array('title'=>__('Instrucciones para Cambio de Contraseña')),
+            'users.send_confirm_email' =>array('title'=>__('Instrucciones para Verificación de Correo')),
 
-            'drivers.index' =>__('Choferes'),
-            'drivers.add' =>__('Crear Nuevo Chofer'),
+            'drivers.index' =>array('title'=>__('Choferes')),
+            'drivers.add' =>array('title'=>__('Crear Nuevo Chofer')),
 
-            'travels.index' =>__('Anuncios de Viajes'),
-            'travels.add' =>__('Crear Anuncio de Viaje'),
-            'travels.view' =>__('Ver Anuncio de Viaje'),
-            'travels.add_pending' =>__('Crear Anuncio de Viaje'),
+            'travels.index' =>array('title'=>__('Anuncios de Viajes')),
+            'travels.add' =>array('title'=>__('Crear Anuncio de Viaje')),
+            'travels.view' =>array('title'=>__('Ver Anuncio de Viaje')),
+            'travels.add_pending' =>array('title'=>__('Crear Anuncio de Viaje')),
         );
         
         if(isset ($pageTitles[$key])) return $pageTitles[$key];
