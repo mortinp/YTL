@@ -54,13 +54,15 @@ foreach (Travel::$preferences as $key => $value) {
         <span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span>
     </big>
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
-    
-    <!--<span><small style="color:<?php echo $notice['color']?>">(<?php echo $notice['label']?>)</small></span>-->
 </legend>
     
 <p><b><?php echo __('Día del viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
 
 <p><b><?php echo __('Información de Contacto')?>:</b> <span id='travel-contact-label'><?php echo $travel['Travel']['contact']?></span></p>
+
+<?php if(isset($showEmail) && $showEmail):?>
+<p><b><?php echo __('Correo de Contacto')?>:</b> <span id='travel-contact-label'><?php echo $travel['User']['username']?></span></p>
+<?php endif?>
 
 <div id="preferences-place">
 <?php if($hasPreferences):?>

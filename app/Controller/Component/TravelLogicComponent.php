@@ -75,7 +75,7 @@ class TravelLogicComponent extends Component {
                         if(Configure::read('enqueue_mail')) {
                             ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                                     $d['Driver']['username'], 
-                                    array('travel' => $travel, 'conversation_id'=>$conversation), 
+                                    array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation), 
                                     array(
                                         'template'=>'new_'.$inflectedTravelType,
                                         'format'=>'html',
@@ -84,7 +84,7 @@ class TravelLogicComponent extends Component {
                         } else {
                             $Email = new CakeEmail($emailConfig);
                             $Email->template('new_'.$inflectedTravelType)
-                            ->viewVars(array('travel' => $travel))
+                            ->viewVars(array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation))
                             ->emailFormat('html')
                             ->to($d['Driver']['username'])
                             ->subject($subject);

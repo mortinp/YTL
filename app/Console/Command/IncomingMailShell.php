@@ -297,6 +297,8 @@ class IncomingMailShell extends AppShell {
             
             CakeLog::write('conversations', '----------------------------------------------------------------------------');
         }
+        
+        CakeLog::write('emails_received', '----------------------------------------------------------------------------');
     }
     
     private function do_process($sender, $origin, $destination, $description, $hashtags = array()) {

@@ -14,3 +14,6 @@
 
 
 <p><b><?php echo __('Detalles del viaje')?>:</b> <?php echo $travel['TravelByEmail']['description']?></p>
+<?php if(isset($showEmail) && $showEmail):?>
+<p><b><?php echo __('Correo de Contacto')?>:</b> <span id='travel-contact-label'><?php echo $travel['User']['username']?></span></p>
+<?php endif?>

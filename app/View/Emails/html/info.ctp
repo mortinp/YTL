@@ -7,8 +7,7 @@
     </p>-->
     <p>
         Usa tu propia cuenta de correo electrónico para crear un anuncio de viaje en <em>YoTeLlevo</em> y encontrar un taxi que te lleve.
-        Puedes hacerlo desde cualquier lugar donde te encuentres y en cualquier momento. Si tienes una cuenta @Nauta lo puedes hacer desde
-        tu celular. Es así de simple.
+        Puedes hacerlo desde cualquier lugar donde te encuentres y en cualquier momento. Es así de simple.
     </p>
     
     <!--<h4><b>Anuncios de Viajes desde Internet</b></h4>
@@ -27,8 +26,8 @@
             <li>Escribe un correo a <em><b><a href="mailto:viajes@yotellevo.ahiteva.net">viajes@yotellevo.ahiteva.net</a></b></em>.</li>
             <li>Escribe en el <b>asunto</b> el origen y el destino de la forma <em><b>Origen-Destino</b></em> 
                 (un guión o signo de menos en el medio). Por ejemplo, puedes escribir en el asunto: <em><b>La Habana-Santiago de Cuba</b></em>.</li>
-            <li>Escribe en el <b>cuerpo del mensaje</b> una forma de contactarte (preferiblemente un número de teléfono). 
-                Por ejemplo, puedes escribir en el cuerpo: <em><b>Llamar a Pepito al teléfono 12345678</b></em>.</li>
+            <li>Escribe en el <b>cuerpo del mensaje</b> una forma de contactarte. 
+                Por ejemplo, puedes escribir en el cuerpo: <em><b>Escribirme al correo nombre@dominio.com</b></em>.</li>
             <li>Si prefieres un carro moderno y/o aire acondicionado, incluye en el <b>cuerpo del mensaje</b> las etiquetas 
                 <em><b>#moderno</b></em> y <em><b>#aire</b></em></li>
             <li>Envía el correo y espera a ser contactado por uno de nuestros choferes para acordar los términos del viaje.</li>
