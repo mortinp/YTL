@@ -22,7 +22,9 @@ class EmailAttachment extends AppModel {
             $path = ROOT.DS.APP_DIR.DS.'tmp'.DS.'files'.DS.$name;
             
             // Attempt to lock
-            $outfile = fopen($path,'w');
+            $outfile = fopen($path,'w');            
+            if(!$outfile) break;
+            
             if(flock($outfile,LOCK_EX)){
                 $unlocked_and_unique = TRUE;
             }else{
