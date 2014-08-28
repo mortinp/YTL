@@ -19,7 +19,7 @@
         <em>cubanos de pura sepa</em>: es muy fácil hacer amistad con ellos.
     </li>
     <li>
-        Con los precios que acuerdes puedes armar tu presupuesto de transportación para mientras permaneces en la isla, y puedes
+        Con los precios que acuerdes <b>puedes armar tu presupuesto de transportación</b> para mientras permaneces en la isla, y puedes
         hacerlo incluso antes de llegar; algo menos de qué preocuparse ;).
     </li>
 </ul>
@@ -38,4 +38,4 @@
 
 
 <p><small>Si este correo te llegó por error, simplemente bórralo y olvida lo ocurrido.</small></p>
-<a href='<?php echo $this->Html->url($urlDef, true) ?>'><?php echo __('Da click aquí para confirmar ut cuenta')?></a>
+<a href='<?php echo $this->Html->url($urlDef, true) ?>'><?php echo __('Da click aquí para confirmar tu cuenta')?></a>

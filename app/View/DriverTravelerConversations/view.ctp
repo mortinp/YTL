@@ -18,13 +18,13 @@
 <div class="row">
     <div class="col-md-6">
         <?php if($c['DriverTravelerConversation']['response_by'] == 'driver') {
-            echo "<b>Chofer:</b> ";
+            echo "<b>Chofer (".$c['DriverTravelerConversation']['created']."):</b> ";
             echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $c['DriverTravelerConversation']['response_text']);
         }?>
     </div>
     <div class="col-md-6">        
         <?php if($c['DriverTravelerConversation']['response_by'] == 'traveler'){
-            echo "<b>Viajero:</b> ";
+            echo "<b>Viajero (".$c['DriverTravelerConversation']['created']."):</b> ";
             echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $c['DriverTravelerConversation']['response_text']);
             
         }?>

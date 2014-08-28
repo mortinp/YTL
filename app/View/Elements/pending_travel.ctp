@@ -59,7 +59,9 @@ foreach (Travel::$preferences as $key => $value) {
     
 <p><b><?php echo __('Día del viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
 
-<p><b><?php echo __('Información de Contacto')?>:</b> <span id='travel-contact-label'><?php echo $travel['PendingTravel']['contact']?></span></p>
+<p><b><?php echo __('Tu correo electrónico')?>:</b> <span id='travel-email-label'><?php echo $travel['PendingTravel']['email']?></span> <span class="text-danger"><small>(<?php echo __('Te comunicarás con los choferes usando este correo')?>)</small></span></p>
+
+<p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo $travel['PendingTravel']['details']?></span></p>
 
 <div id="preferences-place">
 <?php if($hasPreferences):?>

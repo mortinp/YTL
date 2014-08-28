@@ -15,8 +15,8 @@ function _ajaxifyForm(form, obj, alias, onSuccess) {
                 $('#' + upperAlias + 'Submit').attr('disabled', true);
                 $('#' + upperAlias + 'Submit').val('Espere ...');
 
-                var data = $(this).serialize();
-                var url = $(this).attr('action');
+                /*var data = $(this).serialize();
+                var url = $(this).attr('action');*/
                 $.ajax({
                     type: "POST",
                     data: $(this).serialize(),
@@ -133,9 +133,16 @@ $(document).ready(function() {
         } else {
             prefDiv.empty();
             prefDiv.hide();
-        }
+        }        
 
-        $('#travel-contact-label').text(obj.contact);
+        $('#travel-details-label').text(obj.details);
+        
+        if(obj.email !== undefined) {
+            $('#travel-email-label').text(obj.email);
+            $('#UserUsername').val(obj.email);
+            $('#UserFakeUsername').val(obj.email);
+            $('#UserPassword').focus();
+        }
 
         $('#travel-form, #travel').toggle();
     });

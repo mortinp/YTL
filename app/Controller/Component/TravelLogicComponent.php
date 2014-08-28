@@ -152,6 +152,8 @@ class TravelLogicComponent extends Component {
             
             if($pending != null && !empty ($pending)) {
                 
+                unset ($pending['PendingTravel']['email']);
+                
                 $travel['Travel'] = $pending['PendingTravel'];
                 unset ($travel['Travel']['id']);
                 

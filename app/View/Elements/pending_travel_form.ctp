@@ -73,8 +73,9 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
 
             echo $this->Form->custom_date('date', array('label' => __('Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
             echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
-            echo $this->Form->input('contact', array('label' => __('Tu Información de Contacto'), 
-                'placeholder' => __('Explica a los choferes la forma de contactarte. Escribe algo como: escribirme al correo nombre@dominio.com')));
+            echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te escribirán a este correo')));
+            echo $this->Form->input('details', array('label' => __('Detalles del viaje'), 
+                'placeholder' => __('Explica a los choferes cualquier detalle que desees aclarar sobre el viaje (rutas, lugares, duración del viaje, etc.)')));
             echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>__('Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
             
@@ -84,14 +85,6 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         <?php else:?>
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <!--<div class="form-group">
-                        <label for="TravelOrigin"><?php echo __('Origen del Viaje')?></label>
-                            <input name="data[PendingTravel][origin]" class="form-control locality-typeahead" required="required" value="" autofocus="autofocus" type="text" id="PendingTravelOrigin"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="TravelDestination"><?php echo __('Destino del Viaje')?></label>
-                            <input name="data[PendingTravel][destination]" class="form-control locality-typeahead" required="required" value="" type="text" id="PendingTravelDestination"/>
-                    </div>-->
                     <?php 
                     echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
                     echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Destino del Viaje'), 'required'=>true, 'value'=>$destination));
@@ -100,9 +93,10 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
                     ?>
                 </div>
                 <div class="col-md-6">
+                    <?php echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te escribirán a este correo')));?>
                     <div class="form-group required">
-                        <label for="TravelContact"><?php echo __('Tu Información de Contacto')?></label>
-                        <textarea name="data[PendingTravel][contact]" class="form-control" placeholder="<?php echo __('Explica a los choferes la forma de contactarte. Escribe algo como: escribirme al correo nombre@dominio.com')?>" cols="30" rows="6" id="TravelContact" required="required"></textarea>
+                        <label for="TravelDetails"><?php echo __('Detalles del viaje')?></label>
+                        <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __('Explica a los choferes cualquier detalle que desees aclarar sobre el viaje (rutas, lugares, duración del viaje, etc.)')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
                     </div>
                     <div style="clear:both;height:100%;overflow:auto;padding-bottom:10px">
                         <div>
@@ -130,13 +124,12 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         </fieldset>
         <?php echo $this->Form->end(); ?>
         </div>
-        <?php
-            if($intent == 'add'):?>
+        <!--<?php if($intent == 'add'):?>
             <br/>
             <div class="alert alert-warning">
                 <?php echo __('La <b>Información de Contacto</b> es importante para que los choferes lleguen a tí. Asegúrate de que esta información sea correcta.')?>
             </div>
-        <?php endif?>
+        <?php endif?>-->
     </div>
 <?php endif?>
 

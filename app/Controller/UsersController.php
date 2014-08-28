@@ -83,7 +83,7 @@ class UsersController extends AppController {
     public function register_and_create($pendingTravelId) {
         if ($this->request->is('post')) {
             if($this->User->loginExists($this->request->data['User']['username'])) {
-                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o'). 
+                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o').' '. 
                     '<a href="'.Router::url(array('action'=>'login')).'">'.__('entra con tu cuenta').'</a>.');// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
@@ -299,8 +299,6 @@ class UsersController extends AppController {
         }
         
         if($OK) {
-            /*if($welcome) $template = 'welcome';
-            else $template = 'email_confirmation';*/
             
             $Email = new CakeEmail('no_responder');
             $Email->template($emailTemplate)

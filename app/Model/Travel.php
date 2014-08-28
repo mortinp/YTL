@@ -61,10 +61,10 @@ class Travel extends AppModel {
                 'required' => true
             )
         ),
-        'contact' => array(
+        'details' => array(
             'notEmpty' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'Debe escribir la forma de contacto.'
+                'message' => 'Debe escribir los detalles del viaje.'
             )
         )
     );

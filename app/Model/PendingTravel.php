@@ -36,10 +36,17 @@ class PendingTravel extends AppModel {
                 'required' => true
             )
         ),
-        'contact' => array(
+        'details' => array(
             'notEmpty' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'Debe escribir la forma de contacto.'
+                'message' => 'Debe escribir los detalles del viaje.'
+            )
+        ),
+        'email' => array(
+            'email' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'El correo electrónico es obligatorio.',
+                'required' => true
             )
         )
     );

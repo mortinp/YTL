@@ -21,39 +21,29 @@ App::uses('Auth', 'Component');
                 <?php echo $this->element('pending_travel_form', array('do_ajax' => true, 'form_action' => 'edit_pending', 'intent'=>'edit')); ?>
                 <br/>
             </div>
-        </div>
-
-    </div>
-</div>
-<br/>
-<br/>
-<div class="row alert alert-info" style="/*background-color: lightblue*/">
-    <div class="col-md-8 col-md-offset-2">
+            
+            <br/>
+            <br/>
+            <div class="alert alert-info">
+                <div >
+                    <!--<p><?php echo __('<b>Estás a sólo un paso</b> de que los choferes puedan contactarte para acordar los términos del viaje')?>.</p>-->
         
-        <div class="col-md-6">
-            <p><?php echo __('<b>Estás a sólo un paso</b> de que los choferes puedan contactarte para acordar los términos del viaje')?>.</p>
-        
-            <p>
-            <?php echo __('<big><big><b>Regístrate para confirmar este viaje</b></big></big> <span style="display: inline-block">(usa el formulario de la derecha)</span>')?>
-                <br/>
-                <p><?php echo __('Además podrás')?>:</p>
-                <ul>
-                    <li><?php echo __('Entrar a <em>YoTeLlevo</em> y crear un número ilimitado de viajes')?>.</li>
-                    <li><?php echo __('Tener acceso a todas las funcionalidades de <em>YoTeLlevo</em>')?>.</li>
-                </ul>
-            </p>
-        </div>
-        <div class="col-md-6">
-            <?php echo $this->Form->create('User', array('controller' => 'users', 'action' => 'register_and_create/'.$travel['PendingTravel']['id'])); ?>
-            <fieldset>
-                <?php
-                echo $this->Form->input('username', array('label' => __('Correo electrónico'), 'type' => 'email', 'id'=>'UserRegisterForm'));
-                echo $this->Form->input('password', array('label'=> __('Contraseña'), 'placeholder'=>__('Escribe la contraseña que usarás para YoTeLlevo')));
-                echo $this->Form->checkbox('remember_me').' '.__('Recordarme') ;
-                echo $this->Form->submit(__('Registrarme y Confirmar este Anuncio de Viaje'));
-                ?>
-            </fieldset>
-            <?php echo $this->Form->end(); ?>
+                    <p>
+                    <?php echo __('<big><big><b>Regístrate para confirmar este viaje</b></big></big> <span>&mdash; Podrás gestionar tus viajes en cualquier momento y acceder a todas las funcionalidades de <em>YoTeLlevo</em></span>')?>                        
+                    </p>
+                </div>
+                <?php echo $this->Form->create('User', array('controller' => 'users', 'action' => 'register_and_create/'.$travel['PendingTravel']['id'])); ?>
+                <fieldset>
+                    <?php
+                    echo $this->Form->input('fake_username', array('label' => __('Tu correo electrónico'), 'value'=>$travel['PendingTravel']['email'], 'type' => 'email', 'disabled'=>true));
+                    echo $this->Form->input('username', array('label' => __('Tu correo electrónico'), 'value'=>$travel['PendingTravel']['email'], 'type' => 'hidden'));
+                    echo $this->Form->input('password', array('label'=> __('Crea una contraseña para tu cuenta'), 'placeholder'=>__('Escribe la contraseña que usarás para YoTeLlevo'), 'autofocus'));
+                    echo $this->Form->checkbox('remember_me').' '.__('Recordarme');
+                    echo $this->Form->submit(__('Registrarme y Confirmar este Anuncio de Viaje'));
+                    ?>
+                </fieldset>
+                <?php echo $this->Form->end(); ?>
+            </div>
         </div>
     </div>
 </div>

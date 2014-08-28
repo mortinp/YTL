@@ -1,0 +1,2 @@
+ALTER TABLE  `travels` CHANGE  `contact`  `details` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE  `pending_travels` CHANGE  `contact`  `details` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

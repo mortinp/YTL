@@ -10,7 +10,7 @@
         <?php echo $this->Form->create('User', array('action'=>'send_change_password')); ?>
         <fieldset>
             <?php
-            echo $this->Form->input('username', array('label' => __('Correo electrónico'), 'type' => 'email'));
+            echo $this->Form->input('username', array('label' => __('Tu correo electrónico'), 'type' => 'email'));
             echo $this->Form->submit(__('Enviarme instrucciones'));
             ?>
         </fieldset>

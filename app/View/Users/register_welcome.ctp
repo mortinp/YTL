@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             
-            <h2><?php echo __('Bienvenido a')?> <em>YoTeLlevo</em> <div><small class="text-muted"><?php echo __('Ahora te será mucho más fácil viajar en Cuba')?></small></div></h2>
+            <h2><?php echo __('Bienvenido a')?> <em>YoTeLlevo</em> <div><small class="text-muted"><?php echo __('Gracias por preferir viajar con nosotros')?></small></div></h2>
             
             <br/>            
             <?php if(isset ($travel)):?>
@@ -23,7 +23,7 @@
             <br/>
             
             <p>                
-                <?php echo __('Enviamos un correo a tu cuenta')?> (<b><?php echo AuthComponent::user('username')?></b>) <?php echo __('para ser verificada').'<b>'.__('Revisa tu correo y sigue las instrucciones').'</b>'?>.
+                <?php echo __('Enviamos un correo a tu cuenta')?> (<b><?php echo AuthComponent::user('username')?></b>) <?php echo __('para ser verificada').'. <b>'.__('Revisa tu correo y sigue las instrucciones').'</b>'?>.
                 <?php echo __('Ten en cuenta que sólo podrás crear <b>1 anuncio de viaje</b> hasta que verifiques tu cuenta')?>.
             </p>
             
