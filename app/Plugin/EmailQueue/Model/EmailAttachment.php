@@ -23,7 +23,10 @@ class EmailAttachment extends AppModel {
             
             // Attempt to lock
             $outfile = fopen($path,'w');            
-            if(!$outfile) break;
+            if(!$outfile) {
+                CakeLog::write('conversations', 'Could not open: '.$path);
+                break;
+            }
             
             if(flock($outfile,LOCK_EX)){
                 $unlocked_and_unique = TRUE;
