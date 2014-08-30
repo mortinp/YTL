@@ -383,5 +383,5 @@ Cache::config('_cake_model_', array(
 
 ### MARTIN
 Configure::write('enqueue_mail', true);
-
+Configure::write('conversations_via_app', false);
 Configure::write('Config.language', 'es');

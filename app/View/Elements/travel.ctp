@@ -42,9 +42,6 @@ foreach (Travel::$preferences as $key => $value) {
         $notice['label'] = Travel::$STATE[$travel['Travel']['state']]['label'];
     }
 ?>
-
-<!--<?php if($expired) echo '<s>'?>-->
-
 <legend>
    
     <small><i title="<?php echo $notice['label']?>" class="glyphicon glyphicon-flag" style="margin-left:-20px;color:<?php echo $notice['color']?>;display: inline-block"></i></small>
@@ -60,7 +57,7 @@ foreach (Travel::$preferences as $key => $value) {
 
 <p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo $travel['Travel']['details']?></span></p>
 
-<?php if(isset($showEmail) && $showEmail):?>
+<?php if(!Configure::read('conversations_via_app')/*isset($showEmail) && $showEmail*/):?>
 <p><b><?php echo __('Correo de contacto')?>:</b> <span id='travel-details-label'><?php echo $travel['User']['username']?></span></p>
 <?php endif?>
 
@@ -122,5 +119,3 @@ foreach (Travel::$preferences as $key => $value) {
         
     </ul>
 <?php endif?>
-
-<!--<?php if($expired) echo '</s>'?>-->

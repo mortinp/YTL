@@ -6,10 +6,16 @@
     <p>
         <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false))?>
     </p>
-    
-    <br/>
-    <p>
-        <b>¡Ponte en contacto con el viajero y haz que tu oferta sea la mejor!</b>
+    <p> 
+        <?php $respondEmail = (Configure::read('conversations_via_app') && !isset ($admin));?>
+        
+        <?php if($respondEmail):?>
+        Para comunicarte con el viajero <b>responde este correo SIN MODIFICAR EL ASUNTO</b>
+        [<small><b>Nota:</b> Puedes responder desde otro correo, copiando el asunto de este correo en el que vayas a enviar</small>]
+        <?php endif?>
+        <?php if(!isset ($admin)):?>
+        <div>¡Ponte en contacto <?php if(!Configure::read('conversations_via_app')):?>con el viajero<?php endif?> y haz que tu oferta sea la mejor!</div>
+        <?php endif?>
     </p>
 </div>
 
@@ -18,6 +24,7 @@ if(!isset ($creator_role)) $creator_role = 'regular';
 ?>
 
 <?php if(isset ($admin)):?>
+    <small>
     <p>
         Usted recibió este correo porque es Administrador de <em>YoTeLlevo</em>.
     </p>
@@ -40,9 +47,12 @@ if(!isset ($creator_role)) $creator_role = 'regular';
             <?php endif;?>
         </p>
     <?php endif?>
+    </small>
 <?php else: ?>
     <p>
+        <small>
         Usted recibió este correo porque está registrado en <em>YoTeLlevo</em> 
         como chofer que atiende viajes desde/hasta <?php echo $travel['Locality']['name']?>.
+        </small>
     </p>
 <?php endif?>

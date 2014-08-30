@@ -51,7 +51,7 @@ class TravelLogicComponent extends Component {
             if($OK) {
                 
                 $emailConfig = 'no_responder';
-                if(!User::isRegular($travel['User'])) $emailConfig = 'viajero'; // TODO: quitar la negacion en la condicion. Ahora está así porque es para admins nada mas.
+                if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viajero';
                     
                 foreach ($drivers as $d) {
                     $this->DriverTravel->create();

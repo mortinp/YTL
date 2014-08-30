@@ -60,7 +60,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             echo $this->Form->custom_date('date', array('label' => __('Cuándo'), 'dateFormat' => 'dd/mm/yyyy'));
             echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
             echo $this->Form->input('details', array('label' => __('Detalles del viaje'), 
-                'placeholder' => __('Explica a los choferes cualquier detalle que desees aclarar sobre el viaje (rutas, lugares, duración del viaje, etc.)')));
+                'placeholder' => __('Cualquier detalle que quieras explicar')));
             echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>__('Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
 

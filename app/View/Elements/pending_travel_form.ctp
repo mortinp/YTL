@@ -73,9 +73,9 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
 
             echo $this->Form->custom_date('date', array('label' => __('Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
             echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
-            echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te escribirán a este correo')));
+            echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te contactarán a este correo')));
             echo $this->Form->input('details', array('label' => __('Detalles del viaje'), 
-                'placeholder' => __('Explica a los choferes cualquier detalle que desees aclarar sobre el viaje (rutas, lugares, duración del viaje, etc.)')));
+                'placeholder' => __('Cualquier detalle que quieras explicar')));
             echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>__('Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
             
@@ -93,10 +93,10 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
                     ?>
                 </div>
                 <div class="col-md-6">
-                    <?php echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te escribirán a este correo')));?>
+                    <?php echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te contactarán a este correo')));?>
                     <div class="form-group required">
                         <label for="TravelDetails"><?php echo __('Detalles del viaje')?></label>
-                        <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __('Explica a los choferes cualquier detalle que desees aclarar sobre el viaje (rutas, lugares, duración del viaje, etc.)')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
+                        <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __('Cualquier detalle que quieras explicar')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
                     </div>
                     <div style="clear:both;height:100%;overflow:auto;padding-bottom:10px">
                         <div>
@@ -195,15 +195,9 @@ echo $this->Js->writeBuffer(array('inline' => false));
             //header: '<b>Localidades</b>',
             valueKey: 'name',
             local: window.app.localities
-        }).on('typeahead:selected', function(event, datum) {
-            /*if($(event.target).attr('id') == 'TravelOrigin') {
-                $('#TravelForm').find('#TravelOriginId').remove();
-                $('#TravelForm').append('<input type="hidden" id="TravelOriginId" name="data[Travel][origin_id]" value="' + datum.id + '">');
-            } else if($(event.target).attr('id') == 'TravelDestination') {
-                $('#TravelForm').find('#TravelDestinationId').remove();
-                $('#TravelForm').append('<input type="hidden" id="TravelDestinationId" name="data[Travel][destination_id]" value="' + datum.id + '">');
-            }*/
-        });
+        })/*.on('typeahead:selected', function(event, datum) {
+            
+        })*/;
         
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
