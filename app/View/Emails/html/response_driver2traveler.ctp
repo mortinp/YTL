@@ -1,5 +1,5 @@
 <p>
-    <em>Hola viajero. Este correo contiene la respuesta del chofer <b>#<?php echo $driver_id?></b> de YoTeLlevo, notificado con los datos de tu viaje. Para enviar tu respuesta, <b>responde este correo SIN MODIFICAR EL ASUNTO</b>.</em>
+    <em>Hola viajero. Este correo contiene la respuesta del chofer <b>#<?php echo $driver_id?></b> de YoTeLlevo, notificado con los datos de tu viaje <b><?php echo $travel['origin'].' - '.$travel['destination']?></b>. Para enviar tu respuesta, <b>responde este correo SIN MODIFICAR EL ASUNTO</b>.</em>
 </p>
 <p><b>El chofer dice:</b></p>
 <div>
