@@ -191,7 +191,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
-                        array('conversation'=>$conversation, 'response'=>$body),
+                        array(/*'conversation'=>$conversation,*/ 'response'=>$body, 'travel_id'=>$driverTravel['DriverTravel']['travel_id']),
                         array(
                             'template'=>'response_traveler2driver',
                             'format'=>'html',
@@ -272,7 +272,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
-                        array('conversation'=>$conversation, 'response'=>$body),
+                        array(/*'conversation'=>$conversation,*/ 'response'=>$body, 'driver_id'=>$driverTravel['DriverTravel']['driver_id']),
                         array(
                             'template'=>'response_driver2traveler',
                             'format'=>'html',

@@ -224,7 +224,7 @@ class EmailQueue extends AppModel {
     }
     
     private function decode($what) {
-        return utf8_decode($what);
+        return /*utf8_decode(*/$what/*)*/;
     }
 
 }

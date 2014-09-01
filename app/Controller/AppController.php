@@ -160,33 +160,40 @@ class AppController extends Controller {
     
     private function _getPageTitle($key) {
         $pageTitles = array(
+            // Unrestricted access
             'pages.display' =>array(
-                'contact'=>array('title'=>__('Contactar'), 'description'=>__('Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo.')), 
+                'contact'=>array('title'=>__('Contactar'), 'description'=>__('Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
                 'use_terms'=>array('title'=>__('Términos de Uso')), 
                 'tour'=>array('title'=>__('¿Cómo usarlo?')),
-                'faq'=>array('title'=>__('Preguntas Frecuentes'), 'description'=>__('Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo.')),
+                'faq'=>array('title'=>__('Preguntas Frecuentes'), 'description'=>__('Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
                 'by_email'=>array('title'=>__('Consigue un taxi usando tu correo electrónico'))),
 
-            'users.index' =>array('title'=>__('Usuarios')),
-            'users.add' =>array('title'=>__('Crear Nuevo Usuario')),
-
-            'users.login' =>array('title'=>__('Entra y encuentra un taxi enseguida')),
-            'users.register' =>array('title'=>__('Regístrate y encuentra un taxi enseguida')),
+            'users.login' =>array('title'=>__('Entrar'), 'description'=>__('Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
+            'users.register' =>array('title'=>__('Registrarse'), 'description'=>__('Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
+            
+            'travels.add_pending' =>array('title'=>__('Crear Anuncio de Viaje')/*, 'description'=>__('Crea un Anuncio de Viaje y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')*/),
+                
+            
+            // Users access
             'users.profile' =>array('title'=>__('Preferencias')),
-
+            
             'users.change_password' =>array('title'=>__('Cambiar Contraseña')),
             'users.confirm_email' =>array('title'=>__('Confirmación de Correo')),
             'users.forgot_password' =>array('title'=>__('Contraseña Olvidada')),
             'users.send_change_password' =>array('title'=>__('Instrucciones para Cambio de Contraseña')),
             'users.send_confirm_email' =>array('title'=>__('Instrucciones para Verificación de Correo')),
+            
+            'travels.index' =>array('title'=>__('Anuncios de Viajes')),
+            'travels.add' =>array('title'=>__('Crear Anuncio de Viaje')),
+            'travels.view' =>array('title'=>__('Ver Anuncio de Viaje')),           
+            
+            
+            // Admins access
+            'users.index' =>array('title'=>__('Usuarios')),
+            'users.add' =>array('title'=>__('Crear Nuevo Usuario')),           
 
             'drivers.index' =>array('title'=>__('Choferes')),
             'drivers.add' =>array('title'=>__('Crear Nuevo Chofer')),
-
-            'travels.index' =>array('title'=>__('Anuncios de Viajes')),
-            'travels.add' =>array('title'=>__('Crear Anuncio de Viaje')),
-            'travels.view' =>array('title'=>__('Ver Anuncio de Viaje')),
-            'travels.add_pending' =>array('title'=>__('Crear Anuncio de Viaje')),
         );
         
         if(isset ($pageTitles[$key])) return $pageTitles[$key];
