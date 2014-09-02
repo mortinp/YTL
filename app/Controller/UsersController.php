@@ -300,7 +300,7 @@ class UsersController extends AppController {
         
         if($OK) {
             
-            $Email = new CakeEmail('no_responder');
+            /*$Email = new CakeEmail('no_responder');
             $Email->template($emailTemplate)
             ->viewVars(array('confirmation_code' => $code))
             ->emailFormat('html')
@@ -310,6 +310,27 @@ class UsersController extends AppController {
                 $Email->send();
             } catch ( Exception $e ) {
                 $OK = false;
+            }*/
+            if(Configure::read('enqueue_mail')) {
+                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $user['username'], 
+                        array('confirmation_code' => $code), 
+                        array(
+                            'template'=>$emailTemplate,
+                            'format'=>'html',
+                            'subject'=>'Verificación de cuenta',
+                            'config'=>'no_responder'));
+            } else {
+                $Email->template($emailTemplate)
+                    ->viewVars(array('confirmation_code' => $code))
+                    ->emailFormat('html')
+                    ->to($user['username'])
+                    ->subject('Verificación de cuenta');
+                    try {
+                        $Email->send();
+                    } catch ( Exception $e ) {
+                        $OK = false;
+                    }
             }
         } 
         
