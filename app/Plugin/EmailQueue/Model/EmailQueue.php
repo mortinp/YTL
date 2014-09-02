@@ -217,7 +217,20 @@ class EmailQueue extends AppModel {
     
     private function encode(array &$what) {
         foreach ($what as &$w) {
-            if(!is_array($w) && is_string($w)) $w = utf8_encode($w/*mb_convert_encoding($w, "HTML-ENTITIES", "UTF-8")*/);
+            if(!is_array($w) && is_string($w)) $w = utf8_encode(mb_convert_encoding($w, "HTML-ENTITIES", "UTF-8"));
+            else if(is_array($w))$this->encode($w);
+        }
+        return $what;
+    }
+    
+    private function decode($what) {
+        return /*utf8_decode(*/$what/*)*/;
+    }
+    
+    
+    /*private function encode(array &$what) {
+        foreach ($what as &$w) {
+            if(!is_array($w) && is_string($w)) $w = utf8_encode($w);
             else if(is_array($w))$this->encode($w);
         }
         return $what;
@@ -225,7 +238,7 @@ class EmailQueue extends AppModel {
     
     private function decode($what) {
         return mb_convert_encoding($what, "HTML-ENTITIES", "UTF-8");
-    }
+    }*/
     
     /*private function encode(array &$what) {
         foreach ($what as &$w) {
