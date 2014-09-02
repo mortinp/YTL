@@ -1,11 +1,13 @@
-<h2>Hola Chofer,</h2>
+<p>Hola Chofer,</p>
 <div>
     <p>
         Un nuevo anuncio de viaje (<b>#<?php echo $travel['Travel']['id']?></b>) ha sido registrado recientemente con los siguientes datos:
     </p>
-    <p>
+    --------------------
+    <p> 
         <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false))?>
     </p>
+    --------------------
     <p> 
         <?php $respondEmail = (Configure::read('conversations_via_app') && !isset ($admin));?>
         

@@ -1,13 +1,13 @@
 <legend>
     <big>
         <?php if($travel['TravelByEmail']['direction'] == 0):?>
-        <span id='travel-locality-label'><?php echo $travel['TravelByEmail']['matched']?></span> 
+        <b><span id='travel-locality-label'><?php echo $travel['TravelByEmail']['matched']?></span></b>
         - 
-        <span id='travel-where-label'><?php echo $travel['TravelByEmail']['where']?></span>
+        <b><span id='travel-where-label'><?php echo $travel['TravelByEmail']['where']?></span></b>
         <?php else:?>
-        <span id='travel-where-label'><?php echo $travel['TravelByEmail']['where']?></span>
+        <b><span id='travel-where-label'><?php echo $travel['TravelByEmail']['where']?></span></b>
         - 
-        <span id='travel-locality-label'><?php echo $travel['TravelByEmail']['matched']?></span>
+        <b><span id='travel-locality-label'><?php echo $travel['TravelByEmail']['matched']?></span></b>
         <?php endif;?>
     </big> 
 </legend>

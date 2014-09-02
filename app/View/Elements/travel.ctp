@@ -46,9 +46,9 @@ foreach (Travel::$preferences as $key => $value) {
    
     <small><i title="<?php echo $notice['label']?>" class="glyphicon glyphicon-flag" style="margin-left:-20px;color:<?php echo $notice['color']?>;display: inline-block"></i></small>
     <big>
-        <span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span> 
+        <b><span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span></b> 
         - 
-        <span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span>
+        <b><span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span></b>
     </big>
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
 </legend>

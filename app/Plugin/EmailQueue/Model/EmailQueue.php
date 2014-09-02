@@ -217,14 +217,14 @@ class EmailQueue extends AppModel {
     
     private function encode(array &$what) {
         foreach ($what as &$w) {
-            if(!is_array($w) && is_string($w)) $w = utf8_encode($w);
+            if(!is_array($w) && is_string($w)) $w = utf8_encode(mb_convert_encoding($w, "HTML-ENTITIES", "UTF-8"));
             else if(is_array($w))$this->encode($w);
         }
         return $what;
     }
     
     private function decode($what) {
-        return /*utf8_decode(*/$what/*)*/;
+        return utf8_decode($what);
     }
 
 }
