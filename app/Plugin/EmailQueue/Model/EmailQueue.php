@@ -217,7 +217,7 @@ class EmailQueue extends AppModel {
     
     private function encode(array &$what) {
         foreach ($what as &$w) {
-            if(!is_array($w) && is_string($w)) $w = utf8_encode(mb_convert_encoding($w, "HTML-ENTITIES", "UTF-8"));
+            if(!is_array($w) && is_string($w)) $w = mb_convert_encoding(utf8_encode($w), "HTML-ENTITIES", "UTF-8");
             else if(is_array($w))$this->encode($w);
         }
         return $what;
