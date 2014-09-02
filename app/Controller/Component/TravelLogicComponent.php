@@ -43,6 +43,8 @@ class TravelLogicComponent extends Component {
                 }
             } else {
                 $errorMessage = 'No hay choferes para atender este viaje. Intente confirmarlo más tarde.';
+                if(isset ($travel[$modelType]['people_count']) && $travel[$modelType]['people_count'] > 4)
+                    $errorMessage = 'La cantidad de personas ('.$travel[$modelType]['people_count'].') supera la máxima capacidad para taxis individuales para su origen y destino. Le recomendamos que <b>cree el viaje para 4 personas</b>, y cuando se comunique con el chofer, le haga saber sobre la cantidad real de personas que van a viajar. El chofer seguramente le gestionará su viaje sin contratiempos.';
                 $OK = false;
             }
             
