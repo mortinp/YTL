@@ -215,19 +215,19 @@ class EmailQueue extends AppModel {
         return $results;
     }
     
-    /*private function encode(array &$what) {
+    private function encode(array &$what) {
         foreach ($what as &$w) {
-            if(!is_array($w) && is_string($w)) $w = utf8_encode(mb_convert_encoding($w, "HTML-ENTITIES", "UTF-8"));
+            if(!is_array($w) && is_string($w)) $w = utf8_encode($w/*mb_convert_encoding($w, "HTML-ENTITIES", "UTF-8")*/);
             else if(is_array($w))$this->encode($w);
         }
         return $what;
     }
     
     private function decode($what) {
-        return mb_convert_encoding(utf8_decode($what), "HTML-ENTITIES", "UTF-8");
-    }*/
+        return mb_convert_encoding($what, "HTML-ENTITIES", "UTF-8");
+    }
     
-    private function encode(array &$what) {
+    /*private function encode(array &$what) {
         foreach ($what as &$w) {
             if(!is_array($w) && is_string($w)) $w = mb_convert_encoding(utf8_encode($w), "HTML-ENTITIES", "UTF-8");
             else if(is_array($w))$this->encode($w);
@@ -237,5 +237,5 @@ class EmailQueue extends AppModel {
     
     private function decode($what) {
         return utf8_decode(mb_convert_encoding($what, "UTF-8", "HTML-ENTITIES"));
-    }
+    }*/
 }
