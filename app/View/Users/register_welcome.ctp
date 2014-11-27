@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             
-            <h2><?php echo __('Bienvenido a')?> <em>YoTeLlevo</em> <div><small class="text-muted"><?php echo __('Gracias por preferir viajar con nosotros')?></small></div></h2>
+            <h2><?php echo __('Bienvenido a <em>YoTeLlevo</em>')?> <div><small class="text-muted"><?php echo __('¡Qué bueno tenerte a bordo!')?></small></div></h2>
             
             <br/>            
             <?php if(isset ($travel)):?>
                 <p>
-                    <?php echo __('Tienes el siguiente viaje')?>
-                    <span style="color:<?php echo Travel::$STATE[$travel['Travel']['state']]['color']?>">
-                        <b><?php echo Travel::$STATE[$travel['Travel']['state']]['label']?></b>
+                    <?php echo __('El siguiente viaje está')?>
+                    <span style="color:<?php echo Travel::getStateSettings($travel['Travel']['state'], 'color')?>">
+                        <b><?php echo Travel::getStateSettings($travel['Travel']['state'], 'label')?></b>
                     </span>:
                 </p>
                 <?php echo $this->element('travel', array('travel'=>$travel))?>
@@ -19,12 +19,11 @@
                 </h3>
             <?php endif?>
             
-            <br/>
-            <br/>
+            <br/> 
+            <hr/>
             
             <p>                
-                <?php echo __('Enviamos un correo a tu cuenta')?> (<b><?php echo AuthComponent::user('username')?></b>) <?php echo __('para ser verificada').'. <b>'.__('Revisa tu correo y sigue las instrucciones').'</b>'?>.
-                <?php echo __('Ten en cuenta que sólo podrás crear <b>1 anuncio de viaje</b> hasta que verifiques tu cuenta')?>.
+                <?php echo __('Enviamos un correo a tu cuenta (<b>%s</b>) para ser verificada. <b>Revisa tu correo y sigue las instrucciones</b>.', AuthComponent::user('username'))?>
             </p>
             
             <?php echo $this->element('email_sent_tips', array('link'=>$this->Html->link('<i class="glyphicon glyphicon-ok"></i> '.__('Enviar correo de verificación'), array('controller'=>'users', 'action'=>'send_confirm_email'), array('escape'=>false))))?>

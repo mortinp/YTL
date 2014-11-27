@@ -23,25 +23,30 @@ if($isLoggedIn) {
 <html>
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <title><?php echo "YoTeLlevo - Cuba | ".$page_title ?></title>
+        <title><?php echo "YoTeLlevo Cuba | ".$page_title ?></title>
         <meta name="description" content="<?php echo $page_description?>"/>
+        
+        <style type="text/css">
+            
+            #navbar #nav a.nav-link{
+                color:white;
+                font-family:'Montserrat', sans-serif;
+                font-size:13px;
+                /*margin-top:4px;*/
+                text-transform:uppercase
+            }
+            #navbar #nav a.nav-link:hover,#navbar #nav a.nav-link:focus{
+                background-color:transparent;
+                text-decoration:none
+            }
+        </style>
         
         <?php
         // META
-        $this->Html->meta('icon');
-        
-        // CSS
-        /*//$this->Html->css('prettify', array('inline' => false));
-        $this->Html->css('bootstrap', array('inline' => false));        
-        $this->Html->css('common/font-awesome.min', array('inline' => false));
-        $this->Html->css('default', array('inline' => false));*/
+        $this->Html->meta('icon');        
         
         $this->Html->css('default-bundle', array('inline' => false)); 
         $this->Html->css('home', array('inline' => false));
-        
-        //JS
-        /*$this->Html->script('jquery', array('inline' => false));
-        $this->Html->script('bootstrap', array('inline' => false));*/
         
         $this->Html->script('default-bundle', array('inline' => false));
         
@@ -87,12 +92,14 @@ if($isLoggedIn) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <p class="text-muted" style="margin: 20px 0;">
-                            <?php echo __('Creado por')?> <a href="http://ksabes.com">Casabe&trade;</a>
+                        <p class="text-muted pull-left" style="margin: 20px 0;">
+                            &copy; 2014 YoTeLlevo
                         </p>
                     </div>
                     <div class="col-md-6" style="text-align: center">
                         <p class="text-muted" style="margin: 20px 0;">
+                            <a href="<?php echo $this->Html->url(array('controller'=>'', 'action'=>'blog'), true).'/'.Configure::read('Config.language').'/' ?>">Blog</a>
+                            |
                            <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                             |
                            <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>

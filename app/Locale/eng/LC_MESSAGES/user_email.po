@@ -1,0 +1,118 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-15 16:38-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/UsersController.php:314
+msgid "Confirma tu cuenta"
+msgstr "Confirm your account"
+
+#: Controller/Component/TravelLogicComponent.php:96
+msgid "Nuevo Anuncio de Viaje"
+msgstr "New Travel Request (in English)"
+
+
+
+#: View/Elements/welcome_tips.ctp:2
+msgid "La comunicación directa con los posibles choferes de tu taxi es una buena oportunidad para aprovechar y detallar algunas cuestiones que quizás te interesen"
+msgstr "The direct communication with the drivers is a good chance to detail a few things that might interest you"
+
+#: View/Elements/welcome_tips.ctp:6
+msgid "<b>Acuerda el precio de tus recorridos</b>. Nuestros choferes son taxistas independientes y seguramente recibes ofertas con precios diferentes. Selecciona el chofer que mejor se ajuste a tus necesidades."
+msgstr "<b>Agree the costs of your journeys</b>. Our drivers are independent taxi drivers and for sure you'll get quotes with different prices. Choose the driver that best fits your needs."
+
+#: View/Elements/welcome_tips.ctp:9
+msgid "<b>Detalla los horarios y lugares de recogida</b>. Tu taxi estará ahí a la hora indicada."
+msgstr "<b>Detail times and pick up places</b>. Your taxi will be there at the right time."
+
+#: View/Elements/welcome_tips.ctp:12
+msgid "<b>Aprovecha y entabla amistad con tu chofer</b>. Es mucho mejor viajar con alguien que sientes que es cercano, y nuestros choferes son <em>cubanos de pura sepa</em>: es muy fácil hacer amistad con ellos."
+msgstr "<b>Make friends with your driver</b>. It's much better to travel with someone you feel is close, and our drivers are <em>pure cubans</em>: it's easy to make friends with them."
+
+#: View/Elements/welcome_tips.ctp:15
+msgid "Con los precios que acuerdes <b>puedes armar tu presupuesto de transportación</b> para mientras permaneces en la isla, y puedes hacerlo incluso antes de llegar; algo menos de qué preocuparse ;)."
+msgstr "<b>Plan your transportation budget</b> using the prices you agreed. You'll be able to know how much you need for transport while you remain in the island, even before you arrive."
+
+#: View/Emails/html/welcome.ctp:14
+#: View/Emails/html/welcome_with_travel.ctp:14
+msgid "este enlace"
+msgstr "this link"
+
+#: View/Emails/html/change_password.ctp:2
+#: View/Emails/html/email_confirmation.ctp:2
+msgid "Hola viajero"
+msgstr "Hi traveler"
+
+#: View/Emails/html/change_password.ctp:5
+msgid "Para cambiar la contraseña de <em>YoTeLlevo</em> da click en <a href=\"%s\">este enlace</a>."
+msgstr "To change your password in <em>YoTeLlevo</em>, click <a href=\"%s\">this link</a>."
+
+#: View/Emails/html/change_password.ctp:8
+#: View/Emails/html/email_confirmation.ctp:8
+#: View/Emails/html/welcome.ctp:19
+#: View/Emails/html/welcome_with_travel.ctp:20
+msgid "Si este correo te llegó por error, simplemente bórralo y olvida lo ocurrido"
+msgstr "If you received this email by mistake, simply delete it and forget this happened"
+
+#: View/Emails/html/change_password.ctp:9
+msgid "Da click aquí para cambiar tu contraseña"
+msgstr "Click here to change your password"
+
+#: View/Emails/html/email_confirmation.ctp:5
+msgid "Para confirmar tu cuenta en <em>YoTeLlevo</em> da click en <a href=\"%s\">este enlace</a>."
+msgstr "To confirm your account in <em>YoTeLlevo</em> click <a href=\"%s\">this link</a>."
+
+#: View/Emails/html/email_confirmation.ctp:9
+#: View/Emails/html/welcome.ctp:20
+#: View/Emails/html/welcome_with_travel.ctp:21
+msgid "Da click aquí para confirmar tu cuenta"
+msgstr "Click here to confirm your account"
+
+#: View/Emails/html/welcome.ctp:2
+#: View/Emails/html/welcome_with_travel.ctp:2
+msgid "Hola y bienvenido a <em>YoTeLlevo</em>"
+msgstr "Hi and welcome to <em>YoTeLlevo</em>"
+
+#: View/Emails/html/welcome.ctp:5
+msgid "Ahora que has sido registrado exitosamente, puedes %s. Enseguida te asignaremos <b>hasta 3 posibles choferes, quienes te contactarán para acordar los detalles del viaje</b>."
+msgstr "Now that you signed up successfully, you can %s. <b>You'll contact with up to 3 drivers</b> to arrange the details with them."
+
+#: View/Emails/html/welcome.ctp:5
+msgid "crear un Anuncio de Viaje"
+msgstr "create a Travel Request"
+
+#: View/Emails/html/welcome.ctp:11
+#: View/Emails/html/welcome_with_travel.ctp:11
+msgid "Esta es tu oportunidad para conocer Cuba a tu propio modo. Recuéstate en el asiento trasero de tu taxi y disfruta esta isla maravillosa mientras recorres tus destinos favoritos."
+msgstr "This is your chance to know Cuba your own way. Lay back in your taxi seat and enjoy this wonderful island as you go along your favorite destinations."
+
+#: View/Emails/html/welcome.ctp:14
+#: View/Emails/html/welcome_with_travel.ctp:14
+msgid "Algo más: ahora que has sido registrado exitosamente, puedes %s en cualquier momento y crear otros viajes. Es muy fácil! Pero antes de crear un nuevo viaje en <em>YoTeLlevo</em> debes <b>confirmar tu cuenta</b> dando click en %s."
+msgstr "Something else: now that you've signed up successfully, you can %s and create more travel requests. But first you have to <b>confirm your account</b> clicking %s"
+
+#: View/Emails/html/welcome.ctp:14
+#: View/Emails/html/welcome_with_travel.ctp:14
+msgid "entrar con tu cuenta"
+msgstr "login with your account"
+
+#: View/Emails/html/welcome.ctp:17
+#: View/Emails/html/welcome_with_travel.ctp:17
+msgid "Desata tu creatividad mientras conoces la isla en la seguridad y confort de tu taxi!!!"
+msgstr "Unleash your creativity as you go along the island within the safety and confort of your taxi!!!"
+
+#: View/Emails/html/welcome_with_travel.ctp:5
+msgid "Tu viaje ya fue asignado y notificado y <b>pronto recibirás respuestas de nuestros choferes en tu correo</b>."
+msgstr "Your travel was assigned and <b>you'll get a reply from our drivers soon</b>."
+

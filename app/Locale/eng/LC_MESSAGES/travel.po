@@ -1,0 +1,40 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 10:02-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Model/Travel.php:27
+msgid "Carro Moderno"
+msgstr "Modern Car"
+
+#: Model/Travel.php:28
+msgid "Aire Acondicionado"
+msgstr "Air Conditioner"
+
+#: Model/Travel.php:121
+msgid "Pendiente"
+msgstr "Pending"
+
+#: Model/Travel.php:122
+msgid "Pendiente de Confirmación"
+msgstr "Pending for Confirmation"
+
+#: Model/Travel.php:123
+msgid "Confirmado"
+msgstr "Confirmed"
+
+#: Model/Travel.php:124
+msgid "Expirado"
+msgstr "Expired"
+

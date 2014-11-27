@@ -37,7 +37,7 @@
             <p><b><?php echo __('¿Qué pasa si ninguno me contacta?')?></b></p>
             <p>
                 <?php echo __('Esto es muy difícil que suceda. Sin embargo, en caso de que suceda, puedes escribirnos a ')?>
-                <a href="mailto:soporte@yotellevo.ahiteva.net"><?php echo __('soporte@yotellevo.ahiteva.net')?></a>
+                <a href="mailto:soporte@<?php echo Configure::read('domain_name')?>">soporte@<?php echo Configure::read('domain_name')?></a>
                 <?php echo __('y plantearnos el problema; con mucho gusto lo resolveremos')?>.
             </p>
             

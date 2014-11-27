@@ -68,6 +68,11 @@ class SenderShell extends AppShell {
                     
                     $email->attachments($attachments);
                 }
+                
+                $lang = $e['EmailQueue']['lang'];
+                if($lang != null) Configure::write ('Config.language', $lang);
+                
+                $this->out('Email language is '.$lang.', language '. Configure::read('Config.language').' was set');
 
                 $sent = $email
                         ->to($e['EmailQueue']['to'])
@@ -76,6 +81,7 @@ class SenderShell extends AppShell {
                         ->emailFormat($e['EmailQueue']['format'])
                         ->viewVars($e['EmailQueue']['template_vars'])
                         ->send();
+                
             } catch (SocketException $exception) {
                 $this->err($exception->getMessage());
                 $sent = false;
@@ -88,6 +94,8 @@ class SenderShell extends AppShell {
                 $emailQueue->fail($e['EmailQueue']['id']);
                 $this->out('<error>Email ' . $e['EmailQueue']['id'] . ' was not sent</error>');
             }
+            
+            Configure::write('Config.language', Configure::read('default_language'));
         }
         $emailQueue->releaseLocks(Set::extract('{n}.EmailQueue.id', $emails));
     }

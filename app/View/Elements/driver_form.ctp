@@ -48,6 +48,8 @@ else
         
         echo $this->Form->checkbox('active').' Active';
         
+        echo $this->Form->checkbox('speaks_english').' Habla Inglés';
+        
         echo $this->Form->submit($saveButtonText);
         if ($is_modal)
             echo $this->Form->button('Cancelar', array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));

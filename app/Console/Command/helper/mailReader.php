@@ -59,10 +59,12 @@ class mailReader {
      *
      * @return An associative array of files saved. The key is the file name, the value is an associative array with size and mime type as keys.
      */
-    public function readEmail($src = 'php://stdin'){
+    public function readEmail($raw/*$src = 'php://stdin'*/){
         // Process the e-mail from stdin
-        $fd = fopen($src,'r');
-        while(!feof($fd)){ $this->raw .= fread($fd,1024); }
+        /*$fd = fopen($src,'r');
+        while(!feof($fd)){ $this->raw .= fread($fd,1024); }*/
+        
+        $this->raw = $raw;
 
         // Now decode it!
         // http://pear.php.net/manual/en/package.mail.mail-mimedecode.decode.php

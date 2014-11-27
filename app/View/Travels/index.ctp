@@ -30,13 +30,13 @@
             <?php endif; ?>
         </div>
         
-        <div class="col-md-6 col-md-offset-1">
+        <div class="col-md-6 col-md-offset-1 well" id="FormContainer" style="background-color: lightgoldenrodyellow">
             <legend><?php echo __('Crear Anuncio de Viaje')?></legend>
             <?php echo $this->element('travel_form')?>
         </div>
 
     <?php else :?>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3 well" style="background-color: lightgoldenrodyellow">
             <p>
                 <?php echo __('No tienes ningún anuncio de viaje todavía. Crea uno ahora.')?>
             </p>

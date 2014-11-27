@@ -13,12 +13,12 @@ class EmailQueuesController extends AppController {
     public function remove($id = null) {
         $this->EmailQueue->id = $id;
         if (!$this->EmailQueue->exists()) {
-            throw new NotFoundException(__('Email inválido'));
+            throw new NotFoundException('Email inválido');
         }
         if ($this->EmailQueue->delete()) {
             $this->setInfoMessage('El email se eliminó exitosamente.');
         } else {
-            $this->setErrorMessage(__('Ocurió un error eliminando el email'));
+            $this->setErrorMessage('Ocurió un error eliminando el email');
         }    
         return $this->redirect(array('action' => 'index'));
     }
@@ -26,12 +26,12 @@ class EmailQueuesController extends AppController {
     public function unlock($id = null) {
         $this->EmailQueue->id = $id;
         if (!$this->EmailQueue->exists()) {
-            throw new NotFoundException(__('Email inválido'));
+            throw new NotFoundException('Email inválido');
         }
         if ($this->EmailQueue->saveField('locked', false)) {
             $this->setInfoMessage('El email se desbloqueó exitosamente.');
         } else {
-            $this->setErrorMessage(__('Ocurió un error desbloqueando el email'));
+            $this->setErrorMessage('Ocurió un error desbloqueando el email');
         }    
         return $this->redirect(array('action' => 'index'));
     }

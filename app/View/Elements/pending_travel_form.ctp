@@ -26,13 +26,13 @@ if(!isset($horizontal)) $horizontal = false;
 $origin = '';
 $destination = '';
 if(isset ($travel) && !empty ($travel)) {
-    $saveButtonText = __('Salvar Datos');
+    $saveButtonText = __d('pending_travel', 'Salvar Datos');
     
     $origin = $travel['PendingTravel']['origin'];
     $destination = $travel['PendingTravel']['destination'];
     
 } else {
-    $saveButtonText = __('Crear Anuncio');
+    $saveButtonText = __d('pending_travel', 'Crear Anuncio');
 }
 
 $buttonStyle = '';
@@ -41,7 +41,7 @@ if ($is_modal)
 
 $asLink = false;
 if(isset ($bigButton) && $bigButton == true) {
-    $saveButtonText .= "<div style='font-size:12pt;padding-left:50px;padding-right:50px'>".__('Enseguida contactarás con hasta 3 de nuestros choferes')."</div>";//Enseguida te pondremos en contacto con un chofer para que acuerdes los detalles del viaje
+    $saveButtonText = __d('pending_travel', "Pónme en contacto ahora <div style='font-size:12pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes. Escoge uno para tu viaje.</div>");
     $buttonStyle = 'font-size:18pt;white-space: normal;';
     $asLink = true;
 }
@@ -68,15 +68,15 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         <fieldset>
         <?php if(!$horizontal):?>
             <?php
-            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
-            echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Destino del Viaje'), 'required'=>true, 'value'=>$destination));
+            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
+            echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Destino del Viaje'), 'required'=>true, 'value'=>$destination));
 
-            echo $this->Form->custom_date('date', array('label' => __('Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
-            echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
-            echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te contactarán a este correo')));
-            echo $this->Form->input('details', array('label' => __('Detalles del viaje'), 
-                'placeholder' => __('Cualquier detalle que quieras explicar')));
-            echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>__('Preferencias')));
+            echo $this->Form->custom_date('date', array('label' => __d('pending_travel', 'Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
+            echo $this->Form->input('people_count', array('label' => __d('pending_travel', 'Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
+            echo $this->Form->input('email', array('label' => __d('pending_travel', 'Tu correo electrónico'), 'type' => 'email', 'placeholder' => __d('pending_travel', 'Los choferes te contactarán a este correo')));
+            echo $this->Form->input('details', array('label' => __d('pending_travel', 'Detalles del viaje'), 
+                'placeholder' => __d('pending_travel', 'Cualquier detalle que quieras explicar')));
+            echo $this->Form->checkbox_group(Travel::getPreferences(), array('header'=>__d('pending_travel', 'Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
             
             $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit', 'escape'=>false);
@@ -86,35 +86,35 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             <div class="col-md-12">
                 <div class="col-md-6">
                     <?php 
-                    echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
-                    echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Destino del Viaje'), 'required'=>true, 'value'=>$destination));
-                    echo $this->Form->custom_date('date', array('label' => __('Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
-                    echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
+                    echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje'), 'required'=>true, 'value'=>$origin/*, 'autofocus'=>'autofocus'*/));
+                    echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Destino del Viaje'), 'required'=>true, 'value'=>$destination));
+                    echo $this->Form->custom_date('date', array('label' => __d('pending_travel', 'Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
+                    echo $this->Form->input('people_count', array('label' => __d('pending_travel', 'Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
                     ?>
                 </div>
                 <div class="col-md-6">
-                    <?php echo $this->Form->input('email', array('label' => __('Tu correo electrónico'), 'type' => 'email', 'placeholder' => __('Los choferes te contactarán a este correo')));?>
+                    <?php echo $this->Form->input('email', array('label' => __d('pending_travel', 'Tu correo electrónico'), 'type' => 'email', 'placeholder' => __d('pending_travel', 'Los choferes te contactarán a este correo')));?>
                     <div class="form-group required">
-                        <label for="TravelDetails"><?php echo __('Detalles del viaje')?></label>
-                        <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __('Cualquier detalle que quieras explicar')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
+                        <label for="TravelDetails"><?php echo __d('pending_travel', 'Detalles del viaje')?></label>
+                        <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __d('pending_travel', 'Cualquier detalle que quieras explicar')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
                     </div>
                     <div style="clear:both;height:100%;overflow:auto;padding-bottom:10px">
                         <div>
-                            <label><?php echo __('Preferencias')?></label>
+                            <label><?php echo __d('pending_travel', 'Preferencias')?></label>
                         </div>
                         <div style="padding-right:10px;float:left">
                             <input type="hidden" name="data[PendingTravel][need_modern_car]" id="TravelNeedModernCar_" value="0"/>
-                            <input type="checkbox" name="data[PendingTravel][need_modern_car]"  value="1" id="TravelNeedModernCar"/> <?php echo __('Auto Moderno')?>
+                            <input type="checkbox" name="data[PendingTravel][need_modern_car]"  value="1" id="TravelNeedModernCar"/> <?php echo __d('pending_travel', 'Auto Moderno')?>
                         </div>
                         <div style="padding-right:10px;float:left">
                             <input type="hidden" name="data[PendingTravel][need_air_conditioner]" id="TravelNeedAirConditioner_" value="0"/>
-                            <input type="checkbox" name="data[PendingTravel][need_air_conditioner]"  value="1" id="TravelNeedAirConditioner"/> <?php echo __('Aire Acondicionado')?>
+                            <input type="checkbox" name="data[PendingTravel][need_air_conditioner]"  value="1" id="TravelNeedAirConditioner"/> <?php echo __d('pending_travel', 'Aire Acondicionado')?>
                         </div>
                     </div>
                     <input type="hidden" name="data[PendingTravel][id]" class="form-control" value="" id="TravelId"/>
                 </div>	
             </div>
-            <div class="submit col-md-6 col-md-offset-3">
+            <div class="submit col-md-6 col-md-offset-3" style="text-align: center">
                 <?php $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit', 'escape'=>false);
                 echo $this->Form->submit($saveButtonText, $submitOptions, $asLink);?>
             </div>
@@ -124,12 +124,6 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         </fieldset>
         <?php echo $this->Form->end(); ?>
         </div>
-        <!--<?php if($intent == 'add'):?>
-            <br/>
-            <div class="alert alert-warning">
-                <?php echo __('La <b>Información de Contacto</b> es importante para que los choferes lleguen a tí. Asegúrate de que esta información sea correcta.')?>
-            </div>
-        <?php endif?>-->
     </div>
 <?php endif?>
 
@@ -182,7 +176,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 //$('#TravelFormDiv').prop('disabled', true);
                 
                 $('#TravelSubmit').attr('disabled', true);
-                $('#TravelSubmit').val('<?php echo __('Espera')?> ...');
+                $('#TravelSubmit').val('<?php echo __d('pending_travel', 'Espera')?> ...');
             })
         <?php endif?>
     })
@@ -191,8 +185,6 @@ echo $this->Js->writeBuffer(array('inline' => false));
 <script type="text/javascript">
     $(document).ready(function() {
         $('input.locality-typeahead').typeahead({
-            //name: 'localities',
-            //header: '<b>Localidades</b>',
             valueKey: 'name',
             local: window.app.localities
         })/*.on('typeahead:selected', function(event, datum) {
@@ -202,30 +194,6 @@ echo $this->Js->writeBuffer(array('inline' => false));
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
     });
-    
-    /*var substringMatcher = function(strs) {
-        return function findMatches(q, cb) {
-            var matches, substringRegex;
-
-            // an array that will be populated with substring matches
-            matches = [];
-
-            // regex used to determine if a string contains the substring `q`
-            substrRegex = new RegExp(q, 'i');
-
-            // iterate through the pool of strings and for any string that
-            // contains the substring `q`, add it to the `matches` array
-            $.each(strs, function(i, str) {
-                if (substrRegex.test(str)) {
-                    // the typeahead jQuery plugin expects suggestions to a
-                    // JavaScript object, refer to typeahead docs for more info
-                    matches.push({ value: str });
-                }
-            });
-
-            cb(matches);
-        };
-    };*/
 
 </script>
 
@@ -236,9 +204,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
         while( element )
         {
             element = element.parentNode
-            if( element.tagName.toLowerCase() == "form" )
-            {
-                //alert( element ) //debug/test
+            if( element.tagName.toLowerCase() == "form" ) {
                 return element
             }
         }

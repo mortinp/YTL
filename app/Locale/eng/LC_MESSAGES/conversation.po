@@ -1,0 +1,24 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-15 22:21-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: View/Emails/html/response_driver2traveler.ctp:3
+msgid "Hola viajero. Este correo contiene la respuesta del chofer <b>#%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo SIN MODIFICAR EL ASUNTO</b>."
+msgstr "Hi traveler. This email contains the reply of the driver <b>#%s</b> from YoTeLlevo, notified with your travel <b>%s</b>. To send your answer <b>reply this email WITHOUT MODIFYING THE SUBJECT</b>."
+
+#: View/Emails/html/response_driver2traveler.ctp:5
+msgid "El chofer dice"
+msgstr "The driver says"
+

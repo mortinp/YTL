@@ -41,11 +41,10 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
 
 <?php if($intent === 'add' && $form_disabled):?>
     <div class="alert alert-warning">
-        <?php echo __('<b>Verifica tu cuenta de correo electrónico</b> para crear más anuncios de viajes. 
-        El formulario de viajes permanecerá desactivado hasta que verifiques tu cuenta')?>. 
+        <?php echo __('<b>Verifica tu cuenta de correo electrónico</b> para crear más anuncios de viajes. El formulario de viajes permanecerá desactivado hasta que verifiques tu cuenta')?>. 
         <div style="padding-top: 10px">
             <big><big><b><?php echo $this->Html->link('<i class="glyphicon glyphicon-ok"></i> '.__('Enviar correo de verificación'), array('controller'=>'users', 'action'=>'send_confirm_email'), array('escape'=>false))?></b></big></big>
-            <div><small>(<?php echo __('Enviaremos un correo a')?> <b><?php echo AuthComponent::user('username')?></b> <?php echo __('con las instrucciones')?>)</small></div>
+            <div><small>(<?php echo __('Enviaremos un correo a <b>%s</b> con las instrucciones', AuthComponent::user('username'))?>)</small></div>
         </div>        
     </div>
 <?php else:?>
@@ -57,11 +56,11 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             <?php
             echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
             echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Destino del Viaje'), 'required'=>true, 'value'=>$destination));
-            echo $this->Form->custom_date('date', array('label' => __('Cuándo'), 'dateFormat' => 'dd/mm/yyyy'));
+            echo $this->Form->custom_date('date', array('label' => __('Fecha del viaje'), 'dateFormat' => 'dd/mm/yyyy'));
             echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
             echo $this->Form->input('details', array('label' => __('Detalles del viaje'), 
                 'placeholder' => __('Cualquier detalle que quieras explicar')));
-            echo $this->Form->checkbox_group(Travel::$preferences, array('header'=>__('Preferencias')));
+            echo $this->Form->checkbox_group(Travel::getPreferences(), array('header'=>__('Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
 
             $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit');
@@ -73,12 +72,6 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         </fieldset>
         <?php echo $this->Form->end(); ?>
         </div>
-        <!--<?php if($intent == 'add'):?>
-            <br/>
-            <div class="alert alert-warning">
-                <?php echo __('La <b>Información de Contacto</b> es importante para que los choferes lleguen a tí. Asegúrate de que esta información sea correcta.')?>
-            </div>
-        <?php endif?>-->
     </div>
 <?php endif?>
 
@@ -140,46 +133,14 @@ echo $this->Js->writeBuffer(array('inline' => false));
 <script type="text/javascript">
     $(document).ready(function() {
         $('input.locality-typeahead').typeahead({
-            //name: 'localities',
-            //header: '<b>Localidades</b>',
             valueKey: 'name',
             local: window.app.localities
-        }).on('typeahead:selected', function(event, datum) {
-            /*if($(event.target).attr('id') == 'TravelOrigin') {
-                $('#TravelForm').find('#TravelOriginId').remove();
-                $('#TravelForm').append('<input type="hidden" id="TravelOriginId" name="data[Travel][origin_id]" value="' + datum.id + '">');
-            } else if($(event.target).attr('id') == 'TravelDestination') {
-                $('#TravelForm').find('#TravelDestinationId').remove();
-                $('#TravelForm').append('<input type="hidden" id="TravelDestinationId" name="data[Travel][destination_id]" value="' + datum.id + '">');
-            }*/
-        });
+        })/*.on('typeahead:selected', function(event, datum) {
+            
+        })*/;
         
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
     });
-    
-    /*var substringMatcher = function(strs) {
-        return function findMatches(q, cb) {
-            var matches, substringRegex;
-
-            // an array that will be populated with substring matches
-            matches = [];
-
-            // regex used to determine if a string contains the substring `q`
-            substrRegex = new RegExp(q, 'i');
-
-            // iterate through the pool of strings and for any string that
-            // contains the substring `q`, add it to the `matches` array
-            $.each(strs, function(i, str) {
-                if (substrRegex.test(str)) {
-                    // the typeahead jQuery plugin expects suggestions to a
-                    // JavaScript object, refer to typeahead docs for more info
-                    matches.push({ value: str });
-                }
-            });
-
-            cb(matches);
-        };
-    };*/
 
 </script>

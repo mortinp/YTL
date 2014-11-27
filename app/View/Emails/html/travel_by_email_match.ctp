@@ -1,4 +1,4 @@
-<h2>Hola Viajero</h2>
+<h2>Hola Viajero,</h2>
 <div>
     <p>
         Tu anuncio de viaje ha sido creado satisfactoriamente con los siguientes datos:

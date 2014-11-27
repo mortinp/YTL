@@ -20,12 +20,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
     <head>
+        <?php echo $this->Html->charset(); ?>
         <title><?php echo $title_for_layout; ?></title>
     </head>
     <body>
         <?php echo $this->fetch('content'); ?>
-        <div>
+        <!--<div>
             <p>Atentamente, el equipo de <a href="<?php echo $this->Html->url(array('controller'=>'pages', 'action'=>'home'), true)?>"><em>YoTeLlevo</em></a></p>
-        </div>
+        </div>-->
     </body>
 </html>

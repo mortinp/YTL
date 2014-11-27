@@ -1,0 +1,103 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-08 11:46-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/AppController.php:169
+msgid "Taxi con un chofer escogido por tí - A todas partes de la isla"
+msgstr "Taxi with a driver chosen by you - All around the island"
+
+#: Controller/AppController.php:169
+msgid "Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla."
+msgstr "Get a taxi to move around Cuba. Arrange the details of the travel directly with your driver via email and plan your transportation budget before you arrive in the island."
+
+#: Controller/AppController.php:173
+msgid "Contactar"
+msgstr "Contact"
+
+#: Controller/AppController.php:173
+msgid "Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo"
+msgstr "Contact us for any question or doubt about how to get a taxi to move around Cuba using YoTeLlevo"
+
+#: Controller/AppController.php:174
+msgid "Términos de Uso"
+msgstr "Use Terms"
+
+#: Controller/AppController.php:175
+msgid "¿Cómo usarlo?"
+msgstr "How to Use It"
+
+#: Controller/AppController.php:176
+msgid "Preguntas Frecuentes"
+msgstr "FAQ"
+
+#: Controller/AppController.php:176
+msgid "Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo"
+msgstr "Questions and answres about how to get a taxi to move around Cuba using YoTelLevo"
+
+#: Controller/AppController.php:177
+msgid "Consigue un taxi usando tu correo electrónico"
+msgstr "Get a taxi using your email"
+
+#: Controller/AppController.php:179
+msgid "Entrar"
+msgstr "Log in"
+
+#: Controller/AppController.php:179
+msgid "Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente"
+msgstr "Log in and get a taxi right away. Arrange the details of the travel with your driver"
+
+#: Controller/AppController.php:180
+msgid "Registrarse"
+msgstr "Sign up"
+
+#: Controller/AppController.php:180
+msgid "Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente"
+msgstr "Sign up and get a taxi right away. Arrange the details of the travel with your driver"
+
+#: Controller/AppController.php:182;195
+msgid "Crear Anuncio de Viaje"
+msgstr "Create a Travel Request"
+
+#: Controller/AppController.php:186
+msgid "Preferencias"
+msgstr "Preferences"
+
+#: Controller/AppController.php:188
+msgid "Cambiar Contraseña"
+msgstr "Change passoword"
+
+#: Controller/AppController.php:189
+msgid "Confirmación de Correo"
+msgstr "Confirm email account"
+
+#: Controller/AppController.php:190
+msgid "Contraseña Olvidada"
+msgstr "Forgot Password"
+
+#: Controller/AppController.php:191
+msgid "Instrucciones para Cambio de Contraseña"
+msgstr "Paswword change instructions"
+
+#: Controller/AppController.php:192
+msgid "Instrucciones para Verificación de Correo"
+msgstr "Email account verifications instructions"
+
+#: Controller/AppController.php:194
+msgid "Anuncios de Viajes"
+msgstr "Travel Requests"
+
+#: Controller/AppController.php:196
+msgid "Ver Anuncio de Viaje"
+msgstr "View Travel Request"

@@ -5,7 +5,7 @@ App::uses('CakeEmail', 'Network/Email');
 
 class UsersController extends AppController {
     
-    public $uses = array('User', /*'PendingUser',*/ 'UserInteraction');
+    public $uses = array('User', 'UserInteraction');
     
     public $components = array('TravelLogic');
 
@@ -43,6 +43,13 @@ class UsersController extends AppController {
     private function do_login() {
         if ($this->Auth->login()) {
             $this->_setCookie($this->Auth->user('id'));
+            
+            $lang = Configure::read('Config.language');
+            if($lang != null) {
+                $this->User->id = AuthComponent::user('id');
+                $this->User->saveField('lang', $lang);
+            }
+            
             return true;
         }
         return false;
@@ -55,8 +62,7 @@ class UsersController extends AppController {
     public function register() {
         if ($this->request->is('post')) {
             if($this->User->loginExists($this->request->data['User']['username'])) {
-                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o').' '. 
-                    '<a href="'.Router::url(array('action'=>'login')).'">'.__('entra con tu cuenta').'</a>.');// TODO: esta direccion estatica es un hack
+                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o <a href="%s">entra con tu cuenta</a>', Router::url(array('action'=>'login'))));// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
 
@@ -83,8 +89,7 @@ class UsersController extends AppController {
     public function register_and_create($pendingTravelId) {
         if ($this->request->is('post')) {
             if($this->User->loginExists($this->request->data['User']['username'])) {
-                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o').' '. 
-                    '<a href="'.Router::url(array('action'=>'login')).'">'.__('entra con tu cuenta').'</a>.');// TODO: esta direccion estatica es un hack
+                $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o <a href="%s">entra con tu cuenta</a>', Router::url(array('action'=>'login'))));// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
 
@@ -165,7 +170,7 @@ class UsersController extends AppController {
     public function view($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException('Invalid user');
         }
         $this->set('user', $this->User->read(null, $id));
     }
@@ -177,10 +182,10 @@ class UsersController extends AppController {
             $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
             $this->request->data['User']['register_type'] = 'add_user_form';
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved'));
+                $this->Session->setFlash('The user has been saved');
                 return $this->redirect(array('controller'=>'travels','action' => 'index'));
             }
-            $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+            $this->Session->setFlash('The user could not be saved. Please, try again.');
         }
     }
 
@@ -191,10 +196,10 @@ class UsersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved'));
+                $this->Session->setFlash('The user has been saved');
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+            $this->Session->setFlash('The user could not be saved. Please, try again.');
         } else {
             $this->request->data = $this->User->read(null, $id);
             unset($this->request->data['User']['password']);
@@ -207,13 +212,13 @@ class UsersController extends AppController {
         }
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException('Invalid user');
         }
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('User deleted'));
+            $this->Session->setFlash('User deleted');
             return $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('User was not deleted'));
+        $this->Session->setFlash('User was not deleted');
         return $this->redirect(array('action' => 'index'));
     }
     
@@ -299,18 +304,6 @@ class UsersController extends AppController {
         }
         
         if($OK) {
-            
-            /*$Email = new CakeEmail('no_responder');
-            $Email->template($emailTemplate)
-            ->viewVars(array('confirmation_code' => $code))
-            ->emailFormat('html')
-            ->to($user['username'])
-            ->subject('Verificación de cuenta');
-            try {
-                $Email->send();
-            } catch ( Exception $e ) {
-                $OK = false;
-            }*/
             if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $user['username'], 
@@ -318,8 +311,9 @@ class UsersController extends AppController {
                         array(
                             'template'=>$emailTemplate,
                             'format'=>'html',
-                            'subject'=>'Verificación de cuenta',
-                            'config'=>'no_responder'));
+                            'subject'=>__d('user_email', 'Confirma tu cuenta'),
+                            'config'=>'no_responder',
+                            'lang'=>  Configure::read('Config.language')));
             } else {
                 $Email->template($emailTemplate)
                     ->viewVars(array('confirmation_code' => $code))

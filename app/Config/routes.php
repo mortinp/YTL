@@ -32,7 +32,11 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         
+        
+        
+        /*MARTIN*/
         //Router::connect('/email_queues/*', array('plugin'=>'EmailQueue', 'controller' => 'email_queues'));
+        Router::connect('/lang/*', array('controller' => 'lang', 'action' => 'setlang'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

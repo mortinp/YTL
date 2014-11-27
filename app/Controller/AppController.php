@@ -98,19 +98,26 @@ class AppController extends Controller {
         );        
         
         // Allow all static pages
-        $this->Auth->allow('display');
+        $this->Auth->allow('display', 'setlang');
         
-        Configure::write('Config.language', 'es');
+        
+        $lang = $this->Cookie->read('app.lang');
+        if($lang != null ) $this->Session->write('app.lang', $lang);
+        else $this->Session->write('app.lang', Configure::read('default_language'));
+        
+        Configure::write('Config.language', $this->Session->read('app.lang'));
         
         $this->setPageTitle();
     }
     
     private function setPageTitle() {
-        $page_title = __('Consigue un taxi para ir a cualquier parte de la isla');
-        $page_description = __('Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.');
-        $key = $this->request->params['controller'].'.'.$this->request->params['action'];        
+        $defaultTitle = $this->_getPageTitle('default');        
+        $page_title = $defaultTitle['title'];
+        $page_description = $defaultTitle['description'];
         
+        $key = $this->request->params['controller'].'.'.$this->request->params['action']; 
         $partialTitle = $this->_getPageTitle($key);
+        
         if($partialTitle != null) {
             if($this->request->params['controller'] === 'pages') {
                 if(isset($partialTitle[$this->request->params['pass'][0]])) {
@@ -160,40 +167,42 @@ class AppController extends Controller {
     
     private function _getPageTitle($key) {
         $pageTitles = array(
+            'default' =>array('title'=>__d('meta', 'Taxi con un chofer escogido por tí - A todas partes de la isla'/*'Consigue un taxi para ir a cualquier parte de la isla'*/), 'description'=>__d('meta', 'Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.')),
+            
             // Unrestricted access
             'pages.display' =>array(
-                'contact'=>array('title'=>__('Contactar'), 'description'=>__('Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
-                'use_terms'=>array('title'=>__('Términos de Uso')), 
-                'tour'=>array('title'=>__('¿Cómo usarlo?')),
-                'faq'=>array('title'=>__('Preguntas Frecuentes'), 'description'=>__('Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
-                'by_email'=>array('title'=>__('Consigue un taxi usando tu correo electrónico'))),
+                'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
+                'use_terms'=>array('title'=>__d('meta', 'Términos de Uso')), 
+                'tour'=>array('title'=>__d('meta', '¿Cómo usarlo?')),
+                'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
+                'by_email'=>array('title'=>__d('meta', 'Consigue un taxi usando tu correo electrónico'))),
 
-            'users.login' =>array('title'=>__('Entrar'), 'description'=>__('Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
-            'users.register' =>array('title'=>__('Registrarse'), 'description'=>__('Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
+            'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
+            'users.register' =>array('title'=>__d('meta', 'Registrarse'), 'description'=>__d('meta', 'Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             
-            'travels.add_pending' =>array('title'=>__('Crear Anuncio de Viaje')/*, 'description'=>__('Crea un Anuncio de Viaje y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')*/),
+            'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')/*, 'description'=>__d('meta', 'Crea un Anuncio de Viaje y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')*/),
                 
             
             // Users access
-            'users.profile' =>array('title'=>__('Preferencias')),
+            'users.profile' =>array('title'=>__d('meta', 'Preferencias')),
             
-            'users.change_password' =>array('title'=>__('Cambiar Contraseña')),
-            'users.confirm_email' =>array('title'=>__('Confirmación de Correo')),
-            'users.forgot_password' =>array('title'=>__('Contraseña Olvidada')),
-            'users.send_change_password' =>array('title'=>__('Instrucciones para Cambio de Contraseña')),
-            'users.send_confirm_email' =>array('title'=>__('Instrucciones para Verificación de Correo')),
+            'users.change_password' =>array('title'=>__d('meta', 'Cambiar Contraseña')),
+            'users.confirm_email' =>array('title'=>__d('meta', 'Confirmación de Correo')),
+            'users.forgot_password' =>array('title'=>__d('meta', 'Contraseña Olvidada')),
+            'users.send_change_password' =>array('title'=>__d('meta', 'Instrucciones para Cambio de Contraseña')),
+            'users.send_confirm_email' =>array('title'=>__d('meta', 'Instrucciones para Verificación de Correo')),
             
-            'travels.index' =>array('title'=>__('Anuncios de Viajes')),
-            'travels.add' =>array('title'=>__('Crear Anuncio de Viaje')),
-            'travels.view' =>array('title'=>__('Ver Anuncio de Viaje')),           
+            'travels.index' =>array('title'=>__d('meta', 'Anuncios de Viajes')),
+            'travels.add' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
+            'travels.view' =>array('title'=>__d('meta', 'Ver Anuncio de Viaje')),           
             
             
             // Admins access
-            'users.index' =>array('title'=>__('Usuarios')),
-            'users.add' =>array('title'=>__('Crear Nuevo Usuario')),           
+            'users.index' =>array('title'=>'Usuarios'),
+            'users.add' =>array('title'=>'Crear Nuevo Usuario'),           
 
-            'drivers.index' =>array('title'=>__('Choferes')),
-            'drivers.add' =>array('title'=>__('Crear Nuevo Chofer')),
+            'drivers.index' =>array('title'=>'Choferes'),
+            'drivers.add' =>array('title'=>'Crear Nuevo Chofer'),
         );
         
         if(isset ($pageTitles[$key])) return $pageTitles[$key];

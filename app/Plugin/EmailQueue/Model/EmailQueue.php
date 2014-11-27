@@ -54,10 +54,12 @@ class EmailQueue extends AppModel {
             'template_vars' => $data,
             'config' => 'default',
             'attachments' => array(),
-            'savepath' => './tmp/files/'
+            'savepath' => './tmp/files/',
+            'lang' => 'es'
         );
 
-        $email = array('EmailQueue'=>$options + $defaults);
+        $email = array('EmailQueue'=>$options + $defaults);        
+        
         if (!is_array($to)) {
             $to = array($to);
         }
@@ -236,6 +238,18 @@ class EmailQueue extends AppModel {
     }
     
     private function decode($what) {
+        return utf8_decode(mb_convert_encoding($what, "UTF-8", "HTML-ENTITIES"));
+    }*/
+    
+    /*private function encode(array &$what) {
+        foreach ($what as &$w) {
+            if(!is_array($w) && is_string($w)) $w = mb_convert_encoding(utf8_encode($w), "HTML-ENTITIES", "UTF-8");
+            else if(is_array($w))$this->encode($w);
+        }
+        return $what;
+    }
+    
+    private function decode($what) {
         return $what;
     }*/
     
@@ -252,15 +266,4 @@ class EmailQueue extends AppModel {
         return mb_convert_encoding($what, "HTML-ENTITIES", "UTF-8");
     }*/
     
-    /*private function encode(array &$what) {
-        foreach ($what as &$w) {
-            if(!is_array($w) && is_string($w)) $w = mb_convert_encoding(utf8_encode($w), "HTML-ENTITIES", "UTF-8");
-            else if(is_array($w))$this->encode($w);
-        }
-        return $what;
-    }
-    
-    private function decode($what) {
-        return utf8_decode(mb_convert_encoding($what, "UTF-8", "HTML-ENTITIES"));
-    }*/
 }

@@ -185,7 +185,7 @@ class TravelsController extends AppController {
                     $this->setErrorMessage(__('Ocurrió un error eliminando el viaje. Intenta de nuevo.'));
                 }
             } else {
-                $this->setErrorMessage(__('Este viaje no se puede eliminar porque ya está confirmado.'));
+                $this->setErrorMessage(__('Este viaje no se puede eliminar porque ya está confirmado. Dile a tu chofer que deseas cancelar.'));
             }            
         } else {
             $this->setErrorMessage(__('Este viaje no existe.'));
@@ -231,7 +231,7 @@ class TravelsController extends AppController {
             } else {
                 CakeLog::write('travels_failed', 'Travel Failed (add_pending) - Unknown origin and destination: '.$this->request->data['PendingTravel']['origin'].' - '.$this->request->data['PendingTravel']['destination']);
                 $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
-                $this->redirect($this->referer());
+                $this->redirect($this->referer().'#FormContainer');
             }
         }
         

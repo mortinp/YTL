@@ -89,4 +89,32 @@ class EmailConfig {
         'log' => false,
         //'charset' => 'utf-8',
     );
+    
+    
+    
+    public $chofer = array(
+        'transport' => 'Smtp',
+        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Chofer-Local'),
+        'host' => 'data',
+        'port' => 25, 
+        'timeout' => 30,
+        //'username' => '',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );
+    
+    public $viajero = array(
+        'transport' => 'Smtp',
+        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Viajero-Local'),
+        'host' => 'data',
+        'port' => 25, 
+        'timeout' => 30,
+        //'username' => '',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );
 }

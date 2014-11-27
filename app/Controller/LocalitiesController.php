@@ -18,10 +18,10 @@ class LocalitiesController extends AppController {
                 Cache::delete('localities');
                 Cache::delete('localities_suggestion');
                 
-                $this->setInfoMessage(__('La localidad se guardó exitosamente.'));
+                $this->setInfoMessage('La localidad se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));                
             }
-            $this->setErrorMessage(__('Ocurrió un error guardando la localidad.'));
+            $this->setErrorMessage('Ocurrió un error guardando la localidad.');
         }
         $this->set('provinces', $this->Province->find('list'));
     }
@@ -29,7 +29,7 @@ class LocalitiesController extends AppController {
     public function edit($id = null) {
         $this->Locality->id = $id;
         if (!$this->Locality->exists()) {
-            throw new NotFoundException(__('Localidad inválida.'));
+            throw new NotFoundException('Localidad inválida.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -50,7 +50,7 @@ class LocalitiesController extends AppController {
     public function remove($id = null) {
         $this->Locality->id = $id;
         if (!$this->Locality->exists()) {
-            throw new NotFoundException(__('Localidad inválida'));
+            throw new NotFoundException('Localidad inválida');
         }
         
         $datasource = $this->Locality->getDataSource();
@@ -64,7 +64,7 @@ class LocalitiesController extends AppController {
             $this->setInfoMessage('La localidad se eliminó exitosamente.');
         } else {
             $datasource->rollback();
-            $this->setErrorMessage(__('Ocurió un error eliminando la localidad'));
+            $this->setErrorMessage('Ocurió un error eliminando la localidad');
         }    
         return $this->redirect(array('action' => 'index'));
     }

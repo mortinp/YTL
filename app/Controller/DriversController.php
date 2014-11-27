@@ -9,7 +9,9 @@ class DriversController extends AppController {
     
     public function index() {
         $this->Driver->recursive = 1;
-        $this->set('drivers', $this->paginate());
+        //$this->set('drivers', $this->paginate());
+        $this->set('drivers', $this->Driver->find('all'));
+        
     }
     
     public function view_travels($driverId) {
@@ -37,10 +39,10 @@ class DriversController extends AppController {
             
             $this->request->data['Driver']['role'] = 'driver';
             if ($this->Driver->saveAssociated($this->request->data)) {
-                $this->setInfoMessage(__('El chofer se guardó exitosamente.'));
+                $this->setInfoMessage('El chofer se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));                
             }
-            $this->setErrorMessage(__('Ocurrió un error guardando el chofer.'));
+            $this->setErrorMessage('Ocurrió un error guardando el chofer.');
         }
         $this->set('localities', $this->Driver->Locality->getAsList());
     }
@@ -48,7 +50,7 @@ class DriversController extends AppController {
     public function edit($id = null) {
         $this->Driver->id = $id;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException(__('Chofer inválido.'));
+            throw new NotFoundException('Chofer inválido.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -70,7 +72,7 @@ class DriversController extends AppController {
     public function remove($id = null) {
         $this->Driver->id = $id;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException('Invalid driver');
         }
         if ($this->Driver->delete()) {
             $this->setInfoMessage('El chofer se eliminó exitosamente.');

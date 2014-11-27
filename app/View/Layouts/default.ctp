@@ -23,8 +23,23 @@ if($isLoggedIn) {
 <html>
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <title><?php echo "YoTeLlevo - Cuba | ".$page_title ?></title>
+        <title><?php echo "YoTeLlevo Cuba | ".$page_title ?></title>
         <meta name="description" content="<?php echo $page_description?>"/>
+        
+        <style type="text/css">
+            
+            #navbar #nav a.nav-link{
+                /*color:white;*/
+                font-family:'Montserrat', sans-serif;
+                font-size:13px;
+                /*margin-top:4px;*/
+                text-transform:uppercase
+            }
+            #navbar #nav a.nav-link:hover,#navbar #nav a.nav-link:focus{
+                background-color:transparent;
+                text-decoration:none
+            }
+        </style>
         
         <?php
         // META
@@ -58,9 +73,10 @@ if($isLoggedIn) {
     </head>
     <body>
         <div id="container">
-            <nav id="app-navbar" class="navbar navbar-default" role="navigation">
+            <div id="navbar" class="navbar navbar-default" role="navigation">
+                <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="container-fluid">
+                <!--<div class="container-fluid">-->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#app-navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -68,7 +84,17 @@ if($isLoggedIn) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <div class="navbar-brand"><i class="glyphicon glyphicon-road"></i> <big>Yo</big>Te<big>Llevo</big></div>
+                        <a class="navbar-brand" href="#!">
+                            <big>Yo</big>Te<big>Llevo</big>
+                        </a>
+                        <div class="pull-left navbar-brand">
+                            <?php $lang = SessionComponent::read('app.lang');?>
+                            <?php if($lang != null && $lang == 'en'):?>
+                                <?php echo $this->Html->link($this->Html->image('Spain.png')/*.' Español'*/, array('controller' => 'lang', 'action' => 'setlang', 'es'), array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false, 'style'=>'text-decoration:none')) ?>
+                            <?php else:?>
+                                <?php echo $this->Html->link($this->Html->image('UK.png')/*.' English'*/, array('controller' => 'lang', 'action' => 'setlang', 'en'), array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false, 'style'=>'text-decoration:none')) ?>
+                            <?php endif;?>
+                        </div>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -76,14 +102,14 @@ if($isLoggedIn) {
                             <?php if ($isLoggedIn) :?>
                             
                                 <?php if($role === 'regular' || $role === 'admin' || $role === 'tester') :?>
-                                    <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('escape'=>false));?></li>
+                                    <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
                                     <li class="divider-vertical"></li>
-                                    <li><?php echo $this->Html->link('<span class="text-info"><b>'.__('Anunciar Viaje').'</b></span>', array('controller' => 'travels', 'action' => 'add'), array('escape'=>false));?></li> 
+                                    <li><?php echo $this->Html->link(__('Anunciar Viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     
                                     <?php if($role === 'admin') :?>
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
-                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
                                             Administrar
                                             <b class="caret"></b>
                                         </a>
@@ -111,9 +137,10 @@ if($isLoggedIn) {
                                             <li class="dropdown-submenu">
                                                 <a tabindex="-1" href="#">Logs</a>
                                                 <ul class="dropdown-menu">
+                                                    <li><?php echo $this->Html->link('Raw Emails', array('controller' => 'admins', 'action' => 'view_log/emails_raw')) ?></li>
                                                     <li><?php echo $this->Html->link('Info Requerida', array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>                                                    
+                                                    <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="divider"></li>
@@ -129,14 +156,14 @@ if($isLoggedIn) {
                                 <?php endif;?>
                                     
                             <?php else: ?>
-                                <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('escape'=>false));?></li>
+                                <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?></li>
                             <?php endif;?>            
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
                             <?php if ($isLoggedIn): ?>
                                 <li class="dropdown">
-                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
                                         <?php echo $pretty_user_name;?>
                                         <b class="caret"></b>
                                     </a>
@@ -148,17 +175,18 @@ if($isLoggedIn) {
                                 </li>
                             <?php else: ?>
                                 <li>
-                                    <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login')) ?>
+                                    <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link')) ?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register')) ?>
+                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link')) ?>
                                 </li>
                             <?php endif ?>
 
                         </ul>
                     </div><!-- /.navbar-collapse -->
-                </div>
-            </nav>
+                <!--</div>-->
+                </nav>
+            </div>
             
             
             <?php echo $this->Session->flash('auth'); ?>
@@ -195,12 +223,14 @@ if($isLoggedIn) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
-                            <p class="text-muted" style="margin: 20px 0;">
-                                <?php echo __('Creado por')?> <a href="http://ksabes.com">Casabe&trade;</a>
+                            <p class="text-muted pull-left" style="margin: 20px 0;">
+                                &copy; 2014 YoTeLlevo
                             </p>
                         </div>
                         <div class="col-md-6" style="text-align: center">
                             <p class="text-muted" style="margin: 20px 0;">
+                                <a href="<?php echo $this->Html->url(array('controller'=>'', 'action'=>'blog'), true).'/'.Configure::read('Config.language').'/' ?>">Blog</a>
+                                |
                                <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                                 |
                                <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>

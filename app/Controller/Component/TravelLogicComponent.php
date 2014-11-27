@@ -25,12 +25,33 @@ class TravelLogicComponent extends Component {
             
             if(User::isRegular($travel['User'])) $drivers_conditions['Driver.role'] = 'driver';
             else $drivers_conditions['Driver.role'] = 'driver_tester';
+            
+            // Verify English skills
+            $english = false;
+            $lang = Configure::read('Config.language');
+            if($lang != null && $lang == 'en') {
+                $drivers_conditions['Driver.speaks_english'] = true;
+                $english = true;
+            }
 
             $inflectedTravelType = Inflector::underscore($modelType);
             $drivers = $this->DriverLocality->find('all', array(
                 'conditions'=>$drivers_conditions, 
                 'order'=>'Driver.'.'last_notification_date ASC, Driver.'.$inflectedTravelType.'_count'.' ASC',
                 'limit'=>3));
+            
+            
+            // English
+            if($english && count($drivers) < 3) {
+                $drivers_conditions['Driver.speaks_english'] = false;
+                
+                $driversSp = $this->DriverLocality->find('all', array(
+                    'conditions'=>$drivers_conditions, 
+                    'order'=>'Driver.'.'last_notification_date ASC, Driver.'.$inflectedTravelType.'_count'.' ASC',
+                    'limit'=>3 - count($drivers)));
+                
+                $drivers = array_merge($drivers, $driversSp);
+            }
             
             if (count($drivers) > 0) {
                 $travel[$modelType]['state'] = Travel::$STATE_CONFIRMED;
@@ -72,7 +93,7 @@ class TravelLogicComponent extends Component {
                     if($OK) {
 
                         $conversation = $this->DriverTravel->getLastInsertID();
-                        $subject = 'Nuevo Anuncio de Viaje [['.$conversation/*$travel[$modelType]['id'].' '.$this->Travel->travelType*/.']]';
+                        $subject = __d('user_email', 'Nuevo Anuncio de Viaje').' [['.$conversation/*$travel[$modelType]['id'].' '.$this->Travel->travelType*/.']]';
                         
                         if(Configure::read('enqueue_mail')) {
                             ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
@@ -112,7 +133,7 @@ class TravelLogicComponent extends Component {
                 $subject = 'Nuevo Anuncio de Viaje ('.$travel[$modelType]['id'].' '.$this->Travel->travelType.')';
                 if(Configure::read('enqueue_mail')) {
                     ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            'mproenza@grm.desoft.cu',
+                            Configure::read('superadmin_email')/*'mproenza@grm.desoft.cu'*/,
                             array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']), 
                             array(
                                 'template'=>'new_'.$inflectedTravelType,

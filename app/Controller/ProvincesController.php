@@ -16,17 +16,17 @@ class ProvincesController extends AppController {
                 Cache::delete('localities');
                 Cache::delete('localities_suggestion');
                 
-                $this->setInfoMessage(__('La provincia se guardó exitosamente.'));
+                $this->setInfoMessage('La provincia se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));                
             }
-            $this->setErrorMessage(__('Ocurrió un error guardando la provincia.'));
+            $this->setErrorMessage('Ocurrió un error guardando la provincia.');
         }
     }
 
     public function edit($id = null) {
         $this->Province->id = $id;
         if (!$this->Province->exists()) {
-            throw new NotFoundException(__('Provincia inválida.'));
+            throw new NotFoundException('Provincia inválida.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -46,7 +46,7 @@ class ProvincesController extends AppController {
     public function remove($id = null) {
         $this->Province->id = $id;
         if (!$this->Province->exists()) {
-            throw new NotFoundException(__('Provincia inválida'));
+            throw new NotFoundException('Provincia inválida');
         }
         if ($this->Province->delete()) {
             Cache::delete('localities');
@@ -54,7 +54,7 @@ class ProvincesController extends AppController {
             
             $this->setInfoMessage('La provincia se eliminó exitosamente.');
         } else {
-            $this->setErrorMessage(__('Ocurió un error eliminando la provincia'));
+            $this->setErrorMessage('Ocurió un error eliminando la provincia');
         }    
         return $this->redirect(array('action' => 'index'));
     }

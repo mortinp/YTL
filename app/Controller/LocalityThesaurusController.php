@@ -8,7 +8,8 @@ class LocalityThesaurusController extends AppController {
     
     public function index() {
         $this->LocalityThesaurus->recursive = 0;
-        $this->set('thesaurus', $this->paginate());
+        //$this->set('thesaurus', $this->paginate());
+        $this->set('thesaurus', $this->LocalityThesaurus->find('all'));
     }
 
     public function add() {
@@ -18,10 +19,10 @@ class LocalityThesaurusController extends AppController {
                 //Cache::delete('localities');
                 Cache::delete('localities_suggestion');
                 
-                $this->setInfoMessage(__('La entrada se guardó exitosamente.'));
+                $this->setInfoMessage('El término se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));                
             }
-            $this->setErrorMessage(__('Ocurrió un error guardando la entrada.'));
+            $this->setErrorMessage('Ocurrió un error guardando el término.');
         }
         $this->set('localities', $this->Locality->getAsList());
     }
@@ -29,7 +30,7 @@ class LocalityThesaurusController extends AppController {
     public function edit($id = null) {
         $this->LocalityThesaurus->id = $id;
         if (!$this->LocalityThesaurus->exists()) {
-            throw new NotFoundException(__('Entrada inválida.'));
+            throw new NotFoundException('Término inválido.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -37,10 +38,10 @@ class LocalityThesaurusController extends AppController {
                 //Cache::delete('localities');
                 Cache::delete('localities_suggestion');
                 
-                $this->setInfoMessage('La entrada se guardó exitosamente.');
+                $this->setInfoMessage('El término se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->setErrorMessage('Ocurrió un error salvando la entrada');
+            $this->setErrorMessage('Ocurrió un error salvando el térnmino');
         } else {
             $this->set('localities', $this->Locality->getAsList());
             $this->request->data = $this->LocalityThesaurus->read(null, $id);
@@ -50,15 +51,15 @@ class LocalityThesaurusController extends AppController {
     public function remove($id = null) {
         $this->LocalityThesaurus->id = $id;
         if (!$this->LocalityThesaurus->exists()) {
-            throw new NotFoundException(__('Entrada inválida'));
+            throw new NotFoundException('Térnmino inválido');
         }
         if ($this->LocalityThesaurus->delete()) {
             //Cache::delete('localities');
             Cache::delete('localities_suggestion');
             
-            $this->setInfoMessage('La entrada se eliminó exitosamente.');
+            $this->setInfoMessage('El térnmino se eliminó exitosamente.');
         } else {
-            $this->setErrorMessage(__('Ocurió un error eliminando la entrada'));
+            $this->setErrorMessage('Ocurió un error eliminando el térnmino');
         }    
         return $this->redirect(array('action' => 'index'));
     }

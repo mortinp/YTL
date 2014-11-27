@@ -10,8 +10,10 @@ if (!isset($actions)) $actions = true;
 $months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
 $days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
 
-$pretty_people_count = $travel['PendingTravel']['people_count'].' '.__('persona');
-if($travel['PendingTravel']['people_count'] > 1) $pretty_people_count .='s';
+$personW = __('persona');
+$pretty_people_count = $travel['PendingTravel']['people_count'].' ';
+if($travel['PendingTravel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
+else $pretty_people_count .= $personW;
 
 $date_converted = strtotime($travel['PendingTravel']['date']);
 $day = date('j', $date_converted);
@@ -19,12 +21,11 @@ $month = $months_es[date('n', $date_converted) - 1];
 $day_of_week = $days_es[date('w', $date_converted)];
 $year = date('Y', $date_converted);
 $pretty_date = $day.' '.$month.', '.$year.' ('.$day_of_week.')';
-//$pretty_date = date('j F, Y (l)', strtotime($travel['PendingTravel']['date']));
 
 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
 
 $hasPreferences = false;
-foreach (Travel::$preferences as $key => $value) {
+foreach (Travel::getPreferences() as $key => $value) {
     if($travel['PendingTravel'][$key]) {
        $hasPreferences = true;
        break;
@@ -35,15 +36,13 @@ foreach (Travel::$preferences as $key => $value) {
 <?php
     $notice = array();
     if($expired) {
-        $notice['color'] = Travel::$STATE['E']['color'];
-        $notice['label'] = Travel::$STATE['E']['label'];
+        $notice['color'] = Travel::getStateSettings('E', 'color');
+        $notice['label'] = Travel::getStateSettings('E', 'label');
     } else {
-        $notice['color'] = Travel::$STATE[$travel['PendingTravel']['state']]['color'];
-        $notice['label'] = Travel::$STATE[$travel['PendingTravel']['state']]['label'];
+        $notice['color'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'color');//Travel::$STATE[$travel['PendingTravel']['state']]['color'];
+        $notice['label'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'label');//Travel::$STATE[$travel['PendingTravel']['state']]['label'];
     }
 ?>
-
-<!--<?php if($expired) echo '<s>'?>-->
 
 <legend>
    
@@ -57,19 +56,19 @@ foreach (Travel::$preferences as $key => $value) {
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
 </legend>
     
-<p><b><?php echo __('Día del viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
+<p><b><?php echo __d('pending_travel', 'Fecha del Viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
 
-<p><b><?php echo __('Tu correo electrónico')?>:</b> <span id='travel-email-label'><?php echo $travel['PendingTravel']['email']?></span> <span class="text-danger"><small>(<?php echo __('Te comunicarás con los choferes usando este correo')?>)</small></span></p>
+<p><b><?php echo __d('pending_travel', 'Tu correo electrónico')?>:</b> <span id='travel-email-label'><?php echo $travel['PendingTravel']['email']?></span></p>
 
-<p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo $travel['PendingTravel']['details']?></span></p>
+<p><b><?php echo __d('pending_travel', 'Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo $travel['PendingTravel']['details']?></span></p>
 
 <div id="preferences-place">
 <?php if($hasPreferences):?>
-    <p><b><?php echo __('Preferencias')?>:</b>
+    <p><b><?php echo __d('pending_travel', 'Preferencias')?>:</b>
         <span id='travel-preferences-label'>
         <?php
             $sep = '';
-            foreach (Travel::$preferences as $key => $value) {
+            foreach (Travel::getPreferences() as $key => $value) {
                 if($travel['PendingTravel'][$key]) {
                     echo $sep.$value;
                     $sep = ', ';
@@ -93,7 +92,9 @@ foreach (Travel::$preferences as $key => $value) {
         </li>
         <?php endif?>
         
-    <?php if(!Travel::isConfirmed($travel['PendingTravel']['state'])):?>
+    
+        <!--ADMIN ONLY-->
+        <?php if(!Travel::isConfirmed($travel['PendingTravel']['state'])):?>
         
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
@@ -121,5 +122,3 @@ foreach (Travel::$preferences as $key => $value) {
         
     </ul>
 <?php endif?>
-
-<!--<?php if($expired) echo '</s>'?>-->

@@ -1,0 +1,125 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 10:02-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: View/Elements/pending_travel.ctp:59
+#: View/Elements/pending_travel_form.ctp:76;96
+#: View/Travels/view_pending.ctp:96;97
+msgid "Tu correo electrónico"
+msgstr "Your email"
+
+#: View/Elements/pending_travel.ctp:61
+#: View/Elements/pending_travel_form.ctp:77;98
+msgid "Detalles del viaje"
+msgstr "Travel Details"
+
+#: View/Elements/pending_travel.ctp:65
+#: View/Elements/pending_travel_form.ctp:79;103
+msgid "Preferencias"
+msgstr "Preferences"
+
+#: View/Elements/pending_travel_form.ctp:29
+msgid "Salvar Datos"
+msgstr "Save Data"
+
+#: View/Elements/pending_travel_form.ctp:35
+msgid "Crear Anuncio"
+msgstr "Create Request"
+
+#: View/Elements/pending_travel_form.ctp:44
+msgid "Pónme en contacto ahora <div style='font-size:12pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes. Escoge uno para tu viaje.</div>"
+msgstr "Arrange travel now <div style='font-size:12pt;padding-left:50px;padding-right:50px'>Connect with <big>3</big> drivers. Choose one for your travel.</div>"
+
+#: View/Elements/pending_travel_form.ctp:71;89
+msgid "Origen del Viaje"
+msgstr "Travel Origin"
+
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "Destino del Viaje"
+msgstr "Travel Destination"
+
+#: View/Elements/pending_travel.ctp:57
+#: View/Elements/pending_travel_form.ctp:74;91
+msgid "Fecha del Viaje"
+msgstr "Travel Date"
+
+#: View/Elements/pending_travel_form.ctp:75;92
+msgid "Personas que viajan <small class=\"text-info\">(máximo número de personas)</small>"
+msgstr "People traveling <small class=\"text-info\">(maximum number of people)</small>"
+
+#: View/Elements/pending_travel_form.ctp:76;96
+msgid "Los choferes te contactarán a este correo"
+msgstr "Drivers will contact you at this email"
+
+#: View/Elements/pending_travel_form.ctp:78;99
+msgid "Cualquier detalle que quieras explicar"
+msgstr "Any details you'd like to explain"
+
+#: View/Elements/pending_travel_form.ctp:107
+msgid "Auto Moderno"
+msgstr "Modern Car"
+
+#: View/Elements/pending_travel_form.ctp:111
+msgid "Aire Acondicionado"
+msgstr "Air Conditioner"
+
+#: View/Elements/pending_travel_form.ctp:179
+msgid "Espera"
+msgstr "Wait"
+
+#: View/Travels/view_pending.ctp:71
+msgid "El siguiente viaje está"
+msgstr "The following travel is"
+
+#: View/Travels/view_pending.ctp:77
+msgid "Editar este Viaje"
+msgstr "Edit this travel"
+
+#: View/Travels/view_pending.ctp:80
+msgid "Edita los datos de este viaje antes de confirmarlo"
+msgstr "Edit this travel before confirmation"
+
+#: View/Travels/view_pending.ctp:80
+msgid "no editar este viaje"
+msgstr "cancel editing"
+
+#: View/Travels/view_pending.ctp:90
+msgid "Un gran viaje hasta <em>%s</em> está esperando por tí"
+msgstr "An amazing travel to <em>%s</em> is awaiting for you"
+
+#: View/Travels/view_pending.ctp:90
+msgid "Regístrate para confirmar este viaje"
+msgstr "Sign up to confirm this travel"
+
+#: View/Travels/view_pending.ctp:98
+msgid "Crea una contraseña para tu cuenta"
+msgstr "Create a password for your account"
+
+#: View/Travels/view_pending.ctp:98
+msgid "Escribe la contraseña que usarás para YoTeLlevo"
+msgstr "Type the password you'll use for YoTeLlevo"
+
+#: View/Travels/view_pending.ctp:99
+msgid "Recordarme"
+msgstr "Remember me"
+
+#: View/Travels/view_pending.ctp:100
+msgid "Registrarme y Confirmar este Anuncio de Viaje <div style='font-size:11pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes ahora</div>"
+msgstr "Sign up and Confirm this Travel Request <div style='font-size:11pt;padding-left:50px;padding-right:50px'>Contact with <big>3</big> drivers right now</div>"
+
+
+#: View/Travels/view_pending.ctp:100
+msgid "Podrás gestionar tus viajes en cualquier momento usando este usuario y contraseña"
+msgstr "You'll be able to manage your travels anytime using this user and password"

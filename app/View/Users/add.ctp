@@ -8,7 +8,7 @@
         echo $this->Form->input('role', array(
             'options' => array('regular' => 'Regular', 'admin' => 'Admin', 'tester'=>'Tester')
         ));
-        echo $this->Form->submit(Salvar);
+        echo $this->Form->submit('Salvar');
         ?>
     </fieldset>
 <?php echo $this->Form->end(); ?>

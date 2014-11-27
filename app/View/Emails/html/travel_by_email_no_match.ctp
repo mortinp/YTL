@@ -39,7 +39,7 @@
 <div>
     <p>
     Si alguna de estas localidades <!--o términos--> te es conveniente, vuelve a escribir un correo a 
-    <b><a href="mailto:viajes@yotellevo.ahiteva.net">viajes@yotellevo.ahiteva.net</a></b>
+    <b><a href="mailto:viajes@<?php echo Configure::read('domain_name')?>">viajes@<?php echo Configure::read('domain_name')?></a></b>
     usando una de ellas en el asunto como <em>Origen</em> o como <em>Destino</em>.
     </p>
 </div>

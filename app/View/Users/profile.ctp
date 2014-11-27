@@ -16,21 +16,6 @@
             ?>
         </fieldset>
         <?php echo $this->Form->end(); ?>
-        
-        <br/>
-        
-        
-    </div>
-    <div class="col-md-4 col-md-offset-1">
-        <legend><?php echo __('Otras acciones')?></legend>
-        <div>
-            <big>
-            <?php echo $this->Html->link('<i class="glyphicon glyphicon-user"><i class="glyphicon glyphicon-arrow-right"></i></i><i class="glyphicon glyphicon-trash"></i> '.__('Eliminar mi Cuenta de Usuario'), 
-                    array('action'=>'unsubscribe'), 
-                    array('class'=>'text-danger', 'escape'=>false))?>
-            </big>
-        </div>
-        <div class="text-danger">(<b><?php echo __('No podrás crear más viajes ni ver tus datos')?></b>)</div>
     </div>
 </div>
 </div>

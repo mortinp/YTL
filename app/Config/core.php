@@ -33,7 +33,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 0);
+	Configure::write('debug', 2);
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -384,4 +384,8 @@ Cache::config('_cake_model_', array(
 ### MARTIN
 Configure::write('enqueue_mail', true);
 Configure::write('conversations_via_app', true);
-Configure::write('Config.language', 'es');
+Configure::write('default_language', 'es');
+Configure::write('Config.language', Configure::read('default_language'));
+Configure::write('superadmin_email', 'mproenza@grm.desoft.cu');
+Configure::write('domain_name', 'yotellevocuba.com');
+

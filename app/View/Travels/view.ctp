@@ -4,8 +4,11 @@ App::uses('Auth', 'Component');
 $isConfirmed = Travel::isConfirmed($travel['Travel']['state']);
 
 if($isConfirmed) {
-    $pretty_drivers_count = $travel['Travel']['drivers_sent_count'].' chofer';
-    if($travel['Travel']['drivers_sent_count'] > 1) $pretty_drivers_count .= 'es';
+    
+    $driverW = __('chofer');
+    $pretty_drivers_count = $travel['Travel']['drivers_sent_count'].' ';
+    if($travel['Travel']['drivers_sent_count'] > 1) $pretty_drivers_count .= Inflector::pluralize($driverW);
+    else $pretty_drivers_count .= $driverW;
 }
 ?>
 
@@ -14,9 +17,9 @@ if($isConfirmed) {
     <div class="col-md-6 col-md-offset-3"> 
         <div id="travel">
             <p>
-                <?php echo __('Tienes el siguiente viaje')?>
-                <span style="color:<?php echo Travel::$STATE[$travel['Travel']['state']]['color']?>">
-                    <b><?php echo Travel::$STATE[$travel['Travel']['state']]['label']?></b>
+                <?php echo __('El siguiente viaje está')?>
+                <span style="color:<?php echo Travel::getStateSettings($travel['Travel']['state'], 'color')?>">
+                    <b><?php echo Travel::getStateSettings($travel['Travel']['state'], 'label')?></b>
                 </span>:
             </p>
             <?php echo $this->element('travel', array('actions'=>false))?>
@@ -32,7 +35,7 @@ if($isConfirmed) {
                 <br/>
                 <p class="text-info">
                     <?php if(AuthComponent::user('role') == 'regular'):?>
-                    <b><?php echo __('Los datos de este viaje fueron eviados a')?> <big><?php echo $pretty_drivers_count?></big></b>. <?php echo __('Pronto serás contactado')?>.
+                    <b><?php echo __('Los datos de este viaje fueron eviados a <big>%s</big>. Pronto serás contactado.', $pretty_drivers_count)?></b>
 
                     <?php else:?>
                     <b>Se encontaron <big><?php echo $pretty_drivers_count?></big></b> para notificar, pero son <b>choferes de prueba</b> porque eres un usuario <b><?php echo AuthComponent::user('role')?></b>.
@@ -49,7 +52,7 @@ if($isConfirmed) {
         <?php endif?>
         
         <br/>
-        <?php echo $this->Html->link('<big>'.__('Ver todos mis Anuncios').'</big>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
+        <?php echo $this->Html->link('<i class="glyphicon glyphicon-arrow-left"></i> <big>'.__('Ver todos mis Anuncios').'</big>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
     </div>    
 </div>
 </div>
@@ -58,7 +61,7 @@ if($isConfirmed) {
 $this->Html->script('jquery', array('inline' => false));
     
 $this->Js->set('travel', $travel);
-$this->Js->set('travels_preferences', Travel::$preferences);
+$this->Js->set('travels_preferences', Travel::getPreferences());
 $this->Js->set('localities', $localities);
 echo $this->Js->writeBuffer(array('inline' => false));
 ?>

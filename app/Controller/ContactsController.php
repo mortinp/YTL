@@ -26,7 +26,7 @@ class ContactsController extends AppController {
             
             if($this->Auth->loggedIn()) $this->request->data['Contact']['email'] = AuthComponent::user('username');
             
-            $to = /*'mproenza@grm.desoft.cu'*/'soporte@yotellevo.ahiteva.net';
+            $to = /*'mproenza@grm.desoft.cu'*/'soporte@'.Configure::read('domain_name');
             /*if(class_exists('EmailConfig')) {
                 $configs = new EmailConfig();
                 if (isset($configs->soporte)) {

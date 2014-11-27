@@ -4,24 +4,23 @@ class Travel extends AppModel {
     
     public $travelType = '';
     
-    public static $STATE = array(
+    /*public static $STATE = array(
         'P' => array('color'=>'green', 'label'=>'Pendiente'),
         'U' => array('color'=>'goldenrod', 'label'=>'Pendiente de Confirmación'),
         'C' => array('color'=>'#0088cc', 'label'=>'Confirmado'),
         'E' => array('color'=>'lightcoral', 'label'=>'Expirado'),
-    );
+    );*/
     
     public static $STATE_PENDING = 'P';
     public static $STATE_UNCONFIRMED = 'U';
     public static $STATE_CONFIRMED = 'C';
     public static $STATE_SOLVED = 'S';
-    
     public static $STATE_DEFAULT = 'U';
     
-    public static $preferences = array(
+    /*public static $preferences = array(
         'need_modern_car'=>'Carro Moderno',
         'need_air_conditioner'=>'Aire Acondicionado'
-    );
+    );*/
     
     public $order = 'Travel.id DESC';
     
@@ -30,7 +29,7 @@ class Travel extends AppModel {
             'fields'=>array('id', 'name')
         ),
         'User' => array(
-            'fields'=>array('id', 'username', 'role'),
+            'fields'=>array('id', 'username', 'role', 'lang'),
             'counterCache'=>true
         )
     );
@@ -114,6 +113,36 @@ class Travel extends AppModel {
     
     public static function isConfirmed($travelState) {
         return $travelState === Travel::$STATE_CONFIRMED || $travelState === Travel::$STATE_SOLVED;
+    }
+    
+    
+    
+    
+    
+    
+    public static function getStateSettings($state, $property = null) {
+        $settings = array(
+            'P' => array('color'=>'green', 'label'=>__d('travel', 'Pendiente')),
+            'U' => array('color'=>'goldenrod', 'label'=>__d('travel', 'Pendiente de Confirmación')),
+            'C' => array('color'=>'#0088cc', 'label'=>__d('travel', 'Confirmado')),
+            'E' => array('color'=>'lightcoral', 'label'=>__d('travel', 'Expirado')),
+        );       
+        
+        if(isset ($settings[$state])) {
+            if($property == null || $property == '') return $settings[$state];
+            else if(isset ($settings[$state][$property])) return $settings[$state][$property];
+        }
+        
+        return null;
+    } 
+    
+    public static function getPreferences() {
+        $preferences = array(
+            'need_modern_car'=>__d('travel', 'Carro Moderno'),
+            'need_air_conditioner'=>__d('travel', 'Aire Acondicionado')
+        );
+        
+        return $preferences;
     }
 }
 

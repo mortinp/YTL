@@ -1,0 +1,1 @@
+ALTER TABLE  `email_queue` ADD  `lang` CHAR( 2 ) NOT NULL DEFAULT  'es' AFTER  `template_vars`;

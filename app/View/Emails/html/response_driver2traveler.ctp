@@ -1,7 +1,8 @@
+********************
 <p>
-    <em>Hola viajero. Este correo contiene la respuesta del chofer <b>#<?php echo $driver_id?></b> de YoTeLlevo, notificado con los datos de tu viaje <b><?php echo $travel['origin'].' - '.$travel['destination']?></b>. Para enviar tu respuesta, <b>responde este correo SIN MODIFICAR EL ASUNTO</b>.</em>
+    <em><?php echo __d('conversation', 'Hola viajero. Este correo contiene la respuesta del chofer <b>#%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo SIN MODIFICAR EL ASUNTO</b>.', $driver_id, $travel['origin'].' - '.$travel['destination'])?></em>   
 </p>
-<p><b>El chofer dice:</b></p>
+<p><b><?php echo __d('conversation', 'El chofer dice')?>:</b></p>
 <div>
    <?php 
    //1
@@ -20,4 +21,4 @@
    //echo $response 
    ?>
 </div>
-<p>-------------</p>
+<!------------------------>

@@ -3,9 +3,7 @@
     <div class="col-md-6 col-md-offset-2">
         <?php echo $this->Session->flash('auth'); ?>
         <div class="text-muted">
-            <b><?php echo __('¿No tienes una cuenta todavía?')?></b> 
-            <?php echo $this->Html->link(__('Regístrate'), array('controller'=>'users', 'action'=>'register'), array('escape'=>false))?> 
-            <?php echo __('para crear anuncios de viajes')?>.
+            <b><?php echo __('¿No tienes una cuenta todavía? %s para contactar un taxi', $this->Html->link(__('Regístrate'), array('controller'=>'users', 'action'=>'register'), array('escape'=>false)))?></b> 
         </div>
         <br/>
         <legend><?php echo __('Entra y gestiona tus viajes')?></legend>
@@ -15,8 +13,10 @@
             echo $this->Form->input('username', array('label' => __('Tu correo electrónico'), 'type' => 'email'));
             echo $this->Form->input('password', array('label' => __('Contraseña')));
             echo $this->Form->checkbox('remember_me').' '.__('Recordarme');
-            echo $this->Form->submit(__('Entrar'));
             ?>
+            <br/>
+            <br/>
+            <?php echo $this->Form->submit(__('Entrar'));?>
         </fieldset>
         <?php echo $this->Form->end(); ?>
         <br/>

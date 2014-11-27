@@ -1,0 +1,1 @@
+ALTER TABLE  `users` ADD  `lang` CHAR( 2 ) NOT NULL DEFAULT  'es';
