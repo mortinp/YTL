@@ -40,11 +40,11 @@ msgstr "Arrange your travel directly with your driver"
 
 #: /home.ctp:50
 msgid "Te ponemos en contacto con hasta <big>3</big> de nuestros choferes para que acuerdes el viaje directamente con ellos via correo electrónico"
-msgstr "We connect you with up to <big>3</big> of our drivers so you can arrange yur travel directly with them via email"
+msgstr "We connect you with up to <big>3</big> of our drivers so you can arrange your travel directly with them via email"
 
 #: /home.ctp:59
 msgid "Acuerda tus recorridos, horarios y el precio del viaje o ruta. Escoge el chofer que mejor se ajuste a tus requerimientos"
-msgstr "Agree your paths, schedules and price of your travel or journey. Choose the driver that best fits your requirements"
+msgstr "Agree the paths, schedules and price of your travel or journey. Choose the driver that best fits your requirements"
 
 #: /home.ctp:68
 msgid "Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica"
@@ -75,8 +75,8 @@ msgid "¿Por qué esperar por un bus para llegar a dónde quieres? ¿Por qué aj
 msgstr "Why wait for a bus to get where you want? Why have to schedule yourself to meet its departure time? Your time visiting Cuba is limited, and it's better to have a taxi at your disposal and decide when to take a ride, anytime, anywhere. It's as simple as laying back in your seat and saying <em>Go</em>."
 
 #: View/Pages/home.ctp:128
-msgid "Desata la creatividad"
-msgstr "Unleash your creativity"
+msgid "Sé el dueño de tu viaje"
+msgstr "Be the owner of your travel"
 
 #: View/Pages/home.ctp:131
 msgid "Cuba es un país hermoso para visitar y recorrer, y ninguno de sus lugares es igual. Arma tu viaje de la manera que quieras. Decide dónde quieres ir sin ajustarte a itinerarios rígidos y aburridos. Haz cambios de última hora cuando desees, aprende y decide en el camino y crea los mejores recuerdos."

@@ -40,8 +40,8 @@ class EmailConfig {
     
     public $no_responder = array(
         'transport' => 'Smtp',
-        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo'),
-        'host' => 'data',
+        'from' => array('no-responder@yotellevocuba.com' => 'YoTeLlevo'),
+        'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -53,8 +53,8 @@ class EmailConfig {
     
     public $contacto = array(
         'transport' => 'Smtp',
-        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Contacto'),
-        'host' => 'data',
+        'from' => array('contacto@yotellevocuba.com' => 'YoTeLlevo | Contacto'),
+        'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -66,8 +66,8 @@ class EmailConfig {
     
     public $soporte = array(
         'transport' => 'Smtp',
-        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Soporte'),
-        'host' => 'data',
+        'from' => array('soporte@yotellevocuba.com' => 'YoTeLlevo | Soporte'),
+        'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -77,7 +77,7 @@ class EmailConfig {
         //'charset' => 'utf-8',
     );    
     
-    public $info = array(
+    /*public $info = array(
         'transport' => 'Smtp',
         'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Info'),
         'host' => 'data',
@@ -88,14 +88,14 @@ class EmailConfig {
         'client' => null,
         'log' => false,
         //'charset' => 'utf-8',
-    );
+    );*/
     
     
     
     public $chofer = array(
         'transport' => 'Smtp',
-        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Chofer-Local'),
-        'host' => 'data',
+        'from' => array('chofer@yotellevocuba.com' => 'YoTeLlevo | Chofer'),
+        'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -107,8 +107,8 @@ class EmailConfig {
     
     public $viajero = array(
         'transport' => 'Smtp',
-        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Viajero-Local'),
-        'host' => 'data',
+        'from' => array('viajero@yotellevocuba.com' => 'YoTeLlevo | Viajero'),
+        'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',

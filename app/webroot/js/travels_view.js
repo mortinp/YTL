@@ -1,4 +1,7 @@
-var aliases = {travel: 'viaje'};
+var messages = {
+    success: {  es:'Los datos del viaje fueron salvados exitosamente.', en:'This travel was successfully updated.'},
+    traveler: {es:'persona', en:'traveler'},
+    preferencesLabel: {es:'Preferencias', en:'Preferences'}};
 
 function _ajaxifyForm(form, obj, alias, onSuccess) {
     if(obj != null) setupFormForEdit(form, obj, alias);
@@ -24,9 +27,9 @@ function _ajaxifyForm(form, obj, alias, onSuccess) {
                     success: function(response) {
                         response = JSON.parse(response);
 
-                        var prettyAlias = upperAlias;
-                        if(aliases[alias] != undefined && aliases[alias] != null) prettyAlias = aliases[alias];
-                        messageDiv.empty().append($("<div class='alert alert-success'>Los datos del <b>" + prettyAlias + "</b> fueron salvados exitosamente.</div>"));
+                        /*var prettyAlias = upperAlias;
+                        if(aliases[alias] != undefined && aliases[alias] != null) prettyAlias = aliases[alias];*/
+                        messageDiv.empty().append($("<div class='alert alert-success'>" + messages.success[window.app.lang] + "</div>"));
                         setTimeout(function(){
                             messageDiv.empty();
                         }, 5000);
@@ -98,10 +101,17 @@ function splitWith(alias, separator) {
     return result;
 }
 
-var months = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-var weekDays = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+
 
 $(document).ready(function() {
+    var months = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+    var weekDays = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+
+    if(window.app.lang == 'en') {
+        months = new Array ("January","February","March","April","May","June","July","August","September","October","November","December");
+        weekDays = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+    }
+    
     _ajaxifyForm($("#TravelForm"), null, "travel", function(obj) {
         $('#travel-locality-label').text(obj.origin);
         $('#travel-where-label').text(obj.destination);
@@ -111,14 +121,15 @@ $(document).ready(function() {
         var prettyDate = dd.getDate() + ' ' + months[dd.getMonth()] + ', ' + dd.getFullYear() + ' (' + weekDays[dd.getDay()] + ')';
         $('#travel-date-label').text(prettyDate);
 
-        var prettyPeopleCount = obj.people_count + ' persona' 
+        var prettyPeopleCount = obj.people_count + ' ' + messages.traveler[window.app.lang];
         if(obj.people_count > 1) prettyPeopleCount += 's';
         $('#travel-prettypeoplecount-label').text(prettyPeopleCount);
 
         var prefDiv = $('#preferences-place');
         prefDiv.empty();
         if(hasPreferences(obj)) {
-            prefDiv.append("<p><b>Preferencias:</b> <span id='travel-preferences-label'></span></p>");
+            var prefText = messages.preferencesLabel[window.app.lang];
+            prefDiv.append("<p><b>" + prefText + ":</b> <span id='travel-preferences-label'></span></p>");
 
             var prefLabel = $('#travel-preferences-label');
             prefLabel.text('');

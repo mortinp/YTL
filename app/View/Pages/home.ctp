@@ -35,10 +35,10 @@
     <h2 class="handwritten-2 white">
         <?php echo __d('homepage', 'Consigue el <big><big><span class="text-info"><b>taxi</b></span></big></big> de tu elección para moverte por <big><big><span class="text-info"><b>Cuba</b></span></big></big>') ?> 
     </h2>
-    <div style="padding-top:50px">
-        <a href="#!" class="btn btn-success show-travel-form" style="font-size:20pt;white-space: normal;max-width:400px">
+    <div class="sell-button" style="padding-top:50px">
+        <a href="#!" class="btn btn-success show-travel-form">
             <?php echo __d('homepage', 'Contactar un taxi') ?>
-            <div style="font-size:12pt;padding-left:50px;padding-right:50px">
+            <div class="sub">
                 <?php echo __d('homepage', 'Acuerda enseguida los detalles del viaje con tu chofer') ?>
             </div>
         </a>
@@ -52,14 +52,14 @@
         <span class="glyphicon glyphicon-user"></span>
         <span class="glyphicon glyphicon-user"></span>
         <span class="glyphicon glyphicon-user"></span>
-        <p class="sell-text">
+        <p class="lead">
             <?php echo __d('homepage', 'Te ponemos en contacto con hasta <big>3</big> de nuestros choferes para que acuerdes el viaje directamente con ellos via correo electrónico') ?>.
         </p>
     </div>
     <div class="col-md-4 center">
         <span class="glyphicon glyphicon-comment"></span>
         <span class="glyphicon glyphicon-usd"></span>
-        <p class="sell-text">
+        <p class="lead">
             <?php echo __d('homepage', 'Acuerda tus recorridos, horarios y el precio del viaje o ruta. Escoge el chofer que mejor se ajuste a tus requerimientos') ?>.
         </p>
     </div>
@@ -67,7 +67,7 @@
         <span class="glyphicon glyphicon-briefcase"></span>
         <span class="glyphicon glyphicon-camera"></span>
         <span class="glyphicon glyphicon-music"></span>
-        <p class="sell-text">
+        <p class="lead">
             <?php echo __d('homepage', 'Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica') ?>.
         </p>
     </div>
@@ -125,7 +125,7 @@
             <?php echo $this->Html->image('collage.jpg', array('class' => 'featurette-image img-responsive img-circle')) ?>
         </div>
         <div class="col-md-pull-5 col-md-7">
-            <h2 class="featurette-heading"><?php echo __d('homepage', 'Desata la creatividad') ?></h2>
+            <h2 class="featurette-heading"><?php echo __d('homepage', 'Sé el dueño de tu viaje') ?></h2>
             <br/>
             <br/>
             <p class="lead"><?php echo __d('homepage', 'Cuba es un país hermoso para visitar y recorrer, y ninguno de sus lugares es igual. Arma tu viaje de la manera que quieras. Decide dónde quieres ir sin ajustarte a itinerarios rígidos y aburridos. Haz cambios de última hora cuando desees, aprende y decide en el camino y crea los mejores recuerdos.') ?></p>
@@ -142,6 +142,11 @@
                 <div><small><?php echo __d('homepage', '<b>Consigue un taxi</b> creando un Anuncio de Viaje') ?></small></div>
             </legend>
             <?php echo $this->Session->flash(); ?>
+            
+            <?php if($lang != 'es'):?>
+            <div style="padding:10px"><span class="text-danger">* Origin and Destination in Spanish for a better match, i.e. La Habana, Cayo Coco, Aeropuerto José Martí</span></div>
+            <?php endif;?>
+            
             <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
         </div>
     </div>

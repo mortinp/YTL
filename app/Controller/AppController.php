@@ -167,14 +167,14 @@ class AppController extends Controller {
     
     private function _getPageTitle($key) {
         $pageTitles = array(
-            'default' =>array('title'=>__d('meta', 'Taxi con un chofer escogido por tí - A todas partes de la isla'/*'Consigue un taxi para ir a cualquier parte de la isla'*/), 'description'=>__d('meta', 'Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.')),
+            'default' =>array('title'=>__d('meta', 'Taxi con un chofer escogido por tí - A todas partes de la isla: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'/*'Consigue un taxi para ir a cualquier parte de la isla'*/), 'description'=>__d('meta', 'Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.')),
             
             // Unrestricted access
             'pages.display' =>array(
                 'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
                 'use_terms'=>array('title'=>__d('meta', 'Términos de Uso')), 
                 'tour'=>array('title'=>__d('meta', '¿Cómo usarlo?')),
-                'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
+                'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes - Taxi a todas partes de la isla: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
                 'by_email'=>array('title'=>__d('meta', 'Consigue un taxi usando tu correo electrónico'))),
 
             'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),

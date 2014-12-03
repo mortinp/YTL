@@ -23,7 +23,7 @@ if($isLoggedIn) {
 <html>
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <title><?php echo "YoTeLlevo Cuba | ".$page_title ?></title>
+        <title><?php echo "Cuba - ".$page_title." | YoTeLlevo" ?></title>
         <meta name="description" content="<?php echo $page_description?>"/>
         
         <style type="text/css">
@@ -58,7 +58,6 @@ if($isLoggedIn) {
         $this->Html->script('bootstrap', array('inline' => false));*/
         
         $this->Html->script('default-bundle', array('inline' => false));
-        
 
         echo $this->fetch('meta');
         echo $this->fetch('css');
@@ -198,7 +197,7 @@ if($isLoggedIn) {
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
                     <!-- Start 1FreeCounter.com code -->
 
-                      <script language="JavaScript">
+                      <!--<script language="JavaScript">
                       var data = '&r=' + escape(document.referrer)
                             + '&n=' + escape(navigator.userAgent)
                             + '&p=' + escape(navigator.userAgent)
@@ -211,7 +210,7 @@ if($isLoggedIn) {
                       document.write('<a href="http://www.1freecounter.com/stats.php?i=107146" target=\"_blank\" >');
                       document.write('<img alt="Free Counter" border=0 hspace=0 '+'vspace=0 src="http://www.1freecounter.com/counter.php?i=107146' + data + '">');
                       document.write('</a>');
-                      </script>
+                      </script>-->
 
                     <!-- End 1FreeCounter.com code -->
                 <?php endif;?>

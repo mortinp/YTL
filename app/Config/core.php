@@ -388,4 +388,3 @@ Configure::write('default_language', 'es');
 Configure::write('Config.language', Configure::read('default_language'));
 Configure::write('superadmin_email', 'mproenza@grm.desoft.cu');
 Configure::write('domain_name', 'yotellevocuba.com');
-

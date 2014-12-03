@@ -75,11 +75,26 @@
 .handwritten-2{font-family:'Engagement', cursive;font-size:24px;text-shadow:0 -1px 1px rgba(0,0,0,0.6)}
 
 @media (max-width: 767px) {
-    .handwritten{font-size:50px}
+    .handwritten{font-size:40px}
+    .handwritten-2{font-size:20px}
 }
 
 .white{color:white !important}
 .center{text-align:center}
+
+.sell-button a {
+    font-size:20pt;
+    white-space: normal;
+    max-width:400px
+}
+.sell-button a .sub {
+   font-size:12pt;
+   padding-left:50px;
+   padding-right:50px
+}
+@media (max-width: 767px) {
+    .sell-button a .sub {padding-left:20px;padding-right:20px}
+}
 
 
 /*#navbar #nav a.nav-link{
@@ -96,21 +111,14 @@
 
 .sell{margin:20px 0;padding:0 100px}
 @media (max-width: 767px){
-	.sell{padding:0 25px}
+    .sell{padding:0 25px}
 }
 .sell span{font-size:50px;/*color:#00a345*/}
-.sell .sell-text{font-size:20px}
+/*.sell .sell-text{font-size:20px}*/
 @media (max-width: 767px){
     .sell span{font-size:30px;/*color:#00a345*/}
-    .sell .sell-text{font-size:14px}
+    /*.sell .sell-text{font-size:14px}*/
 }
-
-.inline-input-left {padding-left:0px}
-.inline-input-right {padding-right:0px}
-/*@media (max-width: 767px){
-	.inline-input-left {padding-left:5px}
-	.inline-input-right {padding-right:5px}
-}*/
 
 .icon-bar{
 	background-color:white;
