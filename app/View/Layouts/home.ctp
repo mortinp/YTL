@@ -67,8 +67,7 @@ if($isLoggedIn) {
         <?php echo $this->Session->flash('auth'); ?>        
         <?php echo $this->fetch('content'); ?>
 
-        <?php if( (ROOT != 'C:\wamp\www\yotellevo' && ROOT != '/var/www/yotellevo' && ROOT != '/var/www/yotellevo/app/webroot') 
-                    && (!$isLoggedIn || $role === 'regular') ):?>
+        <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
             <!-- Start 1FreeCounter.com code -->
 
               <script language="JavaScript">
