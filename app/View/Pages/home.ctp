@@ -31,7 +31,7 @@
         </div>
 
     </div>
-    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', 'Desata la creatividad en tus viajes') ?></h1>
+    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', 'Sé el dueño de tu viaje') ?></h1>
     <h2 class="handwritten-2 white">
         <?php echo __d('homepage', 'Consigue el <big><big><span class="text-info"><b>taxi</b></span></big></big> de tu elección para moverte por <big><big><span class="text-info"><b>Cuba</b></span></big></big>') ?> 
     </h2>
@@ -125,7 +125,7 @@
             <?php echo $this->Html->image('collage.jpg', array('class' => 'featurette-image img-responsive img-circle')) ?>
         </div>
         <div class="col-md-pull-5 col-md-7">
-            <h2 class="featurette-heading"><?php echo __d('homepage', 'Sé el dueño de tu viaje') ?></h2>
+            <h2 class="featurette-heading"><?php echo __d('homepage', 'Desata tu creatividad') ?></h2>
             <br/>
             <br/>
             <p class="lead"><?php echo __d('homepage', 'Cuba es un país hermoso para visitar y recorrer, y ninguno de sus lugares es igual. Arma tu viaje de la manera que quieras. Decide dónde quieres ir sin ajustarte a itinerarios rígidos y aburridos. Haz cambios de última hora cuando desees, aprende y decide en el camino y crea los mejores recuerdos.') ?></p>
@@ -144,7 +144,7 @@
             <?php echo $this->Session->flash(); ?>
             
             <?php if($lang != 'es'):?>
-            <div style="padding:10px"><span class="text-danger">* Origin and Destination in Spanish for a better match, i.e. La Habana, Cayo Coco, Aeropuerto José Martí</span></div>
+            <div style="padding:20px;padding-left:30px"><span class="text-danger"><small>* Origin and Destination in Spanish for a better match, i.e. La Habana, Cayo Coco, Aeropuerto José Martí</small></span></div>
             <?php endif;?>
             
             <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
@@ -154,8 +154,8 @@
 
 <div class="arrow_box arrow_box_top">
     <div class="row sell">
-        <div class="col-md-12 center">        
-            <p class="sell-text">
+        <div class="col-md-12 center">
+            <p class="lead">
                 <?php echo __d('homepage', '¿Necesitas ideas? Estos son destinos populares con origen en') ?> <span class="handwritten" style="font-size: 24pt;display:inline-block">La Habana</span>
             </p>
         </div>

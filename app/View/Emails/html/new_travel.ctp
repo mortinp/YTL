@@ -53,8 +53,7 @@ if(!isset ($creator_role)) $creator_role = 'regular';
 <?php else: ?>
     <p>
         <small>
-        Usted recibió este correo porque está registrado en <em>YoTeLlevo</em> 
-        como chofer que atiende viajes desde/hasta <?php echo $travel['Locality']['name']?>.
+        Usted recibió este correo porque está registrado en <em>YoTeLlevo</em> como chofer que atiende viajes desde/hasta <?php echo $travel['Locality']['name']?>.
         </small>
     </p>
 <?php endif?>

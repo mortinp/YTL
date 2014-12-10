@@ -1,4 +1,4 @@
-<?php $urlDef = array('controller' => 'users', 'action' => 'change_password/' . $confirmation_code) ?>
+<?php $urlDef = array('controller' => 'users', 'action' => 'change_password/' . $confirmation_code, 'base'=>false) ?>
 <h4><?php echo __d('user_email', 'Hola viajero')?>,</h4>
 
 <p>    

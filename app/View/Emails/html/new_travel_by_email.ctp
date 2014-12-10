@@ -42,7 +42,6 @@ if(!isset ($creator_role)) $creator_role = 'regular';
     <?php endif?>
 <?php else: ?>
     <p>
-        Usted recibió este correo porque está registrado en <em>YoTeLlevo</em>
-        como chofer que atiende viajes desde/hasta <?php echo $travel['TravelByEmail']['matched']?>.
+        Usted recibió este correo porque está registrado en <em>YoTeLlevo</em> como chofer que atiende viajes desde/hasta <?php echo $travel['TravelByEmail']['matched']?>.
     </p>
 <?php endif?>

@@ -21,7 +21,7 @@
 </div>
 <br/>
 <div>
-    <div>Nuestra página web: <a href="http://<?php echo Configure::read('domain_name')?>/">http://<?php echo Configure::read('domain_name')?>/</a></div>
+    <div>Nuestra página web: <a href="<?php echo Configure::read('fullBaseUrl')?>">http://<?php echo Configure::read('domain_name')?>/</a></div>
     <div>Para conocer más visita la página de <a href="http://yotellevo.ahiteva.net/pages/faq">Preguntas y Respuestas</a></div>
     <div>Para preguntar algo escribe al correo <a href="mailto:soporte@<?php echo Configure::read('domain_name')?>">soporte@<?php echo Configure::read('domain_name')?></a> 
         con tu pregunta o sugerencia</div>
