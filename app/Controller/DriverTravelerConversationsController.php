@@ -14,6 +14,13 @@ class DriverTravelerConversationsController extends AppController {
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);
         $this->set('conversations', $conversations);
     }
+    
+    public function resend($conversationId) {
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));
+        $data = $this->DriverTravel->findById($conversationId);
+        
+        
+    }
 }
 
 ?>

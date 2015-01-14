@@ -223,7 +223,7 @@ if($isLoggedIn) {
                     <div class="row">
                         <div class="col-md-3">
                             <p class="text-muted pull-left" style="margin: 20px 0;">
-                                &copy; 2014 YoTeLlevo
+                                &copy; 2015 YoTeLlevo
                             </p>
                         </div>
                         <div class="col-md-6" style="text-align: center">

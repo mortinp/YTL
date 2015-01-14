@@ -20,7 +20,7 @@
             <td><?php echo $e['EmailQueue']['locked']?></td>
             <td><?php echo $e['EmailQueue']['send_tries']?></td>
             <td>
-                <?php if($e['EmailQueue']['sent']):?>
+                <?php if($e['EmailQueue']['sent'] || $e['EmailQueue']['send_tries'] > 3):?>
                     <ul class="list-inline">
                         <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('action'=>'remove/'.$e['EmailQueue']['id']), array('escape'=>false, 'confirm'=>'¿Está seguro que quiere eliminar este email?'))?></li>
                     </ul>
@@ -28,6 +28,11 @@
                 <?php if($e['EmailQueue']['locked']):?>
                     <ul class="list-inline">
                         <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-ok"></i> Desbloquear', array('action'=>'unlock/'.$e['EmailQueue']['id']), array('escape'=>false, 'confirm'=>'¿Está seguro que quiere desbloquear este email?'))?></li>
+                    </ul>
+                <?php endif?>
+                <?php if($e['EmailQueue']['send_tries'] > 3):?>
+                    <ul class="list-inline">
+                        <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-refresh"></i> Resetear', array('action'=>'reset/'.$e['EmailQueue']['id']), array('escape'=>false, 'confirm'=>'¿Está seguro que quiere resetear este email?'))?></li>
                     </ul>
                 <?php endif?>
             </td>

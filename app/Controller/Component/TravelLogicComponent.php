@@ -86,14 +86,13 @@ class TravelLogicComponent extends Component {
                         
                         $OK = $this->Driver->saveField(
                                 'last_notification_date',
-                                gmdate('Y-m-d H:i:s')
-                                /*$this->Driver->getFormattedDate('last_notification_date', time())*/);
+                                gmdate('Y-m-d H:i:s'));
                     }
                     
                     if($OK) {
 
                         $conversation = $this->DriverTravel->getLastInsertID();
-                        $subject = __d('user_email', 'Nuevo Anuncio de Viaje').' [['.$conversation/*$travel[$modelType]['id'].' '.$this->Travel->travelType*/.']]';
+                        $subject = __d('user_email', 'Nuevo Anuncio de Viaje').' [['.$conversation.']]';
                         
                         if(Configure::read('enqueue_mail')) {
                             ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
@@ -154,8 +153,6 @@ class TravelLogicComponent extends Component {
                     }
                 }
             }
-            
-            
         }
         
         

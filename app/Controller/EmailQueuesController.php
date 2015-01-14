@@ -35,6 +35,19 @@ class EmailQueuesController extends AppController {
         }    
         return $this->redirect(array('action' => 'index'));
     }
+    
+    public function reset($id = null) {
+        $this->EmailQueue->id = $id;
+        if (!$this->EmailQueue->exists()) {
+            throw new NotFoundException('Email inválido');
+        }
+        if ($this->EmailQueue->saveField('send_tries', 0)) {
+            $this->setInfoMessage('El email se reseteó exitosamente.');
+        } else {
+            $this->setErrorMessage('Ocurió un error reseteando el email');
+        }    
+        return $this->redirect(array('action' => 'index'));
+    }
 }
 
 ?>

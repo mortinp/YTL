@@ -12,7 +12,7 @@
         <?php $respondEmail = (Configure::read('conversations_via_app') && !isset ($admin));?>
         
         <?php if($respondEmail):?>
-        Para comunicarte con el viajero <b>responde este correo SIN MODIFICAR EL ASUNTO</b>
+        Para comunicarte con el viajero <b>responde este correo sin modificar el asunto</b>
         [<small><b>Nota:</b> Puedes responder desde otro correo, copiando el asunto de este correo en el que vayas a enviar</small>]
         <?php endif?>
         <?php if(!isset ($admin)):?>
@@ -30,6 +30,11 @@ if(!isset ($creator_role)) $creator_role = 'regular';
     <p>
         Usted recibió este correo porque es Administrador de <em>YoTeLlevo</em>.
     </p>
+    
+    <p>
+        Viaje creado por: <?php echo $travel['User']['username']?>
+    </p>
+    
     <?php if(isset ($admin['drivers']) && count($admin['drivers']) > 0):?>
         <p>
             Se encontraron <?php echo count($admin['drivers'])?> choferes para notificar:

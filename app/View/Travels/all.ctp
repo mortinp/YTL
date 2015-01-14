@@ -4,9 +4,11 @@ if(!isset($details)) $details = true;
 ?>
 <div class="container">
     <div class="row">
-    <?php if(!empty ($travels) || !empty ($travels_by_email)): ?>
+    <?php if(!empty ($travels) /*|| !empty ($travels_by_email)*/): ?>
         <div class="col-md-6 col-md-offset-3">
             <h3>Anuncios de Viajes (Todos)</h3>
+            
+            <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <?php if(!empty ($travels)): ?>                
                 <br/>
 
@@ -19,6 +21,7 @@ if(!isset($details)) $details = true;
                 </ul>
                 <br/>
             <?php endif; ?>
+            <!--
             <?php if(!empty ($travels_by_email)): ?>
                 <br/>
                 <big><b>&mdash; Creados por Correo &mdash;</b></big>
@@ -34,6 +37,8 @@ if(!isset($details)) $details = true;
                 <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
+            -->
+            <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
         </div>
 
     <?php else :?>

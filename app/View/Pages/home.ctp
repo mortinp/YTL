@@ -73,74 +73,8 @@
     </div>
 </div>
 
-<br/>
-<br/>
-<div class="arrow_box arrow_box_bottom"></div>
-
-<div id="travel-create">
-    <div class="row">
-        <div id="FormContainer" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
-            <legend style="text-align:center">
-                <div class="handwritten-2"><big><big><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer') ?></big></big></div>
-                <div><small><?php echo __d('homepage', '<b>Consigue un taxi</b> creando un Anuncio de Viaje') ?></small></div>
-            </legend>
-            <?php echo $this->Session->flash(); ?>
-            
-            <?php if($lang != 'es'):?>
-            <div style="padding:20px;padding-left:30px"><span class="text-danger"><small>* Origin and Destination in Spanish for a better match, i.e. La Habana, Cayo Coco, Aeropuerto José Martí</small></span></div>
-            <?php endif;?>
-            
-            <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
-            <br/>
-        </div>
-    </div>
-</div>
-
-<div class="arrow_box arrow_box_top">
-    <div class="row sell">
-        <div class="col-md-12 center">
-            <p class="lead">
-                <?php echo __d('homepage', '¿Necesitas ideas? Estos son destinos populares con origen en') ?> <span class="handwritten" style="font-size: 24pt;display:inline-block">La Habana</span>
-            </p>
-        </div>
-        <div class="col-sm-6 col-md-3 center">
-            <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded varadero">
-                    <p class="handwritten white dest" style="font-size: 24pt">Varadero</p>
-                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Varadero</b></h1>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6  col-md-3 center">
-            <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded trinidad">
-                    <p class="handwritten white dest" style="font-size: 24pt">Trinidad</p>
-                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Trinidad</b></h1>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6  col-md-3 center">
-            <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded vinales">
-                    <p class="handwritten white dest" style="font-size: 24pt">Viñales</p>
-                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Viñales</b></h1>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6  col-md-3 center">
-            <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded all-around">
-                    <p class="handwritten white dest" style="font-size: 24pt"><?php echo __d('homepage', 'Recorrido por la isla') ?></p>
-                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-<?php echo __d('homepage', 'Recorrido por la isla') ?></b></h1>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
-
-<br/>
 <!-- START THE FEATURETTES -->
-<div class="featurette-container">
+<div class="featurette-container arrow_box arrow_box_bottom">
 
     <hr class="featurette-divider">
 
@@ -199,6 +133,67 @@
     </div>
 </div>
 <!-- /END THE FEATURETTES -->
+
+<div id="travel-create">
+    <div class="row">
+        <div id="FormContainer" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
+            <legend style="text-align:center">
+                <div class="handwritten-2"><big><big><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer') ?></big></big></div>
+                <div><small><?php echo __d('homepage', '<b>Consigue un taxi</b> creando un Anuncio de Viaje') ?></small></div>
+            </legend>
+            <?php echo $this->Session->flash(); ?>
+            
+            <?php if($lang != 'es'):?>
+            <div style="padding:20px;padding-left:30px"><span class="text-danger"><small>* Origin and Destination in Spanish for a better match, i.e. La Habana, Cayo Coco, Aeropuerto José Martí</small></span></div>
+            <?php endif;?>
+            
+            <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
+        </div>
+    </div>
+</div>
+
+<div class="arrow_box arrow_box_top">
+    <div class="row sell">
+        <div class="col-md-12 center">
+            <p class="lead">
+                <?php echo __d('homepage', '¿Necesitas ideas? Estos son destinos populares con origen en') ?> <span class="handwritten" style="font-size: 24pt;display:inline-block">La Habana</span>
+            </p>
+        </div>
+        <div class="col-sm-6 col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb img-rounded varadero">
+                    <p class="handwritten white dest" style="font-size: 24pt">Varadero</p>
+                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Varadero</b></h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6  col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb img-rounded trinidad">
+                    <p class="handwritten white dest" style="font-size: 24pt">Trinidad</p>
+                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Trinidad</b></h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6  col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb img-rounded vinales">
+                    <p class="handwritten white dest" style="font-size: 24pt">Viñales</p>
+                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Viñales</b></h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6  col-md-3 center">
+            <a href="#!" style="text-decoration: none">
+                <div class="destination-thumb img-rounded all-around">
+                    <p class="handwritten white dest" style="font-size: 24pt"><?php echo __d('homepage', 'Recorrido por la isla') ?></p>
+                    <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-<?php echo __d('homepage', 'Recorrido por la isla') ?></b></h1>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     

@@ -299,6 +299,28 @@ class IncomingMailShell extends AppShell {
         }        
     }
     
+    
+    public function fixEmailBody($body) {
+        $fixedBody = $body;
+        
+        // Remove text after mark (asterisks)
+        list($fixedBody) = explode('***************', $body);
+        
+        // Remove all email addresses
+        $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
+        $replacement = '['.__d('conversation', 'correo borrado').']';
+        $fixedBody = preg_replace($emailpattern, $replacement, $fixedBody);
+        
+        // Remove all urls
+        //1- /\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/i
+        $urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
+        $replacement = '['.__d('conversation', 'url borrada').']';
+        $fixedBody = preg_replace($urlpattern, $replacement, $fixedBody);
+        
+        return $fixedBody;
+    }
+    
+    
     /*private function do_process($sender, $origin, $destination, $description, $hashtags = array()) {
         
         $datasource = $this->TravelByEmail->getDataSource();
@@ -451,21 +473,7 @@ class IncomingMailShell extends AppShell {
                 }
             } 
         }
-    }*/
-    
-    
-    public function fixEmailBody($body) {
-        $fixedBody = $body;
-        
-        // Remove text after mark (asterisks)
-        //list($fixedBody) = explode('***************', $body);
-        
-        $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
-        $replacement = "[correo borrado]";
-        $fixedBody = preg_replace($emailpattern, $replacement, $fixedBody);
-        
-        return $fixedBody;
-    }
+    }*/    
 }
 
 ?>

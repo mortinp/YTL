@@ -52,15 +52,17 @@ class TravelsController extends AppController {
     // Admins only
     public function all() {
         $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        $this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'regular'))));
-        $this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'regular'))));
+        //$this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'regular'))));
+        $this->set('travels', $this->paginate(array('User.role'=>'regular')));
+        //$this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'regular'))));
     }
     
     // Admins only
     public function all_admins() {
         $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        $this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'admin'))));
-        $this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'admin'))));
+        //$this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'admin'))));
+        $this->set('travels', $this->paginate(array('User.role'=>'admin')));
+        //$this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'admin'))));
         $this->render('all');
     }
     
@@ -130,7 +132,6 @@ class TravelsController extends AppController {
         }   
         
         return $this->redirect(array('action'=>'view/'.$travel['Travel']['id']));
-        
     }
 
     public function edit($tId) {        
