@@ -13,9 +13,6 @@ require_once ("helper/mailReader.php");
 
 class IncomingMailShell extends AppShell {
     
-    private $TravelLogic;
-    private $LocalityRouter;
-    
     public $uses = array('Locality', 'DriverLocality', 'TravelByEmail', 'User', 'LocalityThesaurus', 'DriverTravel', 'Driver', 'DriverTravelerConversation');
 
     public function main() {
@@ -59,80 +56,7 @@ class IncomingMailShell extends AppShell {
         
         $body = /*h(*/$parser->body/*)*/; // h() para escapar los caracteres html
         
-        /*if($to === 'viajes@yotellevo.ahiteva.net') {
-            CakeLog::write('travels_by_email', 'Travel Created - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-            
-            $subject = str_replace("'", "", $subject);
-            $subject = str_replace('"', "", $subject);
-
-            $parseOK = preg_match('/(?<from>.+)-(?<to>.+)/', $subject, $matches);
-            if($parseOK) {
-                $origin = trim($matches['from']);
-                $destination = trim($matches['to']);                
-                
-                preg_match_all('/(?<!\w)#\w+/', $body, $hashtags);
-
-                $this->do_process($sender, $origin, $destination, $body, $hashtags[0]);
-            } else {
-                $this->out('Fail');
-                CakeLog::write('travels_by_email', 'Error: Wrong Subject');
-                if(Configure::read('enqueue_mail')) {
-                    ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            $sender,
-                            array('subject' => $subject), 
-                            array(
-                                'template'=>'travel_by_email_wrong_subject',
-                                'format'=>'html',
-                                'subject'=>'Anuncio de Viaje Fallido (Origen-Destino incorrectos)',
-                                'config'=>'no_responder')
-                            );
-                } else {
-                    $Email = new CakeEmail('no_responder');
-                    $Email->template('travel_by_email_wrong_subject')
-                    ->viewVars(array('subject' => $subject))
-                    ->emailFormat('html')
-                    ->to($sender)
-                    ->subject('Anuncio de Viaje Fallido (Origen-Destino incorrectos)');
-                    try {
-                        $Email->send();
-                    } catch ( Exception $e ) {
-                        // TODO: What to do here?
-                    }
-                } 
-            }
-            
-            CakeLog::write('travels_by_email', "<span style='color:blue'>----------------------------------------------------------------------------------------------------------------------</span>\n\n");
-            
-        } else if($to === 'info@yotellevo.ahiteva.net') {
-            CakeLog::write('info_requested', 'Info Requested - Sender: '.$sender.' | Subject: '.$subject);
-            
-            if(Configure::read('enqueue_mail')) {
-                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $sender,
-                        array(), 
-                        array(
-                            'template'=>'info',
-                            'format'=>'html',
-                            'subject'=>'Sobre YoTeLlevo',
-                            'config'=>'no_responder')
-                        );
-            } else {
-                $Email = new CakeEmail('no_responder');
-                $Email->template('info')
-                ->viewVars(array())
-                ->emailFormat('html')
-                ->to($sender)
-                ->subject('Sobre YoTeLlevo');
-                try {
-                    $Email->send();
-                } catch ( Exception $e ) {
-                    // TODO: What to do here?
-                }
-            }
-            
-            CakeLog::write('info_requested', "<span style='color:blue'>-----------------------------------------------------------------------------------------------------</span>\n\n");
-            
-        } else */if($to === 'chofer@'.Configure::read('domain_name')) {
+        if($to === 'chofer@'.Configure::read('domain_name')) {
             //CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);  
             CakeLog::write('conversations', 'Conversation Started by Traveler');
             if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
@@ -183,7 +107,7 @@ class IncomingMailShell extends AppShell {
                             'format'=>'html',
                             'subject'=>$subject,
                             'config'=>'viajero',
-                            'attachments'=>$parser->attachments) // TODO: habilitar una cuenta para respuestas de viajeros a choferes
+                            'attachments'=>$parser->attachments)
                     );
                     if(!$OK) {
                         CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar en emails_queue</span>");
@@ -206,7 +130,7 @@ class IncomingMailShell extends AppShell {
             
             CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
             
-        }  else if($to === 'viajero@'.Configure::read('domain_name')) {
+        }  else if($to === 'viajero@'.Configure::read('domain_name') || $to === 'viaje@'.Configure::read('domain_name')) {
             //CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
             CakeLog::write('conversations', 'Conversation Started by Driver');
             if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
@@ -226,6 +150,8 @@ class IncomingMailShell extends AppShell {
                 $this->DriverTravel->recursive = 2;
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// TODO: como hacer que solo se haga recursive el Travel, de una mejor forma
                 $driverTravel = $this->DriverTravel->findById($conversation);
+                
+                //print_r($driverTravel['Driver']) ;
                 
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     $deliverTo = $driverTravel['Travel']['User']['username'];
@@ -267,7 +193,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
-                        array('response'=>$fixedBody, 'driver_id'=>$driverTravel['DriverTravel']['driver_id'], 'travel'=>$driverTravel['Travel']),
+                        array('response'=>$fixedBody,'driver'=>$driverTravel['Driver'], /*'driver_id'=>$driverTravel['DriverTravel']['driver_id'],*/ 'travel'=>$driverTravel['Travel']),
                         array(
                             'template'=>'response_driver2traveler',
                             'format'=>'html',
@@ -304,7 +230,9 @@ class IncomingMailShell extends AppShell {
         $fixedBody = $body;
         
         // Remove text after mark (asterisks)
-        list($fixedBody) = explode('***************', $body);
+        //$marker = '***************';
+        /*$marker = '<div id="conversation-header">';
+        list($fixedBody) = explode($marker, $body);*/
         
         // Remove all email addresses
         $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
@@ -317,163 +245,118 @@ class IncomingMailShell extends AppShell {
         $replacement = '['.__d('conversation', 'url borrada').']';
         $fixedBody = preg_replace($urlpattern, $replacement, $fixedBody);
         
+        // Remove the avatars
+        //1.
+        /*$avatarpattern = "/<img class=\"driver-avatar\"[^>]+\>/i";
+        $replacement = '['.__d('conversation', 'imagen borrada').']';
+        $fixedBody = preg_replace($avatarpattern, $replacement, $fixedBody);*/
+        
+        //2.
+        $replacement = '['.__d('conversation', 'imagen borrada').']';
+        $fixedBody = $this->removeTag($fixedBody,'driver-avatar','<img','/>', $replacement);
+        
+        // Remove the footer
+        $fixedBody = $this->removeTag($fixedBody,'email-salute','<div','/div>');
+        
+        // Remove all appended text in previous conversations
+        //$fixedBody = $this->removeTag1($fixedBody, 'appended-conversation-text', '<section', '/section>', '---/---');
+        
         return $fixedBody;
     }
+       
     
     
-    /*private function do_process($sender, $origin, $destination, $description, $hashtags = array()) {
-        
-        $datasource = $this->TravelByEmail->getDataSource();
-        $datasource->begin();
-        $OK = true;
-        
-        $user = $this->User->findByUsername($sender);
-            
-        if($user == null || empty ($user)) {
-            $user = array('User');
-            $user['User']['username'] = $sender;
-            $user['User']['password'] = 'email123';// TODO
-            $user['User']['role'] = 'regular';
-            $user['User']['active'] = true;
-            $user['User']['email_confirmed'] = true;
-            $user['User']['register_type'] = 'email';
-            $user['User']['lang'] = Configure::read('Config.language');
-            if($this->User->save($user)) {
-                $userId = $this->User->getLastInsertID();
-            } else {
-                $OK = false;
-            }
+    //str - string to search 
+    //id - text to search for
+    //start_tag - start delimiter to remove
+    //end_tag - end delimiter to remove
+    function removeTag($str, $id, $start_tag, $end_tag, $replacement = '') { // Source: http://www.katcode.com/php-html-parsing-extracting-and-removing-html-tag-of-specific-class-from-string/
+        //find position of tag identifier. loops until all instance of text removed
+        while(($pos_srch = strpos($str,$id))!==false) {
+            //get text before identifier
+            $beg = substr($str,0,$pos_srch);
+            //get position of start tag
+            $pos_start_tag = strrpos($beg,$start_tag);
+            //echo 'start: '.$pos_start_tag.'<br>';
+            //extract text up to but not including start tag
+            $beg = substr($beg,0,$pos_start_tag);
+            //echo "beg: ".$beg."<br>";
 
-        } else {
-            $userId = $user['User']['id'];
-            
-            if(!$user['User']['email_confirmed']) {
-                
-                $user['User']['email_confirmed'] = true;
-                $this->User->id = $userId;
-                $OK = $this->User->saveField('email_confirmed', '1');
-            }
+            //get text from identifier and on
+            $end = substr($str,$pos_srch);
+
+            //get length of end tag
+            $end_tag_len = strlen($end_tag);
+            //find position of end tag
+            $pos_end_tag = strpos($end,$end_tag);
+            //extract after end tag and on
+            $end = substr($end,$pos_end_tag+$end_tag_len);
+
+            $str = $beg.$replacement.$end;
         }
-        
-        $this->LocalityRouter =& new LocalityRouterComponent(new ComponentCollection());
-        $closest = $this->LocalityRouter->getMatch($origin, $destination);
-        
-        $result = array();        
-        if($OK && $closest != null && !empty ($closest)) {
-            $this->out(print_r($closest, true));
-            
-            $travel = array('TravelByEmail');
-            $travel['TravelByEmail']['user_origin'] = $origin;
-            $travel['TravelByEmail']['user_destination'] = $destination;
-            $travel['TravelByEmail']['description'] = $description;
-            $travel['TravelByEmail']['matched'] = $closest['name'];
-            $travel['TravelByEmail']['locality_id'] = $closest['locality_id'];
-            $travel['TravelByEmail']['where'] = $closest['direction'] == 0? $destination : $origin;
-            $travel['TravelByEmail']['direction'] = $closest['direction'];
-            $travel['TravelByEmail']['user_id'] = $userId;
-            $travel['TravelByEmail']['state'] = Travel::$STATE_CONFIRMED;
-            $travel['User'] = $user['User'];
-            
-            
-            //print_r($hashtags);
-            $travel['TravelByEmail']['need_modern_car'] = false;
-            $travel['TravelByEmail']['need_air_conditioner'] = false;
-            if($hashtags != null && !empty ($hashtags)) {
-                foreach ($hashtags as $tag) {
-                    echo strtolower($tag);
-                    if(strtolower($tag) === '#moderno') $travel['TravelByEmail']['need_modern_car'] = true;
-                    else if(strtolower($tag) === '#aire') $travel['TravelByEmail']['need_air_conditioner'] = true;
-                }
+
+        //return processed string
+        return $str;
+    } 
+    
+    function removeTag1($str, $id, $start_tag, $end_tag, $replacement = '') {
+        //find position of tag identifier. loops until all instance of text removed
+        while(($pos_srch = strpos($str,$id)) !== false) {
+            //get text before identifier
+            $beg = substr($str, 0, $pos_srch);
+            //get position of start tag
+            $pos_start_tag = strrpos($beg, $start_tag);
+            //extract text up to but not including start tag
+            $beg = substr($beg, 0, $pos_start_tag);
+            //echo “beg: “.$beg.”";
+            //get text from identifier and on
+            $end = substr($str, $pos_srch);
+            //get length of end tag
+            $end_tag_len = strlen($end_tag);
+            //find the first position of end tag
+            $pos_end_tag = strpos($end, $end_tag);
+            //compare the number of start tags and end tags within the current end tag pointed to
+            //there should be equal number of start tags and end tags (considering children of same tag)
+            while (substr_count(substr($end, 0, $pos_end_tag), $start_tag) < substr_count(substr($end, 0, $pos_end_tag), $end_tag)) {
+                //find position of next end tag
+                $pos_end_tag = strpos($end, $end_tag, $pos_end_tag);
             }
-            
-            
-            $this->TravelLogic =& new TravelLogicComponent(new ComponentCollection());
-            $result = $this->TravelLogic->confirmTravel('TravelByEmail', $travel);
-            
-            $OK = $result['success'];
-            $this->out($result['message']);
-            
-        } else {
-            $result['message'] = 'Origin and Destination not recognized';
-            $OK = false;
+            //extract after end tag and on
+            $end = substr($end, $pos_end_tag + $end_tag_len);
+            $str = $beg.$replacement.$end;
         }
-        
-        $travelText = '('.$origin.' - '.$destination.' : '.$sender.')';
-        
-        if($OK) {
-            $datasource->commit();
-            CakeLog::write('travels_by_email', $travelText.' Mejor coincidencia: '.  $closest['name'].' -> '.(1.0 - $closest['distance']/strlen($closest['name'])).' [ACEPTADO]');
-            
-            if(Configure::read('enqueue_mail')) {
-                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $sender,
-                        array('travel' => $travel), 
-                        array(
-                            'template'=>'travel_by_email_match',
-                            'format'=>'html',
-                            'subject'=>'Creado Anuncio de Viaje ('.$origin.'-'.$destination.')',
-                            'config'=>'no_responder',
-                            'lang'=>$user['User']['lang'])
-                        );
-            } else {
-                $Email = new CakeEmail('no_responder');
-                $Email->template('travel_by_email_match')
-                ->viewVars(array('travel' => $travel))
-                ->emailFormat('html')
-                ->to($sender)
-                ->subject('Creado Anuncio de Viaje ('.$origin.'-'.$destination.')');
-                try {
-                    $Email->send();
-                } catch ( Exception $e ) {
-                    // TODO: What to do here?
-                }
-            }
-        } else {
-            $datasource->rollback();
-            CakeLog::write('travels_by_email', $travelText.' [NO ACEPTADO: '.$result['message'].']');
-            
-            $this->out('Fail');
-            
-            $localities = $this->Locality->getAsList();
-            $thesaurus = $this->LocalityThesaurus->find('all');
-            if(Configure::read('enqueue_mail')) {
-                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $sender,
-                        array(
-                            'user_origin' => $origin, 
-                            'user_destination' => $destination,
-                            'localities' =>$localities,
-                            'thesaurus' => $thesaurus
-                            ), 
-                        array(
-                            'template'=>'travel_by_email_no_match',
-                            'format'=>'html',
-                            'subject'=>'Anuncio de Viaje Fallido ('.$origin.'-'.$destination.')',
-                            'config'=>'no_responder',
-                            'lang'=>$user['User']['lang'])
-                        );
-                
-                //$this->out('email enqueued');
-            } else {
-                $Email = new CakeEmail('no_responder');
-                $Email->template('travel_by_email_no_match')
-                ->viewVars(array(
-                    'user_origin' => $origin, 
-                    'user_destination' => $destination,
-                    'localities' =>$localities,
-                    'thesaurus' => $thesaurus
-                ))
-                ->emailFormat('html')
-                ->to($sender)
-                ->subject('Anuncio de Viaje Fallido');
-                try {
-                    $Email->send();
-                } catch ( Exception $e ) {
-                    // TODO: What to do here?
-                }
-            } 
-        }
-    }*/    
+        //return processed string
+        return $str;
+    }
+
+    
+    //str - string to search
+    //id - text to search for
+    //start_tag - start delimiter
+    //end_tag - end delimiter
+    function extractTag($str, $id, $start_tag, $end_tag) { // Source: http://www.katcode.com/php-html-parsing-extracting-and-removing-html-tag-of-specific-class-from-string/
+         if($id) {
+             $pos_srch = strpos($str,$id);
+             //extract string up to id value
+             $beg = substr($str,0,$pos_srch);
+
+             //get position of start delimiter
+             $pos_start_tag = strrpos($beg,$start_tag);
+         }
+         else
+            $pos_start_tag = strpos($str,$start_tag); //if no id value get first tag found
+
+         //get position of end delimiter
+         $pos_end_tag = strpos($str,$end_tag,$pos_start_tag);
+         //length of end deilimter
+         $end_tag_len = strlen($end_tag);
+         //length of string to extract
+         $len = ($pos_end_tag+$end_tag_len)-$pos_start_tag;
+         //Extract the tag
+         $tag = substr($str,$pos_start_tag,$len);
+
+         return $tag;
+    }
 }
 
 ?>

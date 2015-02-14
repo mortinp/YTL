@@ -4,7 +4,9 @@ class EmailAttachment extends AppModel {
     
     public $belongsTo = 'EmailQueue';
     
-    public function beforeSave($options = array()) {
+    public $actsAs = array('HardDiskSave');
+    
+    /*public function beforeSave($options = array()) {
         $filename = $this->data[$this->alias]['filename'];
         $contents = $this->data[$this->alias]['contents'];
         $mimeType = $this->data[$this->alias]['mimetype'];
@@ -46,7 +48,7 @@ class EmailAttachment extends AppModel {
         $this->data[$this->alias]['filepath'] = $path;
         
         return true;
-    }
+    }*/
 }
 
 ?>

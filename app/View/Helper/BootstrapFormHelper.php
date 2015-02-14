@@ -77,7 +77,9 @@ class BootstrapFormHelper extends FormHelper {
         $options = array_merge_recursive($defaultOptions, $options);
         $result = parent::input($caption, $options);
         
-        // Hacer cosas específicas para cada tipo de input
+        /* Hacer cosas específicas para cada tipo de input >>> */
+        
+        // SELECT
         if(isset ($options['type']) && $options['type'] === 'select') {
             
             for ($index = 0; $index < count($options); $index++) {
@@ -148,6 +150,23 @@ class BootstrapFormHelper extends FormHelper {
         }
         //echo '</div>';
         echo '</div>';
+    }
+    
+    
+    
+    public function file($caption = null, $options = array()) {
+        $result = "";
+        if(isset ($options['multiple']) && is_numeric($options['multiple'])) {
+            for ($i = 0; $i < $options['multiple']; $i++) {
+                $fileElem = parent::file($caption, $options);
+                $fileElem = str_replace('['.$caption.']', '['.$caption.'][]', $fileElem);
+                $result .= $fileElem;
+            }
+        } else {
+            $result = parent::file($caption, $options);
+        }
+        
+        return $result;
     }
 }
 

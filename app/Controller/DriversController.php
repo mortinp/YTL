@@ -5,7 +5,12 @@ App::uses('CakeEmail', 'Network/Email');
 
 class DriversController extends AppController {
     
-    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverTravelByEmail', 'Travel', 'TravelByEmail');
+    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail');
+    
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('profile');
+    }
     
     public function index() {
         $this->Driver->recursive = 1;
@@ -81,6 +86,43 @@ class DriversController extends AppController {
         }
         
         return $this->redirect(array('action' => 'index'));
+    }
+    
+    public function edit_profile($id = null) {
+        $this->Driver->id = $id;
+        if (!$this->Driver->exists()) {
+            throw new NotFoundException('Chofer inválido.');
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->request->data['DriverProfile']['driver_id'] = $id;
+            
+            /*$avatar = new Model();
+            $avatar->Behaviors->load('HardDiskSave');
+            $avatar->create($this->request->data['DriverProfile']['avatar']);*/
+            
+            if($this->DriverProfile->save($this->request->data)) {
+                $this->setInfoMessage('El perfil  se guardó exitosamente.');
+                return $this->redirect(array('action'=>'profile/'.$this->request->data['DriverProfile']['driver_nick']));
+            }
+        }
+        
+        $this->Driver->recursive = 0;
+        $driver = $this->Driver->findById($id);
+        
+        $this->request->data = $this->DriverProfile->findByDriverId($id);
+        
+        $this->set('driver', $driver);
+    }
+    
+    public function profile($nick) {
+        $profile = $this->DriverProfile->findByDriverNick($nick);
+        
+        if($profile != null && !empty ($profile)) {
+            $this->layout = 'profile';
+            $this->set('profile', $profile);
+        } else {
+            throw new NotFoundException('Este perfil no existe');
+        }
     }
 }
 

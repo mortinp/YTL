@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers_profiles_resources` ADD  `relfilepath` VARCHAR( 250 ) NOT NULL AFTER  `filepath`;

@@ -15,17 +15,29 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: View/Emails/html/response_driver2traveler.ctp:3
-msgid "Hola viajero. Este correo contiene la respuesta del chofer <b>#%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>."
-msgstr "Hi traveler. This email contains the reply of the driver <b>#%s</b> from YoTeLlevo, notified with your travel <b>%s</b>. To send your answer <b>reply this email without modifying the subject</b>."
+msgid "Hola viajero. Este correo contiene la respuesta del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>."
+msgstr "Hi traveler. This email contains the reply of the driver <b>%s</b> from YoTeLlevo, notified with your travel <b>%s</b>. To send your answer <b>reply this email without modifying the subject</b>."
 
 #: View/Emails/html/response_driver2traveler.ctp:5
-msgid "El chofer dice"
-msgstr "The driver says"
+msgid "%s dice"
+msgstr "%s says"
+
+#: View/Emails/html/response_driver2traveler.ctp:5
+msgid "El chofer"
+msgstr "The driver"
+
+#: View/Emails/html/response_driver2traveler.ctp:5
+msgid "Atentamente, el equipo de <em>YoTeLlevo</em>"
+msgstr "Cheers, the team at <em>YoTeLlevo</em>"
 
 #: Console/IncomingMailShell.php:311
 msgid "correo borrado"
-msgstr "email address was deleted"
+msgstr "email deleted"
 
 #: Console/IncomingMailShell.php:317
 msgid "url borrada"
-msgstr "url was deleted"
+msgstr "url deleted"
+
+#: Console/IncomingMailShell.php:253
+msgid "imagen borrada"
+msgstr "image deleted"

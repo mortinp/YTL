@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers_profiles` ADD  `avatar_filepath` VARCHAR( 250 ) NOT NULL AFTER  `driver_name`;

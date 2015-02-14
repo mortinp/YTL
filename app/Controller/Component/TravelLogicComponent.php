@@ -74,7 +74,7 @@ class TravelLogicComponent extends Component {
             if($OK) {
                 
                 $emailConfig = 'no_responder';
-                if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viajero';
+                if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viaje';
                     
                 foreach ($drivers as $d) {
                     $this->DriverTravel->create();

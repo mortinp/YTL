@@ -1,0 +1,4 @@
+/safe
+*
+!.gitignore
+!default_driver_avatar.png

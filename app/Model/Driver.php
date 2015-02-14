@@ -5,6 +5,12 @@ class Driver extends AppModel {
     public $order = 'travel_count DESC, id ASC';
     
     public $hasAndBelongsToMany = 'Locality';
+    
+    public $hasOne = array(
+        'DriverProfile' => array(
+            'fields'=>array('driver_name', 'avatar_filepath')
+        )
+    );
 
     public $validate = array(
         'username' => array(
