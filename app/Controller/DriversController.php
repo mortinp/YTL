@@ -7,6 +7,8 @@ class DriversController extends AppController {
     
     public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail');
     
+    public $components = array('TravelLogic');
+    
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('profile');
@@ -121,8 +123,32 @@ class DriversController extends AppController {
             $this->layout = 'profile';
             $this->set('profile', $profile);
         } else {
-            throw new NotFoundException('Este perfil no existe');
+            throw new NotFoundException(__('Este perfil no existe'));
         }
+    }
+    
+    
+    public function notify_travel($driverId, $travelId) {
+        $this->Driver->id = $driverId;
+        if (!$this->Driver->exists()) {
+            throw new NotFoundException('Chofer inválido.');
+        }
+        $this->Travel->id = $travelId;
+        if (!$this->Travel->exists()) {
+            throw new NotFoundException('Viaje inválido.');
+        }
+        
+        $driver = $this->Driver->findById($driverId);
+        $travel = $this->Travel->findById($travelId);
+        
+        $this->TravelLogic->prepareForSendingToDrivers('Travel');
+        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, 'Travel');
+        
+        
+        if($OK) $this->setInfoMessage('Viaje notificado.');
+        else $this->setErrorMessage('Error notificando el viaje.');
+        
+        return $this->redirect(array('action'=>'view_travels/'.$driverId));
     }
 }
 

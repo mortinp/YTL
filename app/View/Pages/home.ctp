@@ -80,7 +80,7 @@
 
     <div class="row featurette">
         <div class="col-md-5">
-            <?php echo $this->Html->image('driver.jpg', array('class' => 'featurette-image img-responsive img-circle')) ?>
+            <?php echo $this->Html->image('driver.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Chofer de taxi sonriendo'))) ?>
         </div>
         <div class="col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'Házte amigo de tu chofer') ?></h2>
@@ -94,7 +94,7 @@
     
     <div class="row featurette">
         <div class="col-md-push-7 col-md-5">
-            <?php echo $this->Html->image('budget-plan.jpg', array('class' => 'featurette-image img-responsive img-circle')) ?>
+            <?php echo $this->Html->image('budget-plan.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Pareja planeando presupuesto de viaje'))) ?>
         </div>
         <div class="col-md-pull-5 col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'Planifica tu presupuesto de antemano') ?></h2>
@@ -108,7 +108,7 @@
     
     <div class="row featurette">
         <div class="col-md-5">
-            <?php echo $this->Html->image('taxi-pick.jpg', array('class' => 'featurette-image img-responsive img-circle')) ?>
+            <?php echo $this->Html->image('taxi-pick.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Familia subiendo al auto'))) ?>
         </div>
         <div class="col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'No pierdas tiempo esperando transporte') ?></h2>
@@ -122,7 +122,7 @@
 
     <div class="row featurette">
         <div class="col-md-push-7 col-md-5">
-            <?php echo $this->Html->image('collage.jpg', array('class' => 'featurette-image img-responsive img-circle')) ?>
+            <?php echo $this->Html->image('collage.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Varios destinos turísticos en Cuba'))) ?>
         </div>
         <div class="col-md-pull-5 col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'Desata tu creatividad') ?></h2>

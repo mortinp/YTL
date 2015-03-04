@@ -1,9 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>        
-    </head>
-    <body>
-        <div style="text-align: center"><h1>This is going to be our blog in English</h1></div>
-        <div style="text-align: center"><h3><a href="http://yotellevocuba.com">Go back to <em>YoTeLlevo</em></a></h3></div>
-    </body>
-</html>
+<?php
+/**
+ * Front to the WordPress application. This file doesn't do anything, but loads
+ * wp-blog-header.php which does and tells WordPress to load the theme.
+ *
+ * @package WordPress
+ */
+
+/**
+ * Tells WordPress to load the WordPress theme and output it.
+ *
+ * @var bool
+ */
+define('WP_USE_THEMES', true);
+
+/** Loads the WordPress Environment and Template */
+require( dirname( __FILE__ ) . '/wp-blog-header.php' );

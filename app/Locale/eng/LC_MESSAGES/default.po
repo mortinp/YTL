@@ -14,6 +14,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: Controller/Component/TravelLogicComponent.php:65
+msgid "Ocurrió un error confirmando el viaje. Intenta de nuevo."
+msgstr "Error confirming travel. Try again."
+
+#: Controller/Component/TravelLogicComponent.php:69
+msgid "No hay choferes para atender este viaje. Intente confirmarlo más tarde."
+msgstr "No drivers to do this travel. Try confirming later."
+
+#: Controller/Component/TravelLogicComponent.php:71
+msgid "La cantidad de personas supera la máxima capacidad para este origen y destino. Ponga 4 personas y valore con el chofer qué hacer."
+msgstr "The people count is higher than the limit for this origin and destination. Put 4 people and talk to the driver."
+
+#: Controller/Component/TravelLogicComponent.php:88
+msgid "Ocurrió un error enviando el viaje a los choferes. Intenta de nuevo."
+msgstr "Error sending notification to drivers. Try again."
+
+#: Controller/Component/TravelLogicComponent.php:200
+msgid "Ocurrió un error confirmando este viaje."
+msgstr "Error confirming this travel."
+
+#: Controller/Component/TravelLogicComponent.php:209
+msgid "El viaje especificado no existe como pendiente."
+msgstr "This travel is not pending."
+
+#: Controller/Component/TravelLogicComponent.php:214
+msgid "No has especificado el viaje que quieres confirmar."
+msgstr "You did't specify the travel you want to confirm."
+
 #: Controller/TravelsController.php:98;230
 msgid "Error al crear el viaje"
 msgstr "Error creating the travel"
@@ -50,10 +78,13 @@ msgstr "The user or password are invalid. Try again."
 msgid "Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o <a href="%s">entra con tu cuenta</a>"
 msgstr "There is an account with this email already in <em>YoTeLlevo</em>. Type a different email or <a href="%s">login with yours</a>"
 
-
 #: Controller/UsersController.php:85
 msgid "Ocurrió un error registrando su usuario. Intente de nuevo"
 msgstr "An error occured registering your user. Try again."
+
+#: Controller/DriversController.php:124
+msgid "Este perfil no existe"
+msgstr "This profile doesn't exist"
 
 
 #: View/Elements/contact_form.ctp:8
@@ -367,9 +398,13 @@ msgstr "Contact"
 msgid "Preguntas Frecuentes"
 msgstr "FAQ"
 
-#: View/Pages/contact.ctp:8
-msgid "Escríbenos para saber tu opinión, sugerencia o pregunta sobre <em>YoTeLlevo</em>"
-msgstr "Let us know your opinion, suggestion or question about <em>YoTeLlevo</em>"
+#: View/Pages/contact.ctp:16
+msgid "Hola, soy Martín."
+msgstr "Hi, I'm Martín."
+
+#: View/Pages/contact.ctp:16
+msgid "¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes."
+msgstr "Would you like to ask something or just say <em>hi</em>? Write to me at %s and I'll answer very soon."
 
 #: View/Pages/faq.ctp:7
 msgid "¿Qué hace <em>YoTeLlevo</em>?"
@@ -387,7 +422,7 @@ msgstr "How do I create a Travel Request?"
 msgid "Es muy fácil! Para crear un Anuncio de Viaje sólo tienes que"
 msgstr "It's very easy! To create a Travel Request you just have to"
 
-#: View/Pages/faq.ctp:17
+#: View/Pages/faq.ctp:17,18
 msgid "ir al formulario de anuncios"
 msgstr "go to the requests form"
 

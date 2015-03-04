@@ -83,6 +83,7 @@ foreach (Travel::getPreferences() as $key => $value) {
 </div>
 
 <?php if($details):?>
+    <p><b>ID:</b> <?php echo $travel['Travel']['id']?></p>
     <p><b>Creado por:</b> <?php echo $travel['User']['username']?></p>
     <?php if(isset ($travel['DriverTravel'])):?>
     <p><b>Conversaciones:</b>

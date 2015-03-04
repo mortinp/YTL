@@ -22,6 +22,11 @@ class Travel extends AppModel {
         'need_air_conditioner'=>'Aire Acondicionado'
     );*/
     
+    public static $SEARCH_ALL = 'all';
+    public static $SEARCH_CLOSER_TO_EXPIRE = 'closer-to-expire';
+    public static $SEARCH_ADMINS = 'admins';
+    public static $filtersForSearch = array('all', 'closer-to-expire', 'admins');
+    
     public $order = 'Travel.id DESC';
     
     public $belongsTo = array(

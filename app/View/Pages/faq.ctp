@@ -15,7 +15,7 @@
                 <?php echo __('Es muy fácil! Para crear un Anuncio de Viaje sólo tienes que')?> 
                 <?php
                 if(!$isLoggedIn) echo $this->Html->link(__('ir al formulario de anuncios'), array('controller'=>'pages', 'action'=>'home#FormContainer'));
-                else echo $this->Html->link('ir al formulario de anuncios', array('controller'=>'travels', 'action'=>'add'));
+                else echo $this->Html->link(__('ir al formulario de anuncios'), array('controller'=>'travels', 'action'=>'add'));
                 ?>
                 <?php echo __('y completarlo')?>.
             </p>
@@ -73,7 +73,7 @@
             
             <br/>
             <br/>
-            <p><b><?php echo __('¿Tienes otras preguntas que quieras hacernos?')?> <big><?php echo $this->Html->link(__('Contáctanos'), array('action'=>'contact'))?></big></b></p>
+            <p><b><?php echo __('¿Tienes otras preguntas que quieras hacernos?')?> <?php echo $this->Html->link(__('Contáctanos'), array('action'=>'contact'))?></b></p>
             
         </div>
     </div>

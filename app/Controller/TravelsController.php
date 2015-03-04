@@ -52,17 +52,29 @@ class TravelsController extends AppController {
     // Admins only
     public function all() {
         $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        //$this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'regular'))));
         $this->set('travels', $this->paginate(array('User.role'=>'regular')));
-        //$this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'regular'))));
+    }
+    
+    public function view_filtered($filter = 'all') {
+        $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        $conditions = array('User.role'=>'regular');
+        
+        if($filter == Travel::$SEARCH_CLOSER_TO_EXPIRE) {
+            $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
+            $conditions['Travel.date >='] = date('Y-m-d', mktime());
+        } else if($filter == Travel::$SEARCH_ADMINS) {
+            $conditions['User.role'] = 'admin';
+        }
+        
+        $this->set('filter_applied', $filter);
+        $this->set('travels', $this->paginate($conditions));
+        $this->render('all');
     }
     
     // Admins only
     public function all_admins() {
         $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        //$this->set('travels', $this->Travel->find('all', array('conditions'=>array('User.role'=>'admin'))));
         $this->set('travels', $this->paginate(array('User.role'=>'admin')));
-        //$this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('User.role'=>'admin'))));
         $this->render('all');
     }
     

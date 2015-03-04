@@ -51,12 +51,20 @@ msgid "Llegado el momento, haz tu viaje de la manera acordada, improvisa en el c
 msgstr "Travel the way you agreed, improvise along your journey and create the best memories of this fantastic island"
 
 #: /home.ctp:83
+msgid "Chofer de taxi sonriendo"
+msgstr "Taxi driver smiling"
+
+#: /home.ctp:83
 msgid "Házte amigo de tu chofer"
 msgstr "Make friends with your driver"
 
 #: /home.ctp:86
 msgid "El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, profesionales, todos propietarios de un taxi que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras."
 msgstr "The driver you travel with is important and makes the difference. Our drivers are pilots, fishermen, professionals, all of them owners of a taxi who help us move you around the island. Connect with your driver the way you prefer."
+
+#: View/Pages/home.ctp:100
+msgid "Pareja planeando presupuesto de viaje"
+msgstr "Couple planning travel budget"
 
 #: View/Pages/home.ctp:100
 msgid "Planifica tu presupuesto de antemano"
@@ -67,12 +75,20 @@ msgid "Planifica los costos de transportación con tu chofer antes de llegar a l
 msgstr "Plan all the transportation costs with your driver before you arrive in the island. Know for sure what you can spare for other activites and save yourself from the surprises of having to negotiate fares with drivers the moment you arrive."
 
 #: View/Pages/home.ctp:114
+msgid "Familia subiendo al auto"
+msgstr "Family getting in the car"
+
+#: View/Pages/home.ctp:114
 msgid "No pierdas tiempo esperando transporte"
 msgstr "Don't waste time waiting for transport"
 
 #: View/Pages/home.ctp:117
 msgid "¿Por qué esperar por un bus para llegar a dónde quieres? ¿Por qué ajustarte a su horario de salida? Tu tiempo en Cuba es limitado y es mejor tener un taxi a tu disposición y decidir cuándo moverte y hacia qué lugar. Es tan simple como recostarte en tu asiento y dejarte llevar."
 msgstr "Why wait for a bus to get where you want? Why have to schedule yourself to meet its departure time? Your time visiting Cuba is limited, and it's better to have a taxi at your disposal and decide when to take a ride, anytime, anywhere. It's as simple as laying back in your seat and saying <em>Go</em>."
+
+#: View/Pages/home.ctp:128
+msgid "Varios destinos turísticos en Cuba"
+msgstr "Various tourism destinations in Cuba"
 
 #: View/Pages/home.ctp:128
 msgid "Desata tu creatividad"

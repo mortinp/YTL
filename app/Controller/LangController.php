@@ -66,7 +66,35 @@ class LangController extends AppController {
         }
         
         $referer = $this->referer();
-        if($referer != null) return $this->redirect($referer);
+        if($referer != null) {
+            
+            if(is_array($referer)) return $this->redirect($referer);
+            
+            else if(is_string($referer)) {
+                
+                if($referer == '/') return $this->redirect($referer);
+                
+                $urlApp = Configure::read('App.fullBaseUrl');
+                $urlBlog = Configure::read('App.fullBaseUrl');
+                if(Configure::read('debug') > 0) {
+                    $urlApp .= '/yotellevo';
+                    $urlBlog .= '/yotellevo/app/webroot/blog';
+                } else {
+                    $urlBlog .= '/blog';
+                }
+                
+                if(strpos($referer, $urlApp) === 0) {
+                    if(strpos($referer, $urlBlog) === 0)
+                        return $this->redirect('/');
+                    else return $this->redirect($referer);
+                }
+                
+                // Just in case nothing matches
+                return $this->redirect('/');
+                
+            }
+            else return $this->redirect('/');
+        }
         else return $this->redirect('/');
     }
 

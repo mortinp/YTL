@@ -2,21 +2,24 @@
     <div class="row">
         
         <div class="col-md-8 col-md-offset-2">
-            <legend>
-                <?php echo __('Escríbenos para saber tu opinión, sugerencia o pregunta sobre <em>YoTeLlevo</em>')?>
-            </legend>
-            <p><b>Email:</b> soporte@<?php echo Configure::read('domain_name')?></p>
-            <!--<legend>
-                <div><big><?php echo __('Contáctanos')?></big></div>
-                <div>
-                    <small class="text-muted">
-                        <p>
-                            <?php echo __('Escríbenos para saber tu opinión, sugerencia o pregunta sobre <em>YoTeLlevo</em>')?>.
-                        </p>
-                    </small>
-                </div>
-            </legend>
-            <?php echo $this->element('contact_form')?>-->
+            <big>
+                <blockquote>
+                    <?php
+                    $filesBaseUrl = '/files';
+                    if(Configure::read('debug') > 0) {
+                        $filesBaseUrl = '/yotellevo'.$filesBaseUrl;
+                    }
+                    ?>
+                    
+                    <div><img src="<?php echo $filesBaseUrl.'/1423878969_avatar-martin_jpg'?>"/></div>
+                    <div class="text-muted">
+                    <?php echo __('Hola, soy Martín.')?>
+                        <?php echo __('¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes.', '<span class="text-info">martin@'. Configure::read('domain_name').'</span>')?>
+                    </div>
+                    
+                </blockquote>
+                
+            </big>
         </div>
     </div>
 </div>

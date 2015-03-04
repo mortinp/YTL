@@ -228,7 +228,16 @@ if($isLoggedIn) {
                         </div>
                         <div class="col-md-6" style="text-align: center">
                             <p class="text-muted" style="margin: 20px 0;">
-                                <a href="<?php echo $this->Html->url(array('controller'=>'', 'action'=>'blog', 'base'=>false), true).'/'.Configure::read('Config.language').'/' ?>">Blog</a>
+                                <?php
+                                $urlBlog = Configure::read('App.fullBaseUrl');
+                                if(Configure::read('debug') > 0) {
+                                    $urlBlog .= '/yotellevo/app/webroot/blog';
+                                } else {
+                                    $urlBlog .= '/blog';
+                                }
+                                $urlBlog .= '/'.Configure::read('Config.language');
+                                ?>
+                                <a href="<?php echo $urlBlog ?>">Blog</a>
                                 |
                                <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                                 |
