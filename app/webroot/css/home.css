@@ -87,6 +87,7 @@
     white-space: normal;
     max-width:400px
 }
+
 .sell-button a .sub {
    font-size:12pt;
    padding-left:50px;
@@ -97,28 +98,23 @@
 }
 
 
-/*#navbar #nav a.nav-link{
-    color:white;
-    font-family:'Montserrat', sans-serif;
-    font-size:13px;
-    margin-top:4px;
-    text-transform:uppercase
-}
-#navbar #nav a.nav-link:hover,#navbar #nav a.nav-link:focus{
-    background-color:transparent;
-    text-decoration:none
-}*/
-
 .sell{margin:20px 0;padding:0 100px}
 @media (max-width: 767px){
     .sell{padding:0 25px}
 }
-.sell span{font-size:50px;/*color:#00a345*/}
-/*.sell .sell-text{font-size:20px}*/
+
+.sell span{font-size:50px;}
 @media (max-width: 767px){
-    .sell span{font-size:30px;/*color:#00a345*/}
-    /*.sell .sell-text{font-size:14px}*/
+    .sell span{font-size:30px;}
+    .sell span img{max-height: 40px;}
 }
+
+.sell span img{max-height: 50px;}
+@media (max-width: 767px){
+    .sell span img{max-height: 40px;}
+}
+
+/*.sell span img{max-height: 40px;}*/
 
 .icon-bar{
 	background-color:white;

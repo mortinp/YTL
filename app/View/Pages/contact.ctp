@@ -1,6 +1,5 @@
 <div class="container">
     <div class="row">
-        
         <div class="col-md-8 col-md-offset-2">
             <big>
                 <blockquote>
@@ -16,9 +15,7 @@
                     <?php echo __('Hola, soy Martín.')?>
                         <?php echo __('¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes.', '<span class="text-info">martin@'. Configure::read('domain_name').'</span>')?>
                     </div>
-                    
                 </blockquote>
-                
             </big>
         </div>
     </div>

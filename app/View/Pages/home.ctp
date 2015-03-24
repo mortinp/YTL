@@ -9,9 +9,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#!">
-                        <span class="white"><big>Yo</big>Te<big>Llevo</big></span>
-                    </a>
+                        <span class="white navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
                     <div class="pull-left navbar-brand">
                         <?php $lang = SessionComponent::read('app.lang');?>
                         <?php if($lang != null && $lang == 'en'):?>
@@ -23,23 +21,23 @@
                 </div>
                 <div class="navbar-collapse navbar-ex1-collapse collapse" style="height: 1px;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link')) ?></li>
-                        <li><?php echo $this->Html->link(__d('homepage', 'Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link')) ?></li>
+                        <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
+                        <li><?php echo $this->Html->link(__d('homepage', 'Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
                     </ul>
                 </div>
             </nav>
         </div>
 
     </div>
-    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', 'Sé el dueño de tu viaje') ?></h1>
+    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', '¿Necesitas taxi en tu viaje a Cuba?') ?></h1>
     <h2 class="handwritten-2 white">
-        <?php echo __d('homepage', 'Consigue el <big><big><span class="text-info"><b>taxi</b></span></big></big> de tu elección para moverte por <big><big><span class="text-info"><b>Cuba</b></span></big></big>') ?> 
+        <big><?php echo __d('homepage', 'Contacta tres choferes independientes y acuerda tu transfer o tour') ?></big>
     </h2>
     <div class="sell-button" style="padding-top:50px">
         <a href="#!" class="btn btn-success show-travel-form">
-            <?php echo __d('homepage', 'Contactar un taxi') ?>
+            <?php echo __d('homepage', 'Conoce 3 choferes por correo') ?>
             <div class="sub">
-                <?php echo __d('homepage', 'Acuerda enseguida los detalles del viaje con tu chofer') ?>
+                <?php echo __d('homepage', 'Recibe ofertas directamente de ellos. Contrata al que creas mejor.') ?>
             </div>
         </a>
     </div>
@@ -49,18 +47,24 @@
 
 <div class="row sell">
     <div class="col-md-4 center">
-        <span class="glyphicon glyphicon-user"></span>
-        <span class="glyphicon glyphicon-user"></span>
-        <span class="glyphicon glyphicon-user"></span>
+        <?php
+        $filesBaseUrl = '/files';
+        if(Configure::read('debug') > 0) {
+            $filesBaseUrl = '/yotellevo'.$filesBaseUrl;
+        }
+        ?>
+        <span class="glyphicon"><img src="<?php echo $filesBaseUrl.'/1423880259_avatar-alexis_jpg'?>" class="img-responsive"/></span>
+        <span class="glyphicon"><img src="<?php echo $filesBaseUrl.'/1424441088_avatar-fidel_jpg'?>" class="img-responsive"/></span>
+        <span class="glyphicon"><img src="<?php echo $filesBaseUrl.'/1423880166_avatar-ovidio_jpg'?>" class="img-responsive"/></span>
         <p class="lead">
-            <?php echo __d('homepage', 'Te ponemos en contacto con hasta <big>3</big> de nuestros choferes para que acuerdes el viaje directamente con ellos via correo electrónico') ?>.
+            <?php echo __d('homepage', 'Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla') ?>.
         </p>
     </div>
     <div class="col-md-4 center">
         <span class="glyphicon glyphicon-comment"></span>
         <span class="glyphicon glyphicon-usd"></span>
         <p class="lead">
-            <?php echo __d('homepage', 'Acuerda tus recorridos, horarios y el precio del viaje o ruta. Escoge el chofer que mejor se ajuste a tus requerimientos') ?>.
+            <?php echo __d('homepage', 'Los choferes te darán sus precios y tú puedes preguntar cualquier cosa relativa al viaje. Conoce un poco a los choferes mientras intercambian correos') ?>.
         </p>
     </div>
     <div class="col-md-4 center">
@@ -68,7 +72,7 @@
         <span class="glyphicon glyphicon-camera"></span>
         <span class="glyphicon glyphicon-music"></span>
         <p class="lead">
-            <?php echo __d('homepage', 'Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica') ?>.
+            <?php echo __d('homepage', 'Contrata al chofer que creas mejor de acuerdo a tu presupuesto o necesidades especiales. O simplemente haz un amigo que te lleve en su auto a donde quieras ir') ?>.
         </p>
     </div>
 </div>
@@ -83,10 +87,10 @@
             <?php echo $this->Html->image('driver.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Chofer de taxi sonriendo'))) ?>
         </div>
         <div class="col-md-7">
-            <h2 class="featurette-heading"><?php echo __d('homepage', 'Házte amigo de tu chofer') ?></h2>
+            <h2 class="featurette-heading"><?php echo __d('homepage', 'Conoce a tu chofer') ?></h2>
             <br/>
             <br/>
-            <p class="lead"><?php echo __d('homepage', 'El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, profesionales, todos propietarios de un taxi que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras.') ?></p>
+            <p class="lead"><?php echo __d('homepage', 'El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, profesionales, todos propietarios de un auto que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras.') ?></p>
         </div>
     </div>
 
@@ -141,12 +145,7 @@
                 <div class="handwritten-2"><big><big><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer') ?></big></big></div>
                 <div><small><?php echo __d('homepage', '<b>Consigue un taxi</b> creando un Anuncio de Viaje') ?></small></div>
             </legend>
-            <?php echo $this->Session->flash(); ?>
-            
-            <?php if($lang != 'es'):?>
-            <div style="padding:20px;padding-left:30px"><span class="text-danger"><small>* Origin and Destination in Spanish for a better match, i.e. La Habana, Cayo Coco, Aeropuerto José Martí</small></span></div>
-            <?php endif;?>
-            
+            <?php echo $this->Session->flash(); ?>            
             <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
         </div>
     </div>

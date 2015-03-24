@@ -23,44 +23,44 @@ msgid "Registrarse"
 msgstr "Sign Up"
 
 #: /home.ctp:27
-msgid "Sé el dueño de tu viaje"
-msgstr "Be the owner of your travel"
+msgid "¿Necesitas taxi en tu viaje a Cuba?"
+msgstr "Will you need a taxi in Cuba?"
 
 #: /home.ctp:29
-msgid "Consigue el <big><big><span class=\"text-info\"><b>taxi</b></span></big></big> de tu elección para moverte por <big><big><span class=\"text-info\"><b>Cuba</b></span></big></big>"
-msgstr "Get the <big><big><span class=\"text-info\"><b>taxi</b></span></big></big> of your choice to move around <big><big><span class=\"text-info\"><b>Cuba</b></span></big></big>"
+msgid "Contacta tres choferes independientes y acuerda tu transfer o tour"
+msgstr "Contact three independent taxi drivers and arrange your transfer or tour"
 
 #: /home.ctp:33
-msgid "Contactar un taxi"
-msgstr "Contact a taxi"
+msgid "Conoce 3 choferes por correo"
+msgstr "Meet 3 drivers via email"
 
 #: /home.ctp:35
-msgid "Acuerda enseguida los detalles del viaje con tu chofer"
-msgstr "Arrange your travel directly with your driver"
+msgid "Recibe ofertas directamente de ellos. Contrata al que creas mejor."
+msgstr "Get quotes directly from them. Hire the one you think is best."
 
 #: /home.ctp:50
-msgid "Te ponemos en contacto con hasta <big>3</big> de nuestros choferes para que acuerdes el viaje directamente con ellos via correo electrónico"
-msgstr "We connect you with up to <big>3</big> of our drivers so that you can arrange your travel directly with them via email"
+msgid "Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla"
+msgstr "We connect you with up to 3 of our drivers so that you can arrange your travel directly with them via email before you arrive in the island"
 
 #: /home.ctp:59
-msgid "Acuerda tus recorridos, horarios y el precio del viaje o ruta. Escoge el chofer que mejor se ajuste a tus requerimientos"
-msgstr "Agree the destinations, schedules and price of your travel or journey. Choose the driver that best fits your requirements"
+msgid "Los choferes te darán sus precios y tú puedes preguntar cualquier cosa relativa al viaje. Conoce un poco a los choferes mientras intercambian correos"
+msgstr "The drivers will give you quotes and you can ask anything until you feel comfortable. Get to meet the drivers as you exchange emails"
 
 #: /home.ctp:68
-msgid "Llegado el momento, haz tu viaje de la manera acordada, improvisa en el camino y crea los mejores recuerdos de esta isla fantástica"
-msgstr "Travel the way you agreed, improvise along your journey and create the best memories of this fantastic island"
+msgid "Contrata al chofer que creas mejor de acuerdo a tu presupuesto o necesidades especiales. O simplemente haz un amigo que te lleve en su auto a donde quieras ir"
+msgstr "Hire the driver you think is best according to your budget or special needs. Or just make a friend to ride you anywhere"
 
 #: /home.ctp:83
 msgid "Chofer de taxi sonriendo"
 msgstr "Taxi driver smiling"
 
 #: /home.ctp:83
-msgid "Házte amigo de tu chofer"
-msgstr "Make friends with your driver"
+msgid "Conoce a tu chofer"
+msgstr "Meet your driver"
 
 #: /home.ctp:86
-msgid "El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, profesionales, todos propietarios de un taxi que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras."
-msgstr "The driver you travel with is important and makes the difference. Our drivers are pilots, fishermen, professionals, all of them owners of a taxi who help us move you around the island. Connect with your driver the way you prefer."
+msgid "El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, profesionales, todos propietarios de un auto que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras."
+msgstr "The driver you travel with is important and makes the difference. Our drivers are pilots, fishermen, professionals, all of them owners of a car who help us move you around the island. Connect with your driver the way you prefer."
 
 #: View/Pages/home.ctp:100
 msgid "Pareja planeando presupuesto de viaje"

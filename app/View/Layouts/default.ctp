@@ -83,9 +83,7 @@ if($isLoggedIn) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#!">
-                            <big>Yo</big>Te<big>Llevo</big>
-                        </a>
+                            <span class="white navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
                         <div class="pull-left navbar-brand">
                             <?php $lang = SessionComponent::read('app.lang');?>
                             <?php if($lang != null && $lang == 'en'):?>
@@ -174,10 +172,10 @@ if($isLoggedIn) {
                                 </li>
                             <?php else: ?>
                                 <li>
-                                    <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link')) ?>
+                                    <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link')) ?>
+                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
                                 </li>
                             <?php endif ?>
 
@@ -211,6 +209,17 @@ if($isLoggedIn) {
                     document.write('<img alt="Free Counter" border=0 hspace=0 '+'vspace=0 src="http://www.1freecounter.com/counter.php?i=109722' + data + '">');
                     document.write('</a>');
                     </script>
+                    
+                    <!-- Google Analytics -->
+                    <script>
+                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                    ga('create', 'UA-60694533-1', 'auto');
+                    ga('send', 'pageview');
+                    </script>
 
                     <!-- End 1FreeCounter.com code -->
                 <?php endif;?>
@@ -237,7 +246,9 @@ if($isLoggedIn) {
                                 }
                                 $urlBlog .= '/'.Configure::read('Config.language');
                                 ?>
-                                <a href="<?php echo $urlBlog ?>">Blog</a>
+                                <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
+                                |
+                                <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
                                 |
                                <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
                                 |

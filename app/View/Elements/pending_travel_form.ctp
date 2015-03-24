@@ -79,7 +79,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             echo $this->Form->checkbox_group(Travel::getPreferences(), array('header'=>__d('pending_travel', 'Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
             
-            $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit', 'escape'=>false);
+            $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit', 'escape'=>false, 'rel'=>'nofollow');
             echo $this->Form->submit($saveButtonText, $submitOptions, $asLink);
             ?>
         <?php else:?>
@@ -115,7 +115,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
                 </div>	
             </div>
             <div class="submit col-md-6 col-md-offset-3" style="text-align: center">
-                <?php $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit', 'escape'=>false);
+                <?php $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit', 'escape'=>false, 'rel'=>'nofollow');
                 echo $this->Form->submit($saveButtonText, $submitOptions, $asLink);?>
             </div>
             

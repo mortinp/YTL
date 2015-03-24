@@ -24,8 +24,9 @@ class Travel extends AppModel {
     
     public static $SEARCH_ALL = 'all';
     public static $SEARCH_CLOSER_TO_EXPIRE = 'closer-to-expire';
+    public static $SEARCH_EXPIRED_NEWEST = 'expired-newest';
     public static $SEARCH_ADMINS = 'admins';
-    public static $filtersForSearch = array('all', 'closer-to-expire', 'admins');
+    public static $filtersForSearch = array('all', 'closer-to-expire', 'expired-newest', 'admins');
     
     public $order = 'Travel.id DESC';
     
