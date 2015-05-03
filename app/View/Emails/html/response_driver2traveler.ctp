@@ -14,6 +14,7 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
 }
 ?>
 
+
 <div id="conversation-header">
     <p>
         <em><?php echo __d('conversation', 'Hola viajero. Este correo contiene la respuesta del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel['origin'].' - '.$travel['destination'])?></em>   
@@ -29,23 +30,8 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
 </div>
 
 
-<div>
-   <?php 
-   //1
-   echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $response);
-   
-   //2
-   //echo nl2br($response);
-   
-   /*//3
-   $lines = preg_split("/(\r\n|\n|\r)/", $response);
-   foreach ($lines as $l) {
-       echo $l."\n";
-   }*/
-   
-   //4
-   //echo $response 
-   ?>
+<div style="border-left: #efefef solid 2px;padding-left: 15px">
+   <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $response);?>
 </div>
 
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-top: 10px;margin-bottom: 10px;"/>

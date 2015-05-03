@@ -6,7 +6,7 @@
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
 
 <p><b>El viajero dice:</b></p>
-<div>
+<div style="border-left: #efefef solid 2px;padding-left: 15px">
    <?php 
    //1
    echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $response);

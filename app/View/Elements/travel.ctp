@@ -7,6 +7,7 @@
 // INIT
 if (!isset($actions)) $actions = true;
 if (!isset($details)) $details = false;
+if (!isset($embedEmail)) $embedEmail = false;
 
 $months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
 $days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
@@ -46,8 +47,9 @@ foreach (Travel::getPreferences() as $key => $value) {
     }
 ?>
 <legend>
-   
-    <small><i title="<?php echo $notice['label']?>" class="glyphicon glyphicon-flag" style="margin-left:-20px;color:<?php echo $notice['color']?>;display: inline-block"></i></small>
+    <?php if(!$embedEmail):?>
+        <small><i title="<?php echo $notice['label']?>" class="glyphicon glyphicon-flag" style="margin-left:-20px;color:<?php echo $notice['color']?>;display: inline-block"></i></small>
+    <?php endif;?>
     <big>
         <b><span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span></b> 
         - 
@@ -58,9 +60,9 @@ foreach (Travel::getPreferences() as $key => $value) {
     
 <p><b><?php echo __('Fecha del viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
 
-<p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo $travel['Travel']['details']?></span></p>
+<p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php if($embedEmail) echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $travel['Travel']['details']); else echo $travel['Travel']['details']?></span></p>
 
-<?php if(!Configure::read('conversations_via_app')/*isset($showEmail) && $showEmail*/):?>
+<?php if(!Configure::read('conversations_via_app')):?>
 <p><b><?php echo __('Correo de contacto')?>:</b> <span id='travel-details-label'><?php echo $travel['User']['username']?></span></p>
 <?php endif?>
 

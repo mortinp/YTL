@@ -91,7 +91,9 @@ class TravelLogicComponent extends Component {
                 }
 
                 // Always send an email to me ;) 
-                $subject = 'Nuevo Anuncio de Viaje ('.$travel[$travelType]['id'].' '.$this->Travel->travelType.')';
+                //$subject = 'Nuevo Anuncio de Viaje ('.$travel[$travelType]['id'].' '.$this->Travel->travelType.')';
+                $subject = $this->getNotificationEmailSubject($travel, $travelType, $travel[$travelType]['id']);
+                
                 if(Configure::read('enqueue_mail')) {
                     ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             Configure::read('superadmin_email')/*'mproenza@grm.desoft.cu'*/,
@@ -140,7 +142,9 @@ class TravelLogicComponent extends Component {
         if($OK) {
 
             $conversation = $this->DriverTravel->getLastInsertID();
-            $subject = __d('user_email', 'Nuevo Anuncio de Viaje').' [['.$conversation.']]';
+            
+            //$subject = __d('user_email', 'Nuevo Anuncio de Viaje');
+            $subject = $this->getNotificationEmailSubject($travel, $travelType, $conversation);       
 
             if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
@@ -167,6 +171,16 @@ class TravelLogicComponent extends Component {
         }
 
         return $OK;
+    }
+    
+    private function getNotificationEmailSubject($travel, $travelType, $id) {
+        $subject = date('y-m-d', strtotime($travel[$travelType]['date'])).' ';
+        $tag = $travel[$travelType]['origin'].' - '.$travel[$travelType]['destination'];
+        if(strlen($tag) > 80) $subject .= substr ($tag, 0, 80).'...';
+        else $subject .= $tag;
+        $subject .= ' [['.$id.']]';
+        
+        return $subject;
     }
     
     
