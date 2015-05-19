@@ -34,8 +34,8 @@ class IncomingMailShell extends AppShell {
         $fd = fopen('php://stdin','r');
         while(!feof($fd)){ $raw .= fread($fd,1024); }
         
-        CakeLog::write('emails_raw', utf8_encode($raw));
-        CakeLog::write('emails_raw', "<span style='color:blue'>--------------------------------------------------------------------------------------------------</span>\n\n");
+        //CakeLog::write('emails_raw', utf8_encode($raw));
+        //CakeLog::write('emails_raw', "<span style='color:blue'>--------------------------------------------------------------------------------------------------</span>\n\n");
         
         $parser = new mailReader();
         //$parser->debug = true;
@@ -58,7 +58,7 @@ class IncomingMailShell extends AppShell {
         
         if($to === 'chofer@'.Configure::read('domain_name')) {
             //CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);  
-            CakeLog::write('conversations', 'Conversation Started by Traveler');
+            CakeLog::write('conversations', 'Conversation Started by Traveler: '.$sender);
             if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
                 CakeLog::write('conversations', 'Attachments:');
                 foreach ($parser->attachments as $filename=>$value) {
@@ -126,13 +126,44 @@ class IncomingMailShell extends AppShell {
                     CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se encontró la conversación</span>");
                     CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                 }
+            } else {
+                // TODO
+                CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
+                CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
+                
+                $user = $this->User->findByUsername($sender);
+                
+                if($user != null && (is_array($user) && !empty ($user))) {
+                    //$this->out($user['User']['id'].'-'.$user['User']['username'].'-'.$user['User']['lang']);
+                    $lang = $user['User']['lang'];
+                    
+                    $cause = 'Problem in your response email';
+                    $target_part = 'driver';
+                    if($lang != 'en') {
+                        $cause = 'Problema en su correo de respuesta';
+                        $target_part = 'chofer';
+                    }
+                
+                    ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $sender,
+                        array('target_part'=>$target_part, 'subject'=>$subject, 'body'=>$body),
+                        array(
+                            'template'=>'wrong_conversation_email_subject',
+                            'format'=>'html',
+                            'subject'=>$cause,
+                            'config'=>'soporte',
+                            'lang'=>$lang)
+                    );
+                } else {
+                    CakeLog::write('conversations', "<span style='color:red'>Oops, that user was not found in our database.</span>");
+                }
             }
             
             CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
             
         }  else if($to === 'viajero@'.Configure::read('domain_name') || $to === 'viaje@'.Configure::read('domain_name')) {
             //CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-            CakeLog::write('conversations', 'Conversation Started by Driver');
+            CakeLog::write('conversations', 'Conversation Started by Driver: '.$sender);
             if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
                 CakeLog::write('conversations', 'Attachments:');
                 foreach ($parser->attachments as $filename=>$value) {
@@ -219,6 +250,20 @@ class IncomingMailShell extends AppShell {
                     CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se encontró la conversación</span>");
                     CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                 }
+            } else {
+                // TODO
+                CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
+                CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
+                
+                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                    $sender,
+                    array('target_part'=>'viajero', 'subject'=>$subject, 'body'=>$body),
+                    array(
+                        'template'=>'wrong_conversation_email_subject',
+                        'format'=>'html',
+                        'subject'=>'Problema en un correo de respuesta',
+                        'config'=>'soporte')
+                );
             }
             
             CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
