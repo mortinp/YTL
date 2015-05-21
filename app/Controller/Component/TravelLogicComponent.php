@@ -175,9 +175,10 @@ class TravelLogicComponent extends Component {
     
     private function getNotificationEmailSubject($travel, $travelType, $id) {
         $subject = date('y-m-d', strtotime($travel[$travelType]['date'])).' ';
-        $tag = $travel[$travelType]['origin'].' - '.$travel[$travelType]['destination'];
+        /*$tag = $travel[$travelType]['origin'].' - '.$travel[$travelType]['destination'];
         if(strlen($tag) > 80) $subject .= substr ($tag, 0, 80).'...';
-        else $subject .= $tag;
+        else $subject .= $tag;*/
+        $subject .= __d('user_email', 'Nuevo Anuncio de Viaje');
         $subject .= ' [['.$id.']]';
         
         return $subject;
