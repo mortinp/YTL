@@ -224,7 +224,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
-                        array('response'=>$fixedBody,'driver'=>$driverTravel['Driver'], /*'driver_id'=>$driverTravel['DriverTravel']['driver_id'],*/ 'travel'=>$driverTravel['Travel']),
+                        array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel']),
                         array(
                             'template'=>'response_driver2traveler',
                             'format'=>'html',
@@ -302,6 +302,9 @@ class IncomingMailShell extends AppShell {
         
         // Remove the footer
         $fixedBody = $this->removeTag($fixedBody,'email-salute','<div','/div>');
+        
+        // Remove the social links
+        $fixedBody = $this->removeTag($fixedBody,'social-link','<a','/a>');
         
         // Remove all appended text in previous conversations
         //$fixedBody = $this->removeTag1($fixedBody, 'appended-conversation-text', '<section', '/section>', '---/---');

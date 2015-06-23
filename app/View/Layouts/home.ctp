@@ -101,6 +101,7 @@ if($isLoggedIn) {
 
         <div id="footer">
             <div class="container-fluid">
+                
                 <div class="row">
                     <div class="col-md-3">
                         <p class="text-muted pull-left" style="margin: 20px 0;">
@@ -128,6 +129,13 @@ if($isLoggedIn) {
                         </p>
 
                     </div>
+                    
+                    <div class="col-md-3">
+                        <p class="text-muted pull-right" style="margin: 0 20px;">
+                            <?php echo __d('homepage', '¿Familiares o amigos visitan Cuba y pueden necesitar un chofer con auto? <a href="mailto:?subject=Esto puede ser útil para tu viaje a Cuba&body=Hola Sofía, ¿viste esta página? %s. Ellos te ponen en contacto con choferes independientes en Cuba, y estos te envían precios directamente y puedes contratar alguno si te conviene. Estaba pensando que podrías usarlo para tu transfer del aeropuerto al hotel y conocer al chofer antes de decidir seguir contratándolo. Sólo quería dejarte saber. Te voy a extrañar mientras estés allá :)">Envíales un correo diciéndoles</a>', Configure::read('App.fullBaseUrl')) ?>
+                         </p>
+                    </div>
+                    
                 </div>
 
             </div>

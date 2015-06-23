@@ -42,9 +42,12 @@ else
         echo $this->Form->file('avatar', array('label'=>'Avatar'));
         echo '<br/>';
         
-        echo $this->Form->input('description');
+        echo $this->Form->input('description_es', array('label'=>'Descripción Español'));
+        echo $this->Form->input('description_en', array('label'=>'Description English'));
+        echo $this->Form->checkbox('show_profile').' Mostrar Perfil';
         //echo $this->Form->file('resources', array('multiple'=>3));
         ?>
+        <br/>
         <br/>
         <?php
         echo $this->Form->submit($saveButtonText);

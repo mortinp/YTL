@@ -102,6 +102,14 @@ class DriversController extends AppController {
             $avatar->Behaviors->load('HardDiskSave');
             $avatar->create($this->request->data['DriverProfile']['avatar']);*/
             
+            if(isset ($this->request->data['DriverProfile']['avatar'])) {
+                $l = $this->request->data['DriverProfile']['avatar']['size'];
+                if($this->request->data['DriverProfile']['avatar']['size'] == 0) {
+                    unset ($this->request->data['DriverProfile']['avatar']);
+                    $this->DriverProfile->Behaviors->unload('HardDiskSave');
+                }  
+            }       
+            
             if($this->DriverProfile->save($this->request->data)) {
                 $this->setInfoMessage('El perfil  se guardó exitosamente.');
                 return $this->redirect(array('action'=>'profile/'.$this->request->data['DriverProfile']['driver_nick']));
@@ -119,9 +127,12 @@ class DriversController extends AppController {
     public function profile($nick) {
         $profile = $this->DriverProfile->findByDriverNick($nick);
         
+        $lang = $this->Session->read('app.lang');
+        $lang2 = Configure::read('Config.language');
+        
         if($profile != null && !empty ($profile)) {
             $this->layout = 'profile';
-            $this->set('profile', $profile);
+            $this->set('profile', $profile['DriverProfile']);
         } else {
             throw new NotFoundException(__('Este perfil no existe'));
         }

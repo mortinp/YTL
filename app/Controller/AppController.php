@@ -100,14 +100,21 @@ class AppController extends Controller {
         // Allow all static pages
         $this->Auth->allow('display', 'setlang');
         
+        // Set page language
+        $lang = $this->Session->read('next.page.lang');
+        if($lang == null) $lang = $this->Cookie->read('app.lang');
+        if($lang == null) $lang = Configure::read('default_language');
         
-        $lang = $this->Cookie->read('app.lang');
-        if($lang != null ) $this->Session->write('app.lang', $lang);
-        else $this->Session->write('app.lang', Configure::read('default_language'));
+        $this->Session->write('app.lang', $lang);
         
         Configure::write('Config.language', $this->Session->read('app.lang'));
         
+        // Set page title
         $this->setPageTitle();
+    }
+    
+    public function afterFilter() {
+        $this->Session->write('next.page.lang', null);
     }
     
     private function setPageTitle() {

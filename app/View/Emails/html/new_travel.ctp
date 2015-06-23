@@ -59,4 +59,6 @@ if(!isset ($creator_role)) $creator_role = 'regular';
         Usted recibió este correo porque está registrado en <em>YoTeLlevo</em> como chofer que atiende viajes desde/hasta <?php echo $travel['Locality']['name']?>.
         </small>
     </p>
+    
+    <p><a class="social-link" href="http://yotellevocuba.com">yotellevocuba.com</a> | <a class="social-link" href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
 <?php endif?>

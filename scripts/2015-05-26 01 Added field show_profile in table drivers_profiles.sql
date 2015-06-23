@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers_profiles` ADD  `show_profile` BOOLEAN NOT NULL DEFAULT  '0';

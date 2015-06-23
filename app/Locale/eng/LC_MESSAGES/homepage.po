@@ -23,12 +23,12 @@ msgid "Registrarse"
 msgstr "Sign Up"
 
 #: /home.ctp:27
-msgid "¿Necesitas taxi en tu viaje a Cuba?"
-msgstr "Will you need a taxi in Cuba?"
+msgid "¿Necesitas un chofer con auto en Cuba?"
+msgstr "Need a driver with a car in Cuba?"
 
 #: /home.ctp:29
 msgid "Contacta tres choferes independientes y acuerda tu transfer o tour"
-msgstr "Contact three independent taxi drivers and arrange your transfer or tour"
+msgstr "Contact three independent drivers and arrange your transfer or tour"
 
 #: /home.ctp:33
 msgid "Conoce 3 choferes por correo"
@@ -103,8 +103,8 @@ msgid "Haz un viaje sorprendente con tu chofer"
 msgstr "Do an amazing travel with your driver"
 
 #: /home.ctp:125
-msgid "<b>Consigue un taxi</b> creando un Anuncio de Viaje"
-msgstr "<b>Get a taxi</b> creating a Travel Request"
+msgid "<b>Consigue un chofer con auto</b> creando un Anuncio de Viaje"
+msgstr "<b>Get a driver with a car</b> creating a Travel Request"
 
 #: /home.ctp:137
 msgid "¿Necesitas ideas? Estos son destinos populares con origen en"
@@ -117,4 +117,8 @@ msgstr "Get a taxi"
 #: /home.ctp:167;168
 msgid "Recorrido por la isla"
 msgstr "All around the island"
+
+#: /home.ctp:167;168
+msgid "¿Familiares o amigos visitan Cuba y pueden necesitar un chofer con auto? <a href="mailto:?subject=Esto puede ser útil para tu viaje a Cuba&body=Hola Sofía, ¿viste esta página? %s. Ellos te ponen en contacto con choferes independientes en Cuba, y estos te envían precios directamente y puedes contratar alguno si te conviene. Estaba pensando que podrías usarlo para tu transfer del aeropuerto al hotel y conocer al chofer antes de decidir seguir contratándolo. Sólo quería dejarte saber. Te voy a extrañar mientras estés allá :)">Envíales un correo diciéndoles</a>"
+msgstr "Friends or family are coming to Cuba and might need a ride? <a href="mailto:?subject=This might be useful in you travel to Cuba&body=Hi Em, have you seen this webpage? %s. Those guys put you in contact with independent private drivers based in Cuba, so you get quotes from them and hire one in case you need a ride. I\'m thinking you could give it a try for your transfer from the airport to your hotel and meet the driver before you decide to continue hiring him. Just wanted to let you know. I\'ll miss you while you\'re there :)">Send an email telling them</a>"
 

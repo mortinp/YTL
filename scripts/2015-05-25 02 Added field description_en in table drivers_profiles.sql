@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers_profiles` ADD  `description_en` TEXT NOT NULL;

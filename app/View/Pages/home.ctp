@@ -29,7 +29,7 @@
         </div>
 
     </div>
-    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', '¿Necesitas taxi en tu viaje a Cuba?') ?></h1>
+    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', '¿Necesitas un chofer con auto en Cuba?') ?></h1>
     <h2 class="handwritten-2 white">
         <big><?php echo __d('homepage', 'Contacta tres choferes independientes y acuerda tu transfer o tour') ?></big>
     </h2>
@@ -143,7 +143,7 @@
         <div id="FormContainer" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
             <legend style="text-align:center">
                 <div class="handwritten-2"><big><big><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer') ?></big></big></div>
-                <div><small><?php echo __d('homepage', '<b>Consigue un taxi</b> creando un Anuncio de Viaje') ?></small></div>
+                <div><small><?php echo __d('homepage', '<b>Consigue un chofer con auto</b> creando un Anuncio de Viaje') ?></small></div>
             </legend>
             <?php echo $this->Session->flash(); ?>            
             <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
@@ -192,6 +192,7 @@
         </div>
     </div>
 </div>
+
 
 
 <script type="text/javascript">

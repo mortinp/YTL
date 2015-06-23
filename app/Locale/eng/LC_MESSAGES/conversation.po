@@ -30,14 +30,18 @@ msgstr "The driver"
 msgid "Atentamente, el equipo de <em>YoTeLlevo</em>"
 msgstr "Cheers, the team at <em>YoTeLlevo</em>"
 
-#: Console/IncomingMailShell.php:311
+#: View/Emails/html/response_driver2traveler.ctp:5
+msgid "Vea fotos de %s y su auto"
+msgstr "See pictures of %s and the car"
+
+#: Console/Command/IncomingMailShell.php:311
 msgid "correo borrado"
 msgstr "email deleted"
 
-#: Console/IncomingMailShell.php:317
+#: Console/Command/IncomingMailShell.php:317
 msgid "url borrada"
 msgstr "url deleted"
 
-#: Console/IncomingMailShell.php:253
+#: Console/Command/IncomingMailShell.php:253
 msgid "imagen borrada"
 msgstr "image deleted"
