@@ -50,5 +50,5 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-top: 10px;margin-bottom: 10px;"/>
 <div class="email-salute">
     <p><?php echo __d('conversation', 'Atentamente, el equipo de <em>YoTeLlevo</em>')?></p>
-    <p><a href="http://yotellevocuba.com">yotellevocuba.com</a> | <a href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
+    <p><a href="http://yotellevocuba.com">yotellevocuba.com</a> | <a href="http://yotellevocuba.com/blog/<?php echo Configure::read('Config.language')?>">Blog</a> | <a href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
 </div>

@@ -115,6 +115,8 @@ class TravelsController extends AppController {
                 $this->setErrorMessage(__('Error al crear el viaje'));                
             } else {
                 CakeLog::write('travels_failed', 'Travel Failed (add) - Unknown origin and destination: '.$this->request->data['Travel']['origin'].' - '.$this->request->data['Travel']['destination']);
+                CakeLog::write('travels_failed', 'Created by user: id = '.$this->Auth->user('id'));
+                CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
                 $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
                 $this->redirect($this->referer());
             }
@@ -246,6 +248,8 @@ class TravelsController extends AppController {
                 $this->setErrorMessage(__('Error al crear el viaje'));                
             } else {
                 CakeLog::write('travels_failed', 'Travel Failed (add_pending) - Unknown origin and destination: '.$this->request->data['PendingTravel']['origin'].' - '.$this->request->data['PendingTravel']['destination']);
+                CakeLog::write('travels_failed', 'Created by: '.$this->request->data['PendingTravel']['email']);
+                CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
                 $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
                 $this->redirect($this->referer().'#FormContainer');
             }

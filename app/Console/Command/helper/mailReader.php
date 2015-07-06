@@ -111,6 +111,7 @@ class mailReader {
             $this->addAttachment($filename,$this->decoded->body,$mimeType);
             
             $this->body = $this->decoded->body;
+            
             $this->body .= '<br/><br/>';
             $this->body .= '<em>';
             $this->body .= "Este correo contenía un texto binario. Si el texto no se ve bien, revise el adjunto <b>$filename</b>".'<br/>'.
@@ -123,7 +124,12 @@ class mailReader {
             if(isset($this->decoded->body)){
                 $this->body = $this->decoded->body;
             }else{
-                $this->body = "No plain text body found";
+                $this->body = '<em>';
+                $this->body .= 'Este correo no contenía nungún texto<br/>'.
+                               'This email did not have any text';
+                $this->body .= '</em>';
+                
+                //$this->body = "No plain text body found";
             }
         }
 

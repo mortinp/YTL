@@ -138,6 +138,7 @@ if($isLoggedIn) {
                                                     <li><?php echo $this->Html->link('Info Requerida', array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
                                                     <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>                                                    
                                                     <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="divider"></li>
@@ -229,35 +230,7 @@ if($isLoggedIn) {
 
             <div id="footer">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p class="text-muted pull-left" style="margin: 20px 0;">
-                                &copy; 2015 YoTeLlevo
-                            </p>
-                        </div>
-                        <div class="col-md-6" style="text-align: center">
-                            <p class="text-muted" style="margin: 20px 0;">
-                                <?php
-                                $urlBlog = Configure::read('App.fullBaseUrl');
-                                if(Configure::read('debug') > 0) {
-                                    $urlBlog .= '/yotellevo/app/webroot/blog';
-                                } else {
-                                    $urlBlog .= '/blog';
-                                }
-                                $urlBlog .= '/'.Configure::read('Config.language');
-                                ?>
-                                <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
-                                |
-                                <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
-                                |
-                               <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
-                                |
-                               <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
-                            </p>
-                            
-                        </div>
-                    </div>
-                    
+                    <?php echo $this->element('footer')?>
                 </div>
             </div>
         </div>

@@ -73,7 +73,6 @@
 
 .handwritten{font-family:'Engagement', cursive;font-size:48px;text-shadow:0 -1px 1px rgba(0,0,0,0.6)}
 .handwritten-2{font-family:'Engagement', cursive;font-size:24px;text-shadow:0 -1px 1px rgba(0,0,0,0.6)}
-
 @media (max-width: 767px) {
     .handwritten{font-size:40px}
     .handwritten-2{font-size:20px}

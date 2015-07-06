@@ -27,8 +27,12 @@ msgid "¿Necesitas un chofer con auto en Cuba?"
 msgstr "Need a driver with a car in Cuba?"
 
 #: /home.ctp:29
-msgid "Contacta tres choferes independientes y acuerda tu transfer o tour"
-msgstr "Contact three independent drivers and arrange your transfer or tour"
+msgid "Contacta tres choferes independientes que viven en la isla"
+msgstr "Contact three independent drivers who live in the island"
+
+#: /home.ctp:29
+msgid "... y consigue un taxi para tu excursión o transfer"
+msgstr "... and have a taxi for your transfer or tour"
 
 #: /home.ctp:33
 msgid "Conoce 3 choferes por correo"
@@ -117,6 +121,12 @@ msgstr "Get a taxi"
 #: /home.ctp:167;168
 msgid "Recorrido por la isla"
 msgstr "All around the island"
+
+#: /home.ctp:167;168
+msgid "Comparte esta página con tus familiares y amigos"
+msgstr "Share this page with your family and friends"
+
+
 
 #: /home.ctp:167;168
 msgid "¿Familiares o amigos visitan Cuba y pueden necesitar un chofer con auto? <a href="mailto:?subject=Esto puede ser útil para tu viaje a Cuba&body=Hola Sofía, ¿viste esta página? %s. Ellos te ponen en contacto con choferes independientes en Cuba, y estos te envían precios directamente y puedes contratar alguno si te conviene. Estaba pensando que podrías usarlo para tu transfer del aeropuerto al hotel y conocer al chofer antes de decidir seguir contratándolo. Sólo quería dejarte saber. Te voy a extrañar mientras estés allá :)">Envíales un correo diciéndoles</a>"

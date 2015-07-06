@@ -101,43 +101,7 @@ if($isLoggedIn) {
 
         <div id="footer">
             <div class="container-fluid">
-                
-                <div class="row">
-                    <div class="col-md-3">
-                        <p class="text-muted pull-left" style="margin: 20px 0;">
-                            &copy; 2015 YoTeLlevo
-                        </p>
-                    </div>
-                    <div class="col-md-6" style="text-align: center">
-                        <p class="text-muted" style="margin: 20px 0;">
-                            <?php
-                            $urlBlog = Configure::read('App.fullBaseUrl');
-                            if(Configure::read('debug') > 0) {
-                                $urlBlog .= '/yotellevo/app/webroot/blog';
-                            } else {
-                                $urlBlog .= '/blog';
-                            }
-                            $urlBlog .= '/'.Configure::read('Config.language');
-                            ?>
-                            <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
-                            |
-                            <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
-                            |
-                           <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
-                            |
-                           <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
-                        </p>
-
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <p class="text-muted pull-right" style="margin: 0 20px;">
-                            <?php echo __d('homepage', '¿Familiares o amigos visitan Cuba y pueden necesitar un chofer con auto? <a href="mailto:?subject=Esto puede ser útil para tu viaje a Cuba&body=Hola Sofía, ¿viste esta página? %s. Ellos te ponen en contacto con choferes independientes en Cuba, y estos te envían precios directamente y puedes contratar alguno si te conviene. Estaba pensando que podrías usarlo para tu transfer del aeropuerto al hotel y conocer al chofer antes de decidir seguir contratándolo. Sólo quería dejarte saber. Te voy a extrañar mientras estés allá :)">Envíales un correo diciéndoles</a>', Configure::read('App.fullBaseUrl')) ?>
-                         </p>
-                    </div>
-                    
-                </div>
-
+                <?php echo $this->element('footer')?>
             </div>
         </div>
     </body>

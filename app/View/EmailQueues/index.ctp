@@ -5,7 +5,18 @@
     <?php foreach ($emails as $e): ?>
         <tr>
             <td><?php echo $e['EmailQueue']['to']?></td>
-            <td><?php echo $e['EmailQueue']['subject']?></td>
+            <td>
+            <?php 
+            echo $e['EmailQueue']['subject'];
+            
+            if(isset ($e['EmailQueue']['template_vars']['conversation_id']) && substr($e['EmailQueue']['template'], 0, 8) === 'response') {
+                echo '<hr/>';
+                echo '<div>';
+                echo $this->Html->link('Ver esta conversación', array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$e['EmailQueue']['template_vars']['conversation_id']));
+                echo '</div>';
+            }
+            ?>
+            </td>
             <td><?php echo $e['EmailQueue']['template']?></td>
             <td>
             <?php 

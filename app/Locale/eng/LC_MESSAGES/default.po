@@ -746,3 +746,7 @@ msgstr "Password is mandatory"
 #: Model/User.php:validation for field role
 msgid "Por favor, entre un rol válido."
 msgstr "Invalid role"
+
+#: /home.ctp:167
+msgid "%C2%BFBuscas%20un%20%23chofer%20con%20%23auto%20en%20%23Cuba?%0Ahttp://yotellevocuba.com%0AContacta%203%20choferes%20en%20la%20isla.%20Recibe%20ofertas%20de%20ellos.%20Contrata%20uno.%0A%23taxi"
+msgstr "Need%20a%20%23driver%20with%20%23car%20in%20%23Cuba?%20http://yotellevocuba.com%0AContact%203%20drivers%20in%20the%20island.%20Get%20quotes%20directly%20from%20them.%20Hire%20one.%0A%23taxi"

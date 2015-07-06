@@ -31,8 +31,11 @@
     </div>
     <h1 id="sell" class="handwritten white"><?php echo __d('homepage', '¿Necesitas un chofer con auto en Cuba?') ?></h1>
     <h2 class="handwritten-2 white">
-        <big><?php echo __d('homepage', 'Contacta tres choferes independientes y acuerda tu transfer o tour') ?></big>
+        <big><?php echo __d('homepage', 'Contacta tres choferes independientes que viven en la isla') ?></big>
     </h2>
+    <h3 class="handwritten-2 white">
+        <?php echo __d('homepage', '... y consigue un taxi para tu excursión o transfer') ?>
+    </h3>
     <div class="sell-button" style="padding-top:50px">
         <a href="#!" class="btn btn-success show-travel-form">
             <?php echo __d('homepage', 'Conoce 3 choferes por correo') ?>
@@ -193,6 +196,20 @@
     </div>
 </div>
 
+<br/>
+<br/>
+<br/>
+
+<div id="social-media-sharer">
+    <div class="row center" style="padding-bottom: 20px">
+        <span class="lead"><?php echo __d('homepage', 'Comparte esta página con tus familiares y amigos'/*'Nos encantaría que compartieras esta página'*/)?>!</span>
+    </div>
+    <div class="row center">
+        <span class="social-button"><a class="twitter" target="_blank" href="https://twitter.com/home?status=<?php echo __('%C2%BFBuscas%20un%20%23chofer%20con%20%23auto%20en%20%23Cuba?%0Ahttp://yotellevocuba.com%0AContacta%203%20choferes%20en%20la%20isla.%20Recibe%20ofertas%20de%20ellos.%20Contrata%20uno.%0A%23taxi')?>">Tweet</a></span>
+        <span class="social-button"><a class="google" target="_blank" href="https://plus.google.com/share?url=http://yotellevocuba.com/lang/<?php echo Configure::read('Config.language')?>">+1</a></span>
+        <span class="social-button"><a class="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yotellevocuba.com/lang/<?php echo Configure::read('Config.language')?>">Like</a></span>
+    </div>
+</div>
 
 
 <script type="text/javascript">

@@ -229,24 +229,7 @@ if($isLoggedIn) {
 
             <div id="footer">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p class="text-muted pull-left" style="margin: 20px 0;">
-                                &copy; 2015 YoTeLlevo
-                            </p>
-                        </div>
-                        <div class="col-md-6" style="text-align: center">
-                            <p class="text-muted" style="margin: 20px 0;">
-                                <a href="<?php echo $this->Html->url(array('controller'=>'', 'action'=>'blog', 'base'=>false), true).'/'.Configure::read('Config.language').'/' ?>">Blog</a>
-                                |
-                               <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
-                                |
-                               <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
-                            </p>
-                            
-                        </div>
-                    </div>
-                    
+                    <?php echo $this->element('footer')?>
                 </div>
             </div>
         </div>

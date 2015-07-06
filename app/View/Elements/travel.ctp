@@ -86,7 +86,12 @@ foreach (Travel::getPreferences() as $key => $value) {
 
 <?php if($details):?>
     <p><b>ID:</b> <?php echo $travel['Travel']['id']?></p>
-    <p><b>Creado por:</b> <?php echo $travel['User']['username']?></p>
+    <p><b>Creado por:</b> 
+    <?php 
+    $created_converted = strtotime($travel['Travel']['created']);
+    echo $travel['User']['username'].' - <b>Fecha creación:</b> '.date('d-m-Y', $created_converted);
+    ?>
+    </p>
     <?php if(isset ($travel['DriverTravel'])):?>
     <p><b>Conversaciones:</b>
         <ul>
