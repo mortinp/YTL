@@ -750,3 +750,10 @@ msgstr "Invalid role"
 #: /home.ctp:167
 msgid "%C2%BFBuscas%20un%20%23chofer%20con%20%23auto%20en%20%23Cuba?%0Ahttp://yotellevocuba.com%0AContacta%203%20choferes%20en%20la%20isla.%20Recibe%20ofertas%20de%20ellos.%20Contrata%20uno.%0A%23taxi"
 msgstr "Need%20a%20%23driver%20with%20%23car%20in%20%23Cuba?%20http://yotellevocuba.com%0AContact%203%20drivers%20in%20the%20island.%20Get%20quotes%20directly%20from%20them.%20Hire%20one.%0A%23taxi"
+
+#: /home.ctp:167
+msgid "Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba"
+msgstr "Make%20sure%20you%20hire%20a%20nice%20%23driver%20with%20a%20%23car%20in%20%23Cuba%20at%20http://yotellevocuba.com/lang/en%0A%0A%23Taxi%20for%20%23transfers%20%26%20%23tours%20via%20%40yotellevocuba"
+
+
+

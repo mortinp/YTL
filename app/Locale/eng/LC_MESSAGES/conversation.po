@@ -31,7 +31,7 @@ msgid "Atentamente, el equipo de <em>YoTeLlevo</em>"
 msgstr "Cheers, the team at <em>YoTeLlevo</em>"
 
 #: View/Emails/html/response_driver2traveler.ctp:5
-msgid "Vea fotos de %s y su auto"
+msgid "Mira fotos de %s y su auto"
 msgstr "See pictures of %s and the car"
 
 #: Console/Command/IncomingMailShell.php:311

@@ -101,7 +101,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $deliverTo,
-                        array('response'=>$fixedBody, 'travel'=>$driverTravel['Travel']),
+                        array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel']),
                         array(
                             'template'=>'response_traveler2driver',
                             'format'=>'html',

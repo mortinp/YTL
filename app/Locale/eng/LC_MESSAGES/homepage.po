@@ -32,7 +32,7 @@ msgstr "Contact three independent drivers who live in the island"
 
 #: /home.ctp:29
 msgid "... y consigue un taxi para tu excursión o transfer"
-msgstr "... and have a taxi for your transfer or tour"
+msgstr "... and arrange a taxi for your transfer or tour"
 
 #: /home.ctp:33
 msgid "Conoce 3 choferes por correo"

@@ -29,7 +29,7 @@
 
     <div class="col-md-3">
         <div class="pull-right" style="margin: 20px 0;">
-            <span class="social-button small-social-button"><a class="twitter" target="_blank" href="https://twitter.com/home?status=https://twitter.com/home?status=<?php echo __('%C2%BFBuscas%20un%20%23chofer%20con%20%23auto%20en%20%23Cuba?%0Ahttp://yotellevocuba.com%0AContacta%203%20choferes%20en%20la%20isla.%20Recibe%20ofertas%20de%20ellos.%20Contrata%20uno.%0A%23taxi')?>">Tweet</a></span>
+            <span class="social-button small-social-button"><a class="twitter" target="_blank" href="https://twitter.com/home?status=<?php echo __('Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba')?>">Tweet</a></span>
             <span class="social-button small-social-button"><a class="google" target="_blank" href="https://plus.google.com/share?url=http://yotellevocuba.com/lang/<?php echo Configure::read('Config.language')?>">+1</a></span>
             <span class="social-button small-social-button"><a class="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yotellevocuba.com/lang/<?php echo Configure::read('Config.language')?>">Like</a></span>
         </div>
