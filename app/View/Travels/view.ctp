@@ -7,7 +7,10 @@ if($isConfirmed) {
     
     $driverW = __('chofer');
     $pretty_drivers_count = $travel['Travel']['drivers_sent_count'].' ';
-    if($travel['Travel']['drivers_sent_count'] > 1) $pretty_drivers_count .= Inflector::pluralize($driverW);
+    if($travel['Travel']['drivers_sent_count'] > 1) {
+        if(Configure::read('Config.language') == 'es') $pretty_drivers_count .= 'choferes';
+        else $pretty_drivers_count .= Inflector::pluralize($driverW);
+    }
     else $pretty_drivers_count .= $driverW;
 }
 ?>
@@ -35,7 +38,7 @@ if($isConfirmed) {
                 <br/>
                 <p class="text-info">
                     <?php if(AuthComponent::user('role') == 'regular'):?>
-                    <b><?php echo __('Los datos de este viaje fueron eviados a <big>%s</big>. Pronto serás contactado.', $pretty_drivers_count)?></b>
+                    <b><?php echo __('Los datos de este viaje fueron eviados a <big>%s</big>. Pronto recibirás las ofertas.', $pretty_drivers_count)?></b>
 
                     <?php else:?>
                     <b>Se encontaron <big><?php echo $pretty_drivers_count?></big></b> para notificar, pero son <b>choferes de prueba</b> porque eres un usuario <b><?php echo AuthComponent::user('role')?></b>.
@@ -52,7 +55,7 @@ if($isConfirmed) {
         <?php endif?>
         
         <br/>
-        <?php echo $this->Html->link('<i class="glyphicon glyphicon-arrow-left"></i> <big>'.__('Ver todos mis Anuncios').'</big>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
+        <?php echo $this->Html->link('<div class="btn btn-success"><big>'.__('Ver todos mis anuncios de viajes').'</big></div>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
     </div>    
 </div>
 </div>

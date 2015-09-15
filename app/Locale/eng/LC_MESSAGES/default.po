@@ -541,8 +541,8 @@ msgid "Acuerda enseguida los detalles del viaje con tu chofer"
 msgstr "Arrange the datails with up to 3 drivers"
 
 #: View/Travels/view.ctp:37
-msgid "Los datos de este viaje fueron eviados a <big>%s</big>. Pronto serás contactado."
-msgstr "These details were sent to <big>%s</big>. You'll be quoted soon."
+msgid "Los datos de este viaje fueron eviados a <big>%s</big>. Pronto recibirás las ofertas."
+msgstr "These details were sent to <big>%s</big>. You will receive the quotes soon."
 
 #: View/Travels/view.ctp:47
 msgid "Edita los datos de este viaje antes de confirmarlo"
@@ -554,8 +554,8 @@ msgstr "cancel editing"
 
 #: View/Travels/view.ctp:54
 #: View/Users/confirm_email.ctp:13
-msgid "Ver todos mis Anuncios"
-msgstr "View all my Travel Requests"
+msgid "Ver todos mis anuncios de viajes"
+msgstr "View all my travel requests"
 
 #: View/Users/change_password.ctp:5
 msgid "Cambia tu contraseña"

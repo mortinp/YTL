@@ -15,6 +15,12 @@ class DriverTravel extends AppModel {
             'fields'=>array('id', 'user_id', 'origin', 'destination')
         )
     );
+    
+    public $hasOne = array(
+        'TravelConversationMeta'=>array(
+            'foreignKey'=>'conversation_id'
+        ),
+    );
 }
 
 ?>

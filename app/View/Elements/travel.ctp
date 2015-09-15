@@ -1,5 +1,6 @@
 <?php App::uses('CakeTime', 'Utility')?>
 <?php App::uses('Travel', 'Model')?>
+<?php App::uses('DriverTravelerConversation', 'Model')?>
 
 <?php
 //print_r($this->Time->listTimezones()) ;
@@ -7,6 +8,7 @@
 // INIT
 if (!isset($actions)) $actions = true;
 if (!isset($details)) $details = false;
+if (!isset($showConversations)) $showConversations = true;
 if (!isset($embedEmail)) $embedEmail = false;
 
 $months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
@@ -85,18 +87,61 @@ foreach (Travel::getPreferences() as $key => $value) {
 </div>
 
 <?php if($details):?>
+    <hr/>
     <p><b>ID:</b> <?php echo $travel['Travel']['id']?></p>
     <p><b>Creado por:</b> 
     <?php 
     $created_converted = strtotime($travel['Travel']['created']);
-    echo $travel['User']['username'].' - <b>Fecha creación:</b> '.date('d-m-Y', $created_converted);
+    $now = new DateTime(date('Y-m-d', time()));
+    $daysPosted = $now->diff(new DateTime($travel['Travel']['created']), true)->format('%a');
+    if(isset ($travel['User']))
+        echo $travel['User']['username'];
+    else if(isset ($travel['Travel']['User']))
+        echo $travel['Travel']['User']['username'];
+    echo ' - <b>Fecha creación:</b> '.date('d-m-Y', $created_converted).' <span class="text-muted">(hace '.$daysPosted.' días)</span>';
     ?>
     </p>
-    <?php if(isset ($travel['DriverTravel'])):?>
+    <?php if(isset ($travel['DriverTravel']) && $showConversations):?>
     <p><b>Conversaciones:</b>
-        <ul>
+        <ul style="list-style-type:none">
         <?php foreach ($travel['DriverTravel'] as $sent) :?>
-            <li><?php echo $this->Html->link($sent['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$sent['id'])) ?></li>
+            <li><?php 
+            
+            // Respondido
+            $badgeOffset = -20;
+            if($sent['driver_traveler_conversation_count'] > 0) { // REspondido
+                echo '<div style="float:left" title="Respondido ('.$sent['driver_traveler_conversation_count'].' mensajes en total)"><i class="glyphicon glyphicon-star" style="margin-left: '.$badgeOffset.'px;"></i></div>';
+                $badgeOffset -= 20;
+            }            
+            
+            $info = array();
+            if(isset ($sent['Driver'])) $info['title'] = $sent['Driver']['username'];
+            echo $this->Html->link($sent['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$sent['id']), $info);
+            
+            if(isset ($sent['TravelConversationMeta']) && $sent['TravelConversationMeta'] != null && !empty ($sent['TravelConversationMeta'])) {
+                // Siguiendo
+                if($sent['TravelConversationMeta']['following']) echo '<span class="label label-info" style="margin-left:5px">Siguiendo</span>';
+                
+                // +1
+                if($sent['TravelConversationMeta']['read_entry_count'] < $sent['driver_traveler_conversation_count']) 
+                    echo '<span class="label label-success" style="margin-left:5px">+'.($sent['driver_traveler_conversation_count'] - $sent['TravelConversationMeta']['read_entry_count']).'</span>';
+                
+                // Estado
+                if($sent['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE) {
+                    if($sent['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) 
+                        echo '<span class="label label-warning" style="margin-left:5px" title="Viaje realizado"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span>';
+                    else if($sent['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID)
+                        echo '<span class="label label-warning" style="margin-left:5px" title="Viaje pagado"><i class="glyphicon glyphicon-usd"></i> Pagado</span>';
+                    else if($sent['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE)
+                        echo '<span class="label label-danger" style="margin-left:5px" title="Viaje NO realizado"><i class="glyphicon glyphicon-thumbs-down"></i> NO realizado</span>';
+                }
+            } else {
+                // +1
+                if($sent['driver_traveler_conversation_count'] > 0) 
+                    echo '<span class="label label-success" style="margin-left:5px">+'.($sent['driver_traveler_conversation_count']).'</span>';
+            }                
+                    
+            ?></li>
         <?php endforeach; ?>
         </ul>
     </p>

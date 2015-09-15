@@ -1,0 +1,1 @@
+ALTER TABLE `travels_conversations_meta` ADD `state` CHAR( 1 ) NOT NULL DEFAULT 'N' AFTER `following`;

@@ -19,6 +19,8 @@
             ?>
             <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
             |
+            <a href="https://twitter.com/yotellevocuba" title="YoTeLlevo in Twitter">Twitter</a>
+            |
             <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
             |
            <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                

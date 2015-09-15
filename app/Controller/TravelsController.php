@@ -6,7 +6,7 @@ App::uses('Travel', 'Model');
 
 class TravelsController extends AppController {
     
-    public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus');
+    public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus',/**/ 'DriverTravel');
     
     public $components = array('TravelLogic', 'LocalityRouter');
     
@@ -52,11 +52,29 @@ class TravelsController extends AppController {
     // Admins only
     public function all() {
         $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        $this->set('travels', $this->paginate(array('User.role'=>'regular')));
+        //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
+        $this->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
+            array('foreignKey'=>'conversation_id',
+                'fields'=>array('response_by')))));
+        $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));        
+        $this->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
+        $this->Travel->recursive = 2;
+        
+        $conditions = array('User.role'=>'regular');
+        
+        $this->set('travels', $this->paginate($conditions));
     }
     
     public function view_filtered($filter = 'all') {
         $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
+        $this->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
+            array('foreignKey'=>'conversation_id',
+                'fields'=>array('response_by')))));
+        $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));
+        $this->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
+        $this->Travel->recursive = 2;
+        
         $conditions = array('User.role'=>'regular');
         
         if($filter == Travel::$SEARCH_CLOSER_TO_EXPIRE) {

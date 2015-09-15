@@ -5,7 +5,7 @@ App::uses('CakeEmail', 'Network/Email');
 
 class UsersController extends AppController {
     
-    public $uses = array('User', 'UserInteraction');
+    public $uses = array('User', 'UserInteraction', 'Travel');
     
     public $components = array('TravelLogic');
 
@@ -491,6 +491,15 @@ class UsersController extends AppController {
             
             $this->set('code', $confirmation_code);
         }
+    }
+    
+    
+    
+    
+    
+    public function view_travels($userId) {
+        $this->set('user', $this->User->findById($userId));
+        $this->set('travels', $this->Travel->find('all', array('conditions'=>array('user_id'=>$userId))));
     }
 }
 

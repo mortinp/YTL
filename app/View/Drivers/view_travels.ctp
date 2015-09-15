@@ -1,3 +1,7 @@
+<?php 
+if(!isset($details)) $details = true;
+?>
+
 <div class="container">
     <div class="row">
     <?php if(!empty ($travels) || !empty ($travels_by_email)): ?>
@@ -9,14 +13,15 @@
                 <ul style="list-style-type: none;padding: 0px">
                 <?php foreach ($travels as $travel) :?>                
                     <li style="margin-bottom: 20px">
-                        <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false))?>
+                        <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false, 'details'=>$details))?>
                         <b>Creado por:</b> <?php echo $travel['User']['username']?>
                     </li>                
                 <?php endforeach; ?>
                 </ul>
                 <br/>
             <?php endif; ?>
-            <?php if(!empty ($travels_by_email)): ?>
+                
+            <!--<?php if(!empty ($travels_by_email)): ?>
                 <br/>
                 <big><b>&mdash; Creados por Correo &mdash;</b></big>
                 <br/>
@@ -30,7 +35,8 @@
                     </li>                
                 <?php endforeach; ?>
                 </ul>
-            <?php endif; ?>
+            <?php endif; ?>-->
+            
         </div>
 
     <?php else :?>

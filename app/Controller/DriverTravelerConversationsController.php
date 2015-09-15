@@ -5,7 +5,7 @@ App::uses('LangController', 'Controller');
 
 class DriverTravelerConversationsController extends AppController {
     
-    public $uses = array('DriverTravelerConversation', 'DriverTravel',/*-*/ 'Driver', 'DriverProfile');
+    public $uses = array('DriverTravelerConversation', 'DriverTravel',/*-*/ 'Driver', 'DriverProfile', 'TravelConversationMeta');
     
     public function beforeFilter() {
         parent::beforeFilter();
@@ -13,7 +13,12 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function view($conversationId) {
+        // Bindings and unbindings to avoid extra data
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));
+        $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+        $this->Driver->unbindModel(array('hasOne'=>array('DriverProfile')));
+        $this->DriverTravel->recursive = 2;
+        
         $data = $this->DriverTravel->findById($conversationId);
         $this->set('data', $data);
         
@@ -25,6 +30,61 @@ class DriverTravelerConversationsController extends AppController {
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));
         $data = $this->DriverTravel->findById($conversationId);
     }
+    
+    private function tag($conversationId, $tagName, $value) {
+        
+        // TODO: Verificar que la conversacion existe
+        $this->TravelConversationMeta->id = $conversationId;
+        $meta = array();
+        
+        $meta['TravelConversationMeta']['conversation_id'] = $conversationId;
+        $meta['TravelConversationMeta'][$tagName] = $value;
+        
+        $OK = true;
+        if (!$this->TravelConversationMeta->save($meta)) {
+            $OK = false;
+            $this->setErrorMessage('Ocurrió un error.');
+        }
+        
+        return $OK;
+    }
+    
+    public function follow($conversationId, $following = true) {
+        $this->tag($conversationId, 'following', true);        
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+    public function unfollow($conversationId) {
+        $this->tag($conversationId, 'following', false);
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+    public function set_state($conversationId, $state) {
+        $this->tag($conversationId, 'state', $state);
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+    
+    public function update_read_entries($conversationId, $entriesCount) {
+        
+        // TODO: Verificar que la cantidad de entradas es igual o menor que la real
+        
+        $this->TravelConversationMeta->id = $conversationId;
+        $meta = array();
+        
+        $meta['TravelConversationMeta']['conversation_id'] = $conversationId;
+        $meta['TravelConversationMeta']['read_entry_count'] = $entriesCount;
+        
+        if (!$this->TravelConversationMeta->save($meta)) {
+            $this->setErrorMessage('Ocurrió un error.');
+        }
+        
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+    
+    
+    
     
     public function show_profile($conversation) {
         $this->DriverTravel->recursive = 2;

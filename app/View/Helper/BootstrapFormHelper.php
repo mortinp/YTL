@@ -60,14 +60,22 @@ class BootstrapFormHelper extends FormHelper {
         
     }
     
-    public function button($caption = null, $options = array()) {
+    public function button($caption = null, $options = array(), $asLink = false) {
         $defaultOptions = array(
             'class' => 'btn',
             'type'=>'button',
             'style'=>'display:inline-block'
         );
         $options = array_merge_recursive($defaultOptions, $options);
-        return parent::submit($caption, $options);
+        
+        if(!$asLink) return parent::submit($caption, $options);
+        
+        else {
+            $linkDef = array();
+            if(isset ($options['controller'])) $linkDef['controller'] = $options['controller'];
+            if(isset ($options['action'])) $linkDef['action'] = $options['action'];
+            return $this->Html->link($caption, $linkDef, $options);
+        }
     }
     
     public function input($caption = null, $options = array()) {

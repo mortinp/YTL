@@ -24,35 +24,52 @@ if(!isset($details)) $details = true;
             </div>
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
+            
+            <br/>
+            <?php
+            
+            // Contar la cantidad total de mensajes nuevos
+            $newMsgCount = 0;
+            $newTravelerMsgCount = 0;
+            $followingCount = 0;
+            if(!empty ($travels)) {
+                foreach ($travels as $travel) {
+                    foreach ($travel['DriverTravel'] as $conv) {
+                        if(isset ($conv['TravelConversationMeta']) && $conv['TravelConversationMeta'] != null && !empty ($conv['TravelConversationMeta'])) {
+                            $newMsgCount += $conv['driver_traveler_conversation_count'] - $conv['TravelConversationMeta']['read_entry_count'];
+                            if($conv['TravelConversationMeta']['following']) $followingCount++;
+                        }
+                            
+                        else $newMsgCount += $conv['driver_traveler_conversation_count'];
+                        
+                        if(isset ($conv['DriverTravelerConversation']) && $conv['DriverTravelerConversation'] != null && !empty ($conv['DriverTravelerConversation'])) {
+                            if($conv['DriverTravelerConversation']['response_by'] == 'traveler') $newTravelerMsgCount ++;
+                        }
+                    }
+                }
+            }
+            ?>
+            <div>En esta página:                 
+                <span class="label label-info" style="font-size: 12pt"><?php echo $followingCount.' siguiendo'?></span>
+                <span class="label label-success" style="font-size: 12pt">+<?php echo $newMsgCount.' nuevos mensajes'?></span>
+                <span class="text-muted">(+<?php echo $newTravelerMsgCount.' de viajeros'?>)</span>
+            </div>
+            <br/>
+
             <?php if(!empty ($travels)): ?>                
                 <br/>
 
                 <ul style="list-style-type: none;padding: 0px">
                 <?php foreach ($travels as $travel) :?>                
-                    <li style="margin-bottom: 20px">
+                    <li style="margin-bottom: 60px">
                         <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>$actions, 'details'=>$details))?>
-                    </li>                
+                    </li> 
                 <?php endforeach; ?>
                 </ul>
+                
                 <br/>
             <?php endif; ?>
-            <!--
-            <?php if(!empty ($travels_by_email)): ?>
-                <br/>
-                <big><b>&mdash; Creados por Correo &mdash;</b></big>
-                <br/>
-                <br/>
-
-                <ul style="list-style-type: none;padding: 0px">
-                <?php foreach ($travels_by_email as $travel) :?>                
-                    <li style="margin-bottom: 20px">
-                       <?php echo $this->element('travel_by_email', array('travel'=>$travel, 'actions'=>$actions))?>
-                       <b>Creado por:</b> <?php echo $travel['User']['username']?>
-                    </li>                
-                <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-            -->
+                
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
         </div>
 
