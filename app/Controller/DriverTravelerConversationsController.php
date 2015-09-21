@@ -75,7 +75,9 @@ class DriverTravelerConversationsController extends AppController {
         $meta['TravelConversationMeta']['conversation_id'] = $conversationId;
         $meta['TravelConversationMeta']['read_entry_count'] = $entriesCount;
         
-        if (!$this->TravelConversationMeta->save($meta)) {
+        if ($this->TravelConversationMeta->save($meta)) {
+            $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leídos');
+        } else {
             $this->setErrorMessage('Ocurrió un error.');
         }
         

@@ -36,7 +36,7 @@ else
         if(isset($this->request->data['DriverProfile'])) {
             $src = '';
             if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-            $src .= '/'.$this->request->data['DriverProfile']['avatar_filepath'];
+            $src .= '/'.str_replace('\\', '/', $this->request->data['DriverProfile']['avatar_filepath']);
             echo '<img src="'.$src.'"/>';
         }
         echo $this->Form->file('avatar', array('label'=>'Avatar'));

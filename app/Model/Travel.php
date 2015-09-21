@@ -4,24 +4,15 @@ class Travel extends AppModel {
     
     public $travelType = '';
     
-    /*public static $STATE = array(
-        'P' => array('color'=>'green', 'label'=>'Pendiente'),
-        'U' => array('color'=>'goldenrod', 'label'=>'Pendiente de Confirmación'),
-        'C' => array('color'=>'#0088cc', 'label'=>'Confirmado'),
-        'E' => array('color'=>'lightcoral', 'label'=>'Expirado'),
-    );*/
-    
+    // States
     public static $STATE_PENDING = 'P';
     public static $STATE_UNCONFIRMED = 'U';
     public static $STATE_CONFIRMED = 'C';
     public static $STATE_SOLVED = 'S';
     public static $STATE_DEFAULT = 'U';
     
-    /*public static $preferences = array(
-        'need_modern_car'=>'Carro Moderno',
-        'need_air_conditioner'=>'Aire Acondicionado'
-    );*/
-    
+   
+    // Filters
     public static $SEARCH_ALL = 'all';
     public static $SEARCH_CLOSER_TO_EXPIRE = 'closer-to-expire';
     public static $SEARCH_EXPIRED_NEWEST = 'expired-newest';

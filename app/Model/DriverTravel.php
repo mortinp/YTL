@@ -12,7 +12,7 @@ class DriverTravel extends AppModel {
             'counterCache'=>'travel_count'
         ),
         'Travel'=>array(
-            'fields'=>array('id', 'user_id', 'origin', 'destination')
+            'fields'=>array('id', 'user_id', 'origin', 'destination', 'date')
         )
     );
     
@@ -21,6 +21,15 @@ class DriverTravel extends AppModel {
             'foreignKey'=>'conversation_id'
         ),
     );
+    
+    
+    // Filters
+    public static $SEARCH_ALL = 'all';
+    public static $SEARCH_NEW_MESSAGES = 'new-messages';
+    public static $SEARCH_FOLLOWING = 'following';
+    public static $SEARCH_DONE = 'done';
+    public static $SEARCH_PAID = 'paid';
+    public static $filtersForSearch = array('all', 'new-messages', 'following', 'done', 'paid');
 }
 
 ?>

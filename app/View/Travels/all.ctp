@@ -15,7 +15,7 @@ if(!isset($details)) $details = true;
                         
                         if(!isset ($filter_applied)) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
                         else if($filter != $filter_applied) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-                        else echo $filter;
+                        else echo '<span class="badge"><big>'.$filter.'</big></span>';
                         
                         echo '</li>';
                     }
@@ -43,7 +43,7 @@ if(!isset($details)) $details = true;
                         else $newMsgCount += $conv['driver_traveler_conversation_count'];
                         
                         if(isset ($conv['DriverTravelerConversation']) && $conv['DriverTravelerConversation'] != null && !empty ($conv['DriverTravelerConversation'])) {
-                            if($conv['DriverTravelerConversation']['response_by'] == 'traveler') $newTravelerMsgCount ++;
+                            if($conv['DriverTravelerConversation']['response_by'] === 'traveler') $newTravelerMsgCount ++;
                         }
                     }
                 }

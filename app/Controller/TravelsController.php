@@ -62,6 +62,7 @@ class TravelsController extends AppController {
         
         $conditions = array('User.role'=>'regular');
         
+        $this->set('filter_applied', Travel::$SEARCH_ALL);
         $this->set('travels', $this->paginate($conditions));
     }
     

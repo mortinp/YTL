@@ -2,6 +2,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('DriverTravel', 'model');
 
 class UsersController extends AppController {
     
@@ -31,7 +32,7 @@ class UsersController extends AppController {
     public function login() {
         if ($this->request->is('post')) {
             if($this->do_login()) {
-                if(AuthComponent::user('role') === 'admin') return $this->redirect(array('action'=>'index'));
+                if(AuthComponent::user('role') === 'admin') return $this->redirect(array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES));
                 return $this->redirect($this->Auth->redirect());
             } else $this->setErrorMessage(__('El usuario o la contraseña son inválidos. Intenta de nuevo.'));
         }

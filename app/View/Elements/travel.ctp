@@ -11,13 +11,13 @@ if (!isset($details)) $details = false;
 if (!isset($showConversations)) $showConversations = true;
 if (!isset($embedEmail)) $embedEmail = false;
 
-$months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
-$days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
-
 $personW = __('persona');
 $pretty_people_count = $travel['Travel']['people_count']. ' ';
 if($travel['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
 else $pretty_people_count .= $personW;
+
+$months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
+$days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
 
 $date_converted = strtotime($travel['Travel']['date']);
 $day = date('j', $date_converted);
