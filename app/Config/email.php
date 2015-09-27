@@ -40,8 +40,8 @@ class EmailConfig {
     
     public $no_responder = array(
         'transport' => 'Smtp',
-        'from' => array('no-responder@yotellevocuba.com' => 'YoTeLlevo'),
-        'host' => 'localhost',
+        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo'),
+        'host' => 'data',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -53,8 +53,8 @@ class EmailConfig {
     
     public $contacto = array(
         'transport' => 'Smtp',
-        'from' => array('contacto@yotellevocuba.com' => 'YoTeLlevo | Contacto'),
-        'host' => 'localhost',
+        'from' => array('mproenza@grm.desoft.cu' => 'Contacto, YoTeLlevo'),
+        'host' => 'data',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -66,8 +66,8 @@ class EmailConfig {
     
     public $soporte = array(
         'transport' => 'Smtp',
-        'from' => array('soporte@yotellevocuba.com' => 'YoTeLlevo | Soporte'),
-        'host' => 'localhost',
+        'from' => array('mproenza@grm.desoft.cu' => 'Soporte, YoTeLlevo'),
+        'host' => 'data',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -94,8 +94,8 @@ class EmailConfig {
     
     public $chofer = array(
         'transport' => 'Smtp',
-        'from' => array('chofer@yotellevocuba.com' => 'YoTeLlevo | Chofer'),
-        'host' => 'localhost',
+        'from' => array('mproenza@grm.desoft.cu' => 'Chofer, YoTeLlevo'),
+        'host' => 'data',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
@@ -107,8 +107,21 @@ class EmailConfig {
     
     public $viajero = array(
         'transport' => 'Smtp',
-        'from' => array('viajero@yotellevocuba.com' => 'YoTeLlevo | Viajero'),
-        'host' => 'localhost',
+        'from' => array('mproenza@grm.desoft.cu' => 'Viajero, YoTeLlevo'),
+        'host' => 'data',
+        'port' => 25, 
+        'timeout' => 30,
+        //'username' => '',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );
+    
+    public $viaje = array(
+        'transport' => 'Smtp',
+        'from' => array('mproenza@grm.desoft.cu' => 'Nuevo Viaje, YoTeLlevo'),
+        'host' => 'data',
         'port' => 25, 
         'timeout' => 30,
         //'username' => '',
