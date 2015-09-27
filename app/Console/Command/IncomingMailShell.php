@@ -222,26 +222,17 @@ class IncomingMailShell extends AppShell {
                         CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);                       
                     }
 
-                    if($OK) {
-                        $layout = 'default';
-                        $template = 'response_driver2traveler';
-                        if(Configure::read('Email.html')) {
-                            $layout = 'html_ink';
-                            $template = 'response_driver2traveler_html';
-                        }
-                        ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            $deliverTo,
-                            array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel']),
-                            array(
-                                'layout'=>$layout,
-                                'template'=>$template,
-                                'format'=>'html',
-                                'subject'=>$subject,
-                                'config'=>'chofer',
-                                'attachments'=>$parser->attachments,
-                                'lang'=>$driverTravel['Travel']['User']['lang'])
-                        );
-                    }
+                    if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                        $deliverTo,
+                        array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel']),
+                        array(
+                            'template'=>'response_driver2traveler',
+                            'format'=>'html',
+                            'subject'=>$subject,
+                            'config'=>'chofer',
+                            'attachments'=>$parser->attachments,
+                            'lang'=>$driverTravel['Travel']['User']['lang'])
+                    );
                     if(!$OK) {
                         CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar en emails_queue</span>");
                         CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);

@@ -14,6 +14,7 @@ if(!isset($details)) $details = true;
                 <?php foreach ($travels as $travel) :?>                
                     <li style="margin-bottom: 20px">
                         <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false, 'details'=>$details))?>
+                        <b>Creado por:</b> <?php echo $travel['User']['username']?>
                     </li>                
                 <?php endforeach; ?>
                 </ul>

@@ -13,7 +13,7 @@ $year = date('Y', $date_converted);
 $pretty_date = $day.' '.$month.', '.$year.' ('.$day_of_week.')';
 
 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
-if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
+if($expired) $pretty_date .= ' <span class="label label-danger">Expirado</span>'
 ?>
 
 
@@ -45,7 +45,7 @@ $sent = $driver_travel;
             
 // Respondido
 $badgeOffset = -20;
-if($sent['DriverTravel']['driver_traveler_conversation_count'] > 0) { // Respondido
+if($sent['DriverTravel']['driver_traveler_conversation_count'] > 0) { // REspondido
     echo '<div style="float:left" title="Respondido ('.$sent['DriverTravel']['driver_traveler_conversation_count'].' mensajes en total)"><i class="glyphicon glyphicon-star" style="margin-left: '.$badgeOffset.'px;"></i></div>';
     $badgeOffset -= 20;
 }            
@@ -76,10 +76,7 @@ if(isset ($sent['TravelConversationMeta']) && $sent['TravelConversationMeta'] !=
 
 <br/>
 
-<div style="padding-top: 5px">
 <?php 
 echo 'Fecha del Viaje: '.$pretty_date;
 ?>
-</div>
-    
 </div>

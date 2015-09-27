@@ -18,21 +18,6 @@ msgstr ""
 msgid "Hola viajero. Este correo contiene la respuesta del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>."
 msgstr "Hi traveler. This email contains the reply of the driver <b>%s</b> from YoTeLlevo, notified with your travel <b>%s</b>. To send your answer <b>reply this email without modifying the subject</b>."
 
-#: View/Emails/html/response_driver2traveler.ctp:3
-msgid "Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>."
-msgstr "Hi, you have a message from the driver <b>%s</b> from YoTeLlevo, notified with your travel <span style="display:inline-block"><b>%s</b></span>. To send your answer <b>reply this email without modifying the subject</b>."
-
-
-#: View/Emails/html/response_driver2traveler.ctp:3
-msgid "Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>."
-msgstr "Hi, you have a message from the driver <b>%s</b> from YoTeLlevo, notified with your travel <span style="display:inline-block"><b>%s</b></span>."
-
-
-#: View/Emails/html/response_driver2traveler.ctp:3
-msgid "Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>."
-msgstr "To send your answer <b>reply this email without modifying the subject</b>."
-
-
 #: View/Emails/html/response_driver2traveler.ctp:5
 msgid "%s dice"
 msgstr "%s says"
@@ -44,13 +29,6 @@ msgstr "The driver"
 #: View/Emails/html/response_driver2traveler.ctp:5
 msgid "Atentamente, el equipo de <em>YoTeLlevo</em>"
 msgstr "Cheers, the team at <em>YoTeLlevo</em>"
-
-
-#: View/Emails/html/response_driver2traveler.ctp:5
-msgid "Atentamente, el equipo de"
-msgstr "Cheers, the team at"
-
-
 
 #: View/Emails/html/response_driver2traveler.ctp:5
 msgid "Mira fotos de %s y su auto"

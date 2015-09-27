@@ -400,7 +400,7 @@ msgstr "FAQ"
 
 #: View/Pages/contact.ctp:16
 msgid "Hola, soy Martín."
-msgstr "Hi, my name is Martín."
+msgstr "Hi, I'm Martín."
 
 #: View/Pages/contact.ctp:16
 msgid "¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes."
