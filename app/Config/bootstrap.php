@@ -113,4 +113,4 @@ CakeLog::config('error', array(
 CakePlugin::load('EmailQueue');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
-Configure::write('Email.html', false);
+Configure::write('Email.html', true);
