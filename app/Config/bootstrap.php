@@ -110,5 +110,7 @@ CakeLog::config('error', array(
 
 
 /* MARTIN */
-Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 CakePlugin::load('EmailQueue');
+
+Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
+Configure::write('Email.html', false);

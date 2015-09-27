@@ -19,7 +19,7 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
 
 <div id="conversation-header">
     <p>
-        <em><?php echo __d('conversation', 'Hola viajero. Este correo contiene la respuesta del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <b>%s</b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel['origin'].' - '.$travel['destination'])?></em>   
+        <em><?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel['origin'].' - '.$travel['destination'])?></em>   
     </p>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
