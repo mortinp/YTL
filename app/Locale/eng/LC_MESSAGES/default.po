@@ -70,6 +70,10 @@ msgstr "This travel cannot be deleted because it's confirmed. Tell your driver y
 msgid "Este viaje no existe."
 msgstr "Travel not found."
 
+#: Controller/TravelsController.php:85
+msgid "Felicidades, ya completaste la solicitud"
+msgstr "Well done, you completed the request"
+
 #: Controller/UsersController.php:36
 msgid "El usuario o la contraseña son inválidos. Intenta de nuevo."
 msgstr "The user or password are invalid. Try again."
@@ -283,8 +287,8 @@ msgid "Ver"
 msgstr "View"
 
 #: View/Elements/travel.ctp:104
-msgid "Ver este viaje"
-msgstr "View this travel"
+msgid "Ver detalles de este viaje"
+msgstr "View details of this travel"
 
 #: View/Elements/travel.ctp:112;128
 msgid "Eliminar"
@@ -304,7 +308,11 @@ msgstr "Confirm"
 
 #: View/Elements/travel.ctp:122
 msgid "Confirmar y Enviar este viaje a los choferes"
-msgstr "Confirm and get quotes from drivers right away"
+msgstr "Confirm and get quotes from the drivers right away"
+
+#: View/Elements/travel.ctp:122
+msgid "Este viaje está "
+msgstr "This travel is "
 
 #: View/Elements/travel_form.ctp:30
 msgid "Salvar Datos"
@@ -508,8 +516,8 @@ msgid "Crear Anuncio de Viaje"
 msgstr "Create Travel Request"
 
 #: View/Travels/index.ctp:5
-msgid "Tus Anuncios de Viajes"
-msgstr "Your Travel Requests"
+msgid "Estos son todos tus anuncios de viajes"
+msgstr "These are all your travel requests"
 
 #: View/Travels/index.ctp:20
 msgid "Creados por Correo"
@@ -528,6 +536,11 @@ msgstr "driver"
 msgid "El siguiente viaje está"
 msgstr "The following travel is"
 
+#: View/Travels/view.ctp:19
+msgid "Estos son los detalles de tu viaje"
+msgstr "These are the details of your travel"
+
+
 #: View/Travels/view.ctp:26
 msgid "Editar este Viaje"
 msgstr "Edit this travel"
@@ -541,8 +554,14 @@ msgid "Acuerda enseguida los detalles del viaje con tu chofer"
 msgstr "Arrange the datails with up to 3 drivers"
 
 #: View/Travels/view.ctp:37
-msgid "Los datos de este viaje fueron eviados a <big>%s</big>. Pronto recibirás las ofertas."
-msgstr "These details were sent to <big>%s</big>. You will receive the quotes soon."
+msgid "%s ya recibieron los detalles de este viaje"
+msgstr "%s already received the details of this travel"
+
+#: View/Travels/view.ctp:37
+msgid "Los mensajes de los choferes llegarán a tu correo %s"
+msgstr "The messages from the drivers will arrive in your inbox %s"
+
+
 
 #: View/Travels/view.ctp:47
 msgid "Edita los datos de este viaje antes de confirmarlo"
@@ -554,8 +573,8 @@ msgstr "cancel editing"
 
 #: View/Travels/view.ctp:54
 #: View/Users/confirm_email.ctp:13
-msgid "Ver todos mis anuncios de viajes"
-msgstr "View all my travel requests"
+msgid "Ver mis anuncios de viajes"
+msgstr "View my travel requests"
 
 #: View/Users/change_password.ctp:5
 msgid "Cambia tu contraseña"

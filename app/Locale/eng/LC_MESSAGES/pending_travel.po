@@ -122,4 +122,4 @@ msgstr "Sign up and Confirm this Travel Request <div style='font-size:11pt;paddi
 
 #: View/Travels/view_pending.ctp:100
 msgid "Podrás gestionar tus viajes en cualquier momento usando este usuario y contraseña"
-msgstr "You'll be able to manage your travels anytime using this user and password"
+msgstr "You will be able to manage your travels anytime using this user and password"

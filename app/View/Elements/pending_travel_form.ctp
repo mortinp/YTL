@@ -141,7 +141,7 @@ $this->Html->script('bootstrap', array('inline' => false));
 $this->Html->script('vitalets-bootstrap-datepicker/bootstrap-datepicker.min', array('inline' => false));
 
 $this->Html->script('jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));
-$this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure::read('Config.language')/*'es'*/, array('inline' => false));
+$this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure::read('Config.language'), array('inline' => false));
 
 $this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
 

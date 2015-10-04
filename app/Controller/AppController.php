@@ -33,36 +33,6 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     
-    /*private $pageTitles = array(
-        'pages.display' =>array(
-            'contact'=>'Contactar', 
-            'use_terms'=>'Términos de Uso', 
-            'tour'=>'¿Cómo usarlo?',
-            'faq'=>'Preguntas Frecuentes',
-            'by_email'=>'Consigue un taxi usando tu correo electrónico'),
-        
-        'users.index' =>'Usuarios',
-        'users.add' =>'Crear Nuevo Usuario',
-        
-        'users.login' =>'Entra y encuentra un taxi enseguida',
-        'users.register' =>'Regístrate y encuentra un taxi enseguida',
-        'users.profile' =>'Preferencias',
-        
-        'users.change_password' =>'Cambiar Contraseña',
-        'users.confirm_email' =>'Confirmación de Correo',
-        'users.forgot_password' =>'Contraseña Olvidada',
-        'users.send_change_password' =>'Instrucciones para Cambio de Contraseña',
-        'users.send_confirm_email' =>'Instrucciones para Verificación de Correo',
-        
-        'drivers.index' =>'Choferes',
-        'drivers.add' =>'Crear Nuevo Chofer',
-        
-        'travels.index' =>'Anuncios de Viajes',
-        'travels.add' =>'Crear Anuncio de Viaje',
-        'travels.view' =>'Ver Anuncio de Viaje',
-        'travels.add_pending' =>'Crear Anuncio de Viaje',
-    );*/
-    
     public $helpers = array(
         'Html' => array(
             'className' => 'EnhancedHtml'
@@ -103,7 +73,7 @@ class AppController extends Controller {
         // Set page language
         $lang = $this->Session->read('next.page.lang');
         if($lang == null) $lang = $this->Cookie->read('app.lang');
-        if($lang == null) $lang = Configure::read('default_language');
+        if($lang == null) $lang = Configure::read('Config.language')/*Configure::read('default_language')*/;
         
         $this->Session->write('app.lang', $lang);
         
@@ -174,14 +144,14 @@ class AppController extends Controller {
     
     private function _getPageTitle($key) {
         $pageTitles = array(
-            'default' =>array('title'=>__d('meta', 'Taxi con un chofer escogido por tí - A todas partes de la isla: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'/*'Consigue un taxi para ir a cualquier parte de la isla'*/), 'description'=>__d('meta', 'Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.')),
+            'default' =>array('title'=>'Cuba | '.__d('meta', 'Contrata un chofer con auto para tus viajes: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.')),
             
             // Unrestricted access
             'pages.display' =>array(
                 'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
                 'use_terms'=>array('title'=>__d('meta', 'Términos de Uso')), 
                 'tour'=>array('title'=>__d('meta', '¿Cómo usarlo?')),
-                'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes - Taxi a todas partes de la isla: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
+                'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
                 'by_email'=>array('title'=>__d('meta', 'Consigue un taxi usando tu correo electrónico'))),
 
             'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
@@ -201,7 +171,9 @@ class AppController extends Controller {
             
             'travels.index' =>array('title'=>__d('meta', 'Anuncios de Viajes')),
             'travels.add' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
-            'travels.view' =>array('title'=>__d('meta', 'Ver Anuncio de Viaje')),           
+            'travels.view' =>array('title'=>__d('meta', 'Ver Anuncio de Viaje')),
+            
+            'drivers.profile' =>array('title'=>__d('meta', 'Fotos del chofer %s y su auto')),
             
             
             // Admins access

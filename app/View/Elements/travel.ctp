@@ -43,20 +43,15 @@ foreach (Travel::getPreferences() as $key => $value) {
     if($expired) {
         $notice['color'] = Travel::getStateSettings('E', 'color');
         $notice['label'] = Travel::getStateSettings('E', 'label');
+        $notice['class'] = Travel::getStateSettings('E', 'class');
     } else {
         $notice['color'] = Travel::getStateSettings($travel['Travel']['state'], 'color');//Travel::$STATE[$travel['Travel']['state']]['color'];
         $notice['label'] = Travel::getStateSettings($travel['Travel']['state'], 'label');//Travel::$STATE[$travel['Travel']['state']]['label'];
+        $notice['class'] = Travel::getStateSettings($travel['Travel']['state'], 'class');
     }
 ?>
 <legend>
-    <?php if(!$embedEmail):?>
-        <small><i title="<?php echo $notice['label']?>" class="glyphicon glyphicon-flag" style="margin-left:-20px;color:<?php echo $notice['color']?>;display: inline-block"></i></small>
-    <?php endif;?>
-    <big>
-        <b><span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span></b> 
-        - 
-        <b><span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span></b>
-    </big>
+    <b><span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span></b> - <b><span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span></b>
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
 </legend>
     
@@ -86,6 +81,17 @@ foreach (Travel::getPreferences() as $key => $value) {
 <?php endif?>
 </div>
 
+<?php if(!$embedEmail):?>
+<div class="panel">
+    <small>
+        <span class="label <?php echo $notice['class']?>" style="display: inline-block;font-size: 10pt" title="<?php echo __('Este viaje está ').$notice['label']?>">
+            <?php echo $notice['label']?>
+        </span>
+    </small>
+</div>
+<?php endif;?>
+
+
 <?php if($details):?>
     <hr/>
     <p><b>ID:</b> <?php echo $travel['Travel']['id']?></p>
@@ -109,7 +115,7 @@ foreach (Travel::getPreferences() as $key => $value) {
             
             // Respondido
             $badgeOffset = -20;
-            if($sent['driver_traveler_conversation_count'] > 0) { // REspondido
+            if($sent['driver_traveler_conversation_count'] > 0) { // Respondido
                 echo '<div style="float:left" title="Respondido ('.$sent['driver_traveler_conversation_count'].' mensajes en total)"><i class="glyphicon glyphicon-star" style="margin-left: '.$badgeOffset.'px;"></i></div>';
                 $badgeOffset -= 20;
             }            
@@ -154,9 +160,9 @@ foreach (Travel::getPreferences() as $key => $value) {
         <?php if(!$expired):?>
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
-                '<i class="glyphicon glyphicon-eye-open"></i> '.__('Ver'), 
+                /*'<i class="glyphicon glyphicon-eye-open"></i> '.*/__('Ver').' »', 
                 array('controller'=>'travels', 'action'=>'view/'.$travel['Travel']['id']), 
-                array('escape'=>false, 'class'=>'text-warning', 'title'=>__('Ver este viaje')));?>
+                array('escape'=>false, 'class'=>'text-warning', 'title'=>__('Ver detalles de este viaje')));?>
         </li>
         <?php endif?>
         
@@ -172,7 +178,7 @@ foreach (Travel::getPreferences() as $key => $value) {
         <?php if(!$expired):?>
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
-            '<i class="glyphicon glyphicon-envelope"></i> <big><big><b>'.__('Confirmar').'</b></big></big>', 
+            '<i class="glyphicon glyphicon-share-alt"></i> <b>'.__('Confirmar').'</b>',
             array('controller'=>'travels', 'action'=>'confirm/'.$travel['Travel']['id']), 
                 array('escape'=>false, 'title'=>__('Confirmar y Enviar este viaje a los choferes')));?>
         </li>

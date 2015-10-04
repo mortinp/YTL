@@ -5,14 +5,10 @@ App::uses('Auth', 'Component');
 <div class="container">
     <div class="row">
         <div class="col-md-5" style="margin-bottom: 20px">
-
             <div id="travel">
-                <p>
-                    <?php echo __d('pending_travel', 'El siguiente viaje está')?>
-                    <span style="color:<?php echo Travel::getStateSettings($travel['PendingTravel']['state'], 'color')?>">
-                        <b><?php echo Travel::getStateSettings($travel['PendingTravel']['state'], 'label')?></b>
-                    </span>:
-                </p>
+                <?php echo __('Estos son los detalles de tu viaje')?>:
+                <br/>
+                <br/>
                 <?php echo $this->element('pending_travel', array('actions'=>false))?>
                 <a title="<?php echo __d('pending_travel', 'Editar este Viaje')?>" href="#!" class="edit-travel">&ndash; <?php echo __d('pending_travel', 'Editar este Viaje')?></a>
             </div>
@@ -41,7 +37,7 @@ App::uses('Auth', 'Component');
                 <br/>
                 <br/>
                 <div style="text-align: center">
-                    <?php echo $this->Form->submit(__d('pending_travel', "Registrarme y Confirmar este Anuncio de Viaje <div style='font-size:11pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes ahora</div>"), array('style'=>'font-size:14pt;white-space: normal;', 'escape'=>false), true);?>
+                    <?php echo $this->Form->submit(__d('pending_travel', "Registrarme y Confirmar este Anuncio de Viaje <div style='font-size:11pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes ahora</div>"), array(/*'class'=>'btn btn-success', */'style'=>'font-size:14pt;white-space: normal;', 'escape'=>false), true);?>
                 </div>
             </fieldset>
             <?php echo $this->Form->end(); ?>

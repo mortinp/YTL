@@ -384,7 +384,19 @@ Cache::config('_cake_model_', array(
 ### MARTIN
 Configure::write('enqueue_mail', true);
 Configure::write('conversations_via_app', true);
-Configure::write('default_language', 'es');
-Configure::write('Config.language', Configure::read('default_language'));
 Configure::write('superadmin_email', 'mproenza@grm.desoft.cu');
 Configure::write('domain_name', 'yotellevocuba.com');
+
+// Language detection and setup
+Configure::write('default_language', 'es');
+Configure::write('default_language_resemblance', array('it', 'fr', 'pt', 'ca', 'gl'));
+Configure::write('second_language', 'en');
+
+$lang = Configure::read('default_language');
+if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    if($browser_lang != Configure::read('default_language') && !in_array($browser_lang, Configure::read('default_language_resemblance')))
+        $lang = Configure::read('second_language');
+}
+
+Configure::write('Config.language', $lang);

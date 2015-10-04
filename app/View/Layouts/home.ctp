@@ -23,7 +23,7 @@ if($isLoggedIn) {
 <html>
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <title><?php echo "Cuba - ".$page_title." | YoTeLlevo" ?></title>
+        <title><?php echo $page_title." | YoTeLlevo" ?></title>
         <meta name="description" content="<?php echo $page_description?>"/>
         
         <style type="text/css">

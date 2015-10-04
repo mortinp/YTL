@@ -15,12 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: Controller/AppController.php:169
-msgid "Taxi con un chofer escogido por tí - A todas partes de la isla: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
-msgstr "Taxi with a driver chosen by you - All around the island: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
+msgid "Contrata un chofer con auto para tus viajes: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
+msgstr "Hire a driver with a car for your trips: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
 
 #: Controller/AppController.php:169
 msgid "Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla."
-msgstr "Get a taxi to move around Cuba. Arrange the details of the travel directly with your driver via email and plan your transportation budget before you arrive in the island."
+msgstr "Find a taxi to move around Cuba. Arrange the details of the travel directly with your driver and plan your transportation budget before you arrive in the island."
 
 #: Controller/AppController.php:173
 msgid "Contactar"
@@ -39,8 +39,8 @@ msgid "¿Cómo usarlo?"
 msgstr "How to Use It"
 
 #: Controller/AppController.php:176
-msgid "Preguntas Frecuentes - Taxi a todas partes de la isla: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
-msgstr "FAQ - Taxi all around the island: Havana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
+msgid "Preguntas Frecuentes"
+msgstr "FAQ"
 
 #: Controller/AppController.php:176
 msgid "Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo"
@@ -101,3 +101,7 @@ msgstr "Travel Requests"
 #: Controller/AppController.php:196
 msgid "Ver Anuncio de Viaje"
 msgstr "View Travel Request"
+
+#: Controller/AppController.php:196
+msgid "Fotos del chofer %s y su auto"
+msgstr "Pictures of the driver %s and the car"

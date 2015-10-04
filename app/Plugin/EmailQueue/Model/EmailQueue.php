@@ -55,7 +55,7 @@ class EmailQueue extends AppModel {
             'config' => 'default',
             'attachments' => array(),
             'savepath' => './tmp/files/',
-            'lang' => 'es'
+            'lang' => Configure::read('default_language')
         );
 
         $email = array('EmailQueue'=>$options + $defaults);        

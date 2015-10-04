@@ -31,7 +31,7 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
             $profile_path = $fullBaseUrl.'/driver_traveler_conversations/show_profile/'.$conversation_id;
             //echo $this->Html->link(__d('conversation', 'Vea fotos de %s y su auto', $driver_intro), array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile/'.$conversation_id)) 
             ?>
-            <a href="<?php echo $profile_path?>"><?php echo __d('conversation', 'Mira fotos de %s y su auto', $driver_intro)?></a>
+            <a href="<?php echo $profile_path?>"><?php echo __d('conversation', 'Mira fotos de %s y su auto', $driver_intro)?> »</a>
         </p>
     <?php endif;?>
         

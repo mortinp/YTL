@@ -6,16 +6,14 @@
             
             <br/>            
             <?php if(isset ($travel)):?>
-                <p>
-                    <?php echo __('El siguiente viaje está')?>
-                    <span style="color:<?php echo Travel::getStateSettings($travel['Travel']['state'], 'color')?>">
-                        <b><?php echo Travel::getStateSettings($travel['Travel']['state'], 'label')?></b>
-                    </span>:
-                </p>
+                <?php echo __('Estos son los detalles de tu viaje')?>:
+                <br/>
+                <br/>
                 <?php echo $this->element('travel', array('travel'=>$travel))?>
             <?php else:?>
                 <h3>
-                    <?php echo __('Ya puedes crear tu primer anuncio de viaje')?>: <?php echo $this->Html->link('<i class="glyphicon glyphicon-flag"></i>'.__('Crear Viaje'), array('controller'=>'travels', 'action'=>'add'), array('escape'=>false))?>.                
+                    <?php echo __('Ya puedes crear tu primer anuncio de viaje')?>: 
+                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-flag"></i>'.__('Crear Viaje'), array('controller'=>'travels', 'action'=>'add'), array('escape'=>false))?>.                
                 </h3>
             <?php endif?>
             

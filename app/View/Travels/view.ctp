@@ -19,13 +19,12 @@ if($isConfirmed) {
 <div class="row">
     <div class="col-md-6 col-md-offset-3"> 
         <div id="travel">
-            <p>
-                <?php echo __('El siguiente viaje está')?>
-                <span style="color:<?php echo Travel::getStateSettings($travel['Travel']['state'], 'color')?>">
-                    <b><?php echo Travel::getStateSettings($travel['Travel']['state'], 'label')?></b>
-                </span>:
-            </p>
+            <?php echo __('Estos son los detalles de tu viaje')?>:
+            <br/>
+            <br/>
             <?php echo $this->element('travel', array('actions'=>false))?>
+            <br/>
+
             <?php if(!$isConfirmed):?>
                 <a title="<?php echo __('Editar este Viaje')?>" href="#!" class="edit-travel">&ndash; <?php echo __('Editar este Viaje')?></a>    
                 <br/>
@@ -36,14 +35,24 @@ if($isConfirmed) {
                     array('class'=>'btn btn-primary', 'style'=>'font-size:16pt;white-space: normal;', 'escape'=>false));?>
             <?php else:?>   
                 <br/>
-                <p class="text-info">
-                    <?php if(AuthComponent::user('role') == 'regular'):?>
-                    <b><?php echo __('Los datos de este viaje fueron eviados a <big>%s</big>. Pronto recibirás las ofertas.', $pretty_drivers_count)?></b>
+                
+                <?php if(AuthComponent::user('role') == 'regular'):?>
+                    <ul class="text-info" style="list-style-type: none;padding: 0px;font-weight: bold">
+                        <li style="margin-bottom: 15px">
+                            <i class="glyphicon glyphicon-hand-right" style="margin-right:10px"></i> <span><?php echo __('%s ya recibieron los detalles de este viaje', '<span class="badge"><big>'.$pretty_drivers_count.'</big></span>')?></span>
+                        </li>
 
-                    <?php else:?>
-                    <b>Se encontaron <big><?php echo $pretty_drivers_count?></big></b> para notificar, pero son <b>choferes de prueba</b> porque eres un usuario <b><?php echo AuthComponent::user('role')?></b>.
-                    <?php endif?>
-                </p>
+                        <li>
+                            <i class="glyphicon glyphicon-envelope" style="margin-right:10px"></i> <?php echo __('Los mensajes de los choferes llegarán a tu correo %s', '<span class="badge"><big>'.$travel['User']['username'].'</big></span>')?>
+                        </li>
+                    </ul>
+                <?php else:?>
+                <b>Se encontaron <big><?php echo $pretty_drivers_count?></big></b> para notificar, pero son <b>choferes de prueba</b> porque eres un usuario <b><?php echo AuthComponent::user('role')?></b>.
+                <?php endif?>
+                
+                
+                <br/>
+                <?php echo $this->Html->link('<div class="btn btn-default"><big>&laquo;	'.__('Ver mis anuncios de viajes').'</big></div>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
             <?php endif?>
         </div>
         <?php if(!$isConfirmed):?>
@@ -52,10 +61,8 @@ if($isConfirmed) {
                 <?php echo $this->element('travel_form', array('do_ajax' => true, 'form_action' => 'edit/' . $travel['Travel']['id'], 'intent'=>'edit')); ?>
                 <br/>
             </div>
-        <?php endif?>
+        <?php endif?>    
         
-        <br/>
-        <?php echo $this->Html->link('<div class="btn btn-success"><big>'.__('Ver todos mis anuncios de viajes').'</big></div>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
     </div>    
 </div>
 </div>

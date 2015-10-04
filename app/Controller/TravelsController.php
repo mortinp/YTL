@@ -21,7 +21,7 @@ class TravelsController extends AppController {
         }
         
         if ($this->action === 'add') {
-            if(($this->Auth->user('role') === 'regular' || $this->Auth->user('role') === 'tester') && User::canCreateTravel()) return true;
+            /*if(($this->Auth->user('role') === 'regular' || $this->Auth->user('role') === 'tester') && User::canCreateTravel()) */return true;
         }
 
         if (in_array($this->action, array('edit', 'view', 'confirm', 'delete'))) {
@@ -160,8 +160,10 @@ class TravelsController extends AppController {
             
             $result = $this->TravelLogic->confirmTravel('Travel', $travel);
 
-            if($result['success']) $datasource->commit();
-            else {
+            if($result['success']) {
+                $datasource->commit();
+                $this->setSuccessMessage('<b>'.__('Felicidades, ya completaste la solicitud').'!!!</b>');
+            } else {
                 $datasource->rollback();
                 $this->setErrorMessage($result['message']);
             }

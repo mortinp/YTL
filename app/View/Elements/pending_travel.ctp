@@ -33,32 +33,12 @@ foreach (Travel::getPreferences() as $key => $value) {
 }
 ?>
 
-<?php
-    $notice = array();
-    if($expired) {
-        $notice['color'] = Travel::getStateSettings('E', 'color');
-        $notice['label'] = Travel::getStateSettings('E', 'label');
-    } else {
-        $notice['color'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'color');//Travel::$STATE[$travel['PendingTravel']['state']]['color'];
-        $notice['label'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'label');//Travel::$STATE[$travel['PendingTravel']['state']]['label'];
-    }
-?>
-
 <legend>
-   
-    <small><i title="<?php echo $notice['label']?>" class="glyphicon glyphicon-flag" style="margin-left:-20px;color:<?php echo $notice['color']?>;display: inline-block"></i></small>
-    
-    <big>
-        <span id='travel-locality-label'><?php echo $travel['PendingTravel']['origin']?></span> 
-        - 
-        <span id='travel-where-label'><?php echo $travel['PendingTravel']['destination']?></span>        
-    </big> 
+    <b><span id='travel-locality-label'><?php echo $travel['PendingTravel']['origin']?></span></b> - <b><span id='travel-where-label'><?php echo $travel['PendingTravel']['destination']?></span></b>        
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
 </legend>
     
 <p><b><?php echo __d('pending_travel', 'Fecha del Viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
-
-<p><b><?php echo __d('pending_travel', 'Tu correo electrónico')?>:</b> <span id='travel-email-label'><?php echo $travel['PendingTravel']['email']?></span></p>
 
 <p><b><?php echo __d('pending_travel', 'Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo $travel['PendingTravel']['details']?></span></p>
 
@@ -78,6 +58,28 @@ foreach (Travel::getPreferences() as $key => $value) {
         </span>
     </p>
 <?php endif?>
+</div>
+
+<p><b><?php echo __d('pending_travel', 'Tu correo electrónico')?>:</b> <span id='travel-email-label'><?php echo $travel['PendingTravel']['email']?></span></p>
+
+<?php
+$notice = array();
+if($expired) {
+    $notice['color'] = Travel::getStateSettings('E', 'color');
+    $notice['label'] = Travel::getStateSettings('E', 'label');
+    $notice['class'] = Travel::getStateSettings('E', 'class');
+} else {
+    $notice['color'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'color');//Travel::$STATE[$travel['Travel']['state']]['color'];
+    $notice['label'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'label');//Travel::$STATE[$travel['Travel']['state']]['label'];
+    $notice['class'] = Travel::getStateSettings($travel['PendingTravel']['state'], 'class');
+}
+?>
+<div class="panel">
+    <small>
+        <span class="label <?php echo $notice['class']?>" style="display: inline-block;font-size: 10pt" title="<?php echo __('Este viaje está ').$notice['label']?>">
+            <?php echo $notice['label']?>
+        </span>
+    </small>
 </div>
 
 <?php if($actions):?>
