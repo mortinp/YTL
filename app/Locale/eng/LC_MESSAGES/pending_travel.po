@@ -61,7 +61,7 @@ msgstr "People traveling <small class=\"text-info\">(maximum number of people)</
 
 #: View/Elements/pending_travel_form.ctp:76;96
 msgid "Los choferes te contactarán a este correo"
-msgstr "Drivers will contact you at this email"
+msgstr "The drivers will contact you at this email"
 
 #: View/Elements/pending_travel_form.ctp:78;99
 msgid "Cualquier detalle que quieras explicar"

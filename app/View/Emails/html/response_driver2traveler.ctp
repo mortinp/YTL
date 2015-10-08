@@ -19,7 +19,7 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
 
 <div id="conversation-header">
     <p>
-        <em><?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel['origin'].' - '.$travel['destination'])?></em>   
+        <?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel['origin'].' - '.$travel['destination'])?>  
     </p>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
@@ -49,6 +49,6 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
 
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-top: 10px;margin-bottom: 10px;"/>
 <div class="email-salute">
-    <p><?php echo __d('conversation', 'Atentamente, el equipo de <em>YoTeLlevo</em>')?></p>
-    <p><a href="http://yotellevocuba.com">yotellevocuba.com</a> | <a href="http://yotellevocuba.com/blog/<?php echo Configure::read('Config.language')?>">Blog</a> | <a href="https://twitter.com/yotellevocuba">Twitter</a> | <a href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
+    <p><?php echo __d('conversation', 'Atentamente, el equipo de')?> <a href="http://yotellevocuba.com">YoTeLlevo</a></p>
+    <p><a href="http://yotellevocuba.com/blog/<?php echo Configure::read('Config.language')?>">Blog</a> | <a href="https://twitter.com/yotellevocuba">Twitter</a> | <a href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
 </div>
