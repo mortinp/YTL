@@ -50,6 +50,28 @@ class Driver extends AppModel {
     public function loginExists($email) {
         return $this->find('first', array('conditions'=>array('username'=>$email))) != null;
     }
+    
+    public static function shortenName($name){
+        $name = trim($name);
+        $split = str_getcsv($name, ' ');
+        $name = $split[0];
+        $split = str_getcsv($name, '(');
+        $name = $split[0];
+        
+        return $name;
+    }
+    
+    /**
+     * Esto es para coger el perfil del chofer
+     * En cualquier momento se puede decir desde un controlador $this->Driver->attachProfile($finderModel)
+     * 
+     * @param $finderModel: El modelo desde el cual se va a hacer el find
+     */ 
+    
+    public function attachProfile(&$finderModel) {
+        $finderModel->recursive = 2;
+        $this->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+    }
 }
 
 ?>

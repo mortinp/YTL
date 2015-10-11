@@ -1,4 +1,5 @@
-<p>Hola Chofer,</p>
+<?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
+<p>Hola <?php echo $driver_name?>,</p>
 <div>
     <p>
         Un nuevo anuncio de viaje (<b>#<?php echo $travel['Travel']['id']?></b>) ha sido registrado recientemente con los siguientes datos:

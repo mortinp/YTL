@@ -19,6 +19,8 @@ class TravelLogicComponent extends Component {
             $this->DriverLocality = ClassRegistry::init('DriverLocality');
             $this->Travel = ClassRegistry::init($travelType);
             
+            $this->prepareForSendingToDrivers($travelType);
+            
             $drivers_conditions = array(
                 'DriverLocality.locality_id'=>$travel[$travelType]['locality_id'], 
                 'Driver.active'=>true);
@@ -38,15 +40,19 @@ class TravelLogicComponent extends Component {
             }
 
             $inflectedTravelType = Inflector::underscore($travelType);
+            
+            $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+                        
             $drivers = $this->DriverLocality->find('all', array(
                 'conditions'=>$drivers_conditions, 
                 'order'=>'Driver.'.'last_notification_date ASC, Driver.'.$inflectedTravelType.'_count'.' ASC',
                 'limit'=>3));
             
-            
             // English
             if($english && count($drivers) < 3) {
                 $drivers_conditions['Driver.speaks_english'] = false;
+                
+                $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
                 
                 $driversSp = $this->DriverLocality->find('all', array(
                     'conditions'=>$drivers_conditions, 
@@ -75,7 +81,7 @@ class TravelLogicComponent extends Component {
             $drivers_sent_count = 0;
             
             if($OK) {
-                $this->prepareForSendingToDrivers($travelType);
+                //$this->prepareForSendingToDrivers($travelType);
                 
                 $emailConfig = 'no_responder';
                 if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viaje';
@@ -143,13 +149,16 @@ class TravelLogicComponent extends Component {
 
             $conversation = $this->DriverTravel->getLastInsertID();
             
-            //$subject = __d('user_email', 'Nuevo Anuncio de Viaje');
             $subject = $this->getNotificationEmailSubject($travel, $travelType, $conversation);       
-
+            
+            $driverName = 'chofer';
+            if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
+                $driverName = Driver::shortenName($driver['Driver']['DriverProfile']['driver_name']);
+                
             if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $driver['Driver']['username'], 
-                        array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation), 
+                        array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName), 
                         array(
                             'template'=>'new_'.$inflectedTravelType,
                             'format'=>'html',
@@ -233,6 +242,11 @@ class TravelLogicComponent extends Component {
             return array('success'=>$OK, 'message'=>$errorMessage, 'travel'=>$travel);
         }
         return array('success'=>$OK, 'message'=>$errorMessage);
+    }
+    
+    private function setupSelectDriverProfile() {
+        $this->DriverLocality->recursive = 2; // Esto es para que el chofer se cargue con su perfil
+        $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// Esto es para que no se carguen las localidades del chofer
     }
     
 }

@@ -73,7 +73,11 @@ class IncomingMailShell extends AppShell {
                 
                 CakeLog::write('conversations', 'Split Conversation:'.$conversation);
                 
+                $this->Driver->attachProfile($this->DriverTravel); // Esto es para poder coger el nombre de chofer
+                
                 $driverTravel = $this->DriverTravel->findById($conversation);
+                
+                //print_r($driverTravel);
                 
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
@@ -99,16 +103,22 @@ class IncomingMailShell extends AppShell {
                         CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                     }
 
-                    if($OK) ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $deliverTo,
-                        array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel']),
-                        array(
-                            'template'=>'response_traveler2driver',
-                            'format'=>'html',
-                            'subject'=>$subject,
-                            'config'=>'viajero',
-                            'attachments'=>$parser->attachments)
-                    );
+                    if($OK) {
+                        $driverName = 'chofer';
+                        if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
+                            $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
+                        
+                        ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                            $deliverTo,
+                            array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName),
+                            array(
+                                'template'=>'response_traveler2driver',
+                                'format'=>'html',
+                                'subject'=>$subject,
+                                'config'=>'viajero',
+                                'attachments'=>$parser->attachments)
+                        );
+                    }
                     if(!$OK) {
                         CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar en emails_queue</span>");
                         CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);

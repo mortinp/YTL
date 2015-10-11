@@ -1,6 +1,7 @@
+<?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <div id="conversation-header">
     <p>
-        <em>Hola chofer. Este correo contiene la respuesta del viajero para el viaje <b>#<?php echo $travel['id']?></b> (<b><?php echo $travel['origin'].' - '.$travel['destination']?></b>). Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.</em>
+        <em>Hola <?php echo $driver_name?>. Este correo contiene la respuesta del viajero para el viaje <b>#<?php echo $travel['id']?></b> (<b><?php echo $travel['origin'].' - '.$travel['destination']?></b>). Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.</em>
     </p>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
