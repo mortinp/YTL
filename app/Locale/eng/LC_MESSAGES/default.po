@@ -14,6 +14,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: Controller/AppController.php:169
+msgid "<div class="alert alert-danger alert-dismissable" style="text-align: center"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>No tienes permisos para visitar esa página.</div>"
+msgstr "<div class="alert alert-danger alert-dismissable" style="text-align: center"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>You are not allowed to visit that page.</div>"
+
 #: Controller/Component/TravelLogicComponent.php:65
 msgid "Ocurrió un error confirmando el viaje. Intenta de nuevo."
 msgstr "Error confirming travel. Try again."
@@ -371,8 +375,8 @@ msgstr "My Requests"
 
 #: View/Layouts/default.ctp:107
 #: View/Users/confirm_email.ctp:14
-msgid "Anunciar Viaje"
-msgstr "Create Request"
+msgid "Solicitar viaje"
+msgstr "Request a travel"
 
 #: View/Layouts/default.ctp:159
 msgid "Inicio"
@@ -412,7 +416,7 @@ msgstr "Hi, my name is Martín."
 
 #: View/Pages/contact.ctp:16
 msgid "¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes."
-msgstr "Would you like to ask something or just say <em>hi</em>? Write to me at %s and I'll answer very soon."
+msgstr "Would you like to ask something or just say <em>hi</em>? Write to me at %s and I will answer very soon."
 
 #: View/Pages/faq.ctp:7
 msgid "¿Qué hace <em>YoTeLlevo</em>?"
@@ -510,10 +514,14 @@ msgstr "You don't. You pay directly to your taxi driver, in the way you both agr
 msgid "¿Tienes otras preguntas que quieras hacernos?"
 msgstr "Do you have any other questions?"
 
-#: View/Travels/add.ctp:4
 #: View/Travels/index.ctp:34;43
 msgid "Crear Anuncio de Viaje"
 msgstr "Create Travel Request"
+
+#: View/Travels/add.ctp:4
+#: View/Travels/index.ctp:34;43
+msgid "Crear un anuncio de viaje"
+msgstr "Create a travel request"
 
 #: View/Travels/index.ctp:5
 msgid "Estos son todos tus anuncios de viajes"
@@ -525,7 +533,7 @@ msgstr "By email"
 
 #: View/Travels/index.ctp:41
 msgid "No tienes ningún anuncio de viaje todavía. Crea uno ahora."
-msgstr "You don't have any Travel Request. Create one now."
+msgstr "You don't have any travel request. Create one now."
 
 #: View/Travels/view.ctp:8
 msgid "chofer"
@@ -684,7 +692,7 @@ msgstr "It's awesome to have you onboard!"
 
 #: View/Users/register_welcome.ctp:18
 msgid "Ya puedes crear tu primer anuncio de viaje"
-msgstr "You can create a Travel Request now"
+msgstr "You can create a travel request now"
 
 #: View/Users/register_welcome.ctp:18
 msgid "Crear Viaje"
@@ -766,9 +774,9 @@ msgstr "Password is mandatory"
 msgid "Por favor, entre un rol válido."
 msgstr "Invalid role"
 
-#: /home.ctp:167
-msgid "%C2%BFBuscas%20un%20%23chofer%20con%20%23auto%20en%20%23Cuba?%0Ahttp://yotellevocuba.com%0AContacta%203%20choferes%20en%20la%20isla.%20Recibe%20ofertas%20de%20ellos.%20Contrata%20uno.%0A%23taxi"
-msgstr "Need%20a%20%23driver%20with%20%23car%20in%20%23Cuba?%20http://yotellevocuba.com%0AContact%203%20drivers%20in%20the%20island.%20Get%20quotes%20directly%20from%20them.%20Hire%20one.%0A%23taxi"
+#: Model/User.php:validation for field role
+msgid "Entra a tu cuenta antes de visitar esa página"
+msgstr "Login to your account before visiting that page"
 
 #: /home.ctp:167
 msgid "Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba"

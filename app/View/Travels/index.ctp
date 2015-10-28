@@ -37,11 +37,11 @@
         </div>-->
 
     <?php else :?>
-        <div class="col-md-6 col-md-offset-3 well" style="background-color: lightgoldenrodyellow">
+        <div class="col-md-6 col-md-offset-3">
             <p>
                 <?php echo __('No tienes ningún anuncio de viaje todavía. Crea uno ahora.')?>
             </p>
-            <legend><?php echo __('Crear Anuncio de Viaje')?></legend>
+            <legend><?php echo __('Crear un anuncio de viaje')?></legend>
             <?php echo $this->element('travel_form')?>
         </div>
     <?php endif; ?>

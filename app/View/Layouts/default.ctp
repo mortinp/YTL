@@ -101,13 +101,13 @@ if($isLoggedIn) {
                                 <?php if($role === 'regular' || $role === 'admin' || $role === 'tester') :?>
                                     <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
                                     <li class="divider-vertical"></li>
-                                    <li><?php echo $this->Html->link(__('Anunciar Viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
+                                    <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     
                                     <?php if($role === 'admin') :?>
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
-                                            Administrar
+                                            Admin
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu">
@@ -135,9 +135,9 @@ if($isLoggedIn) {
                                             <li class="dropdown-submenu">
                                                 <a tabindex="-1" href="#">Logs</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Raw Emails', array('controller' => 'admins', 'action' => 'view_log/emails_raw')) ?></li>
+                                                    <!--<li><?php echo $this->Html->link('Raw Emails', array('controller' => 'admins', 'action' => 'view_log/emails_raw')) ?></li>
                                                     <li><?php echo $this->Html->link('Info Requerida', array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>                                                    
+                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>-->
                                                     <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
                                                     <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
                                                 </ul>

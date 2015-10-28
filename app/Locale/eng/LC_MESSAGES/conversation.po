@@ -67,3 +67,11 @@ msgstr "url deleted"
 #: Console/Command/IncomingMailShell.php:253
 msgid "imagen borrada"
 msgstr "image deleted"
+
+#: Console/Command/IncomingMailShell.php:311
+msgid "Chofer %s"
+msgstr "Driver %s"
+
+#: Console/Command/IncomingMailShell.php:311
+msgid "%s de YoTeLlevo"
+msgstr "%s from YoTeLlevo"

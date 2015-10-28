@@ -53,13 +53,32 @@ class Driver extends AppModel {
     
     public static function shortenName($name){
         $name = trim($name);
+        
+        // Eliminar todo despues de un espacio, ej. el apellido
         $split = str_getcsv($name, ' ');
         $name = $split[0];
+        
+        // Eliminar cualquier cosa entre parentesis, ej. (MITAXI)
         $split = str_getcsv($name, '(');
         $name = $split[0];
         
+        $name = trim($name);
+        
         return $name;
     }
+    
+    public static function removeParenthesisFromName($name) {
+        $name = trim($name);
+        
+        // Eliminar cualquier cosa entre parentesis, ej. (MITAXI)
+        $split = str_getcsv($name, '(');
+        $name = $split[0];
+        
+        $name = trim($name);
+        
+        return $name;
+    }
+    
     
     /**
      * Esto es para coger el perfil del chofer

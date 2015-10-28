@@ -351,7 +351,12 @@ class AuthComponent extends Component {
 		}
 
 		if (!$controller->request->is('ajax')) {
-			$this->flash($this->authError);
+                        // MARTIN: Adicioné esta línea
+                        $this->loginAction['action'] = $this->loginAction['action'].'?redirect='.$this->request->url;// MARTIN: Esto lo adicione para el redirect
+                        
+                        // Cambié esta línea para mostrar un mensaje mejor
+			$this->flash('<div class="alert alert-danger alert-dismissable" style="text-align: center"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.__('Entra a tu cuenta antes de visitar esa página').'</div>'/*$this->authError*/);
+                        
 			$this->Session->write('Auth.redirect', $controller->request->here(false));
 			$controller->redirect($this->loginAction);
 			return false;
@@ -403,16 +408,21 @@ class AuthComponent extends Component {
  */
 	protected function _unauthorized(Controller $controller) {
 		if ($this->unauthorizedRedirect === false) {
-			throw new ForbiddenException($this->authError);
+			throw new ForbiddenException(__($this->authError));
 		}
 
-		$this->flash($this->authError);
+		$this->flash(__($this->authError));
 		if ($this->unauthorizedRedirect === true) {
 			$default = '/';
 			if (!empty($this->loginRedirect)) {
 				$default = $this->loginRedirect;
 			}
 			$url = $controller->referer($default, true);
+                        
+                        // MARTIN: Esta línea es para evitar los infinitos redireccionamientos cuando un usuario se loguea y la aplicación
+                        // intenta entrar a una página que el usuario no tiene autorizada -ej. cuando se loguea con un redirect: ?redirect=[url]
+                        if($this->_isLoginAction($controller)) $url = $default;
+                        
 		} else {
 			$url = $this->unauthorizedRedirect;
 		}

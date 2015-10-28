@@ -32,7 +32,7 @@ if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
         ?>
         <img src="<?php echo $src?>" title="<?php echo $driver_travel['Driver']['DriverProfile']['driver_name'].' - '.$driver_travel['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/>
         <?php endif;?>
-        <span style="display: inline-block"><?php echo $travelDetails?> <small><small><?php echo $driver_travel['Travel']['User']['username']?></small></small></span>
+        <span style="display: inline-block"><small>#<?php echo $driver_travel['Travel']['id']?></small> <?php echo $travelDetails?> <small><small><?php echo $driver_travel['Travel']['User']['username']?></small></small></span>
     </h2>
 </div>
 <hr/>

@@ -32,8 +32,25 @@ class UsersController extends AppController {
     public function login() {
         if ($this->request->is('post')) {
             if($this->do_login()) {
-                if(AuthComponent::user('role') === 'admin') return $this->redirect(array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES));
-                return $this->redirect($this->Auth->redirect());
+                
+                $redirect = null;
+                if(isset ($this->request->query['redirect'])) $redirect = $this->request->query['redirect'];                
+                
+                if($redirect != null) {
+                    $parts = split('/', $redirect, 2);
+                    $redirect = array('action'=>'index');
+                    $redirect['controller'] = $parts[0];
+                    if(isset ($parts[1]) && $parts[1] != null) $redirect['action'] = $parts[1];
+                    
+                } else {
+                    if(AuthComponent::user('role') === 'admin') $redirect = array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES);
+                    else $redirect = $this->Auth->redirect();
+                }
+                
+                return $this->redirect($redirect);
+                
+                //if(AuthComponent::user('role') === 'admin') return $this->redirect(array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES));
+                //return $this->redirect($this->Auth->redirect());
             } else $this->setErrorMessage(__('El usuario o la contraseña son inválidos. Intenta de nuevo.'));
         }
         if ($this->Auth->loggedIn() || $this->Auth->login()) {

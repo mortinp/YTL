@@ -45,19 +45,31 @@
 <?php endif?>
 
 <?php foreach ($conversations as $c):?>
-<div class="row">
-    <div class="col-md-6">
-        <?php if($c['DriverTravelerConversation']['response_by'] == 'driver') {
-            echo "<b>Chofer (".$c['DriverTravelerConversation']['created']."):</b> ";
+<div class="row container-fluid">
+    <div class="col-md-10 col-md-offset-1">
+        <?php if($c['DriverTravelerConversation']['response_by'] == 'driver'):?>
+        
+        <div class="col-md-8 alert" style="background-color: lightblue">
+            <b>Chofer (<?php echo $c['DriverTravelerConversation']['created']?>)</b>
+            <br/>
+            <br/>
+            <?php
             echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $c['DriverTravelerConversation']['response_text']);
-        }?>
-    </div>
-    <div class="col-md-6">        
-        <?php if($c['DriverTravelerConversation']['response_by'] == 'traveler'){
-            echo "<b>Viajero (".$c['DriverTravelerConversation']['created']."):</b> ";
+            ?>
+        </div>
+        
+        <?php else:?>
+        
+        <div class="col-md-8 col-md-offset-4 well">
+            <b>Viajero (<?php echo $c['DriverTravelerConversation']['created']?>)</b>
+            <br/>
+            <br/>
+            <?php
             echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $c['DriverTravelerConversation']['response_text']);
-            
-        }?>
+            ?>
+        </div> 
+        
+        <?php endif?>
     </div>
 </div>    
 <?php endforeach;?>

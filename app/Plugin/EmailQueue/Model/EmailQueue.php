@@ -106,6 +106,8 @@ class EmailQueue extends AppModel {
         
         if($OK) $datasource->commit();
         else $datasource->rollback();
+        
+        return $OK;
     }
 
     /**

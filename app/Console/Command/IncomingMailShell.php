@@ -10,6 +10,7 @@ App::uses('LocalityRouterComponent', 'Controller/Component');
 
 //require_once("PlancakeEmailParser.php");
 require_once ("helper/mailReader.php");
+require_once ("Config/email.php");
 
 class IncomingMailShell extends AppShell {
     
@@ -189,7 +190,7 @@ class IncomingMailShell extends AppShell {
                 CakeLog::write('conversations', 'Split Conversation:'.$conversation);
                 
                 $this->DriverTravel->recursive = 2;
-                $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// TODO: como hacer que solo se haga recursive el Travel, de una mejor forma
+                $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
                 $driverTravel = $this->DriverTravel->findById($conversation);
                 
                 //print_r($driverTravel['Driver']) ;
@@ -204,10 +205,9 @@ class IncomingMailShell extends AppShell {
                     $OK = true;
 
                     if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
-
-                            ($driverTravel['DriverTravel']['last_driver_email'] == null ||
-                            strlen($driverTravel['DriverTravel']['last_driver_email']) == 0 ||
-                            $driverTravel['DriverTravel']['last_driver_email'] != $sender)) {
+                        ($driverTravel['DriverTravel']['last_driver_email'] == null ||
+                        strlen($driverTravel['DriverTravel']['last_driver_email']) == 0 ||
+                        $driverTravel['DriverTravel']['last_driver_email'] != $sender)) {
 
                         $driverTravel['DriverTravel']['last_driver_email'] = $sender;
                         $this->DriverTravel->id = $conversation;
@@ -219,6 +219,9 @@ class IncomingMailShell extends AppShell {
                         }
                     }
                     
+                    // Poner el lenguaje para que todo se traduzca bien de aquí para abajo
+                    if(isset ($driverTravel['Travel']['User']['lang']) && $driverTravel['Travel']['User']['lang'] != null)
+                        Configure::write('Config.language', $driverTravel['Travel']['User']['lang']);
                     
                     $fixedBody = $this->fixEmailBody($body);
                     
@@ -233,12 +236,30 @@ class IncomingMailShell extends AppShell {
                     }
 
                     if($OK) {
+                        
                         $layout = 'default';
                         $template = 'response_driver2traveler';
                         if(Configure::read('Email.html')) {
                             $layout = 'html_ink';
                             $template = 'response_driver2traveler_html';
                         }
+                        
+                        $driverName = __d('conversation', 'Chofer %s', '#'.$driverTravel['Driver']['id']); // ej. Chofer #23
+                        if(isset ($driverTravel['Driver']['DriverProfile']) && !empty($driverTravel['Driver']['DriverProfile'])) {
+                            $driverName = Driver::removeParenthesisFromName($driverTravel['Driver']['DriverProfile']['driver_name']); // No eliminar el apellido para que no haya confusiones
+                        }
+                        $fromName = __d('conversation', '%s de YoTeLlevo', $driverName);
+                        
+                        $fromEmail = null;
+                        if (class_exists('EmailConfig')) {
+                            $emailConfig = new EmailConfig();
+                            $keysFrom = array_keys($emailConfig->chofer['from']);
+                            if(!empty ($keysFrom)) $fromEmail = $keysFrom[0];
+			} else {
+                            $fromEmail = 'chofer@yotellevocuba.com'; // TODO: Deberia dejar esto fijo???
+                        }
+                        
+                        
                         ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             $deliverTo,
                             array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel']),
@@ -249,7 +270,9 @@ class IncomingMailShell extends AppShell {
                                 'subject'=>$subject,
                                 'config'=>'chofer',
                                 'attachments'=>$parser->attachments,
-                                'lang'=>$driverTravel['Travel']['User']['lang'])
+                                'lang'=>$driverTravel['Travel']['User']['lang'],
+                                'from_name'=>$fromName,
+                                'from_email'=>$fromEmail)
                         );
                     }
                     if(!$OK) {

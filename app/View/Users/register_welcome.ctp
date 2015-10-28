@@ -13,7 +13,7 @@
             <?php else:?>
                 <h3>
                     <?php echo __('Ya puedes crear tu primer anuncio de viaje')?>: 
-                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-flag"></i>'.__('Crear Viaje'), array('controller'=>'travels', 'action'=>'add'), array('escape'=>false))?>.                
+                    <?php echo $this->Html->link(__('Crear un anuncio de viaje'), array('controller'=>'travels', 'action'=>'add'), array('escape'=>false))?>.                
                 </h3>
             <?php endif?>
             
