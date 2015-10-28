@@ -10,7 +10,7 @@ App::uses('LocalityRouterComponent', 'Controller/Component');
 
 //require_once("PlancakeEmailParser.php");
 require_once ("helper/mailReader.php");
-require_once ("Config/email.php");
+//require_once ("Config/email.php");
 
 class IncomingMailShell extends AppShell {
     
