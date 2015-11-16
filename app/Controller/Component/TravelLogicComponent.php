@@ -22,9 +22,12 @@ class TravelLogicComponent extends Component {
             $this->prepareForSendingToDrivers($travelType);
             
             $drivers_conditions = array(
-                'DriverLocality.locality_id'=>$travel[$travelType]['locality_id'], 
+                'DriverLocality.locality_id'=>$travel[$travelType]['locality_id'],
                 'Driver.active'=>true);
-            if(isset ($travel[$travelType]['people_count'])) $drivers_conditions['Driver.max_people_count >='] = $travel[$travelType]['people_count'];
+            if(isset ($travel[$travelType]['people_count'])) {
+                $drivers_conditions['Driver.min_people_count <='] = $travel[$travelType]['people_count'];
+                $drivers_conditions['Driver.max_people_count >='] = $travel[$travelType]['people_count'];
+            }
             if(isset ($travel[$travelType]['need_modern_car']) && $travel[$travelType]['need_modern_car']) $drivers_conditions['Driver.has_modern_car'] = true;
             if(isset ($travel[$travelType]['need_air_conditioner']) && $travel[$travelType]['need_air_conditioner']) $drivers_conditions['Driver.has_air_conditioner'] = true;
             

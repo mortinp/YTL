@@ -41,7 +41,7 @@ if ($is_modal)
 
 $asLink = false;
 if(isset ($bigButton) && $bigButton == true) {
-    $saveButtonText = __d('pending_travel', "Pónme en contacto ahora <div style='font-size:12pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes. Escoge uno para tu viaje.</div>");
+    $saveButtonText = __d('pending_travel', 'Pónme en contacto ahora').' <div style="font-size:12pt;padding-left:50px;padding-right:50px">'.__d('pending_travel', 'Contacta con <big>3</big> choferes. Escoge uno para tu viaje.').'</div>';
     $buttonStyle = 'font-size:18pt;white-space: normal;';
     $asLink = true;
 }

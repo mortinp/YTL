@@ -2,6 +2,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('LangController', 'Controller');
+App::uses('DriverTravel', 'Model');
 
 class DriverTravelerConversationsController extends AppController {
     
@@ -31,6 +32,7 @@ class DriverTravelerConversationsController extends AppController {
         $data = $this->DriverTravel->findById($conversationId);
     }
     
+    // Administracion    
     private function tag($conversationId, $tagName, $value) {
         
         // TODO: Verificar que la conversacion existe
@@ -85,9 +87,30 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     
+    public function set_income($id = null) {
+        $this->TravelConversationMeta->id = $id;
+        if (!$this->TravelConversationMeta->exists()) {
+            throw new NotFoundException('Conversación inválida.');
+        }
+        //TODO: Verificar que la conversación ya está pagada
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+            $this->request->data['TravelConversationMeta']['conversation_id'] = $id;
+            
+            if ($this->TravelConversationMeta->save($this->request->data)) {
+                $this->setInfoMessage('Se guardó la ganancia del viaje <b>'.$id.'</b> exitosamente.');
+                return $this->redirect(array('controller'=>'driver_travels', 'action' => 'view_filtered/'.DriverTravel::$SEARCH_PAID));
+            }
+            $this->setErrorMessage('Ocurrió un error salvando la ganacia del viaje '.$id);
+        } else
+            throw new UnauthorizedException();
+    }
     
     
     
+    
+    // Otros
     public function show_profile($conversation) {
         $this->DriverTravel->recursive = 2;
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));

@@ -19,11 +19,6 @@ $buttonStyle = '';
 if ($is_modal)
     $buttonStyle = 'display:inline-block;float:left';
 
-/*if (empty($this->request->data))
-    $saveButtonText = 'Crear Anuncio';
-else
-    $saveButtonText = 'Salvar Datos';*/
-
 $origin = '';
 $destination = '';
 if(isset ($travel) && !empty ($travel)) {
@@ -64,7 +59,6 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             echo $this->Form->input('id', array('type' => 'hidden'));
 
             $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit');
-            //if(!$do_ajax) $submitOptions['onclick'] = 'this.value="Espere ...";this.disabled=true;this.form.disabled=true;this.form.submit();';
             echo $this->Form->submit(__($saveButtonText), $submitOptions);
             if ($is_modal)
                 echo $this->Form->button(__('Cancelar'), array('id' => 'btn-cancel-travel', 'style' => 'display:inline-block'));

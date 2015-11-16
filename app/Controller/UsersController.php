@@ -6,7 +6,7 @@ App::uses('DriverTravel', 'model');
 
 class UsersController extends AppController {
     
-    public $uses = array('User', 'UserInteraction', 'Travel');
+    public $uses = array('User', 'UserInteraction', 'Travel', 'DriverTravel', 'Locality');
     
     public $components = array('TravelLogic');
 
@@ -517,6 +517,8 @@ class UsersController extends AppController {
     
     public function view_travels($userId) {
         $this->set('user', $this->User->findById($userId));
+        
+        Travel::prepareFullConversations($this);
         $this->set('travels', $this->Travel->find('all', array('conditions'=>array('user_id'=>$userId))));
     }
 }

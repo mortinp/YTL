@@ -29,14 +29,9 @@ class DriversController extends AppController {
         foreach ($driverTavels as $dt) {
             $ids[] = $dt['Travel']['id'];
         }
-        $this->set('travels', $this->Travel->find('all', array('conditions'=>array('Travel.id'=>$ids))));
         
-        /*$driverTavelsByEmail = $this->DriverTravelByEmail->find('all', array('conditions'=>array('Driver.id'=>$driverId)));
-        $ids = array();
-        foreach ($driverTavelsByEmail as $dt) {
-            $ids[] = $dt['TravelByEmail']['id'];
-        }
-        $this->set('travels_by_email', $this->TravelByEmail->find('all', array('conditions'=>array('TravelByEmail.id'=>$ids))));*/
+        Travel::prepareFullConversations($this);
+        $this->set('travels', $this->Travel->find('all', array('conditions'=>array('Travel.id'=>$ids))));
     }
 
     public function add() {

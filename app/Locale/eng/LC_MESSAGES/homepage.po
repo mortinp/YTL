@@ -75,8 +75,8 @@ msgid "Planifica tu presupuesto de antemano"
 msgstr "Plan your budget before hand"
 
 #: View/Pages/home.ctp:103
-msgid "Planifica los costos de transportación con tu chofer antes de llegar a la isla. Asegúrate de cuánto puedes disponer para otras actividades y ahórrate las sorpresas de tener que negociar tarifas con choferes en el momento de llegar."
-msgstr "Plan all the transportation costs with your driver before you arrive in the island. Know for sure what you can spare for other activites and save yourself from the surprises of having to negotiate fares with drivers the moment you arrive."
+msgid "Planifica los costos de transportación con tu chofer antes de llegar a la isla. Asegúrate de cuánto puedes disponer para otras actividades y ahórrate las sorpresas de tener que negociar tarifas con choferes en la calle en el momento de llegar."
+msgstr "Plan all the transportation costs with your driver before you arrive in the island. Know for sure what you can spare for other activites and save yourself from the surprises of having to negotiate fares with drivers on the streets the moment you arrive."
 
 #: View/Pages/home.ctp:114
 msgid "Familia subiendo al auto"
@@ -108,7 +108,7 @@ msgstr "Do an amazing travel with your driver"
 
 #: /home.ctp:125
 msgid "<b>Consigue un chofer con auto</b> creando un Anuncio de Viaje"
-msgstr "<b>Get a driver with a car</b> creating a Travel Request"
+msgstr "<b>Find a driver with a car</b> creating a Travel Request"
 
 #: /home.ctp:137
 msgid "¿Necesitas ideas? Estos son destinos populares con origen en"

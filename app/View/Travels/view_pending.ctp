@@ -45,25 +45,6 @@ App::uses('Auth', 'Component');
             <p>* <?php echo __d('pending_travel', 'Podrás gestionar tus viajes en cualquier momento usando este usuario y contraseña')?>.</p>
         </div>
     </div>
-    <!--<br/>
-    <br/>
-    <div class="row">
-        <div class="col-md-2"><h3>Libre de riesgo</h3>
-            <p>
-                Rechaza las ofertas de los choferes en cualquer momento.
-            </p>
-        </div>
-        <div class="col-md-2 col-md-offset-3"><h3>Privado</h3>
-            <p>
-                Habla con cada chofer de forma privada via email.
-            </p>
-        </div>
-        <div class="col-md-2 col-md-offset-3"><h3>Flexible</h3>
-            <p>
-                Acuerda todo según tus necesidades. No hay precios ni itinerarios fijos.
-            </p>
-        </div>
-    </div>-->
 </div>
 
 <?php

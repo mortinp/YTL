@@ -15,7 +15,6 @@ if($isLoggedIn) {
         $pretty_user_name = $splitEmail[0];
     }
     if($role === 'admin' || $role === 'tester') $pretty_user_name.= ' (<b>'.$role.'</b>)';
-    //$pretty_user_date = date('M j, Y', strtotime($user['created']));
 }
 
 ?>
@@ -45,17 +44,7 @@ if($isLoggedIn) {
         // META
         $this->Html->meta('icon');
         
-        // CSS
-        /*//$this->Html->css('prettify', array('inline' => false));
-        $this->Html->css('bootstrap', array('inline' => false));        
-        $this->Html->css('common/font-awesome.min', array('inline' => false));
-        $this->Html->css('default', array('inline' => false));*/
-        
-        $this->Html->css('default-bundle', array('inline' => false));        
-        
-        //JS
-        /*$this->Html->script('jquery', array('inline' => false));
-        $this->Html->script('bootstrap', array('inline' => false));*/
+        $this->Html->css('default-bundle', array('inline' => false));
         
         $this->Html->script('default-bundle', array('inline' => false));
 
@@ -151,6 +140,7 @@ if($isLoggedIn) {
                                             </li>
                                         </ul>
                                     </li>
+                                    <li><?php echo $this->Html->link(__('Dashboard'), array('controller' => 'metrics', 'action' => 'dashboard'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     <?php endif;?>
                                 <?php endif;?>
                                     

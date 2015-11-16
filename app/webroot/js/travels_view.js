@@ -3,36 +3,41 @@ var messages = {
     traveler: {es:'persona', en:'traveler'},
     preferencesLabel: {es:'Preferencias', en:'Preferences'}};
 
-function _ajaxifyForm(form, obj, alias, onSuccess) {
+
+
+/**
+ * Esta funcion hace que un formulario envie los datos por AJAX. Los datos se envian a la misma url definida en la propiedad 'action' del formulario.
+ *
+ * @param form: El formulario ej. $('#formulario')
+ * @param obj:  Un objeto que contendría valores por defecto o preexistentes del modelo que se pretende crear o editar en el formulario.
+ * Si el formulario tiene ya los valores, se puede pasar null.
+ * @param alias: El alias del objeto. Este alias se usa para inferir el id de algunos elementos del formulario:
+ * - Boton Submit [Alias]Submit (el alias con la primera letra mayuscula)
+ * @param onSuccess: una funcion que recibe el resultado del submit del formulario en un objeto que contiene los nuevos datos. Los nombres de los
+ * campos en el objeto son los mismos nombres de los id de los campos del formulario, pero sin el [Alias] al final. O sea, si hay un campo cuyo id es
+ * 'TravelDescription' y el alias es 'travel', entonces el objeto tiene la un campo con nombre 'description'.
+ * @param onError: una funcion que recibe el jqXHR de la respuesta de error del submit del formulario
+ **/
+function _ajaxifyForm(form, obj, alias, onSuccess, onError) {
     if(obj != null) setupFormForEdit(form, obj, alias);
 
     var upperAlias = alias[0].toUpperCase() + alias.substring(1);
 
-    var doAjax = form.attr('onsubmit') != '' && form.attr('onsubmit') != null && form.attr('onsubmit') != undefined;// TODO: This is a hack
+    var doAjax = form.attr('onsubmit') != '' && form.attr('onsubmit') != null && form.attr('onsubmit') != undefined;// Esto es un hack, pero pincha bien!
     if(doAjax == true) {
-        var messageDiv = $('#' + alias + '-ajax-message');
         form.submit(function() {
             if((form).valid()) {
                 // Disable submit button
                 var prevText = $('#' + upperAlias + 'Submit').val();
                 $('#' + upperAlias + 'Submit').attr('disabled', true);
                 $('#' + upperAlias + 'Submit').val('Espere ...');
-
-                /*var data = $(this).serialize();
-                var url = $(this).attr('action');*/
+               
                 $.ajax({
                     type: "POST",
                     data: $(this).serialize(),
                     url: $(this).attr('action'),
                     success: function(response) {
                         response = JSON.parse(response);
-
-                        /*var prettyAlias = upperAlias;
-                        if(aliases[alias] != undefined && aliases[alias] != null) prettyAlias = aliases[alias];*/
-                        messageDiv.empty().append($("<div class='alert alert-success'>" + messages.success[window.app.lang] + "</div>"));
-                        setTimeout(function(){
-                            messageDiv.empty();
-                        }, 5000);
 
                         if(onSuccess) {
                             if(response != null && typeof response === 'object' && response.object != null) 
@@ -51,10 +56,9 @@ function _ajaxifyForm(form, obj, alias, onSuccess) {
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        messageDiv.append("<div class='alert alert-danger'>" + jqXHR.responseText + "</div>");
-                        setTimeout(function(){
-                            messageDiv.empty();
-                        }, 5000);
+                        if(onError) {
+                            onError(jqXHR);
+                        }
                     },
                     complete: function() {
                         $('#' + upperAlias + 'Submit').attr('disabled', false);
@@ -112,53 +116,74 @@ $(document).ready(function() {
         weekDays = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
     }
     
-    _ajaxifyForm($("#TravelForm"), null, "travel", function(obj) {
-        $('#travel-locality-label').text(obj.origin);
-        $('#travel-where-label').text(obj.destination);
+    _ajaxifyForm($("#TravelForm"), null, "travel", 
+    
+        // onSuccess
+        function(obj) {
 
-        var d = obj.date.split('/');
-        var dd = new Date(d[1] + '/' + d[0] + '/' + d[2]);
-        var prettyDate = dd.getDate() + ' ' + months[dd.getMonth()] + ', ' + dd.getFullYear() + ' (' + weekDays[dd.getDay()] + ')';
-        $('#travel-date-label').text(prettyDate);
+            var messageDiv = $('#travel-ajax-message');
+            messageDiv.empty().append($("<div class='alert alert-success'>" + messages.success[window.app.lang] + "</div>"));
+            setTimeout(function(){
+                messageDiv.empty();
+            }, 5000);
 
-        var prettyPeopleCount = obj.people_count + ' ' + messages.traveler[window.app.lang];
-        if(obj.people_count > 1) prettyPeopleCount += 's';
-        $('#travel-prettypeoplecount-label').text(prettyPeopleCount);
+            $('#travel-locality-label').text(obj.origin);
+            $('#travel-where-label').text(obj.destination);
 
-        var prefDiv = $('#preferences-place');
-        prefDiv.empty();
-        if(hasPreferences(obj)) {
-            var prefText = messages.preferencesLabel[window.app.lang];
-            prefDiv.append("<p><b>" + prefText + ":</b> <span id='travel-preferences-label'></span></p>");
+            var d = obj.date.split('/');
+            var dd = new Date(d[1] + '/' + d[0] + '/' + d[2]);
+            var prettyDate = dd.getDate() + ' ' + months[dd.getMonth()] + ', ' + dd.getFullYear() + ' (' + weekDays[dd.getDay()] + ')';
+            $('#travel-date-label').text(prettyDate);
 
-            var prefLabel = $('#travel-preferences-label');
-            prefLabel.text('');
-            var sep = '';
-            for(var p in window.app.travels_preferences) {
-                if(obj[p] == "1") {
-                    prefLabel.text(prefLabel.text() + sep + window.app.travels_preferences[p]);
-                    sep = ', ';
-                }
-            }
-            prefDiv.show();
-        } else {
+            var prettyPeopleCount = obj.people_count + ' ' + messages.traveler[window.app.lang];
+            if(obj.people_count > 1) prettyPeopleCount += 's';
+            $('#travel-prettypeoplecount-label').text(prettyPeopleCount);
+
+            var prefDiv = $('#preferences-place');
             prefDiv.empty();
-            prefDiv.hide();
-        }        
+            if(hasPreferences(obj)) {
+                var prefText = messages.preferencesLabel[window.app.lang];
+                prefDiv.append("<p><b>" + prefText + ":</b> <span id='travel-preferences-label'></span></p>");
 
-        $('#travel-details-label').text(obj.details);
-        
-        if(obj.email !== undefined) {
-            $('#travel-email-label').text(obj.email);
-            $('#UserUsername').val(obj.email);
-            $('#UserFakeUsername').val(obj.email);
-            $('#UserPassword').focus();
+                var prefLabel = $('#travel-preferences-label');
+                prefLabel.text('');
+                var sep = '';
+                for(var p in window.app.travels_preferences) {
+                    if(obj[p] == "1") {
+                        prefLabel.text(prefLabel.text() + sep + window.app.travels_preferences[p]);
+                        sep = ', ';
+                    }
+                }
+                prefDiv.show();
+            } else {
+                prefDiv.empty();
+                prefDiv.hide();
+            }        
+
+            $('#travel-details-label').text(obj.details);
+
+            if(obj.email !== undefined) {
+                $('#travel-email-label').text(obj.email);
+                $('#UserUsername').val(obj.email);
+                $('#UserFakeUsername').val(obj.email);
+                $('#UserPassword').focus();
+            }
+
+            $('#travel-form, #travel').toggle();
+        }, 
+
+
+        // onError
+        function(jqXHR) {
+            var messageDiv = $('#travel-ajax-message');
+            messageDiv.append("<div class='alert alert-danger'>" + jqXHR.responseText + "</div>");
+            setTimeout(function(){
+                messageDiv.empty();
+            }, 5000);
         }
+        
+    );
 
-        $('#travel-form, #travel').toggle();
-    });
-
-    //var show = true
     $('.edit-travel, .cancel-edit-travel').click(function() {
         $('#travel-form, #travel').toggle();
     });

@@ -14,14 +14,14 @@
                 echo '<b>Estado:</b> ';
                 if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_NONE) $none = '<span class="badge">NINGUNO</span> ';
                 else $none = $this->Form->button('Ninguno', array('class'=>'btn-default', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_NONE, 'escape'=>false, 'title'=>'Marcar si el viaje no tiene ningún estado'), true).' '; 
-                if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE) $notdone = '<span class="badge">NO REALIZADO</span> ';
-                else $notdone = $this->Form->button('<i class="glyphicon glyphicon-thumbs-down"></i> No realizado', array('class'=>'btn-danger', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE, 'escape'=>false, 'title'=>'Marcar si se comprobó que el viaje no se realizó'), true).' ';
+                //if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE) $notdone = '<span class="badge">NO REALIZADO</span> ';
+                //else $notdone = $this->Form->button('<i class="glyphicon glyphicon-thumbs-down"></i> No realizado', array('class'=>'btn-danger', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE, 'escape'=>false, 'title'=>'Marcar si se comprobó que el viaje no se realizó'), true).' ';
                 if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) $done = '<span class="badge">REALIZADO</span> ';
                 else $done = $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn-warning', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_DONE, 'escape'=>false, 'title'=>'Marcar si se comprobó que el viaje se realizó'), true).' '; 
                 if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) $paid = '<span class="badge">PAGADO</span> ';
                 else $paid = $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn-warning', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_PAID, 'escape'=>false, 'title'=>'Marcar si el viaje ya fue pagado por el chofer'), true).' ';
                 
-                echo $none; echo $notdone; echo $done; echo $paid;
+                echo $none; /*echo $notdone;*/ echo $done; echo $paid;
                 echo '<br/><br/>';
             }
             
@@ -49,23 +49,24 @@
     <div class="col-md-10 col-md-offset-1">
         <?php if($c['DriverTravelerConversation']['response_by'] == 'driver'):?>
         
-        <div class="col-md-8 alert" style="background-color: lightblue">
-            <b>Chofer (<?php echo $c['DriverTravelerConversation']['created']?>)</b>
+        <?php $messageId = 'message-'.$c['DriverTravelerConversation']['id']?>
+        <div class="col-md-8 alert bg-info" id="<?php echo $messageId?>">
+            <b><a href="<?php echo $this->Html->url()?>#<?php echo $messageId?>" style="color: inherit">Chofer (<?php echo $c['DriverTravelerConversation']['created']?>)</a></b>
             <br/>
             <br/>
             <?php
-            echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $c['DriverTravelerConversation']['response_text']);
+            echo preg_replace("/(\r\n|\n|\r)/", "<br/>", trim($c['DriverTravelerConversation']['response_text']));
             ?>
         </div>
         
         <?php else:?>
         
         <div class="col-md-8 col-md-offset-4 well">
-            <b>Viajero (<?php echo $c['DriverTravelerConversation']['created']?>)</b>
+            <b><a href="<?php echo $this->Html->url()?>#<?php echo $messageId?>" style="color: inherit">Viajero (<?php echo $c['DriverTravelerConversation']['created']?>)</a></b>
             <br/>
             <br/>
             <?php
-            echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $c['DriverTravelerConversation']['response_text']);
+            echo preg_replace("/(\r\n|\n|\r)/", "<br/>", trim($c['DriverTravelerConversation']['response_text']));
             ?>
         </div> 
         

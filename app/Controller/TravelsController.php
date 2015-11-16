@@ -51,14 +51,15 @@ class TravelsController extends AppController {
     
     // Admins only
     public function all() {
-        $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        /*$this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
         //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
         $this->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
             array('foreignKey'=>'conversation_id',
                 'fields'=>array('response_by')))));
         $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));        
         $this->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
-        $this->Travel->recursive = 2;
+        $this->Travel->recursive = 2;*/
+        Travel::prepareFullConversations($this);
         
         $conditions = array('User.role'=>'regular');
         
@@ -67,14 +68,15 @@ class TravelsController extends AppController {
     }
     
     public function view_filtered($filter = 'all') {
-        $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        /*$this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
         //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
         $this->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
             array('foreignKey'=>'conversation_id',
                 'fields'=>array('response_by')))));
         $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));
         $this->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
-        $this->Travel->recursive = 2;
+        $this->Travel->recursive = 2;*/
+        Travel::prepareFullConversations($this);
         
         $conditions = array('User.role'=>'regular');
         
@@ -328,22 +330,7 @@ class TravelsController extends AppController {
      */
     
     private function getLocalitiesList() {
-        
         return $this->Locality->getAsSuggestions();
-        /*$list = Cache::read('localities_suggestion');
-        if (!$list) {
-            $localities = $this->Locality->find('all');
-            $list = array();
-            foreach ($localities as $l) {
-                $list[] = $l['Locality'];
-            }
-            $thes = $this->LocalityThesaurus->find('all', array('conditions'=>array('use_as_hint'=>true)));
-            foreach ($thes as $t) {
-                $list[] = array('id'=>$t['LocalityThesaurus']['id'], 'name'=>$t['LocalityThesaurus']['fake_name']);
-            }
-            Cache::write('localities_suggestion', $list);
-        }        
-        return $list;*/
     }
 }
 

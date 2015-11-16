@@ -32,6 +32,13 @@ class Driver extends AppModel {
                 'message' => 'La descripción es obligatoria.'
             )
         ),
+        'min_people_count' => array(
+            'isNumber' => array(
+                'rule' => 'numeric',
+                'message' => 'La cantidad de personas debe ser un número entero.',
+                'required' => true
+            )        
+        ),
         'max_people_count' => array(
             'isNumber' => array(
                 'rule' => 'numeric',

@@ -1,0 +1,1 @@
+ALTER TABLE  `travels_conversations_meta` ADD  `income_saving` DECIMAL( 10, 2 ) NULL DEFAULT NULL;

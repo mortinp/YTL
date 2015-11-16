@@ -1,6 +1,9 @@
 <div style="float:left;padding-right:20px"><?php echo count($emails)?> emails</div>
+<div><?php echo $this->Html->link('Eliminar enviados hace 2 semanas', array('action'=>'remove_sent'), array('confirm'=>'¿Estás seguro que quieres eliminar estos emails?'))?></div>
+
+
 <table class='table table-striped table-hover'>
-    <thead><th>To</th><th>Subject</th><th>Template</th><th>Template Vars</th><th>Sent</th><th>Locked</th><th>Send Tries</th><th></th></thead>
+    <thead><th>To</th><th>Subject</th><th>Template</th><th>Template Vars</th><th>Sent</th><th>Locked</th><th>Send Tries</th><th></th><th>Send at</th></thead>
     <tbody> 
     <?php foreach ($emails as $e): ?>
         <tr>
@@ -50,6 +53,7 @@
                     </ul>
                 <?php endif?>
             </td>
+            <td><?php echo $e['EmailQueue']['send_at']?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

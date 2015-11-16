@@ -113,6 +113,27 @@ class Travel extends AppModel {
     }
     
     
+    /**
+     * Este metodo prepara algunos modelos para que al buscar viajes (ej. $this->Travel->findAll())
+     * se obtengan las conversacines con todos los datos que hacen falta para mostrar toda su informacion (sin leer, siguiendo, realizado, etc.)
+     * 
+     * El controlador debe tener definido en el atributo $uses al menos los siguientes modelos:
+     * ('Travel', 'DriverTravel', 'Locality')
+     * 
+     * @param $controller: El controlador desde el que se va a decir $this->Travel->find...
+     */ 
+    public static function prepareFullConversations(&$controller) {
+        $controller->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
+        $controller->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
+            array('foreignKey'=>'conversation_id',
+                'fields'=>array('response_by')))));
+        $controller->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));        
+        $controller->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
+        $controller->Travel->recursive = 2;
+    }
+    
+    
     
     
     

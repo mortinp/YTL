@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `min_people_count` INT NOT NULL DEFAULT '1' AFTER `role` ;

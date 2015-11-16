@@ -39,8 +39,12 @@ msgid "Crear Anuncio"
 msgstr "Create Request"
 
 #: View/Elements/pending_travel_form.ctp:44
-msgid "Pónme en contacto ahora <div style='font-size:12pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes. Escoge uno para tu viaje.</div>"
-msgstr "Arrange travel now <div style='font-size:12pt;padding-left:50px;padding-right:50px'>Connect with <big>3</big> drivers. Choose one for your travel.</div>"
+msgid "Pónme en contacto ahora"
+msgstr "Arrange my travel now"
+
+#: View/Elements/pending_travel_form.ctp:44
+msgid "Contacta con <big>3</big> choferes. Escoge uno para tu viaje."
+msgstr "Contact <big>3</big> drivers. Choose one for your travel."
 
 #: View/Elements/pending_travel_form.ctp:71;89
 msgid "Origen del Viaje"

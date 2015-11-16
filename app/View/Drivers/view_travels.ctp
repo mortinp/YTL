@@ -12,7 +12,7 @@ if(!isset($details)) $details = true;
 
                 <ul style="list-style-type: none;padding: 0px">
                 <?php foreach ($travels as $travel) :?>                
-                    <li style="margin-bottom: 20px">
+                    <li style="margin-bottom: 60px">
                         <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false, 'details'=>$details))?>
                     </li>                
                 <?php endforeach; ?>

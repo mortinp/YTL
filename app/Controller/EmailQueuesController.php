@@ -23,6 +23,16 @@ class EmailQueuesController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
     
+    public function remove_sent() {
+        $conditions = array('sent'=>true, 'send_at <' => date('Y-m-d', strtotime("today - 2 weeks")));
+        if ($this->EmailQueue->deleteAll($conditions)) {
+            $this->setInfoMessage('Se eliminaron los emails correctamente');
+        } else {
+            $this->setErrorMessage('Ocurió un error eliminando los emails');
+        }    
+        return $this->redirect(array('action' => 'index'));
+    }
+    
     public function unlock($id = null) {
         $this->EmailQueue->id = $id;
         if (!$this->EmailQueue->exists()) {

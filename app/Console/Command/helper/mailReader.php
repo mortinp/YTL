@@ -125,7 +125,7 @@ class mailReader {
                 $this->body = $this->decoded->body;
             }else{
                 $this->body = '<em>';
-                $this->body .= 'Este correo no contenía nungún texto<br/>'.
+                $this->body .= 'Este correo no contenía ningún texto<br/>'.
                                'This email did not have any text';
                 $this->body .= '</em>';
                 
