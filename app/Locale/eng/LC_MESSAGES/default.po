@@ -105,6 +105,14 @@ msgstr "This profile doesn't exist"
 msgid "Nombre"
 msgstr "Name"
 
+#: View/Users/send_change_password.ctp:9
+msgid "Cambio de contraseña"
+msgstr "Change password"
+
+#: View/Users/send_change_password.ctp:9
+msgid "Ya enviamos un correo a la cuenta <b>%s</b> con las instrucciones para cambiar la contraseña. Revisa tu correo y sigue las instrucciones."
+msgstr "We sent an email to your account <b>%s</b> with the instructions to change your password. Check your email and follow the instructions."
+
 #: View/Elements/contact_form.ctp:8
 msgid "Tu nombre"
 msgstr "Your name"
@@ -408,11 +416,28 @@ msgstr "Sign up"
 msgid "Contactar"
 msgstr "Contact"
 
+#: View/Layouts/default.ctp:232
+#: View/Layouts/home.ctp:111
+msgid "Testimonios"
+msgstr "Testimonials"
+
 #: View/Layouts/default.ctp:234
 #: View/Layouts/home.ctp:113
 #: View/Pages/faq.ctp:6
 msgid "Preguntas Frecuentes"
 msgstr "FAQ"
+
+#: View/Pages/testimonials.ctp:16
+msgid "Testimonios de viajeros sorprendentes"
+msgstr "Testimonials from awesome travelers"
+
+#: View/Pages/testimonials.ctp:16
+msgid "Algunos viajeros como Paul, Jaimi o Alan tienen historias interesantes que contar sobre su experiencia con nuestros choferes. Nos encantan estos testimonios honestos e interesantes :)"
+msgstr "Some travelers like Paul, Jaimi or Alan have interesting stories to tell about their experience with our drivers. We love these honest and interesting testimonials :)"
+
+#: View/Pages/testimonials.ctp:16
+msgid "Lee algo de lo que dijeron ellos aquí"
+msgstr "Read some of what they said here"
 
 #: View/Pages/contact.ctp:16
 msgid "Hola, soy Martín."
@@ -531,10 +556,6 @@ msgstr "Create a travel request"
 msgid "Estos son todos tus anuncios de viajes"
 msgstr "These are all your travel requests"
 
-#: View/Travels/index.ctp:20
-msgid "Creados por Correo"
-msgstr "By email"
-
 #: View/Travels/index.ctp:41
 msgid "No tienes ningún anuncio de viaje todavía. Crea uno ahora."
 msgstr "You don't have any travel request. Create one now."
@@ -614,7 +635,7 @@ msgid "para conectar cn tus choferes"
 msgstr " to connect with your drivers"
 
 #: View/Users/forgot_password.ctp:5
-msgid "Cambio de contraseña"
+msgid "Cambia tu contraseña"
 msgstr "Change your password"
 
 #: View/Users/forgot_password.ctp:7
@@ -785,11 +806,3 @@ msgstr "Login to your account before visiting that page"
 #: /home.ctp:167
 msgid "Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba"
 msgstr "Make%20sure%20you%20hire%20a%20nice%20%23driver%20with%20a%20%23car%20in%20%23Cuba%20at%20http://yotellevocuba.com%0A%0A%23Taxi%20for%20%23transfers%20%26%20%23tours%20via%20%40yotellevocuba"
-
-
-#: View/Travels/index.ctp:34;43
-msgid "valdes"
-msgstr "xxx"
-
-
-

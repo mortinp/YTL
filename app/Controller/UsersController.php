@@ -264,10 +264,6 @@ class UsersController extends AppController {
      * AUX
      */
     
-    private function getWeirdString() {
-        return substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1).substr(md5(time()),1);
-    }
-    
     protected function _setCookie($id) {
         if (!$this->request->data('User.remember_me')) {
             return false;
@@ -301,25 +297,9 @@ class UsersController extends AppController {
     }
     
     private function do_send_confirm_email($user, $emailTemplate) {
-        $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
-            'user_id'=>$user['id'],
-            'interaction_due'=>'confirm email',
-            'expired'=>false)));        
         
-        $OK = true;
-        if($interaction != null) {
-            $code = $interaction['UserInteraction']['interaction_code'];
-        } else {
-            $code = $this->getWeirdString();
-            
-            $interaction = array('UserInteraction');
-            $interaction['UserInteraction']['user_id'] = $user['id'];
-            $interaction['UserInteraction']['interaction_due'] = 'confirm email';
-            $interaction['UserInteraction']['expired'] = false;
-            $interaction['UserInteraction']['interaction_code'] = $code;
-            
-            if(!$this->UserInteraction->save($interaction)) $OK = false;
-        }
+        $code = $this->UserInteraction->getInteractionCode($user['id'], UserInteraction::$INTERACTION_TYPE_CONFIRM_EMAIL);
+        $OK = $code != null;
         
         if($OK) {
             if(Configure::read('enqueue_mail')) {
@@ -350,13 +330,14 @@ class UsersController extends AppController {
     }
     
     public function confirm_email($code) {
-        $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
-            'interaction_due'=>'confirm email',
-            'expired'=>false,
-            'interaction_code'=>$code)));       
         
         $datasource = $this->User->getDataSource();
         $datasource->begin();
+        
+        $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
+            'interaction_due'=>'confirm email',
+            'expired'=>false,
+            'interaction_code'=>$code)));
         
         $OK = true;
         if($interaction != null) {
@@ -428,28 +409,11 @@ class UsersController extends AppController {
                 return $this->redirect(array('action'=>'forgot_password'));
             }
             
-            $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
-                'user_id'=>$user['User']['id'],
-                'interaction_due'=>'change password',
-                'expired'=>false)));
-
             $datasource = $this->User->getDataSource();
             $datasource->begin();
-
-            $OK = true;
-            if($interaction != null) {
-                $code = $interaction['UserInteraction']['interaction_code'];
-            } else {
-                $code = $this->getWeirdString();
-
-                $interaction = array('UserInteraction');
-                $interaction['UserInteraction']['user_id'] = $user['User']['id'];
-                $interaction['UserInteraction']['interaction_due'] = 'change password';
-                $interaction['UserInteraction']['expired'] = false;
-                $interaction['UserInteraction']['interaction_code'] = $code;
-
-                if(!$this->UserInteraction->save($interaction)) $OK = false;
-            }
+            
+            $code = $this->UserInteraction->getInteractionCode($user['User']['id'], UserInteraction::$INTERACTION_TYPE_CHANGE_PASSWORD);
+            $OK = $code != null;
 
             if($OK) {
                 // Send email and redirect to a welcome page
@@ -458,7 +422,7 @@ class UsersController extends AppController {
                 ->viewVars(array('confirmation_code' => $code))
                 ->emailFormat('html')
                 ->to($user['User']['username'])
-                ->subject('Cambio de contraseña');
+                ->subject(__('Cambio de contraseña'));
                 try {
                     $Email->send();
                 } catch ( Exception $e ) {
@@ -509,10 +473,7 @@ class UsersController extends AppController {
             
             $this->set('code', $confirmation_code);
         }
-    }
-    
-    
-    
+    }    
     
     
     public function view_travels($userId) {

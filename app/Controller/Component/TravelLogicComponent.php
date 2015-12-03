@@ -90,7 +90,7 @@ class TravelLogicComponent extends Component {
                 if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viaje';
                     
                 foreach ($drivers as $d) {
-                    $OK = $this->sendTravelToDriver($d, $travel, $travelType, $emailConfig);
+                    $OK = $this->sendTravelToDriver($d, $travel, $travelType, DriverTravel::$NOTIFICATION_TYPE_AUTO, $emailConfig);
                     if($OK) {
                         $drivers_sent_count++;
                     } else if($drivers_sent_count < 1) {
@@ -132,12 +132,12 @@ class TravelLogicComponent extends Component {
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
     
-    public function sendTravelToDriver($driver, $travel, $travelType /*Travel or TravelByEmail*/, $emailConfig = 'viaje') {
+    public function sendTravelToDriver($driver, $travel, $travelType /*Travel or TravelByEmail*/, $notificationType, $emailConfig = 'viaje') {
         $inflectedTravelType = Inflector::underscore($travelType);
         $OK = true;
         
         $this->DriverTravel->create();
-        $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel[$travelType]['id']);
+        $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel[$travelType]['id'], 'notification_type'=>$notificationType);
         $OK = $this->DriverTravel->save(array('Driver'.$travelType=>$driverTravel));
 
         if($OK) {

@@ -26,7 +26,7 @@ class Travel extends AppModel {
             'fields'=>array('id', 'name')
         ),
         'User' => array(
-            'fields'=>array('id', 'username', 'role', 'lang'),
+            'fields'=>array('id', 'username', 'role', 'lang', 'display_name'),
             'counterCache'=>true
         )
     );
@@ -114,7 +114,7 @@ class Travel extends AppModel {
     
     
     /**
-     * Este metodo prepara algunos modelos para que al buscar viajes (ej. $this->Travel->findAll())
+     * Este metodo prepara algunos modelos para que al buscar viajes desde un controlador (ej. $this->Travel->findAll())
      * se obtengan las conversacines con todos los datos que hacen falta para mostrar toda su informacion (sin leer, siguiendo, realizado, etc.)
      * 
      * El controlador debe tener definido en el atributo $uses al menos los siguientes modelos:

@@ -8,11 +8,8 @@ App::uses('DriverTravelerConversation', 'Model');
         <div class="col-md-8 col-md-offset-2">
             <div><?php echo $this->element('date_range_form')?></div>
             <br/>
-            <div><?php echo count($conversations)?> conversaciones encontradas</div>
             
             <?php if(!empty ($conversations)):?>
-            <br/>
-            <br/>
             
             <?php
             $map = array();
@@ -36,7 +33,7 @@ App::uses('DriverTravelerConversation', 'Model');
                        
                 
                 if($current['Travel']['id'] == $c['Travel']['id']) {
-                    if($c[0]['driver_responses_count'] > 0) $cantDrivers++;
+                    /*if($c[0]['driver_responses_count'] > 0)*/ $cantDrivers++;
                     if($c[0]['traveler_responses_count'] > 0) $cantRepliedByTraveler++;
                 }
                 else $counting = false;
@@ -67,12 +64,24 @@ App::uses('DriverTravelerConversation', 'Model');
             if($cantRepliedByTraveler > 0) $map[$cantDrivers]['cant_viajes_rep_by_traveler'] = $map[$cantDrivers]['cant_viajes_rep_by_traveler'] + 1;
             if($done) $map[$cantDrivers]['cant_viajes_done'] = $map[$cantDrivers]['cant_viajes_done'] + 1;
             ?>
-            
-            
             <?php ksort($map)?>
+            
+            
+            <div>Estás viendo los <big><span class="label label-primary">viajes respondidos</span></big> creados y expirados dentro del período <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_ini']?></span></big> al <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_end']?></span></big></div>
+            <?php 
+            $cantViajes = 0;
+            foreach ($map as $m) {
+                $cantViajes += count($m) - count($metaInfo) /*Los indices extra*/;
+            }
+            ?>
+            <div><big><span class="label label-primary"><?php echo $cantViajes?> viajes encontrados</span></big></div>
+            <br/>
+            <br/>
+            
+            
             <?php foreach ($map as $i=>$m):?>
             
-                <?php $countTravels = count($m) - count($metaInfo) /*Los dos indices extra*/?>
+                <?php $countTravels = count($m) - count($metaInfo) /*Los indices extra*/?>
                 <?php $countConversations = $countTravels * $i?>
                 <div><b>Viajes respondidos por <?php echo $i?> choferes</b></div>
                 <div>
@@ -123,4 +132,4 @@ $(document).ready(function() {
         $('#' + $(this).data('show') +', #' + $(this).data('hide')).toggle();
     });
 });
-</script>>
+</script>

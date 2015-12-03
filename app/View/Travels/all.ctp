@@ -52,7 +52,6 @@ if(!isset($details)) $details = true;
             <div>En esta página:                 
                 <span class="label label-info" style="font-size: 12pt"><?php echo $followingCount.' siguiendo'?></span>
                 <span class="label label-success" style="font-size: 12pt">+<?php echo $newMsgCount.' nuevos mensajes'?></span>
-                <span class="text-muted">(+<?php echo $newTravelerMsgCount.' de viajeros'?>)</span>
             </div>
             <br/>
 

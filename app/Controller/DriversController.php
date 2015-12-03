@@ -148,7 +148,7 @@ class DriversController extends AppController {
         $travel = $this->Travel->findById($travelId);
         
         $this->TravelLogic->prepareForSendingToDrivers('Travel');
-        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, 'Travel');
+        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, 'Travel', DriverTravel::$NOTIFICATION_TYPE_MANUAL);
         
         
         if($OK) $this->setInfoMessage('Viaje notificado.');

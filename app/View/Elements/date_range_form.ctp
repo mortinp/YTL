@@ -4,7 +4,7 @@
 <fieldset>
     <div class="col-md-6"><?php echo $this->Form->custom_date('date_ini', array('label' => __('Fecha Incio'), 'dateFormat' => 'dd/mm/yyyy'))?></div>
     <div class="col-md-6"><?php echo $this->Form->custom_date('date_end', array('label' => __('Fecha Fin'), 'dateFormat' => 'dd/mm/yyyy'))?></div>
-    <?php $submitOptions = array('id'=>'DateRangeSubmit', 'class'=>'btn btn-primary btn-block')?>
+    <?php $submitOptions = array('id'=>'DateRangeSubmit')?>
     <div class="col-md-12"><?php echo $this->Form->submit('Ver', $submitOptions)?></div>
 </fieldset>
 <?php echo $this->Form->end(); ?>

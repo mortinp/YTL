@@ -1,0 +1,1 @@
+ALTER TABLE `drivers_travels` DROP `sent`;

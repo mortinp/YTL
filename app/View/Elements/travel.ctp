@@ -111,43 +111,7 @@ foreach (Travel::getPreferences() as $key => $value) {
     <p><b>Conversaciones:</b>
         <ul style="list-style-type:none">
         <?php foreach ($travel['DriverTravel'] as $sent) :?>
-            <li><?php 
-            
-            // Respondido
-            $badgeOffset = -20;
-            if($sent['driver_traveler_conversation_count'] > 0) { // Respondido
-                echo '<div style="float:left" title="Respondido ('.$sent['driver_traveler_conversation_count'].' mensajes en total)"><i class="glyphicon glyphicon-star" style="margin-left: '.$badgeOffset.'px;"></i></div>';
-                $badgeOffset -= 20;
-            }            
-            
-            $info = array();
-            if(isset ($sent['Driver'])) $info['title'] = $sent['Driver']['username'];
-            echo $this->Html->link($sent['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$sent['id']), $info);
-            
-            if(isset ($sent['TravelConversationMeta']) && $sent['TravelConversationMeta'] != null && !empty ($sent['TravelConversationMeta'])) {
-                // Siguiendo
-                if($sent['TravelConversationMeta']['following']) echo '<span class="label label-info" style="margin-left:5px">Siguiendo</span>';
-                
-                // +1
-                if($sent['TravelConversationMeta']['read_entry_count'] < $sent['driver_traveler_conversation_count']) 
-                    echo '<span class="label label-success" style="margin-left:5px">+'.($sent['driver_traveler_conversation_count'] - $sent['TravelConversationMeta']['read_entry_count']).'</span>';
-                
-                // Estado
-                if($sent['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE) {
-                    if($sent['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) 
-                        echo '<span class="label label-warning" style="margin-left:5px" title="Viaje realizado"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span>';
-                    else if($sent['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID)
-                        echo '<span class="label label-warning" style="margin-left:5px" title="Viaje pagado"><i class="glyphicon glyphicon-usd"></i> Pagado</span>';
-                    else if($sent['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE)
-                        echo '<span class="label label-danger" style="margin-left:5px" title="Viaje NO realizado"><i class="glyphicon glyphicon-thumbs-down"></i> NO realizado</span>';
-                }
-            } else {
-                // +1
-                if($sent['driver_traveler_conversation_count'] > 0) 
-                    echo '<span class="label label-success" style="margin-left:5px">+'.($sent['driver_traveler_conversation_count']).'</span>';
-            }                
-                    
-            ?></li>
+            <li><?php echo $this->element('conversation_id_decorated', array('conversation'=>$sent))?></li>
         <?php endforeach; ?>
         </ul>
     </p>

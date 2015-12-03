@@ -2,7 +2,7 @@
     <div class="col-md-6 col-md-offset-3">
         <?php echo $this->Session->flash('auth'); ?>
         <legend>
-            <div><big><?php echo __('Cambio de contraseña')?></big></div>
+            <div><big><?php echo __('Cambia tu contraseña')?></big></div>
             <div>
                 <small class="text-muted"><p><?php echo __('¿Olvidaste tu contraseña? Escribe tu correo electrónico y enviaremos las instrucciones para cambiarla')?></p></small>
             </div>

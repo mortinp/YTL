@@ -23,7 +23,9 @@
             |
             <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
             |
-           <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>                                
+            <?php echo $this->Html->link(__('Testimonios'), array('controller'=>'pages', 'action'=>'display', 'testimonials')); ?>
+            |
+           <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>
             |
            <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
         </p>

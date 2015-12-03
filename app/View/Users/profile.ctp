@@ -1,6 +1,6 @@
 <div class="container">
 <div class="row">
-    <div class="col-md-6 col-md-offset-1">
+    <div class="col-md-6 col-md-offset-3">
         <?php echo $this->Session->flash('auth'); ?>
         <legend><?php echo __('Edita tu perfil'); ?></legend>
         <?php echo $this->Form->create('User'); ?>

@@ -4,13 +4,13 @@
             <big>
                 <blockquote>
                     <?php
-                    $filesBaseUrl = '/files';
+                    $imgBaseUrl = '/img';
                     if(Configure::read('debug') > 0) {
-                        $filesBaseUrl = '/yotellevo'.$filesBaseUrl;
+                        $imgBaseUrl = '/yotellevo'.$imgBaseUrl;
                     }
                     ?>
                     
-                    <div><img src="<?php echo $filesBaseUrl.'/1423878969_avatar-martin_jpg'?>"/></div>
+                    <div><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgdefault.jpg'?>"/></div>
                     <div class="text-muted">
                     <?php echo __('Hola, soy Martín.')?>
                         <?php echo __('¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes.', '<span class="text-info">martin@'. Configure::read('domain_name').'</span>')?>

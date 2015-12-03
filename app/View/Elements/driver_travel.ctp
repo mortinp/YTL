@@ -32,82 +32,18 @@ $travelDetails = $driver_travel['Travel']['origin']. ' - '. $driver_travel['Trav
             ?>
             <img src="<?php echo $src?>" title="<?php echo $driver_travel['Driver']['DriverProfile']['driver_name'].' - '.$driver_travel['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/>
         <?php endif;?>
-        <span style="display: inline-block"><small>#<?php echo $driver_travel['Travel']['id']?></small> <?php echo $travelDetails?> <small><small><?php echo $driver_travel['Travel']['User']['username']?></small></small></span>
+        <span style="display: inline-block">
+            <small>#<?php echo $driver_travel['Travel']['id']?></small> 
+            <?php echo $travelDetails?>
+            <small><small>[<?php echo $driver_travel['Travel']['people_count']?> viajeros]</small></small>
+            <small><small><?php echo $driver_travel['Travel']['User']['username']?></small></small>
+        </span>
     </h2>
 </div>
 <hr/>
 
 <div>
-    <?php 
-    echo $this->Html->link($driver_travel['DriverTravel']['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$driver_travel['DriverTravel']['id']), array('title'=>$driver_travel['Driver']['username']));
-
-    // Respondido
-    $badgeOffset = -20;
-    if($driver_travel['DriverTravel']['driver_traveler_conversation_count'] > 0) { // Respondido
-        echo '<div style="float:left" title="Respondido ('.$driver_travel['DriverTravel']['driver_traveler_conversation_count'].' mensajes en total)"><i class="glyphicon glyphicon-star" style="margin-left: '.$badgeOffset.'px;"></i></div>';
-        $badgeOffset -= 20;
-    }
-    
-    $hasMetadata = (isset ($driver_travel['TravelConversationMeta']) && $driver_travel['TravelConversationMeta'] != null && !empty ($driver_travel['TravelConversationMeta']) && strlen(implode($driver_travel['TravelConversationMeta'])) != 0);
-    
-    ?>
-
-    <?php if($hasMetadata):?>
-
-        <!-- SIGUIENDO -->
-        <?php if($driver_travel['TravelConversationMeta']['following']):?> 
-            <span class="label label-info" style="margin-left:5px">Siguiendo</span>
-        <?php endif?>
-
-        <!-- +1 -->
-        <?php if($driver_travel['TravelConversationMeta']['read_entry_count'] < $driver_travel['DriverTravel']['driver_traveler_conversation_count']):?>
-            <span class="label label-success" style="margin-left:5px">+<?php echo ($driver_travel['DriverTravel']['driver_traveler_conversation_count'] - $driver_travel['TravelConversationMeta']['read_entry_count'])?></span>
-        <?php endif?>
-
-        <!-- ESTADOS -->
-        <?php if($driver_travel['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
-            <?php if($driver_travel['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-                <span class="label label-warning" style="margin-left:5px" title="Viaje realizado"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span>
-            <?php elseif($driver_travel['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-                <span class="label label-warning" style="margin-left:5px" title="Viaje pagado"><i class="glyphicon glyphicon-usd"></i> Pagado</span>
-            <?php elseif($driver_travel['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE):?>
-                <span class="label label-danger" style="margin-left:5px" title="Viaje NO realizado"><i class="glyphicon glyphicon-thumbs-down"></i> NO realizado</span>
-            <?php endif?>
-        <?php endif?>
-
-    <?php elseif($driver_travel['DriverTravel']['driver_traveler_conversation_count'] > 0):?>
-        <span class="label label-success" style="margin-left:5px">+<?php echo ($driver_travel['DriverTravel']['driver_traveler_conversation_count'])?></span>
-
-    <?php endif?>
-
-
-    <!-- GANANCIAS -->
-    <?php if($hasMetadata && $driver_travel['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-        <?php if($driver_travel['TravelConversationMeta']['income'] != null && $driver_travel['TravelConversationMeta']['income'] != 0):?>
-            <span class="label label-success" style="margin-left:5px" title="Ganancia"><i class="glyphicon glyphicon-usd"></i><?php echo $driver_travel['TravelConversationMeta']['income']?></span>
-        <?php endif?>
-        <?php if($driver_travel['TravelConversationMeta']['income_saving'] != null && $driver_travel['TravelConversationMeta']['income_saving'] != 0):?>
-            <span class="label label-default" style="margin-left:5px" title="Ahorro"><i class="glyphicon glyphicon-usd"></i><?php echo $driver_travel['TravelConversationMeta']['income_saving']?></span>
-        <?php endif?>
-        
-        <span id="income-set-<?php echo $conversationId?>">
-            <a href="#!" class="edit-income-<?php echo $conversationId?>">&ndash; <?php echo __('poner ganancia')?></a>
-        </span>
-        <span id="income-cancel-<?php echo $conversationId?>" style="display:none">
-            <a href="#!" class="cancel-edit-income-<?php echo $conversationId?>">&ndash; <?php echo __('cancelar')?></a>
-        </span>
-        <div id='income-form-<?php echo $conversationId?>' style="display:none">
-            <br/>
-            <?php echo $this->element('travel_income_form', array('data' => $driver_travel)); ?>
-        </div>
-    <?php endif?>
-        
+    <?php echo $this->element('conversation_id_decorated', array('conversation'=>$driver_travel))?>        
 </div>
 
 <div style="padding-top: 5px"> <?php echo 'Fecha del Viaje: '.$pretty_date;?></div>
-
-<script type="text/javascript">
-    $('.edit-income-<?php echo $conversationId?>, .cancel-edit-income-<?php echo $conversationId?>').click(function() {
-        $('#income-form-<?php echo $conversationId?>, #income-set-<?php echo $conversationId?>, #income-cancel-<?php echo $conversationId?>').toggle();
-    });
-</script>

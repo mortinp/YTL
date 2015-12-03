@@ -49,6 +49,8 @@ class BootstrapFormHelper extends FormHelper {
         $defaultOptions = array(
             'class' => 'btn btn-primary',
         );
+        if(!$asLink) $defaultOptions['class'] .= ' btn-block'; // Hacer que los botones que no son links, salgan como blocks
+        
         $options = array_merge($defaultOptions, $options);
         
         if(!$asLink) return parent::submit($caption, $options);

@@ -12,7 +12,7 @@ class DriverTravel extends AppModel {
             'counterCache'=>'travel_count'
         ),
         'Travel'=>array(
-            'fields'=>array('id', 'user_id', 'origin', 'destination', 'date')
+            'fields'=>array('id', 'user_id', 'origin', 'destination', 'date', 'people_count')
         )
     );
     
@@ -21,6 +21,12 @@ class DriverTravel extends AppModel {
             'foreignKey'=>'conversation_id'
         ),
     );
+    
+    
+    // Notifications Types
+    public static $NOTIFICATION_TYPE_AUTO = 'A'; // Para los choferes que se notifican al crearse el viaje
+    public static $NOTIFICATION_TYPE_MANUAL = 'M'; // Para los choferes que se notifican manualmente
+    public static $NOTIFICATION_TYPE_EXTRA = 'E'; // Para los choferes que el viajero decide notificar adicionalmente (ej. si nosotros le damos la opción)
     
     
     // Filters

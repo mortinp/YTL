@@ -105,3 +105,11 @@ msgstr "View Travel Request"
 #: Controller/AppController.php:196
 msgid "Fotos del chofer %s y su auto"
 msgstr "Pictures of the driver %s and the car"
+
+#: Controller/AppController.php:196
+msgid "Testimonios de viajeros sorprendentes en Cuba"
+msgstr "Testimonials from awesome travelers to Cuba"
+
+#: Controller/AppController.php:196
+msgid "Testimonios de viajeros que contrataron choferes con YoTeLlevo, Cuba"
+msgstr "Testimonials from travelers who hired drivers with YoTeLlevo, Cuba"

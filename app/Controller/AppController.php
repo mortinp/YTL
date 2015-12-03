@@ -151,10 +151,8 @@ class AppController extends Controller {
             // Unrestricted access
             'pages.display' =>array(
                 'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
-                'use_terms'=>array('title'=>__d('meta', 'Términos de Uso')), 
-                'tour'=>array('title'=>__d('meta', '¿Cómo usarlo?')),
                 'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
-                'by_email'=>array('title'=>__d('meta', 'Consigue un taxi usando tu correo electrónico'))),
+                'testimonials'=>array('title'=>__d('meta', 'Testimonios de viajeros sorprendentes en Cuba'), 'description'=>__d('meta', 'Testimonios de viajeros que contrataron choferes con YoTeLlevo, Cuba'))),
 
             'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             'users.register' =>array('title'=>__d('meta', 'Registrarse'), 'description'=>__d('meta', 'Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
@@ -180,10 +178,14 @@ class AppController extends Controller {
             
             // Admins access
             'users.index' =>array('title'=>'Usuarios'),
-            'users.add' =>array('title'=>'Crear Nuevo Usuario'),           
+            'users.add' =>array('title'=>'Nuevo usuario'),           
 
             'drivers.index' =>array('title'=>'Choferes'),
-            'drivers.add' =>array('title'=>'Crear Nuevo Chofer'),
+            'drivers.add' =>array('title'=>'Nuevo chofer'),
+            
+            'driver_travels.view_filtered' => array('title'=>'Conversaciones'),
+            
+            'metrics.dashboard' =>array('title'=>'Dashboard'),
         );
         
         if(isset ($pageTitles[$key])) return $pageTitles[$key];

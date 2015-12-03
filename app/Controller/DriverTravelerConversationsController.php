@@ -3,10 +3,12 @@
 App::uses('AppController', 'Controller');
 App::uses('LangController', 'Controller');
 App::uses('DriverTravel', 'Model');
+App::uses('DriverTravelerConversation', 'Model');
+
 
 class DriverTravelerConversationsController extends AppController {
     
-    public $uses = array('DriverTravelerConversation', 'DriverTravel',/*-*/ 'Driver', 'DriverProfile', 'TravelConversationMeta');
+    public $uses = array('DriverTravelerConversation', 'DriverTravel',/*-*/ 'Driver', 'DriverProfile', 'TravelConversationMeta', 'UserInteraction');
     
     public function beforeFilter() {
         parent::beforeFilter();
@@ -16,9 +18,11 @@ class DriverTravelerConversationsController extends AppController {
     public function view($conversationId) {
         // Bindings and unbindings to avoid extra data
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));
-        $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
-        $this->Driver->unbindModel(array('hasOne'=>array('DriverProfile')));
-        $this->DriverTravel->recursive = 2;
+        
+        $this->Driver->attachProfile($this->DriverTravel);
+        //$this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+        //$this->Driver->unbindModel(array('hasOne'=>array('DriverProfile')));
+        //$this->DriverTravel->recursive = 2;
         
         $data = $this->DriverTravel->findById($conversationId);
         $this->set('data', $data);
@@ -61,8 +65,27 @@ class DriverTravelerConversationsController extends AppController {
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
-    public function set_state($conversationId, $state) {
-        $this->tag($conversationId, 'state', $state);
+    /**
+     * 
+     * @param conversationId: el id de la conversacion
+     * @param state: el estado en que se va a poner la conversacion, por ejemplo DriverTravelerConversation::$STATE_TRAVEL_DONE
+     * 
+     * @param userId: [opcional] Se usa para algunas cosas, y es un parámetro que se pasa para hacer más eficiente esta funcion, 
+     * por ejemplo cuando hay que buscar el usuario de la conversacion.
+     */
+    public function set_state($conversationId, $state, $userId = null) {
+        $OK = $this->tag($conversationId, 'state', $state);
+        
+        // Realizar algunas acciones que dependen del estado en que se esta poniendo la conversacion
+        if($OK) { 
+            if($state == DriverTravelerConversation::$STATE_TRAVEL_DONE) {
+                // Generar un código de interacción para que el usuario deje una review del viaje
+                if($userId != null) {
+                    $this->UserInteraction->getInteractionCode($userId, UserInteraction::$INTERACTION_TYPE_WRITE_REVIEW);
+                }
+            }
+        }
+        
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
@@ -100,7 +123,7 @@ class DriverTravelerConversationsController extends AppController {
             
             if ($this->TravelConversationMeta->save($this->request->data)) {
                 $this->setInfoMessage('Se guardó la ganancia del viaje <b>'.$id.'</b> exitosamente.');
-                return $this->redirect(array('controller'=>'driver_travels', 'action' => 'view_filtered/'.DriverTravel::$SEARCH_PAID));
+                return $this->redirect($this->referer()/*array('controller'=>'driver_travels', 'action' => 'view_filtered/'.DriverTravel::$SEARCH_PAID)*/);
             }
             $this->setErrorMessage('Ocurrió un error salvando la ganacia del viaje '.$id);
         } else

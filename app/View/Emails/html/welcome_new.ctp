@@ -1,11 +1,7 @@
 <?php $urlDef = array('controller' => 'users', 'action' => 'confirm_email/' . $confirmation_code, 'base'=>false) ?>
 
 <p>
-    <?php echo __d('user_email', 'Hola, bienvenido a YoTeLlevo... y bienvenido a Cuba! Gracias por usar nuestro servicio.')?>
-</p>
-
-<p>
-    <?php echo __d('user_email', 'Este correo es generado automáticamente por nuestra aplicación, pero en realidad lo escribí yo mismo previamente :) Soy %s, el CEO de YoTeLlevo.', 'Martín')?>
+    <?php echo __d('user_email', 'Hola, bienvenido a YoTeLlevo... y bienvenido a Cuba! Gracias por usar nuestro servicio. Soy %s.', 'Martín')?>
 </p>
 
 <p>
