@@ -14,12 +14,12 @@ class QueriesComponent extends Component {
      * ESTO DA VIAJE POR VIAJE, CUANTOS MENSAJES DEL CHOFER Y DEL VIAJERO HAY POR CADA CONVERSACION DEL VIAJE
      * EJ:
      * 
-     * VIAJE 130 | HABANA | TRINDAD | CONVERSACION A | CHOFER LOIS   | VIAJERO X | RESPUESTAS CHOFER: 2 | RESPUESTAS VIAJERO: 1
-     * VIAJE 130 | HABANA | TRINDAD | CONVERSACION B | CHOFER OVIDIO | VIAJERO X | RESPUESTAS CHOFER: 1 | RESPUESTAS VIAJERO: 0
+     * VIAJE 130 | HABANA | TRINDAD | CONVERSACION A | CHOFER LOIS   | VIAJERO X | RESPUESTAS CHOFER: 2 | RESPUESTAS VIAJERO: 1 | FECHA ULTIMO MENSAJE: ...
+     * VIAJE 130 | HABANA | TRINDAD | CONVERSACION B | CHOFER OVIDIO | VIAJERO X | RESPUESTAS CHOFER: 1 | RESPUESTAS VIAJERO: 0 | FECHA ULTIMO MENSAJE: ...
      * 
-     * VIAJE 135 | HABANA | TRINDAD | CONVERSACION A | CHOFER JOSUE  | VIAJERO X | RESPUESTAS CHOFER: 2 | RESPUESTAS VIAJERO: 0
-     * VIAJE 135 | HABANA | TRINDAD | CONVERSACION B | CHOFER FELIPE | VIAJERO X | RESPUESTAS CHOFER: 1 | RESPUESTAS VIAJERO: 0
-     * VIAJE 135 | HABANA | TRINDAD | CONVERSACION C | CHOFER LUIS   | VIAJERO X | RESPUESTAS CHOFER: 0 | RESPUESTAS VIAJERO: 0
+     * VIAJE 135 | HABANA | TRINDAD | CONVERSACION A | CHOFER JOSUE  | VIAJERO X | RESPUESTAS CHOFER: 2 | RESPUESTAS VIAJERO: 0 | FECHA ULTIMO MENSAJE: ...
+     * VIAJE 135 | HABANA | TRINDAD | CONVERSACION B | CHOFER FELIPE | VIAJERO X | RESPUESTAS CHOFER: 1 | RESPUESTAS VIAJERO: 0 | FECHA ULTIMO MENSAJE: ...
+     * VIAJE 135 | HABANA | TRINDAD | CONVERSACION C | CHOFER LUIS   | VIAJERO X | RESPUESTAS CHOFER: 0 | RESPUESTAS VIAJERO: 0 | FECHA ULTIMO MENSAJE: NULL
      * 
      * CONCLUSIONES QUE SE PUEDEN SACAR CON EL RESULTADO DE ESTA CONSULTA
      * 
@@ -28,13 +28,18 @@ class QueriesComponent extends Component {
      * 
      * - EL VIAJE 135 FUE RESPONDIDO POR 2 CHOFERES
      * - EL VIAJE 135 NO HA SIDO RESPONDIDO POR EL VIAJERO!!!
+     * - SE PUEDE SABER SI EL VIAJE 135 YA LLEVA 3 DIAS SIN QUE EL VIAJERO HAYA RESPONDIDO
+     * 
+     * @param $date: yyyy-mm-dd
      * 
      */
-    public function getConversationsSummary($date/*yyyy-mm-dd*/) {
+    public function getConversationsSummary($date) {
         $query = "SELECT Travel.id, Travel.origin, Travel.destination, DriverTravel.id AS conversation, User.username, Driver.username, DriverProfile.driver_name,
 
                 SUM( CASE WHEN DriverTravelerConversation.response_by = 'driver' THEN 1 ELSE 0 END) as driver_responses_count,
-                SUM( CASE WHEN DriverTravelerConversation.response_by = 'traveler' THEN 1 ELSE 0 END) as traveler_responses_count
+                SUM( CASE WHEN DriverTravelerConversation.response_by = 'traveler' THEN 1 ELSE 0 END) as traveler_responses_count,
+
+                MAX(DriverTravelerConversation.created) as latest_message_date
 
                 FROM travels as Travel
 

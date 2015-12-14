@@ -101,8 +101,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
             valueKey: 'driver_id',
             local: window.app.drivers,
             template: function(datum) {
-                var display = '';
-                if(datum.driver_name != null) display += ' <b> ' + datum.driver_name + ' </b> | ';// Los espacios en las b son importantes para el matcheo
+                var display = datum.driver_id + ':';
+                if(datum.driver_name != null) display += ' <b> ' + datum.driver_name + ' </b> | ';// Los espacios entre las b y el nombre son importantes para poder matchear por el nombre
                 display += ' ' + datum.driver_username;
                 
                 return display;

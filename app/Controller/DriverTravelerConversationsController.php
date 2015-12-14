@@ -61,25 +61,21 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     /**
-     * 
      * @param conversationId: el id de la conversacion
      * @param state: el estado en que se va a poner la conversacion, por ejemplo DriverTravelerConversation::$STATE_TRAVEL_DONE
-     * 
-     * @param userId: [opcional] Se usa para algunas cosas, y es un parámetro que se pasa para hacer más eficiente esta funcion, 
-     * por ejemplo cuando hay que buscar el usuario de la conversacion.
      */
-    public function set_state($conversationId, $state, $userId = null) {
+    public function set_state($conversationId, $state/*, $userId = null*/) {
         $OK = $this->tag($conversationId, 'state', $state);
         
         // Realizar algunas acciones que dependen del estado en que se esta poniendo la conversacion
-        if($OK) { 
+        /*if($OK) { 
             if($state == DriverTravelerConversation::$STATE_TRAVEL_DONE) {
                 // Generar un código de interacción para que el usuario deje una review del viaje
                 if($userId != null) {
                     $this->UserInteraction->getInteractionCode($userId, UserInteraction::$INTERACTION_TYPE_WRITE_REVIEW);
                 }
             }
-        }
+        }*/
         
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
