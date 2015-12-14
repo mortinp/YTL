@@ -2,7 +2,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
-App::uses('DriverTravel', 'model');
+App::uses('DriverTravel', 'Model');
 
 class UsersController extends AppController {
     
