@@ -1,23 +1,19 @@
+<?php $following = false;?>
+<?php if(isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta'])):?>
+    <?php $following = $data['TravelConversationMeta']['following']; ?>
+
+    <b>Estado:</b>
+    <div>
+        <ol class="breadcrumb">
+            <li><a class="btn btn-default <?php if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_NONE) echo 'disabled btn-lg'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_NONE))?>">Ninguno</a></li>
+            <li><a class="btn btn-warning <?php if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) echo 'disabled btn-lg'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_DONE.'/'.$data['Travel']['User']['id']))?>" title="Marcar si se comprobó que el viaje se realizó"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</a></li>
+            <li><a class="btn btn-success <?php if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) echo 'disabled btn-lg'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_PAID))?>" title="Marcar si el viaje ya fue pagado por el chofer"><i class="glyphicon glyphicon-usd"></i> Pagado</a></li>
+        </ol>
+    </div>    
+    <br/>
+<?php endif?>
+    
 <?php
-$following = false;
-if(isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta'])) {
-    $following = $data['TravelConversationMeta']['following'];
-
-    // Controles de estado del viaje
-    echo '<b>Estado:</b> ';
-    if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_NONE) $none = '<span class="badge">NINGUNO</span> ';
-    else $none = $this->Form->button('Ninguno', array('class'=>'btn-default', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_NONE, 'escape'=>false, 'title'=>'Marcar si el viaje no tiene ningún estado'), true).' '; 
-    //if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE) $notdone = '<span class="badge">NO REALIZADO</span> ';
-    //else $notdone = $this->Form->button('<i class="glyphicon glyphicon-thumbs-down"></i> No realizado', array('class'=>'btn-danger', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_NOT_DONE, 'escape'=>false, 'title'=>'Marcar si se comprobó que el viaje no se realizó'), true).' ';
-    if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) $done = '<span class="badge">REALIZADO</span> ';
-    else $done = $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn-warning', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_DONE.'/'.$data['Travel']['User']['id'], 'escape'=>false, 'title'=>'Marcar si se comprobó que el viaje se realizó'), true).' '; 
-    if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) $paid = '<span class="badge">PAGADO</span> ';
-    else $paid = $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn-warning', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_PAID, 'escape'=>false, 'title'=>'Marcar si el viaje ya fue pagado por el chofer'), true).' ';
-
-    echo $none; /*echo $notdone;*/ echo $done; echo $paid;
-    echo '<br/><br/>';
-}
-
 if($following) echo $this->Form->button('Quitar seguimiento', array('class'=>'btn-danger', 'action'=>'unfollow/'.$data['DriverTravel']['id']), true); 
 else echo $this->Form->button('Seguir esta conversación', array('class'=>'btn-info', 'action'=>'follow/'.$data['DriverTravel']['id']), true);
 

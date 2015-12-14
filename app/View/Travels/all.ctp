@@ -4,9 +4,9 @@ if(!isset($details)) $details = true;
 ?>
 <div class="container">
     <div class="row">
-    <?php if(!empty ($travels) /*|| !empty ($travels_by_email)*/): ?>
+    <?php if(!empty ($travels)): ?>
         <div class="col-md-6 col-md-offset-3">
-            <h3>Anuncios de Viajes</h3>
+            <h3>Anuncios de Viajes (<?php echo count($travels)?>)</h3>
             <div>Filtros: 
                 <ul>
                 <?php 
@@ -78,3 +78,39 @@ if(!isset($details)) $details = true;
 
     </div>
 </div>
+
+<?php
+// CSS
+$this->Html->css('bootstrap', array('inline' => false));
+$this->Html->css('typeaheadjs-bootstrapcss/typeahead.js-bootstrap', array('inline' => false));
+
+//JS
+$this->Html->script('jquery', array('inline' => false));
+$this->Html->script('bootstrap', array('inline' => false));
+$this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
+
+
+$this->Js->set('drivers', $drivers);
+echo $this->Js->writeBuffer(array('inline' => false));
+
+?>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input.driver-typeahead').typeahead({
+            valueKey: 'driver_id',
+            local: window.app.drivers,
+            template: function(datum) {
+                var display = '';
+                if(datum.driver_name != null) display += ' <b> ' + datum.driver_name + ' </b> | ';// Los espacios en las b son importantes para el matcheo
+                display += ' ' + datum.driver_username;
+                
+                return display;
+            }
+        });
+        
+        $('input.tt-hint').addClass('form-control');
+        $('.twitter-typeahead').css('display', 'block');
+    });
+
+</script>

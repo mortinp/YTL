@@ -3,8 +3,6 @@
 <?php App::uses('DriverTravelerConversation', 'Model')?>
 
 <?php
-//print_r($this->Time->listTimezones()) ;
-
 // INIT
 if (!isset($actions)) $actions = true;
 if (!isset($details)) $details = false;
@@ -109,13 +107,37 @@ foreach (Travel::getPreferences() as $key => $value) {
     </p>
     <?php if(isset ($travel['DriverTravel']) && $showConversations):?>
     <p><b>Conversaciones:</b>
-        <ul style="list-style-type:none">
+    <ul id="conversations-travel-<?php echo $travel['Travel']['id']?>" style="list-style-type:none">
         <?php foreach ($travel['DriverTravel'] as $sent) :?>
-            <li><?php echo $this->element('conversation_id_decorated', array('conversation'=>$sent))?></li>
+        <li><?php echo $this->element('conversation_id_decorated', array('conversation'=>$sent))?></li>
         <?php endforeach; ?>
+            
+        <?php if(isset($drivers)):?>
+            <li>
+                <span id="notify-driver-travel-set-<?php echo $travel['Travel']['id']?>" style="display: inline-block">
+                    <a href="#!" class="edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Notificar a otro chofer')?></a>
+                </span>
+                <span id="notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>" style="display:none">
+                    <a href="#!" class="cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Cancelar')?></a>
+                </span>
+                <div id='notify-driver-travel-form-<?php echo $travel['Travel']['id']?>' style="display:none">
+                    <br/>                    
+                    <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id']))?>
+                </div>
+            </li>
+
+            <script type="text/javascript">
+                $('.edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>, .cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>').click(function() {
+                    $('#notify-driver-travel-form-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-set-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>').toggle();
+                });
+            </script>
+        <?php endif?>
+            
+            
         </ul>
     </p>
     <?php endif?>
+    
 <?php endif?>
 
 <?php if($actions):?>

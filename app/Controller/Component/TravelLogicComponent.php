@@ -14,6 +14,8 @@ class TravelLogicComponent extends Component {
     public function confirmTravel($travelType /*Travel or TravelByEmail*/, &$travel) {
         $OK = true;
         $errorMessage = '';
+        $inflectedTravelType = Inflector::underscore('Travel');
+        
         if($travel != null) {
             
             $this->DriverLocality = ClassRegistry::init('DriverLocality');
@@ -21,7 +23,7 @@ class TravelLogicComponent extends Component {
             
             $this->prepareForSendingToDrivers($travelType);
             
-            $drivers_conditions = array(
+            /*$drivers_conditions = array(
                 'DriverLocality.locality_id'=>$travel[$travelType]['locality_id'],
                 'Driver.active'=>true);
             if(isset ($travel[$travelType]['people_count'])) {
@@ -63,7 +65,9 @@ class TravelLogicComponent extends Component {
                     'limit'=>3 - count($drivers)));
                 
                 $drivers = array_merge($drivers, $driversSp);
-            }
+            }*/
+            
+            $drivers = $this->findDriversForTravel($travel);
             
             if (count($drivers) > 0) {
                 $travel[$travelType]['state'] = Travel::$STATE_CONFIRMED;
@@ -90,7 +94,7 @@ class TravelLogicComponent extends Component {
                 if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viaje';
                     
                 foreach ($drivers as $d) {
-                    $OK = $this->sendTravelToDriver($d, $travel, $travelType, DriverTravel::$NOTIFICATION_TYPE_AUTO, $emailConfig);
+                    $OK = $this->sendTravelToDriver($d, $travel, DriverTravel::$NOTIFICATION_TYPE_AUTO, $emailConfig);
                     if($OK) {
                         $drivers_sent_count++;
                     } else if($drivers_sent_count < 1) {
@@ -101,7 +105,7 @@ class TravelLogicComponent extends Component {
 
                 // Always send an email to me ;) 
                 //$subject = 'Nuevo Anuncio de Viaje ('.$travel[$travelType]['id'].' '.$this->Travel->travelType.')';
-                $subject = $this->getNotificationEmailSubject($travel, $travelType, $travel[$travelType]['id']);
+                $subject = $this->getNotificationEmailSubject($travel, $travel[$travelType]['id']);
                 
                 if(Configure::read('enqueue_mail')) {
                     ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
@@ -132,13 +136,59 @@ class TravelLogicComponent extends Component {
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
     
-    public function sendTravelToDriver($driver, $travel, $travelType /*Travel or TravelByEmail*/, $notificationType, $emailConfig = 'viaje') {
-        $inflectedTravelType = Inflector::underscore($travelType);
+    public function findDriversForTravel($travel, $count = 3) {
+        $drivers_conditions = array(
+            'DriverLocality.locality_id'=>$travel['Travel']['locality_id'],
+            'Driver.active'=>true);
+        if(isset ($travel['Travel']['people_count'])) {
+            $drivers_conditions['Driver.min_people_count <='] = $travel['Travel']['people_count'];
+            $drivers_conditions['Driver.max_people_count >='] = $travel['Travel']['people_count'];
+        }
+        if(isset ($travel['Travel']['need_modern_car']) && $travel['Travel']['need_modern_car']) $drivers_conditions['Driver.has_modern_car'] = true;
+        if(isset ($travel['Travel']['need_air_conditioner']) && $travel['Travel']['need_air_conditioner']) $drivers_conditions['Driver.has_air_conditioner'] = true;
+
+        if(User::isRegular($travel['User'])) $drivers_conditions['Driver.role'] = 'driver';
+        else $drivers_conditions['Driver.role'] = 'driver_tester';
+
+        // Verify English skills
+        $english = false;
+        $lang = Configure::read('Config.language');
+        if($lang != null && $lang == 'en') {
+            $drivers_conditions['Driver.speaks_english'] = true;
+            $english = true;
+        }
+
+        $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+
+        if($this->DriverLocality == null) $this->DriverLocality = ClassRegistry::init('DriverLocality');
+        $drivers = $this->DriverLocality->find('all', array(
+            'conditions'=>$drivers_conditions, 
+            'order'=>'Driver.'.'last_notification_date ASC, Driver.travel_count'.' ASC',
+            'limit'=>$count));
+
+        // English
+        if($english && count($drivers) < $count) {
+            $drivers_conditions['Driver.speaks_english'] = false;
+
+            $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+
+            $driversSp = $this->DriverLocality->find('all', array(
+                'conditions'=>$drivers_conditions, 
+                'order'=>'Driver.'.'last_notification_date ASC, Driver.travel_count'.' ASC',
+                'limit'=>$count - count($drivers)));
+
+            $drivers = array_merge($drivers, $driversSp);
+        }
+        
+        return $drivers;
+    }
+    
+    public function sendTravelToDriver($driver, $travel, $notificationType, $emailConfig = 'viaje') {
         $OK = true;
         
         $this->DriverTravel->create();
-        $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel[$travelType]['id'], 'notification_type'=>$notificationType);
-        $OK = $this->DriverTravel->save(array('Driver'.$travelType=>$driverTravel));
+        $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel['Travel']['id'], 'notification_type'=>$notificationType);
+        $OK = $this->DriverTravel->save(array('DriverTravel'=>$driverTravel));
 
         if($OK) {
             $this->Driver->id = $driver['Driver']['id'];
@@ -152,7 +202,7 @@ class TravelLogicComponent extends Component {
 
             $conversation = $this->DriverTravel->getLastInsertID();
             
-            $subject = $this->getNotificationEmailSubject($travel, $travelType, $conversation);       
+            $subject = $this->getNotificationEmailSubject($travel, $conversation);
             
             $driverName = 'chofer';
             if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
@@ -163,13 +213,13 @@ class TravelLogicComponent extends Component {
                         $driver['Driver']['username'], 
                         array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName), 
                         array(
-                            'template'=>'new_'.$inflectedTravelType,
+                            'template'=>'new_travel',
                             'format'=>'html',
                             'subject'=>$subject,
                             'config'=>$emailConfig));
             } else {
                 $Email = new CakeEmail($emailConfig);
-                $Email->template('new_'.$inflectedTravelType)
+                $Email->template('new_travel')
                 ->viewVars(array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation))
                 ->emailFormat('html')
                 ->to($driver['Driver']['username'])
@@ -185,8 +235,8 @@ class TravelLogicComponent extends Component {
         return $OK;
     }
     
-    private function getNotificationEmailSubject($travel, $travelType, $id) {
-        $subject = date('y-m-d', strtotime($travel[$travelType]['date'])).' ';
+    private function getNotificationEmailSubject($travel, $id) {
+        $subject = date('y-m-d', strtotime($travel['Travel']['date'])).' ';
         /*$tag = $travel[$travelType]['origin'].' - '.$travel[$travelType]['destination'];
         if(strlen($tag) > 80) $subject .= substr ($tag, 0, 80).'...';
         else $subject .= $tag;*/
@@ -197,15 +247,15 @@ class TravelLogicComponent extends Component {
     }
     
     
-    public function confirmPendingTravel($tId, $userId) {
+    public function confirmPendingTravel($travelId, $userId) {
         $OK = true;
         $errorMessage = '';
-        if($tId != null) {
+        if($travelId != null) {
             
             $this->PendingTravel = ClassRegistry::init('PendingTravel');
             $this->Travel = ClassRegistry::init('Travel');
             
-            $pending = $this->PendingTravel->findById($tId);
+            $pending = $this->PendingTravel->findById($travelId);
             
             if($pending != null && !empty ($pending)) {
                 
@@ -220,7 +270,7 @@ class TravelLogicComponent extends Component {
                 $travel['Travel']['id'] = $this->Travel->getLastInsertID();
                 $travel = $this->Travel->findById($travel['Travel']['id']);
                 
-                if($OK) $OK = $this->PendingTravel->delete($tId);
+                if($OK) $OK = $this->PendingTravel->delete($travelId);
                 
                 if($OK) $result = $this->confirmTravel('Travel', $travel);
                 

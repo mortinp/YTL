@@ -34,8 +34,8 @@ class LangController extends AppController {
     
     public $uses = array('User');
     
-    public function setlang() {
-        $path = func_get_args();
+    public function setlang($lang) {
+        /*$path = func_get_args();
 
         $count = count($path);
         if (!$count) {
@@ -52,7 +52,9 @@ class LangController extends AppController {
         if (!empty($path[$count - 1])) {
             $title_for_layout = Inflector::humanize($path[$count - 1]);
         }
-        $this->set(compact('page', 'subpage', 'title_for_layout'));
+        $this->set(compact('page', 'subpage', 'title_for_layout'));*/
+        
+        if($lang == null) return $this->redirect('/');
         
         $this->Cookie->write('app.lang', $lang, true, '+2 weeks');
         $this->Session->write('app.lang', $lang); // Escribir la Session por si no se puede escribir la Cookie
@@ -65,54 +67,40 @@ class LangController extends AppController {
             // TODO: actualizar lang en Auth
         }
         
+        /**
+         * Manejar el referer
+         */
         $referer = $this->referer();
-        if($referer != null) {
-            
-            if(is_array($referer)) return $this->redirect($referer);
-            
-            else if(is_string($referer)) {
-                
-                if($referer == '/') return $this->redirect($referer);
-                
-                $urlApp = Configure::read('App.fullBaseUrl');
-                $urlBlog = Configure::read('App.fullBaseUrl');
-                if(Configure::read('debug') > 0) {
-                    $urlApp .= '/yotellevo';
-                    $urlBlog .= '/yotellevo/app/webroot/blog';
-                } else {
-                    $urlBlog .= '/blog';
-                }
-                
-                if(strpos($referer, $urlApp) === 0) {
-                    if(strpos($referer, $urlBlog) === 0)
-                        return $this->redirect('/');
-                    else return $this->redirect($referer);
-                }
-                
-                // Just in case nothing matches
-                return $this->redirect('/');
-                
-            }
-            else return $this->redirect('/');
-        }
-        else return $this->redirect('/');
-    }
-
-    /*public function beforeFilter() {
-        parent::beforeFilter();
         
-        if($this->Auth->loggedIn()) {
-            if($this->request->params['pass'][0] === 'home') {
-                $this->Auth->deny('display');
-            }   
-        } else {
-            // Try to authenticate
-            if ($this->Auth->login()) {
-                $this->setInfoMessage('Has entrado a <em>YoTeLlevo</em> con el usuario <b>'.$this->Auth->user('username').'</b>');
-                if(AuthComponent::user('role') === 'admin') return $this->redirect(array('action'=>'index'));
-                return $this->redirect($this->Auth->redirect());
+        if($referer == null || (is_string($referer) && $referer == '/')) return $this->redirect('/');
+            
+        if(is_array($referer)) return $this->redirect($referer); // Cuando es un array quiere decir que viene de dentro de la aplicacion (?)
+        
+        if(is_string($referer)) { // Es probable que venga de un dominio diferente
+
+            $urlApp = Configure::read('App.fullBaseUrl');
+            $urlBlog = Configure::read('App.fullBaseUrl');
+            if(Configure::read('debug') > 0) {
+                $urlApp .= '/yotellevo';
+                $urlBlog .= '/yotellevo/app/webroot/blog';
+            } else {
+                $urlBlog .= '/blog';
             }
+
+            // Comprobar si viene de nuestro propio dominio
+            if(strpos($referer, $urlApp) === 0) { // Viene del dominio?
+                if(strpos($referer, $urlBlog) === 0)//... y viene del blog?
+                    return $this->redirect('/');
+                else return $this->redirect($referer); // Si no viene del blog (pero viene del mismo dominio), entonces redirect a la misma pagina donde estaba
+            }
+
+            // Esto se ejecuta cuando viene de otro dominio
+            return $this->redirect('/');
+
         }
-    }*/
+        
+        // Just in case nothing matches
+        return $this->redirect('/');
+    }
 
 }

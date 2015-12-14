@@ -1,0 +1,2 @@
+ALTER TABLE  `travels` ADD  `drivers_sent_by_admin_count` INT NOT NULL DEFAULT  '0' AFTER  `drivers_sent_count`;
+ALTER TABLE  `travels` ADD  `drivers_sent_by_user_count` INT NOT NULL DEFAULT  '0' AFTER  `drivers_sent_by_admin_count`;

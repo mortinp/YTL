@@ -59,7 +59,7 @@ if(!isset($details)) $details = true;
                 <ul style="list-style-type: none;padding: 0px">
                 <?php foreach ($driver_travels as $dt) :?>
                     <li style="margin-bottom: 60px">
-                        <?php echo $this->element('driver_travel', array('driver_travel'=>$dt));?>
+                        <?php echo $this->element('conversation_widget', array('conversation'=>$dt));?>
                     </li> 
                 <?php endforeach; ?>
                 </ul>

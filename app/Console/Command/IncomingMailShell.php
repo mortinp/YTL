@@ -3,10 +3,11 @@
 App::uses('Travel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
 
-App::uses('ComponentCollection', 'Controller');
+// TODO: Me parece que estas 4 inclusiones de abajo no se usan ya (BORRAR)
+/*App::uses('ComponentCollection', 'Controller');
 App::uses('Controller', 'Controller');
 App::uses('TravelLogicComponent', 'Controller/Component');
-App::uses('LocalityRouterComponent', 'Controller/Component');
+App::uses('LocalityRouterComponent', 'Controller/Component');*/
 
 //require_once("PlancakeEmailParser.php");
 require_once ("helper/mailReader.php");
@@ -14,7 +15,7 @@ require_once ("helper/mailReader.php");
 
 class IncomingMailShell extends AppShell {
     
-    public $uses = array('Locality', 'DriverLocality', 'TravelByEmail', 'User', 'LocalityThesaurus', 'DriverTravel', 'Driver', 'DriverTravelerConversation');
+    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation' /*,'Locality', 'DriverLocality',*/ /*'TravelByEmail',*/ /*'LocalityThesaurus'*/ );
 
     public function main() {
         $this->out('IncomingMail shell reporting.');
@@ -92,7 +93,7 @@ class IncomingMailShell extends AppShell {
                     $datasource->begin();
                     
                     
-                    $fixedBody = $this->fixEmailBody($body);
+                    $fixedBody = $this->fixEmailBody($this->removeAllEmailAddresses($body));
 
                     $OK = $this->DriverTravelerConversation->save(array(
                         'conversation_id'=>$conversation,
@@ -223,7 +224,7 @@ class IncomingMailShell extends AppShell {
                     if(isset ($driverTravel['Travel']['User']['lang']) && $driverTravel['Travel']['User']['lang'] != null)
                         Configure::write('Config.language', $driverTravel['Travel']['User']['lang']);
                     
-                    $fixedBody = $this->fixEmailBody($body);
+                    $fixedBody = $this->fixEmailBody($this->removeAllUrls($this->removeAllEmailAddresses($body)));
                     
                     if($OK) $OK = $this->DriverTravelerConversation->save(array(
                         'conversation_id'=>$conversation,
@@ -315,30 +316,18 @@ class IncomingMailShell extends AppShell {
     
     public function fixEmailBody($body) {
         $fixedBody = $body;
-        
-        // Remove text after mark (asterisks)
-        //$marker = '***************';
-        /*$marker = '<div id="conversation-header">';
-        list($fixedBody) = explode($marker, $body);*/
-        
+       
         // Remove all email addresses
-        $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
-        $replacement = '['.__d('conversation', 'correo borrado').']';
-        $fixedBody = preg_replace($emailpattern, $replacement, $fixedBody);
+        //$emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
+        //$replacement = '['.__d('conversation', 'correo borrado').']';
+        //$fixedBody = preg_replace($emailpattern, $replacement, $fixedBody);
         
         // Remove all urls
-        //1- /\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/i
-        $urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
-        $replacement = '['.__d('conversation', 'url borrada').']';
-        $fixedBody = preg_replace($urlpattern, $replacement, $fixedBody);
+        //$urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
+        //$replacement = '['.__d('conversation', 'url borrada').']';
+        //$fixedBody = preg_replace($urlpattern, $replacement, $fixedBody);
         
         // Remove the avatars
-        //1.
-        /*$avatarpattern = "/<img class=\"driver-avatar\"[^>]+\>/i";
-        $replacement = '['.__d('conversation', 'imagen borrada').']';
-        $fixedBody = preg_replace($avatarpattern, $replacement, $fixedBody);*/
-        
-        //2.
         $replacement = '['.__d('conversation', 'imagen borrada').']';
         $fixedBody = $this->removeTag($fixedBody,'driver-avatar','<img','/>', $replacement);
         
@@ -348,12 +337,28 @@ class IncomingMailShell extends AppShell {
         // Remove the social links
         $fixedBody = $this->removeTag($fixedBody,'social-link','<a','/a>');
         
-        // Remove all appended text in previous conversations
-        //$fixedBody = $this->removeTag1($fixedBody, 'appended-conversation-text', '<section', '/section>', '---/---');
-        
         return $fixedBody;
     }
-       
+    
+    public function removeAllEmailAddresses($text) {
+        $fixedText = $text;
+        
+        $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
+        $replacement = '['.__d('conversation', 'correo borrado').']';
+        $fixedText = preg_replace($emailpattern, $replacement, $fixedText);
+        
+        return $fixedText;
+    }
+    
+    public function removeAllUrls($text) {
+        $fixedText = $text;
+        
+        $urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
+        $replacement = '['.__d('conversation', 'url borrada').']';
+        $fixedText = preg_replace($urlpattern, $replacement, $fixedText);
+        
+        return $fixedText;
+    }
     
     
     //str - string to search 

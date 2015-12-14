@@ -8,6 +8,7 @@ class UserInteraction extends AppModel {
     public static $INTERACTION_TYPE_CONFIRM_EMAIL = 'confirm email';
     public static $INTERACTION_TYPE_CHANGE_PASSWORD = 'change password';
     public static $INTERACTION_TYPE_WRITE_REVIEW = 'write review';
+    public static $INTERACTION_NOTIFY_MORE_DRIVERS = 'notify more drivers';
     
     
     /**

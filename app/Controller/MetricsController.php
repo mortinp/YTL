@@ -7,7 +7,7 @@ class MetricsController extends AppController {
     public $uses = array('Travel');
     
     public function dashboard() {
-        $today = date('Y-m-d', strtotime('today')); 
+        $today = date('Y-m-d', strtotime('today'));
                 
         /**
          * RESUMEN DE CONVERSACIONES DE CHOFERES Y VIAJEROS

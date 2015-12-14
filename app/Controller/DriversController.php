@@ -93,10 +93,6 @@ class DriversController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['DriverProfile']['driver_id'] = $id;
             
-            /*$avatar = new Model();
-            $avatar->Behaviors->load('HardDiskSave');
-            $avatar->create($this->request->data['DriverProfile']['avatar']);*/
-            
             if(isset ($this->request->data['DriverProfile']['avatar'])) {
                 $l = $this->request->data['DriverProfile']['avatar']['size'];
                 if($this->request->data['DriverProfile']['avatar']['size'] == 0) {
@@ -122,9 +118,6 @@ class DriversController extends AppController {
     public function profile($nick) {
         $profile = $this->DriverProfile->findByDriverNick($nick);
         
-        $lang = $this->Session->read('app.lang');
-        $lang2 = Configure::read('Config.language');
-        
         if($profile != null && !empty ($profile)) {
             $this->layout = 'profile';
             $this->set('profile', $profile['DriverProfile']);
@@ -148,8 +141,7 @@ class DriversController extends AppController {
         $travel = $this->Travel->findById($travelId);
         
         $this->TravelLogic->prepareForSendingToDrivers('Travel');
-        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, 'Travel', DriverTravel::$NOTIFICATION_TYPE_MANUAL);
-        
+        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN);
         
         if($OK) $this->setInfoMessage('Viaje notificado.');
         else $this->setErrorMessage('Error notificando el viaje.');

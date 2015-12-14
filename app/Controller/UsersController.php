@@ -49,8 +49,6 @@ class UsersController extends AppController {
                 
                 return $this->redirect($redirect);
                 
-                //if(AuthComponent::user('role') === 'admin') return $this->redirect(array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES));
-                //return $this->redirect($this->Auth->redirect());
             } else $this->setErrorMessage(__('El usuario o la contraseña son inválidos. Intenta de nuevo.'));
         }
         if ($this->Auth->loggedIn() || $this->Auth->login()) {
@@ -181,7 +179,6 @@ class UsersController extends AppController {
     }    
     
     public function index() {
-        //$this->User->recursive = 0;
         $this->set('users', $this->User->find('all'));
     }
 

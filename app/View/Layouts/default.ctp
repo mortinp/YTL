@@ -64,7 +64,6 @@ if($isLoggedIn) {
             <div id="navbar" class="navbar navbar-default" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <!--<div class="container-fluid">-->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#app-navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -124,20 +123,10 @@ if($isLoggedIn) {
                                             <li class="dropdown-submenu">
                                                 <a tabindex="-1" href="#">Logs</a>
                                                 <ul class="dropdown-menu">
-                                                    <!--<li><?php echo $this->Html->link('Raw Emails', array('controller' => 'admins', 'action' => 'view_log/emails_raw')) ?></li>
-                                                    <li><?php echo $this->Html->link('Info Requerida', array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>-->
                                                     <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
                                                     <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
                                                 </ul>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Tests</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Ver Viajes Admins', array('controller' => 'travels', 'action' => 'all_admins')) ?></li>
-                                                </ul>
-                                            </li>
+                                            </li>                                            
                                         </ul>
                                     </li>
                                     <li><?php echo $this->Html->link(__('Dashboard'), array('controller' => 'metrics', 'action' => 'dashboard'), array('class' => 'nav-link', 'escape'=>false));?></li> 
@@ -173,7 +162,6 @@ if($isLoggedIn) {
 
                         </ul>
                     </div><!-- /.navbar-collapse -->
-                <!--</div>-->
                 </nav>
             </div>
             
@@ -185,7 +173,7 @@ if($isLoggedIn) {
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
-                    <!-- Start 1FreeCounter.com code -->
+                    <!-- 1FreeCounter -->
   
                     <script language="JavaScript">
                     var data = '&r=' + escape(document.referrer)
@@ -213,9 +201,7 @@ if($isLoggedIn) {
                     ga('send', 'pageview');
                     </script>
 
-                    <!-- End 1FreeCounter.com code -->
-                <?php endif;?>
-                
+                <?php endif;?>               
                 
             </div>
 

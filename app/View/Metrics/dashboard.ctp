@@ -25,6 +25,8 @@ App::uses('DriverTravelerConversation', 'Model');
             ?>
             <?php            
             foreach ($conversations as $c) { 
+                if($c['TravelConversationMeta']['income'] != null) $paidAmount += $c['TravelConversationMeta']['income'];
+                
                 if($c['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE ||
                    $c['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) 
                 {
@@ -68,13 +70,20 @@ App::uses('DriverTravelerConversation', 'Model');
             
             
             <div>Estás viendo los <big><span class="label label-primary">viajes respondidos</span></big> creados y expirados dentro del período <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_ini']?></span></big> al <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_end']?></span></big></div>
-            <?php 
+            <br/>
+                    <?php 
             $cantViajes = 0;
+            $cantViajesRealizados = 0;
             foreach ($map as $m) {
                 $cantViajes += count($m) - count($metaInfo) /*Los indices extra*/;
+                $cantViajesRealizados += $m['cant_viajes_done'];
             }
             ?>
-            <div><big><span class="label label-primary"><?php echo $cantViajes?> viajes encontrados</span></big></div>
+            <div>
+                <big><span class="label label-primary"><?php echo $cantViajes?> viajes encontrados</span></big>
+                <big><span class="label label-warning"><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
+                <big><span class="label label-success"><i class="glyphicon glyphicon-usd"></i><?php echo $paidAmount?> de ganancia total</span></big>
+            </div>
             <br/>
             <br/>
             

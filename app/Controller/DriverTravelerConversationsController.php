@@ -16,13 +16,8 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function view($conversationId) {
-        // Bindings and unbindings to avoid extra data
-        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));
-        
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
         $this->Driver->attachProfile($this->DriverTravel);
-        //$this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
-        //$this->Driver->unbindModel(array('hasOne'=>array('DriverProfile')));
-        //$this->DriverTravel->recursive = 2;
         
         $data = $this->DriverTravel->findById($conversationId);
         $this->set('data', $data);

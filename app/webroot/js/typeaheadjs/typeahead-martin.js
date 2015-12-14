@@ -384,8 +384,9 @@
             this.minLength = o.minLength || 1;
             this.header = o.header;
             this.footer = o.footer;
-            this.valueKey = o.valueKey || "value";
+            this.valueKey = o.valueKey || "value";            
             this.template = compileTemplate(o.template, o.engine, this.valueKey);
+            this.hasUserTemplate = o.template? true:false;
             this.local = o.local;
             this.prefetch = o.prefetch;
             this.remote = o.remote;
@@ -432,7 +433,10 @@
                 }
             },
             _transformDatum: function(datum) {
-                var value = utils.isString(datum) ? datum : datum[this.valueKey], tokens = datum.tokens || utils.tokenizeText(value), item = {
+                var value = utils.isString(datum) ? datum : datum[this.valueKey],
+                display = this.hasUserTemplate? this.template(datum):value,
+                tokens = datum.tokens || utils.tokenizeText(display),
+                item = {
                     value: value,
                     tokens: tokens
                 };

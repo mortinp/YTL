@@ -98,6 +98,17 @@ class Driver extends AppModel {
         $finderModel->recursive = 2;
         $this->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
     }
+    
+    
+    
+    public function getAsSuggestions($localityId = null) {
+        $drivers = $this->find('all');
+        $list = array();
+        foreach ($drivers as $d) {
+            $list[] = array('driver_id'=>$d['Driver']['id'], 'driver_username'=>$d['Driver']['username'], 'driver_name'=>$d['DriverProfile']['driver_name']);
+        }  
+        return $list;
+    }
 }
 
 ?>

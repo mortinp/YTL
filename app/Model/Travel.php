@@ -124,7 +124,6 @@ class Travel extends AppModel {
      */ 
     public static function prepareFullConversations(&$controller) {
         $controller->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
         $controller->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
             array('foreignKey'=>'conversation_id',
                 'fields'=>array('response_by')))));

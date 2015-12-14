@@ -6,7 +6,7 @@ App::uses('Travel', 'Model');
 
 class TravelsController extends AppController {
     
-    public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus',/**/ 'DriverTravel');
+    public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus',/**/ 'DriverTravel');
     
     public $components = array('TravelLogic', 'LocalityRouter');
     
@@ -38,44 +38,24 @@ class TravelsController extends AppController {
 
     public function index() {
         $travels = $this->Travel->find('all', array('conditions' => 
-            array('user_id' => $this->Auth->user('id')/*, 'state'=>Travel::$STATE_UNCONFIRMED*/)));
+            array('user_id' => $this->Auth->user('id'))));
         
-        $travels_by_email = $this->TravelByEmail->find('all', array('conditions' => 
-            array('user_id' => $this->Auth->user('id')/*, 'state'=>Travel::$STATE_UNCONFIRMED*/)));
-        
-        $this->set('travels', $travels); 
-        $this->set('travels_by_email', $travels_by_email); 
-        
-        $this->set('localities', $this->getLocalitiesList());
+        $this->set('travels', $travels);        
+        //$this->set('localities', $this->getLocalitiesList()); // Esto era para cuando el formulario de viajes estaba en el /index
     }
     
     // Admins only
     public function all() {
-        /*$this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
-        $this->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
-            array('foreignKey'=>'conversation_id',
-                'fields'=>array('response_by')))));
-        $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));        
-        $this->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
-        $this->Travel->recursive = 2;*/
         Travel::prepareFullConversations($this);
         
         $conditions = array('User.role'=>'regular');
         
         $this->set('filter_applied', Travel::$SEARCH_ALL);
         $this->set('travels', $this->paginate($conditions));
+        $this->set('drivers', $this->Driver->getAsSuggestions());
     }
     
     public function view_filtered($filter = 'all') {
-        /*$this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        //$this->DriverTravel->unbindModel(array('belongsTo'=>array('Driver')));
-        $this->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
-            array('foreignKey'=>'conversation_id',
-                'fields'=>array('response_by')))));
-        $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));
-        $this->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
-        $this->Travel->recursive = 2;*/
         Travel::prepareFullConversations($this);
         
         $conditions = array('User.role'=>'regular');
@@ -92,21 +72,10 @@ class TravelsController extends AppController {
         
         $this->set('filter_applied', $filter);
         $this->set('travels', $this->paginate($conditions));
+        $this->set('drivers', $this->Driver->getAsSuggestions());
         $this->render('all');
     }
     
-    // Admins only
-    public function all_admins() {
-        $this->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
-        $this->set('travels', $this->paginate(array('User.role'=>'admin')));
-        $this->render('all');
-    }
-    
-    // Admins only
-    public function all_pending() {
-        $this->set('travels', $this->PendingTravel->find('all'));
-    }
-
     public function view($id) {
         $travel = $this->Travel->findById($id);
         
@@ -241,6 +210,10 @@ class TravelsController extends AppController {
      * PENDING
      */
     
+    public function all_pending() {
+        $this->set('travels', $this->PendingTravel->find('all'));
+    }
+    
     public function view_pending($id) {
         $travel = $this->PendingTravel->findById($id);
         $travel['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
@@ -322,6 +295,37 @@ class TravelsController extends AppController {
         }
     }
     
+    
+    /**
+     * ADMIN ACTIONS
+     */
+    
+    public function notify_driver_travel($travelId) {
+        if ($this->request->is('post')) {            
+
+            $driverId = $this->request->data['Driver']['driver_id'];
+            
+            $this->Driver->id = $driverId;
+            if (!$this->Driver->exists()) {
+                throw new NotFoundException('Chofer inválido.');
+            }
+            $this->Travel->id = $travelId;
+            if (!$this->Travel->exists()) {
+                throw new NotFoundException('Viaje inválido.');
+            }
+
+            $driver = $this->Driver->findById($driverId);
+            $travel = $this->Travel->findById($travelId);
+
+            $this->TravelLogic->prepareForSendingToDrivers('Travel');
+            $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN);
+
+            if($OK) $this->setInfoMessage('Viaje notificado.');
+            else $this->setErrorMessage('Error notificando el viaje.');
+        }
+        
+        return $this->redirect($this->referer());
+    }   
     
     
     

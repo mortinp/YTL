@@ -40,9 +40,9 @@
             <br/>
             <?php
             $message = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", trim($c['DriverTravelerConversation']['response_text']));
-            $message = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*km*/i", '<span style="color:tomato"><b>$0</b></span>', $message);
+            $message = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*)/i", '<span style="color:tomato"><b>$0</b></span>', $message);
             $message = preg_replace("/(\r\n|\n|\r)/", "<br/>", $message);
-            // TODO: Mostrar una ayuda al lado de 'CUC', que enseñe qué es el CUC... o se puede poner un link al tipo de cambio actual...
+            //$message = preg_replace("/cuc/i", '<big><abbr title="One of the currencies in Cuba">$0</abbr></big>', $message);// TODO: Mostrar una ayuda al lado de 'CUC', que enseñe qué es el CUC... o se puede poner un link al tipo de cambio actual...
             echo $message;
             ?>
         </div>
