@@ -2,11 +2,20 @@
 App::uses('DriverTravelerConversation', 'Model');
 ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        
         <div class="col-md-8 col-md-offset-2">
             <div><?php echo $this->element('date_range_form')?></div>
+            <br/>
+            Período del <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_ini']?></span></big> al <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_end']?></span></big>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        
+        <div class="col-md-6">
+            
+            <legend>Respuestas <span class="text-muted"><small>(viajes creados y expirados en el período)</small></span></legend>
             <br/>
             
             <?php if(!empty ($conversations)):?>
@@ -68,10 +77,7 @@ App::uses('DriverTravelerConversation', 'Model');
             ?>
             <?php ksort($map)?>
             
-            
-            <div>Estás viendo los <big><span class="label label-primary">viajes respondidos</span></big> creados y expirados dentro del período <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_ini']?></span></big> al <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_end']?></span></big></div>
-            <br/>
-                    <?php 
+            <?php 
             $cantViajes = 0;
             $cantViajesRealizados = 0;
             foreach ($map as $m) {
@@ -131,8 +137,31 @@ App::uses('DriverTravelerConversation', 'Model');
             <?php endif?>
             
         </div>
+        
+        <div class="col-md-6">
+            <legend>Ganancias</legend>
+            <br/>
+            <div id="incomes-div" style="width: 100%; height: 400px;"></div>
+        </div>
     </div>
 </div>
+
+<?php
+// CSS
+$this->Html->css('bootstrap', array('inline' => false));
+$this->Html->css('typeaheadjs-bootstrapcss/typeahead.js-bootstrap', array('inline' => false));
+
+//JS
+$this->Html->script('jquery', array('inline' => false));
+$this->Html->script('bootstrap', array('inline' => false));
+$this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
+$this->Html->script('amcharts/amcharts', array('inline' => false));
+
+
+$this->Js->set('incomes', $incomes);
+echo $this->Js->writeBuffer(array('inline' => false));
+
+?>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -141,4 +170,69 @@ $(document).ready(function() {
         $('#' + $(this).data('show') +', #' + $(this).data('hide')).toggle();
     });
 });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var chart;
+    var chartData = window.app.incomes;
+    
+    var index = 0;
+    for(var i in chartData) {
+        chartData[index].date = parseDate(chartData[index].date);
+        index++;
+    }
+        
+    // SERIAL CHART
+    chart = new AmCharts.AmSerialChart();
+    chart.dataProvider = chartData;
+    chart.categoryField = "date";
+    chart.startDuration = 1;
+
+    // AXES
+    // category
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.labelRotation = 90;
+    categoryAxis.gridPosition = "start";
+    categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+    categoryAxis.minPeriod = "MM"; // our data is daily, so we set minPeriod to DD
+
+    // value
+    // in case you don't want to change default settings of value axis,
+    // you don't need to create it, as one value axis is created automatically.
+
+    // GRAPH
+    var graph = new AmCharts.AmGraph();
+    graph.valueField = "income";
+    graph.balloonText = "[[month]]: $[[value]]";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.8;
+    chart.addGraph(graph);
+
+    chart.write("incomes-div");
+});
+</script>
+<script type="text/javascript">
+    function parseDate(dateString) {            
+        var dt = dateString.split(" ");
+        var date = dt[0];
+
+        var day, month, year;
+        var dateArray = date.split("-");
+        if(dateArray.length > 1) {
+            day = Number(dateArray[2]);
+            month = Number(dateArray[1]) - 1;
+            year = Number(dateArray[0]);
+        } else {
+            dateArray = date.split("/");
+
+            day = Number(dateArray[0]);
+            month = Number(dateArray[1]) - 1;
+            year = Number(dateArray[2]);
+        }  
+
+        date = new Date(year , month , day);
+        return date;
+    }
 </script>

@@ -1,11 +1,15 @@
+<?php
+if(!isset ($url)) $url = array('controller' => 'metrics', 'action' => 'dashboard');
+?>
+
 
 <div id="DateRangeFormDiv">
-<?php echo $this->Form->create('DateRange', array('type' => 'get', 'url' => array('controller' => 'metrics', 'action' => 'dashboard'), 'id'=>'DateRangeForm'));?>
+<?php echo $this->Form->create('DateRange', array('type' => 'get', 'url' => $url, 'id'=>'DateRangeForm'));?>
 <fieldset>
-    <div class="col-md-6"><?php echo $this->Form->custom_date('date_ini', array('label' => __('Fecha Incio'), 'dateFormat' => 'dd/mm/yyyy'))?></div>
-    <div class="col-md-6"><?php echo $this->Form->custom_date('date_end', array('label' => __('Fecha Fin'), 'dateFormat' => 'dd/mm/yyyy'))?></div>
+    <div class="col-md-6" style="padding: 0"><?php echo $this->Form->custom_date('date_ini', array('label' => __('Fecha Incio'), 'dateFormat' => 'dd/mm/yyyy'))?></div>
+    <div class="col-md-6" style="padding: 0"><?php echo $this->Form->custom_date('date_end', array('label' => __('Fecha Fin'), 'dateFormat' => 'dd/mm/yyyy'))?></div>
     <?php $submitOptions = array('id'=>'DateRangeSubmit')?>
-    <div class="col-md-12"><?php echo $this->Form->submit('Ver', $submitOptions)?></div>
+    <div class="col-md-12" style="padding: 0"><?php echo $this->Form->submit('Ver', $submitOptions)?></div>
 </fieldset>
 <?php echo $this->Form->end(); ?>
 </div>

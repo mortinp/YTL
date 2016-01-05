@@ -114,7 +114,7 @@ if($isLoggedIn) {
                                                 <a tabindex="-1" href="#">Ver</a>
                                                 <ul class="dropdown-menu">
                                                     <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'driver_travels', 'action' => 'all')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'all')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL)) ?></li>
                                                     <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
                                                     <li class="divider"></li>
                                                     <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>

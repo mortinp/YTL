@@ -98,6 +98,14 @@ msgstr "Email account verifications instructions"
 msgid "Anuncios de Viajes"
 msgstr "Travel Requests"
 
+#: Controller/AppController.php:194
+msgid "Viajes"
+msgstr "Travels"
+
+#: Controller/AppController.php:194
+msgid "Mensajes de conversación"
+msgstr "Messages in conversation"
+
 #: Controller/AppController.php:196
 msgid "Ver Anuncio de Viaje"
 msgstr "View Travel Request"

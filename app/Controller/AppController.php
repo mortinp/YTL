@@ -185,6 +185,8 @@ class AppController extends Controller {
             'drivers.add' =>array('title'=>'Nuevo chofer'),
             
             'driver_travels.view_filtered' => array('title'=>'Conversaciones'),
+            'travels.view_filtered' =>array('title'=>__d('meta', 'Viajes')),
+            'driver_traveler_conversations.view' =>array('title'=>__d('meta', 'Mensajes de conversación')),            
             
             'metrics.dashboard' =>array('title'=>'Dashboard'),
         );
