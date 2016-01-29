@@ -1,3 +1,4 @@
+<?php $this->request->data = $data?>
 <div>
     <?php echo $this->Form->create('TravelConversationMeta', array('url' => array('controller' => 'driver_traveler_conversations', 'action' =>'set_income/'.$data['TravelConversationMeta']['conversation_id']))); ?>
     <fieldset>

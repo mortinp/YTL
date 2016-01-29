@@ -32,6 +32,7 @@ class DriversController extends AppController {
         
         Travel::prepareFullConversations($this);
         $this->set('travels', $this->Travel->find('all', array('conditions'=>array('Travel.id'=>$ids))));
+        $this->set('drivers', $this->Driver->getAsSuggestions());
     }
 
     public function add() {

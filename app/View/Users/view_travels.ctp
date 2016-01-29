@@ -24,3 +24,6 @@
 
     </div>
 </div>
+
+
+<?php echo $this->element('addon_scripts_notify_driver')?>

@@ -19,22 +19,6 @@ if(!isset($details)) $details = true;
                 </ul>
                 <br/>
             <?php endif; ?>
-                
-            <!--<?php if(!empty ($travels_by_email)): ?>
-                <br/>
-                <big><b>&mdash; Creados por Correo &mdash;</b></big>
-                <br/>
-                <br/>
-
-                <ul style="list-style-type: none;padding: 0px">
-                <?php foreach ($travels_by_email as $travel) :?>                
-                    <li style="margin-bottom: 20px">
-                       <?php echo $this->element('travel_by_email', array('travel'=>$travel, 'actions'=>false))?>
-                       <b>Creado por:</b> <?php echo $travel['User']['username']?>
-                    </li>                
-                <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>-->
             
         </div>
 
@@ -44,3 +28,5 @@ if(!isset($details)) $details = true;
 
     </div>
 </div>
+
+<?php echo $this->element('addon_scripts_notify_driver')?>

@@ -56,16 +56,19 @@ if($thread['driver_traveler_conversation_count'] > 0) { // Respondido
         <span class="label label-default" style="margin-left:5px" title="Ahorro"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income_saving']?></span>
     <?php endif?>
 
-    <span id="income-set-<?php echo $thread['id']?>" style="display: inline-block">
-        <a href="#!" class="edit-income-<?php echo $thread['id']?>">&ndash; <?php echo __('poner ganancia')?></a>
-    </span>
-    <span id="income-cancel-<?php echo $thread['id']?>" style="display:none">
-        <a href="#!" class="cancel-edit-income-<?php echo $thread['id']?>">&ndash; <?php echo __('cancelar')?></a>
-    </span>
-    <div id='income-form-<?php echo $thread['id']?>' style="display:none">
-        <br/>
-        <?php echo $this->element('travel_income_form', array('data' => $conversation)); ?>
-    </div>
+    <!-- TODO: Poner ganancias solo los super administradores -->
+    <?php if(AuthComponent::user('username') == 'mproenza@grm.desoft.cu' || AuthComponent::user('username') == 'martin@yotellevocuba.com'):?>
+        <span id="income-set-<?php echo $thread['id']?>" style="display: inline-block">
+            <a href="#!" class="edit-income-<?php echo $thread['id']?>">&ndash; <?php echo __('poner ganancia')?></a>
+        </span>
+        <span id="income-cancel-<?php echo $thread['id']?>" style="display:none">
+            <a href="#!" class="cancel-edit-income-<?php echo $thread['id']?>">&ndash; <?php echo __('cancelar')?></a>
+        </span>
+        <div id='income-form-<?php echo $thread['id']?>' style="display:none">
+            <br/>
+            <?php echo $this->element('travel_income_form', array('data' => $conversation)); ?>
+        </div>
+    <?php endif?>
 <?php endif?>
 
 <script type="text/javascript">

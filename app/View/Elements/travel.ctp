@@ -48,6 +48,9 @@ foreach (Travel::getPreferences() as $key => $value) {
         $notice['class'] = Travel::getStateSettings($travel['Travel']['state'], 'class');
     }
 ?>
+
+<div id="travel-<?php echo $travel['Travel']['id']?>">
+
 <legend>
     <b><span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span></b> - <b><span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span></b>
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
@@ -180,3 +183,5 @@ foreach (Travel::getPreferences() as $key => $value) {
         
     </ul>
 <?php endif?>
+
+</div>

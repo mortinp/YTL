@@ -139,7 +139,7 @@ App::uses('DriverTravelerConversation', 'Model');
         </div>
         
         <div class="col-md-6">
-            <legend>Ganancias</legend>
+            <legend>Ganancias <span class="text-muted"><small>(viajes ralizados en el período)</small></span></legend>
             <br/>
             <div id="incomes-div" style="width: 100%; height: 400px;"></div>
         </div>

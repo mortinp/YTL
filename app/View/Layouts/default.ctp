@@ -1,3 +1,5 @@
+<?php App::uses('Travel', 'Model')?>
+
 <?php
 // INITIALIZE
 $isLoggedIn = AuthComponent::user('id') ? true : false;

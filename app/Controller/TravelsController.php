@@ -324,7 +324,7 @@ class TravelsController extends AppController {
             else $this->setErrorMessage('Error notificando el viaje.');
         }
         
-        return $this->redirect($this->referer());
+        return $this->redirect($this->referer().'#travel-'.$travelId);
     }   
     
     

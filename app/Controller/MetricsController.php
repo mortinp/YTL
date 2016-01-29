@@ -60,7 +60,7 @@ class MetricsController extends AppController {
 
                 INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.income IS NOT NULL
 
-                WHERE travels.created BETWEEN '$iniDate' AND '$endDate' AND travels.date < '$endDate'
+                WHERE travels.date < '$endDate'
 
                 GROUP BY year(travels.date), month(travels.date)";
         
