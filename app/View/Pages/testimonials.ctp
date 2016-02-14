@@ -81,7 +81,7 @@
                 <br/>
                 
                 <p>Our trip was wonderful. This year was the fourth time we visit your wonderful country and we always come home wishing to go back, which we will certainly do in the short term.</p>
-                <p>Our experience with you was very nice. Ernesto the driver was very and attentive and warm. Highly recommendable, everything. In fact, we already recommend you to some friends that are traveling there in January.</p>
+                <p>Our experience with you was very nice. Ernesto the driver was very attentive and warm. Highly recommendable, everything. In fact, we already recommend you to some friends that are traveling there in January.</p>
                 <p>I wish you the best for you and your country.</p>
 
             </blockquote>

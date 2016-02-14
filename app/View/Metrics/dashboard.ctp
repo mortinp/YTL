@@ -84,6 +84,11 @@ App::uses('DriverTravelerConversation', 'Model');
                 $cantViajes += count($m) - count($metaInfo) /*Los indices extra*/;
                 $cantViajesRealizados += $m['cant_viajes_done'];
             }
+            
+            $paidAmount = 0;
+            foreach ($incomes as $inc) {
+                $paidAmount += $inc['income'];
+            }
             ?>
             <div>
                 <big><span class="label label-primary"><?php echo $cantViajes?> viajes encontrados</span></big>

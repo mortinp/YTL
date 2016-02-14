@@ -56,6 +56,7 @@ class MetricsController extends AppController {
         $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date, sum(travels_conversations_meta.income) as income
 
                 FROM travels
+        
                 INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
 
                 INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.income IS NOT NULL
