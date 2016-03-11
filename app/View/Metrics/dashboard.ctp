@@ -86,14 +86,17 @@ App::uses('DriverTravelerConversation', 'Model');
             }
             
             $paidAmount = 0;
+            $savedAmount = 0;
             foreach ($incomes as $inc) {
                 $paidAmount += $inc['income'];
+                $savedAmount += $inc['income_saving'];
             }
             ?>
             <div>
                 <big><span class="label label-primary"><?php echo $cantViajes?> viajes encontrados</span></big>
                 <big><span class="label label-warning"><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
                 <big><span class="label label-success"><i class="glyphicon glyphicon-usd"></i><?php echo $paidAmount?> de ganancia total</span></big>
+                <big><span class="label label-default"><i class="glyphicon glyphicon-usd"></i><?php echo $savedAmount?> de ahorro total</span></big>
             </div>
             <br/>
             <br/>

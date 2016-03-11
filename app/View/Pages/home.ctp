@@ -141,7 +141,7 @@
 </div>
 <!-- /END THE FEATURETTES -->
 
-<div id="travel-create">
+<div id="travel-create" class="form-cover">
     <div class="row">
         <div id="FormContainer" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
             <legend style="text-align:center">

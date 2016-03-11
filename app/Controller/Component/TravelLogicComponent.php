@@ -23,50 +23,6 @@ class TravelLogicComponent extends Component {
             
             $this->prepareForSendingToDrivers($travelType);
             
-            /*$drivers_conditions = array(
-                'DriverLocality.locality_id'=>$travel[$travelType]['locality_id'],
-                'Driver.active'=>true);
-            if(isset ($travel[$travelType]['people_count'])) {
-                $drivers_conditions['Driver.min_people_count <='] = $travel[$travelType]['people_count'];
-                $drivers_conditions['Driver.max_people_count >='] = $travel[$travelType]['people_count'];
-            }
-            if(isset ($travel[$travelType]['need_modern_car']) && $travel[$travelType]['need_modern_car']) $drivers_conditions['Driver.has_modern_car'] = true;
-            if(isset ($travel[$travelType]['need_air_conditioner']) && $travel[$travelType]['need_air_conditioner']) $drivers_conditions['Driver.has_air_conditioner'] = true;
-            
-            if(User::isRegular($travel['User'])) $drivers_conditions['Driver.role'] = 'driver';
-            else $drivers_conditions['Driver.role'] = 'driver_tester';
-            
-            // Verify English skills
-            $english = false;
-            $lang = Configure::read('Config.language');
-            if($lang != null && $lang == 'en') {
-                $drivers_conditions['Driver.speaks_english'] = true;
-                $english = true;
-            }
-
-            $inflectedTravelType = Inflector::underscore($travelType);
-            
-            $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
-                        
-            $drivers = $this->DriverLocality->find('all', array(
-                'conditions'=>$drivers_conditions, 
-                'order'=>'Driver.'.'last_notification_date ASC, Driver.'.$inflectedTravelType.'_count'.' ASC',
-                'limit'=>3));
-            
-            // English
-            if($english && count($drivers) < 3) {
-                $drivers_conditions['Driver.speaks_english'] = false;
-                
-                $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
-                
-                $driversSp = $this->DriverLocality->find('all', array(
-                    'conditions'=>$drivers_conditions, 
-                    'order'=>'Driver.'.'last_notification_date ASC, Driver.'.$inflectedTravelType.'_count'.' ASC',
-                    'limit'=>3 - count($drivers)));
-                
-                $drivers = array_merge($drivers, $driversSp);
-            }*/
-            
             $drivers = $this->findDriversForTravel($travel);
             
             if (count($drivers) > 0) {

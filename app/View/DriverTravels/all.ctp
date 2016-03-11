@@ -6,22 +6,9 @@ if(!isset($details)) $details = true;
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <h3>Conversaciones (<?php echo count($driver_travels)?>)</h3>
-            <div>Filtros: 
-                <ul>
-                <?php 
-                    foreach (DriverTravel::$filtersForSearch as $filter) {
-                        echo '<li style="display:inline-block;padding-right:20px">';
-
-                        if(!isset ($filter_applied)) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-                        else if($filter != $filter_applied) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-                        else echo '<span class="badge"><big>'.$filter.'</big></span>';
-
-                        echo '</li>';
-                    }
-                ?>
-                </ul>
-            </div>
-
+            
+            <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>DriverTravel::$filtersForSearch))?>
+            
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <?php if(!empty ($driver_travels)): ?>
             

@@ -1,0 +1,76 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-08 11:46-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: View/Casas/add_request.ctp:169
+msgid "Reserva casas particulares en Cuba para quedarte en los lugares que vas a visitar"
+msgstr "Book private houses in Cuba to stay in the places you are visiting"
+
+#: View/Casas/add_request.ctp:169
+msgid "Solicita la ayuda de un experto para que encuentres las mejores opciones."
+msgstr "Use the help of an expert to find the best options"
+
+#: View/Casas/add_request.ctp:169
+msgid "%s y su equipo trabajarán junto contigo para encontrar casas. Comienza enviándoles los siguientes datos"
+msgstr "%s and his team will work with you to help you find houses. Start by sending them the following info"
+
+#: View/Casas/add_request.ctp:169
+msgid "Nombres de los huéspedes <small>&ndash; ej. Nancy, Mario, Claudia y Emilio</small>"
+msgstr "Names of the guests <small>&ndash; ex. Masha, Zach, Emily and Jon</small>"
+
+#: View/Casas/add_request.ctp:169
+msgid "Detalles de lo que necesitas"
+msgstr "Details of what you need"
+
+#: View/Casas/add_request.ctp:169
+msgid "<p>Somos 4 personas, necesitaremos 2 habitaciones</p><p>21/05/2015: La Habana, 2 noches</p></p><p>23/05/2015: Viñales, 1 noche</p></p><p>24/05/2015: Trinidad, 2 noches</p><p>[Puedes adicionar cualquier otra cosa que necesites decirle al experto]</p>"
+msgstr "<p>We are 4 people, we'll need 2 bedrooms</p><p>21/05/2015: Havana, 2 nights</p></p><p>23/05/2015: Viñales, 1 night</p></p><p>24/05/2015: Trinidad, 2 nights</p><p>[You can add anything else you need to say to the expert]</p>"
+
+#: View/Casas/add_request.ctp:169
+msgid "ver ejemplo de detalles"
+msgstr "see an example of details"
+
+#: View/Casas/add_request.ctp:169
+msgid "Incluye datos como lugares donde necesitas casas, fechas y cuántas habitaciones necesitarás"
+msgstr "Include info like the places where you need to stay, dates and how many bedrooms you'll need"
+
+#: View/Casas/add_request.ctp:169
+msgid "Comenzar la búsqueda de casas ahora"
+msgstr "Start searching for houses now"
+
+#: View/Casas/add_request.ctp:169
+msgid "Le enviaremos tu correo electrónico a %s para que te contacte directamente"
+msgstr "We will send your email address to %s and he will contact you directly"
+
+
+#: View/Casas/add_request.ctp:169
+msgid "Muchas gracias por solicitar la ayuda de %s y su equipo para encontrar casas."
+msgstr "Thank you very much for requesting %s and his team's help to find private houses to stay."
+
+#: View/Casas/add_request.ctp:169
+msgid "Ya les enviamos un correo con los datos de tu solicitud junto con tu correo para que te contacten y comiencen a buscar las casas juntos."
+msgstr "We already sent an email to them with your request and your email address so they can contact you and start searching for the houses together."
+
+#: View/Casas/add_request.ctp:169
+msgid "Ellos te harán propuestas hasta que encuentres la casa de renta que te gusta y harán la reservación en tu nombre."
+msgstr "They will make proposals until you find the house you prefer and they will book it with the owners in your behalf."
+
+#: View/Casas/add_request.ctp:169
+msgid "El pago lo realizas directamente a los dueños de las casas cuando llegues."
+msgstr "You pay directly to the house's owners when you arrive."
+
+#: View/Casas/add_request.ctp:169
+msgid "Ahora sólo espera a que %s o alguno de su equipo te contacten para comenzar."
+msgstr "Now just wait %s or anyone of the team to contact you to begin."

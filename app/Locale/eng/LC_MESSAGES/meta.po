@@ -121,3 +121,8 @@ msgstr "Testimonials from awesome travelers to Cuba"
 #: Controller/AppController.php:196
 msgid "Testimonios de viajeros que contrataron choferes con YoTeLlevo, Cuba"
 msgstr "Testimonials from travelers who hired drivers with YoTeLlevo, Cuba"
+
+
+#: Controller/AppController.php:196
+msgid "Consigue casas particulares en Cuba con la ayuda de un experto"
+msgstr "Book a private house in Cuba with the help of an expert"

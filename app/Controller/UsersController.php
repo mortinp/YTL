@@ -326,15 +326,12 @@ class UsersController extends AppController {
         return $OK;
     }
     
-    public function confirm_email($code) {
+    public function confirm_email($token) {
         
         $datasource = $this->User->getDataSource();
         $datasource->begin();
         
-        $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
-            'interaction_due'=>'confirm email',
-            'expired'=>false,
-            'interaction_code'=>$code)));
+        $interaction = $this->UserInteraction->getUnexpiredInteraction($token, UserInteraction::$INTERACTION_TYPE_CONFIRM_EMAIL);
         
         $OK = true;
         if($interaction != null) {
@@ -436,15 +433,10 @@ class UsersController extends AppController {
                 $this->redirect($this->referer());
             }
         }
-        
-        
     }
     
-    public function change_password($confirmation_code) {
-        $interaction = $this->UserInteraction->find('first', array('conditions'=>array(
-            'interaction_due'=>'change password',
-            'expired'=>false,
-            'interaction_code'=>$confirmation_code)));
+    public function change_password($token) {
+        $interaction = $this->UserInteraction->getUnexpiredInteraction($token, UserInteraction::$INTERACTION_TYPE_CHANGE_PASSWORD);
         
         if ($this->request->is('post')|| $this->request->is('put')) {
             $user = $this->request->data;
@@ -468,17 +460,29 @@ class UsersController extends AppController {
             unset ($user['User']['password']);
             $this->request->data['User'] = $user['User'];
             
-            $this->set('code', $confirmation_code);
+            $this->set('code', $token);
         }
-    }    
+    } 
     
     
+       
+    
+    
+    
+    /**
+     * ADMINS
+     */
     public function view_travels($userId) {
         $this->set('user', $this->User->findById($userId));
         
         Travel::prepareFullConversations($this);
         $this->set('travels', $this->Travel->find('all', array('conditions'=>array('user_id'=>$userId))));
         $this->set('drivers', $this->Driver->getAsSuggestions()); // Esto es para notificar a otros choferes
+    }
+    
+    public function admin($userId) {
+        $this->set('user', $this->User->findById($userId));
+        $this->set('interactions', $this->UserInteraction->find('all', array('conditions'=>array('UserInteraction.user_id'=>$userId))));        
     }
 }
 

@@ -176,6 +176,7 @@ class AppController extends Controller {
             
             'drivers.profile' =>array('title'=>__d('meta', 'Fotos del chofer %s y su auto')),
             
+            'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),            
             
             // Admins access
             'users.index' =>array('title'=>'Usuarios'),

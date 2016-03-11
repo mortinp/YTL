@@ -584,7 +584,7 @@ msgstr "Confirm this Travel Request"
 
 #: View/Travels/view.ctp:30
 msgid "Acuerda enseguida los detalles del viaje con tu chofer"
-msgstr "Arrange the datails with up to 3 drivers"
+msgstr "Arrange the details with up to 3 drivers"
 
 #: View/Travels/view.ctp:37
 msgid "%s ya recibieron los detalles de este viaje"
@@ -619,7 +619,7 @@ msgstr "Change password"
 
 #: View/Users/confirm_email.ctp:4
 msgid "Tu cuenta de correo fue verificada exitosamente"
-msgstr "Your email was successfully verified"
+msgstr "Your email account was successfully verified"
 
 #: View/Users/confirm_email.ctp:6
 msgid "Ahora puedes crear un anuncio de viaje cuando desees"

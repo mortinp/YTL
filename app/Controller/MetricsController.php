@@ -53,7 +53,7 @@ class MetricsController extends AppController {
     }
     
     public function incomes($iniDate, $endDate) {
-        $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date, sum(travels_conversations_meta.income) as income
+        $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date, sum(travels_conversations_meta.income) as income, sum(travels_conversations_meta.income_saving) as income_saving
 
                 FROM travels
         
@@ -72,6 +72,7 @@ class MetricsController extends AppController {
             $fixedIncomes[$index] = array();
             $fixedIncomes[$index]['date'] = $value['travels']['date'];
             $fixedIncomes[$index]['income'] = $value[0]['income'];
+            $fixedIncomes[$index]['income_saving'] = $value[0]['income_saving'];
             $fixedIncomes[$index]['year'] = $value[0]['year'];
             $fixedIncomes[$index]['month'] = $months[$value[0]['month'] - 1];
         }

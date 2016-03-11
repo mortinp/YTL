@@ -1,0 +1,42 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-15 22:21-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Enlace Expirado"
+msgstr "Expired Link"
+
+
+#: View/Errors/error400.ctp:22
+#: View/Errors/error500.ctp:22
+msgid "Error"
+msgstr "Error"
+
+#: View/Errors/error400.ctp:24
+msgid "La dirección requerida %s no se encuentra en este servidor."
+msgstr "The requested address %s was not found on this server."
+
+#: View/Errors/error500.ctp:23
+msgid "Ha ocurrido un error interno."
+msgstr "An internal error has occurred."
+
+#: View/Errors/expired_link.ctp:23
+msgid "Ocurrió un error usando este enlace. Puede ser que esté caducado, ya haya sido usado o es incorrecto."
+msgstr "An error occurred using this link. It might be expired, has already been used or is incorrect."
+
+
+
+
+

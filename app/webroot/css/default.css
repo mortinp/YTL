@@ -147,3 +147,14 @@ body {
     border-bottom-color: #cccccc; 
     margin-left: -43px;
 }
+
+
+.form-cover {
+    background-color: lightgoldenrodyellow;
+    padding: 40px;
+}
+@media (max-width: 767px){
+    .form-cover {
+        padding: 40px 10px 40px 10px;
+    }
+}

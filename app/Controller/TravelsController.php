@@ -40,8 +40,9 @@ class TravelsController extends AppController {
         $travels = $this->Travel->find('all', array('conditions' => 
             array('user_id' => $this->Auth->user('id'))));
         
-        $this->set('travels', $travels);        
-        //$this->set('localities', $this->getLocalitiesList()); // Esto era para cuando el formulario de viajes estaba en el /index
+        $this->set('travels', $travels);  
+        
+        $this->set('localities', $this->getLocalitiesList());
     }
     
     // Admins only
@@ -68,6 +69,8 @@ class TravelsController extends AppController {
             $conditions['Travel.date <'] = date('Y-m-d', mktime());
         } else if($filter == Travel::$SEARCH_ADMINS) {
             $conditions['User.role'] = 'admin';
+        } else if($filter == Travel::$SEARCH_TESTERS) {
+            $conditions['User.role'] = 'tester';
         }
         
         $this->set('filter_applied', $filter);

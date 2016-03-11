@@ -42,5 +42,9 @@
 </p>
 
 <p>
-    <?php echo __d('user_email', 'Afectos')?>, Martín
+    <?php echo __d('user_email', 'Afectos')?>,
+</p>
+
+<p>
+    <?php echo __d('user_email', 'Martín y el equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>.')?>
 </p>

@@ -8,7 +8,7 @@ class Driver extends AppModel {
     
     public $hasOne = array(
         'DriverProfile' => array(
-            'fields'=>array('driver_name', 'avatar_filepath', 'show_profile')
+            'fields'=>array('driver_nick', 'driver_name', 'avatar_filepath', 'show_profile')
         )
     );
 

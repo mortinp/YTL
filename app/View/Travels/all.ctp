@@ -7,22 +7,9 @@ if(!isset($details)) $details = true;
     <?php if(!empty ($travels)): ?>
         <div class="col-md-6 col-md-offset-3">
             <h3>Anuncios de Viajes (<?php echo count($travels)?>)</h3>
-            <div>Filtros: 
-                <ul>
-                <?php 
-                    foreach (Travel::$filtersForSearch as $filter) {
-                        echo '<li style="display:inline-block;padding-right:20px">';
-                        
-                        if(!isset ($filter_applied)) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-                        else if($filter != $filter_applied) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-                        else echo '<span class="badge"><big>'.$filter.'</big></span>';
-                        
-                        echo '</li>';
-                    }
-                ?>
-                </ul>
-            </div>
             
+            <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>Travel::$filtersForSearch))?>
+                        
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             
             <br/>

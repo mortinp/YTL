@@ -114,3 +114,5 @@ CakePlugin::load('EmailQueue');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 Configure::write('Email.html', false);
+
+Configure::write('casas_expert', array('name'=>'Gianny', 'email'=>array('roomsrentalcuba@gmail.com', 'giannybsb@gmail.com'), 'avatar_path'=>'avatar-gianny-small-lightgoldenrodyellow.jpg'));

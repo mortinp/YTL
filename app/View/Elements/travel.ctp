@@ -101,11 +101,9 @@ foreach (Travel::getPreferences() as $key => $value) {
     $created_converted = strtotime($travel['Travel']['created']);
     $now = new DateTime(date('Y-m-d', time()));
     $daysPosted = $now->diff(new DateTime($travel['Travel']['created']), true)->format('%a');
-    if(isset ($travel['User']))
-        echo $travel['User']['username'];
-    else if(isset ($travel['Travel']['User']))
-        echo $travel['Travel']['User']['username'];
-    echo ' - <b>Fecha creación:</b> '.date('d-m-Y', $created_converted).' <span class="text-muted">(hace '.$daysPosted.' días)</span>';
+    if(isset ($travel['User'])) $user = $travel['User'];
+    else if(isset ($travel['Travel']['User'])) $user = $travel['Travel']['User'];
+    echo $user['username'].' '.$this->Html->link('admin »', array('controller'=>'users', 'action'=>'admin/'.$user['id']), array('title'=>'Ir a la pantalla de administración de este usuario')).' - <b>Fecha creación:</b> '.date('d-m-Y', $created_converted).' <span class="text-muted">(hace '.$daysPosted.' días)</span>';
     ?>
     </p>
     <?php if(isset ($travel['DriverTravel']) && $showConversations):?>

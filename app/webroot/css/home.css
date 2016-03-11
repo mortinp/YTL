@@ -50,16 +50,6 @@
     bottom: 0;*/
 }
 
-#travel-create {
-    background-color: lightgoldenrodyellow;
-    padding: 40px;
-}
-@media (max-width: 767px){
-    #travel-create {
-        padding: 40px 10px 40px 10px;
-    }
-}
-
 
 #front-page-bg {
     background-image:url(../img/road4.jpg);

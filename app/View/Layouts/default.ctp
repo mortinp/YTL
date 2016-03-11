@@ -120,6 +120,8 @@ if($isLoggedIn) {
                                                     <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
                                                     <li class="divider"></li>
                                                     <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
+                                                    <li class="divider"></li>
+                                                    <li><?php echo $this->Html->link('Interacciones de Usuarios', array('controller' => 'user_interactions', 'action' => 'view_filtered/all')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="dropdown-submenu">

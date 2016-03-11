@@ -19,8 +19,4 @@ else echo $this->Form->button('Seguir esta conversación', array('class'=>'btn-i
 
 echo ' ';
 echo $this->Form->button('Marcar todos como leídos', array('class'=>'btn-primary', 'action'=>'update_read_entries/'.$data['DriverTravel']['id'].'/'.count($conversations)), true);
-
-/*echo '   ';
-echo $this->Form->button('<i class="glyphicon glyphicon-home"></i> '.'Encontrarles casas', array('class'=>'btn-warning', 'controller'=>'travels', 'action'=>'send_proposal_find_casas/'.$data['Travel']['id'], 'escape'=>false, 'confirm'=>'¿Está seguro que quiere gestionarle casas a este viajero?', 'title'=>'Se le enviará un correo a los viajeros para que confirmen si desean que nuestros expertos les consigan casas.'), true);
- */
 ?>
