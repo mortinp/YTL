@@ -4,10 +4,12 @@ App::uses('Auth', 'Component');
 $isConfirmed = Travel::isConfirmed($travel['Travel']['state']);
 
 if($isConfirmed) {
+    $drivers_sent_count = $travel['Travel']['drivers_sent_count'];
+    if($drivers_sent_count > 3) $drivers_sent_count = 3; // HACK: esto es para que no se vea que se le mando el viaje a mas de tres chofer
     
     $driverW = __('chofer');
-    $pretty_drivers_count = $travel['Travel']['drivers_sent_count'].' ';
-    if($travel['Travel']['drivers_sent_count'] > 1) {
+    $pretty_drivers_count = $drivers_sent_count.' ';
+    if($drivers_sent_count > 1) {
         if(Configure::read('Config.language') == 'es') $pretty_drivers_count .= 'choferes';
         else $pretty_drivers_count .= Inflector::pluralize($driverW);
     }
