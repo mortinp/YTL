@@ -92,7 +92,7 @@ class TravelLogicComponent extends Component {
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
     
-    public function findDriversForTravel($travel, $count = 3) {
+    public function findDriversForTravel($travel, $count = 5) {
         $drivers_conditions = array(
             'DriverLocality.locality_id'=>$travel['Travel']['locality_id'],
             'Driver.active'=>true);
