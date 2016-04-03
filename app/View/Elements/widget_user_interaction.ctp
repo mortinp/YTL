@@ -26,7 +26,16 @@
             <p><b>Solicitud de casas #<?php echo $interaction['CasaFindRequest']['id']?></b></p>
             <p><b>Nombres:</b> <?php echo $interaction['CasaFindRequest']['guests_names']?></p>
             <p><b>Detalles:</b> <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $interaction['CasaFindRequest']['details']);?></p>
-            <p><b>Enviado a:</b> <?php echo $interaction['CasaFindRequest']['send_to']?></p>
+            <p><b>Enviada a:</b> <?php echo $interaction['CasaFindRequest']['send_to']?></p>
+            <p><b>Creada:</b> 
+                <?php 
+                $created_converted = strtotime($interaction['CasaFindRequest']['created']);
+                $now = new DateTime(date('Y-m-d', time()));
+                $daysPosted = $now->diff(new DateTime($interaction['CasaFindRequest']['created']), true)->format('%a');
+                echo date('d-m-Y', $created_converted);
+                ?>
+                <span class="text-muted">(hace <?php echo $daysPosted?> días)</span>
+            </p>
         </div> 
 
     <?php endif?>

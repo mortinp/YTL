@@ -10,17 +10,20 @@
                     <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar', array('action'=>'edit/'.$d['Driver']['id']), array('escape'=>false))?></li>
                     <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-user"></i> Editar Perfil', array('action'=>'edit_profile/'.$d['Driver']['id']), array('escape'=>false))?></li>
                     <?php if($d['Driver']['role'] == 'driver_tester'):?>
-                    <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('action'=>'remove/'.$d['Driver']['id']), array('escape'=>false))?></li>
+                        <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('action'=>'remove/'.$d['Driver']['id']), array('escape'=>false))?></li>                    
                     <?php endif;?>
-                    <?php if(isset($d['DriverProfile']) && !empty ($d['DriverProfile']) && $d['DriverProfile']['driver_nick'] != null):?>
                     <hr/>
-                    <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-picture"></i> Ver Perfil', array('action'=>'profile/'.$d['DriverProfile']['driver_nick']), array('escape'=>false))?></li>
-                    <?php endif;?>
+                    <li><?php echo $this->Html->link('admin »', array('action'=>'admin', $d['Driver']['id']))?></li>
                 </ul>
             </td>
             
             <td><?php echo $d['Driver']['id']?></td>
-            <td><?php echo $d['Driver']['username']?></td>
+            <td>
+                <?php echo $d['Driver']['username']?>
+                <?php if(isset($d['DriverProfile']) && !empty ($d['DriverProfile']) && $d['DriverProfile']['driver_nick'] != null):?>
+                    <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-picture"></i> Ver Perfil', array('action'=>'profile/'.$d['DriverProfile']['driver_nick']), array('escape'=>false))?></div>
+                <?php endif;?>
+            </td>
             <td><?php echo $d['Driver']['min_people_count']?></td>
             <td><?php echo $d['Driver']['max_people_count']?></td>
             <td><?php echo $d['Driver']['has_modern_car']?></td>

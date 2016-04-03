@@ -61,33 +61,9 @@ class CasasController extends AppController {
         
         if($OK) {
             
-            $subject = 'Casas particulares que te pueden interesar';
-            if($user['User']['lang'] == 'en') $subject = 'Homestays you might be interested in';
+            $subject = 'Casas particulares en Cuba';
+            if($user['User']['lang'] == 'en') $subject = 'Homestays in Cuba';
             
-            /*if(Configure::read('enqueue_mail')) {
-                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $user['User']['username'],
-                        array('find_casas_token' => $code),
-                        array(
-                            'template'=>'casas_find_proposal',
-                            'format'=>'html',
-                            'subject'=>$subject,
-                            'config'=>'super',
-                            'lang'=>$user['User']['lang']));
-            } else {
-                // Send email and redirect to a welcome page
-                $Email = new CakeEmail('super');
-                $Email->template('casas_find_proposal')
-                ->viewVars(array('find_casas_token' => $code))
-                ->emailFormat('html')
-                ->to($user['User']['username'])
-                ->subject(__('Casas particulares que te pueden interesar'));
-                try {
-                    $Email->send();
-                } catch ( Exception $e ) {
-                    $OK = false;
-                }
-            }*/
             EmailsUtil::email(
                     $user['User']['username'], 
                     $subject, 
@@ -139,29 +115,6 @@ class CasasController extends AppController {
             
             if($OK) {
                 
-                /*if(Configure::read('enqueue_mail')) {
-                    ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            $casasExpert['email'],
-                            array('guests_names'=>$request['CasaFindRequest']['guests_names'], 'details'=>$request['CasaFindRequest']['details'], 'contact_email'=>AuthComponent::user('username')),
-                            array(
-                                'template'=>'casas_new_request',
-                                'format'=>'html',
-                                'subject'=>'Nueva solicitud de casas',
-                                'config'=>'super'));
-                } else {
-                    // Send email and redirect to a welcome page
-                    $Email = new CakeEmail('super');
-                    $Email->template('proposal_find_casas')
-                    ->viewVars(array('guests_names'=>$request['CasaFindRequest']['guests_names'], 'details'=>$request['CasaFindRequest']['details'], 'contact_email'=>AuthComponent::user('username')))
-                    ->emailFormat('html')
-                    ->to($casasExpert['email'])
-                    ->subject('Nueva solicitud de casas');
-                    try {
-                        $Email->send();
-                    } catch ( Exception $e ) {
-                        $OK = false;
-                    }
-                }*/
                 EmailsUtil::email(
                     $casasExpert['email'], 
                     'Solicitud de casas #'.$request['CasaFindRequest']['id'], 
@@ -178,10 +131,8 @@ class CasasController extends AppController {
                 $this->setErrorMessage(__d('casas', 'Ocurrió un problema enviando la solicitud. Intenta de nuevo.'));
             }
         } else {
-            
             // Marcar la interaccion como visitada
-            $this->UserInteraction->id = $interaction['UserInteraction']['id'];
-            $this->UserInteraction->saveField('visited', true);
+            $this->UserInteraction->visit($interaction['UserInteraction']['id']);
             
             // Mostrar vista para crear la solicitud (se muestra la vista de esta accion)
         }

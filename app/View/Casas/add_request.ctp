@@ -18,7 +18,10 @@
             <fieldset>
                 <?php
                 echo $this->Form->input('guests_names', array('label' => __d('casas', 'Nombres de los huéspedes <small>&ndash; ej. Nancy, Mario, Claudia y Emilio</small>'), 'type' => 'text', 'autofocus'=>true));
-                echo $this->Form->input('details', array('label' => __d('casas', 'Detalles de lo que necesitas').' <small><abbr class="info" title="'.__d('casas', '<p>Somos 4 personas, necesitaremos 2 habitaciones</p><p>21/05/2015: La Habana, 2 noches</p></p><p>23/05/2015: Viñales, 1 noche</p></p><p>24/05/2015: Trinidad, 2 noches</p><p>[Puedes adicionar cualquier otra cosa que necesites decirle al experto]</p>').'">'.__d('casas', 'ver ejemplo de detalles').'</abbr></small>', 'type' => 'textarea', 'placeholder'=>__d('casas', 'Incluye datos como lugares donde necesitas casas, fechas y cuántas habitaciones necesitarás')));
+                echo $this->Form->input('details', array(
+                    'label' => __d('casas', 'Detalles de lo que necesitas').' <small><abbr class="info" title="'.__d('casas', '<p>Somos 4 personas, necesitaremos 2 habitaciones</p><p>21/05/2015: La Habana, 2 noches</p></p><p>23/05/2015: Viñales, 1 noche</p></p><p>24/05/2015: Trinidad, 2 noches</p><p>[Puedes adicionar cualquier otra cosa que necesites decirle al experto]</p>').'">'.__d('casas', 'ver ejemplo de detalles').'</abbr></small>',
+                    'required'=>'required',
+                    'type' => 'textarea', 'placeholder'=>__d('casas', 'Incluye datos como lugares donde necesitas casas, fechas y cuántas habitaciones necesitarás')));
 
                 $buttonStyle = 'font-size:18pt;white-space: normal;';
                 $submitOptions = array('style' => $buttonStyle, 'id'=>'CasaFindRequestSubmit', 'escape'=>false, 'rel'=>'nofollow');

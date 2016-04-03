@@ -96,12 +96,21 @@ class UserInteraction extends AppModel {
     
     
     public function expire($id = null) {
-        if((!isset ($this->id) ||$this->id == null) && $id  == null) throw new Exception ('Wrong programming: No id supplied for user interaction', 404, null);
+        if((!isset ($this->id) ||$this->id == null) && $id == null) throw new Exception ('Wrong programming: No id supplied for user interaction', 404, null);
         
         if(!$this->exists($id)) throw new Exception ('Wrong programming: Bad id for user interaction', 404, null);
         
         $this->id = $id;
         return $this->saveField('expired', true);
+    }
+    
+    public function visit($id = null) {
+        if((!isset ($this->id) ||$this->id == null) && $id == null) throw new Exception ('Wrong programming: No id supplied for user interaction', 404, null);
+        
+        if(!$this->exists($id)) throw new Exception ('Wrong programming: Bad id for user interaction', 404, null);
+        
+        $this->id = $id;
+        return $this->saveField('visited', true);
     }
     
     public function tokenBelongsToUser($token, $userId) {

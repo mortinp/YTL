@@ -94,13 +94,16 @@ class DriversController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['DriverProfile']['driver_id'] = $id;
             
-            if(isset ($this->request->data['DriverProfile']['avatar'])) {
+            // Quitar el avatar si no se subio
+            /*if(isset ($this->request->data['DriverProfile']['avatar'])) {
                 $l = $this->request->data['DriverProfile']['avatar']['size'];
                 if($this->request->data['DriverProfile']['avatar']['size'] == 0) {
                     unset ($this->request->data['DriverProfile']['avatar']);
                     $this->DriverProfile->Behaviors->unload('HardDiskSave');
                 }  
-            }       
+            }  
+             * Esta parte la comentarie porque hice una cosa en la HardDiskSaveBehavior que logra lo mismo, y ademas queda generalizado. 
+             */     
             
             if($this->DriverProfile->save($this->request->data)) {
                 $this->setInfoMessage('El perfil  se guardó exitosamente.');
@@ -127,8 +130,11 @@ class DriversController extends AppController {
         }
     }
     
+    public function admin($id) {
+        $this->set('driver', $this->Driver->findById($id));    
+    }
     
-    public function notify_travel($driverId, $travelId) {
+    /*public function notify_travel($driverId, $travelId) {
         $this->Driver->id = $driverId;
         if (!$this->Driver->exists()) {
             throw new NotFoundException('Chofer inválido.');
@@ -148,7 +154,7 @@ class DriversController extends AppController {
         else $this->setErrorMessage('Error notificando el viaje.');
         
         return $this->redirect(array('action'=>'view_travels/'.$driverId));
-    }
+    }*/
 }
 
 ?>

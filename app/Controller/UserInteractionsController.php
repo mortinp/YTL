@@ -14,7 +14,7 @@ class UserInteractionsController extends AppController {
     public function view_filtered($filter = 'all') {
         $this->UserInteraction->bindModel(array('belongsTo'=>array('User')));
         
-        $this->paginate = array('order'=>array('UserInteraction.id'=>'DESC'));
+        $this->paginate = array('order'=>array('UserInteraction.id'=>'DESC'), 'limit'=>100);
         $conditions = array();
         
         if($filter == UserInteraction::$SEARCH_FIND_CASAS) {

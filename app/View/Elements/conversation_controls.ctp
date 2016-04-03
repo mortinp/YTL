@@ -8,6 +8,11 @@
         <li><a class="<?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_DONE) echo 'btn btn-warning'; else echo 'badge'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_DONE))?>" title="Marcar si se comprobó que el viaje se realizó"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</a></li>
         <li><a class="<?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_PAID) echo 'btn btn-success'; else echo 'badge'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_PAID))?>" title="Marcar si el viaje ya fue pagado por el chofer"><i class="glyphicon glyphicon-usd"></i> Pagado</a></li>
     </ol>
+    <?php
+    if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) {
+        echo $this->element('travel_income_controls', array('thread'=>$data['DriverTravel'], 'conversation'=>$data));
+    }
+    ?>
 <?php endif?>
 
 <hr/>
@@ -36,21 +41,11 @@ if($hasMetadata) {
 <?php if($unreadMessages != 0):?>
     <span class="label label-success" style="margin-left:5px" title="<?php echo $unreadMessages?> nuevos mensajes">+<?php echo $unreadMessages?></span>
     
-    <!-- Buscar el primer mensaje sin leer -->
-    <?php
-    $i = 0;
-    foreach ($conversations as $c) {
-        if($i == count($conversations) - $unreadMessages) break;
-        $i++;
-    }
-    $firstUnreadMessage = $conversations[$i]['DriverTravelerConversation'];
-    ?>
+    <?php $firstUnreadMessage = $conversations[count($conversations) - $unreadMessages]['DriverTravelerConversation'];?>
     <span><a href="#message-<?php echo $firstUnreadMessage['id']?>">&ndash; ir al primer mensaje nuevo</a></span>
     
     <?php echo $this->Form->button('Marcar todos como leídos', array('class'=>'btn-primary', 'action'=>'update_read_entries/'.$data['DriverTravel']['id'].'/'.count($conversations)), true);?>
-<?php else:?>
-    No hay mensajes nuevos
-<?php endif?>
+<?php else:?> No hay mensajes nuevos <?php endif?>
 
 <hr/>
 <span>

@@ -17,10 +17,17 @@ class HardDiskSaveBehavior extends ModelBehavior {
         $settings = $this->settings[$Model->alias];
         $attachedFieldsPrepend = '';
         
-        if(isset ($settings['hard_disk_save']) && $settings['hard_disk_save'] != null) {
+        if(isset ($settings['hard_disk_save']) && $settings['hard_disk_save'] != null) { // Si esta definido un campo de donde coger los datos a salvar (nombre del archivo, contenido, etc)
             $attachedFieldsPrepend = $settings['hard_disk_save'].'_';
             $data = $Model->data[$Model->alias][$settings['hard_disk_save']];
         } else $data = $Model->data[$Model->alias];
+        
+        
+        // Sanity check
+        if( (!isset ($data['filename']) && !isset ($data['name'])) || $data['size'] == 0) { // Esto quiere decir que no se subio nada
+            unset ($Model->data[$Model->alias][$settings['hard_disk_save']]); // Quitarle el campo que se usa como datos para que no se sobreescriba al guardar el modelo, y no se pierdan datos si se subio anteriormente algo
+            return;
+        }
         
         
         if(isset ($data['filename'])) $filename = $data['filename'];
@@ -38,7 +45,7 @@ class HardDiskSaveBehavior extends ModelBehavior {
         while(!$unlocked_and_unique){
             // Find unique
             $name = time() . "_" . $unique_filename;
-            while(file_exists('/files/'.$name)) {
+            while(file_exists('/files/'.$name)) { // TODO: Deberia configurar en las settings el path donde se deben guardar las imagenes??? ej. /files
                 $name = time() . "_" . $unique_filename;
             }
             
@@ -60,12 +67,12 @@ class HardDiskSaveBehavior extends ModelBehavior {
             }
         }
         
-        CakeLog::write('files_saved', 'Saving file: '.$path);
+        //CakeLog::write('files_saved', 'Saving file: '.$path);
         $OK = fwrite($outfile,$contents);
         fclose($outfile);
         
-        if($OK) CakeLog::write('files_saved', 'File saved successfully: '.$name);
-        else CakeLog::write('files_saved', 'Failed saving file: '.$name);
+        if($OK) CakeLog::write('files_saved', 'File saved successfully: '.$path);
+        else CakeLog::write('files_saved', 'Failed saving file: '.$path);
         
         /* Attach fields */
         if(isset ($settings['path_type']) && $settings['path_type'] == 'relative') $Model->data[$Model->alias][$attachedFieldsPrepend.'filepath'] = $relpath;
