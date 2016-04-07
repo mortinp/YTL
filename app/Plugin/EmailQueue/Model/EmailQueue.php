@@ -42,9 +42,13 @@ class EmailQueue extends AppModel {
      * - format: Type of template to use (html, text or both)
      * - config : the name of the email config to be used for sending
      *
+     * @param array $returnData a reference to get extra values from what happens. So far, the array can be filled with the following data:
+     * 
+     * - attachments_ids: an array with the ids of the attachments just saved
+     * 
      * @return void
      */
-    public function enqueue($to, array $data, $options = array()) {
+    public function enqueue($to, array $data, $options = array(), array &$returnData = null) {
         $defaults = array(
             'subject' => '',
             'send_at' => gmdate('Y-m-d H:i:s'),
@@ -89,12 +93,16 @@ class EmailQueue extends AppModel {
                 $emailId = $this->getLastInsertID();
             
                 $attachmentModel = new EmailAttachment();
+                
+                if($returnData != null) $returnData['attachments_ids'] = array();
                 foreach ($attachments as $a) {
                     $a = array('EmailAttachment'=>$a);
                     $a['EmailAttachment']['email_queue_id'] = $emailId;
 
                     $attachmentModel->create();
                     $OK = $attachmentModel->save($a);
+                    
+                    if($returnData != null) $returnData['attachments_ids'][] = $attachmentModel->getLastInsertID();
                     
                     if(!$OK) break;
                 }

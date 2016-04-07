@@ -24,7 +24,7 @@ class HardDiskSaveBehavior extends ModelBehavior {
         
         
         // Sanity check
-        if( (!isset ($data['filename']) && !isset ($data['name'])) || $data['size'] == 0) { // Esto quiere decir que no se subio nada
+        if( (!isset ($data['filename']) && !isset ($data['name'])) || (isset ($data['size']) && $data['size'] == 0)) { // Esto quiere decir que no se subio nada
             unset ($Model->data[$Model->alias][$settings['hard_disk_save']]); // Quitarle el campo que se usa como datos para que no se sobreescriba al guardar el modelo, y no se pierdan datos si se subio anteriormente algo
             return;
         }

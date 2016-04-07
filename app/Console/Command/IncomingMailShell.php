@@ -110,6 +110,8 @@ class IncomingMailShell extends AppShell {
                         if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
                             $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
                         
+                        // El $returnData es para coger los ids de los attachments que hayan
+                        $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
                         ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             $deliverTo,
                             array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName),
@@ -118,7 +120,8 @@ class IncomingMailShell extends AppShell {
                                 'format'=>'html',
                                 'subject'=>$subject,
                                 'config'=>'viajero',
-                                'attachments'=>$parser->attachments)
+                                'attachments'=>$parser->attachments),
+                            $returnData
                         );
                     }
                     if(!$OK) {
@@ -261,6 +264,8 @@ class IncomingMailShell extends AppShell {
                         }
                         
                         
+                        // El $returnData es para coger los ids de los attachments que hayan
+                        $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
                         ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             $deliverTo,
                             array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel']),
@@ -273,7 +278,8 @@ class IncomingMailShell extends AppShell {
                                 'attachments'=>$parser->attachments,
                                 'lang'=>$driverTravel['Travel']['User']['lang'],
                                 'from_name'=>$fromName,
-                                'from_email'=>$fromEmail)
+                                'from_email'=>$fromEmail),
+                            $returnData
                         );
                     }
                     if(!$OK) {
