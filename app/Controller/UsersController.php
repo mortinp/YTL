@@ -307,7 +307,7 @@ class UsersController extends AppController {
                             'template'=>$emailTemplate,
                             'format'=>'html',
                             'subject'=>__d('user_email', 'Bienvenido - Confirma tu cuenta'),
-                            'config'=>'no_responder',
+                            'config'=>/*'no_responder'*/'super',
                             'lang'=>  Configure::read('Config.language')));
             } else {
                 $Email->template($emailTemplate)
