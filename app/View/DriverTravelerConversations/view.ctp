@@ -34,8 +34,55 @@
             $class = 'col-md-8 col-md-offset-4 well';
         }
         ?>
+        
         <div class="<?php echo $class?>" id="<?php echo $messageId?>">
-            <b><a href="<?php echo $this->Html->url()?>#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> (<?php echo $c['DriverTravelerConversation']['created']?>)</a></b>
+            <?php if($c['DriverTravelerConversation']['attachments_ids'] != null && $c['DriverTravelerConversation']['attachments_ids'] != ''):?>
+                <div class="alert alert-info">
+                    <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $c['DriverTravelerConversation']['attachments_ids']?>">
+                        <i class="glyphicon glyphicon-link"></i> &ndash; <?php echo __('ver adjuntos de este mensaje')?>
+                    </a>
+                    <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
+
+                    <script type="text/javascript">
+                        $('#show-attachments-<?php echo $messageId?>').click(function() {
+                            
+                            var attIds = $('#show-attachments-<?php echo $messageId?>').data('attachments-ids');                            
+                            $.ajax({
+                                type: "POST",
+                                data: attIds,
+                                url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$c['DriverTravelerConversation']['attachments_ids']))?>',
+                                success: function(response) {
+                                    //alert(response);
+                                    response = JSON.parse(response);
+                                    
+                                    for (var a in response.attachments) {
+                                        var att = response.attachments[a];
+                                        if(att.mimetype.substr(0, 5) == 'image') {
+                                            //alert('imagen: ' + att.url);
+                                            //alert($('#attachments-<?php echo $messageId?>').attr('id'));
+                                            $('#attachments-<?php echo $messageId?>').append($('<img src="' + att.url + '"></img>')).append('<br/><br/>');
+                                        }
+                                        else if(att.mimetype == 'text/plain') {
+                                            $('#attachments-<?php echo $messageId?>').append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
+                                        }
+                                    }
+                                    
+                                    $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
+                                    
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    alert(jqXHR.responseText);
+                                },
+                                complete: function() {
+                                    
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            <?php endif?>
+            
+            <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> (<?php echo $c['DriverTravelerConversation']['created']?>)</a></b>
             <br/>
             <br/>
             <?php
@@ -47,6 +94,7 @@
             ?>
         </div>
     </div>
+    <br/>
 </div>
 
 <?php endforeach;?>

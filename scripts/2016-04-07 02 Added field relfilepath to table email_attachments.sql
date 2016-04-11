@@ -1,0 +1,1 @@
+ALTER TABLE  `email_attachments` ADD  `relfilepath` VARCHAR( 255 ) NULL AFTER  `filepath`;

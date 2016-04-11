@@ -205,9 +205,9 @@
         <span class="lead"><?php echo __d('homepage', 'Comparte esta página con tus familiares y amigos'/*'Nos encantaría que compartieras esta página'*/)?>!</span>
     </div>
     <div class="row center">
-        <span class="social-button"><a class="twitter" target="_blank" href="https://twitter.com/home?status=<?php echo __('Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba')?>">Twitter</a></span>
-        <span class="social-button"><a class="google" target="_blank" href="https://plus.google.com/share?url=http://yotellevocuba.com">Google+</a></span>
-        <span class="social-button"><a class="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yotellevocuba.com">Facebook</a></span>
+        <span class="social-button"><a rel="nofollow" class="twitter" target="_blank" href="https://twitter.com/home?status=<?php echo __('Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba')?>">Twitter</a></span>
+        <span class="social-button"><a rel="nofollow" class="google" target="_blank" href="https://plus.google.com/share?url=http://yotellevocuba.com">Google+</a></span>
+        <span class="social-button"><a rel="nofollow" class="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yotellevocuba.com">Facebook</a></span>
     </div>
 </div>
 
