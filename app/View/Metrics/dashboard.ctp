@@ -13,9 +13,9 @@ App::uses('DriverTravelerConversation', 'Model');
     <br/>
     <div class="row">
         
-        <div class="col-md-6">
+        <div class="col-md-12" style="text-align: center">
             
-            <legend>Respuestas <span class="text-muted"><small>(viajes creados y expirados en el período)</small></span></legend>
+            <legend><big>Respuestas</big> <span class="text-muted"><small>(viajes creados y expirados en el período)</small></span></legend>
             <br/>
             
             <?php if(!empty ($conversations)):?>
@@ -146,10 +146,16 @@ App::uses('DriverTravelerConversation', 'Model');
             
         </div>
         
-        <div class="col-md-6">
-            <legend>Ganancias <span class="text-muted"><small>(viajes ralizados en el período)</small></span></legend>
+        <div class="col-md-12" style="text-align: center">
+            <legend><big>Ganancias</big> <span class="text-muted"><small>(viajes ralizados en el período)</small></span></legend>
             <br/>
             <div id="incomes-div" style="width: 100%; height: 400px;"></div>
+        </div>
+        
+        <div class="col-md-12" style="text-align: center">
+            <legend><big>Cantidad de Viajes Realizados</big></legend>
+            <br/>
+            <div id="travels-count-div" style="width: 100%; height: 400px;"></div>
         </div>
     </div>
 </div>
@@ -167,6 +173,7 @@ $this->Html->script('amcharts/amcharts', array('inline' => false));
 
 
 $this->Js->set('incomes', $incomes);
+$this->Js->set('travels_count', $travels_count);
 echo $this->Js->writeBuffer(array('inline' => false));
 
 ?>
@@ -182,6 +189,11 @@ $(document).ready(function() {
 
 <script type="text/javascript">
 $(document).ready(function() {
+    incomes_chart();
+    travels_count_chart();
+});
+
+function incomes_chart() {
     var chart;
     var chartData = window.app.incomes;
     
@@ -219,7 +231,47 @@ $(document).ready(function() {
     chart.addGraph(graph);
 
     chart.write("incomes-div");
-});
+}
+
+function travels_count_chart() {
+    var chart;
+    var chartData = window.app.travels_count;
+    
+    var index = 0;
+    for(var i in chartData) {
+        chartData[index].date = parseDate(chartData[index].date);
+        index++;
+    }
+        
+    // SERIAL CHART
+    chart = new AmCharts.AmSerialChart();
+    chart.dataProvider = chartData;
+    chart.categoryField = "date";
+    chart.startDuration = 1;
+
+    // AXES
+    // category
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.labelRotation = 90;
+    categoryAxis.gridPosition = "start";
+    categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+    categoryAxis.minPeriod = "MM"; // our data is daily, so we set minPeriod to DD
+
+    // value
+    // in case you don't want to change default settings of value axis,
+    // you don't need to create it, as one value axis is created automatically.
+
+    // GRAPH
+    var graph = new AmCharts.AmGraph();
+    graph.valueField = "travels_count";
+    graph.balloonText = "[[month]]: [[value]] viajes";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.8;
+    chart.addGraph(graph);
+
+    chart.write("travels-count-div");
+}
 </script>
 <script type="text/javascript">
     function parseDate(dateString) {            

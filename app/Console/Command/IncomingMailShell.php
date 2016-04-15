@@ -293,6 +293,18 @@ class IncomingMailShell extends AppShell {
                                 'from_email'=>$fromEmail),
                             $returnData
                         );
+                        // Guardar los ids de los attachments en la forma id1-id2-id3
+                        if(isset ($returnData['attachments_ids']) && !empty($returnData['attachments_ids'])) {
+                            $strIds = '';
+                            $sep = '';
+                            foreach ($returnData['attachments_ids'] as $id) {
+                                $strIds .= $sep.$id;
+                                $sep = '-';
+                            }
+                            
+                            $this->out($strIds);
+                            $this->DriverTravelerConversation->saveField('attachments_ids', $strIds);
+                        }
                     }
                     if(!$OK) {
                         CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar en emails_queue</span>");

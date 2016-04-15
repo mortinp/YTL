@@ -20,7 +20,8 @@ class MetricsController extends AppController {
         }        
         
         $this->set('conversations', $this->conversationsRespondedByDrivers($iniDate, $endDate));
-        $this->set('incomes', $this->incomes($iniDate, $endDate));        
+        $this->set('incomes', $this->incomes($iniDate, $endDate));  
+        $this->set('travels_count', $this->travels_count($iniDate, $endDate));  
         
         $this->request->data['DateRange']['date_ini'] = date('d-m-Y', strtotime($iniDate));
         $this->request->data['DateRange']['date_end'] = date('d-m-Y', strtotime($endDate));        
@@ -78,6 +79,36 @@ class MetricsController extends AppController {
         }
         
         return $fixedIncomes;
+    }
+    
+    
+    public function travels_count($iniDate, $endDate) {
+        $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date,
+                
+                sum( case when travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P' then 1 else 0 end) as travels_count
+
+                FROM travels
+        
+                INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+
+                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
+
+                WHERE travels.date < '$endDate'
+
+                GROUP BY year(travels.date), month(travels.date)";
+        
+        $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
+        $travels = $this->Travel->query($query);
+        $fixedTravels = array();
+        foreach ($travels as $index=> $value) {
+            $fixedTravels[$index] = array();
+            $fixedTravels[$index]['date'] = $value['travels']['date'];
+            $fixedTravels[$index]['travels_count'] = $value[0]['travels_count'];
+            $fixedTravels[$index]['year'] = $value[0]['year'];
+            $fixedTravels[$index]['month'] = $months[$value[0]['month'] - 1];
+        }
+        
+        return $fixedTravels;
     }
     
 }

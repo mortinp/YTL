@@ -46,24 +46,25 @@
                     <script type="text/javascript">
                         $('#show-attachments-<?php echo $messageId?>').click(function() {
                             
-                            var attIds = $('#show-attachments-<?php echo $messageId?>').data('attachments-ids');                            
                             $.ajax({
                                 type: "POST",
-                                data: attIds,
+                                data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
                                 url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$c['DriverTravelerConversation']['attachments_ids']))?>',
                                 success: function(response) {
-                                    //alert(response);
+                                    alert(response);
                                     response = JSON.parse(response);
                                     
+                                    var place = $('#attachments-<?php echo $messageId?>');
                                     for (var a in response.attachments) {
                                         var att = response.attachments[a];
                                         if(att.mimetype.substr(0, 5) == 'image') {
                                             //alert('imagen: ' + att.url);
                                             //alert($('#attachments-<?php echo $messageId?>').attr('id'));
-                                            $('#attachments-<?php echo $messageId?>').append($('<img src="' + att.url + '"></img>')).append('<br/><br/>');
-                                        }
-                                        else if(att.mimetype == 'text/plain') {
-                                            $('#attachments-<?php echo $messageId?>').append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
+                                            place.append($('<img src="' + att.url + '"></img>')).append('<br/><br/>');
+                                        } else if(att.mimetype == 'text/plain') {
+                                            place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
+                                        } else {
+                                            place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
                                         }
                                     }
                                     
@@ -77,6 +78,7 @@
                                     
                                 }
                             });
+                            
                         });
                     </script>
                 </div>
