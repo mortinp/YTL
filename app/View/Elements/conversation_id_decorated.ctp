@@ -1,4 +1,6 @@
 <?php 
+if(!isset($showComments)) $showComments = true;
+
 if(isset ($conversation['DriverTravel'])) 
     $thread = $conversation['DriverTravel'];
 else $thread = $conversation;
@@ -10,6 +12,7 @@ $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation
 $info = array();
 if(isset ($conversation['Driver'])) $info['title'] = $conversation['Driver']['username'];
 if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN) $info['class'] = 'text-muted';
+if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_PREARRANGED) $info['class'] = 'text-success';
         
 echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$thread['id']), $info);
 
@@ -18,6 +21,23 @@ if($thread['driver_traveler_conversation_count'] > 0) { // Respondido
     echo '<div style="float:left" title="'.$thread['driver_traveler_conversation_count'].' mensajes en total"><div class="label label-primary" style="margin-left: -30px;">'.$thread['driver_traveler_conversation_count'].'</div></div>';
 }
 ?>
+
+<!-- COMMENTS -->
+<?php if($showComments):?>
+<div style="float:right;margin-right: 30px;">
+    <?php echo $this->element('travel_comments_controls', array('thread' => $thread, 'conversation'=>$conversation)); ?>
+    &nbsp;
+</div>
+<?php endif?>
+
+<!-- ARRANGEMENTS -->
+<?php if(isset ($conversation['TravelConversationMeta']['arrangement']) && !empty($conversation['TravelConversationMeta']['arrangement'])):?>
+<div style="float:right;margin-right: 10px">
+    <span class="info" title="<?php echo $conversation['TravelConversationMeta']['arrangement']?>"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+</div>
+<?php endif?>
+
+
 
 <?php if($hasMetadata):?>
 
@@ -46,7 +66,10 @@ if($thread['driver_traveler_conversation_count'] > 0) { // Respondido
 <?php endif?>
 
 
+    
 <!-- GANANCIAS -->
-<?php if($hasMetadata && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) 
+<?php 
+if($hasMetadata && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) 
     echo $this->element('travel_income_controls', array('thread' => $thread, 'conversation'=>$conversation));
+    echo '&nbsp;' ;
 ?>

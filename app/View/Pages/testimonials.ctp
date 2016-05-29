@@ -86,6 +86,32 @@
 
             </blockquote>
         </div>
+        
+        <div class="col-md-8 col-md-offset-3 panel" style="font-family:'Engagement', cursive"> 
+            <blockquote class="blockquote-reverse bg-default">
+                <footer>
+                    <big>Mabel Iglesias</big>
+                </footer>
+                <br/>
+                
+                <p>Our journey was great, and yes, we took lots of pictures and told our stories to our friends and family.</p>
+                <p>The experience with Lois was very nice, he always followed what we had already arranged, schedules, prices. There is no doubt I would repeat the experience. I wish I could come back soon and see everything we missed.</p>
+                <p>Cheers from Uruguay.</p>
+            </blockquote>
+        </div>
+        
+        <div class="col-md-8 col-md-offset-1 panel" style="font-family:'Engagement', cursive">
+            <blockquote class="bg-info">
+                <footer>
+                    <big>Ariana and Bernardo</big>
+                </footer>
+                <br/>
+                
+                <p>I wanted to thank Ernesto Hernández for his kindness and professionalism.</p> 
+                <p>Thanks to him we had an unforgettable trip to Trinidad. He didn't limit our trip to take us to Trinidad, but he was our guide and we could visit other places on our way, like Ciénaga de Zapata and Cienfuegos. All among interesting talks and laughters. He is a marvelous person and a great driver. I highly recommend his services.</p>
+                <p>Thank you Ernesto! A big hug from Spain.</p>
+            </blockquote>
+        </div>
             
         <?php else:?>
         <div class="col-md-8 col-md-offset-1 panel" style="font-family:'Engagement', cursive">
@@ -177,6 +203,19 @@
                 <p>Abel tenía el auto clásico del que Lois nos había enviado una foto y fue realmente estupendo pasarnos una semana viajando por ahí en ese auto. Todos tomamos unas cuantas fotos y nos encantó nuestra estancia allá.</p>
                 <p>Definitivamente espero volver a Cuba luego del verano, y me pondré en contacto con ustedes nuevamente para el viaje. Muchas gracias por toda su ayuda, su servicio fue excelente y nos ahorró algo de dinero.</p>
 
+            </blockquote>
+        </div>
+        
+        <div class="col-md-8 col-md-offset-1 panel" style="font-family:'Engagement', cursive">
+            <blockquote class="bg-info">
+                <footer>
+                    <big>Ariana y Bernardo</big>
+                </footer>
+                <br/>
+                
+                <p>Quería agradecer a Ernesto Hernández su profesionalidad y amabilidad.</p> 
+                <p>Gracias a él tuvimos un viaje inolvidable a Trinidad. No se limitó a llevarnos, sino que nos hizo de guía y pudimos conocer más de Cuba visitando la Ciénaga de Zapata y Cienfuegos de camino a Trinidad. Todo acompañado de interesantes charlas y risas. Es una persona maravillosa y un gran conductor. Sin duda recomiendo sus servicios.</p>
+                <p>Gracias Ernesto!! Un fuerte abrazo desde España</p>
             </blockquote>
         </div>
         

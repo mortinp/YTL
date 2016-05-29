@@ -131,30 +131,46 @@ class DriversController extends AppController {
     }
     
     public function admin($id) {
-        $this->set('driver', $this->Driver->findById($id));    
+        $this->set('driver', $this->Driver->findById($id));
+        
+        $this->set('timeline', $this->getDriverMessagesTimeline($id));
     }
     
-    /*public function notify_travel($driverId, $travelId) {
-        $this->Driver->id = $driverId;
-        if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer inválido.');
+    
+    private function getDriverMessagesTimeline($driverId, $iniDate = null, $endDate = null) {
+        $query = "SELECT driver_traveler_conversations.created, driver_traveler_conversations.conversation_id, drivers.id as driver_id, driver_traveler_conversations.response_by, driver_traveler_conversations.response_text
+
+                FROM driver_traveler_conversations
+
+                INNER JOIN drivers_travels ON drivers_travels.id = driver_traveler_conversations.conversation_id AND driver_traveler_conversations.created BETWEEN '2014-01-01' AND '2016-05-24'
+
+                INNER JOIN drivers ON drivers.id = drivers_travels.driver_id AND drivers.id = $driverId
+
+                ORDER BY  driver_traveler_conversations.created";
+        
+        $messages = $this->Driver->query($query);
+        $fixedMessages = array();
+        foreach ($messages as $index=> $value) {
+            $fixedMessages[$index] = array();
+            $fixedMessages[$index]['date'] = $value['driver_traveler_conversations']['created'];
+            $fixedMessages[$index]['response_by'] = $value['driver_traveler_conversations']['response_by'];
+            $fixedMessages[$index]['response_text'] = $value['driver_traveler_conversations']['response_text'];
+            if(strlen($fixedMessages[$index]['response_text']) > 500) $fixedMessages[$index]['response_text'] = substr ($fixedMessages[$index]['response_text'], 0, 500).'...';
+            
+            $d = strtotime($value['driver_traveler_conversations']['created']);
+            $hour = date('H', $d);
+            $min = date('i', $d);
+            
+            $fixedMessages[$index]['driver'] = -100;
+            $fixedMessages[$index]['traveler'] = -100;
+            if($value['driver_traveler_conversations']['response_by'] == 'driver')  $fixedMessages[$index]['driver'] = $hour*60 + $min;
+            else if($value['driver_traveler_conversations']['response_by'] == 'traveler') $fixedMessages[$index]['traveler'] = $hour*60 + $min;
+            
+            $fixedMessages[$index]['timestr'] = "$hour:$min";
         }
-        $this->Travel->id = $travelId;
-        if (!$this->Travel->exists()) {
-            throw new NotFoundException('Viaje inválido.');
-        }
         
-        $driver = $this->Driver->findById($driverId);
-        $travel = $this->Travel->findById($travelId);
-        
-        $this->TravelLogic->prepareForSendingToDrivers('Travel');
-        $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN);
-        
-        if($OK) $this->setInfoMessage('Viaje notificado.');
-        else $this->setErrorMessage('Error notificando el viaje.');
-        
-        return $this->redirect(array('action'=>'view_travels/'.$driverId));
-    }*/
+        return $fixedMessages;
+    }
 }
 
 ?>

@@ -64,20 +64,30 @@ class DriverTravelerConversationsController extends AppController {
      * @param conversationId: el id de la conversacion
      * @param state: el estado en que se va a poner la conversacion, por ejemplo DriverTravelerConversation::$STATE_TRAVEL_DONE
      */
-    public function set_state($conversationId, $state/*, $userId = null*/) {
+    public function set_state($conversationId, $state) {
         $OK = $this->tag($conversationId, 'state', $state);
         
-        // Realizar algunas acciones que dependen del estado en que se esta poniendo la conversacion
-        /*if($OK) { 
-            if($state == DriverTravelerConversation::$STATE_TRAVEL_DONE) {
-                // Generar un código de interacción para que el usuario deje una review del viaje
-                if($userId != null) {
-                    $this->UserInteraction->getInteractionCode($userId, UserInteraction::$INTERACTION_TYPE_WRITE_REVIEW);
-                }
-            }
-        }*/
-        
         $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+        
+    public function update_meta_field($id = null) {
+        $this->DriverTravel->id = $id;
+        if (!$this->DriverTravel->exists()) {
+            throw new NotFoundException('Conversación inválida.');
+        }
+        //TODO: Verificar que la conversación ya está pagada
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+            $this->request->data['TravelConversationMeta']['conversation_id'] = $id;
+            
+            if ($this->TravelConversationMeta->save($this->request->data)) {
+                $this->setInfoMessage('Se guardó el campo del viaje <b>'.$id.'</b> exitosamente.');
+                return $this->redirect($this->referer());
+            }
+            $this->setErrorMessage('Ocurrió un error salvando el campo del viaje '.$id);
+        } else throw new UnauthorizedException();
     }
     
     
@@ -117,8 +127,7 @@ class DriverTravelerConversationsController extends AppController {
                 return $this->redirect($this->referer()/*array('controller'=>'driver_travels', 'action' => 'view_filtered/'.DriverTravel::$SEARCH_PAID)*/);
             }
             $this->setErrorMessage('Ocurrió un error salvando la ganacia del viaje '.$id);
-        } else
-            throw new UnauthorizedException();
+        } else throw new UnauthorizedException();
     }
     
     

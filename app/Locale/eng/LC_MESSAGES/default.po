@@ -440,12 +440,16 @@ msgid "Lee algo de lo que dijeron ellos aquí"
 msgstr "Read some of what they said here"
 
 #: View/Pages/contact.ctp:16
-msgid "Hola, soy Martín."
-msgstr "Hi, my name is Martín."
+msgid "Hola, mi nombre es %s."
+msgstr "Hola, my name is Martín."
 
 #: View/Pages/contact.ctp:16
-msgid "¿Quieres preguntar algo o simplemente decir <em>hola</em>? Escríbeme a %s y responderé cuanto antes."
-msgstr "Would you like to ask something or just say <em>hi</em>? Write to me at %s and I will answer very soon."
+msgid "¿Quieres preguntarme algo o simplemente decir <em>hola</em>? Escríbeme a mi correo %s y responderé cuanto antes."
+msgstr "Would you like to ask me something or just say <em>hi</em>? Write to me at my email %s and I will answer very soon."
+
+#: View/Pages/contact.ctp:16
+msgid "También puedes conectar conmigo en Twitter: %s."
+msgstr "You can also connect with me on Twitter: %s"
 
 #: View/Pages/faq.ctp:7
 msgid "¿Qué hace <em>YoTeLlevo</em>?"

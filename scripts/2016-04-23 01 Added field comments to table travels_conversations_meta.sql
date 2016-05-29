@@ -1,0 +1,1 @@
+ALTER TABLE  `travels_conversations_meta` ADD  `comments` TEXT NULL;

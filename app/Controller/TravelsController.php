@@ -6,7 +6,7 @@ App::uses('Travel', 'Model');
 
 class TravelsController extends AppController {
     
-    public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus',/**/ 'DriverTravel');
+    public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus', 'DriverTravel', 'TravelConversationMeta');
     
     public $components = array('TravelLogic', 'LocalityRouter');
     
@@ -186,7 +186,27 @@ class TravelsController extends AppController {
         if (!$this->request->data) {
             $this->request->data['Travel'] = $travel['Travel'];
         }
-    }    
+    } 
+    
+    /**
+     * This function updates any data of a travel coming in the request object. Accepts data via POST.
+     * 
+     * @param $id: the id of the travel
+     */
+    public function edit_travel_data($id) {
+        $this->Travel->id = $id;
+        if(!$this->Travel->exists()) throw new NotFoundException();
+        
+        if ($this->request->is('post')) {
+            
+            if (!$this->Travel->save($this->request->data)) $this->setErrorMessage('Ocurrió un error actualizando este viaje');
+            
+            return $this->redirect($this->referer());
+            
+        } else throw new MethodNotAllowedException();
+    }
+    
+    
 
     public function delete($tId) {
         $travel = $this->Travel->findById($tId);
@@ -303,7 +323,7 @@ class TravelsController extends AppController {
      * ADMIN ACTIONS
      */
     
-    public function notify_driver_travel($travelId) {
+    public function notify_driver_travel($travelId, $notificationType = 'M'/* defaults to DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN */) {
         if ($this->request->is('post')) {            
 
             $driverId = $this->request->data['Driver']['driver_id'];
@@ -319,16 +339,47 @@ class TravelsController extends AppController {
 
             $driver = $this->Driver->findById($driverId);
             $travel = $this->Travel->findById($travelId);
-
+            
+            $config = null;
+            
+            // Dump all the data that comes from TravelConversationMeta in custom variables
+            if( isset ($this->request->data['TravelConversationMeta'])) {
+                $config = array('custom_variables'=>$this->request->data['TravelConversationMeta']);
+                $config['template'] = 'arranged_travel';
+            }
+            
+            $datasource = $this->Driver->getDataSource();
+            $datasource->begin();            
+            
             $this->TravelLogic->prepareForSendingToDrivers('Travel');
-            $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN);
+            $OK = $this->TravelLogic->sendTravelToDriver($driver, $travel, $notificationType, $config);
+            if(is_array($OK) && isset ($OK['success']) && $OK['success']) {
+                $conversation_id = $OK['conversation_id'];
+                $OK = true;
+            }
+            
+            // Save TravelConversationMeta
+            if( isset ($this->request->data['TravelConversationMeta'])) {
+                $this->request->data['TravelConversationMeta']['conversation_id'] = $conversation_id;
+                
+                // Hay que ponerle following a los viajes que son arreglados
+                if(isset ($this->request->data['TravelConversationMeta']['arrangement']) && !empty($this->request->data['TravelConversationMeta']['arrangement'])) 
+                        $this->request->data['TravelConversationMeta']['following'] = true;
+                
+                $OK = $this->TravelConversationMeta->save($this->request->data);
+            }
 
-            if($OK) $this->setInfoMessage('Viaje notificado.');
-            else $this->setErrorMessage('Error notificando el viaje.');
+            if($OK) {
+                $datasource->commit();
+                $this->setInfoMessage('Viaje notificado.');
+            } else {
+                $datasource->rollback();
+                $this->setErrorMessage('Error notificando el viaje.');
+            }
         }
         
         return $this->redirect($this->referer().'#travel-'.$travelId);
-    }   
+    }
     
     
     

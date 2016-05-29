@@ -1,0 +1,1 @@
+ALTER TABLE  `travels_conversations_meta` ADD  `arrangement` TEXT NULL COMMENT  'Para los viajes prearreglados por los admin';

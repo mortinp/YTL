@@ -139,7 +139,34 @@ class TravelLogicComponent extends Component {
         return $drivers;
     }
     
-    public function sendTravelToDriver($driver, $travel, $notificationType, $emailConfig = 'viaje') {
+    /**
+     * Sends a notification email to a driver
+     * 
+     * @param $driver: the driver
+     * @param $travel: the travel
+     * @param $notificationType: the type of the notification (ex. DriverTravel::$NOTIFICATION_TYPE_PREARRANGED)
+     * @param $config: some configurations for the notification. This param can be a string, which will be
+     * interpreted as the email_config, or can be an array containing the following keys:
+     *      template: the email template (default: new_travel)
+     *      email_config: the email_config (default: viaje)
+     *      custom_variables: some custom variables you want to evaluate in the email template
+     * 
+     * @return array: in case of success: array('success'=>true, 'conversation_id'=><the id of the conversation just created>)
+     */
+    
+    public function sendTravelToDriver(array $driver, array $travel, $notificationType, $config = null) {
+        // Setup configurations
+        $template = 'new_travel';
+        $emailConfig = 'viaje';
+        $customVariables = array();
+        if($config != null && is_string($config)) $emailConfig = $config;
+        if($config != null && is_array($config)) {
+            if(isset ($config['template'])) $template = $config['template'];
+            if(isset ($config['email_config'])) $emailConfig = $config['email_config'];
+            if(isset ($config['custom_variables'])) $customVariables = $config['custom_variables'];
+        }
+        
+        
         $OK = true;
         
         $this->DriverTravel->create();
@@ -164,19 +191,22 @@ class TravelLogicComponent extends Component {
             if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
                 $driverName = Driver::shortenName($driver['Driver']['DriverProfile']['driver_name']);
                 
+            
+            $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName);
+            $variables = array_merge($variables, $customVariables);
             if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $driver['Driver']['username'], 
-                        array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName), 
+                        $variables, 
                         array(
-                            'template'=>'new_travel',
+                            'template'=>$template,
                             'format'=>'html',
                             'subject'=>$subject,
                             'config'=>$emailConfig));
             } else {
                 $Email = new CakeEmail($emailConfig);
-                $Email->template('new_travel')
-                ->viewVars(array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation))
+                $Email->template($template)
+                ->viewVars($variables)
                 ->emailFormat('html')
                 ->to($driver['Driver']['username'])
                 ->subject($subject);
@@ -187,6 +217,8 @@ class TravelLogicComponent extends Component {
                 }
             }
         }
+        
+        if($OK) $OK = array('success'=>true, 'conversation_id'=>$conversation);
 
         return $OK;
     }

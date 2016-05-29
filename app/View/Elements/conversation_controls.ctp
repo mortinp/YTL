@@ -8,11 +8,13 @@
         <li><a class="<?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_DONE) echo 'btn btn-warning'; else echo 'badge'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_DONE))?>" title="Marcar si se comprobó que el viaje se realizó"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</a></li>
         <li><a class="<?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_PAID) echo 'btn btn-success'; else echo 'badge'?>" href="<?php echo $this->Html->url(array('action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_PAID))?>" title="Marcar si el viaje ya fue pagado por el chofer"><i class="glyphicon glyphicon-usd"></i> Pagado</a></li>
     </ol>
+    
+    <!-- GANANCIAS -->
     <?php
-    if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) {
+    if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID)
         echo $this->element('travel_income_controls', array('thread'=>$data['DriverTravel'], 'conversation'=>$data));
-    }
     ?>
+   
 <?php endif?>
 
 <hr/>
@@ -53,4 +55,16 @@ if($hasMetadata) {
     if($following) echo $this->Form->button('Quitar seguimiento', array('class'=>'btn-danger', 'action'=>'unfollow/'.$data['DriverTravel']['id']), true); 
     else echo $this->Form->button('Seguir esta conversación', array('class'=>'btn-info', 'action'=>'follow/'.$data['DriverTravel']['id']), true);
     ?>
+    
+    <!-- COMMENTS -->
+    <div style="float:right;margin-right: 30px;">
+        <?php echo $this->element('travel_comments_controls', array('thread' => $data['DriverTravel'], 'conversation'=>$data)); ?>
+    </div
+    
+    <!-- ARRANGEMENTS -->
+    <?php if(isset ($data['TravelConversationMeta']['arrangement']) && !empty($data['TravelConversationMeta']['arrangement'])):?>
+    <div style="float:right;margin-right: 10px">
+        <span class="info" title="<?php echo $data['TravelConversationMeta']['arrangement']?>"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+    </div>
+    <?php endif?>
 </span>
