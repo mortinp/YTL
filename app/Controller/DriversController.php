@@ -40,7 +40,7 @@ class DriversController extends AppController {
             
             $this->Driver->create();
             
-            $this->request->data['Driver']['role'] = 'driver';
+            //$this->request->data['Driver']['role'] = 'driver';
             if ($this->Driver->saveAssociated($this->request->data)) {
                 $this->setInfoMessage('El chofer se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));                

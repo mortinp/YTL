@@ -14,6 +14,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "le escribe %s de YoTeLlevo"
+msgstr "this is %s from YoTeLlevo"
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Solamente quería hacerte saber que como un nuevo servicio, puedes encontrar casas particulares en Cuba con nosotros."
+msgstr "I just wanted to let you know that as a new service, you can find casas particulares (homestays) in Cuba with us."
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Nos hemos asociado a algunos expertos que tienen catálogos con algunas de las mejores casas en varios destinos de Cuba, ubicadas en agradables lugares, y que pueden planificar cada aspecto de la reserva junto contigo."
+msgstr "We have partnered with some experts on the matter who own catalogues of some of the best houses in several destinations in Cuba, located in nice places, and are able to plan with you every aspect of the booking."
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Pienso que usar un experto vale la pena porque ellos te darán consejos, te mostrarán fotos y finalmente arreglarán todo directamente con los dueños para reservar las casas o las habitaciones para tí."
+msgstr "I think that using an expert is worth it because they can give you advice, show you pictures and finally arrange everything directly with the owners to book the houses or rooms for you."
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Para empezar con el proceso visita <a href="%s">esta página en nuestro sitio web</a> y desde ahí puedes enviar una notificación al experto de manera que ellos puedan contactarte para comenzar a asistirte."
+msgstr "To begin with the process you just have to visit <a href=\"%s\">this page on our website</a> and from there you can send your request to the expert so they can contact you and start to assist you."
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Una de nuestras casas pudiera ser buena para tí y tus compañeras y compañeros de viaje, ¿quién sabe?"
+msgstr "One of our houses might be a good fit for you and your travel partners, who knows?"
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Te deseo el mejor de los días"
+msgstr "I whish you the best of the days"
+
+#: View/Emails/html/proposal_find_casas.ctp:18
+msgid "Martín y el equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>."
+msgstr "Martín and the <a href="http://yotellevocuba.com">YoTeLlevo</a> team."
+
+
+
 #: View/Casas/add_request.ctp:169
 msgid "Reserva casas particulares en Cuba para quedarte en los lugares que vas a visitar"
 msgstr "Book private houses in Cuba to stay in the places you are visiting"

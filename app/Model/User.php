@@ -28,7 +28,7 @@ class User extends AppModel {
         ),
         'role' => array(
             'valid' => array(
-                'rule' => array('inList', array('admin', 'driver', 'regular', 'tester')),
+                'rule' => array('inList', array('admin', 'driver', 'regular', 'tester', 'operator')),
                 'message' => 'Por favor, entre un rol válido.',
                 'allowEmpty' => false
             )

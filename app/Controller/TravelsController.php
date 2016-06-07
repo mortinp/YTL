@@ -191,15 +191,17 @@ class TravelsController extends AppController {
     /**
      * This function updates any data of a travel coming in the request object. Accepts data via POST.
      * 
-     * @param $id: the id of the travel
+     * @param $id: the id of the travel.
+     * @param $validate: whether you want to validate the data. Defaults to true.
      */
-    public function edit_travel_data($id) {
+    public function edit_travel_data($id, $validate = true) {
+        $this->Travel->create();
         $this->Travel->id = $id;
         if(!$this->Travel->exists()) throw new NotFoundException();
         
         if ($this->request->is('post')) {
             
-            if (!$this->Travel->save($this->request->data)) $this->setErrorMessage('Ocurrió un error actualizando este viaje');
+            if (!$this->Travel->save($this->request->data, $validate)) $this->setErrorMessage('Ocurrió un error actualizando este viaje');
             
             return $this->redirect($this->referer());
             

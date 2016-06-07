@@ -282,6 +282,10 @@ msgstr "Sign up and contact drivers now"
 msgid "Fecha del viaje"
 msgstr "Travel Date"
 
+#: View/Elements/travel.ctp:57
+msgid "Fecha original"
+msgstr "Original date"
+
 #: View/Elements/travel.ctp:59
 #: View/Elements/travel_by_email.ctp:16
 #: View/Elements/travel_form.ctp:62

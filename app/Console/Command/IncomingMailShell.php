@@ -346,16 +346,6 @@ class IncomingMailShell extends AppShell {
     
     public function fixEmailBody($body) {
         $fixedBody = $body;
-       
-        // Remove all email addresses
-        //$emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
-        //$replacement = '['.__d('conversation', 'correo borrado').']';
-        //$fixedBody = preg_replace($emailpattern, $replacement, $fixedBody);
-        
-        // Remove all urls
-        //$urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
-        //$replacement = '['.__d('conversation', 'url borrada').']';
-        //$fixedBody = preg_replace($urlpattern, $replacement, $fixedBody);
         
         // Remove the avatars
         $replacement = '['.__d('conversation', 'imagen borrada').']';

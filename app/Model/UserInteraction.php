@@ -21,7 +21,7 @@ class UserInteraction extends AppModel {
     public static $filtersForSearch = array('all', 'find-casas', 'confirm-email', 'change-password', 'write-review', 'notify-more-drivers');
     
     public $hasOne = array(
-        'CasaFindRequest' => array(
+        'CasaFindRequest' => array( 'className'=>'Casas.CasaFindRequest',
             'conditions'=>array('UserInteraction.interaction_due'=>'find casas', 'UserInteraction.expired'=>true)
         )
     );

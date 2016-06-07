@@ -74,6 +74,7 @@ class BootstrapFormHelper extends FormHelper {
         
         else {
             $linkDef = array();
+            if(isset ($options['plugin'])) $linkDef['plugin'] = $options['plugin'];
             if(isset ($options['controller'])) $linkDef['controller'] = $options['controller'];
             if(isset ($options['action'])) $linkDef['action'] = $options['action'];
             return $this->Html->link($caption, $linkDef, $options);

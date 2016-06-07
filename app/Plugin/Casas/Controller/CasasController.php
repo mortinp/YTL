@@ -69,7 +69,7 @@ class CasasController extends AppController {
                     $subject, 
                     array('find_casas_token' => $code), 
                     'super', 
-                    'casas_find_proposal', 
+                    'Casas.casas_find_proposal', 
                     array('lang'=>$user['User']['lang']));
         }        
 
@@ -120,7 +120,7 @@ class CasasController extends AppController {
                     'Solicitud de casas #'.$request['CasaFindRequest']['id'], 
                     array('request_id'=>$request['CasaFindRequest']['id'], 'guests_names'=>$request['CasaFindRequest']['guests_names'], 'details'=>$request['CasaFindRequest']['details'], 'contact_email'=>AuthComponent::user('username')), 
                     'super', 
-                    'casas_new_request');
+                    'Casas.casas_new_request');
             }
             
             if($OK) {

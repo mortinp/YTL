@@ -2,7 +2,7 @@
     <div class="col-md-6 col-md-offset-3">
         <legend>Acuerdo de viaje del chofer <?php echo $data['Driver']['username']?></legend>
         
-        <?php echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false))?>
+        <?php echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true))?>
         <div>
             <?php echo $this->element('conversation_controls', array('data'=>$data))?><!-- Acciones para esta conversación -->
         </div>

@@ -111,6 +111,9 @@ CakeLog::config('error', array(
 
 /* MARTIN */
 CakePlugin::load('EmailQueue');
+CakePlugin::load('Casas');
+CakePlugin::load('Invitations');
+//CakePlugin::load('SharedTravels');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 Configure::write('Email.html', false);

@@ -197,24 +197,26 @@ class UsersController extends AppController {
             $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
             $this->request->data['User']['register_type'] = 'add_user_form';
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash('The user has been saved');
-                return $this->redirect(array('controller'=>'travels','action' => 'index'));
+                $this->setInfoMessage('El usuario se guardó exitosamente.');
+                return $this->redirect(array('action' => 'index'));
             }
-            $this->Session->setFlash('The user could not be saved. Please, try again.');
+            $this->setInfoMessage('Ocurrió un error guardando el usuario.');
         }
     }
 
     public function edit($id = null) {
         $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
-        }
+        if (!$this->User->exists()) throw new NotFoundException(__('Invalid user.'));
+        
         if ($this->request->is('post') || $this->request->is('put')) {
+            
+            if(strlen($this->request->data['User']['password']) == 0) unset ($this->request->data['User']['password']);
+            
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash('The user has been saved');
+                $this->Session->setFlash('El usuario se guardó exitosamente');
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->Session->setFlash('The user could not be saved. Please, try again.');
+            $this->Session->setFlash('Ocurrió un error guardando el usuario.');
         } else {
             $this->request->data = $this->User->read(null, $id);
             unset($this->request->data['User']['password']);

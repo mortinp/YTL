@@ -67,10 +67,14 @@ class AppController extends Controller {
                 'userModel' => 'User',
             ),
             'Form'
-        );        
+        );
         
         // Allow all static pages
         $this->Auth->allow('display', 'setlang');
+        
+        // Permitir una acción cuando se haya decidido que se permita (ej. las invitaciones deben permitir acceder a una url prohibida por defecto)
+        if($this->Session->read('allowed_action') != null)
+            $this->Auth->allow($this->Session->read('allowed_action'));
         
         $this->_setupLanguage();
 
@@ -181,15 +185,23 @@ class AppController extends Controller {
             // Admins access
             'users.index' =>array('title'=>'Usuarios'),
             'users.add' =>array('title'=>'Nuevo usuario'),           
+            'users.edit' =>array('title'=>'Editar usuario'),           
 
             'drivers.index' =>array('title'=>'Choferes'),
             'drivers.add' =>array('title'=>'Nuevo chofer'),
+            'drivers.edit_profile' =>array('title'=>'Editar perfil de chofer'),
             
             'driver_travels.view_filtered' => array('title'=>'Conversaciones'),
             'travels.view_filtered' =>array('title'=>__d('meta', 'Viajes')),
             'driver_traveler_conversations.view' =>array('title'=>__d('meta', 'Mensajes de conversación')),            
             
             'metrics.dashboard' =>array('title'=>'Dashboard'),
+            
+            'url_invitations.index' =>array('title'=>'Invitaciones a URL'),
+            'url_invitations.add' =>array('title'=>'Compartir URL'),
+            
+            'email_queues.index' =>array('title'=>'Email Queue'),
+            
         );
         
         if(isset ($pageTitles[$key])) return $pageTitles[$key];

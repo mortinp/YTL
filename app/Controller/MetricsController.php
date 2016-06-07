@@ -19,7 +19,7 @@ class MetricsController extends AppController {
             $endDate = substr($strEndDate,6,4).'-'.substr($strEndDate,3,2).'-'.substr($strEndDate,0,2);
         }        
         
-        $this->set('conversations', $this->conversationsRespondedByDrivers($iniDate, $endDate));
+        //$this->set('conversations', $this->conversationsRespondedByDrivers($iniDate, $endDate));
         $this->set('incomes', $this->incomes($iniDate, $endDate));  
         $this->set('travels_count', $this->travels_count($iniDate, $endDate));  
         
@@ -27,7 +27,7 @@ class MetricsController extends AppController {
         $this->request->data['DateRange']['date_end'] = date('d-m-Y', strtotime($endDate));        
     }
     
-    private function conversationsRespondedByDrivers($iniDate, $endDate) {
+    /*private function conversationsRespondedByDrivers($iniDate, $endDate) {
         $query = "SELECT Travel.id, Travel.origin, Travel.destination, Travel.created, DriverTravel.id as conversation_id,
 
                 sum( case when DriverTravelerConversation.response_by = 'driver' then 1 else 0 end) as driver_responses_count,
@@ -51,18 +51,22 @@ class MetricsController extends AppController {
                 ORDER BY Travel.id";
         
         return $this->Travel->query($query);
-    }
+    }*/
     
     public function incomes($iniDate, $endDate) {
-        $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date, sum(travels_conversations_meta.income) as income, sum(travels_conversations_meta.income_saving) as income_saving
+        $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date, 
+                sum(travels_conversations_meta.income) as income, 
+                sum(travels_conversations_meta.income_saving) as income_saving
 
                 FROM travels
         
+                INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
+        
                 INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
 
-                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.income IS NOT NULL
+                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.income IS NOT NULL AND (travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P')
 
-                WHERE travels.date < '$endDate'
+                WHERE travels.created BETWEEN '$iniDate' AND '$endDate' OR travels.date BETWEEN '$iniDate' AND '$endDate'
 
                 GROUP BY year(travels.date), month(travels.date)";
         
@@ -84,16 +88,18 @@ class MetricsController extends AppController {
     
     public function travels_count($iniDate, $endDate) {
         $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date,
-                
-                sum( case when travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P' then 1 else 0 end) as travels_count
+                count(distinct travels.id) as travels_count,                
+                sum( case when travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P' then 1 else 0 end) as travels_done_count
 
                 FROM travels
+
+                INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
         
                 INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
 
-                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
-
-                WHERE travels.date < '$endDate'
+                LEFT JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND (travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P')
+        
+                WHERE travels.created BETWEEN '$iniDate' AND '$endDate' OR travels.date BETWEEN '$iniDate' AND '$endDate'
 
                 GROUP BY year(travels.date), month(travels.date)";
         
@@ -104,6 +110,7 @@ class MetricsController extends AppController {
             $fixedTravels[$index] = array();
             $fixedTravels[$index]['date'] = $value['travels']['date'];
             $fixedTravels[$index]['travels_count'] = $value[0]['travels_count'];
+            $fixedTravels[$index]['travels_done_count'] = $value[0]['travels_done_count'];
             $fixedTravels[$index]['year'] = $value[0]['year'];
             $fixedTravels[$index]['month'] = $months[$value[0]['month'] - 1];
         }

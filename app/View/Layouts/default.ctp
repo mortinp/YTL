@@ -119,9 +119,10 @@ if($isLoggedIn) {
                                                     <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL)) ?></li>
                                                     <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
                                                     <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Interacciones de Usuarios', array('controller' => 'user_interactions', 'action' => 'view_filtered/all'))?></li>
+                                                    <li><?php echo $this->Html->link(__('Urls Compartidas'), array('controller' => 'url_invitations', 'action'=>'index'))?></li> 
                                                     <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link('Interacciones de Usuarios', array('controller' => 'user_interactions', 'action' => 'view_filtered/all')) ?></li>
+                                                    <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
                                                 </ul>
                                             </li>
                                             <li class="dropdown-submenu">

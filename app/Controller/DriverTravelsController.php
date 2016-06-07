@@ -45,14 +45,13 @@ class DriverTravelsController extends AppController {
             );
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
         } else if($filter == DriverTravel::$SEARCH_FOLLOWING) {
-            $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
+            $this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
             $conditions['TravelConversationMeta.following'] = true;
         } else if($filter == DriverTravel::$SEARCH_DONE) {
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_DONE;
         } else if($filter == DriverTravel::$SEARCH_PAID) {
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_PAID;
         }
-        
         
         $driver_travels = $this->paginate($conditions);
         $this->set('filter_applied', $filter);

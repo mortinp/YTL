@@ -1,0 +1,1 @@
+ALTER TABLE  `travels` ADD  `original_date` DATE NULL AFTER  `date`;

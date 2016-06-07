@@ -9,7 +9,7 @@
         <?php
         if(AuthComponent::user('username') == 'mproenza@grm.desoft.cu' || AuthComponent::user('username') == 'martin@yotellevocuba.com') {
             echo '<br/>';
-            echo $this->Form->button('<i class="glyphicon glyphicon-home"></i> '.'Enviar propuesta de casas', array('class'=>'btn-primary', 'controller'=>'casas', 'action'=>'send_proposal_find_casas/'.$user['User']['id'], 'escape'=>false, 'confirm'=>'¿Está seguro que quiere gestionarle casas a este viajero?', 'title'=>'Se le enviará un correo a los viajeros para que confirmen si desean que nuestros expertos les consigan casas.'), true);
+            echo $this->Form->button('<i class="glyphicon glyphicon-home"></i> '.'Enviar propuesta de casas', array('plugin'=>'casas', 'controller'=>'casas', 'action'=>'send_proposal_find_casas/'.$user['User']['id'], 'escape'=>false, 'class'=>'btn-primary', 'confirm'=>'¿Está seguro que quiere gestionarle casas a este viajero?', 'title'=>'Se le enviará un correo a los viajeros para que confirmen si desean que nuestros expertos les consigan casas.'), true);
         }
         ?>
         

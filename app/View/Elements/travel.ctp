@@ -1,4 +1,5 @@
 <?php App::uses('CakeTime', 'Utility')?>
+<?php App::uses('TimeUtil', 'Util')?>
 <?php App::uses('Travel', 'Model')?>
 <?php App::uses('DriverTravelerConversation', 'Model')?>
 
@@ -8,22 +9,14 @@ if (!isset($actions)) $actions = true;
 if (!isset($details)) $details = false;
 if (!isset($showConversations)) $showConversations = true;
 if (!isset($embedEmail)) $embedEmail = false;
+if (!isset($changeDate)) $changeDate = false;
 
 $personW = __('persona');
 $pretty_people_count = $travel['Travel']['people_count']. ' ';
 if($travel['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
 else $pretty_people_count .= $personW;
 
-$months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
-$days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
-
 $date_converted = strtotime($travel['Travel']['date']);
-$day = date('j', $date_converted);
-$month = $months_es[date('n', $date_converted) - 1];
-$day_of_week = $days_es[date('w', $date_converted)];
-$year = date('Y', $date_converted);
-$pretty_date = $day.' '.$month.', '.$year.' ('.$day_of_week.')';
-//$pretty_date = date('j F, Y (l)', strtotime($travel['Travel']['date']));
 
 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
 
@@ -56,7 +49,24 @@ foreach (Travel::getPreferences() as $key => $value) {
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
 </legend>
     
-<p><b><?php echo __('Fecha del viaje')?>:</b> <span id='travel-date-label'><?php echo $pretty_date?></span></p>
+<p> 
+    <?php $fechaCambiada = isset ($travel['Travel']['original_date']) && $travel['Travel']['original_date'] != null;?>
+    <?php if($fechaCambiada):?>
+    <span class="badge">
+    <b><?php echo __('Fecha original')?>:</b> 
+    <span id='travel-date-label'>
+        <?php echo TimeUtil::prettyDate($travel['Travel']['original_date'])?>
+    </span>
+    </span>
+    <?php endif;?>
+    
+    <b><?php echo __('Fecha del viaje')?>:</b> 
+    <span id='travel-date-label'>
+        <?php echo TimeUtil::prettyDate($travel['Travel']['date'])?>
+    </span>
+    
+    <?php if($changeDate) echo $this->element('form_travel_date_controls', array('travel'=>$travel, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>$date_converted))?>
+</p>
 
 <p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php if($embedEmail) echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $travel['Travel']['details']); else echo $travel['Travel']['details']?></span></p>
 
@@ -195,3 +205,18 @@ foreach (Travel::getPreferences() as $key => $value) {
 <?php endif?>
 
 </div>
+
+<?php
+// CSS
+$this->Html->css('bootstrap', array('inline' => false));
+$this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));
+
+//JS
+$this->Html->script('jquery', array('inline' => false));
+$this->Html->script('bootstrap', array('inline' => false));
+
+$this->Html->script('vitalets-bootstrap-datepicker/bootstrap-datepicker.min', array('inline' => false));
+
+echo $this->Js->writeBuffer(array('inline' => false));
+
+?>
