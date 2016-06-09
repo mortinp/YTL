@@ -151,8 +151,6 @@ class MetricsController extends AppController {
     
     public function travels_count2($iniDate, $endDate) {
         
-        $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
-        
         $queryCreated = "Select year(travels.created) as year, month(travels.created) as month, travels.created as date,
             count(distinct travels.id) as travels_created_count
 
@@ -190,7 +188,9 @@ class MetricsController extends AppController {
 
             GROUP BY year, month";
         
+        
         $fixedTravels = array();
+        $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
         
         
         $travelsCreated = $this->Travel->query($queryCreated);
@@ -200,11 +200,10 @@ class MetricsController extends AppController {
             $fixedTravels[$index]['travels_created_count'] = $value[0]['travels_created_count'];
             $fixedTravels[$index]['year'] = $value[0]['year'];
             $fixedTravels[$index]['month'] = $months[$value[0]['month'] - 1];
-        }
+        }      
         
         
-        
-        $travelsExpired = $this->Travel->query($queryExpired);        
+        $travelsExpired = $this->Travel->query($queryExpired);
         foreach ($travelsExpired as $value) {
             
             $appended = false;
@@ -224,7 +223,6 @@ class MetricsController extends AppController {
                 $fixedTravels[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
             }
         }
-        
         
         
         $travelsDone = $this->Travel->query($queryDone);        
@@ -247,6 +245,7 @@ class MetricsController extends AppController {
                 $fixedTravels[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
             }
         }
+        
         
         return $fixedTravels;
     }

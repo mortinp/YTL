@@ -28,7 +28,7 @@ App::uses('DriverTravelerConversation', 'Model');
             ?>
             <div>
                 <big><span class="label label-primary"><?php echo $cantViajes?> solicitudes creadas</span></big>
-                <big><span class="label label-default info" title="Estas son solicitudes que la fecha de realización del viaje ya ha pasado"><?php echo $cantViajesExpirados?> solicitudes expiradas</span></big>
+                <big><span class="label label-default info" title="Estas son solicitudes que la fecha de realización del viaje expira ese mes. Puede ser que la solicitud se haya creado antes."><?php echo $cantViajesExpirados?> solicitudes expiradas</span></big>
                 <big><span class="label label-warning"><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
             </div>
             <br/>
@@ -49,7 +49,7 @@ App::uses('DriverTravelerConversation', 'Model');
             }
             ?>
             <div>            
-                <big><span class="label label-success"><i class="glyphicon glyphicon-usd"></i><?php echo $paidAmount?> de ingresos totales</span></big>
+                <big><span class="label label-success info" title="Esto es dinero en mano. No se cuentan viajes realizados de los que no hemos recibido el dinero."><i class="glyphicon glyphicon-usd"></i><?php echo $paidAmount?> de ingresos totales</span></big>
                 <big><span class="label label-default"><i class="glyphicon glyphicon-usd"></i><?php echo $savedAmount?> de ahorro total</span></big>
             </div>
             <br/>
