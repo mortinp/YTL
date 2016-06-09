@@ -18,14 +18,17 @@ App::uses('DriverTravelerConversation', 'Model');
             <br/>
             <?php 
             $cantViajes = 0;
+            $cantViajesExpirados = 0;
             $cantViajesRealizados = 0;
             foreach ($travels_count as $c) {
-                $cantViajes += $c['travels_count'];
-                $cantViajesRealizados += $c['travels_done_count'];
+                if(isset ($c['travels_created_count'])) $cantViajes += $c['travels_created_count'];
+                if(isset ($c['travels_expired_count'])) $cantViajesExpirados += $c['travels_expired_count'];
+                if(isset ($c['travels_done_count'])) $cantViajesRealizados += $c['travels_done_count'];
             }
             ?>
             <div>
-                <big><span class="label label-primary"><?php echo $cantViajes?> solicitudes</span></big>
+                <big><span class="label label-primary"><?php echo $cantViajes?> solicitudes creadas</span></big>
+                <big><span class="label label-default info" title="Estas son solicitudes que la fecha de realización del viaje ya ha pasado"><?php echo $cantViajesExpirados?> solicitudes expiradas</span></big>
                 <big><span class="label label-warning"><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
             </div>
             <br/>
@@ -113,6 +116,12 @@ function incomes_chart() {
     categoryAxis.gridPosition = "start";
     categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
     categoryAxis.minPeriod = "MM"; // our data is daily, so we set minPeriod to DD
+    
+    var valueAxis = new AmCharts.ValueAxis();
+    valueAxis.stackType = "regular";
+    valueAxis.gridAlpha = 0.1;
+    valueAxis.axisAlpha = 0;
+    chart.addValueAxis(valueAxis);
 
     // value
     // in case you don't want to change default settings of value axis,
@@ -163,28 +172,40 @@ function travels_count_chart() {
     categoryAxis.labelRotation = 90;
     categoryAxis.gridPosition = "start";
     categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-    categoryAxis.minPeriod = "MM"; // our data is daily, so we set minPeriod to DD
+    categoryAxis.minPeriod = "MM"; // our data is monthly, so we set minPeriod to MM
     
-    /*var valueAxis = new AmCharts.ValueAxis();
-    valueAxis.stackType = "100%";
+    var valueAxis = new AmCharts.ValueAxis();
+    valueAxis.stackType = "regular";
     valueAxis.gridAlpha = 0.1;
     valueAxis.axisAlpha = 0;
-    chart.addValueAxis(valueAxis);*/
+    chart.addValueAxis(valueAxis);
 
     // value
     // in case you don't want to change default settings of value axis,
     // you don't need to create it, as one value axis is created automatically.
     
+    
+    // CREADOS
     var graph = new AmCharts.AmGraph();
-    graph.valueField = "travels_count";
-    graph.balloonText = "[[month]]: [[value]] solicitudes";
+    graph.valueField = "travels_created_count";
+    graph.balloonText = "[[month]]: [[value]] solicitudes creadas";
     graph.type = "column";
     graph.lineAlpha = 0;
     graph.fillAlphas = 1;
     graph.fillColors = "#428bca";
     chart.addGraph(graph);
+    
+    // EXPIRADOS
+    var graph = new AmCharts.AmGraph();
+    graph.valueField = "travels_expired_count";
+    graph.balloonText = "[[month]]: [[value]] solicitudes expiradas";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 1;
+    graph.fillColors = "#808080";
+    chart.addGraph(graph);
 
-    // GRAPH
+    // REALIZADOS
     var graph = new AmCharts.AmGraph();
     graph.valueField = "travels_done_count";
     graph.balloonText = "[[month]]: [[value]] viajes realizados";
@@ -193,7 +214,6 @@ function travels_count_chart() {
     graph.fillAlphas = 1;
     graph.fillColors = "#f0ad4e";
     chart.addGraph(graph);
-    
     
 
     chart.write("travels-count-div");

@@ -21,7 +21,7 @@ class MetricsController extends AppController {
         
         //$this->set('conversations', $this->conversationsRespondedByDrivers($iniDate, $endDate));
         $this->set('incomes', $this->incomes($iniDate, $endDate));  
-        $this->set('travels_count', $this->travels_count($iniDate, $endDate));  
+        $this->set('travels_count', $this->travels_count2($iniDate, $endDate));  
         
         $this->request->data['DateRange']['date_ini'] = date('d-m-Y', strtotime($iniDate));
         $this->request->data['DateRange']['date_end'] = date('d-m-Y', strtotime($endDate));        
@@ -66,9 +66,9 @@ class MetricsController extends AppController {
 
                 INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.income IS NOT NULL AND (travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P')
 
-                WHERE travels.created BETWEEN '$iniDate' AND '$endDate' OR travels.date BETWEEN '$iniDate' AND '$endDate'
+                WHERE travels.date BETWEEN '$iniDate' AND '$endDate'
 
-                GROUP BY year(travels.date), month(travels.date)";
+                GROUP BY year, month";
         
         $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
         $incomes = $this->Travel->query($query);
@@ -88,7 +88,7 @@ class MetricsController extends AppController {
     
     public function travels_count($iniDate, $endDate) {
         $query = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date,
-                count(distinct travels.id) as travels_count,                
+                count(distinct travels.id) as travels_expired_count,
                 sum( case when travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P' then 1 else 0 end) as travels_done_count
 
                 FROM travels
@@ -99,7 +99,7 @@ class MetricsController extends AppController {
 
                 LEFT JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND (travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P')
         
-                WHERE travels.created BETWEEN '$iniDate' AND '$endDate' OR travels.date BETWEEN '$iniDate' AND '$endDate'
+                WHERE travels.date BETWEEN '$iniDate' AND '$endDate'
 
                 GROUP BY year(travels.date), month(travels.date)";
         
@@ -109,14 +109,148 @@ class MetricsController extends AppController {
         foreach ($travels as $index=> $value) {
             $fixedTravels[$index] = array();
             $fixedTravels[$index]['date'] = $value['travels']['date'];
-            $fixedTravels[$index]['travels_count'] = $value[0]['travels_count'];
+            $fixedTravels[$index]['travels_expired_count'] = $value[0]['travels_expired_count'];
             $fixedTravels[$index]['travels_done_count'] = $value[0]['travels_done_count'];
             $fixedTravels[$index]['year'] = $value[0]['year'];
             $fixedTravels[$index]['month'] = $months[$value[0]['month'] - 1];
         }
         
+        
+        
+        
+        
+        $query = "Select year(travels.created) as year, month(travels.created) as month, travels.created as date,
+                count(distinct travels.id) as travels_created_count
+
+                FROM travels
+
+                INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
+        
+                WHERE travels.created BETWEEN '$iniDate' AND '$endDate'
+
+                GROUP BY year(travels.date), month(travels.date)";
+        
+        $travels = $this->Travel->query($query);
+        foreach ($travels as $index=> $value) {
+            if(!in_array($index, array_keys($fixedTravels))) {
+                $fixedTravels[$index] = array();
+                $fixedTravels[$index]['date'] = $value['travels']['date'];
+                $fixedTravels[$index]['travels_count'] = 0;
+                $fixedTravels[$index]['travels_done_count'] = 0;
+                $fixedTravels[$index]['year'] = $value[0]['year'];
+                $fixedTravels[$index]['month'] = $months[$value[0]['month'] - 1];
+            }
+            $fixedTravels[$index]['travels_created_count'] = $value[0]['travels_created_count'];
+        }
+        
+        
+        
         return $fixedTravels;
     }
+    
+    
+    public function travels_count2($iniDate, $endDate) {
+        
+        $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
+        
+        $queryCreated = "Select year(travels.created) as year, month(travels.created) as month, travels.created as date,
+            count(distinct travels.id) as travels_created_count
+
+            FROM travels
+
+            INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
+
+            WHERE travels.created BETWEEN '$iniDate' AND '$endDate'
+
+            GROUP BY year, month";
+        
+        $queryExpired = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date,
+            count(distinct travels.id) as travels_expired_count
+
+            FROM travels
+
+            INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
+
+            WHERE travels.date BETWEEN '$iniDate' AND '$endDate'
+
+            GROUP BY year, month";
+        
+        $queryDone = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date,
+            count( distinct travels.id) as travels_done_count
+
+            FROM travels
+
+            INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
+
+            INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+
+            INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND (travels_conversations_meta.state = 'D' OR travels_conversations_meta.state = 'P')
+
+            WHERE travels.date BETWEEN '$iniDate' AND '$endDate'
+
+            GROUP BY year, month";
+        
+        $fixedTravels = array();
+        
+        
+        $travelsCreated = $this->Travel->query($queryCreated);
+        foreach ($travelsCreated as $index=> $value) {
+            $fixedTravels[$index] = array();
+            $fixedTravels[$index]['date'] = $value['travels']['date'];
+            $fixedTravels[$index]['travels_created_count'] = $value[0]['travels_created_count'];
+            $fixedTravels[$index]['year'] = $value[0]['year'];
+            $fixedTravels[$index]['month'] = $months[$value[0]['month'] - 1];
+        }
+        
+        
+        
+        $travelsExpired = $this->Travel->query($queryExpired);        
+        foreach ($travelsExpired as $value) {
+            
+            $appended = false;
+            foreach ($fixedTravels as &$t) {
+                if($value[0]['year'] == $t['year'] && $months[$value[0]['month'] - 1] == $t['month']) {
+                    $t['travels_expired_count'] = $value[0]['travels_expired_count'];
+                    $appended = true;
+                    break;
+                }
+            }
+            if(!$appended) {
+                $fixedTravels[] = array();
+                $entries = count($fixedTravels);
+                $fixedTravels[$entries - 1]['date'] = $value['travels']['date'];
+                $fixedTravels[$entries - 1]['travels_expired_count'] = $value[0]['travels_expired_count'];
+                $fixedTravels[$entries - 1]['year'] = $value[0]['year'];
+                $fixedTravels[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
+            }
+        }
+        
+        
+        
+        $travelsDone = $this->Travel->query($queryDone);        
+        foreach ($travelsDone as $value) {
+            
+            $appended = false;
+            foreach ($fixedTravels as &$t) {
+                if($value[0]['year'] == $t['year'] && $months[$value[0]['month'] - 1] == $t['month']) {
+                    $t['travels_done_count'] = $value[0]['travels_done_count'];
+                    $appended = true;
+                    break;
+                }
+            }
+            if(!$appended) {
+                $fixedTravels[] = array();
+                $entries = count($fixedTravels);
+                $fixedTravels[$entries - 1]['date'] = $value['travels']['date'];
+                $fixedTravels[$entries - 1]['travels_done_count'] = $value[0]['travels_done_count'];
+                $fixedTravels[$entries - 1]['year'] = $value[0]['year'];
+                $fixedTravels[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
+            }
+        }
+        
+        return $fixedTravels;
+    }
+    
     
 }
 
