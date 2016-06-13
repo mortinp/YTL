@@ -16,7 +16,7 @@ class RoutinesShell extends AppShell {
 
                 FROM travels
 
-                INNER JOIN  drivers_travels ON drivers_travels.travel_id = travels.id AND travels.date <= '$someDaysBack'
+                INNER JOIN  drivers_travels ON drivers_travels.travel_id = travels.id AND travels.date >= '2016-07-01' AND travels.date <= '$someDaysBack'
 
                 INNER JOIN  travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id AND travels_conversations_meta.following = 1 AND travels_conversations_meta.asked_confirmation = 0
 
