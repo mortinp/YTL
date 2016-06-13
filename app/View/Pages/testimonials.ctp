@@ -1,8 +1,15 @@
+<?php
+$imgBaseUrl = '/img';
+if(Configure::read('debug') > 0) {
+    $imgBaseUrl = '/yotellevo'.$imgBaseUrl;
+}
+?>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h1><?php echo __('Testimonios de viajeros sorprendentes')?></h1>
-            <span><?php echo __('Algunos viajeros como Paul, Jaimi o Alan tienen historias interesantes que contar sobre su experiencia con nuestros choferes. Nos encantan estos testimonios honestos e interesantes :)')?></span>
+            <span><?php echo __('Algunos viajeros como Paul, Mabel o Cristina tienen historias interesantes que contar sobre su experiencia con nuestros choferes. Nos encantan estos testimonios honestos e interesantes :)')?></span>
             <span><?php echo __('Lee algo de lo que dijeron ellos aquí')?>:</span>
             <hr/>
         </div>
@@ -22,13 +29,6 @@
                 <p>Your service was great and Lois was amazing, he kept in contact for the three weeks in the run up to the ride and met us at exactly the time required. I felt sorry for Lois as it was a very long trip for us and we only went one way, i would love to know what Lois thought of the trip and would he do it again?  In terms of the service that you offer i definitely believe that it was worth it, the cost was 50% less than using a conventional agent and the standard of Lois vehicle was better than most we have had in Cuba.</p>
                 <p>My only request is that when drivers respond they also describe what the vehicle is, one of the other drivers that responded drove a Peugeot 207 which whilst being a great car i dont believe would accommodate our luggage and be comfortable for a 4 - 5 hour drive.</p>
             </blockquote>
-            
-            <?php
-            $imgBaseUrl = '/img';
-            if(Configure::read('debug') > 0) {
-                $imgBaseUrl = '/yotellevo'.$imgBaseUrl;
-            }
-            ?>
             <div class="alert alert-success"><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgsuccess.jpg'?>"/> <span style="display: inline-block">Thanks to Paul we created a new feature in our service: <a href="http://yotellevocuba.com/blog/en/how-we-turned-one-customer-review-into-a-feature-in-our-webapp/">Read the article »</a></span></div>
         </div>
             
@@ -112,6 +112,22 @@
                 <p>Thank you Ernesto! A big hug from Spain.</p>
             </blockquote>
         </div>
+        
+        <div class="col-md-8 col-md-offset-3 panel" style="font-family:'Engagement', cursive"> 
+            <blockquote class="blockquote-reverse bg-default">
+                <footer>
+                    <big>Ana Garrido</big>
+                </footer>
+                <br/>
+                
+                <p>Hi,</p>
+                <p>I'm Ana Garrido, we hired your services for a 10 persons trip during the last week of February.</p>
+                <p>I send this email to thank you for your attention, especially our driver's service, Juan Carlos, because he turned our travel into an amazing experience. He always gave us good advice, told us funny stories and gave us very interesting historic facts. In case we come back we will certainly repeat this.</p>
+                <p>Sorry for writting this late. We send hugs from Spain to you and Juan Carlos.</p>
+                <p>Until next time!</p>
+            </blockquote>
+            <div class="alert alert-success"><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgsuccess.jpg'?>"/> This messega was sent to Ovidio, the Chief of Operations of a taxi agency associated to YoTeLlevo. Ovidio was contacted via our platform, but all the credit for the organization and the work goes to him and his driver, Juan Carlos.<span style="display: inline-block"></span></div>
+        </div>
             
         <?php else:?>
         <div class="col-md-8 col-md-offset-1 panel" style="font-family:'Engagement', cursive">
@@ -127,13 +143,6 @@
                 <p>Mi única petición es que cuando los choferes respondan, también describan el vehículo. Uno de los otros choferes que respondieron manejaba un Peugeot 207 que aunque es un gran auto, no creo que pudiera llevar todo nuestro equipaje y ser a la vez cómodo para un viaje de 4-5 horas.</p>
 
             </blockquote>
-            
-            <?php
-            $imgBaseUrl = '/img';
-            if(Configure::read('debug') > 0) {
-                $imgBaseUrl = '/yotellevo'.$imgBaseUrl;
-            }
-            ?>
             <div class="alert alert-success"><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgsuccess.jpg'?>"/> <span style="display: inline-block">Gracias a Paul creamos una nueva funcionalidad en nuestro servicio: <a href="http://yotellevocuba.com/blog/es/de-una-resena-de-un-viajero-a-una-funcionalidad-en-nuestra-plataforma/">Lee el artículo »</a></span></div>
         </div>
             
@@ -217,6 +226,22 @@
                 <p>Gracias a él tuvimos un viaje inolvidable a Trinidad. No se limitó a llevarnos, sino que nos hizo de guía y pudimos conocer más de Cuba visitando la Ciénaga de Zapata y Cienfuegos de camino a Trinidad. Todo acompañado de interesantes charlas y risas. Es una persona maravillosa y un gran conductor. Sin duda recomiendo sus servicios.</p>
                 <p>Gracias Ernesto!! Un fuerte abrazo desde España</p>
             </blockquote>
+        </div>
+        
+        <div class="col-md-8 col-md-offset-3 panel" style="font-family:'Engagement', cursive"> 
+            <blockquote class="blockquote-reverse bg-default">
+                <footer>
+                    <big>Ana Garrido</big>
+                </footer>
+                <br/>
+                
+                <p>Hola,</p>
+                <p>Soy Ana Garrido, contratamos sus servicios para un viaje de diez personas la última semana de febrero.</p>
+                <p>El motivo de este correo es agradecerle el servicio prestado, en especial en cuanto al trato con nuestro chofer Juan Carlos porque hizo de nuestro viaje una experiencia estupenda. Siempre nos daba buenos consejos, nos contaba divertidas anécdotas y datos de historia muy interesantes. En caso de volver repetiríamos sin ningún tipo de duda.</p>
+                <p>Disculpas por escribir con tanta tardanza, les mandamos un saludo desde España a usted y a Juan Carlos.</p>
+                <p>¡Hasta otra!</p>
+            </blockquote>
+            <div class="alert alert-success"><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgsuccess.jpg'?>"/> Este es un mensaje enviado a Ovidio, el Jefe de Operaciones de una agencia de taxi asociada a YoTeLlevo. Aunque Ovidio fue contactado a través de nuestra plataforma, todo el crédito de la organización y realización del viaje van para él y Juan Carlos, su chofer.<span style="display: inline-block"></span></div>
         </div>
         
         <?php endif?>

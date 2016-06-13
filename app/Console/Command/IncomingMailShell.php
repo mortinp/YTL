@@ -15,7 +15,7 @@ require_once ("helper/mailReader.php");
 
 class IncomingMailShell extends AppShell {
     
-    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation' /*,'Locality', 'DriverLocality',*/ /*'TravelByEmail',*/ /*'LocalityThesaurus'*/ );
+    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation', 'TravelConversationMeta' /*,'Locality', 'DriverLocality',*/ /*'TravelByEmail',*/ /*'LocalityThesaurus'*/ );
 
     public function main() {
         $this->out('IncomingMail shell reporting.');
@@ -340,7 +340,23 @@ class IncomingMailShell extends AppShell {
             }
             
             CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
-        }        
+        } else if($to === 'viaje-realizado@'.Configure::read('domain_name')) {
+            $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
+            if($parseOK) {
+                $conversation = $matches[1];
+                $this->out($conversation);
+                
+                $meta = array('TravelConversationMeta'=>array(
+                    'conversation_id'=>$conversation, 
+                    'received_confirmation_details'=>$parser->body, 
+                    'received_confirmation_type'=>'K'/*Unknown*/,
+                    'asked_confirmation'=>true));
+                
+                if(!$this->TravelConversationMeta->save($meta)) {
+                    // TODO: Enviar un correo al chofer de que no se pudo procesar su respuesta
+                }
+            }
+        }       
     }
     
     

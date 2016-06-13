@@ -63,12 +63,8 @@ App::uses('DriverTravelerConversation', 'Model');
 <?php
 // CSS
 $this->Html->css('bootstrap', array('inline' => false));
-$this->Html->css('typeaheadjs-bootstrapcss/typeahead.js-bootstrap', array('inline' => false));
-
-//JS
 $this->Html->script('jquery', array('inline' => false));
 $this->Html->script('bootstrap', array('inline' => false));
-$this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
 $this->Html->script('amcharts/amcharts', array('inline' => false));
 
 

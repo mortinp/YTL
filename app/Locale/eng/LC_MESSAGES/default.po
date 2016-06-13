@@ -436,7 +436,7 @@ msgid "Testimonios de viajeros sorprendentes"
 msgstr "Testimonials from awesome travelers"
 
 #: View/Pages/testimonials.ctp:16
-msgid "Algunos viajeros como Paul, Jaimi o Alan tienen historias interesantes que contar sobre su experiencia con nuestros choferes. Nos encantan estos testimonios honestos e interesantes :)"
+msgid "Algunos viajeros como Paul, Mabel o Cristina tienen historias interesantes que contar sobre su experiencia con nuestros choferes. Nos encantan estos testimonios honestos e interesantes :)"
 msgstr "Some travelers like Paul, Jaimi or Alan have interesting stories to tell about their experience with our drivers. We love these honest and interesting testimonials :)"
 
 #: View/Pages/testimonials.ctp:16

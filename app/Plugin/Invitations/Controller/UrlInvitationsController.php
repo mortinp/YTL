@@ -19,6 +19,9 @@ class UrlInvitationsController extends AppController {
             
             $this->UrlInvitation->create();
             
+            // Hay que ponerle siempre un slash (/) delante a la url que se va a compartir
+            if(substr($this->request->data['UrlInvitation']['url'], 0, 1) != '/') $this->request->data['UrlInvitation']['url'] = '/'.$this->request->data['UrlInvitation']['url'];
+            
             if ($this->UrlInvitation->save($this->request->data)) {
                 $this->setInfoMessage('La invitación se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));
