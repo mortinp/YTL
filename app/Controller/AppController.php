@@ -77,8 +77,8 @@ class AppController extends Controller {
             $this->Auth->allow($this->Session->read('allowed_action'));
         
         $this->_setupLanguage();
-
         $this->_setPageTitle();
+        $this->_setUserCredentials();
     }
     
     private function _setupLanguage() {
@@ -116,6 +116,18 @@ class AppController extends Controller {
         }
         $this->set('page_title', $page_title);
         $this->set('page_description', $page_description);
+    }
+    
+    public function _setUserCredentials() {
+        // INITIALIZE
+        $userLoggedIn = AuthComponent::user('id') ? true : false;
+        $this->set('userLoggedIn', $userLoggedIn);
+        
+        if($userLoggedIn) {
+            $user = AuthComponent::user();
+            $userRole = $user['role'];
+            $this->set('userRole', $userRole);
+        }        
     }
 
     public function isAuthorized($user) {

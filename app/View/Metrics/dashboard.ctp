@@ -50,7 +50,7 @@ App::uses('DriverTravelerConversation', 'Model');
             ?>
             <div>            
                 <big><span class="label label-success info" title="Esto es dinero en mano. No se cuentan viajes realizados de los que no hemos recibido el dinero."><i class="glyphicon glyphicon-usd"></i><?php echo $paidAmount?> de ingresos totales</span></big>
-                <big><span class="label label-default"><i class="glyphicon glyphicon-usd"></i><?php echo $savedAmount?> de ahorro total</span></big>
+                <?php if($userLoggedIn && $userRole == 'admin'):?><big><span class="label label-default"><i class="glyphicon glyphicon-usd"></i><?php echo $savedAmount?> de ahorro total</span></big><?php endif?>
             </div>
             <br/>
         </div>
@@ -133,6 +133,7 @@ function incomes_chart() {
     graph.fillColors = "#5cb85c";
     chart.addGraph(graph);
     
+    <?php if($userLoggedIn && $userRole == 'admin'):?>
     // GRAPH
     var graph = new AmCharts.AmGraph();
     graph.valueField = "income_saving";
@@ -142,6 +143,8 @@ function incomes_chart() {
     graph.fillAlphas = 1;
     graph.fillColors = "#999";
     chart.addGraph(graph);
+    
+    <?php endif?>
 
     chart.write("incomes-div");
 }

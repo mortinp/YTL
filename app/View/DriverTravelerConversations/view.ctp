@@ -1,7 +1,24 @@
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <legend>Acuerdo de viaje del chofer <?php echo $data['Driver']['username']?></legend>
+<?php $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['username'].')</small>'?>
+<?php $hasProfile = isset ($data['Driver']['DriverProfile']) && $data['Driver']['DriverProfile'] != null && !empty ($data['Driver']['DriverProfile'])?>
+<?php if($hasProfile) :?>
+    <?php
+        $src = '';
+        if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
+        $src .= '/'.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']);
         
+        $driverName = $data['Driver']['DriverProfile']['driver_name'].' <small class="text-muted">('.$data['Driver']['username'].')</small>';
+    ?>
+<?php endif;?>
+<div class="col-md-8 col-md-offset-2 well" id="fixed" style="position: fixed;top: 60px;z-index: 100;background-color: white">
+    <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name'].' - '.$data['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/></div><?php endif;?>
+    <div style="float: left;padding-left: 20px"><h4>Conversación con <?php echo $driverName?></h4></div>
+    <div style="float: left;padding-left: 20px;padding-top: 10px"><b>Viaje #<?php echo $data['Travel']['id']?></b></div>
+</div>
+<div style="height: 85px;"></div> <!-- Separator -->
+    
+
+<div class="row" style="top: 200px">
+    <div class="col-md-6 col-md-offset-3">
         <?php echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true))?>
         <div>
             <?php echo $this->element('conversation_controls', array('data'=>$data))?><!-- Acciones para esta conversación -->
@@ -9,15 +26,6 @@
     </div>
 </div>
 <br/>
-
-<!--<?php if(isset ($data['Driver']['DriverProfile']) && $data['Driver']['DriverProfile'] != null && !empty ($data['Driver']['DriverProfile'])) :?>
-    <?php
-        $src = '';
-        if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-        $src .= '/'.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']);
-    ?>
-    <img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name'].' - '.$data['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/>
-<?php endif;?>-->
 
 <?php foreach ($conversations as $c):?>
 
@@ -108,3 +116,9 @@
     </div>
 </div>   
 <?php endif?>
+
+<script type="text/javascript">
+    $(window).scroll(function(){
+        $("#fixed").css("top", Math.max(0, 60 - $(this).scrollTop()));
+    });
+</script>

@@ -45,6 +45,8 @@ class UrlInvitationsController extends AppController {
             $this->UrlInvitation->saveField('visited_count', $invitation['UrlInvitation']['visited_count'] + 1);
         }
         
+        $this->Session->id(); // Asegurandome de que la sesion se inicie si no se habia iniciado (ver docs de SessionComponent::id())
+        
         // TODO: buscar una forma de no permitir una acción específica solamente, pues esto lleva a fallas de seguridad
         // O sea, seria bueno poder especificar por ejemplo, la url de una conversacion sin tener que permitir la action view globalmente
         $this->Session->write('allowed_action', $invitation['UrlInvitation']['action_to_allow']);

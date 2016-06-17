@@ -346,9 +346,22 @@ class IncomingMailShell extends AppShell {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
+                $meta = $this->TravelConversationMeta->findByConversationId($conversation);
+                
+                if($meta == null || empty ($meta)) return; // no hacer nada si no existe la conversacion
+                
+                $newMessage = trim($parser->body);
+                //$newMessage = str_replace('Este correo tiene la intencion de verificar la realizacion del viaje', '(...)', $newMessage); // HACK: Eliminar la parte del correo de verificacion
+                
+                // Verificar si ya se habia recibido otra confirmacion anterior de esta misma conversacion; agregarle el nuevo texto en caso de que sí.
+                if(isset ($meta['TravelConversationMeta']['received_confirmation_details']) && $meta['TravelConversationMeta']['received_confirmation_details'] != null)
+                    $newMessage = $meta['TravelConversationMeta']['received_confirmation_details'].
+                        "\r\n\r\n (...)\r\n\r\n".
+                        $newMessage;
+                
                 $meta = array('TravelConversationMeta'=>array(
                     'conversation_id'=>$conversation, 
-                    'received_confirmation_details'=>$parser->body, 
+                    'received_confirmation_details'=>$newMessage, 
                     'received_confirmation_type'=>'K'/*Unknown*/,
                     'asked_confirmation'=>true));
                 

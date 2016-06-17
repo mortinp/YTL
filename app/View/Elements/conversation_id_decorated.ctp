@@ -19,10 +19,10 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
 <?php if($hasMetadata && $conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
     <!-- Confirmacin recibida --> 
-    <span title="<b>Confirmación de Viaje:</b> <?php echo strip_tags($conversation['TravelConversationMeta']['received_confirmation_details'])?>" class="info" style="float:left;margin-left: -30px;"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+    <span title="<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>" class="info text-info" style="float:left;margin-left: -30px;"><big><i class="glyphicon glyphicon-tags"></i></big></span>
 <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
     <!-- Pedido de confirmacion enviado al chofer -->    
-    <i class="glyphicon glyphicon-exclamation-sign" style="float:left;margin-left: -30px;" title="Pedido de confirmación enviado al chofer"></i>
+    <i class="glyphicon glyphicon-exclamation-sign text-info info" style="float:left;margin-left: -30px;" title="Pedido de confirmación del viaje enviado al chofer"></i>
 <?php endif?>
 
 <!-- COMMENTS -->
@@ -71,12 +71,9 @@ if($thread['driver_traveler_conversation_count'] > 0) { // Respondido
     <!-- +1 -->
     <span class="label label-success" title="<?php echo ($thread['driver_traveler_conversation_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'])?></span>
 <?php endif?>
-
-
     
 <!-- GANANCIAS -->
 <?php 
 if($hasMetadata && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) 
     echo $this->element('travel_income_controls', array('thread' => $thread, 'conversation'=>$conversation));
-    echo '&nbsp;' ;
 ?>
