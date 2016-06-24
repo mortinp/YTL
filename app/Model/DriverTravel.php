@@ -16,7 +16,8 @@ class DriverTravel extends AppModel {
     public static $SEARCH_FOLLOWING = 'following';
     public static $SEARCH_DONE = 'done';
     public static $SEARCH_PAID = 'paid';
-    public static $filtersForSearch = array('all', 'new-messages', 'following', 'done', 'paid');
+    public static $SEARCH_ARCHIVED = 'archived';
+    public static $filtersForSearch = array('all', 'new-messages', 'following', 'done', 'paid', 'archived');
     
     
     public $order = 'Driver.id';

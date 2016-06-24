@@ -16,5 +16,18 @@ class TimeUtil {
         
         return $pretty_date;
     }
+    
+    public static function wasBefore($timeInterval, $dateString, $timezone = null) {
+        $tmp = str_replace(' ', '', $timeInterval);
+        if (is_numeric($tmp)) {
+            $timeInterval = $tmp . ' ' . __d('cake', 'days');
+        }
+
+        $date = CakeTime::fromString($dateString, $timezone);
+        $interval = CakeTime::fromString('-' . $timeInterval);
+        $now = CakeTime::fromString('now', $timezone);
+
+        return $date <= $interval;
+    }
 }
 ?>

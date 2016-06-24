@@ -43,7 +43,7 @@ class UsersController extends AppController {
                     if(isset ($parts[1]) && $parts[1] != null) $redirect['action'] = $parts[1];
                     
                 } else {
-                    if(AuthComponent::user('role') === 'admin') $redirect = array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES);
+                    if(in_array(AuthComponent::user('role'), array('admin', 'operator'))) $redirect = array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES);
                     else $redirect = $this->Auth->redirect();
                 }
                 

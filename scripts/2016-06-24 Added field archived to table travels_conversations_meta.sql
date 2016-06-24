@@ -1,0 +1,1 @@
+ALTER TABLE  `travels_conversations_meta` ADD  `archived` BOOLEAN NULL DEFAULT  '0';

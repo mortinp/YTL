@@ -15,6 +15,13 @@ class DriverTravelerConversationsController extends AppController {
         $this->Auth->allow('show_profile');
     }
     
+    public function isAuthorized($user) {
+        if(in_array(AuthComponent::user('role'), array('admin', 'operator')) && in_array($this->action, array('view'))) 
+            return true;
+        
+        return parent::isAuthorized($user);
+    }
+    
     public function view($conversationId) {
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
         $this->Driver->attachProfile($this->DriverTravel);
@@ -66,8 +73,16 @@ class DriverTravelerConversationsController extends AppController {
      */
     public function set_state($conversationId, $state) {
         $OK = $this->tag($conversationId, 'state', $state);
-        
         $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+    public function archive($conversationId) {
+        $OK = $this->tag($conversationId, 'archived', 1);
+        $this->redirect($this->referer());
+    }
+    public function unarchive($conversationId) {
+        $OK = $this->tag($conversationId, 'archived', 0);
+        $this->redirect($this->referer());
     }
     
         
@@ -130,6 +145,17 @@ class DriverTravelerConversationsController extends AppController {
         } else throw new UnauthorizedException();
     }
     
+    /**
+     * This function can only be accesed via ajax, and it returns all the metadata of a given conversation
+     */
+    public function view_meta($id) {
+        if($this->request->is('ajax')) {
+            // TODO: verificar si existen los metadatos para esta conversacion
+            
+            $conversation = $this->TravelConversationMeta->find('list', array('conditions'=>array('conversatin_id'=>$id)));
+            return json_encode($conversation);
+        } else throw new MethodNotAllowedException ();
+    }
     
     
     

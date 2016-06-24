@@ -7,6 +7,13 @@ class DriverTravelsController extends AppController {
     
     public $uses = array('DriverTravel', 'Travel', 'Driver');
     
+    public function isAuthorized($user) {
+        if(in_array(AuthComponent::user('role'), array('admin', 'operator')) && in_array($this->action, array('view_filtered'))) 
+            return true;
+        
+        return parent::isAuthorized($user);
+    }
+    
     public function all() {
         $this->DriverTravel->recursive = 2;
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
@@ -23,7 +30,7 @@ class DriverTravelsController extends AppController {
         $this->DriverTravel->recursive = 2;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $this->paginate = array('order'=>array('Travel.date'=>'DESC'));
-        $conditions = array(/*'User.role'=>'regular'*/);
+        $conditions = array(/*'User.role'=>'regular'*/ 'TravelConversationMeta.archived'=>0/*Que no este archivados*/);
         
         if($filter == DriverTravel::$SEARCH_NEW_MESSAGES) {
             /**
@@ -51,6 +58,8 @@ class DriverTravelsController extends AppController {
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_DONE;
         } else if($filter == DriverTravel::$SEARCH_PAID) {
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_PAID;
+        } else if($filter == DriverTravel::$SEARCH_ARCHIVED) {
+            $conditions['TravelConversationMeta.archived'] = 1;
         }
         
         $driver_travels = $this->paginate($conditions);

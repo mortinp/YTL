@@ -1,3 +1,5 @@
+<?php App::uses('TimeUtil', 'Util')?>
+
 <?php 
 if(!isset($showComments)) $showComments = true;
 
@@ -18,11 +20,22 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 ?>
 
 <?php if($hasMetadata && $conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
-    <!-- Confirmacin recibida --> 
-    <span title="<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>" class="info text-info" style="float:left;margin-left: -30px;"><big><i class="glyphicon glyphicon-tags"></i></big></span>
+    <!-- Confirmacion recibida --> 
+    <span title="<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>" class="info text-info" data-trigger="click" style="float:left;margin-left: -30px;"><big><a href="#!"><i class="glyphicon glyphicon-hand-right"></i></a></big></span>
 <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
     <!-- Pedido de confirmacion enviado al chofer -->    
-    <i class="glyphicon glyphicon-exclamation-sign text-info info" style="float:left;margin-left: -30px;" title="Pedido de confirmación del viaje enviado al chofer"></i>
+    <i class="glyphicon glyphicon-share-alt info" style="float:left;margin-left: -30px;" title="Pedido de confirmación del viaje enviado al chofer"></i>
+<?php endif?>
+    
+<!-- ARCHIVADO TODO: verificar que la conversacion tenga mas de dos meses de expirado-->
+<?php if(isset ($conversation['TravelConversationMeta']['archived']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date']))):?>
+<div style="float:right;padding-right: 10px">
+    <?php if(!$conversation['TravelConversationMeta']['archived']):?>
+        <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info'))?>
+    <?php else:?>
+        <?php echo $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'unarchive/'.$thread['id']), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
+    <?php endif?>
+</div>
 <?php endif?>
 
 <!-- COMMENTS -->
@@ -36,7 +49,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 <!-- ARRANGEMENTS -->
 <?php if(isset ($conversation['TravelConversationMeta']['arrangement']) && !empty($conversation['TravelConversationMeta']['arrangement'])):?>
 <div style="float:right;padding-right: 10px">
-    <span class="info" title="<b>Acuerdo:</b> <?php echo $conversation['TravelConversationMeta']['arrangement']?>"><i class="glyphicon glyphicon-share-alt"></i></span>
+    <span class="info" title="<b>Acuerdo:</b> <?php echo $conversation['TravelConversationMeta']['arrangement']?>"><i class="glyphicon glyphicon-link"></i></span>
 </div>
 <?php endif?>
 
