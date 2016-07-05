@@ -50,6 +50,10 @@ class UrlInvitationsController extends AppController {
         // TODO: buscar una forma de no permitir una acción específica solamente, pues esto lleva a fallas de seguridad
         // O sea, seria bueno poder especificar por ejemplo, la url de una conversacion sin tener que permitir la action view globalmente
         $this->Session->write('allowed_action', $invitation['UrlInvitation']['action_to_allow']);
+        
+        if(isset ($invitation['UrlInvitation']['message_to_invitee']) && $invitation['UrlInvitation']['message_to_invitee'] != null && $invitation['UrlInvitation']['visited_count'] < 1)
+            $this->setInfoMessage ($invitation['UrlInvitation']['message_to_invitee']);
+        
         $this->redirect($invitation['UrlInvitation']['url']);
     }
 }

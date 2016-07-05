@@ -18,6 +18,10 @@ msgstr ""
 msgid "Bienvenido - Confirma tu cuenta"
 msgstr "Welcome - Confirm your account"
 
+#: Controller/UsersController.php:314
+msgid "Que encuentres un buen chofer en Cuba"
+msgstr "Hope you can find a nice driver in Cuba"
+
 #: Controller/Component/TravelLogicComponent.php:96
 msgid "Nuevo Anuncio de Viaje"
 msgstr "New Travel Request"
@@ -152,8 +156,8 @@ msgstr "Message"
 
 
 #: View/Emails/html/welcome_new.ctp:18
-msgid "Hola, bienvenido a YoTeLlevo... y bienvenido a Cuba! Gracias por usar nuestro servicio. Soy %s."
-msgstr "Hi there, welcome to YoTeLlevo... and welcome to Cuba! Thank you for using our service. My name is %s"
+msgid "Hola, bienvenido a YoTeLlevo... y bienvenido a Cuba! Gracias por usar nuestro servicio. Mi nombre es %s."
+msgstr "Hi there, welcome to YoTeLlevo... and welcome to Cuba! Thank you for using our service. My name is %s."
 
 #: View/Emails/html/welcome_new.ctp:18
 msgid "Solamente quería decir hola y asegurarme de que nuestro servicio le sea de ayuda, y que usted sepa qué esperar y que le saque el mayor provecho posible. Para eso le dejo aquí algunos datos y tips que pueden ser muy útiles mientras usa YoTeLlevo y habla con los choferes"
@@ -198,3 +202,9 @@ msgstr "Oh, and make sure you confirm your email account by following %s."
 #: View/Emails/html/welcome_new.ctp:18
 msgid "Afectos"
 msgstr "Cheers"
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "%s y el equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>."
+msgstr "%s and the <a href="http://yotellevocuba.com">YoTeLlevo</a> team."
+
+

@@ -3,3 +3,5 @@ ADD  `received_confirmation_type` CHAR( 1 ) NULL COMMENT  'Y: yes, the travel wa
 ADD  `received_confirmation_details` TEXT NULL;
 
 ALTER TABLE  `travels_conversations_meta` ADD  `archived` BOOLEAN NULL DEFAULT  '0';
+
+ALTER TABLE  `x_url_invitations` ADD  `message_to_invitee` TEXT NULL;

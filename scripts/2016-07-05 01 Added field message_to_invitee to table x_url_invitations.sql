@@ -1,0 +1,1 @@
+ALTER TABLE  `x_url_invitations` ADD  `message_to_invitee` TEXT NULL;

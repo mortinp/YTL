@@ -308,7 +308,7 @@ class UsersController extends AppController {
                         array(
                             'template'=>$emailTemplate,
                             'format'=>'html',
-                            'subject'=>__d('user_email', 'Bienvenido - Confirma tu cuenta'),
+                            'subject'=>__d('user_email', 'Que encuentres un buen chofer en Cuba'/*'Bienvenido - Confirma tu cuenta'*/).'!',
                             'config'=>/*'no_responder'*/'super',
                             'lang'=>  Configure::read('Config.language')));
             } else {

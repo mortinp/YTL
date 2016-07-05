@@ -11,12 +11,15 @@ class MetricsController extends AppController {
         $endDate = $today;
         $iniDate = date('Y-m-d', strtotime("$endDate - 6 months"));
         if(!empty ($this->request->query)) {
-            $strIniDate = $this->request->query['date_ini'];
-            $strEndDate = $this->request->query['date_end'];
+            //WARNING: A continuacion estoy asumiendo que las fechas vienen en formato dd-mm-yyyy
             
-            //WARNING: Estoy asumiendo que las fechas vienen en formato dd-mm-yyyy
+            $strIniDate = $this->request->query['date_ini'];
             $iniDate = substr($strIniDate,6,4).'-'.substr($strIniDate,3,2).'-'.substr($strIniDate,0,2);
-            $endDate = substr($strEndDate,6,4).'-'.substr($strEndDate,3,2).'-'.substr($strEndDate,0,2);
+            
+            if(isset ($this->request->query['date_end'])) {
+                $strEndDate = $this->request->query['date_end'];
+                $endDate = substr($strEndDate,6,4).'-'.substr($strEndDate,3,2).'-'.substr($strEndDate,0,2);
+            }            
         }        
         
         //$this->set('conversations', $this->conversationsRespondedByDrivers($iniDate, $endDate));

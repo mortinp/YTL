@@ -9,10 +9,13 @@
         $driverName = $data['Driver']['DriverProfile']['driver_name'].' <small class="text-muted">('.$data['Driver']['username'].')</small>';
     ?>
 <?php endif;?>
-<div class="col-md-8 col-md-offset-2 well" id="fixed" style="position: fixed;top: 60px;z-index: 100;background-color: white">
-    <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name'].' - '.$data['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/></div><?php endif;?>
-    <div style="float: left;padding-left: 20px"><h4>Conversación con <?php echo $driverName?></h4></div>
-    <div style="float: left;padding-left: 20px;padding-top: 10px"><b>Viaje #<?php echo $data['Travel']['id']?></b></div>
+<?php $topPosition = 60?>
+<div class="col-md-8 col-md-offset-2 well" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px">
+    <div style="width: 100%">
+        <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name'].' - '.$data['Driver']['username']?>" style="max-height: 30px; max-width: 30px"/></div><?php endif;?>
+        <div style="float: left;padding-left: 10px"><h4>Conversación con <?php echo $driverName?></h4></div>
+        <div style="float: left;padding-left: 20px;padding-top: 10px"><b>Viaje #<?php echo $data['Travel']['id']?></b></div>
+    </div>
 </div>
 <div style="height: 85px;"></div> <!-- Separator -->
     
@@ -43,6 +46,6 @@
 
 <script type="text/javascript">
     $(window).scroll(function(){
-        $("#fixed").css("top", Math.max(0, 60 - $(this).scrollTop()));
+        $("#fixed").css("top", Math.max(0, <?php echo $topPosition?> - $(this).scrollTop()));
     });
 </script>

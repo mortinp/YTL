@@ -1,7 +1,7 @@
 <?php $urlDef = array('controller' => 'users', 'action' => 'confirm_email/' . $confirmation_code, 'base'=>false) ?>
 
 <p>
-    <?php echo __d('user_email', 'Hola, bienvenido a YoTeLlevo... y bienvenido a Cuba! Gracias por usar nuestro servicio. Soy %s.', 'Martín')?>
+    <?php echo __d('user_email', 'Hola, bienvenido a YoTeLlevo... y bienvenido a Cuba! Gracias por usar nuestro servicio. Mi nombre es %s.', 'Martín')?>
 </p>
 
 <p>
@@ -46,5 +46,5 @@
 </p>
 
 <p>
-    <?php echo __d('user_email', 'Martín y el equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>.')?>
+    <?php echo __d('user_email', '%s y el equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>.', 'Martín')?>
 </p>

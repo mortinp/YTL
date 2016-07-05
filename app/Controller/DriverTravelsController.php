@@ -30,7 +30,7 @@ class DriverTravelsController extends AppController {
         $this->DriverTravel->recursive = 2;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $this->paginate = array('order'=>array('Travel.date'=>'DESC'));
-        $conditions = array(/*'User.role'=>'regular'*/ 'TravelConversationMeta.archived'=>0/*Que no este archivados*/);
+        $conditions = array();
         
         if($filter == DriverTravel::$SEARCH_NEW_MESSAGES) {
             /**
@@ -54,8 +54,11 @@ class DriverTravelsController extends AppController {
         } else if($filter == DriverTravel::$SEARCH_FOLLOWING) {
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
             $conditions['TravelConversationMeta.following'] = true;
+            $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_DONE) {
+            $this->paginate = array('limit'=>50);
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_DONE;
+            $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_PAID) {
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_PAID;
         } else if($filter == DriverTravel::$SEARCH_ARCHIVED) {

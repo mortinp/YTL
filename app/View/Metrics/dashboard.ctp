@@ -33,7 +33,7 @@ App::uses('DriverTravelerConversation', 'Model');
             </div>
             <br/>
         </div>
-        <div class="col-md-12" style="text-align: center;padding-bottom: 50px">
+        <div class="col-md-12" style="padding-bottom: 50px">
             <div id="travels-count-div" style="width: 100%; height: 400px;"></div>
         </div>        
         
@@ -186,6 +186,7 @@ function travels_count_chart() {
     
     // CREADOS
     var graph = new AmCharts.AmGraph();
+    graph.title = 'Solicitados';
     graph.valueField = "travels_created_count";
     graph.balloonText = "[[month]]: [[value]] solicitudes creadas";
     graph.type = "column";
@@ -196,6 +197,7 @@ function travels_count_chart() {
     
     // EXPIRADOS
     var graph = new AmCharts.AmGraph();
+    graph.title = 'Expirados';
     graph.valueField = "travels_expired_count";
     graph.balloonText = "[[month]]: [[value]] solicitudes expiradas";
     graph.type = "column";
@@ -206,6 +208,7 @@ function travels_count_chart() {
 
     // REALIZADOS
     var graph = new AmCharts.AmGraph();
+    graph.title = 'Realizados';
     graph.valueField = "travels_done_count";
     graph.balloonText = "[[month]]: [[value]] viajes realizados";
     graph.type = "column";
@@ -214,6 +217,11 @@ function travels_count_chart() {
     graph.fillColors = "#f0ad4e";
     chart.addGraph(graph);
     
+    
+    var legend = new AmCharts.AmLegend();
+    legend.position = 'top';
+    legend.align = 'center';
+    chart.addLegend(legend);
 
     chart.write("travels-count-div");
 }

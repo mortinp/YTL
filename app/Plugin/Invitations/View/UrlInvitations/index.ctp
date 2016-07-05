@@ -8,7 +8,10 @@
     <span><b>url compartida:</b> <?php echo $i['UrlInvitation']['url']?></span>
     <span><?php echo $this->Html->link($i['UrlInvitation']['id'], array('action'=>'visit/'.$i['UrlInvitation']['id']))?></span>
     <?php if($i['UrlInvitation']['comments'] != null):?>
-    <span class="info" title="<?php echo $i['UrlInvitation']['comments']?>" style="margin-left: 30px"><i class="glyphicon glyphicon-comment"></i></span>
+    <span class="info" title="<?php echo $i['UrlInvitation']['comments']?>" style="margin-left: 30px"><i class="glyphicon glyphicon-exclamation-sign"></i></span>
+    <?php endif; ?>
+    <?php if($i['UrlInvitation']['message_to_invitee'] != null):?>
+    <span class="info" title="<?php echo $i['UrlInvitation']['message_to_invitee']?>" style="margin-left: 30px"><i class="glyphicon glyphicon-comment"></i></span>
     <?php endif; ?>
     <br/>
     <?php $urlDef = array('controller' => 'url_invitations', 'action' => 'visit/'.$i['UrlInvitation']['id'], 'base'=>false)?>
