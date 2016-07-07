@@ -191,6 +191,21 @@ class MetricsController extends AppController {
 
             GROUP BY year, month";
         
+        $queryDoneNotPaid = "Select year(travels.date) as year, month(travels.date) as month, travels.date as date,
+            count( distinct travels.id) as travels_done_not_paid_count
+
+            FROM travels
+
+            INNER JOIN users ON travels.user_id = users.id AND users.role != 'admin' AND users.role != 'tester'
+
+            INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+
+            INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND (travels_conversations_meta.state = 'D')
+
+            WHERE travels.date BETWEEN '$iniDate' AND '$endDate'
+
+            GROUP BY year, month";
+        
         
         $fixedTravels = array();
         $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
@@ -244,6 +259,27 @@ class MetricsController extends AppController {
                 $entries = count($fixedTravels);
                 $fixedTravels[$entries - 1]['date'] = $value['travels']['date'];
                 $fixedTravels[$entries - 1]['travels_done_count'] = $value[0]['travels_done_count'];
+                $fixedTravels[$entries - 1]['year'] = $value[0]['year'];
+                $fixedTravels[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
+            }
+        }
+        
+        $travelsDoneNotPaid = $this->Travel->query($queryDoneNotPaid);        
+        foreach ($travelsDoneNotPaid as $value) {
+            
+            $appended = false;
+            foreach ($fixedTravels as &$t) {
+                if($value[0]['year'] == $t['year'] && $months[$value[0]['month'] - 1] == $t['month']) {
+                    $t['travels_done_not_paid_count'] = $value[0]['travels_done_not_paid_count'];
+                    $appended = true;
+                    break;
+                }
+            }
+            if(!$appended) {
+                $fixedTravels[] = array();
+                $entries = count($fixedTravels);
+                $fixedTravels[$entries - 1]['date'] = $value['travels']['date'];
+                $fixedTravels[$entries - 1]['travels_done_not_paid_count'] = $value[0]['travels_done_not_paid_count'];
                 $fixedTravels[$entries - 1]['year'] = $value[0]['year'];
                 $fixedTravels[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
             }

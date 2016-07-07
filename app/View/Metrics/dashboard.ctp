@@ -20,16 +20,19 @@ App::uses('DriverTravelerConversation', 'Model');
             $cantViajes = 0;
             $cantViajesExpirados = 0;
             $cantViajesRealizados = 0;
+            $cantViajesRealizadosNoPagados = 0;
             foreach ($travels_count as $c) {
                 if(isset ($c['travels_created_count'])) $cantViajes += $c['travels_created_count'];
                 if(isset ($c['travels_expired_count'])) $cantViajesExpirados += $c['travels_expired_count'];
                 if(isset ($c['travels_done_count'])) $cantViajesRealizados += $c['travels_done_count'];
+                if(isset ($c['travels_done_not_paid_count'])) $cantViajesRealizadosNoPagados += $c['travels_done_not_paid_count'];
             }
             ?>
             <div>
                 <big><span class="label label-primary"><?php echo $cantViajes?> solicitudes creadas</span></big>
                 <big><span class="label label-default info" title="Estas son solicitudes que la fecha de realización del viaje expira ese mes. Puede ser que la solicitud se haya creado antes."><?php echo $cantViajesExpirados?> solicitudes expiradas</span></big>
                 <big><span class="label label-warning"><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
+                <big><span class="label label-danger"><i class="glyphicon glyphicon-warning-sign"></i> <?php echo $cantViajesRealizadosNoPagados?> viajes sin pagar</span></big>
             </div>
             <br/>
         </div>
@@ -215,6 +218,17 @@ function travels_count_chart() {
     graph.lineAlpha = 0;
     graph.fillAlphas = 1;
     graph.fillColors = "#f0ad4e";
+    chart.addGraph(graph);
+    
+    // REALIZADOS
+    var graph = new AmCharts.AmGraph();
+    graph.title = 'Sin pagar';
+    graph.valueField = "travels_done_not_paid_count";
+    graph.balloonText = "[[month]]: [[value]] viajes sin pagar";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 1;
+    graph.fillColors = "#d9534f";
     chart.addGraph(graph);
     
     
