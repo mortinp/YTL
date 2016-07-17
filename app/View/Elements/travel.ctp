@@ -64,8 +64,6 @@ foreach (Travel::getPreferences() as $key => $value) {
     <span id='travel-date-label'>
         <?php echo TimeUtil::prettyDate($travel['Travel']['date'])?>
     </span>
-    
-    <?php if($changeDate) echo $this->element('form_travel_date_controls', array('travel'=>$travel, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>$date_converted))?>
 </p>
 
 <p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php if($embedEmail) echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $travel['Travel']['details']); else echo $travel['Travel']['details']?></span></p>
@@ -205,18 +203,3 @@ foreach (Travel::getPreferences() as $key => $value) {
 <?php endif?>
 
 </div>
-
-<?php
-// CSS
-$this->Html->css('bootstrap', array('inline' => false));
-$this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));
-
-//JS
-$this->Html->script('jquery', array('inline' => false));
-$this->Html->script('bootstrap', array('inline' => false));
-
-$this->Html->script('vitalets-bootstrap-datepicker/bootstrap-datepicker.min', array('inline' => false));
-
-echo $this->Js->writeBuffer(array('inline' => false));
-
-?>

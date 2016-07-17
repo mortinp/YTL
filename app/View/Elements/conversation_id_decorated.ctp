@@ -21,14 +21,14 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
 <?php if($hasMetadata && $conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
     <!-- Confirmacion recibida --> 
-    <span title="<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>" class="info text-info" data-trigger="click" style="float:left;margin-left: -50px;"><big><a href="#!"><i class="glyphicon glyphicon-hand-right"></i></a></big></span>
+    <span title="<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>" class="info text-info" data-trigger="click" style="float:left;margin-left: -50px;"><big><a href="#!"><i class="glyphicon glyphicon-envelope"></i></a></big></span>
 <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
     <!-- Pedido de confirmacion enviado al chofer -->    
     <i class="glyphicon glyphicon-share-alt info" style="float:left;margin-left: -50px;" title="Pedido de confirmación del viaje enviado al chofer"></i>
 <?php endif?>
     
 <!-- ARCHIVADO TODO: verificar que la conversacion tenga mas de dos meses de expirado-->
-<?php if(isset ($conversation['TravelConversationMeta']['archived']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date']))):?>
+<?php if(isset ($conversation['TravelConversationMeta']['archived']) && isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date']))):?>
 <div style="float:right;padding-right: 10px">
     <?php if(!$conversation['TravelConversationMeta']['archived']):?>
         <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>

@@ -199,7 +199,7 @@ class TravelsController extends AppController {
         $this->Travel->id = $id;
         if(!$this->Travel->exists()) throw new NotFoundException();
         
-        if ($this->request->is('post')) {
+        if ($this->request->is('post') || $this->request->is('put')) {
             
             if (!$this->Travel->save($this->request->data, $validate)) $this->setErrorMessage('Ocurrió un error actualizando este viaje');
             

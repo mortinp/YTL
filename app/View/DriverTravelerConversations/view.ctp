@@ -36,7 +36,7 @@
 <?php else:?>
     <?php foreach ($conversations as $message):?>
     <div class="row container-fluid">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-9 col-md-offset-1">
             <?php echo $this->element('widget_conversation_message', array('message'=>$message['DriverTravelerConversation']))?>
         </div>
         <br/>

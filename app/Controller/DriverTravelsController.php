@@ -56,10 +56,11 @@ class DriverTravelsController extends AppController {
             $conditions['TravelConversationMeta.following'] = true;
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_DONE) {
-            $this->paginate = array('limit'=>50);
+            $this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>50);
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_DONE;
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_PAID) {
+            $this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>50);
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_PAID;
         } else if($filter == DriverTravel::$SEARCH_ARCHIVED) {
             $conditions['TravelConversationMeta.archived'] = 1;
