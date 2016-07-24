@@ -4,7 +4,7 @@
     <thead><th></th><th>ID</th><th>Correo</th><th>Min PAX</th><th>Max PAX</th><th>Carro Moderno</th><th>Aire Acond.</th><th>Inglés</th><th>Activo</th><th>Descripción</th><th>Localidades</th><th>Viajes</th></thead>
     <tbody> 
     <?php foreach ($drivers as $d): ?>
-        <tr>
+        <tr class="<?php if(!$d['Driver']['active']) echo "danger";?>">
             <td>
                 <ul class="list-inline">
                     <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar', array('action'=>'edit/'.$d['Driver']['id']), array('escape'=>false))?></li>

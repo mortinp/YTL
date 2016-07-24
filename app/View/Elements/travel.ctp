@@ -111,7 +111,8 @@ foreach (Travel::getPreferences() as $key => $value) {
     $daysPosted = $now->diff(new DateTime($travel['Travel']['created']), true)->format('%a');
     if(isset ($travel['User'])) $user = $travel['User'];
     else if(isset ($travel['Travel']['User'])) $user = $travel['Travel']['User'];
-    echo $user['username'].' '.$this->Html->link('admin »', array('controller'=>'users', 'action'=>'admin/'.$user['id']), array('title'=>'Ir a la pantalla de administración de este usuario')).' - <b>Fecha creación:</b> '.date('d-m-Y', $created_converted).' <span class="text-muted">(hace '.$daysPosted.' días)</span>';
+    echo $user['username'].' '.$this->Html->link($user['travel_count'].' viajes', array('controller'=>'users', 'action'=>'view_travels/'.$user['id'])).' | '.$this->Html->link('admin »', array('controller'=>'users', 'action'=>'admin/'.$user['id']), array('title'=>'Ir a la pantalla de administración de este usuario'));
+    echo ' - './*'<b>Viaje creado:</b> '.date('d-m-Y', $created_converted).' '.*/'<span class="text-muted">(creado hace '.$daysPosted.' días)</span>';
     ?>
     </p>
     <?php if(isset ($travel['DriverTravel']) && $showConversations):?>

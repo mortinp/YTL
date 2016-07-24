@@ -4,10 +4,10 @@ if(!isset ($modal)) $modal = false; // Esto es para hacer que el formulario se c
 
 <!-- GANANCIAS -->
 <?php if($conversation['TravelConversationMeta']['income'] != null && $conversation['TravelConversationMeta']['income'] != 0):?>
-    <span class="label label-success" title="Ganancia"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income']?></span>
+    <span class="label label-success info" title="Ganancia total"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income']?></span>
 <?php endif?>
 <?php if($conversation['TravelConversationMeta']['income_saving'] != null && $conversation['TravelConversationMeta']['income_saving'] != 0):?>
-    <span class="label label-default" title="Ahorro"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income_saving']?></span>
+    <span class="label label-default info" title="Ahorro"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income_saving']?></span>
 <?php endif?>
 
 <!-- TODO: Poner ganancias solo los super administradores -->

@@ -12,7 +12,7 @@ class LocalitiesController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {            
+        if ($this->request->is('post') || $this->request->is('put')) {            
             $this->Locality->create();
             if ($this->Locality->save($this->request->data)) {
                 Cache::delete('localities');

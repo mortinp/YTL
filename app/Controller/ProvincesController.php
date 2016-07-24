@@ -10,7 +10,7 @@ class ProvincesController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {            
+        if ($this->request->is('post') || $this->request->is('put')) {            
             $this->Province->create();
             if ($this->Province->save($this->request->data)) {
                 Cache::delete('localities');

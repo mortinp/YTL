@@ -36,7 +36,7 @@ class DriversController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {
+        if ($this->request->is('post') || $this->request->is('put')) {
             
             $this->Driver->create();
             

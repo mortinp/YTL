@@ -141,25 +141,7 @@ class AppController extends Controller {
 
     public function index() {
         
-    }
-    
-    
-    protected function setErrorMessage($message) {
-        $this->Session->setFlash($message, 'error_message');
-    }
-    
-    protected function setInfoMessage($message) {
-        $this->Session->setFlash($message, 'info_message');
-    }
-    
-    protected function setWarningMessage($message) {
-        $this->Session->setFlash($message, 'warning_message');
-    }
-    
-    protected function setSuccessMessage($message) {
-        $this->Session->setFlash($message, 'success_message');
-    }
-    
+    }    
     
     private function _getPageTitle($key) {
         $pageTitles = array(
@@ -219,5 +201,22 @@ class AppController extends Controller {
         if(isset ($pageTitles[$key])) return $pageTitles[$key];
         
         return null;
+    }
+    
+    
+    protected function setErrorMessage($message) {
+        $this->Session->setFlash($message, 'error_message');
+    }
+    
+    protected function setInfoMessage($message) {
+        $this->Session->setFlash($message, 'info_message');
+    }
+    
+    protected function setWarningMessage($message) {
+        $this->Session->setFlash($message, 'warning_message');
+    }
+    
+    protected function setSuccessMessage($message) {
+        $this->Session->setFlash($message, 'success_message');
     }
 }

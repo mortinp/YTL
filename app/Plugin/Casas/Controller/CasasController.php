@@ -95,7 +95,7 @@ class CasasController extends AppController {
             
         if($interaction == null || empty ($interaction)) throw new ExpiredLinkException();
         
-        if ($this->request->is('post')|| $this->request->is('put')) {
+        if ($this->request->is('post') || $this->request->is('put')) {
             
             $casasExpert = Configure::read('casas_expert');
             if(AuthComponent::user('role') == 'admin') $casasExpert = array('name'=>'Martin', 'email'=>array('mproenza@grm.desoft.cu', 'martin@yotellevocuba.com')); // Esto es para que las propuestas que se les envien a los admin, las solicitudes se me envien a mi. Esto es para poder hacer pruebas.
