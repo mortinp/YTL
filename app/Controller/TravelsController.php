@@ -384,6 +384,18 @@ class TravelsController extends AppController {
     }
     
     
+    public function admin($id) {
+        Travel::prepareFullConversations($this);
+        $travel = $this->Travel->findById($id);
+        $this->set('travel', $travel);
+        
+        Travel::prepareFullConversations($this);
+        $this->set('travels_by_same_user', $this->Travel->find('all', array('conditions'=>array('user_id'=>$travel['User']['id'], 'Travel.id !='=>$id))));
+        
+        $this->set('drivers', $this->Driver->getAsSuggestions());
+    }
+    
+    
     
     /**
      * AUX

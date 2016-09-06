@@ -16,7 +16,7 @@ class RoutinesShell extends AppShell {
 
                 FROM travels
 
-                INNER JOIN  drivers_travels ON drivers_travels.travel_id = travels.id AND travels.date >= '2016-07-01' AND travels.date <= '$someDaysBack'
+                INNER JOIN  drivers_travels ON drivers_travels.travel_id = travels.id AND travels.date >= '2016-09-15' AND travels.date <= '$someDaysBack'
 
                 INNER JOIN  travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id AND travels_conversations_meta.following = 1 AND travels_conversations_meta.asked_confirmation = 0
 
@@ -41,8 +41,8 @@ class RoutinesShell extends AppShell {
             $datasource->begin();
             
             $to = $value['drivers']['driver_email'];
-            $subject = 'Confirmación del viaje #'.$vars['travel_id'].' [['.$vars['conversation_id'].']]';
-            $OK = EmailsUtil::email($to, $subject, $vars, 'viaje_realizado', 'ask_confirmation_to_driver');
+            $subject = 'Verificación del viaje #'.$vars['travel_id'].' [['.$vars['conversation_id'].']]';
+            $OK = EmailsUtil::email($to, $subject, $vars, 'verificacion_viaje', 'ask_confirmation_to_driver');
             if($OK) {
                 $this->TravelConversationMeta->id = $vars['conversation_id'];
                 $OK = $this->TravelConversationMeta->saveField('asked_confirmation', true);

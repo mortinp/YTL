@@ -126,7 +126,21 @@ if(Configure::read('debug') > 0) {
                 <p>Sorry for writting this late. We send hugs from Spain to you and Juan Carlos.</p>
                 <p>Until next time!</p>
             </blockquote>
-            <div class="alert alert-success"><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgsuccess.jpg'?>"/> This messega was sent to Ovidio, the Chief of Operations of a taxi agency associated to YoTeLlevo. Ovidio was contacted via our platform, but all the credit for the organization and the work goes to him and his driver, Juan Carlos.<span style="display: inline-block"></span></div>
+            <div class="alert alert-success"><img src="<?php echo $imgBaseUrl.'/avatar-martin-bgsuccess.jpg'?>"/> This message was sent to Ovidio, the Chief of Operations of a taxi agency associated to YoTeLlevo. Ovidio was contacted via our platform, but all the credit for the organization and the work goes to him and his driver, Juan Carlos.<span style="display: inline-block"></span></div>
+        </div>
+        
+        <div class="col-md-8 col-md-offset-1 panel" style="font-family:'Engagement', cursive">
+            <blockquote class="bg-info">
+                <footer>
+                    <big>Liam Barret</big>
+                </footer>
+                <br/>
+                
+                <p>We arranged our trip from Havana to Trinidad with Elmer by email from the UK and he was bang on time to collect us from our Casa. He's a good driver, knowledgeable, reliable, honest and excellent value.</p> 
+                <p>We needed subsequent taxi journeys from Trinidad to Playa Larga and then Playa Larga to Havana. Elmer was happy to drive from Havana on each occasion and ferry us around for reasonable cost.</p>
+                <p>More than that, he is a great laugh. You're hiring more than just a taxi driver and our holiday was better for having spent  all the hours on the road with him.</p>
+                <p>I recommend using a taxi in Cuba even on the longer trips. We were a party of 4 and the taxi worked out around 50% more than taking a bus. It was more comfortable, we were able to stop along the way when we wanted and it felt more in touch with the country. If you are going to take a taxi, then I thoroughly recommend Elmer Lores!</p>
+            </blockquote>
         </div>
             
         <?php else:?>

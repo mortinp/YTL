@@ -176,7 +176,7 @@ class AppController extends Controller {
             
             'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),            
             
-            // Admins access
+            // Admin access
             'users.index' =>array('title'=>'Usuarios'),
             'users.add' =>array('title'=>'Nuevo usuario'),           
             'users.edit' =>array('title'=>'Editar usuario'),           
@@ -187,14 +187,16 @@ class AppController extends Controller {
             
             'driver_travels.view_filtered' => array('title'=>'Conversaciones'),
             'travels.view_filtered' =>array('title'=>__d('meta', 'Viajes')),
-            'driver_traveler_conversations.view' =>array('title'=>__d('meta', 'Mensajes de conversación')),            
+            'driver_traveler_conversations.view' =>array('title'=>'Mensajes en conversación'),
             
             'metrics.dashboard' =>array('title'=>'Dashboard'),
             
-            'url_invitations.index' =>array('title'=>'Invitaciones a URL'),
+            'url_invitations.index' =>array('title'=>'URLs compartidas'),
             'url_invitations.add' =>array('title'=>'Compartir URL'),
             
             'email_queues.index' =>array('title'=>'Email Queue'),
+            
+            'travels.admin' =>array('title'=>'Administrar Viaje'),
             
         );
         

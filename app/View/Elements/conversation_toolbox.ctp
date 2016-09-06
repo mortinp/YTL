@@ -1,7 +1,34 @@
-<?php $hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);?>          
+<?php 
+$hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);
+
+$now = new DateTime(date('Y-m-d', time()));
+
+$date_converted = strtotime($data['Travel']['date']);
+$expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+if($expired) {
+    $daysExpired = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
+}
+
+$hasMessages = count($conversations) > 0;
+if($hasMessages) {
+    $lastMessage = $conversations[count($conversations) - 1]['DriverTravelerConversation'];
+    $daysLastMessage = $now->diff(new DateTime($lastMessage['created']), true)->format('%a');
+}
+
+$daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
+?>          
 
 <div class="control-panel">
     <div style="width: 200px">
+        <!--<div style="width: 100%">
+            <span class="info" title="Alertas en esta conversación">
+                <a href="#!" class="open-form text-warning" data-form="conversation-alerts" data-title="Alertas en esta conversación"><big><i class="glyphicon glyphicon-warning-sign"></i></big></a>
+            </span>
+            <span class="info" title="Instrucciones para revisar esta conversación">
+                <a href="#!" class="open-form" data-form="conversation-todo" data-title="Instrucciones para esta conversación"><i class="glyphicon glyphicon-book"></i></a>
+            </span>
+        </div>-->
+        
         <div class="btn-wrapper">
             <!-- CANTIDAD TOTAL DE MENSAJES-->
             <?php if($data['DriverTravel']['driver_traveler_conversation_count'] > 0):?>
@@ -23,7 +50,8 @@
                 <span class="label label-success info" style="margin-left:5px" title="Mensajes nuevos">+<?php echo $unreadMessages?></span>
 
                 <?php $firstUnreadMessage = $conversations[count($conversations) - $unreadMessages]['DriverTravelerConversation'];?>
-                <span><a href="#message-<?php echo $firstUnreadMessage['id']?>">&ndash; leer nuevos</a></span>
+                <span><a href="#!" class="last-msg" data-where="message-<?php echo $firstUnreadMessage['id']?>">&ndash; leer nuevos</a></span>
+                <!--<span><a href="#!" class="next-msg" data-where="message-<?php echo $conversations[0]['DriverTravelerConversation']['id']?>">&ndash; próximo</a></span>-->
 
                 <br/>
                 <br/>
@@ -99,6 +127,33 @@
     </div>
 </div>
 
+<div id='conversation-todo' style="display:none">
+    <ul>
+    <?php if($unreadMessages > 0):?>
+    <li><b>Lee los <span class="label label-success"><?php echo $unreadMessages?></span> mensajes nuevos</b> y algunos anteriores si lo crees necesario para entender la conversación.</li>
+    <li>Si encuentras un mensaje indicando que la fecha de inicio del viaje es diferente a <span class="text-success"><b><?php echo TimeUtil::prettyDate($data['Travel']['date'])?></b></span>, <b>cambia la fecha</b>.</li>
+    <?php endif?> 
+    
+    <?php if($unreadMessages > 0 && !$following):?>
+    <li><b>Marca</b> <span class="label label-info">Seguir esta conversación</span> si la conversación indica que pudiera darse el viaje con este chofer.</li>
+    <?php endif?>
+    </ul>
+</div>
+
+<div id='conversation-alerts' style="display:none">
+    <?php if(!$expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($data['Travel']['date']))):?>
+        <?php if($hasMessages && $daysLastMessage > 15):?>
+            <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Toma las precauciones necesarias!</b></span>
+        <?php endif?>
+    
+        <span class="alert alert-info" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-exclamation-sign"></i> Este viaje debe comenzar <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Verifica que todo esté listo!</b></span>
+    <?php endif?>
+    
+    <?php if($expired && $following && $daysExpired > 7):?>
+        <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> Este viaje se está <span class="label label-info">Siguiendo</span> y está <span class="badge">expirado o realizándose hace <?php echo $daysExpired?> días</span>. <b>Confirma el estado de este viaje con el chofer!</b></span>
+    <?php endif?>
+</div>
+
 <?php
 $this->Html->css('bootstrap', array('inline' => false));
 $this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));
@@ -143,10 +198,25 @@ echo $this->Js->writeBuffer(array('inline' => false));
 </style>
 
 <script type="text/javascript">
-     $(document).ready(function(){
+    
+    var messages = [];
+    var i = 0;
+    <?php foreach($conversations as $msg):?>
+        messages[i] = ('message-<?php echo $msg['DriverTravelerConversation']['id']?>');
+        i++;
+    <?php endforeach?>
+    var currentMsg = 0;
+    
+    function goTo(id) {
+        $('html, body').animate({
+            scrollTop: $('#' + id).offset().top
+        }, 300);
+    };
+    
+    $(document).ready(function(){
         $( ".open-form" ).click(function( event ) {
-            bootbox.dialog({message:$( '#' + $(this).data('form') ).html()});
-            
+            bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('form') ).html()});
+
             $('.datepicker').datepicker({
                 format: "dd/mm/yyyy",
                 language: '<?php echo Configure::read('Config.language')?>',
@@ -155,8 +225,23 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 autoclose: true,
                 todayHighlight: true
             });
-            
+
             event.preventDefault();
         });
-     });
+
+        $('.last-msg').click(function() {
+            goTo($(this).data('where'));
+        });
+        
+        $('.next-msg').click(function() {
+            goTo($(this).data('where'));
+            if(currentMsg < messages.length - 1) currentMsg++;
+            $(this).data('where', messages[currentMsg]);
+        });
+    });
  </script>
+ 
+ <script type="text/javascript">
+    
+    
+</script>

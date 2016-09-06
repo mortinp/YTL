@@ -2,6 +2,7 @@
 
 App::uses('Travel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('EmailsUtil', 'Util');
 
 // TODO: Me parece que estas 4 inclusiones de abajo no se usan ya (BORRAR)
 /*App::uses('ComponentCollection', 'Controller');
@@ -340,7 +341,7 @@ class IncomingMailShell extends AppShell {
             }
             
             CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
-        } else if($to === 'viaje-realizado@'.Configure::read('domain_name')) {
+        } else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
@@ -351,7 +352,7 @@ class IncomingMailShell extends AppShell {
                 if($meta == null || empty ($meta)) return; // no hacer nada si no existe la conversacion
                 
                 $newMessage = trim($parser->body);
-                //$newMessage = str_replace('Este correo tiene la intencion de verificar la realizacion del viaje', '(...)', $newMessage); // HACK: Eliminar la parte del correo de verificacion
+                if(strpos($newMessage, '**********')) $newMessage = substr($newMessage, 0, strpos($newMessage, '**********'));
                 
                 // Verificar si ya se habia recibido otra confirmacion anterior de esta misma conversacion; agregarle el nuevo texto en caso de que sí.
                 if(isset ($meta['TravelConversationMeta']['received_confirmation_details']) && $meta['TravelConversationMeta']['received_confirmation_details'] != null)
@@ -369,7 +370,10 @@ class IncomingMailShell extends AppShell {
                     // TODO: Enviar un correo al chofer de que no se pudo procesar su respuesta
                 }
             }
-        }       
+        } else if($to === 'info-chofer@'.Configure::read('domain_name')) {
+            // Hacer el info choferes
+            EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');
+        }      
     }
     
     

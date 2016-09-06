@@ -31,7 +31,7 @@ App::uses('DriverTravelerConversation', 'Model');
             <div>
                 <big><span class="label label-primary"><?php echo $cantViajes?> solicitudes creadas</span></big>
                 <big><span class="label label-default info" title="Estas son solicitudes que la fecha de realización del viaje expira ese mes. Puede ser que la solicitud se haya creado antes."><?php echo $cantViajesExpirados?> solicitudes expiradas</span></big>
-                <big><span class="label label-warning"><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
+                <big><span class="label label-warning info" title="Un viaje puede consistir en recorridos por varios destinos durante varios días con un mismo chofer -de hecho esto es lo que más sucede."><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $cantViajesRealizados?> viajes realizados</span></big>
                 <big><span class="label label-danger"><i class="glyphicon glyphicon-warning-sign"></i> <?php echo $cantViajesRealizadosNoPagados?> viajes sin pagar</span></big>
             </div>
             <br/>

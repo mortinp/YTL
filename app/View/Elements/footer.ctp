@@ -17,17 +17,24 @@
             }
             $urlBlog .= '/'.Configure::read('Config.language');
             ?>
-            <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
+            
+            <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>
             |
-            <a href="https://twitter.com/yotellevocuba" title="YoTeLlevo in Twitter">Twitter</a>
-            |
-            <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
-            |
+            
             <?php echo $this->Html->link(__('Testimonios'), array('controller'=>'pages', 'action'=>'display', 'testimonials')); ?>
             |
-           <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>
+            
+            <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
             |
-           <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>
+            
+            <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
+            |
+            
+            <a href="https://twitter.com/yotellevocuba" title="YoTeLlevo in Twitter">Twitter</a>
+            |
+            
+            <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>
+           
         </p>
     </div>
 

@@ -30,7 +30,7 @@ $travelDetails = $conversation['Travel']['origin']. ' - '. $conversation['Travel
                 if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
                 $src .= '/'.str_replace('\\', '/', $conversation['Driver']['DriverProfile']['avatar_filepath']);
             ?>
-            <img src="<?php echo $src?>" title="<?php echo $conversation['Driver']['DriverProfile']['driver_name'].' - '.$conversation['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/>
+            <img src="<?php echo $src?>" alt="<?php echo $conversation['Driver']['DriverProfile']['driver_name'].' - '.$conversation['Driver']['username']?>" title="<?php echo $conversation['Driver']['DriverProfile']['driver_name'].' - '.$conversation['Driver']['username']?>" style="max-height: 40px; max-width: 40px"/>
         <?php endif;?>
         <span style="display: inline-block">
             <small>#<?php echo $conversation['Travel']['id']?></small> 

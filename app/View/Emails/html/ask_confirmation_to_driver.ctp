@@ -1,5 +1,8 @@
 <?php App::uses('TimeUtil', 'Util')?>
 
+
+<div style="text-align: center;width: 100%">**********</div>
+
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <p>Hola <?php echo $driver_name?>,</p>
 
