@@ -1,6 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
 
-
 <div style="text-align: center;width: 100%">**********</div>
 
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
@@ -19,15 +18,15 @@
     Este correo usted debe responderlo <b>sin modificar el asunto</b> para confirmar la realización o no de dicho viaje y hacer lo siguiente según sea el caso:
 </p>
 <ul>
-    <li>En caso de que <b>Sí se haya realizado el viaje</b>, incluya en el cuerpo de su correo el <b>total ingresado por el viaje</b> y una breve explicación si es necesario.</li>
+    <li>En caso de que <b>Sí se haya realizado el viaje</b>, incluya en el cuerpo de su correo el <b>total ingresado por el viaje</b> (si ya el viaje terminó) y una breve explicación si es necesario.</li>
     <li>En caso de que <b>No se haya realizado el viaje</b>, incluya en el cuerpo de su correo una breve explicación.</li>
 </ul>
 <p>
-    Nosotros almacenaremos su correo para luego verificarlo. Muchísimas gracias y saludos.
+    Nosotros almacenaremos su correo para luego procesarlo y verificarlo. Muchísimas gracias y saludos.
 </p>
 <p>El equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a></p>
 <p>
     <small>
-    Este correo le fue enviado automáticamente porque a este viaje se le está dando seguimiento y lo tenemos como posible a haberse realizado.
+    Este correo le fue enviado porque a este viaje se le está dando seguimiento y lo tenemos como posible a haberse realizado.
     </small>
 </p>

@@ -4,6 +4,7 @@ App::uses('AppController', 'Controller');
 App::uses('LangController', 'Controller');
 App::uses('DriverTravel', 'Model');
 App::uses('DriverTravelerConversation', 'Model');
+App::uses('EmailsUtil', 'Util');
 
 
 class DriverTravelerConversationsController extends AppController {
@@ -144,6 +145,46 @@ class DriverTravelerConversationsController extends AppController {
             $this->setErrorMessage('Ocurrió un error salvando la ganacia del viaje '.$id);
         } else throw new UnauthorizedException();
     }
+    
+    
+    
+    public function ask_confirmation_to_driver($id) {
+        
+        $this->DriverTravel->id = $id;
+        if (!$this->DriverTravel->exists()) {
+            throw new NotFoundException('Conversación inválida.');
+        }
+        
+        $this->Driver->attachProfile($this->DriverTravel);
+        
+        $data = $this->DriverTravel->findById($id);
+        
+        $vars = array();
+        $vars['travel_id'] = $data['Travel']['id'];
+        $vars['travel_origin'] = $data['Travel']['origin'];
+        $vars['travel_destination'] = $data['Travel']['destination'];
+        $vars['travel_date'] = $data['Travel']['date'];
+        $vars['conversation_id'] = $id;
+        $vars['driver_name'] = (isset ($data['Driver']['DriverProfile']) && !empty($data['Driver']['DriverProfile']))? Driver::shortenName($data['Driver']['DriverProfile']['driver_name']):'chofer';
+        
+        $datasource = $this->TravelConversationMeta->getDataSource();
+        $datasource->begin();
+
+        $to = $data['Driver']['username'];
+        $subject = 'Verificación del viaje #'.$vars['travel_id'].' [['.$vars['conversation_id'].']]';
+        $OK = EmailsUtil::email($to, $subject, $vars, 'verificacion_viaje', 'ask_confirmation_to_driver');
+        if($OK) {
+            $this->TravelConversationMeta->id = $vars['conversation_id'];
+            $OK = $this->TravelConversationMeta->saveField('asked_confirmation', true);
+        }
+
+        if($OK) $datasource->commit(); else $datasource->rollback();
+        
+        return $this->redirect($this->referer().'#verification-action');
+    }
+    
+    
+    
     
     /**
      * This function can only be accesed via ajax, and it returns all the metadata of a given conversation
