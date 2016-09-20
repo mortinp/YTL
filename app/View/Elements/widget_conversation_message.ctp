@@ -62,11 +62,47 @@ if($message['response_by'] == 'driver') {
     <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> (<?php echo $message['created']?>)</a></b>
     <br/>
     <br/>
-    <?php
-    $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", trim($message['response_text']));
-    $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*)/i", '<span style="color:tomato"><b>$0</b></span>', $text);
-    $text = preg_replace("/(\r\n|\n|\r)/", "<br/>", $text);
-    //$message = preg_replace("/cuc/i", '<big><abbr title="One of the currencies in Cuba">$0</abbr></big>', $message);// TODO: Mostrar una ayuda al lado de 'CUC', que enseñe qué es el CUC... o se puede poner un link al tipo de cambio actual...
-    echo $text;
+    
+    <?php 
+        $msgWasShortened = false;
+        $text = trim($message['response_text']);
+        
+        $originalText = $text;
+        
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", $text);
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*)/i", '<span style="color:tomato"><b>$0</b></span>', $text);
+        $text = preg_replace("/(\r\n|\n|\r)/", "<br/>", $text);
+        
+        $fullText = $shortText = $text;
+        
+        if(strpos($originalText, Configure::read('email_message_separator_stripped'))) {
+            $shortText = substr($originalText, 0, strpos($originalText, Configure::read('email_message_separator_stripped')));
+            $shortText = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", $shortText);
+            $shortText = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*)/i", '<span style="color:tomato"><b>$0</b></span>', $shortText);
+            $shortText = preg_replace("/(\r\n|\n|\r)/", "<br/>", $shortText);
+            
+            $msgWasShortened = true;
+        }
     ?>
+    
+    <?php if($msgWasShortened):?>
+        <div id="msg-full-body-<?php echo $messageId?>" style="display: none">
+            <?php echo $fullText; ?>
+        </div>
+    <?php endif;?>
+    
+    <div id="msg-body-<?php echo $messageId?>">
+        <?php echo $shortText; ?>
+        
+        <?php if($msgWasShortened):?>
+            <br/>
+            <br/>
+            <a href="#!" id="view-full-message-<?php echo $messageId?>">&ndash; ver todo el mensaje</a>
+            <script type="text/javascript">
+                $('#view-full-message-<?php echo $messageId?>').click(function() {
+                    $('#msg-body-<?php echo $messageId?>').html('').html($('#msg-full-body-<?php echo $messageId?>').html());
+                });
+            </script>
+        <?php endif;?>
+    </div>
 </div>

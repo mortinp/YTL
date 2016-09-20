@@ -1,3 +1,5 @@
+<?php echo Configure::read('email_message_separator')?>
+
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <p>Hola <?php echo $driver_name?>,</p>
 <div>

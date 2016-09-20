@@ -1,3 +1,5 @@
+<?php echo Configure::read('email_message_separator')?>
+
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <div id="conversation-header">
     <p>
@@ -8,12 +10,12 @@
 
 <?php 
 $user_desc = 'El viajero';
-if(isset ($travel['User'])) {
+/*if(isset ($travel['User'])) {
     if(isset ($travel['User']['display_name']) && !empty ($travel['User']['display_name']))
         $user_desc = $travel['User']['display_name'];
     if(isset ($travel['User']['country']) && !empty ($travel['User']['country']))
         $user_desc .= ' de '.$travel['User']['country'];
-}?>
+}*/?>
 
 <p><b><?php echo $user_desc?> dice:</b></p>
 <div style="border-left: #efefef solid 2px;padding-left: 15px">

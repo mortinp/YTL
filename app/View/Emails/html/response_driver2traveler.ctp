@@ -1,3 +1,5 @@
+<?php echo Configure::read('email_message_separator')?>
+
 <?php
 $driver_intro = __d('conversation', 'El chofer');
 $driver_desc = '#'.$driver['id'];
