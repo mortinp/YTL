@@ -171,7 +171,7 @@ class DriverTravelerConversationsController extends AppController {
         $datasource->begin();
 
         $to = $data['Driver']['username'];
-        $subject = 'Verificación del viaje #'.$vars['travel_id'].' [['.$vars['conversation_id'].']]';
+        $subject = 'Verificacion del viaje #'.$vars['travel_id'].' [['.$vars['conversation_id'].']]';
         $OK = EmailsUtil::email($to, $subject, $vars, 'verificacion_viaje', 'ask_confirmation_to_driver');
         if($OK) {
             $this->TravelConversationMeta->id = $vars['conversation_id'];

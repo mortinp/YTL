@@ -342,23 +342,35 @@ class IncomingMailShell extends AppShell {
             
             CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
         } else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
+            CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION RECEIVED------------------------------</span>\n\n");
+            
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
+                CakeLog::write('travel_confirmations', "Parsed Conversation: ".$conversation."\n\n");
+                
                 $meta = $this->TravelConversationMeta->findByConversationId($conversation);
                 
-                if($meta == null || empty ($meta)) return; // no hacer nada si no existe la conversacion
+                if($meta == null || empty ($meta)) {
+                    CakeLog::write('travel_confirmations', "Conversation NOT FOUND\n\n");
+                    return;
+                }// no hacer nada si no existe la conversacion
                 
-                $newMessage = trim($parser->body);
+                $newMessage = trim($body);
+                CakeLog::write('travel_confirmations', "Message: ".$newMessage."\n\n");
+                CakeLog::write('travel_confirmations', "Starting to cut message\n\n");
                 if(strpos($newMessage, '**********')) $newMessage = substr($newMessage, 0, strpos($newMessage, '**********'));
+                CakeLog::write('travel_confirmations', "Cut Message: ".$newMessage."\n\n");
                 
                 // Verificar si ya se habia recibido otra confirmacion anterior de esta misma conversacion; agregarle el nuevo texto en caso de que sí.
                 if(isset ($meta['TravelConversationMeta']['received_confirmation_details']) && $meta['TravelConversationMeta']['received_confirmation_details'] != null)
-                    $newMessage = $meta['TravelConversationMeta']['received_confirmation_details'].
+                    $newMessage = 
+                        $meta['TravelConversationMeta']['received_confirmation_details'].
                         "\r\n\r\n (...)\r\n\r\n".
                         $newMessage;
+                CakeLog::write('travel_confirmations', "Fixed Message: ".$newMessage."\n\n");
                 
                 $meta = array('TravelConversationMeta'=>array(
                     'conversation_id'=>$conversation, 
@@ -366,10 +378,18 @@ class IncomingMailShell extends AppShell {
                     'received_confirmation_type'=>'K'/*Unknown*/,
                     'asked_confirmation'=>true));
                 
+                CakeLog::write('travel_confirmations', "Dataset ready to be saved\n\n");
+                
                 if(!$this->TravelConversationMeta->save($meta)) {
-                    // TODO: Enviar un correo al chofer de que no se pudo procesar su respuesta
+                    CakeLog::write('travel_confirmations', "Error saving data on DB\n\n");
+                } else {
+                    CakeLog::write('travel_confirmations', "Data saved on DB\n\n");
                 }
+            } else {
+                CakeLog::write('travel_confirmations', "Error parsing conversation id\n\n");
             }
+            
+            CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION ENDED------------------------------</span>\n\n");
         } else if($to === 'info-chofer@'.Configure::read('domain_name')) {
             // Hacer el info choferes
             EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');
