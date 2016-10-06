@@ -108,7 +108,8 @@ class mailReader {
                 $filename = 'file';
             }
 
-            $this->addAttachment($filename,$this->decoded->body,$mimeType);
+            // MARTIN: No hace falta este adjunto ya...
+            //$this->addAttachment($filename,$this->decoded->body,$mimeType);
             
             $this->body = $this->decoded->body;
             
