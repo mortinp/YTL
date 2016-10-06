@@ -203,6 +203,21 @@ if($isLoggedIn) {
                 <?php echo $this->Session->flash(); ?>
                 <?php echo $this->fetch('content'); ?>
                 
+                <?php if(!$userLoggedIn):?>
+                <div class="col-md-6 col-md-offset-3">
+                    <span class="alert alert-info" style="display: inline-block;width: 100%;text-align: center">
+                        <legend><p style="text-align: center"><?php echo __d('driver_profile', '¿Necesitas un chofer con auto en Cuba?')?></p></legend>
+                        
+                        <div><?php echo __d('driver_profile', 'Para solicitar un viaje con uno de nuestros choferes puedes hacerlo desde nuestra página de inicio')?></div>
+                        <?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> <big>'.__d('driver_profile', 'Ir al inicio de nuestro sitio').'</big>', '/', array('class'=>'btn btn-info btn-block', 'escape'=>false));?>
+                        
+                        <br/>
+                        <div>...<?php echo __d('driver_profile', 'o entra al sitio para gestionar tus viajes')?></div>
+                        <?php echo $this->Html->link(__d('driver_profile', 'Entrar al sitio'), array('controller'=>'users', 'action'=>'login'), array('class'=>'btn btn-default btn-block', 'escape'=>false));?>
+                    </span>
+                </div>
+                <?php endif?>
+                
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
                     <!-- Start 1FreeCounter.com code -->
   

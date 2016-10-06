@@ -140,20 +140,6 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
     </ul>
 </div>
 
-<div id='conversation-alerts' style="display:none">
-    <?php if(!$expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($data['Travel']['date']))):?>
-        <?php if($hasMessages && $daysLastMessage > 15):?>
-            <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Toma las precauciones necesarias!</b></span>
-        <?php endif?>
-    
-        <span class="alert alert-info" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-exclamation-sign"></i> Este viaje debe comenzar <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Verifica que todo esté listo!</b></span>
-    <?php endif?>
-    
-    <?php if($expired && $following && $daysExpired > 7):?>
-        <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> Este viaje se está <span class="label label-info">Siguiendo</span> y está <span class="badge">expirado o realizándose hace <?php echo $daysExpired?> días</span>. <b>Confirma el estado de este viaje con el chofer!</b></span>
-    <?php endif?>
-</div>
-
 <?php
 $this->Html->css('bootstrap', array('inline' => false));
 $this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));

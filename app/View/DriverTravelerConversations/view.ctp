@@ -31,6 +31,10 @@
 </div>
 <br/>
 
+<div class="col-md-6 col-md-offset-3"><?php echo $this->element('addon_travel_verification');?></div>
+<br/>
+<br/>
+
 <!-- MENSAJES -->
 <?php if(empty ($conversations)):?><div class="row"><div class="col-md-6 col-md-offset-3">No hay conversaciones hasta el momento</div></div>
 <?php else:?>
@@ -49,8 +53,3 @@
         $("#fixed").css("top", Math.max(0, <?php echo $topPosition?> - $(this).scrollTop()));
     });
 </script>
-
-<br/>
-<br/>
-<div class="col-md-6 col-md-offset-3"><?php echo $this->element('addon_travel_verification');?></div>
-         

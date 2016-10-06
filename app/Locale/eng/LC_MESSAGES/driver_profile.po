@@ -17,3 +17,23 @@ msgstr ""
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Conoce a %s un poco más..."
 msgstr "Meet %s a little more..."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "¿Necesitas un chofer con auto en Cuba?"
+msgstr "Need a driver with a car in Cuba?"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Para solicitar un viaje con uno de nuestros choferes puedes hacerlo desde nuestra página de inicio"
+msgstr "You can request a travel with one of our drivers from our home page"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ir al inicio de nuestro sitio"
+msgstr "Go to the home page"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "o entra al sitio para gestionar tus viajes"
+msgstr "or login to the website to manage your travels"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Entrar al sitio"
+msgstr "Login to the website"

@@ -21,6 +21,16 @@ if($hasMessages) {
 $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
 ?>
 
+<div id='conversation-alerts'>
+    <?php if(!$expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($data['Travel']['date']))):?>
+        <?php if($hasMessages && $daysLastMessage > 15):?>
+            <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Toma las precauciones necesarias!</b></span>
+        <?php else: ?>
+            <span class="alert alert-info" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-exclamation-sign"></i> Este viaje debe comenzar <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Verifica que todo esté listo!</b></span>
+        <?php endif?>
+    <?php endif?>
+</div>
+
 <?php if(($expired && $following) || $asked_confirmation):?>
 <div id="travel-verification">
     <span class="alert alert-warning" style="display: inline-block; width: 100%">

@@ -6,37 +6,36 @@ App::uses('Travel', 'Model');
 
 class TravelLogicComponent extends Component {
     
-    public function prepareForSendingToDrivers($travelType) {
-        $this->DriverTravel = ClassRegistry::init('Driver'.$travelType);
+    public function prepareForSendingToDrivers() {
+        $this->DriverTravel = ClassRegistry::init('DriverTravel');
         $this->Driver = ClassRegistry::init('Driver');
     }
     
-    public function confirmTravel($travelType /*Travel or TravelByEmail*/, &$travel) {
+    public function confirmTravel(&$travel) {
         $OK = true;
         $errorMessage = '';
-        $inflectedTravelType = Inflector::underscore('Travel');
         
         if($travel != null) {
             
             $this->DriverLocality = ClassRegistry::init('DriverLocality');
-            $this->Travel = ClassRegistry::init($travelType);
+            $this->Travel = ClassRegistry::init('Travel');
             
-            $this->prepareForSendingToDrivers($travelType);
+            $this->prepareForSendingToDrivers();
             
-            $drivers = $this->findDriversForTravel($travel);
+            $drivers = $this->findDriversForTravel($travel, $travel['Travel']['locality_id']);
             
             if (count($drivers) > 0) {
-                $travel[$travelType]['state'] = Travel::$STATE_CONFIRMED;
-                $travel[$travelType]['drivers_sent_count'] = count($drivers);
+                $travel['Travel']['state'] = Travel::$STATE_CONFIRMED;
+                $travel['Travel']['drivers_sent_count'] = count($drivers);
                 if($this->Travel->save($travel)) {
-                    if(!isset ($travel[$travelType]['id'])) $travel[$travelType]['id'] = $this->Travel->getLastInsertID();
+                    if(!isset ($travel['Travel']['id'])) $travel['Travel']['id'] = $this->Travel->getLastInsertID();
                 } else {
                     $errorMessage = __('Ocurrió un error confirmando el viaje. Intenta de nuevo.');
                     $OK = false;
                 }
             } else {
                 $errorMessage = __('No hay choferes para atender este viaje. Intente confirmarlo más tarde.');
-                if(isset ($travel[$travelType]['people_count']) && $travel[$travelType]['people_count'] > 4)
+                if(isset ($travel['Travel']['people_count']) && $travel['Travel']['people_count'] > 4)
                     $errorMessage = __('La cantidad de personas supera la máxima capacidad para este origen y destino. Ponga 4 personas y valore con el chofer qué hacer.');
                 $OK = false;
             }
@@ -44,7 +43,6 @@ class TravelLogicComponent extends Component {
             $drivers_sent_count = 0;
             
             if($OK) {
-                //$this->prepareForSendingToDrivers($travelType);
                 
                 $emailConfig = 'no_responder';
                 if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viaje';
@@ -59,22 +57,21 @@ class TravelLogicComponent extends Component {
                     }
                 }
 
-                // Always send an email to me ;) 
-                //$subject = 'Nuevo Anuncio de Viaje ('.$travel[$travelType]['id'].' '.$this->Travel->travelType.')';
-                $subject = $this->getNotificationEmailSubject($travel, $travel[$travelType]['id']);
+                // Always send an email to me ;)
+                $subject = $this->getNotificationEmailSubject($travel, $travel['Travel']['id']);
                 
                 if(Configure::read('enqueue_mail')) {
                     ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             Configure::read('superadmin_email')/*'mproenza@grm.desoft.cu'*/,
                             array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']), 
                             array(
-                                'template'=>'new_'.$inflectedTravelType,
+                                'template'=>'new_travel',
                                 'format'=>'html',
                                 'subject'=>$subject,
                                 'config'=>'no_responder'));
                 } else {
                     $Email = new CakeEmail('no_responder');
-                    $Email->template('new_'.$inflectedTravelType)
+                    $Email->template('new_travel')
                     ->viewVars(array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']))
                     ->emailFormat('html')
                     ->to('mproenza@grm.desoft.cu')
@@ -92,9 +89,9 @@ class TravelLogicComponent extends Component {
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
     
-    public function findDriversForTravel($travel, $count = 5) {
+    public function findDriversForTravel($travel, $localityId, $count = 5) {
         $drivers_conditions = array(
-            'DriverLocality.locality_id'=>$travel['Travel']['locality_id'],
+            'DriverLocality.locality_id'=>$localityId,
             'Driver.active'=>true);
         if(isset ($travel['Travel']['people_count'])) {
             $drivers_conditions['Driver.min_people_count <='] = $travel['Travel']['people_count'];

@@ -132,7 +132,7 @@ class TravelsController extends AppController {
             $datasource = $this->Travel->getDataSource();
             $datasource->begin();
             
-            $result = $this->TravelLogic->confirmTravel('Travel', $travel);
+            $result = $this->TravelLogic->confirmTravel($travel);
 
             if($result['success']) {
                 $datasource->commit();
