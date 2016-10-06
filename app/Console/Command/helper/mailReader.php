@@ -113,11 +113,12 @@ class mailReader {
             
             $this->body = $this->decoded->body;
             
-            $this->body .= '<br/><br/>';
+            // MARTIN: Como ya no pongo el adjunto, no hace falta poner esto de abajo...
+            /*$this->body .= '<br/><br/>';
             $this->body .= '<em>';
             $this->body .= "Este correo contenía un texto binario. Si el texto no se ve bien, revise el adjunto <b>$filename</b>".'<br/>'.
                            "This email contained a binary text. If the text doesn't show properly, see the attachment <b>$filename</b>";
-            $this->body .= '</em>';
+            $this->body .= '</em>';*/
         }
 
         // We might also have uuencoded files. Check for those.
