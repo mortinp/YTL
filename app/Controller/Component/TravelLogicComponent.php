@@ -257,7 +257,7 @@ class TravelLogicComponent extends Component {
                 
                 if($OK) $OK = $this->PendingTravel->delete($travelId);
                 
-                if($OK) $result = $this->confirmTravel('Travel', $travel);
+                if($OK) $result = $this->confirmTravel($travel);
                 
                 if(!$OK) $errorMessage = __('Ocurrió un error confirmando este viaje.');
                 
