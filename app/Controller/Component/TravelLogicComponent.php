@@ -57,12 +57,12 @@ class TravelLogicComponent extends Component {
                     }
                 }
 
-                // Always send an email to me ;)
+                /*// Always send an email to me ;)
                 $subject = $this->getNotificationEmailSubject($travel, $travel['Travel']['id']);
                 
                 if(Configure::read('enqueue_mail')) {
                     ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            Configure::read('superadmin_email')/*'mproenza@grm.desoft.cu'*/,
+                            Configure::read('superadmin_email'),
                             array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']), 
                             array(
                                 'template'=>'new_travel',
@@ -81,7 +81,7 @@ class TravelLogicComponent extends Component {
                     } catch ( Exception $e ) {
                         // TODO: Should I do something here???
                     }
-                }
+                }*/
             }
         }
         

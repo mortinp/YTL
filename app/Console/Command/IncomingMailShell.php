@@ -391,7 +391,7 @@ class IncomingMailShell extends AppShell {
             
             CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION ENDED------------------------------</span>\n\n");
         } else if($to === 'info-chofer@'.Configure::read('domain_name')) {
-            // Hacer el info choferes
+            CakeLog::write('info_choferes', "Solicitud de informacion recibida: $sender - $subject");
             EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');
         }      
     }
