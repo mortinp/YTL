@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class MetricsController extends AppController {
     
-    public $uses = array('Travel');
+    public $uses = array('Travel', 'DriverTravelerConversation');
     
     public function dashboard() {
         $today = date('Y-m-d', strtotime('today'));
@@ -24,7 +24,8 @@ class MetricsController extends AppController {
         
         //$this->set('conversations', $this->conversationsRespondedByDrivers($iniDate, $endDate));
         $this->set('incomes', $this->incomes($iniDate, $endDate));  
-        $this->set('travels_count', $this->travels_count2($iniDate, $endDate));  
+        $this->set('travels_count', $this->travels_count2($iniDate, $endDate));
+        $this->set('messages_count', $this->messages_count($iniDate, $endDate));
         
         $this->request->data['DateRange']['date_ini'] = date('d-m-Y', strtotime($iniDate));
         $this->request->data['DateRange']['date_end'] = date('d-m-Y', strtotime($endDate));        
@@ -287,6 +288,63 @@ class MetricsController extends AppController {
         
         
         return $fixedTravels;
+    }
+    
+    
+    public function messages_count($iniDate, $endDate) {
+        $queryDrivers = "Select year(driver_traveler_conversations.created) as year, month(driver_traveler_conversations.created) as month, driver_traveler_conversations.created as date,
+            count(distinct driver_traveler_conversations.id) as messages_count_drivers
+
+            FROM driver_traveler_conversations
+
+            WHERE driver_traveler_conversations.response_by = 'driver' AND driver_traveler_conversations.created BETWEEN '$iniDate' AND '$endDate'
+
+            GROUP BY year, month";
+        
+        $queryTravelers = "Select year(driver_traveler_conversations.created) as year, month(driver_traveler_conversations.created) as month, driver_traveler_conversations.created as date,
+            count(distinct driver_traveler_conversations.id) as messages_count_travelers
+
+            FROM driver_traveler_conversations
+
+            WHERE driver_traveler_conversations.response_by = 'traveler' AND driver_traveler_conversations.created BETWEEN '$iniDate' AND '$endDate'
+
+            GROUP BY year, month";
+        
+        $fixedMessages = array();
+        $months = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
+        
+        
+        $messagesDrivers = $this->DriverTravelerConversation->query($queryDrivers);
+        foreach ($messagesDrivers as $index=> $value) {
+            $fixedMessages[$index] = array();
+            $fixedMessages[$index]['date'] = $value['driver_traveler_conversations']['date'];
+            $fixedMessages[$index]['messages_count_drivers'] = $value[0]['messages_count_drivers'];
+            $fixedMessages[$index]['year'] = $value[0]['year'];
+            $fixedMessages[$index]['month'] = $months[$value[0]['month'] - 1];
+        }
+        
+        $messagesTravelers = $this->Travel->query($queryTravelers);
+        foreach ($messagesTravelers as $value) {
+            
+            $appended = false;
+            foreach ($fixedMessages as &$t) {
+                if($value[0]['year'] == $t['year'] && $months[$value[0]['month'] - 1] == $t['month']) {
+                    $t['messages_count_travelers'] = $value[0]['messages_count_travelers'];
+                    $appended = true;
+                    break;
+                }
+            }
+            if(!$appended) {
+                $fixedMessages[] = array();
+                $entries = count($fixedMessages);
+                $fixedMessages[$entries - 1]['date'] = $value['driver_traveler_conversations']['date'];
+                $fixedMessages[$entries - 1]['messages_count_travelers'] = $value[0]['messages_count_travelers'];
+                $fixedMessages[$entries - 1]['year'] = $value[0]['year'];
+                $fixedMessages[$entries - 1]['month'] = $months[$value[0]['month'] - 1];
+            }
+        }
+        
+        return $fixedMessages;
     }
     
     

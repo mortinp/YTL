@@ -59,22 +59,21 @@ class IncomingMailShell extends AppShell {
         
         $body = /*h(*/$parser->body/*)*/; // h() para escapar los caracteres html
         
-        if($to === 'chofer@'.Configure::read('domain_name')) {
-            //CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);  
-            CakeLog::write('conversations', 'Conversation Started by Traveler: '.$sender);
-            if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
+        if($to === 'chofer@'.Configure::read('domain_name')) { 
+            //CakeLog::write('conversations', 'Conversation Started by Traveler: '.$sender);
+            /*if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
                 CakeLog::write('conversations', 'Attachments:');
                 foreach ($parser->attachments as $filename=>$value) {
                     CakeLog::write('conversations', $filename);
                 }
-            }
+            }*/
             
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                CakeLog::write('conversations', 'Split Conversation:'.$conversation);
+                //CakeLog::write('conversations', 'Split Conversation:'.$conversation);
                 
                 $this->Driver->attachProfile($this->DriverTravel); // Esto es para poder coger el nombre de chofer
                 
@@ -88,7 +87,7 @@ class IncomingMailShell extends AppShell {
                         $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
                     else $deliverTo = $driverTravel['Driver']['username'];
                     
-                    CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
+                    //CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
 
                     $datasource = $this->DriverTravelerConversation->getDataSource();
                     $datasource->begin();
@@ -144,7 +143,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) {
                         $datasource->commit();
-                        CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
+                        //CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
                     } else {
                         $datasource->rollback();
                         CakeLog::write('conversations', "<span style='color:red'>Conversation Failed!</span>");
@@ -155,7 +154,6 @@ class IncomingMailShell extends AppShell {
                     CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                 }
             } else {
-                // TODO
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                 
@@ -187,24 +185,23 @@ class IncomingMailShell extends AppShell {
                 }
             }
             
-            CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
+            //CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
             
         }  else if($to === 'viajero@'.Configure::read('domain_name') || $to === 'viaje@'.Configure::read('domain_name')) {
-            //CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-            CakeLog::write('conversations', 'Conversation Started by Driver: '.$sender);
-            if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
+            //CakeLog::write('conversations', 'Conversation Started by Driver: '.$sender);
+            /*if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
                 CakeLog::write('conversations', 'Attachments:');
                 foreach ($parser->attachments as $filename=>$value) {
                     CakeLog::write('conversations', $filename);
                 }
-            }
+            }*/
             
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                CakeLog::write('conversations', 'Split Conversation:'.$conversation);
+                //CakeLog::write('conversations', 'Split Conversation:'.$conversation);
                 
                 $this->DriverTravel->recursive = 2;
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
@@ -215,7 +212,7 @@ class IncomingMailShell extends AppShell {
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     $deliverTo = $driverTravel['Travel']['User']['username'];
                     
-                    CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
+                    //CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
 
                     $datasource = $this->DriverTravelerConversation->getDataSource();
                     $datasource->begin();
@@ -314,7 +311,7 @@ class IncomingMailShell extends AppShell {
 
                     if($OK) {
                         $datasource->commit();
-                        CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
+                        //CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
                     } else {
                         $datasource->rollback();
                         CakeLog::write('conversations', "<span style='color:red'>Conversation Failed!</span>");
@@ -325,7 +322,6 @@ class IncomingMailShell extends AppShell {
                     CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                 }
             } else {
-                // TODO
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
                 
@@ -340,16 +336,16 @@ class IncomingMailShell extends AppShell {
                 );
             }
             
-            CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
+            //CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
         } else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
-            CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION RECEIVED------------------------------</span>\n\n");
+            //CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION RECEIVED------------------------------</span>\n\n");
             
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                CakeLog::write('travel_confirmations', "Parsed Conversation: ".$conversation."\n\n");
+                //CakeLog::write('travel_confirmations', "CONFIRMATION RECEIVED - from $sender, parsed conversation: ".$conversation."\n\n");
                 
                 $meta = $this->TravelConversationMeta->findByConversationId($conversation);
                 
@@ -359,10 +355,10 @@ class IncomingMailShell extends AppShell {
                 }// no hacer nada si no existe la conversacion
                 
                 $newMessage = trim($body);
-                CakeLog::write('travel_confirmations', "Message: ".$newMessage."\n\n");
-                CakeLog::write('travel_confirmations', "Starting to cut message\n\n");
+                //CakeLog::write('travel_confirmations', "Message: ".$newMessage."\n\n");
+                //CakeLog::write('travel_confirmations', "Starting to cut message\n\n");
                 if(strpos($newMessage, '**********')) $newMessage = substr($newMessage, 0, strpos($newMessage, '**********'));
-                CakeLog::write('travel_confirmations', "Cut Message: ".$newMessage."\n\n");
+                //CakeLog::write('travel_confirmations', "Cut Message: ".$newMessage."\n\n");
                 
                 // Verificar si ya se habia recibido otra confirmacion anterior de esta misma conversacion; agregarle el nuevo texto en caso de que sí.
                 if(isset ($meta['TravelConversationMeta']['received_confirmation_details']) && $meta['TravelConversationMeta']['received_confirmation_details'] != null)
@@ -370,7 +366,7 @@ class IncomingMailShell extends AppShell {
                         $meta['TravelConversationMeta']['received_confirmation_details'].
                         "\r\n\r\n (...)\r\n\r\n".
                         $newMessage;
-                CakeLog::write('travel_confirmations', "Fixed Message: ".$newMessage."\n\n");
+                //CakeLog::write('travel_confirmations', "Fixed Message: ".$newMessage."\n\n");
                 
                 $meta = array('TravelConversationMeta'=>array(
                     'conversation_id'=>$conversation, 
@@ -378,18 +374,18 @@ class IncomingMailShell extends AppShell {
                     'received_confirmation_type'=>'K'/*Unknown*/,
                     'asked_confirmation'=>true));
                 
-                CakeLog::write('travel_confirmations', "Dataset ready to be saved\n\n");
+                //CakeLog::write('travel_confirmations', "Dataset ready to be saved\n\n");
                 
                 if(!$this->TravelConversationMeta->save($meta)) {
                     CakeLog::write('travel_confirmations', "Error saving data on DB\n\n");
                 } else {
-                    CakeLog::write('travel_confirmations', "Data saved on DB\n\n");
+                    //CakeLog::write('travel_confirmations', "Data saved on DB\n\n");
                 }
             } else {
-                CakeLog::write('travel_confirmations', "Error parsing conversation id\n\n");
+                CakeLog::write('travel_confirmations', "Error parsing conversation in subject $subject\n\n");
             }
             
-            CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION ENDED------------------------------</span>\n\n");
+            //CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION ENDED------------------------------</span>\n\n");
         } else if($to === 'info-chofer@'.Configure::read('domain_name')) {
             CakeLog::write('info_choferes', "Solicitud de informacion recibida: $sender - $subject");
             EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');

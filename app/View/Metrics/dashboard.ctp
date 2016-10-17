@@ -38,7 +38,30 @@ App::uses('DriverTravelerConversation', 'Model');
         </div>
         <div class="col-md-12" style="padding-bottom: 50px">
             <div id="travels-count-div" style="width: 100%; height: 400px;"></div>
-        </div>        
+        </div>   
+        
+        
+        <div class="col-md-12" style="text-align: center">
+            <legend>Engagement</legend>
+            <br/>
+            <?php 
+            $totalMsgDrivers = 0;
+            $totalMsgTravelers = 0;
+            foreach ($messages_count as $msgs) {
+                if(isset ($msgs['messages_count_drivers'])) $totalMsgDrivers += $msgs['messages_count_drivers'];
+                if(isset ($msgs['messages_count_travelers'])) $totalMsgTravelers += $msgs['messages_count_travelers'];
+            }
+            ?>
+            <div>            
+                <big><span class="label label-primary"><i class="glyphicon glyphicon-comment"></i> <?php echo $totalMsgDrivers?> mensajes de choferes</span></big>
+                <big><span class="label label-warning"><i class="glyphicon glyphicon-comment"></i> <?php echo $totalMsgTravelers?> mensajes de viajeros</span></big>
+            </div>
+            <br/>
+        </div>
+        <div class="col-md-12" style="text-align: center;padding-bottom: 50px">
+            <div id="messages-count-div" style="width: 100%; height: 400px;"></div>
+        </div>
+        
         
         <div class="col-md-12" style="text-align: center">
             <legend>Ganancias</legend>
@@ -60,6 +83,8 @@ App::uses('DriverTravelerConversation', 'Model');
         <div class="col-md-12" style="text-align: center">
             <div id="incomes-div" style="width: 100%; height: 400px;"></div>
         </div>
+        
+        
     </div>
 </div>
 
@@ -73,6 +98,7 @@ $this->Html->script('amcharts/amcharts', array('inline' => false));
 
 $this->Js->set('incomes', $incomes);
 $this->Js->set('travels_count', $travels_count);
+$this->Js->set('messages_count', $messages_count);
 echo $this->Js->writeBuffer(array('inline' => false));
 
 ?>
@@ -90,6 +116,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     incomes_chart();
     travels_count_chart();
+    messages_count_chart();
 });
 
 function incomes_chart() {
@@ -239,6 +266,75 @@ function travels_count_chart() {
 
     chart.write("travels-count-div");
 }
+
+
+function messages_count_chart() {
+    var chart;
+    var chartData = window.app.messages_count;
+    
+    var index = 0;
+    for(var i in chartData) {
+        chartData[index].date = parseDate(chartData[index].date);
+        index++;
+    }
+        
+    // SERIAL CHART
+    chart = new AmCharts.AmSerialChart();
+    chart.dataProvider = chartData;
+    chart.categoryField = "date";
+    chart.startDuration = 1;
+
+    // AXES
+    // category
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.labelRotation = 90;
+    categoryAxis.gridPosition = "start";
+    categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+    categoryAxis.minPeriod = "MM"; // our data is monthly, so we set minPeriod to MM
+    
+    var valueAxis = new AmCharts.ValueAxis();
+    valueAxis.stackType = "regular";
+    valueAxis.gridAlpha = 0.1;
+    valueAxis.axisAlpha = 0;
+    chart.addValueAxis(valueAxis);
+
+    // value
+    // in case you don't want to change default settings of value axis,
+    // you don't need to create it, as one value axis is created automatically.
+    
+    
+    // CREADOS
+    var graph = new AmCharts.AmGraph();
+    graph.title = 'Choferes';
+    graph.valueField = "messages_count_drivers";
+    graph.balloonText = "[[month]]: [[value]] mensajes de choferes";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 1;
+    graph.fillColors = "#428bca";
+    chart.addGraph(graph);
+    
+    // EXPIRADOS
+    var graph = new AmCharts.AmGraph();
+    graph.title = 'Viajeros';
+    graph.valueField = "messages_count_travelers";
+    graph.balloonText = "[[month]]: [[value]] mensajes de viajeros";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 1;
+    graph.fillColors = "#f0ad4e";
+    chart.addGraph(graph);
+    
+    var legend = new AmCharts.AmLegend();
+    legend.position = 'top';
+    legend.align = 'left';
+    chart.addLegend(legend);
+
+    chart.write("messages-count-div");
+}
+
+
+
 </script>
 <script type="text/javascript">
     function parseDate(dateString) {            

@@ -128,8 +128,9 @@ if($isLoggedIn) {
                                             <li class="dropdown-submenu">
                                                 <a tabindex="-1" href="#">Logs</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
+                                                    <li><?php echo $this->Html->link('Info Choferes', array('controller' => 'admins', 'action' => 'view_log/info_choferes')) ?></li>
                                                     <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
+                                                    <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
                                                 </ul>
                                             </li>                                            
                                         </ul>

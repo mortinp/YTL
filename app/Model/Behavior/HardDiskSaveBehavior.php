@@ -71,8 +71,7 @@ class HardDiskSaveBehavior extends ModelBehavior {
         $OK = fwrite($outfile,$contents);
         fclose($outfile);
         
-        if($OK) CakeLog::write('files_saved', 'File saved successfully: '.$path);
-        else CakeLog::write('files_saved', 'Failed saving file: '.$path);
+        if(!$OK) CakeLog::write('files_saved', 'Failed saving file: '.$path);
         
         /* Attach fields */
         if(isset ($settings['path_type']) && $settings['path_type'] == 'relative') $Model->data[$Model->alias][$attachedFieldsPrepend.'filepath'] = $relpath;
