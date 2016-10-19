@@ -11,10 +11,10 @@ $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation
 ?>
 
 <?php
-$info = array();
+$info = array('class'=>'info');
 if(isset ($conversation['Driver'])) $info['title'] = $conversation['Driver']['username'];
-if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN) $info['class'] = 'text-muted';
-if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_PREARRANGED) $info['class'] = 'text-success';
+if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN) $info['class'] .= ' text-muted';
+if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_PREARRANGED) $info['class'] .= ' text-success';
         
 echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$thread['id']), $info);
 ?>

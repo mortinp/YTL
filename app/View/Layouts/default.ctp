@@ -1,4 +1,5 @@
 <?php App::uses('Travel', 'Model')?>
+<?php App::uses('DriverTravel', 'Model')?>
 
 <?php
 // INITIALIZE
@@ -93,7 +94,15 @@ if($isLoggedIn) {
                                     <li class="divider-vertical"></li>
                                     <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     
+                                    
                                     <?php if($role === 'admin') :?>
+                                    
+                                    <!--
+                                    <li><?php echo $this->Html->link('<button type="button" class="btn btn-primary navbar-btn">Solicitudes de Viaje</button>', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px', 'target'=>'_blank'))?></li>
+                                    <li><?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">Nuevos Mensajes</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_NEW_MESSAGES), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px', 'target'=>'_blank'))?></li> 
+                                    <li><?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">Siguiendo</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_FOLLOWING), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px', 'target'=>'_blank'))?></li>
+                                    -->
+                                    
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
@@ -115,7 +124,7 @@ if($isLoggedIn) {
                                             <li class="dropdown-submenu">
                                                 <a tabindex="-1" href="#">Ver</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'driver_travels', 'action' => 'all')) ?></li>
+                                                    <li><?php echo $this->Html->link('Nuevos Mensajes', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_NEW_MESSAGES)) ?></li>
                                                     <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL)) ?></li>
                                                     <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
                                                     <li class="divider"></li>
@@ -135,7 +144,7 @@ if($isLoggedIn) {
                                             </li>                                            
                                         </ul>
                                     </li>
-                                    <li><?php echo $this->Html->link(__('Dashboard'), array('controller' => 'metrics', 'action' => 'dashboard'), array('class' => 'nav-link', 'escape'=>false));?></li> 
+                                    <li><?php echo $this->Html->link('Dashboard', array('controller' => 'metrics', 'action' => 'dashboard'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     <?php endif;?>
                                 <?php endif;?>
                                     

@@ -64,7 +64,7 @@ A PARTIR DE AQUI SE INCREMENTA 1 CUC POR CADA 20 CUC
 
 <p><b>¿Quiénes son los que trabajan en la plataforma?</b></p>
 
-<p>Somos un pequeño equipo de emprendedores cubanos que hemos desarrollado esta plataforma con el objetivo de encontrarles clientes a los choferes que hay que nuestro país y que disponen de un auto para brindarle servicios al turismo. En cuanto se una a nuestra agencia va a poder conversar con algunos de nosotros. De hecho, este correo les llega desde la cuenta de uno del equipo :)</p>
+<p>Somos un pequeño equipo de emprendedores cubanos que hemos desarrollado esta plataforma con el objetivo de encontrarles clientes a los choferes que hay en nuestro país y que disponen de un auto para brindarle servicios al turismo. En cuanto se una a nuestra agencia va a poder conversar con algunos de nosotros. De hecho, este correo les llega desde la cuenta de uno del equipo :)</p>
 
 <p><b>¿Dudas?</b></p>
 

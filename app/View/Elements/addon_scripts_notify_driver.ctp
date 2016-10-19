@@ -25,7 +25,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 display += ' ' + datum.driver_username;
                 
                 return display;
-            }
+            },
+            limit: 50
         });
         
         $('input.tt-hint').addClass('form-control');
