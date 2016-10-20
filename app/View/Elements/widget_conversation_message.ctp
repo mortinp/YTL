@@ -59,7 +59,12 @@ if($message['response_by'] == 'driver') {
         </div>
     <?php endif?>
 
-    <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> (<?php echo $message['created']?>)</a></b>
+    <?php
+    $created_converted = strtotime($message['created']);
+    $now = new DateTime(date('Y-m-d', time()));
+    $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
+    ?>
+    <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> el <?php echo TimeUtil::prettyDate($message['created']);?> hace <?php echo $daysPosted?> días</a></b>
     <br/>
     <br/>
     
