@@ -128,7 +128,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
     $(document).ready(function() {
         $('input.locality-typeahead').typeahead({
             valueKey: 'name',
-            local: window.app.localities
+            local: window.app.localities,
+            limit: 20
         })/*.on('typeahead:selected', function(event, datum) {
             
         })*/;
