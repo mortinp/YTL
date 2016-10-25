@@ -102,7 +102,7 @@ class Driver extends AppModel {
     
     
     public function getAsSuggestions($localityId = null) {
-        $drivers = $this->find('all');
+        $drivers = $this->find('all', array('conditions'=>array('active'=>true)));
         $list = array();
         foreach ($drivers as $d) {
             $list[] = array('driver_id'=>$d['Driver']['id'], 'driver_username'=>$d['Driver']['username'], 'driver_name'=>$d['DriverProfile']['driver_name']);
