@@ -55,6 +55,28 @@ class User extends AppModel {
         if($user != null) return $user['role'] === 'regular';
         return AuthComponent::user('role') === 'regular';
     }
+    
+    public static function prettyName($user, $showRole = false) {
+        $pretty_user_name = "Desconocido";
+        
+        if($user == null) return $pretty_user_name;
+
+        if($user['display_name'] != null) {
+            $splitName = explode('@', $user['display_name']);
+            if(count($splitName) > 1) $pretty_user_name = $splitName[0];
+            else $pretty_user_name = $user['display_name'];
+        } else {
+            $splitEmail = explode('@', $user['username']);
+            $pretty_user_name = $splitEmail[0];
+        }
+
+        if($showRole) {
+            $role = $user['role'];
+            if($role === 'admin' || $role === 'tester') $pretty_user_name.= ' (<b>'.$role.'</b>)';
+        }
+        
+        return $pretty_user_name;
+    }
 }
 
 ?>

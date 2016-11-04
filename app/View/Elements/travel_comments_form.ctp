@@ -5,7 +5,7 @@
         <?php
         echo $this->Form->input('conversation_id', array('type'=>'hidden'));
         echo $this->Form->input('comments', array('type'=>'textarea', 'class'=>'input-sm', 'label'=>'Comentarios'));
-        echo $this->Form->submit('Salvar');        
+        echo $this->Form->submit('Guardar Comentarios');
         ?>
     </fieldset>
     <?php echo $this->Form->end(); ?>

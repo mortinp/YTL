@@ -1,5 +1,6 @@
 <?php App::uses('Travel', 'Model')?>
 <?php App::uses('DriverTravel', 'Model')?>
+<?php App::uses('User', 'Model')?>
 
 <?php
 // INITIALIZE
@@ -7,17 +8,8 @@ $isLoggedIn = AuthComponent::user('id') ? true : false;
 
 if($isLoggedIn) {
     $user = AuthComponent::user();
-    
+    $pretty_user_name = User::prettyName($user, true);
     $role = $user['role'];
-    if($user['display_name'] != null) {
-        $splitName = explode('@', $user['display_name']);
-        if(count($splitName) > 1) $pretty_user_name = $splitName[0];
-        else $pretty_user_name = $user['display_name'];
-    } else {
-        $splitEmail = explode('@', $user['username']);
-        $pretty_user_name = $splitEmail[0];
-    }
-    if($role === 'admin' || $role === 'tester') $pretty_user_name.= ' (<b>'.$role.'</b>)';
 }
 
 ?>

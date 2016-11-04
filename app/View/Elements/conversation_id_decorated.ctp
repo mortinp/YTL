@@ -21,7 +21,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
 <?php if($hasMetadata && $conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
     <!-- Confirmacion recibida --> 
-    <span title="<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>" class="info text-info" data-trigger="click" style="float:left;margin-left: -50px;"><a href="#!"><i class="glyphicon glyphicon-envelope"></i></a></span>
+    <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="info text-info" data-trigger="click" style="float:left;margin-left: -50px;"><a href="#!"><i class="glyphicon glyphicon-envelope"></i></a></span>
 <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
     <!-- Pedido de confirmacion enviado al chofer -->    
     <i class="glyphicon glyphicon-share-alt info" style="float:left;margin-left: -50px;" title="Pedido de confirmación del viaje enviado al chofer"></i>
@@ -55,15 +55,14 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
 <?php
 // Cantidad total de mensajes
-if($thread['driver_traveler_conversation_count'] > 0) { // Respondido
-    echo '<span class="label label-primary" title="'.$thread['driver_traveler_conversation_count'].' mensajes en total">'.$thread['driver_traveler_conversation_count'].'</span>';
-}
-?>
+if($thread['driver_traveler_conversation_count'] > 0): // Respondido ?> 
+    <?php echo '<span class="label label-primary info" title="'.$thread['driver_traveler_conversation_count'].' mensajes en total">'.$thread['driver_traveler_conversation_count'].'</span>';?>
+<?php endif?>
 
 <?php if($hasMetadata):?>
     <!-- +1 -->
     <?php if($conversation['TravelConversationMeta']['read_entry_count'] < $thread['driver_traveler_conversation_count']):?>
-    <span class="label label-success" title="<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span>
+    <span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span>
     <?php endif?>
 
     <!-- SIGUIENDO -->

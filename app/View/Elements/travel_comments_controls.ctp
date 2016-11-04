@@ -19,6 +19,7 @@ if(!empty($comments)) {
 </span>
 <div id='comments-form-<?php echo $thread['id']?>' style="display:none">
     <br/>
+    <span class="bg-warning text-warning">Si ya hay comentarios, no borres los anteriores y agrega el tuyo debajo.</span>
     <?php echo $this->element('travel_comments_form', array('data' => $conversation)); ?>
 </div>
 
