@@ -7,11 +7,11 @@ if(!isset($details)) $details = true;
         <div class="col-md-6 col-md-offset-3">
             <h3>Conversaciones (<?php echo count($driver_travels)?>)</h3>
             
+            <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
+            <br/>
             <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>DriverTravel::$filtersForSearch))?>
             
-            <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <?php if(!empty ($driver_travels)): ?>
-            
                 <br/>
                 <br/>
                 

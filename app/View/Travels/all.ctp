@@ -6,40 +6,12 @@ if(!isset($details)) $details = true;
     <div class="row">
     <?php if(!empty ($travels)): ?>
         <div class="col-md-6 col-md-offset-3">
-            <h3>Anuncios de Viajes (<?php echo count($travels)?>)</h3>
+            <h3>Solicitudes de Viajes (<?php echo count($travels)?>)</h3>
             
-            <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>Travel::$filtersForSearch))?>
-                        
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
-            
             <br/>
-            <?php
-            
-            // Contar la cantidad total de mensajes nuevos
-            $newMsgCount = 0;
-            $newTravelerMsgCount = 0;
-            $followingCount = 0;
-            if(!empty ($travels)) {
-                foreach ($travels as $travel) {
-                    foreach ($travel['DriverTravel'] as $conv) {
-                        if(isset ($conv['TravelConversationMeta']) && $conv['TravelConversationMeta'] != null && !empty ($conv['TravelConversationMeta'])) {
-                            $newMsgCount += $conv['driver_traveler_conversation_count'] - $conv['TravelConversationMeta']['read_entry_count'];
-                            if($conv['TravelConversationMeta']['following']) $followingCount++;
-                        }
-                            
-                        else $newMsgCount += $conv['driver_traveler_conversation_count'];
-                        
-                        if(isset ($conv['DriverTravelerConversation']) && $conv['DriverTravelerConversation'] != null && !empty ($conv['DriverTravelerConversation'])) {
-                            if($conv['DriverTravelerConversation']['response_by'] === 'traveler') $newTravelerMsgCount ++;
-                        }
-                    }
-                }
-            }
-            ?>
-            <div>En esta página:                 
-                <span class="label label-info" style="font-size: 12pt"><?php echo $followingCount.' siguiendo'?></span>
-                <span class="label label-success" style="font-size: 12pt">+<?php echo $newMsgCount.' nuevos mensajes'?></span>
-            </div>
+            <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>Travel::$filtersForSearch))?>
+            <br/>
             <br/>
 
             <?php if(!empty ($travels)): ?>                

@@ -79,26 +79,25 @@ if($isLoggedIn) {
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <?php if ($isLoggedIn) :?>
                             
-                                <?php if($role === 'regular' || $role === 'admin' || $role === 'tester') :?>
-                                    <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
+                            <?php if ($isLoggedIn) :?>
+                                <?php if($role === 'admin'):?>
+
+                                    <li title="Revisa todas las conversaciones que tienen nuevos mensajes y mantente al tanto de los acuerdos entre choferes y viajeros." class="info">
+                                        <?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">Nuevos Mensajes</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_NEW_MESSAGES), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
+                                    </li>
+                                    <li title="Chequea las conversaciones de los próximos viajes que expiran y que se están Siguiendo y asegúrate que todo está bien." class="info">
+                                        <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">Conversaciones Siguiendo</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_FOLLOWING), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
+                                    </li>
+                                    <li title="Mira los datos y las conversaciones de las últimas solicitudes de viaje creadas. Verifica cómo se comporta la interacción entre choferes y viajeros." class="info">
+                                        <?php echo $this->Html->link('<button type="button" class="btn btn-default navbar-btn">Solicitudes de Viajes</button>', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
+                                    </li>
+
                                     <li class="divider-vertical"></li>
-                                    <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
-                                    
-                                    
-                                    <?php if($role === 'admin') :?>
-                                    
-                                    <!--
-                                    <li><?php echo $this->Html->link('<button type="button" class="btn btn-primary navbar-btn">Solicitudes de Viaje</button>', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px', 'target'=>'_blank'))?></li>
-                                    <li><?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">Nuevos Mensajes</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_NEW_MESSAGES), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px', 'target'=>'_blank'))?></li> 
-                                    <li><?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">Siguiendo</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_FOLLOWING), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px', 'target'=>'_blank'))?></li>
-                                    -->
-                                    
-                                    <li class="divider-vertical"></li>
+
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
-                                            Admin
+                                            Opciones
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu">
@@ -116,9 +115,7 @@ if($isLoggedIn) {
                                             <li class="dropdown-submenu">
                                                 <a tabindex="-1" href="#">Ver</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Nuevos Mensajes', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_NEW_MESSAGES)) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL)) ?></li>
-                                                    <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
+                                                    <li><?php echo $this->Html->link('Viajes Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
                                                     <li class="divider"></li>
                                                     <li><?php echo $this->Html->link('Interacciones de Usuarios', array('controller' => 'user_interactions', 'action' => 'view_filtered/all'))?></li>
                                                     <li><?php echo $this->Html->link(__('Urls Compartidas'), array('controller' => 'url_invitations', 'action'=>'index'))?></li> 
@@ -133,44 +130,58 @@ if($isLoggedIn) {
                                                     <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
                                                     <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
                                                 </ul>
-                                            </li>                                            
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="#">Pruebas</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><?php echo $this->Html->link('Solicitar viaje', array('controller' => 'travels', 'action' => 'add'));?></li> 
+                                                    <li><?php echo $this->Html->link('Mis Anuncios', array('controller' => 'travels', 'action' => 'index'));?></li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
-                                    <li><?php echo $this->Html->link('Dashboard', array('controller' => 'metrics', 'action' => 'dashboard'), array('class' => 'nav-link', 'escape'=>false));?></li> 
-                                    <?php endif;?>
-                                <?php endif;?>
+                                <li><?php echo $this->Html->link('Dashboard', array('controller' => 'metrics', 'action' => 'dashboard'), array('class' => 'nav-link', 'escape'=>false));?></li> 
+
+                            <?php endif?>
+
+                            <?php if($role === 'regular' || $role === 'tester') :?>
+                                <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
+                                <li class="divider-vertical"></li>
+                                <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
+                            <?php endif;?>
                                     
-                            <?php else: ?>
-                                <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?></li>
-                            <?php endif;?>            
-                        </ul>
+                        <?php else: ?>
+                            <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?></li>
+                        <?php endif;?>            
+                    </ul>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <?php if ($isLoggedIn): ?>
-                                <li class="dropdown">
-                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
-                                        <?php echo $pretty_user_name;?>
-                                        <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><?php echo $this->Html->link(__('Perfil'), array('controller' => 'users', 'action' => 'profile')) ?></li>
-                                        <li class="divider"></li>
-                                        <li><?php echo $this->Html->link(__('Salir'), array('controller' => 'users', 'action' => 'logout')) ?></li>
-                                    </ul>
-                                </li>
-                            <?php else: ?>
-                                <li>
-                                    <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
-                                </li>
-                                <li>
-                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
-                                </li>
-                            <?php endif ?>
+                    <ul class="nav navbar-nav navbar-right">
+                        <?php if ($isLoggedIn): ?>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
+                                    <?php echo $pretty_user_name;?>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><?php echo $this->Html->link(__('Perfil'), array('controller' => 'users', 'action' => 'profile')) ?></li>
+                                    <li class="divider"></li>
+                                    <li><?php echo $this->Html->link(__('Salir'), array('controller' => 'users', 'action' => 'logout')) ?></li>
+                                </ul>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
+                            </li>
+                            <li>
+                                <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
+                            </li>
+                        <?php endif ?>
 
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-            </div>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </div>
             
             
             <?php echo $this->Session->flash('auth'); ?>
