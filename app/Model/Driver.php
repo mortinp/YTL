@@ -115,6 +115,7 @@ class Driver extends AppModel {
                 'driver_id'=>$d['Driver']['id'], 
                 'driver_username'=>$d['Driver']['username'], 
                 'driver_name'=>$d['DriverProfile']['driver_name'],
+                'driver_pax'=>$d['Driver']['min_people_count'].'-'.$d['Driver']['max_people_count'],
                 'province_id'=>$d['Province']['id'],
                 'province_name'=>$d['Province']['name']);
         }  
