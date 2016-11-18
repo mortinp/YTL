@@ -72,7 +72,7 @@ class User extends AppModel {
 
         if($showRole) {
             $role = $user['role'];
-            if($role === 'admin' || $role === 'tester') $pretty_user_name.= ' (<b>'.$role.'</b>)';
+            if($role === 'admin' || $role === 'tester' || $role === 'operator') $pretty_user_name.= ' (<b>'.$role.'</b>)';
         }
         
         return $pretty_user_name;

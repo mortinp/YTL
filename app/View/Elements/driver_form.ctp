@@ -41,8 +41,10 @@ else
         
         echo $this->Form->input('description');
         
+        echo $this->Form->input('province_id', array('type' => 'select', 'options' => $provinces, 'label' => 'Provincia donde vive')); 
+        
         echo $this->Form->input('Locality', array('id'=>'LocalitiesSelect', 'type' => 'select', 'multiple'=>'multiple', /*'options' => $localities,*/ 'showParents' => true, 
-            'label' => 'Localidades <small class="text-info">(seleccionar con <b>Ctrl + Click</b>)</small>'));
+            'label' => 'Localidades que puede atender como origen del viaje <small class="text-info">(seleccionar con <b>Ctrl + Click</b>)</small>'));
             
         echo $this->Form->input('role', array(
             'options' => array('driver' => 'Chofer', 'driver_tester' => 'Chofer de Prueba')

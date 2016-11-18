@@ -81,7 +81,7 @@ if($thread['driver_traveler_conversation_count'] > 0): // Respondido ?>
 
 <?php elseif($thread['driver_traveler_conversation_count'] > 0):?>
     <!-- +1 -->
-    <span class="label label-success" title="<?php echo ($thread['driver_traveler_conversation_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'])?></span>
+    <span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'])?></span>
 <?php endif?>
     
 <!-- GANANCIAS -->

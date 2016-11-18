@@ -71,6 +71,8 @@ class TravelsController extends AppController {
             $conditions['User.role'] = 'admin';
         } else if($filter == Travel::$SEARCH_TESTERS) {
             $conditions['User.role'] = 'tester';
+        } else if($filter == Travel::$SEARCH_OPERATORS) {
+            $conditions['User.role'] = 'operator';
         }
         
         $this->set('filter_applied', $filter);

@@ -2,13 +2,19 @@
 App::uses('AppModel', 'Model');
 class Driver extends AppModel {
     
-    public $order = 'travel_count DESC, id ASC';
+    public $order = 'travel_count DESC, Driver.id ASC';
     
     public $hasAndBelongsToMany = 'Locality';
     
     public $hasOne = array(
         'DriverProfile' => array(
             'fields'=>array('driver_nick', 'driver_name', 'avatar_filepath', 'show_profile')
+        )
+    );
+    
+    public $belongsTo = array(
+        'Province' => array(
+            'fields'=>array('id', 'name')
         )
     );
 
@@ -105,7 +111,12 @@ class Driver extends AppModel {
         $drivers = $this->find('all', array('conditions'=>array('active'=>true)));
         $list = array();
         foreach ($drivers as $d) {
-            $list[] = array('driver_id'=>$d['Driver']['id'], 'driver_username'=>$d['Driver']['username'], 'driver_name'=>$d['DriverProfile']['driver_name']);
+            $list[] = array(
+                'driver_id'=>$d['Driver']['id'], 
+                'driver_username'=>$d['Driver']['username'], 
+                'driver_name'=>$d['DriverProfile']['driver_name'],
+                'province_id'=>$d['Province']['id'],
+                'province_name'=>$d['Province']['name']);
         }  
         return $list;
     }

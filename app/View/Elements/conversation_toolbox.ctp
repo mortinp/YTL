@@ -124,6 +124,11 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
             </span>
             <?php endif;?>
         </div>
+        
+        <div class="btn-wrapper">
+            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'left'));?>
+        </div>
+        
     </div>
 </div>
 

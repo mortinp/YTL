@@ -26,7 +26,7 @@ if($message['response_by'] == 'driver') {
                         data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
                         url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
                         success: function(response) {
-                            alert(response);
+                            //alert(response);
                             response = JSON.parse(response);
 
                             var place = $('#attachments-<?php echo $messageId?>');

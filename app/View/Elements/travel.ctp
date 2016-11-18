@@ -66,7 +66,7 @@ foreach (Travel::getPreferences() as $key => $value) {
     </span>
 </p>
 
-<p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php if($embedEmail) echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $travel['Travel']['details']); else echo $travel['Travel']['details']?></span></p>
+<p><b><?php echo __('Detalles del viaje')?>:</b> <span id='travel-details-label'><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $travel['Travel']['details'])?></span></p>
 
 <?php if(!Configure::read('conversations_via_app')):?>
 <p><b><?php echo __('Correo de contacto')?>:</b> <span id='travel-details-label'><?php echo $travel['User']['username']?></span></p>

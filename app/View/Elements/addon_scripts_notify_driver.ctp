@@ -21,8 +21,9 @@ echo $this->Js->writeBuffer(array('inline' => false));
             local: window.app.drivers,
             template: function(datum) {
                 var display = datum.driver_id + ':';
-                if(datum.driver_name != null) display += ' <b> ' + datum.driver_name + ' </b> | ';// Los espacios entre las <b> y el nombre son importantes para poder matchear por el nombre
-                display += ' ' + datum.driver_username;
+                if(datum.driver_name != null) display += ' <b> ' + datum.driver_name + ' </b>';// Los espacios entre las <b> y el nombre son importantes para poder matchear por el nombre
+                display += ' | ' + datum.driver_username;
+                display += ' | ' + ' <b> ' + datum.province_name + ' </b>';// Los espacios entre las <b> y la provincia son importantes para poder matchear por la provincia
                 
                 return display;
             },

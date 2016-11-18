@@ -81,7 +81,7 @@ if($isLoggedIn) {
                         <ul class="nav navbar-nav">
                             
                             <?php if ($isLoggedIn) :?>
-                                <?php if($role === 'admin'):?>
+                                <?php if($role === 'admin' || $role === 'operator'):?>
 
                                     <li title="Revisa todas las conversaciones que tienen nuevos mensajes y mantente al tanto de los acuerdos entre choferes y viajeros." class="info">
                                         <?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">Nuevos Mensajes</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_NEW_MESSAGES), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>

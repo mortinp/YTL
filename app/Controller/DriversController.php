@@ -48,6 +48,7 @@ class DriversController extends AppController {
             $this->setErrorMessage('Ocurrió un error guardando el chofer.');
         }
         $this->set('localities', $this->Driver->Locality->getAsList());
+        $this->set('provinces', $this->Driver->Province->find('list'));
     }
 
     public function edit($id = null) {
@@ -69,6 +70,7 @@ class DriversController extends AppController {
             unset($this->request->data['Driver']['password']);
             
             $this->set('localities', $this->Locality->getAsList());
+            $this->set('provinces', $this->Driver->Province->find('list'));
         }
     }
 

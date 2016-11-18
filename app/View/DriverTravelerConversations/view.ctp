@@ -14,7 +14,7 @@
     <div style="width: 100%">
         <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name'].' - '.$data['Driver']['username']?>" style="max-height: 30px; max-width: 30px"/></div><?php endif;?>
         <div style="float: left;padding-left: 10px"><h4>Conversación con <?php echo $driverName?></h4></div>
-        <div style="float: left;padding-left: 20px;padding-top: 10px"><b><?php echo $this->Html->link('Viaje #'.$data['Travel']['id'].' »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('title'=>'Administrar este viaje'));?></b></div>
+        <div style="float: left;padding-left: 20px;padding-top: 10px"><b>Viaje #<?php echo $data['Travel']['id']?></b></div>
     </div>
 </div>
 <div style="height: 85px;"></div> <!-- Separator -->
