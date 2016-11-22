@@ -68,6 +68,27 @@ class DriverTravelerConversationsController extends AppController {
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
+    public function pin($conversationId) {
+        $datasource = $this->TravelConversationMeta->getDataSource();
+        $datasource->begin();
+        
+        $OK = $this->tag($conversationId, 'flag_type', 'F');
+        if($OK) $OK = $this->update_meta_field($conversationId, false /*No autoredirect*/); // Esta funcion va a coger directamente del $this->request-data
+        
+        if($OK) $datasource->commit();
+        else {
+            $datasource->rollback();
+            $this->setErrorMessage('Ocurrió un error pineando este viaje');
+        }
+        
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+    public function unpin($conversationId) {
+        $this->tag($conversationId, 'flag_type', null);
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
     /**
      * @param conversationId: el id de la conversacion
      * @param state: el estado en que se va a poner la conversacion, por ejemplo DriverTravelerConversation::$STATE_TRAVEL_DONE
@@ -87,7 +108,7 @@ class DriverTravelerConversationsController extends AppController {
     }
     
         
-    public function update_meta_field($id = null) {
+    public function update_meta_field($id = null, $autoRedirect = true) {
         $this->DriverTravel->id = $id;
         if (!$this->DriverTravel->exists()) {
             throw new NotFoundException('Conversación inválida.');
@@ -100,8 +121,12 @@ class DriverTravelerConversationsController extends AppController {
             
             if ($this->TravelConversationMeta->save($this->request->data)) {
                 $this->setInfoMessage('Se guardó el campo del viaje <b>'.$id.'</b> exitosamente.');
+                
+                if(!$autoRedirect) return true;
                 return $this->redirect($this->referer());
             }
+            
+            if(!$autoRedirect) return false;
             $this->setErrorMessage('Ocurrió un error salvando el campo del viaje '.$id);
         } else throw new UnauthorizedException();
     }

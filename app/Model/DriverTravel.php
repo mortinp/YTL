@@ -16,8 +16,16 @@ class DriverTravel extends AppModel {
     public static $SEARCH_FOLLOWING = 'following';
     public static $SEARCH_DONE = 'done';
     public static $SEARCH_PAID = 'paid';
+    public static $SEARCH_PINNED = 'pinned';
     public static $SEARCH_ARCHIVED = 'archived';
-    public static $filtersForSearch = array('all', 'new-messages', 'following', 'done', 'paid', 'archived');
+    public static $filtersForSearch = array(
+        'all'=>array('label'=>'Todas', 'title'=>''), 
+        'new-messages'=>array('label'=>'Nuevos Mensajes', 'title'=>''), 
+        'following'=>array('label'=>'Siguiendo', 'title'=>''), 
+        'done'=>array('label'=>'Realizados', 'title'=>''), 
+        'paid'=>array('label'=>'Pagados', 'title'=>''), 
+        'pinned'=>array('label'=>'<i class="glyphicon glyphicon-pushpin"></i> Pineados', 'title'=>'Viajes que llevan una atención urgente. Revísalos cuanto antes!!!'), 
+        'archived'=>array('label'=>'Archivados', 'title'=>''));
     
     
     public $order = 'Driver.id';

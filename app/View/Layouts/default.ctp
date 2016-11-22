@@ -50,7 +50,14 @@ if($isLoggedIn) {
         
         <script type="text/javascript">
             $(document).ready(function() {
-                $('.info').tooltip({placement:'bottom', html:true});
+                
+                $.each($('.info'), function(pos, obj) {
+                    var placement = 'bottom';
+                    if($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');
+                    $(obj).tooltip({placement:placement, html:true});
+                });
+                
+                //$('.info').tooltip({placement:'bottom', html:true});
             })
         </script>
     </head>
@@ -89,7 +96,7 @@ if($isLoggedIn) {
                                     <li title="Chequea las conversaciones de los próximos viajes que expiran y que se están Siguiendo y asegúrate que todo está bien." class="info">
                                         <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">Conversaciones Siguiendo</button>', array('controller' => 'driver_travels', 'action' => 'view_filtered', DriverTravel::$SEARCH_FOLLOWING), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
                                     </li>
-                                    <li title="Mira los datos y las conversaciones de las últimas solicitudes de viaje creadas. Verifica cómo se comporta la interacción entre choferes y viajeros." class="info">
+                                    <li title="Mira los datos y las conversaciones de las últimas solicitudes de viaje creadas. Verifica cómo se comporta la interacción entre choferes y viajeros y notifica otros choferes si es necesario." class="info">
                                         <?php echo $this->Html->link('<button type="button" class="btn btn-default navbar-btn">Solicitudes de Viajes</button>', array('controller' => 'travels', 'action' => 'view_filtered', Travel::$SEARCH_ALL), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
                                     </li>
 

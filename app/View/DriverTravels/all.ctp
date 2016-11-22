@@ -4,7 +4,7 @@ if(!isset($details)) $details = true;
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             <h3>Conversaciones (<?php echo count($driver_travels)?>)</h3>
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>

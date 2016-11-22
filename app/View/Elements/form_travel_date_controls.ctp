@@ -1,8 +1,4 @@
-<?php
-if(!isset ($modal)) $modal = false; // Esto es para hacer que el formulario se comporte de forma modal o no
-?>
-
-<span>  
+<div>  
     <span id="date-change-set-<?php echo $travel['Travel']['id']?>" style="display: inline-block">
         <a href="#!" class="open-form edit-date-change-<?php echo $travel['Travel']['id']?>" data-form="date-change-form-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('cambiar fecha')?></a>
     </span>
@@ -10,7 +6,7 @@ if(!isset ($modal)) $modal = false; // Esto es para hacer que el formulario se c
         <a href="#!" class="cancel-edit-date-change-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('cancelar')?></a>
     </span>
     <div id='date-change-form-<?php echo $travel['Travel']['id']?>' style="display:none">
-        <span class="alert alert-warning" style="display: inline-block"><i class="glyphicon glyphicon-warning-sign"></i> Modificar la fecha solo si en las conversaciones se ha comprobado que el viaje es para una fecha distinta a la que el viajero había puesto.</span>
+        <span class="alert alert-warning" style="display: inline-block"><i class="glyphicon glyphicon-warning-sign"></i> Modificar la fecha solo si en las conversaciones se ha comprobado que el viaje es para una fecha distinta a la que el viajero había puesto en la solicitud.</span>
         <br/>
         <?php echo $this->Form->create('Travel', array('url' => array('controller' => 'travels', 'action' => 'edit_travel_data/'.$travel['Travel']['id'].'/0')));?>
         <fieldset>
@@ -20,28 +16,4 @@ if(!isset ($modal)) $modal = false; // Esto es para hacer que el formulario se c
         </fieldset>
         <?php echo $this->Form->end(); ?>
     </div>
-    
-    <?php if(!$modal):?> <!-- Inline form -->
-        <!--
-        <script type="text/javascript">    
-            $(document).ready(function() {        
-                $('.datepicker').datepicker({
-                    format: "dd/mm/yyyy",
-                    language: '<?php echo Configure::read('Config.language')?>',
-                    //startDate: 'today',
-                    todayBtn: "linked",
-                    autoclose: true,
-                    todayHighlight: true
-                });
-
-
-                $('.edit-date-change-<?php echo $travel['Travel']['id']?>, .cancel-edit-date-change-<?php echo $travel['Travel']['id']?>').click(function() {
-                    $('#date-change-form-<?php echo $travel['Travel']['id']?>, #date-change-set-<?php echo $travel['Travel']['id']?>, #date-change-cancel-<?php echo $travel['Travel']['id']?>').toggle();
-                });
-
-            })
-        </script>
-        -->
-    <?php endif?>
-    
-</span>
+</div>

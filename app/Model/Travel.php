@@ -19,7 +19,13 @@ class Travel extends AppModel {
     public static $SEARCH_ADMINS = 'admins';
     public static $SEARCH_TESTERS = 'testers';
     public static $SEARCH_OPERATORS = 'operators';
-    public static $filtersForSearch = array('all', 'closer-to-expire', 'expired-newest', 'admins', 'testers', 'operators');
+    public static $filtersForSearch = array(
+        'all'=>array('label'=>'Todos', 'title'=>''), 
+        'closer-to-expire'=>array('label'=>'Próximos a expirar', 'title'=>''), 
+        'expired-newest'=>array('label'=>'Expirados recientemente', 'title'=>''), 
+        'admins'=>array('label'=>'Admins', 'title'=>''), 
+        'testers'=>array('label'=>'Testers', 'title'=>''), 
+        'operators'=>array('label'=>'Operadores', 'title'=>''));
     
     public $order = 'Travel.id DESC';
     

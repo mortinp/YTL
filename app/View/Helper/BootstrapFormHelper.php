@@ -62,11 +62,24 @@ class BootstrapFormHelper extends FormHelper {
         
     }
     
+    public function static_button($caption = null, $options = array()) {
+        $defaultOptions = array(
+            'class' => 'btn',
+            'type'=>'button',
+            'style'=>'display:inline-block',
+            'escape'=>false
+        );
+        $options = array_merge_recursive($defaultOptions, $options);
+        
+        return parent::button($caption, $options);
+    }
+    
     public function button($caption = null, $options = array(), $asLink = false) {
         $defaultOptions = array(
             'class' => 'btn',
             'type'=>'button',
-            'style'=>'display:inline-block'
+            'style'=>'display:inline-block',
+            'escape'=>false
         );
         $options = array_merge_recursive($defaultOptions, $options);
         

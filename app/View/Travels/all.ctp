@@ -5,7 +5,7 @@ if(!isset($details)) $details = true;
 <div class="container">
     <div class="row">
     <?php if(!empty ($travels)): ?>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             <h3>Solicitudes de Viajes (<?php echo count($travels)?>)</h3>
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>

@@ -1,12 +1,21 @@
 <div> 
-    <ul>
+    <ul class="list-inline">
     <?php 
-        foreach ($filters_for_search as $filter) {
-            echo '<li style="display:inline-block;padding-right:20px">';
+        foreach ($filters_for_search as $key=>$filter) {
+            echo '<li>';
+            
+            $label = $filter;
+            $title = null;
+            $search = $filter;
+            if(is_array($filter)) {
+                if(isset ($filter['label'])) $label = $filter['label'];
+                if(isset ($filter['title'])) $title = $filter['title'];
+                $search = $key;
+            }
 
-            if(!isset ($filter_applied)) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-            else if($filter != $filter_applied) echo $this->Html->link($filter, array('action'=>'view_filtered/'.$filter));
-            else echo '<span class="badge"><big><big><big>'.$filter.'</big></big></big></span>';
+            if(!isset ($filter_applied)) echo '<kbd class="info", title="'.$title.'">'.$this->Html->link($label, array('action'=>'view_filtered/'.$search), array('style'=>'color: white', 'escape'=>false)).'</kbd>';
+            else if($search != $filter_applied) echo '<kbd class="info", title="'.$title.'">'.$this->Html->link($label, array('action'=>'view_filtered/'.$search), array('style'=>'color: white', 'escape'=>false)).'</kbd>';
+            else echo '<big><big><big><code>'.$label.'</code></big></big></big>';
 
             echo '</li>';
         }
