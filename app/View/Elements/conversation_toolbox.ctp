@@ -51,7 +51,12 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
             <?php else:?>
                 &nbsp;No mensajes nuevos
             <?php endif?>
+            <br/>
+            <br/>
+            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'left'));?>
         </div>
+        <br/>
+        <br/>
         
         <div class="btn-wrapper">
             <!-- FOLLOW / UNFOLLOW -->
@@ -59,8 +64,8 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
             
             <?php if($following):?>
                 <div class="input-group info" title="Esta conversación se está Siguiendo" data-placement="left">
-                    <span class="input-group-addon label-info">
-                        <big><span class="label label-info">Siguiendo</span></big>
+                    <span class="input-group-addon">
+                        <span class="label label-info">Siguiendo</span>
                     </span>
                     <span class="input-group-btn">
                         <?php echo $this->Form->button('Quitar', array('class'=>'btn-danger', 'action'=>'unfollow/'.$data['DriverTravel']['id']), true);?>
@@ -77,9 +82,11 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
             <?php $flagged = $hasMetadata && $data['TravelConversationMeta']['flag_type'] != null? true:false?>
             <?php if($flagged) :?>
             
-                <div class="input-group info" title="<?php echo $data['TravelConversationMeta']['flag_comment']?>" data-placement="left">
+            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo $data['TravelConversationMeta']['flag_comment']?>" data-placement="left">
                     <span class="input-group-addon">
-                        <a href="#!" class="open-form" data-form="form-flag-comment"><i class="glyphicon glyphicon-pushpin"></i> Pineado</a>
+                        <span class="label label-warning">
+                            <a href="#!" class="open-form" data-form="form-flag-comment"><i class="glyphicon glyphicon-pushpin"></i> Pineado</a>
+                        </span>
                     </span>
                     <span class="input-group-btn">
                         <?php echo $this->Form->button('Quitar', array('class'=>'btn-danger', 'action'=>'unpin/'.$data['DriverTravel']['id']), true);?>
@@ -87,7 +94,7 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
                 </div>
             
             <?php else:?>
-                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'left', 'title'=>'Pinea este viaje para darle un seguimiento específico: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
+                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'left', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
             <?php endif?>
             
             <div id="form-flag-comment" style="display: none">
@@ -149,11 +156,6 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
                 <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($data['Travel']['date'])))?>
             </span>
         </div>
-        
-        <div class="btn-wrapper">
-            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'left'));?>
-        </div>
-        
     </div>
 </div>
 

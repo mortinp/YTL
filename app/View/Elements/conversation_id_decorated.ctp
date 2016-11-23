@@ -19,23 +19,40 @@ if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_PREARRANGED)
 echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$thread['id']), $info);
 ?>
 
-<?php if($hasMetadata && $conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
-    <!-- Confirmacion recibida --> 
-    <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="info text-info" data-trigger="click" style="float:left;margin-left: -50px;"><a href="#!"><i class="glyphicon glyphicon-envelope"></i></a></span>
-<?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
-    <!-- Pedido de confirmacion enviado al chofer -->    
-    <i class="glyphicon glyphicon-share-alt info" style="float:left;margin-left: -50px;" title="Pedido de confirmación del viaje enviado al chofer"></i>
-<?php endif?>
-    
-<!-- ARCHIVADO TODO: verificar que la conversacion tenga mas de dos meses de expirado-->
-<?php if(isset ($conversation['TravelConversationMeta']['archived']) && isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date']))):?>
-<div style="float:right;padding-right: 10px">
-    <?php if(!$conversation['TravelConversationMeta']['archived']):?>
-        <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
-    <?php else:?>
-        <?php echo $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'unarchive/'.$thread['id']), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
+<?php if($hasMetadata):?>
+
+    <?php $badgesMargin = -50?>
+
+    <?php if($conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
+        <!-- Confirmacion recibida --> 
+        <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="label label-info info" data-trigger="click" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=30?>px;">
+            <a href="#!"><i class="glyphicon glyphicon-envelope"></i></a>
+        </span>
+    <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
+        <!-- Pedido de confirmacion enviado al chofer -->    
+        <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=30?>px;" title="Pedido de confirmación del viaje enviado al chofer">
+            <i class="glyphicon glyphicon-share-alt"></i>
+        </span>
     <?php endif?>
-</div>
+        
+    <!-- PINNED -->
+    <?php if($conversation['TravelConversationMeta']['flag_type']):?> 
+        <span class="label label-warning info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=30?>px;" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['flag_comment']));?>">
+            <i class="glyphicon glyphicon-pushpin"></i>
+        </span>
+    <?php endif?>
+        
+    <!-- ARCHIVADO -->
+    <?php if(isset ($conversation['TravelConversationMeta']['archived']) && isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date']))):?>
+        <div style="float:right;padding-right: 10px">
+            <?php if(!$conversation['TravelConversationMeta']['archived']):?>
+                <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
+            <?php else:?>
+                <?php echo $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'unarchive/'.$thread['id']), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
+            <?php endif?>
+        </div>
+    <?php endif?>
+
 <?php endif?>
 
 <!-- COMMENTS -->

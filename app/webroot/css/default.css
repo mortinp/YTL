@@ -158,3 +158,5 @@ body {
         padding: 40px 10px 40px 10px;
     }
 }
+
+.label a {color: white;text-decoration: none}
