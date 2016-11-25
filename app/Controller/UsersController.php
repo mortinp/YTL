@@ -90,7 +90,7 @@ class UsersController extends AppController {
             $datasource = $this->User->getDataSource();
             $datasource->begin();
             
-            $OK = $this->do_register($this->request->data['User'], /*'welcome'*/'welcome_new');
+            $OK = $this->do_register($this->request->data['User'], 'welcome_new');
                 
             if($OK) {
                 $datasource->commit();
@@ -119,7 +119,7 @@ class UsersController extends AppController {
             
             $result = array();
             
-            $OK = $this->do_register($this->request->data['User'], /*'welcome_with_travel'*/'welcome_new');
+            $OK = $this->do_register($this->request->data['User'], 'welcome_new');
             if(!$OK) $result['message'] = 'Ocurrió un error registrando tu usuario. Intenta nuevamente.';
             
             if($OK) $result = $this->TravelLogic->confirmPendingTravel($pendingTravelId, $this->request->data['User']['id']);
@@ -309,7 +309,7 @@ class UsersController extends AppController {
                             'template'=>$emailTemplate,
                             'format'=>'html',
                             'subject'=>__d('user_email', 'Que encuentres un buen chofer en Cuba'/*'Bienvenido - Confirma tu cuenta'*/).'!',
-                            'config'=>/*'no_responder'*/'super',
+                            'config'=>/*'super'*/'customer_assistant',
                             'lang'=>  Configure::read('Config.language')));
             } else {
                 $Email->template($emailTemplate)
