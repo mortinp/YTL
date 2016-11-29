@@ -61,7 +61,9 @@ class TravelsController extends AppController {
         
         $conditions = array('User.role'=>'regular');
         
-        if($filter == Travel::$SEARCH_CLOSER_TO_EXPIRE) {
+        if($filter == Travel::$SEARCH_ALL) {
+            $this->paginate = array('limit'=>50);
+        } else if($filter == Travel::$SEARCH_CLOSER_TO_EXPIRE) {
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
             $conditions['Travel.date >='] = date('Y-m-d', mktime());
         } else if($filter == Travel::$SEARCH_EXPIRED_NEWEST) {

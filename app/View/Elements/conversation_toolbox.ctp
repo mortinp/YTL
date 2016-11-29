@@ -82,7 +82,7 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
             <?php $flagged = $hasMetadata && $data['TravelConversationMeta']['flag_type'] != null? true:false?>
             <?php if($flagged) :?>
             
-            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo $data['TravelConversationMeta']['flag_comment']?>" data-placement="left">
+            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $data['TravelConversationMeta']['flag_comment']);?>" data-placement="left">
                     <span class="input-group-addon">
                         <span class="label label-warning">
                             <a href="#!" class="open-form" data-form="form-flag-comment"><i class="glyphicon glyphicon-pushpin"></i> Pineado</a>

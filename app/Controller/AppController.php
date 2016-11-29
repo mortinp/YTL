@@ -177,7 +177,8 @@ class AppController extends Controller {
             // Admin access
             'users.index' =>array('title'=>'Usuarios'),
             'users.add' =>array('title'=>'Nuevo usuario'),           
-            'users.edit' =>array('title'=>'Editar usuario'),           
+            'users.edit' =>array('title'=>'Editar usuario'),  
+            'users.view_travels' =>array('title'=>'Viajes de usuario'),
 
             'drivers.index' =>array('title'=>'Choferes'),
             'drivers.add' =>array('title'=>'Nuevo chofer'),

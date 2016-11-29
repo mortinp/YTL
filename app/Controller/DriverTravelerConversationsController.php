@@ -4,6 +4,7 @@ App::uses('AppController', 'Controller');
 App::uses('LangController', 'Controller');
 App::uses('DriverTravel', 'Model');
 App::uses('DriverTravelerConversation', 'Model');
+App::uses('User', 'Model');
 App::uses('EmailsUtil', 'Util');
 
 
@@ -69,6 +70,12 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function pin($conversationId) {
+        // Ponerle el usuario que hizo el comentario al final del comentario
+        $user = AuthComponent::user();
+        $this->request->data['TravelConversationMeta']['flag_comment'] = 
+            trim($this->request->data['TravelConversationMeta']['flag_comment']).'<br/><b>- Comentario por '.User::prettyName($user).' -</b>';
+        
+        
         $datasource = $this->TravelConversationMeta->getDataSource();
         $datasource->begin();
         

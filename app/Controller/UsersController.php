@@ -23,9 +23,12 @@ class UsersController extends AppController {
     }
 
     public function isAuthorized($user) {
-        if (in_array($this->action, array('register_welcome', 'password_changed', 'profile'))) { // Allow these actions for the logged-in user
+        if(in_array($this->action, array('add', 'edit', 'remove')) && $this->Auth->user('role') != 'admin') return false; // Solo los admin pueden hacer esto
+        
+        if(in_array($this->action, array('register_welcome', 'password_changed', 'profile'))) { // Allow these actions for the logged-in user
             return true;
         }
+        
         return parent::isAuthorized($user);
     }
 
@@ -182,13 +185,13 @@ class UsersController extends AppController {
         $this->set('users', $this->User->find('all'));
     }
 
-    public function view($id = null) {
+    /*public function view($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
             throw new NotFoundException('Invalid user');
         }
         $this->set('user', $this->User->read(null, $id));
-    }
+    }*/
 
     public function add() {
         if ($this->request->is('post')) {
@@ -485,6 +488,19 @@ class UsersController extends AppController {
     public function admin($userId) {
         $this->set('user', $this->User->findById($userId));
         $this->set('interactions', $this->UserInteraction->find('all', array('conditions'=>array('UserInteraction.user_id'=>$userId))));        
+    }
+    
+    public function search_travels_by_username() {
+        if(!empty ($this->request->query)) {
+            $user = $this->User->findByUsername($this->request->query['username']);
+            
+            if($user == null || (is_array($user) && empty ($user))) throw new NotFoundException ('Este correo no corresponde a ningún usuario');
+
+            $this->setInfoMessage('Estos son los viajes del usuario que coincide con tu búsqueda');
+            return $this->redirect(array('action'=>'view_travels/'.$user['User']['id'].'?ref=search'));
+        } else throw new MethodNotAllowedException ();
+        
+        
     }
 }
 
