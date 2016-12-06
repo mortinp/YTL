@@ -198,11 +198,10 @@
 
 <br/>
 <br/>
-<br/>
 
-<div id="social-media-sharer">
+<div id="social-media-sharer" class="row">
     <div class="row center" style="padding-bottom: 20px">
-        <span class="lead"><?php echo __d('homepage', 'Comparte esta página con tus familiares y amigos'/*'Nos encantaría que compartieras esta página'*/)?>!</span>
+        <span class="lead"><?php echo __d('homepage', 'Comparte esta página con tus familiares y amigos')?>!</span>
     </div>
     <div class="row center">
         <span class="social-button"><a rel="nofollow" class="twitter" target="_blank" href="https://twitter.com/home?status=<?php echo __('Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba')?>">Twitter</a></span>
@@ -211,6 +210,25 @@
     </div>
 </div>
 
+<br/>
+<br/>
+<br/>
+<br/>
+
+<hr/>
+
+<div id="review-driver" class="row">
+    <div class="row center" style="padding-bottom: 20px">
+        <span class="lead"><big><?php echo __d('homepage', '¿Viajaste con alguno de nuestros choferes?')?></big></span>
+    </div>
+    <div class="col-md-6 col-md-offset-3">
+        <?php echo $this->Form->button('<big><big><big>'.__d('homepage', 'Deja una opinión aquí sobre él o ella').' »</big></big></big>', array('controller'=>'testimonials', 'action'=>'enter_code', 'class'=>'btn-warning btn-block'), true); ?></big>
+        <p style="text-align: center;padding-top: 20px;padding-bottom: 20px" class="alert-warning">
+            <?php echo __d('homepage', 'Si GENUINAMENTE disfrutaste tu viaje, por favor deja una opinión.')?>
+            <?php echo __d('homepage', 'Puede parecer insignificante pero es de gran ayuda para el chofer.')?>
+        </p>
+    </div>
+</div>
 
 <script type="text/javascript">
     

@@ -1,9 +1,11 @@
 <div style="float:left;padding-right:20px"><?php echo count($drivers)?> choferes</div>
 <div style="float:left"><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Add New', array('action'=>'add'), array('escape'=>false))?></div>
 <table class='table table-striped table-hover'>
-    <thead><th></th><th>ID</th><th>Correo</th><th>PAX</th><th>Moderno</th><th>A/C</th><th>Inglés</th><th>Descripción</th><th>Provincia</th><th>Localidades</th><th>Viajes</th></thead>
+    <thead><th></th><th>ID</th><th>Código</th><th>Correo</th><th>PAX</th><th>Moderno</th><th>A/C</th><th>Inglés</th><th>Descripción</th><th>Provincia</th><th>Localidades</th><th>Viajes</th></thead>
     <tbody> 
     <?php foreach ($drivers as $d): ?>
+        <?php $hasProfile = isset($d['DriverProfile']) && !empty ($d['DriverProfile']) && $d['DriverProfile']['driver_nick'] != null?>
+        
         <tr class="<?php if(!$d['Driver']['active']) echo "danger";?>">
             <td>
                 <ul class="list-inline">
@@ -19,10 +21,21 @@
             
             <td><?php echo $d['Driver']['id']?></td>
             <td>
-                <?php echo $d['Driver']['username']?>
-                <?php if(isset($d['DriverProfile']) && !empty ($d['DriverProfile']) && $d['DriverProfile']['driver_nick'] != null):?>
+                <?php if($hasProfile):?>
+                
+                    <?php if($d['DriverProfile']['driver_code']):?>
+                        <?php echo strtoupper($d['DriverProfile']['driver_code'])?>
+                    <?php else:?>
+                        <code>¿CODIGO?</code>
+                    <?php endif?>
+                    
                     <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-picture"></i> Ver Perfil', array('action'=>'profile/'.$d['DriverProfile']['driver_nick']), array('escape'=>false))?></div>
+                <?php else:?>
+                    <code>¿CODIGO?</code>
                 <?php endif;?>
+            </td>
+            <td>
+                <?php echo $d['Driver']['username']?>
             </td>
             <td><?php echo $d['Driver']['min_people_count']?> - <?php echo $d['Driver']['max_people_count']?></td>
             <td><?php echo $d['Driver']['has_modern_car']?></td>

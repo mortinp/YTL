@@ -23,7 +23,7 @@ if($isLoggedIn) {
 <html>
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <title><?php echo str_replace('%s', $profile['driver_name'], $page_title)." | YoTeLlevo" ?></title>
+        <title><?php echo str_replace('%s', $profile['DriverProfile']['driver_name'], $page_title)." | YoTeLlevo" ?></title>
         <meta name="description" content="<?php echo $page_description?>"/>
         
         <style type="text/css">

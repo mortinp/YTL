@@ -123,6 +123,22 @@ msgid "Recorrido por la isla"
 msgstr "All around the island"
 
 #: /home.ctp:167;168
+msgid "¿Viajaste con alguno de nuestros choferes?"
+msgstr "Did you take a ride with one of our drivers?"
+
+#: /home.ctp:167;168
+msgid "Deja una opinión aquí sobre él o ella"
+msgstr "Leave a review about him or her"
+
+#: /home.ctp:167;168
+msgid "Si GENUINAMENTE disfrutaste tu viaje, por favor deja una opinión."
+msgstr "If you GENUINELY enjoyed your ride, please leave a review."
+
+#: /home.ctp:167;168
+msgid "Puede parecer insignificante pero es de gran ayuda para el chofer."
+msgstr "It might seem insignificant but it is a huge help for the driver."
+
+#: /home.ctp:167;168
 msgid "Comparte esta página con tus familiares y amigos"
 msgstr "Share this page with your family and friends"
 

@@ -29,10 +29,11 @@ else
     <fieldset>
         <?php
         echo $this->Form->input('id', array('type'=>'hidden'));
-        echo $this->Form->input('driver_nick', array('type'=>'text'));  
-        echo $this->Form->input('driver_name', array('type'=>'text'));
+        echo $this->Form->input('driver_nick', array('type'=>'text', 'label'=>'Nick (todo con minúscula, ej. martin-proenza-grm)'));  
+        echo $this->Form->input('driver_name', array('type'=>'text', 'label'=>'Nombre'));
+        echo $this->Form->input('driver_code', array('type'=>'text', 'label'=>'Código del chofer (max. 10 caracteres)', 'style'=>'text-transform:uppercase'));
         
-        echo $this->Form->label('Avatar');
+        echo $this->Form->label('avatar');
         if(isset($this->request->data['DriverProfile'])) {
             $src = '';
             if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien

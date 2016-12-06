@@ -122,7 +122,22 @@ msgstr "Testimonials from awesome travelers to Cuba"
 msgid "Testimonios de viajeros que contrataron choferes con YoTeLlevo, Cuba"
 msgstr "Testimonials from travelers who hired drivers with YoTeLlevo, Cuba"
 
-
 #: Controller/AppController.php:196
 msgid "Consigue casas particulares en Cuba con la ayuda de un experto"
 msgstr "Book a private house in Cuba with the help of an expert"
+
+#: Controller/AppController.php:196
+msgid "Deja una opinión sobre tu chofer en Cuba"
+msgstr "Leave a review about your driver in Cuba"
+
+#: Controller/AppController.php:196
+msgid "Opinar y reseñar sobre tu viaje en auto con chofer en Cuba"
+msgstr "Review and comment about your trip in a car with driver in Cuba"
+
+#: Controller/AppController.php:196
+msgid "Opina sobre este chofer"
+msgstr "Review this driver"
+
+#: Controller/AppController.php:196
+msgid "Gracias por tu opinión"
+msgstr "Thank you for the review"

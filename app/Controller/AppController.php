@@ -155,6 +155,10 @@ class AppController extends Controller {
             'users.register' =>array('title'=>__d('meta', 'Registrarse'), 'description'=>__d('meta', 'Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             
             'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')/*, 'description'=>__d('meta', 'Crea un Anuncio de Viaje y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')*/),
+            
+            'testimonials.enter_code' =>array('title'=>__d('meta', 'Deja una opinión sobre tu chofer en Cuba'), 'description'=>__d('meta', 'Opinar y reseñar sobre tu viaje en auto con chofer en Cuba')),
+            'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),
+            'testimonials.preview' =>array('title'=>__d('meta', 'Gracias por tu opinión')),
                 
             
             // Users access
@@ -196,6 +200,9 @@ class AppController extends Controller {
             'email_queues.index' =>array('title'=>'Email Queue'),
             
             'travels.admin' =>array('title'=>'Administrar Viaje'),
+            
+            'testimonials.view_filtered' =>array('title'=>'Testimonios'),
+            'testimonials.admin' =>array('title'=>'Administrar Testimonio'),
             
         );
         

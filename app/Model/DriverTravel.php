@@ -2,7 +2,6 @@
 App::uses('AppModel', 'Model');
 class DriverTravel extends AppModel {
     
-    
     // Notifications Types (CUIDADO: NO CAMBIAR - Lo uso debajo en las cache_count del belongsTo(Travel))
     public static $NOTIFICATION_TYPE_AUTO = 'A'; // Para los choferes que se notifican al crearse el viaje
     public static $NOTIFICATION_TYPE_BY_ADMIN = 'M'; // Para los choferes que se notifican manualmente por un administrador
@@ -46,11 +45,9 @@ class DriverTravel extends AppModel {
     );
     
     public $hasOne = array(
-        'TravelConversationMeta'=>array(
-            'foreignKey'=>'conversation_id'
-        ),
-    );
-    
+        'TravelConversationMeta'=>array('foreignKey'=>'conversation_id'),
+        'Testimonial' => array('foreignKey' => 'conversation_id')
+    );    
 }
 
 ?>

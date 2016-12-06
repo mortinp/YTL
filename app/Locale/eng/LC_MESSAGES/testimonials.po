@@ -1,0 +1,122 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /enter_code.ctp:19
+msgid "Muchas gracias por decidir dejar una opinión sobre tu viaje con tu chofer en Cuba. Esperamos que la hayas pasado genial"
+msgstr "Thank you very much for deciding to leave a review about your trip with your driver in Cuba. We hope you had an amazing time"
+
+#: /code.ctp:20
+msgid "El chofer debe haberte dado su <code>código personal</code> que te permite poner un comentario sobre él o ella aquí en nuestro sitio."
+msgstr "The driver must have given you a <code>personal code</code> that allows you to comment about him or her here in our website."
+
+#: /code.ctp:27
+msgid "Escribe el <code>código personal del chofer</code> aquí"
+msgstr "Enter the <code>driver's personal code</code> here"
+
+#: /code.ctp:29
+msgid "Enviar código del chofer"
+msgstr "Send the driver's code"
+
+#: /code.ctp:29
+msgid "Enseguida podrás opinar sobre su servicio"
+msgstr "You'll be able to write the review right away"
+
+#: /code.ctp:33
+msgid "Úsalo debajo"
+msgstr "Use it below"
+
+#: /code.ctp:33
+msgid "Genial"
+msgstr "Awesome"
+
+
+#: /code.ctp:33
+msgid "Estás escribiendo una opinión sobre %s"
+msgstr "You are writting a review about %s"
+
+#: /code.ctp:33
+msgid "Mira fotos de %s"
+msgstr "See some pictures of %s"
+
+#: /code.ctp:33
+msgid "Perfil de %s"
+msgstr "Profile of %s"
+
+#: /code.ctp:33
+msgid "Tu nombre - incluye el de tus compañeros de viaje si quieres"
+msgstr "Your name - include your travel partners' names if you like"
+
+#: /code.ctp:33
+msgid "Tu correo electrónico"
+msgstr "Your email"
+
+#: /code.ctp:33
+msgid "Tu comentario sobre %s"
+msgstr "Your review about %s"
+
+#: /code.ctp:33
+msgid "Comenta sobre tu viaje con %s y qué te pareció su servicio"
+msgstr "Review your trip with %s and how you liked it"
+
+#: /code.ctp:33
+msgid "¿Compartirías una foto de tu viaje con nosotros?"
+msgstr "Would you share a picture of your trip with us?"
+
+#: /code.ctp:33
+msgid "Enviar esta opinión sobre %s"
+msgstr "Send this review about %s"
+
+#: /code.ctp:33
+msgid "Muchísimas gracias"
+msgstr "Thank you very much"
+
+#: /code.ctp:33
+msgid "Ya tenemos tu opinión sobre %s."
+msgstr "We have your review about %s."
+
+#: /code.ctp:33
+msgid "Tu opinión está ahora en moderación por nuestros administradores - nos gusta evitar comentarios spam."
+msgstr "Your review is now being moderated by our admins - we like to avoid spam comments."
+
+#: /code.ctp:33
+msgid "En breve lo revisamos y lo ponemos en la página de perfil de %s."
+msgstr "In short we'll go through it and we'll put it on %s's profile."
+
+#: /code.ctp:33
+msgid "Así se verá tu testimonio"
+msgstr "This is how your review will look like"
+
+#: /code.ctp:33
+msgid "Es genial que te hayas tomado el tiempo para escribir esta opinión."
+msgstr "It is amazing that you took your time to write this review."
+
+#: /code.ctp:33
+msgid "Te deseamos un maravilloso próximo viaje a Cuba"
+msgstr "We wish you have a wonderful next travel to Cuba"
+
+#: /code.ctp:33
+msgid "%s escribió el %s"
+msgstr "%s wrote on %s"
+
+
+
+
+# MENSAJES
+
+#: /code.ctp:33
+msgid "No se encontró un chofer con este código. Revíselo e intente de nuevo."
+msgstr "We could't find a driver with that code. Check it and try again."
+

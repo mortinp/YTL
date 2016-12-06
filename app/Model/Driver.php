@@ -1,5 +1,9 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Testimonial', 'Model');
+?>
+<?php
+
 class Driver extends AppModel {
     
     public $order = 'travel_count DESC, Driver.id ASC';
@@ -8,7 +12,7 @@ class Driver extends AppModel {
     
     public $hasOne = array(
         'DriverProfile' => array(
-            'fields'=>array('driver_nick', 'driver_name', 'avatar_filepath', 'show_profile')
+            'fields'=>array('driver_nick', 'driver_name', 'avatar_filepath', 'show_profile', 'driver_code')
         )
     );
     
@@ -103,6 +107,16 @@ class Driver extends AppModel {
     public function attachProfile(&$finderModel) {
         $finderModel->recursive = 2;
         $this->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+    }
+    
+    public function unloadProfile(&$finderModel) {
+        $this->unbindModel(array('hasOne'=>array('DriverProfile')));
+    }
+    
+    public function loadTestimonials(&$finderModel) {
+        $finderModel->recursive = 2;
+        $this->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+        $this->bindModel(array('hasMany'=>array('Testimonial'=>array('conditions'=>array('Testimonial.state'=>Testimonial::$statesValues['approved']), 'order'=>'Testimonial.created DESC'))));
     }
     
     

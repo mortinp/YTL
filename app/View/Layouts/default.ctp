@@ -116,6 +116,8 @@ if($userLoggedIn) {
                                                     <li><?php echo $this->Html->link('Provincias', array('controller' => 'provinces', 'action' => 'index')) ?></li>
                                                     <li><?php echo $this->Html->link('Localidades', array('controller' => 'localities', 'action' => 'index')) ?></li>
                                                     <li><?php echo $this->Html->link('Tesauro', array('controller' => 'locality_thesaurus', 'action' => 'index')) ?></li>
+                                                    <li class="divider"></li>
+                                                    <li><?php echo $this->Html->link('Testimonios', array('controller' => 'testimonials', 'action' => 'index')) ?></li>
                                                 </ul>
                                             </li>
                                             

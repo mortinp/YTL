@@ -13,6 +13,8 @@ class DriverProfile extends AppModel {
     public $actsAs = array(
         'HardDiskSave'=>array('hard_disk_save'=>'avatar', 'path_type'=>'relative')
     );
+    
+    public $validate = array('driver_code' => array('rule' => 'isUnique', 'message' => 'El código debe ser único') );
 }
 
 ?>

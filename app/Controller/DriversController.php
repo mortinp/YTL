@@ -95,17 +95,7 @@ class DriversController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['DriverProfile']['driver_id'] = $id;
-            
-            // Quitar el avatar si no se subio
-            /*if(isset ($this->request->data['DriverProfile']['avatar'])) {
-                $l = $this->request->data['DriverProfile']['avatar']['size'];
-                if($this->request->data['DriverProfile']['avatar']['size'] == 0) {
-                    unset ($this->request->data['DriverProfile']['avatar']);
-                    $this->DriverProfile->Behaviors->unload('HardDiskSave');
-                }  
-            }  
-             * Esta parte la comentarie porque hice una cosa en la HardDiskSaveBehavior que logra lo mismo, y ademas queda generalizado. 
-             */     
+            $this->request->data['DriverProfile']['driver_code'] = strtolower($this->request->data['DriverProfile']['driver_code']); // Salvar el codigo siempre lowercase
             
             if($this->DriverProfile->save($this->request->data)) {
                 $this->setInfoMessage('El perfil  se guardó exitosamente.');
@@ -122,11 +112,15 @@ class DriversController extends AppController {
     }
     
     public function profile($nick) {
+        if(Configure::read('show_testimonials_in_profile')) $this->Driver->loadTestimonials($this->DriverProfile);
+        
+        $this->Driver->unloadProfile($this->DriverProfile);
+        
         $profile = $this->DriverProfile->findByDriverNick($nick);
         
         if($profile != null && !empty ($profile)) {
             $this->layout = 'profile';
-            $this->set('profile', $profile['DriverProfile']);
+            $this->set('profile', $profile);
         } else {
             throw new NotFoundException(__('Este perfil no existe'));
         }

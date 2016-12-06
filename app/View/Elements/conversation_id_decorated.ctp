@@ -21,24 +21,33 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
 <?php if($hasMetadata):?>
 
-    <?php $badgesMargin = -50?>
+    <?php $badgesMargin = -50; $badgesSpacing = 25;?>
 
     <?php if($conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
         <!-- Confirmacion recibida --> 
-        <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="label label-info info" data-trigger="click" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=30?>px;">
-            <a href="#!"><i class="glyphicon glyphicon-envelope"></i></a>
+        <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="label label-info info" data-trigger="click" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;">
+            <a href="#!">
+                <small><i class="glyphicon glyphicon-envelope"></i></small>
+            </a>
         </span>
     <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
         <!-- Pedido de confirmacion enviado al chofer -->    
-        <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=30?>px;" title="Pedido de confirmación del viaje enviado al chofer">
-            <i class="glyphicon glyphicon-share-alt"></i>
+        <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Pedido de confirmación del viaje enviado al chofer">
+            <small><i class="glyphicon glyphicon-share-alt"></i></small>
         </span>
     <?php endif?>
-        
+    
+    <!-- TESTIMONIAL -->
+    <?php if($conversation['TravelConversationMeta']['testimonial_requested']):?> 
+        <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Solicitud de testimonio enviada al viajero">
+            <small><i class="glyphicon glyphicon-heart-empty"></i></small>
+        </span>
+    <?php endif?>
+    
     <!-- PINNED -->
-    <?php if($conversation['TravelConversationMeta']['flag_type']):?> 
-        <span class="label label-warning info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=30?>px;" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['flag_comment']));?>">
-            <i class="glyphicon glyphicon-pushpin"></i>
+    <?php if($conversation['TravelConversationMeta']['flag_type']):?>
+        <span class="label label-warning info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $conversation['TravelConversationMeta']['flag_comment']);?>">
+            <small><i class="glyphicon glyphicon-pushpin"></i></small>
         </span>
     <?php endif?>
         
