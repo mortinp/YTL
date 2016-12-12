@@ -70,7 +70,7 @@ if($message['response_by'] == 'driver') {
     
     <?php 
         $msgWasShortened = false;
-        $text = trim($message['response_text']);
+        $text = strip_tags(trim($message['response_text']));
         
         $originalText = $text;
         

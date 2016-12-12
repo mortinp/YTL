@@ -30,11 +30,9 @@
     </div>
 </div>
 
-<br/>
-<div class="col-md-6 col-md-offset-3"><?php echo $this->element('addon_travel_verification');?></div>
+<div class="col-md-6 col-md-offset-3"><?php echo $this->element('addon_travel_arrangement');?></div>
 
-<!--<br/>
-<div class="col-md-6 col-md-offset-3"><?php echo $this->element('testimonial_request_addon');?></div>-->
+<div class="col-md-6 col-md-offset-3"><?php echo $this->element('addon_travel_verification');?></div>
 
 <br/>
 <br/>

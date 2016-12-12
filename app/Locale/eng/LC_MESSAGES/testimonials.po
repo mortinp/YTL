@@ -52,12 +52,25 @@ msgid "Mira fotos de %s"
 msgstr "See some pictures of %s"
 
 #: /code.ctp:33
-msgid "Perfil de %s"
-msgstr "Profile of %s"
+msgid "Ver el perfil de %s"
+msgstr "See %s's profile"
+
+#: /code.ctp:33
+msgid "Cuéntanos sobre tu experiencia"
+msgstr "Tell us about your experience"
 
 #: /code.ctp:33
 msgid "Tu nombre - incluye el de tus compañeros de viaje si quieres"
 msgstr "Your name - include your travel partners' names if you like"
+
+#: /code.ctp:33
+msgid "¿En qué sorprendente país vives?"
+msgstr "What amazing country do you live in?"
+
+#: /code.ctp:33
+msgid "no obligatorio"
+msgstr "not required"
+
 
 #: /code.ctp:33
 msgid "Tu correo electrónico"
@@ -111,6 +124,9 @@ msgstr "We wish you have a wonderful next travel to Cuba"
 msgid "%s escribió el %s"
 msgstr "%s wrote on %s"
 
+#: /code.ctp:33
+msgid "%s de %s escribió el %s"
+msgstr "%s from %s wrote on %s"
 
 
 

@@ -1,0 +1,1 @@
+ALTER TABLE  `testimonials` ADD  `country` VARCHAR( 100 ) NULL AFTER  `author`;

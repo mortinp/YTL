@@ -18,7 +18,7 @@
                 <?php if($driver_profile['show_profile']):?>
                     <div class="col-md-12">
                         <span class="info" title="<?php echo __d('testimonials', 'Mira fotos de %s', $driver_name)?>">
-                            <?php echo $this->Html->link(__d('testimonials', 'Perfil de %s', $driver_name).' »', array('controller'=>'drivers', 'action'=>'profile/'.$driver_nick), array('target'=>'_blank', 'class'=>'text-warning'))?>
+                            <?php echo $this->Html->link(__d('testimonials', 'Ver el perfil de %s', $driver_name).' »', array('controller'=>'drivers', 'action'=>'profile/'.$driver_nick), array('target'=>'_blank', 'class'=>'text-warning'))?>
                         </span>
                     </div>
                 <?php endif?>
@@ -27,16 +27,25 @@
     </div>
     <hr/>
     <div class="col-md-6 col-md-offset-3">
+        <span class="text-muted"><?php echo __d('testimonials', 'Cuéntanos sobre tu experiencia')?>:</span>
+        <br/>
+        <br/>
         <?php
            echo $this->Form->create('Testimonial', array('type'=>'file', 'id'=>'TestimonialForm'));
            echo $this->Form->input('lang', array('type' => 'hidden', 'value' => Configure::read('Config.language')));
+           
            echo $this->Form->input('author', array( 'class' => 'form-control', 'label' => __d('testimonials', 'Tu nombre - incluye el de tus compañeros de viaje si quieres'), 'autofocus'=>true));
+           
            if( isset($external) && $external == true )
                echo $this->Form->input('email', array('label' => __d('testimonials', 'Tu correo electrónico')));
-           echo $this->Form->input('text', array('class' => 'form-control', 'rows' => '5', 'label' =>__d('testimonials', 'Tu comentario sobre %s', Driver::shortenName($driver_name)), 'placeholder'=>__d('testimonials', 'Comenta sobre tu viaje con %s y qué te pareció su servicio', Driver::shortenName($driver_name)) ));
            
+           echo $this->Form->input('country', array('label' => __d('testimonials', '¿En qué sorprendente país vives?').' <span class="small text-muted">('.__d('testimonials', 'no obligatorio').')</span>'));
+           
+           echo $this->Form->input('text', array('class' => 'form-control', 'label' =>__d('testimonials', 'Tu comentario sobre %s', Driver::shortenName($driver_name)), /*'placeholder'=>__d('testimonials', 'Comenta sobre tu viaje con %s y qué te pareció su servicio', Driver::shortenName($driver_name))*/ ));
+           
+           echo '<br/>';
            echo $this->Form->label('image', __d('testimonials', '¿Compartirías una foto de tu viaje con nosotros?'));
-           echo '<br/><br/>';
+           echo '<br/>';
            echo $this->Form->file('image');
            
            echo '<br/><br/>';

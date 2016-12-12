@@ -12,7 +12,7 @@ class Testimonial extends AppModel {
         'email' => array('rule' => 'email', 'message' => 'Escribe una dirección de correo válida')
     );
     
-    public $belongsTo = array('DriverTravel' => array('foreignKey' => 'conversation_id'), 'Driver');
+    public $belongsTo = array(/*'DriverTravel' => array('foreignKey' => 'conversation_id'), */'Driver');
     
     public $actsAs = array('HardDiskSave' => array('hard_disk_save' => 'image', 'path_type' => 'relative'));
     

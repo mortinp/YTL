@@ -209,7 +209,6 @@ class TestimonialsController extends AppController {
     }
 
     private function _sendMail($id) {
-        
         $this->Testimonial->recursive = 3;
         $this->DriverTravel->unbindModel(array('hasOne' => array('TravelConversationMeta')));
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
@@ -224,7 +223,7 @@ class TestimonialsController extends AppController {
         if (isset($data['DriverTravel']['Travel']))
             $vars = array_merge($vars, array('travel' => $data['DriverTravel']['Travel'], 'user' => $data['DriverTravel']['Travel']['User']));
         
-        $to = Configure::read('superadmin_email');
+        $to = 'martin@yotellevocuba.com'/*Configure::read('superadmin_email')*/;//TODO: Poner el superadmin_email para martin@...
         $subject = 'Nuevo testimonio';
         if(isset ($data['Driver']['DriverProfile'])) $subject .= ' sobre '.$data['Driver']['DriverProfile']['driver_name'];
 

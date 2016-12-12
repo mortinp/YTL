@@ -22,20 +22,20 @@
             <td><?php echo $d['Driver']['id']?></td>
             <td>
                 <?php if($hasProfile):?>
-                
+                    <span class="info" title="Esto es un código personal de cada chofer, que usan para que sus clientes pongan testimonios sobre ellos en el sitio.">
                     <?php if($d['DriverProfile']['driver_code']):?>
                         <?php echo strtoupper($d['DriverProfile']['driver_code'])?>
                     <?php else:?>
                         <code>¿CODIGO?</code>
                     <?php endif?>
-                    
-                    <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-picture"></i> Ver Perfil', array('action'=>'profile/'.$d['DriverProfile']['driver_nick']), array('escape'=>false))?></div>
+                    </span>
                 <?php else:?>
                     <code>¿CODIGO?</code>
                 <?php endif;?>
             </td>
             <td>
                 <?php echo $d['Driver']['username']?>
+                <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-picture"></i> Ver Perfil', array('action'=>'profile/'.$d['DriverProfile']['driver_nick']), array('escape'=>false))?></div>
             </td>
             <td><?php echo $d['Driver']['min_people_count']?> - <?php echo $d['Driver']['max_people_count']?></td>
             <td><?php echo $d['Driver']['has_modern_car']?></td>

@@ -22,7 +22,7 @@
 
             <div><?php echo __d('driver_profile', 'Contacta con varios de nuestros choferes desde nuestra página de inicio')?></div>
             <br/>
-            <?php echo $this->Html->link('<big>'.__d('driver_profile', 'Contactar choferes').'</big>', '/', array('class'=>'btn btn-info btn-block', 'escape'=>false));?>
+            <?php echo $this->Html->link('<big>'.__d('driver_profile', 'Contactar choferes').'</big>', '/?from=driver-profile-'.$profile['Driver']['id'], array('class'=>'btn btn-info btn-block', 'escape'=>false));?>
 
             <br/>
             <div>...<?php echo __d('driver_profile', 'o entra al sitio para gestionar tus viajes')?></div>

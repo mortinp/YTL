@@ -46,7 +46,7 @@ class DriverTravel extends AppModel {
     
     public $hasOne = array(
         'TravelConversationMeta'=>array('foreignKey'=>'conversation_id'),
-        'Testimonial' => array('foreignKey' => 'conversation_id')
+        /*'Testimonial' => array('foreignKey' => 'conversation_id')*/
     );    
 }
 
