@@ -6,7 +6,7 @@ App::uses('DriverTravel', 'Model');
 
 class UsersController extends AppController {
     
-    public $uses = array('User', 'UserInteraction', 'Travel', 'DriverTravel', 'Locality', 'Driver');
+    public $uses = array('User', 'UserInteraction', 'Travel', 'DriverTravel', 'Locality', 'Driver', 'Operations.OpActionRule');
     
     public $components = array('TravelLogic');
 
@@ -179,7 +179,22 @@ class UsersController extends AppController {
         } else {
             $this->request->data['User'] = $this->Auth->user();
         }
-    }    
+    } 
+    
+    public function operations() {
+        // Buscar las reglas que otros operadores me permiten
+        $this->set('op_rules_others_allow', $this->OpActionRule->find('all',
+                array('conditions'=>
+                    array('op_other'=>AuthComponent::user('id'),
+                          'allowed_by_owner'=>true)
+                )));
+        
+        // Buscar las reglas que yo le permito a otros operadores
+        $this->set('op_rules_own', $this->OpActionRule->find('all',
+                array('conditions'=>
+                    array('op_owner'=>AuthComponent::user('id'))
+                )));
+    }
     
     public function index() {
         $this->set('users', $this->User->find('all'));
@@ -216,7 +231,7 @@ class UsersController extends AppController {
             if(strlen($this->request->data['User']['password']) == 0) unset ($this->request->data['User']['password']);
             
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash('El usuario se guardó exitosamente');
+                $this->setInfoMessage('El usuario se guardó exitosamente');
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Session->setFlash('Ocurrió un error guardando el usuario.');

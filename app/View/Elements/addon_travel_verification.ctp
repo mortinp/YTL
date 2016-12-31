@@ -1,8 +1,11 @@
 <?php 
 $hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);
 
-$following = $hasMetadata? $data['TravelConversationMeta']['following']: false;
-$asked_confirmation = $hasMetadata? $data['TravelConversationMeta']['asked_confirmation']: false;
+$showAddon = $hasMetadata && $data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_NONE;
+if(!$showAddon) return;
+
+$following = $hasMetadata && $data['TravelConversationMeta']['following'];
+$asked_confirmation = $hasMetadata && $data['TravelConversationMeta']['asked_confirmation'];
 
 $now = new DateTime(date('Y-m-d', time()));
 

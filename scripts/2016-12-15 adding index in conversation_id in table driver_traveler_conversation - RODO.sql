@@ -1,0 +1,1 @@
+ALTER TABLE `driver_traveler_conversations` ADD INDEX ( `conversation_id` ) ;

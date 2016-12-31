@@ -45,6 +45,9 @@
         
         Router::connect('/url_invitations/:action/*', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
         Router::connect('/url_invitations', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
+        
+        Router::connect('/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
+        Router::connect('/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

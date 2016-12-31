@@ -64,8 +64,12 @@ if($message['response_by'] == 'driver') {
     $now = new DateTime(date('Y-m-d', time()));
     $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
     ?>
-    <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> el <?php echo TimeUtil::prettyDate($message['created']);?> hace <?php echo $daysPosted?> días</a></b>
-    <br/>
+    <div>
+        <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> el <?php echo TimeUtil::prettyDate($message['created']);?> hace <?php echo $daysPosted?> días</a></b>
+        <?php if($message['read_by']):?>
+            <code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?></code>
+        <?php endif?>
+    </div>
     <br/>
     
     <?php 

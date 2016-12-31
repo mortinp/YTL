@@ -77,6 +77,9 @@ class TravelsController extends AppController {
             $conditions['User.role'] = 'operator';
         }
         
+        if(AuthComponent::user('role') == 'operator')
+            $this->Driver->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'N'));
+        
         $this->set('filter_applied', $filter);
         $this->set('travels', $this->paginate($conditions));
         $this->set('drivers', $this->Driver->getAsSuggestions());

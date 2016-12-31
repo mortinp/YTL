@@ -5,7 +5,7 @@ App::uses('CakeEmail', 'Network/Email');
 
 class DriversController extends AppController {
     
-    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail');
+    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User');
     
     public $components = array('TravelLogic');
     
@@ -16,6 +16,7 @@ class DriversController extends AppController {
     
     public function index() {
         $this->Driver->recursive = 1;
+        $this->Driver->bindModel(array('belongsTo'=>array('User'=>array('foreignKey'=>'operator_id', 'fields'=>array('id', 'username', 'display_name', 'role')))));
         //$this->set('drivers', $this->paginate());
         $this->set('drivers', $this->Driver->find('all'));
         
@@ -49,6 +50,7 @@ class DriversController extends AppController {
         }
         $this->set('localities', $this->Driver->Locality->getAsList());
         $this->set('provinces', $this->Driver->Province->find('list'));
+        $this->set('operators', $this->User->getOperatorsList(true));
     }
 
     public function edit($id = null) {
@@ -71,6 +73,7 @@ class DriversController extends AppController {
             
             $this->set('localities', $this->Locality->getAsList());
             $this->set('provinces', $this->Driver->Province->find('list'));
+            $this->set('operators', $this->User->getOperatorsList(true));
         }
     }
 

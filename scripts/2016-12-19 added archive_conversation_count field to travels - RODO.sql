@@ -1,0 +1,1 @@
+ALTER TABLE `travels` ADD `archive_conversations_count` INT NOT NULL DEFAULT '0';

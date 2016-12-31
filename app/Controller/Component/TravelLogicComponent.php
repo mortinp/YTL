@@ -3,6 +3,7 @@
 App::uses('Component', 'Controller');
 App::uses('User', 'Model');
 App::uses('Travel', 'Model');
+App::uses('EmailsUtil', 'Util');
 
 class TravelLogicComponent extends Component {
     
@@ -56,32 +57,6 @@ class TravelLogicComponent extends Component {
                         continue;
                     }
                 }
-
-                /*// Always send an email to me ;)
-                $subject = $this->getNotificationEmailSubject($travel, $travel['Travel']['id']);
-                
-                if(Configure::read('enqueue_mail')) {
-                    ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            Configure::read('superadmin_email'),
-                            array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']), 
-                            array(
-                                'template'=>'new_travel',
-                                'format'=>'html',
-                                'subject'=>$subject,
-                                'config'=>'no_responder'));
-                } else {
-                    $Email = new CakeEmail('no_responder');
-                    $Email->template('new_travel')
-                    ->viewVars(array('travel'=>$travel, 'admin'=>array('drivers'=>$drivers, 'notified_count'=>$drivers_sent_count), 'creator_role'=>$travel['User']['role']))
-                    ->emailFormat('html')
-                    ->to('mproenza@grm.desoft.cu')
-                    ->subject($subject);
-                    try {
-                        $Email->send();
-                    } catch ( Exception $e ) {
-                        // TODO: Should I do something here???
-                    }
-                }*/
             }
         }
         
@@ -111,7 +86,8 @@ class TravelLogicComponent extends Component {
             $english = true;
         }
 
-        $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+        //$this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+        $this->Driver->attachProfile($this->DriverLocality);
 
         if($this->DriverLocality == null) $this->DriverLocality = ClassRegistry::init('DriverLocality');
         $drivers = $this->DriverLocality->find('all', array(
@@ -123,7 +99,8 @@ class TravelLogicComponent extends Component {
         if($english && count($drivers) < $count) {
             $drivers_conditions['Driver.speaks_english'] = false;
 
-            $this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+            //$this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
+            $this->Driver->attachProfile($this->DriverLocality);
 
             $driversSp = $this->DriverLocality->find('all', array(
                 'conditions'=>$drivers_conditions, 
@@ -183,6 +160,7 @@ class TravelLogicComponent extends Component {
             $conversation = $this->DriverTravel->getLastInsertID();
             
             $subject = $this->getNotificationEmailSubject($travel, $conversation);
+            if($driver['Driver']['username'] == 'yasmany.nolazco@nauta.cu') $subject = '[['.$conversation.']]'; // HACK: Esto es un hack para el correo de un chofer que esta cortando el asunto de los correos... es una prueba!!!
             
             $driverName = 'chofer';
             if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
@@ -191,7 +169,8 @@ class TravelLogicComponent extends Component {
             
             $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName);
             $variables = array_merge($variables, $customVariables);
-            if(Configure::read('enqueue_mail')) {
+            
+            /*if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $driver['Driver']['username'], 
                         $variables, 
@@ -212,7 +191,8 @@ class TravelLogicComponent extends Component {
                 } catch ( Exception $e ) {
                     $OK = false;
                 }
-            }
+            }*/
+            EmailsUtil::email($driver['Driver']['username'], $subject, $variables, $emailConfig, $template);
         }
         
         if($OK) $OK = array('success'=>true, 'conversation_id'=>$conversation);
@@ -251,7 +231,7 @@ class TravelLogicComponent extends Component {
                 
                 $travel['Travel']['user_id'] = $userId;
                 
-                $OK = $this->Travel->save($travel); // 
+                $OK = $this->Travel->save($travel);
                 $travel['Travel']['id'] = $this->Travel->getLastInsertID();
                 $travel = $this->Travel->findById($travel['Travel']['id']);
                 
@@ -282,10 +262,10 @@ class TravelLogicComponent extends Component {
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
     
-    private function setupSelectDriverProfile() {
+    /*private function setupSelectDriverProfile() {
         $this->DriverLocality->recursive = 2; // Esto es para que el chofer se cargue con su perfil
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// Esto es para que no se carguen las localidades del chofer
-    }
+    }*/
     
 }
 ?>

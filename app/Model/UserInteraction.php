@@ -130,8 +130,6 @@ class UserInteraction extends AppModel {
         
         return $interaction;
     }
-    
-    
 }
 
 ?>

@@ -117,6 +117,9 @@ foreach (Travel::getPreferences() as $key => $value) {
     </p>
     <?php if(isset ($travel['DriverTravel']) && $showConversations):?>
     <p><b>Conversaciones:</b>
+    <?php if($travel['Travel']['archive_conversations_count'] > 0): ?>
+        <code><big><?php echo $travel['Travel']['archive_conversations_count']; ?> conversaciones en el archivo</big></code>
+    <?php endif; ?>
     <ul id="conversations-travel-<?php echo $travel['Travel']['id']?>" style="list-style-type:none">
         <?php foreach ($travel['DriverTravel'] as $sent) :?>
         <li><?php echo $this->element('conversation_id_decorated', array('conversation'=>$sent, 'showComments'=>false))?></li>

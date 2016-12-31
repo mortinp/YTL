@@ -51,6 +51,10 @@ class DriverTravelsController extends AppController {
                 ))
             );
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
+            
+            if(AuthComponent::user('role') == 'operator')
+                $this->DriverTravel->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'M'));
+                    
         } else if($filter == DriverTravel::$SEARCH_FOLLOWING) {
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
             $conditions['TravelConversationMeta.following'] = true;

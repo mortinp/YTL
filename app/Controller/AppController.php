@@ -183,6 +183,7 @@ class AppController extends Controller {
             'users.add' =>array('title'=>'Nuevo usuario'),           
             'users.edit' =>array('title'=>'Editar usuario'),  
             'users.view_travels' =>array('title'=>'Viajes de usuario'),
+            'users.operations' =>array('title'=>'Panel de Operadores'),
 
             'drivers.index' =>array('title'=>'Choferes'),
             'drivers.add' =>array('title'=>'Nuevo chofer'),
@@ -204,6 +205,8 @@ class AppController extends Controller {
             
             'testimonials.view_filtered' =>array('title'=>'Testimonios'),
             'testimonials.admin' =>array('title'=>'Administrar Testimonio'),
+            
+            'op_action_rules.index' =>array('title'=>'Reglas Operadores'),
             
         );
         

@@ -219,7 +219,7 @@
 
 <div id="review-driver" class="row">
     <div class="row center" style="padding-bottom: 20px">
-        <span class="lead"><big><?php echo __d('homepage', '¿Viajaste con alguno de nuestros choferes?')?></big></span>
+        <span class="lead"><big><big><?php echo __d('homepage', '¿Viajaste con alguno de nuestros choferes?')?></big></big></span>
     </div>
     <div class="col-md-6 col-md-offset-3">
         <?php echo $this->Form->button('<big><big><big>'.__d('homepage', 'Deja una opinión aquí sobre él o ella').' »</big></big></big>', array('controller'=>'testimonials', 'action'=>'enter_code', 'class'=>'btn-warning btn-block'), true); ?></big>

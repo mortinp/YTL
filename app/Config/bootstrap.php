@@ -113,6 +113,7 @@ CakeLog::config('error', array(
 CakePlugin::load('EmailQueue');
 CakePlugin::load('Casas');
 CakePlugin::load('Invitations');
+CakePlugin::load('Operations');
 //CakePlugin::load('SharedTravels');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');

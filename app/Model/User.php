@@ -43,6 +43,15 @@ class User extends AppModel {
         return true;
     }
     
+    /*public function afterFind($results, $primary = false) {
+        foreach ($results as $key => $val) {
+            if (isset($val['User']['username']) && isset($val['User']['display_name'])) {
+                $results[$key]['User']['pretty_name'] = User::prettyName($val['User'], isset($val['User']['role']));
+            }
+        }
+        return $results;
+    }*/
+    
     public function loginExists($email) {
         return $this->find('first', array('conditions'=>array('username'=>$email))) != null;
     }
@@ -76,6 +85,20 @@ class User extends AppModel {
         }
         
         return $pretty_user_name;
+    }
+    
+    public function getOperatorsList($addNullOperator = false) {
+        $ops = $this->find('list', array('conditions'=>array('role'=>'operator'), 'fields'=>array('id', 'display_name')));
+        
+        if($addNullOperator) {
+            $tmp = $ops;
+            $ops = array(0=>'--- Ninguno ---');
+            foreach ($tmp as $key => $value) {
+                $ops[$key] = $value;
+            }
+        }
+        
+        return $ops;
     }
 }
 

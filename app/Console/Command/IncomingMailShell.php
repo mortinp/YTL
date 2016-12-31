@@ -16,7 +16,7 @@ require_once ("helper/mailReader.php");
 
 class IncomingMailShell extends AppShell {
     
-    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation', 'TravelConversationMeta' /*,'Locality', 'DriverLocality',*/ /*'TravelByEmail',*/ /*'LocalityThesaurus'*/ );
+    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation', 'TravelConversationMeta', 'Testimonial');
 
     public function main() {
         $this->out('IncomingMail shell reporting.');
@@ -387,8 +387,27 @@ class IncomingMailShell extends AppShell {
             
             //CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION ENDED------------------------------</span>\n\n");
         } else if($to === 'info-chofer@'.Configure::read('domain_name')) {
+            $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
+            $driver = $this->Driver->findByUsername($sender);
             CakeLog::write('info_choferes', "Solicitud de informacion recibida: $sender - $subject");
-            EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');
+            if( !isset($driver['Driver']['id']) )
+                EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');
+            else{
+                $vars['DriverProfile'] = $driver['DriverProfile'];
+                $vars['Testimonial']['approved'] = $this->Testimonial->find( 'count', array('conditions' => array('driver_id = ' => $driver['Driver']['id'], 'state = ' => 'A') ) );
+                $vars['Testimonial']['total'] = $this->Testimonial->find( 'count', array('conditions' => array('driver_id = ' => $driver['Driver']['id']) ) );
+                
+                $done = DriverTravelerConversation::$STATE_TRAVEL_DONE;$paid = DriverTravelerConversation::$STATE_TRAVEL_PAID;
+                $vars['viajes_realizados'] =
+                $this->DriverTravel->find( 
+                    'count' , array('conditions' => 
+                        array('driver_id = ' => $driver['Driver']['id'], "TravelConversationMeta.state in ('$done', '$paid')"
+                        )
+                    ) 
+                );
+                
+                EmailsUtil::email($sender, 'Tus datos en YoTeLlevo', $vars, 'super', 'info_our_drivers');
+            }
         }      
     }
     

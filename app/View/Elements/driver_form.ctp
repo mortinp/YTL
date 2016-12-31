@@ -55,6 +55,9 @@ else
         echo $this->Form->checkbox('speaks_english').' Habla Inglés';
         echo '<br/>';
         echo '<br/>';
+        
+        if(isset($operators) && !empty($operators) && AuthComponent::user('role') == 'admin') echo $this->Form->input('operator_id', array('type' => 'select', 'options' => $operators, 'label' => 'Operador que atiende a este chofer')); 
+        
         echo $this->Form->submit($saveButtonText);
         if ($is_modal)
             echo $this->Form->button('Cancelar', array('id' => 'btn-cancel-driver', 'style' => 'display:inline-block'));

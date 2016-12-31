@@ -61,6 +61,11 @@ class Driver extends AppModel {
         if (isset($this->data[$this->alias]['password'])) {
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
         }
+        
+        if (isset($this->data[$this->alias]['operator_id']) && $this->data[$this->alias]['operator_id'] == 0 /*Ningun operador*/) {
+            $this->data[$this->alias]['operator_id'] = null;
+        }
+        
         return true;
     }
     
@@ -106,7 +111,7 @@ class Driver extends AppModel {
     
     public function attachProfile(&$finderModel) {
         $finderModel->recursive = 2;
-        $this->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+        $this->unbindModel(array('hasAndBelongsToMany'=>array('Locality'))); // Para que no se carguen las localidades del chofer
     }
     
     public function unloadProfile(&$finderModel) {

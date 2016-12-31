@@ -16,6 +16,7 @@ else
         if($form_action == 'add') echo $this->Form->input('password');
         else 
             echo $this->Form->input('password', array('label'=>'Contraseña', 'placeholder'=>'Contraseña vacía significa que no quieres cambiarla', 'required'=>false));
+        echo $this->Form->input('display_name', array('label' => 'Nombre', 'type' => 'text'));
         echo $this->Form->input('role', array(
             'options' => array('regular' => 'Regular', 'admin' => 'Admin (acceso a todo)', 'tester'=>'Tester (como uno regular pero sus solicitudes se envían a choferes de prueba)', 'operator'=>'Operador (revisa las conversaciones, notifica choferes, sigue los viajes, etc.)')
         ));

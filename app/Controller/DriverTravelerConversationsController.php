@@ -141,18 +141,46 @@ class DriverTravelerConversationsController extends AppController {
     
     public function update_read_entries($conversationId, $entriesCount) {
         
-        // TODO: Verificar que la cantidad de entradas es igual o menor que la real
+        // Verificar que la cantidad de entradas es igual o menor que la real
+        $Total = $this->DriverTravelerConversation->find( 'count', array('conditions' => array('conversation_id' => "$conversationId") ) );
+        if($entriesCount > $Total){
+           $this->setErrorMessage("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total"); 
+           return;
+        }        
         
-        $this->TravelConversationMeta->id = $conversationId;
-        $meta = array();
+        // Sanity check passed       
         
-        $meta['TravelConversationMeta']['conversation_id'] = $conversationId;
-        $meta['TravelConversationMeta']['read_entry_count'] = $entriesCount;
+        // Preparar consulta para marcar los mensajes con el operador que los leyo
+        $username = User::prettyName( $this->Auth->user() );
+        $query = "update driver_traveler_conversations\n".
+                 "set read_by = '$username'\n".
+                 "where conversation_id = '$conversationId' and read_by is null";
+        // TODO: Esto se puede hacer con un saveField()
         
-        if ($this->TravelConversationMeta->save($meta)) {
+        $OK = true;
+        $datasource = $this->TravelConversationMeta->getDataSource();
+        $datasource->begin();
+        
+        // Marcar los mensajes con el operador que los leyo
+        try{ $this->TravelConversationMeta->query($query); }
+        catch(Exception $error){ $OK = false; }
+      
+        if($OK){
+            $this->TravelConversationMeta->id = $conversationId;
+            $meta = array();
+
+            $meta['TravelConversationMeta']['conversation_id'] = $conversationId;
+            $meta['TravelConversationMeta']['read_entry_count'] = $entriesCount;
+            
+            $OK = $this->TravelConversationMeta->save($meta);
+        }
+        
+        if ($OK) {
             $this->setSuccessMessage('Se marcaron todos los mensajes de este viaje como leídos');
+            $datasource->commit();
         } else {
-            $this->setErrorMessage('Ocurrió un error.');
+           $datasource->rollback();
+           $this->setErrorMessage('Ocurrió un error salvando los datos.');
         }
         
         $this->redirect(array('action' => 'view/'.$conversationId));
@@ -259,6 +287,17 @@ class DriverTravelerConversationsController extends AppController {
         } else {
             throw new NotFoundException();
         }
+    }
+    
+    public function archive_state() {
+        $tabla = array('drivers_travels', 'driver_traveler_conversations', 'travels_conversations_meta');
+        $query = "select count(*) as total from archive_%s;";
+        
+        for($i = 0; $i < 3; $i++){
+           $result = $this->DriverTravel->query( sprintf($query, $tabla[$i]) );
+           $data[$tabla[$i]] = $result[0][0]['total']; 
+        }   
+        $this->set('data', $data);
     }
 }
 
