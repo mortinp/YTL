@@ -35,7 +35,7 @@ if($message['response_by'] == 'driver') {
                                 if(att.mimetype.substr(0, 5) == 'image') {
                                     //alert('imagen: ' + att.url);
                                     //alert($('#attachments-<?php echo $messageId?>').attr('id'));
-                                    place.append($('<img src="' + att.url + '"></img>')).append('<br/><br/>');
+                                    place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/><br/>');
                                 } else if(att.mimetype == 'text/plain') {
                                     place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
                                 } else {

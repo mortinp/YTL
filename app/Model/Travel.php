@@ -1,5 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('CakeTime', 'Utility');
+
 class Travel extends AppModel {
     
     public $travelType = '';
@@ -89,6 +91,13 @@ class Travel extends AppModel {
         foreach ($results as $key => $val) {
             if (isset($val['Travel']['date'])) {
                 $results[$key]['Travel']['date'] = $this->dateFormatAfterFind($val['Travel']['date']);
+                
+                $date_converted = strtotime($val['Travel']['date']);
+                $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+                $results[$key]['Travel']['is_expired'] = $expired;
+                /*if($expired) {
+                    $results[$key]['Travel']['days_expired'] = $now->diff(new DateTime($val['Travel']['date']), true)->format('%a');
+                }*/
             }
         }
         return $results;

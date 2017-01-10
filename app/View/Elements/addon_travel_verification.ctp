@@ -1,16 +1,15 @@
 <?php 
 $hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);
 
-$showAddon = $hasMetadata && $data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_NONE;
-if(!$showAddon) return;
+$is_done = !$hasMetadata || $data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE;
 
 $following = $hasMetadata && $data['TravelConversationMeta']['following'];
 $asked_confirmation = $hasMetadata && $data['TravelConversationMeta']['asked_confirmation'];
 
 $now = new DateTime(date('Y-m-d', time()));
 
-$date_converted = strtotime($data['Travel']['date']);
-$expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+//$date_converted = strtotime($data['Travel']['date']);
+$expired = $data['Travel']['is_expired'];//CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
 if($expired) {
     $daysExpired = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
 }
@@ -36,9 +35,10 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
 
 <?php if(($expired && $following) || $asked_confirmation):?>
 <div id="travel-verification">
-    <span class="alert alert-warning" style="display: inline-block; width: 100%">
+    
         
-        <?php if($expired && $following && !$asked_confirmation):?>
+    <?php if($expired && $following && !$asked_confirmation):?>
+        <span class="alert alert-warning" style="display: inline-block; width: 100%">
             <p>
                 <b>Este viaje se está <span class="label label-info">Siguiendo</span> y está <span class="badge">expirado o realizándose hace <?php echo $daysExpired?> días</span></b>
             </p>
@@ -54,19 +54,27 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
             <br/>
 
             <?php echo $this->Form->button('<i class="glyphicon glyphicon-share-alt"></i> Enviar correo de verificación al chofer', array('class'=>'btn-info btn-block', 'action'=>'ask_confirmation_to_driver/'.$data['DriverTravel']['id'], 'escape'=>false, 'confirm'=>'¿Está seguro que desea enviar un correo de verificación de este viaje al chofer?'), true);?>
-        <?php endif;?>
+        </span>
+    <?php endif;?>
         
-        <?php if($asked_confirmation):?>
-            <?php if($hasMetadata && $data['TravelConversationMeta']['received_confirmation_type'] != null):?> <!-- Confirmacion recibida -->
+    <?php if($asked_confirmation):?>
+        
+        <?php if($hasMetadata && $data['TravelConversationMeta']['received_confirmation_type'] != null):?> <!-- Confirmacion recibida -->
+            <span class="alert alert-warning" style="display: inline-block; width: 100%">
                 <i class="glyphicon glyphicon-envelope"></i> Confirmación de viaje recibida:
                 <br/>
                 <br/>
                 <div class="well"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($data['TravelConversationMeta']['received_confirmation_details']));?></div>
-            <?php else:?>
-                <i class="glyphicon glyphicon-share-alt"></i> Pedido de confirmación del viaje enviado al chofer. Esperando respuesta...
-            <?php endif?>
-        <?php endif; ?>
+            </span>
+        <?php else:?>
+            <?php if(!$is_done):?>
+                <span class="alert alert-warning" style="display: inline-block; width: 100%">
+                <i class="glyphicon glyphicon-share-alt"></i> Pedido de confirmación del viaje enviado al chofer. Esperando respuesta...<?php endif; ?>
+            </span>
+        <?php endif?>
+        
+    <?php endif; ?>
                 
-    </span>
+    
 </div>
 <?php endif?>

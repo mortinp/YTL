@@ -130,27 +130,33 @@ if($userLoggedIn) {
                                                     <li><?php echo $this->Html->link('Interacciones de Usuarios', array('controller' => 'user_interactions', 'action' => 'view_filtered/all'))?></li>
                                                     <li><?php echo $this->Html->link(__('Urls Compartidas'), array('controller' => 'url_invitations', 'action'=>'index'))?></li> 
                                                     <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
-                                                    <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link('Datos Archivados', array('controller' => 'driver_traveler_conversations', 'action' => 'archive_state'));?></li>
-                                                    <li class="divider"></li>
                                                     <li><?php echo $this->Html->link('Dashboard', array('controller' => 'metrics', 'action' => 'dashboard'));?></li>                                                     
                                                 </ul>
                                             </li>
                                             
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Logs</a>
+                                                <a tabindex="-1" href="#">Operaciones</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Info Choferes', array('controller' => 'admins', 'action' => 'view_log/info_choferes')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
-                                                    <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
+                                                    <li><?php echo $this->Html->link('Reglas de operadores', array('controller' => 'op_action_rules', 'action'=>'index')) ?></li>
                                                 </ul>
                                             </li>
                                             
+                                            <li class="divider"></li>
                                             <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Operadores</a>
+                                                <a tabindex="-1" href="#">Sistema</a>
                                                 <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Reglas', array('controller' => 'op_action_rules', 'action'=>'index')) ?></li>
+                                                    <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
+                                                    <li class="divider"></li>
+                                                    <li><?php echo $this->Html->link('Datos Archivados', array('controller' => 'driver_traveler_conversations', 'action' => 'archive_state'));?></li>
+                                                    
+                                                    <li class="dropdown-submenu">
+                                                        <a tabindex="-1" href="#">Logs</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><?php echo $this->Html->link('Info Choferes', array('controller' => 'admins', 'action' => 'view_log/info_choferes')) ?></li>
+                                                            <li><?php echo $this->Html->link('Viajes Fallidos', array('controller' => 'admins', 'action' => 'view_log/travels_failed')) ?></li>
+                                                            <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
+                                                        </ul>
+                                                    </li>
                                                 </ul>
                                             </li>
                                             <?php endif?>

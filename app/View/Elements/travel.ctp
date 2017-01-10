@@ -16,9 +16,8 @@ $pretty_people_count = $travel['Travel']['people_count']. ' ';
 if($travel['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
 else $pretty_people_count .= $personW;
 
-$date_converted = strtotime($travel['Travel']['date']);
-
-$expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+//$date_converted = strtotime($travel['Travel']['date']);
+$expired = $travel['Travel']['is_expired'];//CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
 
 $hasPreferences = false;
 foreach (Travel::getPreferences() as $key => $value) {
@@ -121,43 +120,47 @@ foreach (Travel::getPreferences() as $key => $value) {
         <code><big><?php echo $travel['Travel']['archive_conversations_count']; ?> conversaciones en el archivo</big></code>
     <?php endif; ?>
     <ul id="conversations-travel-<?php echo $travel['Travel']['id']?>" style="list-style-type:none">
+        
         <?php foreach ($travel['DriverTravel'] as $sent) :?>
         <li><?php echo $this->element('conversation_id_decorated', array('conversation'=>$sent, 'showComments'=>false))?></li>
         <?php endforeach; ?>
             
         <?php if(isset($drivers)):?>
-            <li>
-                <span id="notify-driver-travel-set-<?php echo $travel['Travel']['id']?>" style="display: inline-block">
-                    <a href="#!" class="edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Notificar a otro chofer')?></a>
-                </span>
-                <span id="notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>" style="display:none">
-                    <a href="#!" class="cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Cancelar')?></a>
-                </span>
-                <div id='notify-driver-travel-form-<?php echo $travel['Travel']['id']?>' style="display:none">
-                    <br/> 
-                    <div class="well">
-                        <span class="h5 text-muted">Notificar viaje a un nuevo chofer</span>
+            <?php if(!$expired):?>
+                <li>
+                    <span id="notify-driver-travel-set-<?php echo $travel['Travel']['id']?>" style="display: inline-block">
+                        <a href="#!" class="edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Notificar a otro chofer')?></a>
+                    </span>
+                    <span id="notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>" style="display:none">
+                        <a href="#!" class="cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Cancelar')?></a>
+                    </span>
+                    <div id='notify-driver-travel-form-<?php echo $travel['Travel']['id']?>' style="display:none">
+                        <br/> 
+                        <div class="well">
+                            <span class="h5 text-muted">Notificar viaje a un nuevo chofer</span>
+                            <br/>
+                            <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id']))?>
+                        </div>
                         <br/>
-                        <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id']))?>
-                    </div>
-                    <br/>
-                    
-                    <div class="well">
-                        <span class="h5 text-muted">Notificar viaje acordado</span>
-                        <br/>
-                        <div class="alert alert-warning"><i class="glyphicon glyphicon-warning-sign"></i> Usar sólo si se ha acordado con el viajero y con el chofer previamente. Notificar al chofer con quien se acordó el viaje.</div>
-                        <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id'], 'isArranged'=>true, 'notificationType'=>DriverTravel::$NOTIFICATION_TYPE_PREARRANGED))?>
-                    </div>
-                </div>
-            </li>
 
-            <script type="text/javascript">
-                $('.edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>, .cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>').click(function() {
-                    $('#notify-driver-travel-form-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-set-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>').toggle();
-                });
-            </script>
+                        <div class="well">
+                            <span class="h5 text-muted">Notificar viaje acordado</span>
+                            <br/>
+                            <div class="alert alert-warning"><i class="glyphicon glyphicon-warning-sign"></i> Usar sólo si se ha acordado con el viajero y con el chofer previamente. Notificar al chofer con quien se acordó el viaje.</div>
+                            <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id'], 'isArranged'=>true, 'notificationType'=>DriverTravel::$NOTIFICATION_TYPE_PREARRANGED))?>
+                        </div>
+                    </div>
+                </li>
+
+                <script type="text/javascript">
+                    $('.edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>, .cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>').click(function() {
+                        $('#notify-driver-travel-form-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-set-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>').toggle();
+                    });
+                </script>
+            <?php else:?>
+                <li><span class="text-danger" style="margin-top: 5px">Expirado, no se pueden notificar más choferes</span></li>
+            <?php endif?>
         <?php endif?>
-            
             
         </ul>
     </p>
