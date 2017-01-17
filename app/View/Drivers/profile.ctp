@@ -63,5 +63,14 @@
     <?php endforeach?>
     
 </div>
-
 <?php endif?>
+
+<div class="row">
+    <div class="col-md-8 <?php if($userLoggedIn):?>col-md-offset-2<?php else:?>col-md-offset-1<?php endif?>"><hr/></div>
+    <div class="col-md-8 <?php if($userLoggedIn):?>col-md-offset-2<?php else:?>col-md-offset-1<?php endif?>" style="margin-bottom: 25px">
+        <p><span class="bg-warning"><?php echo __d('testimonials', '¿Estás aquí para escribir un testimonio sobre %s?', Driver::shortenName($profile['DriverProfile']['driver_name']))?></span></p>
+    </div>
+    <div class="col-md-8 <?php if($userLoggedIn):?>col-md-offset-2<?php else:?>col-md-offset-1<?php endif?>" style="max-width: 500px">
+        <?php echo $this->element('form_testimonial_enter_driver_code', array('autofocus'=>false))?>
+    </div>
+</div>

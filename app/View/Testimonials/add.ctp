@@ -41,7 +41,7 @@
            
            echo $this->Form->input('country', array('label' => __d('testimonials', '¿En qué sorprendente país vives?').' <span class="small text-muted">('.__d('testimonials', 'no obligatorio').')</span>'));
            
-           echo $this->Form->input('text', array('class' => 'form-control', 'label' =>__d('testimonials', 'Tu comentario sobre %s', Driver::shortenName($driver_name)), /*'placeholder'=>__d('testimonials', 'Comenta sobre tu viaje con %s y qué te pareció su servicio', Driver::shortenName($driver_name))*/ ));
+           echo $this->Form->input('text', array('class' => 'form-control', 'label' =>__d('testimonials', 'Cuéntanos de tu experiencia con %s y qué piensas de su servicio', Driver::shortenName($driver_name)).':', 'placeholder'=>__d('testimonials', 'Puedes incluir cualquier historia').'...' ));
            
            echo '<br/>';
            echo $this->Form->label('image', __d('testimonials', '¿Compartirías una foto de tu viaje con nosotros?'));

@@ -394,11 +394,11 @@ class IncomingMailShell extends AppShell {
                 EmailsUtil::email($sender, 'Sobre YoTeLlevo', array(), 'super', 'info_drivers');
             else{
                 $vars['DriverProfile'] = $driver['DriverProfile'];
-                $vars['Testimonial']['approved'] = $this->Testimonial->find( 'count', array('conditions' => array('driver_id = ' => $driver['Driver']['id'], 'state = ' => 'A') ) );
-                $vars['Testimonial']['total'] = $this->Testimonial->find( 'count', array('conditions' => array('driver_id = ' => $driver['Driver']['id']) ) );
+                $vars['DriverStats']['testimonials_approved'] = $this->Testimonial->find('count', array('conditions' => array('driver_id = ' => $driver['Driver']['id'], 'state = ' => 'A') ) );
+                $vars['testimonials_total'] = $this->Testimonial->find('count', array('conditions' => array('state = ' => 'A') )) + 12 /* Un fake number para que los choferes sientan presion de solicitar testimonios */;
                 
                 $done = DriverTravelerConversation::$STATE_TRAVEL_DONE;$paid = DriverTravelerConversation::$STATE_TRAVEL_PAID;
-                $vars['viajes_realizados'] =
+                $vars['DriverStats']['travels_done'] =
                 $this->DriverTravel->find( 
                     'count' , array('conditions' => 
                         array('driver_id = ' => $driver['Driver']['id'], "TravelConversationMeta.state in ('$done', '$paid')"
@@ -443,7 +443,14 @@ class IncomingMailShell extends AppShell {
         
         $urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
         $replacement = '['.__d('conversation', 'url borrada').']';
-        $fixedText = preg_replace($urlpattern, $replacement, $fixedText);
+        //$fixedText = preg_replace($urlpattern, $replacement, $fixedText);
+        $fixedText = preg_replace_callback(
+                $urlpattern, 
+                function ($match) {
+                    if(strpos($match[0], 'yotellevocuba.com') === 0 || strpos($match[0], 'yotellevocuba.com')) return $match[0];
+                    return '['.__d('conversation', 'url borrada').']';
+                }, 
+                $fixedText);
         
         return $fixedText;
     }

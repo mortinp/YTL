@@ -77,8 +77,12 @@ msgid "Tu correo electrónico"
 msgstr "Your email"
 
 #: /code.ctp:33
-msgid "Tu comentario sobre %s"
-msgstr "Your review about %s"
+msgid "Cuéntanos de tu experiencia con %s y qué piensas de su servicio"
+msgstr "Tell us about your experience with %s and how you liked the service"
+
+#: /code.ctp:33
+msgid "Puedes incluir cualquier historia"
+msgstr "You may include any story"
 
 #: /code.ctp:33
 msgid "Comenta sobre tu viaje con %s y qué te pareció su servicio"
@@ -127,6 +131,11 @@ msgstr "%s wrote on %s"
 #: /code.ctp:33
 msgid "%s de %s escribió el %s"
 msgstr "%s from %s wrote on %s"
+
+
+#: /code.ctp:33
+msgid "¿Estás aquí para escribir un testimonio sobre %s?"
+msgstr "Are you here to write a review about %s?"
 
 
 
