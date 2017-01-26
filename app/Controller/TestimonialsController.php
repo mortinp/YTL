@@ -68,7 +68,7 @@ class TestimonialsController extends AppController {
             $conditions = array('Testimonial.state =' => Testimonial::$statesValues[$filtro]);
 
         //I have to fix limit
-        $this->Paginator->settings = array('limit' => 10);
+        $this->Paginator->settings = array('limit' => 30);
         $testimonials = $this->Paginator->paginate('Testimonial', $conditions);
 
         $this->set('testimonials', $testimonials);

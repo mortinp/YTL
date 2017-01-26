@@ -6,7 +6,7 @@ $fullBaseUrl = Configure::read('App.fullBaseUrl');
 if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
 
 $avatar_url = $fullBaseUrl.'/'.str_replace('\\', '/', $DriverProfile['avatar_filepath']);
-$profile_url = $this->html->url(array('controller' => 'drivers', 'action' => "profile", $DriverProfile['driver_nick']), true);
+$profile_url = $this->Html->url(array('controller' => 'drivers', 'action' => "profile", $DriverProfile['driver_nick']), true);
 ?>
 
 <p>Hola <?php echo $driver_name?>, a continuación ponemos algunos datos que debes conocer sobre tu perfil en <a href="http://yotellevocuba.com">yotellevocuba.com</a>:</p>
@@ -28,7 +28,13 @@ $profile_url = $this->html->url(array('controller' => 'drivers', 'action' => "pr
     <li>
         <p>Este es tu código personal para que tus clientes pongan testimonios sobre tí en tu perfil:</p>
         <div><b><?php echo ($DriverProfile['driver_code']) ? strtoupper($DriverProfile['driver_code']) : 'No tienes código en nuestro sitio'; ?></b></div>
-        <p>Este código puedes dárselo a todos tus clientes (no solo a los de YoTeLlevo) y enviarlos a nuestro sitio para que pongan un testimonio sobre tí. Tener testimonios en nuestro sitio es muy importante para lograr atrapar viajeros.</p>
+        <p>Para hacer que tus clientes pongan testimonios sobre tí en nuestro sitio, puedes hacer dos cosas:</p>
+        <ol>
+            <?php $testimonials_page = $this->Html->url(array('controller' => 'testimonials', 'action' => "add", $DriverProfile['driver_code']), true);?>
+            <li><p>Enviarlos a una página reservada para poner testimonios sobre tí, que es: <a href="<?php echo $testimonials_page ?>"><?php echo $testimonials_page ?></a></p></li> 
+            <li><p>Darles tu código personal <b><?php echo strtoupper($DriverProfile['driver_code'])?></b> y enviarlos a nuestro sitio web <b><?php echo Configure::read('domain_name')?></b>. Ahí podrán poner el código y escribir un testimonio sobre tí.</p></li> 
+        </ol>
+        <p>Recuerda que los testimonios lo pueden escribir todos tus clientes, no solo los de YoTeLlevo.</p>
     </li>
     <li>
         <p>Tienes <b><?php echo $DriverStats['testimonials_approved']?></b> testimonios en tu perfil de un total de <big><b><?php echo $testimonials_total?></b></big> testimonios que hay en el sitio.</p>

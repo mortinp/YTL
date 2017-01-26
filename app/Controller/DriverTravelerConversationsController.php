@@ -240,7 +240,7 @@ class DriverTravelerConversationsController extends AppController {
 
         if($OK) $datasource->commit(); else $datasource->rollback();
         
-        return $this->redirect($this->referer().'#travel-verification');
+        return $this->redirect($this->referer());
     }
     
     

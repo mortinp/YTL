@@ -22,7 +22,10 @@
     <li>En caso de que <b>No se haya realizado el viaje</b>, incluya en el cuerpo de su correo una breve explicación.</li>
 </ul>
 <p>
-    Nosotros almacenaremos su correo para luego procesarlo y verificarlo. Muchísimas gracias y saludos.
+    <b>Nota:</b> Responder este correo es <b>OBLIGATORIO</b> ya sea para confirmar o no el viaje. Nosotros almacenaremos su respuesta para luego procesarla y verificarla.
+</p>
+<p>
+    Muchísimas gracias y saludos,
 </p>
 <p>El equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a></p>
 <p>
