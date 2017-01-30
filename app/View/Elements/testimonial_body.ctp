@@ -24,7 +24,7 @@ if (!isset($bgColor)) $bgColor = 'default';
             ?>
             <footer> <big> <?php echo $intro?></big> </footer>
             <br/>
-            <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?>
+            <span style="font-size: 12pt"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></span>
 
             <?php if ($testimonial['image_filepath']): ?>
                 <div style="max-width:640px">

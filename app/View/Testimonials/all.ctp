@@ -7,6 +7,35 @@
             <br/>
             <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>Testimonial::$states))?>
             
+            <!-- Resumen de cantidad de testimonios por choferes -->
+            <div>
+                <b>Resumen de esta página</b><hr/>
+                <?php
+                $results = array();
+                foreach($testimonials as $data) {
+                    if(!array_key_exists($data['Driver']['id'], $results)) {
+                        $subject = $data['Driver']['id'];
+                        $count = 0;
+                        foreach($testimonials as $again) {
+                            if($again['Driver']['id'] == $subject) $count ++;
+                        }
+                        $results[$subject] = array(
+                            'driver_name' => $data['Driver']['DriverProfile']['driver_name'],
+                            'driver_avatar' => $this->request->webroot.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']),
+                            'testimonials_count'=>$count);
+                    }
+                } 
+                ?>
+                
+                <ul class="list-inline">
+                <?php foreach($results as $r):?>
+                    <li style="text-align: center"><img src="<?php echo $r['driver_avatar']?>" title="<?php echo $r['driver_name']?>" class="info img-responsive" style="max-width: 40px "/> <big><b><?php echo $r['testimonials_count']?></b></big></li>
+                <?php endforeach?>
+                </ul>
+                <hr/>
+            </div>
+                
+            
             <?php if(!empty ($testimonials)): ?>
                 <br/>
                 <br/>
