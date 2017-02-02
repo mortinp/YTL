@@ -43,15 +43,6 @@ class User extends AppModel {
         return true;
     }
     
-    /*public function afterFind($results, $primary = false) {
-        foreach ($results as $key => $val) {
-            if (isset($val['User']['username']) && isset($val['User']['display_name'])) {
-                $results[$key]['User']['pretty_name'] = User::prettyName($val['User'], isset($val['User']['role']));
-            }
-        }
-        return $results;
-    }*/
-    
     public function loginExists($email) {
         return $this->find('first', array('conditions'=>array('username'=>$email))) != null;
     }

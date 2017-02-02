@@ -1,3 +1,34 @@
+<div>
+    
+    <!-- Resumen de cantidad de testimonios por choferes -->
+    <div>
+        <b>Choferes activos por provincias:</b>
+        <?php
+        $results = array();
+        foreach($drivers as $d) {
+            if(!array_key_exists($d['Province']['id'], $results)) {
+                $subject = $d['Province']['id'];
+                $count = 0;
+                foreach($drivers as $again) {
+                    if($again['Driver']['active'] && $again['Driver']['role'] == 'driver' && $again['Province']['id'] == $subject) $count ++;
+                }
+                $results[$subject] = array(
+                    'province_name' => $d['Province']['name'],
+                    'drivers_count'=>$count);
+            }
+        } 
+        ?>
+
+        <ul class="list-inline">
+        <?php foreach($results as $r):?>
+            <li><?php echo $r['province_name']?> (<?php echo $r['drivers_count']?>)</li>
+        <?php endforeach?>
+        </ul>
+        <hr/>
+    </div>
+    
+</div>
+
 <div style="float:left;padding-right:20px"><?php echo count($drivers)?> choferes</div>
 <div style="float:left"><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Add New', array('action'=>'add'), array('escape'=>false))?></div>
 <table class='table table-striped table-hover'>

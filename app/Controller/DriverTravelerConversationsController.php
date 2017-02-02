@@ -140,7 +140,6 @@ class DriverTravelerConversationsController extends AppController {
     
     
     public function update_read_entries($conversationId, $entriesCount) {
-        
         // Verificar que la cantidad de entradas es igual o menor que la real
         $Total = $this->DriverTravelerConversation->find( 'count', array('conditions' => array('conversation_id' => "$conversationId") ) );
         if($entriesCount > $Total){
@@ -153,7 +152,7 @@ class DriverTravelerConversationsController extends AppController {
         // Preparar consulta para marcar los mensajes con el operador que los leyo
         $username = User::prettyName( $this->Auth->user() );
         $query = "update driver_traveler_conversations\n".
-                 "set read_by = '$username'\n".
+                 "set read_by = '$username', date_read = now()\n".
                  "where conversation_id = '$conversationId' and read_by is null";
         // TODO: Esto se puede hacer con un saveField()
         

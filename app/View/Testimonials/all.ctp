@@ -21,6 +21,7 @@
                         }
                         $results[$subject] = array(
                             'driver_name' => $data['Driver']['DriverProfile']['driver_name'],
+                            'driver_nick' => $data['Driver']['DriverProfile']['driver_nick'],
                             'driver_avatar' => $this->request->webroot.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']),
                             'testimonials_count'=>$count);
                     }
@@ -29,7 +30,8 @@
                 
                 <ul class="list-inline">
                 <?php foreach($results as $r):?>
-                    <li style="text-align: center"><img src="<?php echo $r['driver_avatar']?>" title="<?php echo $r['driver_name']?>" class="info img-responsive" style="max-width: 40px "/> <big><b><?php echo $r['testimonials_count']?></b></big></li>
+                    <li style="text-align: center"><img src="<?php echo $r['driver_avatar']?>" title="<?php echo $r['driver_name']?>" class="info img-responsive" style="max-width: 40px "/> 
+                    <big><b><?php echo $this->Html->link($r['testimonials_count'], array('controller'=>'drivers', 'action'=>'profile/'.$r['driver_nick']), array('target'=>'_blank'))?></b></big></li>
                 <?php endforeach?>
                 </ul>
                 <hr/>

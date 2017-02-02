@@ -1,135 +1,52 @@
 <?php
-    App::uses('UpgradeData', 'Util');
+    App::uses('UpgradeCase', 'Util');
 
     class DatabaseUpgradeShell extends AppShell {
         public $uses = array('DriverTravel');
-        public $cases;
+        public $case;
         
         public function getOptionParser() {
+            $casos = array('conversaciones_no_respondidas', 'conversaciones_solo_mensaje_del_chofer');
+            $parser_arch['arguments']['archivar'] = array( 'help'     => '--> archiva los datos',
+                                                           'choices'  => $casos,
+                                                           'required' => true ); 
+            $parser_rest['arguments']['restaurar'] = array( 'help'     => '--> restaura los datos archivados',
+                                                            'choices'  => $casos,
+                                                            'required' => true );
+            
             $parser = parent::getOptionParser();
-            $parser->addSubCommand('archivar', array('help' => '--> archiva los datos') )
-                   ->addSubCommand('restaurar', array('help' => '--> restaura los datos archivados') ) 
+            $parser->addSubcommand('archivar', array('help'     => '--> archiva los datos',
+                                                     'parser'  => $parser_arch)
+                                 )
+                   ->addSubcommand('restaurar', array('help'    => '--> restaura los datos archivados',
+                                                      'parser'  => $parser_rest)
+                                ) 
                    ->epilog( array("Ejemplos: ",
-                                   "  cake DatabaseUpgrade archivar",
-                                   "  cake DatabaseUpgrade restaurar") );
+                                   "  cake DatabaseUpgrade archivar conversaciones_no_respondidas",
+                                   "  cake DatabaseUpgrade restaurar conversaciones_solo_mensaje_del_chofer") );
             return $parser;
         }
 
-        public function __construct($stdout = null, $stderr = null, $stdin = null) {
-            parent::__construct($stdout, $stderr, $stdin);
-            $this->cases = new UpgradeData();
-            
-            /* --- Conversaciones no respondidas --- */
-            $case1 = new UpgradeCase();
-            $case1->set_query(
-                            "select dt.id, tcm.conversation_id\n".
-                            "from travels tr join drivers_travels dt on tr.id = dt.travel_id\n".
-                                            "left join travels_conversations_meta tcm on dt.id = tcm.conversation_id\n".
-                            "where (dt.driver_traveler_conversation_count = 0)  and\n".
-                            "(tcm.conversation_id is null or tcm.following = 0) and\n".
-	                    "(tcm.conversation_id is null or tcm.state = 'N')   and\n".
-	                    "(datediff(current_date, tr.created) > 90)          and\n".
-	                    "(current_date > tr.date)"
-            );
-                    
-            $case1->add_table('travels_conversations_meta', 'conversation_id', 'conversation_id');
-            $case1->add_table('drivers_travels', 'id', 'id');
-            
-            $this->cases->add($case1);
-            
-            /* --- Conversaciones que tienen un solo mensaje (el del chofer) --- */
-            $case2 = new UpgradeCase();
-            $case2->set_query(
-                            "select dt.id, tcm.conversation_id, dtc.id as cid\n".
-                            "from travels tr join drivers_travels dt on tr.id = dt.travel_id\n".
-                                            "join driver_traveler_conversations dtc on dt.id = dtc.conversation_id\n".
-			                    "left join travels_conversations_meta tcm on dt.id = tcm.conversation_id\n".
-                            "where (dt.driver_traveler_conversation_count = 1)        and\n".
-                                  "(dtc.response_by = 'driver')                       and\n".
-                                  "(tcm.conversation_id is null or tcm.following = 0) and\n".
-	                          "(tcm.conversation_id is null or tcm.state = 'N')   and\n".
-	                          "(datediff(current_date, tr.created) > 90)          and\n".
-	                          "(current_date > tr.date)"
-            );
-            
-            $case2->add_table('travels_conversations_meta', 'conversation_id', 'conversation_id');
-            $case2->add_table('driver_traveler_conversations', 'id', 'cid');
-            $case2->add_table('drivers_travels', 'id', 'id');
-                        
-            $this->cases->add($case2);
-        } 
+        public function main(){ }
         
-        public function main(){}
-        
+        /*---------------------------- INTERFACE ----------------------------*/
         public function archivar(){
-			// $this->$$this->argv[0]();
-		
-            $datasource = $this->DriverTravel->getDataSource();
-            
-            $caso = 1;
-            foreach($this->cases->cases as $obj){
-                $datasource->begin();
-                
-                $query = "create temporary table tmp_table ({$obj->query});\n";
-                for($i = 0, $size = count($obj->tables); $i < $size; $i++){
-                    $table    = $obj->tables[$i];
-                    $id       = $obj->tables_ids[$i];
-                    $query_id = $obj->query_ids[$i];
-                    
-                    $query .= "insert into archive_$table\n".
-                              "(select * from $table\n".
-                              "where $id in (select distinct $query_id from tmp_table) );\n".
-
-                              "delete from $table\n".
-                              "where $id in (select distinct $query_id from tmp_table);\n";
-                }
-                $query .= "drop table tmp_table;";
-
-                try { 
-                    $this->DriverTravel->query($query); 
-                    $this->_UpdateCount();
-                    $datasource->commit();    
-                    $this->out("case $caso done!");
-                    $caso++;
-                }
-                catch(Exception $error){
-                    $datasource->rollback();
-                    $this->out("case $caso fail!\n". $error->getMessage());
-                    break;    
-                }
-            }    
+           $caso = $this->args[0];
+           $this->$caso();
+           
+           if( $this->_move(true) )  $this->out ("done case: $caso");
+           else                      $this->out ("fail in case: $caso");
         }
         
         public function restaurar(){
-            $datasource = $this->DriverTravel->getDataSource();
-            $datasource->begin();
-            
-            foreach($this->cases->table_id as $table => $id){
-                $query = "insert into $table\n".
-                         "(select * from archive_$table\n".
-                         "where $id not in (select $id from $table) );\n".
-                         
-                         "delete from archive_$table;";
-                
-                try{ $this->DriverTravel->query($query); }
-                catch(Exception $error){
-                    $datasource->rollback();
-                    $this->out("fail!\n". $error->getMessage());
-                    return;
-                }
-            }          
-            
-            try{ $this->_UpdateCount(); }
-            catch(Exception $error){
-                $datasource->rollback();
-                $this->out("fail!\n". $error->getMessage());
-                return;
-            }
-            
-            $datasource->commit();    
-            $this->out("done!");
+           $caso = $this->args[0];
+           $this->$caso('archive_');
+           
+           if( $this->_move(false) )  $this->out ("done case: $caso");
+           else                       $this->out ("fail in case: $caso");
         }
         
+        /*---------------------------- CORE ----------------------------*/
         public function _UpdateCount(){
             $query = "update travels\n".
                      "set archive_conversations_count = (\n".
@@ -138,6 +55,80 @@
                      ")";
             
             $this->DriverTravel->query($query);
+        }
+        
+        public function _move($archive){
+            $datasource = $this->DriverTravel->getDataSource();
+            $datasource->begin();
+            $obj = $this->case;
+
+            $query = "create temporary table tmp_table ({$obj->query});\n";
+            for($i = 0, $size = count($obj->tables); $i < $size; $i++){
+                $table    = $obj->tables[$i];
+                $id       = $obj->tables_ids[$i];
+                $query_id = $obj->query_ids[$i];
+                $from     = ($archive) ? "$table"         : "archive_$table";
+                $to       = ($archive) ? "archive_$table" : "$table";
+
+
+                $query .= "insert into $to\n".
+                          "(select * from $from\n".
+                          "where $id in (select distinct $query_id from tmp_table) );\n".
+
+                          "delete from $from\n".
+                          "where $id in (select distinct $query_id from tmp_table);\n";
+            }
+            $query .= "drop table tmp_table;";
+
+            try { 
+                $this->DriverTravel->query($query); 
+                $this->_UpdateCount();
+                $datasource->commit();    
+                return true;
+            }
+            catch(Exception $error){
+                $datasource->rollback();
+                $this->out( $error->getMessage() );
+                return false;
+            }
+        }
+        
+        /*---------------------------- CASES ----------------------------*/
+        private function conversaciones_no_respondidas($archive = ''){
+            $this->case = new UpgradeCase();
+            $this->case->set_query(
+                            "select dt.id, tcm.conversation_id\n".
+                            "from travels tr join {$archive}drivers_travels dt on tr.id = dt.travel_id\n".
+                                            "left join {$archive}travels_conversations_meta tcm on dt.id = tcm.conversation_id\n".
+                            "where (dt.driver_traveler_conversation_count = 0)  and\n".
+                            "(tcm.conversation_id is null or tcm.following = 0) and\n".
+	                    "(tcm.conversation_id is null or tcm.state = 'N')   and\n".
+	                    "(datediff(current_date, tr.created) > 90)          and\n".
+	                    "(current_date > tr.date)"
+            );
+                    
+            $this->case->add_table('travels_conversations_meta', 'conversation_id', 'conversation_id');
+            $this->case->add_table('drivers_travels', 'id', 'id');
+        }
+        
+        private function conversaciones_solo_mensaje_del_chofer($archive = ''){
+            $this->case = new UpgradeCase();
+            $this->case->set_query(
+                            "select dt.id, tcm.conversation_id, dtc.id as cid\n".
+                            "from travels tr join {$archive}drivers_travels dt on tr.id = dt.travel_id\n".
+                                            "join {$archive}driver_traveler_conversations dtc on dt.id = dtc.conversation_id\n".
+			                    "left join {$archive}travels_conversations_meta tcm on dt.id = tcm.conversation_id\n".
+                            "where (dt.driver_traveler_conversation_count = 1)        and\n".
+                                  "(dtc.response_by = 'driver')                       and\n".
+                                  "(tcm.conversation_id is null or tcm.following = 0) and\n".
+	                          "(tcm.conversation_id is null or tcm.state = 'N')   and\n".
+	                          "(datediff(current_date, tr.created) > 90)          and\n".
+	                          "(current_date > tr.date)"
+            );
+            
+            $this->case->add_table('travels_conversations_meta', 'conversation_id', 'conversation_id');
+            $this->case->add_table('driver_traveler_conversations', 'id', 'cid');
+            $this->case->add_table('drivers_travels', 'id', 'id');
         }
     }
 ?>

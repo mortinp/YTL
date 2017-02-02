@@ -17,7 +17,6 @@ class DriversController extends AppController {
     public function index() {
         $this->Driver->recursive = 1;
         $this->Driver->bindModel(array('belongsTo'=>array('User'=>array('foreignKey'=>'operator_id', 'fields'=>array('id', 'username', 'display_name', 'role')))));
-        //$this->set('drivers', $this->paginate());
         $this->set('drivers', $this->Driver->find('all'));
         
     }

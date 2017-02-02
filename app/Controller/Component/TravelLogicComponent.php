@@ -145,6 +145,9 @@ class TravelLogicComponent extends Component {
         
         $this->DriverTravel->create();
         $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel['Travel']['id'], 'notification_type'=>$notificationType);
+        if($notificationType != DriverTravel::$NOTIFICATION_TYPE_AUTO) 
+            $driverTravel['notified_by'] = User::prettyName(AuthComponent::user());
+        
         $OK = $this->DriverTravel->save(array('DriverTravel'=>$driverTravel));
 
         if($OK) {
@@ -170,28 +173,6 @@ class TravelLogicComponent extends Component {
             $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName);
             $variables = array_merge($variables, $customVariables);
             
-            /*if(Configure::read('enqueue_mail')) {
-                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $driver['Driver']['username'], 
-                        $variables, 
-                        array(
-                            'template'=>$template,
-                            'format'=>'html',
-                            'subject'=>$subject,
-                            'config'=>$emailConfig));
-            } else {
-                $Email = new CakeEmail($emailConfig);
-                $Email->template($template)
-                ->viewVars($variables)
-                ->emailFormat('html')
-                ->to($driver['Driver']['username'])
-                ->subject($subject);
-                try {
-                    $Email->send();
-                } catch ( Exception $e ) {
-                    $OK = false;
-                }
-            }*/
             EmailsUtil::email($driver['Driver']['username'], $subject, $variables, $emailConfig, $template);
         }
         
@@ -261,11 +242,5 @@ class TravelLogicComponent extends Component {
         }
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
-    
-    /*private function setupSelectDriverProfile() {
-        $this->DriverLocality->recursive = 2; // Esto es para que el chofer se cargue con su perfil
-        $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));// Esto es para que no se carguen las localidades del chofer
-    }*/
-    
 }
 ?>

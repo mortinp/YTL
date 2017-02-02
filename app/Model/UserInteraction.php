@@ -2,6 +2,7 @@
 
 App::uses('AppModel', 'Model');
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('StringsUtil', 'Util');
 
 class UserInteraction extends AppModel {
     
@@ -49,7 +50,7 @@ class UserInteraction extends AppModel {
         if($interaction != null) {
             $code = $interaction['UserInteraction']['interaction_code'];
         } else {
-            $code = $this->getWeirdString();
+            $code = StringsUtil::getWeirdString();
             
             $interaction = array('UserInteraction');
             $interaction['UserInteraction']['user_id'] = $userId;
@@ -77,7 +78,7 @@ class UserInteraction extends AppModel {
             $interaction['UserInteraction']['was_created_now'] = false;
             $OK = true;
         } else {
-            $code = $this->getWeirdString();
+            $code = StringsUtil::getWeirdString();
             
             $interaction = array('UserInteraction');
             $interaction['UserInteraction']['user_id'] = $userId;
@@ -115,11 +116,6 @@ class UserInteraction extends AppModel {
     
     public function tokenBelongsToUser($token, $userId) {
         return $this->field('interaction_code', array('interaction_code' => $token, 'user_id' => $userId)) == $token;
-    }
-    
-    
-    private function getWeirdString() {
-        return substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1).substr(md5(time()),1);
     }
     
     public function getUnexpiredInteraction($token, $interactionType) {

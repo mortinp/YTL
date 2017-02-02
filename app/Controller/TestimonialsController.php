@@ -2,11 +2,12 @@
 
 App::uses('CakeEmail', 'Network/Email');
 App::uses('EmailsUtil', 'Util');
+App::uses('StringsUtil', 'Util');
 
 class TestimonialsController extends AppController {
 
     public $components = array('Paginator');
-    public $uses = array('Testimonial', 'DriverTravel', 'Driver', 'TravelConversationMeta', 'DriverProfile');
+    public $uses = array('Testimonial', 'DriverTravel', 'Driver', 'TravelConversationMeta', 'DriverProfile', 'User');
     
     public function beforeFilter() {
         parent::beforeFilter();
@@ -93,27 +94,44 @@ class TestimonialsController extends AppController {
 
             if ($dt_data['DriverTravel']['driver_id'] != $dp_data['DriverProfile']['driver_id'])
                 throw new BadRequestException(__('La conversación no corresponde al chofer solicitado'));
+            
+            $user = $this->User->findById($dt_data['Travel']['user_id']);
         }
 
         if ($this->request->is('post')) {
+            $datasource = $this->Testimonial->getDataSource();
+            $datasource->begin();
+            
             $this->Testimonial->create();
 
             $this->request->data['Testimonial']['driver_travel_id'] = $conversation_id;
             $this->request->data['Testimonial']['driver_id'] = $dp_data['DriverProfile']['driver_id'];
-            if ($this->Testimonial->save($this->request->data)) {
-                //$this->setSuccessMessage( __('¡Su opinión es muy valiosa para nosotros, gracias por su tiempo!') );
-
+            $this->request->data['Testimonial']['validation_token'] = StringsUtil::getWeirdString();
+            if( isset($user['User']['username']) )
+                $this->request->data['Testimonial']['email'] = $user['User']['username'];
+            
+            $OK = $this->Testimonial->save($this->request->data);
+            if($OK) {
                 $tid = $this->Testimonial->id;
-                $OK = $this->_sendMail($tid);
-                if(!$OK)
-                    CakeLog::write('testimonial_errors', "Error al enviar mensaje de nuevo testimonio $tid al admin");
+                $OK = $this->_sendAdminMail($tid);
+                if(!$OK) CakeLog::write('testimonial_errors', "Error al enviar mensaje de nuevo testimonio $tid al admin");
+                
+                //if( $this->_sendVerificationMail($tid) )
+                    $datasource->commit();
+                /*else{    
+                    $datasource->rollback();
+                    $this->setErrorMessage( __d('testimonials', 'Error al enviar mensaje de verificación') );
+                }  */
                 
                 return $this->redirect(array('action' => 'preview', $tid));
+            } else {
+                $datasource->rollback();
+                $this->setErrorMessage( __d('testimonials', 'Ocurrió un error al intentar guardar el testimonio.') );
             }
-            $this->setErrorMessage(__('Ocurrió un error al intentar guardar el testimonio.'));
+            
         } else {
             if ($conversation_id != NULL) {
-                $data = $this->Testimonial->findByDriverTravelId($conversation_id);  //debe devolver solo 1 registro aunque no este modelado así en la bd
+                $data = $this->Testimonial->findByConversationId($conversation_id);  //debe devolver solo 1 registro aunque no este modelado asi en la bd
                 if (isset($data['Testimonial']['id']))
                     return $this->redirect(array('action' => 'edit', $data['Testimonial']['id']));
             }
@@ -129,7 +147,7 @@ class TestimonialsController extends AppController {
     public function edit($id) {
         $testimonial = $this->Testimonial->findById($id);
         if (!$testimonial)
-            throw new NotFoundException(__('El Testimonio solicitado no existe'));
+            throw new NotFoundException( __d('testimonials', 'El Testimonio solicitado no existe') );
 
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->Testimonial->id = $id;
@@ -137,10 +155,9 @@ class TestimonialsController extends AppController {
 
 
             if ($this->Testimonial->save($this->request->data)) {
-                //$this->setSuccessMessage(__('¡Su opinión es muy valiosa para nosotros, gracias por su tiempo!'));
                 return $this->redirect(array('action' => 'preview', $id));
             }
-            $this->setErrorMessage(__('Ocurrió un error al intentar guardar el testimonio.'));
+            $this->setErrorMessage( __d('testimonials', 'Ocurrió un error al intentar guardar el testimonio.') );
         }
 
         if (!$this->request->data)
@@ -207,7 +224,7 @@ class TestimonialsController extends AppController {
             return $this->redirect(array('action' => 'index'));
     }
 
-    private function _sendMail($id) {
+    private function _sendAdminMail($id) {
         $this->Testimonial->recursive = 3;
         $this->DriverTravel->unbindModel(array('hasOne' => array('TravelConversationMeta')));
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
@@ -227,6 +244,13 @@ class TestimonialsController extends AppController {
         if(isset ($data['Driver']['DriverProfile'])) $subject .= ' sobre '.$data['Driver']['DriverProfile']['driver_name'];
 
         return EmailsUtil::email($to, $subject, $vars, 'no_responder', 'testimonial_new');
+    }
+    
+    private function _sendVerificationMail($id) {
+        $data = $this->Testimonial->findById($id);
+        $vars['Testimonial'] = $data['Testimonial'];
+        
+        return EmailsUtil::email($data['Testimonial']['email'], __d('testimonial', 'Sobre YoTeLlevo'), $vars, 'no_responder', 'testimonial_verify');
     }
 
     public function admin($id) {
@@ -250,7 +274,7 @@ class TestimonialsController extends AppController {
         $datasource->begin();
 
         $to = $data['Travel']['User']['username'];
-        $subject = __('Prueba de calidad del servicio #') . $data['Travel']['id'] . ' [[' . $driver_travel_id . ']]';
+        $subject = __d('testimonials', 'Prueba de calidad del servicio #') . $data['Travel']['id'] . ' [[' . $driver_travel_id . ']]';
         $OK = EmailsUtil::email($to, $subject, $vars, 'verificacion_viaje', 'request_testimonial');
         if ($OK) {
             $this->TravelConversationMeta->id = $driver_travel_id;
@@ -283,6 +307,18 @@ class TestimonialsController extends AppController {
                 $this->redirect( array('action' => 'add', $driver_code) );
             }
         }
+    }
+    
+    public function verify($token) {
+        $data = $this->Testimonial->findByValidationToken($token);
+        if(!$data)
+           throw new NotFoundException( __d('testimonials', 'El token para la validación es incorrecto') );
+        
+        $this->Testimonial->id = $data['Testimonial']['id'];
+        if( $this->Testimonial->saveField('validated', true) ){
+            $this->setSuccessMessage( __d('testimonials', 'Su comentario ha sido validado') );
+        }
+        else $this->setErrorMessage( __d('testimonials', 'Ha ocurrido un error al salvar los datos') );
     }
 }
 

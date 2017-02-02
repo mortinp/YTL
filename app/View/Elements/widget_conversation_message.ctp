@@ -67,7 +67,7 @@ if($message['response_by'] == 'driver') {
     <div>
         <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> el <?php echo TimeUtil::prettyDate($message['created']);?> hace <?php echo $daysPosted?> días</a></b>
         <?php if($message['read_by']):?>
-            <code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?></code>
+            <small><code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?> <?php if($message['date_read'] != null) echo 'el '.TimeUtil::prettyDate($message['date_read'], false)?></code></small>
         <?php endif?>
     </div>
     <br/>

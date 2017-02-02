@@ -19,9 +19,8 @@ if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_PREARRANGED)
 echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$thread['id']), $info);
 ?>
 
+<?php $badgesMargin = -50; $badgesSpacing = 25;?>
 <?php if($hasMetadata):?>
-
-    <?php $badgesMargin = -50; $badgesSpacing = 25;?>
 
     <?php if($conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
         <!-- Confirmacion recibida --> 
@@ -62,6 +61,13 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
         </div>
     <?php endif?>
 
+<?php endif?>
+    
+<!-- NOTIFIED BY -->
+<?php if(isset($thread['notified_by']) && isset($userRole) && $userRole == 'admin' && $thread['notified_by'] != null):?>
+    <span class="info" style="float:left;margin-left: <?php echo $badgesMargin - 50; $badgesMargin-=$badgesSpacing?>px;" title="Notificado por <?php echo $thread['notified_by'];if($thread['created'] != null) echo '<br/> el '.TimeUtil::prettyDate($thread['created'], false)?>">
+        <small><code><?php echo $thread['notified_by']?></code></small>
+    </span>
 <?php endif?>
 
 <!-- COMMENTS -->
