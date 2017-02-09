@@ -50,6 +50,9 @@ class UsersController extends AppController {
                     else $redirect = $this->Auth->redirect();
                 }
                 
+                if(is_array($redirect)) print_r($redirect);
+                else echo $redirect;
+                
                 return $this->redirect($redirect);
                 
             } else $this->setErrorMessage(__('El usuario o la contraseña son inválidos. Intenta de nuevo.'));
