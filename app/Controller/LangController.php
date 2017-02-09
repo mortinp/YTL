@@ -58,6 +58,7 @@ class LangController extends AppController {
         
         $this->Cookie->write('app.lang', $lang, true, '+2 weeks');
         $this->Session->write('app.lang', $lang); // Escribir la Session por si no se puede escribir la Cookie
+        $this->Session->write('Config.language', $lang);
         
         $user = AuthComponent::user();
         if($user != null && !empty ($user) /*&& $lang != $user['lang']*/) {

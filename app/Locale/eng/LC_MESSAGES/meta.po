@@ -141,3 +141,11 @@ msgstr "Review this driver"
 #: Controller/AppController.php:196
 msgid "Gracias por tu opinión"
 msgstr "Thank you for the review"
+
+#: Controller/AppController.php:196
+msgid "Opiniones y reseñas sobre choferes en Cuba"
+msgstr "Opinions and reviews about drivers in Cuba"
+
+#: Controller/AppController.php:196
+msgid "Opiniones e historias de viajeros sobre sus choferes en Cuba"
+msgstr "Opinions and stories from travelers about their drivers in Cuba"

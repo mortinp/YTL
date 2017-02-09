@@ -40,10 +40,10 @@ class UsersController extends AppController {
                 if(isset ($this->request->query['redirect'])) $redirect = $this->request->query['redirect'];                
                 
                 if($redirect != null) {
-                    $parts = split('/', $redirect, 2);
+                    $parts = split('/', $redirect, 3);
                     $redirect = array('action'=>'index');
-                    $redirect['controller'] = $parts[0];
-                    if(isset ($parts[1]) && $parts[1] != null) $redirect['action'] = $parts[1];
+                    $redirect['controller'] = $parts[1];
+                    if(isset ($parts[2]) && $parts[2] != null) $redirect['action'] = $parts[2];
                     
                 } else {
                     if(in_array(AuthComponent::user('role'), array('admin', 'operator'))) $redirect = array('controller'=>'driver_travels', 'action'=>'view_filtered/'.DriverTravel::$SEARCH_NEW_MESSAGES);

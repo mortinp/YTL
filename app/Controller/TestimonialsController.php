@@ -12,7 +12,7 @@ class TestimonialsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
 
-        $this->Auth->allow('enter_code');
+        $this->Auth->allow('enter_code', 'featured');
         if (isset($this->request->params['pass']['0'])) {
             if ($this->request->params['action'] == 'add') {
                 if (!isset($this->request->params['pass']['1']))
@@ -48,7 +48,7 @@ class TestimonialsController extends AppController {
         if($user['role'] =='operator' && in_array($this->action, array('view_filtered', 'index', 'preview', 'state_change', 'lang_change', 'admin', 'request_testimonial'))) 
             return true;
 
-        //nadie puede aÃ±adir testimonios internos [a menos que se le haya permitido en el beforeFilter] -> [solo si es el usuario del viaje]
+        //nadie puede annadir testimonios internos [a menos que se le haya permitido en el beforeFilter] -> [solo si es el usuario del viaje]
         if($this->request->action == 'add' && isset($this->request->params['pass']['1']))
             return false;
 
@@ -57,6 +57,11 @@ class TestimonialsController extends AppController {
 
     public function index() {
         $this->redirect(array('action' => 'view_filtered/pending'));
+    }
+    
+    public function featured() {
+        $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>20);
+        $this->set('testimonials', $this->paginate(array('featured'=>true)));
     }
 
     public function view_filtered($filtro = 'pending') {
@@ -176,6 +181,29 @@ class TestimonialsController extends AppController {
             throw new NotFoundException(__d('testimonials', 'No existe el testimonio solicitado'));
 
         $this->set('data', $data);
+    }
+    
+    public function set_featured($id) {
+        $OK = $this->change_field($id, 'featured', true);
+        
+        //if(!$OK)
+        
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
+    
+    public function unset_featured($id) {
+        $OK = $this->change_field($id, 'featured', false);
+        
+        //if(!$OK)
+        
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
+    
+    private function change_field($testimonialId, $field, $value) {
+        $this->Testimonial->id = $testimonialId;
+        if(!$this->Testimonial->exists()) throw new NotFoundException ();
+        
+        return $this->Testimonial->save(array('Testimonial'=>array($field=>$value, 'modified'=>false)));
     }
 
     public function state_change($id, $state, $action = 'admin') {

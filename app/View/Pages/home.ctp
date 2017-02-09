@@ -1,3 +1,13 @@
+<?php     
+    $other = array('en' => 'es', 'es' => 'en');
+    $lang = $this->Session->read('Config.language');
+
+    $lang_changed_url             = $this->request['pass'];
+    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
+    $lang_changed_url['?']        = $this->request->query;
+    $lang_changed_url['language'] = $other[$lang];
+?>
+
 <div id="front-page-bg">
     <div id="navgradient">
         <div id="navbar">
@@ -13,9 +23,9 @@
                     <div class="pull-left navbar-brand">
                         <?php $lang = SessionComponent::read('app.lang');?>
                         <?php if($lang != null && $lang == 'en'):?>
-                            <?php echo $this->Html->link($this->Html->image('Spain.png').' Español', array('controller' => 'lang', 'action' => 'setlang', 'es'), array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false)) ?>
+                            <?php echo $this->Html->link($this->Html->image('Spain.png').' Español', $lang_changed_url, array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false)) ?>
                         <?php else:?>
-                            <?php echo $this->Html->link($this->Html->image('UK.png').' English', array('controller' => 'lang', 'action' => 'setlang', 'en'), array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false)) ?>
+                            <?php echo $this->Html->link($this->Html->image('UK.png').' English', $lang_changed_url, array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false)) ?>
                         <?php endif;?>
                     </div>
                 </div>

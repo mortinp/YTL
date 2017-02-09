@@ -76,9 +76,52 @@ class AppController extends Controller {
         if($this->Session->read('allowed_action') != null)
             $this->Auth->allow($this->Session->read('allowed_action'));
         
-        $this->_setupLanguage();
+        //$this->_setupLanguage();
+        $this->_setLanguage();
+        //si el idioma no está en la url => redirecciono a la url equivalente con el idioma
+        if( empty($this->params['language']) ){
+            $lang = $this->Session->read('Config.language');
+            $url             = $this->request['pass'];
+            $url             = array_merge($url, $this->request['named']);
+            $url['?']        = $this->request->query;
+            $url['language'] = $lang;
+            
+            return $this->redirect($url);
+        }
+        
         $this->_setPageTitle();
         $this->_setUserCredentials();
+    }
+    
+    // esto no es completamente necesario solo evita el overhead que causarÃ­a redireccionarse a una url sin idioma
+    // (tendrÃ­a que llegar al beforeFilter para solicitar nuevamente la url, ahora con el idioma)
+    public function redirect( $url, $status = NULL, $exit = true ) {
+        if( is_array($url) && $this->Session->check('Config.language') )
+            $url['language'] = $this->Session->read('Config.language');
+        
+        parent::redirect($url,$status,$exit);
+    }
+    
+    private function _update_language_anywhere($lang){
+        $this->Session->write('Config.language', $lang);            //most important
+        $this->Session->write('app.lang', $lang);
+        $this->Cookie->write('app.lang', $lang, true, '+2 weeks');
+        Configure::write('Config.language', $lang);
+    }
+    
+    private function _setLanguage() {
+        //if Config.language has not been set initialize it using
+        //the value from the Cookie if there exists or default lang detected from browser
+        if( !$this->Session->check('Config.language') ){
+            $lang = ( $this->Cookie->read('app.lang') ) ? $this->Cookie->read('app.lang') : Configure::read('Config.language');
+            $this->_update_language_anywhere($lang);
+        } else {
+            $this->_update_language_anywhere($this->Session->read('Config.language'));
+        }
+        
+        //if language come in URL and is different from Config.language, take it from URL
+        if ( isset($this->params['language']) && ($this->params['language'] != $this->Session->read('Config.language')))
+            $this->_update_language_anywhere($this->params['language']);
     }
     
     private function _setupLanguage() {
@@ -159,6 +202,7 @@ class AppController extends Controller {
             'testimonials.enter_code' =>array('title'=>__d('meta', 'Deja una opinión sobre tu chofer en Cuba'), 'description'=>__d('meta', 'Opinar y reseñar sobre tu viaje en auto con chofer en Cuba')),
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),
             'testimonials.preview' =>array('title'=>__d('meta', 'Gracias por tu opinión')),
+            'testimonials.featured' =>array('title'=>__d('meta', 'Opiniones y reseñas sobre choferes en Cuba'), 'description'=>__d('meta', 'Opiniones e historias de viajeros sobre sus choferes en Cuba')),
                 
             
             // Users access

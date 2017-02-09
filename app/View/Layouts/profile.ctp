@@ -19,6 +19,17 @@ if($isLoggedIn) {
 }
 
 ?>
+
+<?php     
+    $other = array('en' => 'es', 'es' => 'en');
+    $lang = $this->Session->read('Config.language');
+ 
+    $lang_changed_url             = $this->request['pass'];
+    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
+    $lang_changed_url['?']        = $this->request->query;
+    $lang_changed_url['language'] = $other[$lang];
+?>
+
 <!DOCTYPE html>
 <html>
     <head>        
@@ -98,9 +109,9 @@ if($isLoggedIn) {
                         <div class="pull-left navbar-brand">
                             <?php $lang = SessionComponent::read('app.lang');?>
                             <?php if($lang != null && $lang == 'en'):?>
-                                <?php echo $this->Html->link($this->Html->image('Spain.png'), array('controller' => 'lang', 'action' => 'setlang', 'es'), array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false, 'style'=>'text-decoration:none')) ?>
+                                <?php echo $this->Html->link($this->Html->image('Spain.png'), $lang_changed_url, array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false, 'style'=>'text-decoration:none')) ?>
                             <?php else:?>
-                                <?php echo $this->Html->link($this->Html->image('UK.png'), array('controller' => 'lang', 'action' => 'setlang', 'en'), array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false, 'style'=>'text-decoration:none')) ?>
+                                <?php echo $this->Html->link($this->Html->image('UK.png'), $lang_changed_url, array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false, 'style'=>'text-decoration:none')) ?>
                             <?php endif;?>
                         </div>
                     </div>

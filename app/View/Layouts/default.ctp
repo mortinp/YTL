@@ -10,8 +10,18 @@ if($userLoggedIn) {
     $userRole = $user['role'];
     $pretty_user_name = User::prettyName($user, true);
 }
-
 ?>
+
+<?php     
+    $other = array('en' => 'es', 'es' => 'en');
+    $lang = $this->Session->read('Config.language');
+ 
+    $lang_changed_url             = $this->request['pass'];
+    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
+    $lang_changed_url['?']        = $this->request->query;
+    $lang_changed_url['language'] = $other[$lang];
+?>
+
 <!DOCTYPE html>
 <html>
     <head>        
@@ -74,11 +84,11 @@ if($userLoggedIn) {
                         </button>
                             <span class="white navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
                         <div class="pull-left navbar-brand">
-                            <?php $lang = SessionComponent::read('app.lang');?>
+                            <?php $lang = SessionComponent::read('Config.language');?>
                             <?php if($lang != null && $lang == 'en'):?>
-                                <div class="nav-link info" title="Traducir al Español"><?php echo $this->Html->link($this->Html->image('Spain.png'), array('controller' => 'lang', 'action' => 'setlang', 'es'), array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
+                                <div class="nav-link info" title="Traducir al Español"><?php echo $this->Html->link($this->Html->image('Spain.png'), $lang_changed_url, array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
                             <?php else:?>
-                                <div class="nav-link info" title="Translate to English"><?php echo $this->Html->link($this->Html->image('UK.png'), array('controller' => 'lang', 'action' => 'setlang', 'en'), array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
+                                <div class="nav-link info" title="Translate to English"><?php echo $this->Html->link($this->Html->image('UK.png'), $lang_changed_url, array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
                             <?php endif;?>
                         </div>
                     </div>
@@ -183,7 +193,7 @@ if($userLoggedIn) {
                             <?php endif;?>
                                     
                         <?php else: ?>
-                            <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?></li>
+                            <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?></li>
                         <?php endif;?>            
                     </ul>
 

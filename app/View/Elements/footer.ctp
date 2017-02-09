@@ -18,10 +18,10 @@
             $urlBlog .= '/'.Configure::read('Config.language');
             ?>
             
-            <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>
+            <?php echo $this->Html->link(__('Testimonios'), array('controller'=>'testimonials', 'action'=>'featured')); ?>
             |
             
-            <?php echo $this->Html->link(__('Testimonios'), array('controller'=>'pages', 'action'=>'display', 'testimonials')); ?>
+            <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>
             |
             
             <?php echo $this->Html->link(__('Preguntas Frecuentes'), array('controller'=>'pages', 'action'=>'display', 'faq')); ?>

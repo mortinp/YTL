@@ -22,6 +22,12 @@ $action = $this->request->params['action'];
                 <th>Creado</th>
                 <th>Modificado</th>
                 <th><?php echo ( ($testimonial['conversation_id']) ? "Conversación" : "Email"); ?></th>
+                <th>
+                    <?php 
+                    if($testimonial['featured']) echo $this->Form->button('Quitar featured', array('class'=>'btn-danger btn-sm', 'action'=>'unset_featured/'.$testimonial['id']), true);
+                    else echo $this->Form->button('Poner featured', array('class'=>'btn-info btn-sm', 'action'=>'set_featured/'.$testimonial['id']), true);
+                    ?>
+                </th>
             </tr>    
         </thead> 
 

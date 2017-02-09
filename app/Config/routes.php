@@ -26,28 +26,64 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+        Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+        Router::connect('/:language/pages/*', array('controller' => 'pages', 'action' => 'display'), array('language' => 'en|es'));
         
         
         
         /*MARTIN*/
-        Router::connect('/lang/*', array('controller' => 'lang', 'action' => 'setlang'));
+        //Router::connect('/lang/*', array('controller' => 'lang', 'action' => 'setlang'));
         
         // Plugins urls
-        Router::connect('/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'));
-        Router::connect('/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'));
+        //Router::connect('/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'));
+        //Router::connect('/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'));
+        Router::connect('/:language/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
+        Router::connect('/:language/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
         
-        Router::connect('/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'));
+        //Router::connect('/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'));
+        Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
         
-        Router::connect('/url_invitations/:action/*', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
-        Router::connect('/url_invitations', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
+        //Router::connect('/url_invitations/:action/*', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
+        //Router::connect('/url_invitations', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
+        Router::connect('/:language/url_invitations/:action/*', array('plugin'=>'invitations', 'controller' => 'url_invitations'), array('language' => 'en|es'));
+        Router::connect('/:language/url_invitations', array('plugin'=>'invitations', 'controller' => 'url_invitations'), array('language' => 'en|es'));
         
-        Router::connect('/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
-        Router::connect('/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
+        //Router::connect('/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
+        //Router::connect('/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
+        Router::connect('/:language/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'), array('language' => 'en|es'));
+        Router::connect('/:language/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'), array('language' => 'en|es'));
+        
+        
+        # prevent routing conflicts with plugins...
+        # http://www.omaroid.com/cakephp-locale-language-routing/
+        // make an array of loaded plugins
+        $loaded = CakePlugin::loaded();
+        array_walk($loaded, function(&$item,$key){
+            $item = Inflector::underscore($item);
+        });
+        $loaded = implode('|', $loaded);
+
+        Router::connect('/:language/:plugin/:controller/:action/*', 
+                            array(), 
+                            array('language' => 'en|es','plugin' => "($loaded)"));
+        
+        /*     Router::connect('/:language',
+                           array('controller' => 'pages', 'action' => 'display', 'home'),
+                           array('language' => 'en|es')); */
+
+        Router::connect('/:language/:controller',
+                           array('action' => 'index'),
+                           array('language' => 'en|es')); 
+
+        Router::connect('/:language/:controller/:action/*',
+                               array(),
+                               array('language' => 'en|es'));
+        
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
