@@ -60,6 +60,11 @@ class TestimonialsController extends AppController {
     }
     
     public function featured() {
+        $this->Testimonial->recursive = 2;
+        
+        $this->Driver->unbindModel(array('belongsTo' => array('Province')));
+        $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
+        
         $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>20);
         $this->set('testimonials', $this->paginate(array('featured'=>true)));
     }

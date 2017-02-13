@@ -17,11 +17,10 @@
             <?php endif?>
             
             <?php
-            foreach($testimonials as $data){
-                echo $this->element('testimonial_body', array('testimonial'=>$data['Testimonial']));
-                echo '<br/><br/>';
-            }   
-            ?>
+            foreach($testimonials as $data):?>
+                <?php echo $this->element('testimonial_body', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver']));?>
+                <br/><br/>
+            <?php endforeach;?>
             
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
                 <div><?php echo __d('testimonials', 'Mira más historias')?>: <?php echo $this->Paginator->numbers();?></div>

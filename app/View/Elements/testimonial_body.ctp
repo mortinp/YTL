@@ -22,7 +22,22 @@ if (!isset($bgColor)) $bgColor = 'default';
             else 
                 $intro = __d('testimonials', '%s escribió el %s', '<b>'.$testimonial['author'].'</b>', TimeUtil::prettyDate($testimonial['created'], false));
             ?>
-            <footer> <big> <?php echo $intro?></big> </footer>
+            
+            <?php $about = null?>
+            <?php if(isset($driver) && isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])):?>
+                <?php
+                $driver_name = $driver['DriverProfile']['driver_name'];
+
+                $fullBaseUrl = Configure::read('App.fullBaseUrl');
+                if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
+
+                $driver_avatar = $fullBaseUrl.'/'.str_replace('\\', '/', $driver['DriverProfile']['avatar_filepath']);
+                ?>
+
+                <?php $about = __d('testimonials', 'comentario sobre %s', '<b>'.$driver_name.'</b> <img src="'.$driver_avatar.'"class="info" title="'.$driver_name.'" style="max-width:30px"/> ')?>
+            <?php endif?>
+            
+            <footer><big><?php echo $intro?></big> <?php if($about):?><span class="pull-right" style="font-size: 8pt"><?php echo $about?></span><?php endif?></footer>
             <br/>
             <span style="font-size: 12pt"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></span>
 
