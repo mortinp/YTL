@@ -77,8 +77,8 @@ class TravelsController extends AppController {
             $conditions['User.role'] = 'operator';
         }
         
-        if(AuthComponent::user('role') == 'operator')
-            $this->Driver->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'N'));
+        /*if(AuthComponent::user('role') == 'operator')
+            $this->Travel->Behaviors->load('Operations.OperatorScope', array('match'=>'Travel.operator_id', 'action'=>array('R'))); // Restringir ver solicitudes*/
         
         $this->set('filter_applied', $filter);
         $this->set('travels', $this->paginate($conditions));
@@ -96,16 +96,25 @@ class TravelsController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {            
+        if ($this->request->is('post')) {
+            
+            // Encontrar la localidad que mejor matchee
             $closest = $this->LocalityRouter->getMatch($this->request->data['Travel']['origin'], $this->request->data['Travel']['destination']);
             
-            if($closest != null && !empty ($closest)) {
+            if($closest != null && !empty ($closest)) { // Si hubo un match...
                 $this->Travel->create();
 
+                /**
+                 * Ponerle otros datos al viaje
+                 * 
+                 * - Se pone en estado default -no notificado a choferes aun. Hay que esperar el confirm para notificar a los choferes.
+                 * - Se le asigna la localidad que matcheó para al confirmar escoger bien a los choferes
+                 * - Se le ponen otros datos como el usuario, el ip del usuario, etc.
+                 */ 
+                $this->request->data['Travel']['state'] = Travel::$STATE_DEFAULT;
                 $this->request->data['Travel']['locality_id'] = $closest['locality_id'];
                 $this->request->data['Travel']['direction'] = $closest['direction'];
                 $this->request->data['Travel']['user_id'] = $this->Auth->user('id');
-                $this->request->data['Travel']['state'] = Travel::$STATE_DEFAULT;
                 $this->request->data['Travel']['created_from_ip'] = $this->request->clientIp();
                 
                 if ($this->Travel->save($this->request->data)) {
@@ -117,7 +126,7 @@ class TravelsController extends AppController {
                 CakeLog::write('travels_failed', 'Travel Failed (add) - Unknown origin and destination: '.$this->request->data['Travel']['origin'].' - '.$this->request->data['Travel']['destination']);
                 CakeLog::write('travels_failed', 'Created by user: id = '.$this->Auth->user('id'));
                 CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
-                $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
+                $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.')); // TODO: Enviar una respuesta mejor!!!
                 $this->redirect($this->referer());
             }
         }
@@ -128,17 +137,19 @@ class TravelsController extends AppController {
     public function confirm($id) {
         $travel = $this->Travel->findById($id);
         
+        // Sanity check (si no se encuentra o esta confirmado, dar un error)
         $OK = true;
-        
         if($travel != null && Travel::isConfirmed($travel['Travel']['state'])) {
             $this->setErrorMessage(__('Este viaje ya ha sido confirmado.'));
             $OK = false;
         }
         
+        // Todo OK? Confirmar...
         if($OK) {
             $datasource = $this->Travel->getDataSource();
             $datasource->begin();
             
+            // Confirmar el viaje (todo se hace en el TravelLogicComponent)
             $result = $this->TravelLogic->confirmTravel($travel);
 
             if($result['success']) {
@@ -279,7 +290,7 @@ class TravelsController extends AppController {
                 CakeLog::write('travels_failed', 'Created by: '.$this->request->data['PendingTravel']['email']);
                 CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
                 $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
-                $this->redirect($this->referer().'#FormContainer');
+                $this->redirect($this->referer().'#TravelRequest');
             }
         }
         

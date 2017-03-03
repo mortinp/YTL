@@ -62,6 +62,10 @@ A PARTIR DE AQUI SE INCREMENTA 1 CUC POR CADA 20 CUC
 
 <p>Y así sucesivamente. Para 200 serían 15 CUC. Para 300 serían 20 CUC. Para 500 serían 30 CUC, etc.</p>
 
+<p>La forma más sencilla de calcular la comisión para viajes de 100 CUC en adelante, es calcular el 5% y sumarle 5 CUC.</p>
+
+<p>La manera de pagar la comisión es haciendo una transferencia a nuestra tarjeta magnética de Banco Metropolitano si usted es de La Habana, o a una de BANDEC si es de otra provincia. En cuanto tenga planificado el primer viaje le enviaremos el número de la tarjeta y demás detalles necesarios.</p>
+
 <p><b>¿Quiénes son los que trabajan en la plataforma?</b></p>
 
 <p>Somos un pequeño equipo de emprendedores cubanos que hemos desarrollado esta plataforma con el objetivo de encontrarles clientes a los choferes que hay en nuestro país y que disponen de un auto para brindarle servicios al turismo. En cuanto se una a nuestra agencia va a poder conversar con algunos de nosotros. De hecho, este correo les llega desde la cuenta de uno del equipo :)</p>

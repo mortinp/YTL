@@ -17,6 +17,10 @@ class DriversController extends AppController {
     public function index() {
         $this->Driver->recursive = 1;
         $this->Driver->bindModel(array('belongsTo'=>array('User'=>array('foreignKey'=>'operator_id', 'fields'=>array('id', 'username', 'display_name', 'role')))));
+        
+        /*if(AuthComponent::user('role') == 'operator')
+            $this->Driver->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id'));*/
+        
         $this->set('drivers', $this->Driver->find('all'));
         
     }

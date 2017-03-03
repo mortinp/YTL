@@ -18,7 +18,7 @@ class OpActionRule extends AppModel {
         ),
     );
     
-    public static $rules = array('M' => 'leer nuevos mensajes', 'N' => 'notificar choferes');
+    public static $rules = array('M' => 'leer nuevos mensajes', 'N' => 'notificar choferes', 'C'=>'ver conversaciones', 'R'=>'ver solicitudes');
 }
 
 ?>

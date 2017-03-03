@@ -14,7 +14,7 @@
             <p>
                 <?php echo __('Es muy fácil! Para crear un Anuncio de Viaje sólo tienes que')?> 
                 <?php
-                if(!$isLoggedIn) echo $this->Html->link(__('ir al formulario de anuncios'), array('controller'=>'pages', 'action'=>'home#FormContainer'));
+                if(!$isLoggedIn) echo $this->Html->link(__('ir al formulario de anuncios'), array('controller'=>'pages', 'action'=>'home#TravelRequest'));
                 else echo $this->Html->link(__('ir al formulario de anuncios'), array('controller'=>'travels', 'action'=>'add'));
                 ?>
                 <?php echo __('y completarlo')?>.

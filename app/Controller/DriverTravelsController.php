@@ -51,9 +51,6 @@ class DriverTravelsController extends AppController {
                 ))
             );
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
-            
-            if(AuthComponent::user('role') == 'operator')
-                $this->DriverTravel->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'M'));
                     
         } else if($filter == DriverTravel::$SEARCH_FOLLOWING) {
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
@@ -72,6 +69,9 @@ class DriverTravelsController extends AppController {
         } else if($filter == DriverTravel::$SEARCH_ARCHIVED) {
             $conditions['TravelConversationMeta.archived'] = 1;
         }
+        
+        if(AuthComponent::user('role') == 'operator')
+            $this->DriverTravel->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'C')); // Restringir ver conversaciones
         
         $driver_travels = $this->paginate($conditions);
         $this->set('filter_applied', $filter);

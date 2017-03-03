@@ -7,7 +7,7 @@ if(!isset ($notificationType)) $notificationType = DriverTravel::$NOTIFICATION_T
     <fieldset>
         <?php
         echo $this->Form->input('driver_id', array('type' => 'text', 'class'=>'driver-typeahead', 'label' => __('Chofer'), 'required'=>true, 'value'=>''));
-        if($isArranged) echo $this->Form->input('TravelConversationMeta.arrangement', array('type' => 'textarea', 'label' => __('Detalles del acuerdo'), 'required'=>true, 'value'=>'', 'placeholder'=>'Ej. Viaje a Varadero por 60 CUC (descuento de 20 CUC)'));        
+        if($isArranged) echo $this->Form->input('TravelConversationMeta.arrangement', array('type' => 'textarea', 'label' => __('Envía una nota al chofer con los detalles del acuerdo (recorridos, precios, etc.) y todos los detalles que se tengan del viaje (nombres de los clientes, datos del vuelo, nacionalidad o idioma, lugar de recogida inicial, etc.). <big>Esta nota la recibe el chofer junto con la notificación</big>.'), 'required'=>true, 'value'=>''));        
         echo $this->Form->submit('Notificar');
         ?>
     </fieldset>

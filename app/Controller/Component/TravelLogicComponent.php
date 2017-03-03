@@ -18,14 +18,15 @@ class TravelLogicComponent extends Component {
         
         if($travel != null) {
             
+            // Algunas inicializaciones
             $this->DriverLocality = ClassRegistry::init('DriverLocality');
             $this->Travel = ClassRegistry::init('Travel');
-            
             $this->prepareForSendingToDrivers();
             
+            // Buscar los choferes que pueden atender la solicitud para la localidad que matcheó en el viaje (aqui es donde esta la parte mas importante del algoritmo)
             $drivers = $this->findDriversForTravel($travel, $travel['Travel']['locality_id']);
             
-            if (count($drivers) > 0) {
+            if (count($drivers) > 0) { // Hay choferes? Poner el viaje como confirmado
                 $travel['Travel']['state'] = Travel::$STATE_CONFIRMED;
                 $travel['Travel']['drivers_sent_count'] = count($drivers);
                 if($this->Travel->save($travel)) {
@@ -41,9 +42,10 @@ class TravelLogicComponent extends Component {
                 $OK = false;
             }
             
-            $drivers_sent_count = 0;
-            
+            // Todo OK? Enviar las notificaciones a los choferes
             if($OK) {
+                // Esta es una variable que cuenta los choferes que realmente recibieron la notificacion (por si algunos fallan)... realmente no es importante.
+                $drivers_sent_count = 0;
                 
                 $emailConfig = 'no_responder';
                 if(!User::isRegular($travel['User']) || Configure::read('conversations_via_app')) $emailConfig = 'viaje';
@@ -65,6 +67,8 @@ class TravelLogicComponent extends Component {
     }
     
     public function findDriversForTravel($travel, $localityId, $count = 5) {
+        
+        // Poner las condiciones para encontrar choferes que pueden atender este viaje
         $drivers_conditions = array(
             'DriverLocality.locality_id'=>$localityId,
             'Driver.active'=>true);
@@ -78,29 +82,30 @@ class TravelLogicComponent extends Component {
         if(User::isRegular($travel['User'])) $drivers_conditions['Driver.role'] = 'driver';
         else $drivers_conditions['Driver.role'] = 'driver_tester';
 
-        // Verify English skills
+        // Adicionar la condicion del ingles si el idioma del sitio es ingles
         $english = false;
         $lang = Configure::read('Config.language');
         if($lang != null && $lang == 'en') {
             $drivers_conditions['Driver.speaks_english'] = true;
             $english = true;
         }
-
-        //$this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
-        $this->Driver->attachProfile($this->DriverLocality);
-
+        
+        // Algunas inicializaciones
+        $this->Driver->attachProfile($this->DriverLocality); // Esto es para que el chofer se cargue con su perfil
         if($this->DriverLocality == null) $this->DriverLocality = ClassRegistry::init('DriverLocality');
+        
+        // Buscar los choferes que cumplen las condiciones, ordenados por last_notification_date ASC
         $drivers = $this->DriverLocality->find('all', array(
             'conditions'=>$drivers_conditions, 
-            'order'=>'Driver.'.'last_notification_date ASC, Driver.travel_count'.' ASC',
+            'order'=>'Driver.'.'last_notification_date ASC, Driver.travel_count ASC',
             'limit'=>$count));
 
-        // English
+        // Si se puso la condicion del ingles y no se encontraron suficientes choferes, quitar esa condicion y probar y buscar choferes de nuevo
+        // NOTA: a lo mejor es mejor probar primero a quitar las condiciones del aire acondicionado y otras, pues la del ingles es mas importante
         if($english && count($drivers) < $count) {
             $drivers_conditions['Driver.speaks_english'] = false;
-
-            //$this->setupSelectDriverProfile(); // Esto es para que el chofer se cargue con su perfil
-            $this->Driver->attachProfile($this->DriverLocality);
+            
+            $this->Driver->attachProfile($this->DriverLocality); // Esto es para que el chofer se cargue con su perfil
 
             $driversSp = $this->DriverLocality->find('all', array(
                 'conditions'=>$drivers_conditions, 

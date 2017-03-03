@@ -182,7 +182,7 @@ if($userLoggedIn) {
                                         </ul>
                                     </li>
                                 
-                                <li> <?php echo $this->element('form_search_user_travels')?> </li>
+                                <li> <?php echo $this->element('Search.form_search_user_travels')?> </li>
 
                             <?php endif?>
 

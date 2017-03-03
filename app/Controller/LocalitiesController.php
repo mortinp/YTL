@@ -8,7 +8,7 @@ class LocalitiesController extends AppController {
     
     public function index() {
         $this->Locality->recursive = 0;
-        $this->set('localities', $this->paginate());
+        $this->set('localities', $this->Locality->find('all'));
     }
 
     public function add() {

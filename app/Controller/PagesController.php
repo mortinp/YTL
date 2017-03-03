@@ -70,6 +70,8 @@ class PagesController extends AppController {
         if($page === 'home' || $page === 'welcome') {
             $this->layout = 'home';
             $this->set('localities', $this->Locality->getAsSuggestions());
+        } else if($page === 'testimonials') {
+            return $this->redirect(array('controller'=>'testimonials', 'action'=>'featured'));
         }
 
         try {

@@ -22,20 +22,23 @@ class OperatorScopeBehavior extends ModelBehavior {
             array($this->settings[$Model->alias]['match']=>null)
         );
         
-        // Buscar el resto de los operadores que le permiten al que esta logueado la accion dada
-        $opActionRuleModel = ClassRegistry::init('Operations.OpActionRule');
-        $allowedByOthers = $opActionRuleModel->find('all', array(
-            'conditions'=>array(
-                'op_other'=>AuthComponent::user('id'), 
-                'action_allowed'=>$this->settings[$Model->alias]['action'], 
-                'OpActionRule.allowed_by_owner'=>true, 
-                'OpActionRule.accepted_by_other'=>true)
-        ));
-        
-        // ... y adicionarlos a $accessTo
-        foreach ($allowedByOthers as $value) {
-            $match[] = array($this->settings[$Model->alias]['match']=>$value['Owner']['id']);
-        }        
+        // Buscar en las reglas solo si hay definida alguna accion para buscar
+        if($this->settings[$Model->alias]['action'] != null) {
+            // Buscar el resto de los operadores que le permiten al que esta logueado la accion dada
+            $opActionRuleModel = ClassRegistry::init('Operations.OpActionRule');
+            $allowedByOthers = $opActionRuleModel->find('all', array(
+                'conditions'=>array(
+                    'op_other'=>AuthComponent::user('id'), 
+                    'action_allowed'=>$this->settings[$Model->alias]['action'], 
+                    'OpActionRule.allowed_by_owner'=>true, 
+                    'OpActionRule.accepted_by_other'=>true)
+            ));
+
+            // ... y adicionarlos a $accessTo
+            foreach ($allowedByOthers as $value) {
+                $match[] = array($this->settings[$Model->alias]['match']=>$value['Owner']['id']);
+            } 
+        }      
         
         // Adcionar condiciones a la $query (un listado de expresiones OR con los id de todos los elementos a los que este operador tiene acceso: los suyos propios, los no asignados a nadie, y los que le permiten otros operadores)
         if(isset($query['conditions']) && !empty($query['conditions'])) {

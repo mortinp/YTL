@@ -58,6 +58,9 @@
         Router::connect('/:language/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'), array('language' => 'en|es'));
         Router::connect('/:language/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'), array('language' => 'en|es'));
         
+        Router::connect('/:language/search/:action/*', array('plugin'=>'search', 'controller' => 'search'), array('language' => 'en|es'));
+        Router::connect('/:language/search', array('plugin'=>'search', 'controller' => 'search'), array('language' => 'en|es'));
+        
         
         # prevent routing conflicts with plugins...
         # http://www.omaroid.com/cakephp-locale-language-routing/

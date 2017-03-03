@@ -153,7 +153,7 @@
 
 <div id="travel-create" class="form-cover">
     <div class="row">
-        <div id="FormContainer" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
+        <div id="TravelRequest" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
             <legend style="text-align:center">
                 <div class="handwritten-2"><big><big><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer') ?></big></big></div>
                 <div><small><?php echo __d('homepage', '<b>Consigue un chofer con auto</b> creando un Anuncio de Viaje') ?></small></div>
@@ -252,12 +252,12 @@
         
         
         $('.show-travel-form').click(function() {
-            goTo('FormContainer');            
+            goTo('TravelRequest');            
             $('#PendingTravelOrigin').focus();
         });
         
         $('.destination-thumb').click(function() {
-            goTo('FormContainer');
+            goTo('TravelRequest');
             $('#PendingTravelOrigin').val('La Habana');
             $('#PendingTravelDestination').val($(this).find('.dest').text());
             $('#PendingTravelDate').focus();
