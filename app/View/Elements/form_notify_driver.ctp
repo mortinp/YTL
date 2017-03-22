@@ -3,7 +3,7 @@ if(!isset ($isArranged)) $isArranged = false;
 if(!isset ($notificationType)) $notificationType = DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN;
 ?>
 <div>
-    <?php echo $this->Form->create('Driver', array('url' => array('controller' => 'travels', 'action' =>'notify_driver_travel/'.$travel_id.'/'.$notificationType))); ?>
+    <?php echo $this->Form->create('Driver', array('url' => array('plugin'=>null, 'controller' => 'travels', 'action' =>'notify_driver_travel/'.$travel_id.'/'.$notificationType))); ?>
     <fieldset>
         <?php
         echo $this->Form->input('driver_id', array('type' => 'text', 'class'=>'driver-typeahead', 'label' => __('Chofer'), 'required'=>true, 'value'=>''));
