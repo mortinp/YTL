@@ -140,12 +140,16 @@ class Travel extends AppModel {
      * @param $controller: El controlador desde el que se va a decir $this->Travel->find...
      */ 
     public static function prepareFullConversations(&$controller) {
-        $controller->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        //$controller->Travel->bindModel(array('hasMany'=>array('DriverTravel')));
+        $controller->Travel->bindModel(array('hasMany'=>array('DriverTravel')), false);
         $controller->DriverTravel->bindModel(array('hasOne'=>array('DriverTravelerConversation'=> 
             array('foreignKey'=>'conversation_id',
-                'fields'=>array('response_by')))));
-        $controller->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));        
-        $controller->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
+                'fields'=>array('response_by')))), false);
+        //$controller->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')));        
+        //$controller->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')));
+        $controller->DriverTravel->unbindModel(array('belongsTo'=>array('Travel')), false);        
+        $controller->Locality->unbindModel(array('hasAndBelongsToMany'=>array('Driver')), false);
+        
         $controller->Travel->recursive = 2;
     }
     

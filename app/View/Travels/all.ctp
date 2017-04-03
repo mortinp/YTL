@@ -1,12 +1,15 @@
 <?php 
 if(!isset($actions)) $actions = false;
 if(!isset($details)) $details = true;
+
+$travel_count = 0;
+foreach($users as $travels) $travel_count += count($travels);
 ?>
 <div class="container">
     <div class="row">
-    <?php if(!empty ($travels)): ?>
-        <div class="col-md-8 col-md-offset-2">
-            <h3>Solicitudes de Viajes (<?php echo count($travels)?>)</h3>
+    <?php if(!empty ($users)): ?>
+        <div class="col-md-8 col-md-offset-3">
+            <h3>Solicitudes de Viajes (<?php echo $travel_count?>)</h3>
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <br/>
@@ -14,13 +17,23 @@ if(!isset($details)) $details = true;
             <br/>
             <br/>
 
-            <?php if(!empty ($travels)): ?>                
+            <?php if(!empty ($users)): ?>                
                 <br/>
 
                 <ul style="list-style-type: none;padding: 0px">
-                <?php foreach ($travels as $travel) :?>                
-                    <li style="margin-bottom: 60px">
-                        <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>$actions, 'details'=>$details))?>
+                <?php foreach ($users as $travels) :?>  
+                    <div style="position: absolute;left: -300px;float: left;max-width: 300px;word-wrap: break-word;padding: 20px">
+                        <div style="margin-left: -20px;float: left"><i class="glyphicon glyphicon-user text-muted"></i></div>
+                        <p><?php echo $travels[0]['User']['username']?></p>
+                        <p><code><b><?php echo count($travels)?></b> solicitudes</code></p>
+                    </div>
+                    <li style="margin-bottom: 100px">
+                        <?php 
+                            if(count($travels) > 1)
+                                echo '<hr/>'.$this->element('carousel', array('travels'=>$travels, 'actions'=>$actions, 'details'=>$details));
+                            else        
+                                echo $this->element('travel', array('travel'=>$travels[0], 'actions'=>$actions, 'details'=>$details));
+                        ?>
                     </li> 
                 <?php endforeach; ?>
                 </ul>

@@ -19,35 +19,45 @@ if($thread['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_PREARRANGED)
 echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conversations', 'action'=>'view/'.$thread['id']), $info);
 ?>
 
-<?php $badgesMargin = -50; $badgesSpacing = 25;?>
+<?php $badgesMargin = -30; $badgesSpacing = 25;?>
 <?php if($hasMetadata):?>
 
+    
+    <!-- VERIFICACION DE VIAJE -->
     <?php if($conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
-        <!-- Confirmacion recibida --> 
-        <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="label label-info info" data-trigger="click" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;">
-            <a href="#!">
-                <small><i class="glyphicon glyphicon-envelope"></i></small>
-            </a>
-        </span>
+        <!-- Verificacion recibida --> 
+        <small>
+            <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="label label-info info" data-trigger="click" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;">
+                <a href="#!">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                </a>
+            </span>
+        </small>
     <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
         <!-- Pedido de confirmacion enviado al chofer -->    
-        <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Pedido de confirmación del viaje enviado al chofer">
-            <small><i class="glyphicon glyphicon-share-alt"></i></small>
-        </span>
+        <small>
+            <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Pedido de confirmación del viaje enviado al chofer">
+                <i class="glyphicon glyphicon-share-alt"></i>
+            </span>
+        </small>
     <?php endif?>
     
     <!-- TESTIMONIAL -->
     <?php if($conversation['TravelConversationMeta']['testimonial_requested']):?> 
-        <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Solicitud de testimonio enviada al viajero">
-            <small><i class="glyphicon glyphicon-heart-empty"></i></small>
-        </span>
+        <small>
+            <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Solicitud de testimonio enviada al viajero">
+                <i class="glyphicon glyphicon-heart-empty"></i>
+            </span>
+        </small>
     <?php endif?>
     
     <!-- PINNED -->
     <?php if($conversation['TravelConversationMeta']['flag_type']):?>
-        <span class="label label-warning info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $conversation['TravelConversationMeta']['flag_comment']);?>">
-            <small><i class="glyphicon glyphicon-pushpin"></i></small>
-        </span>
+        <small>
+            <span class="label label-warning info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $conversation['TravelConversationMeta']['flag_comment']);?>">
+                <i class="glyphicon glyphicon-pushpin"></i>
+            </span>
+        </small>
     <?php endif?>
         
     <!-- ARCHIVADO -->
@@ -65,9 +75,11 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
     
 <!-- NOTIFIED BY -->
 <?php if(isset($thread['notified_by']) /*&& isset($userRole) && $userRole == 'admin'*/ && $thread['notified_by'] != null):?>
-    <span class="info" style="float:left;margin-left: <?php echo $badgesMargin - 50; $badgesMargin-=$badgesSpacing?>px;" title="Notificado por <?php echo $thread['notified_by'];if($thread['created'] != null) echo '<br/> el '.TimeUtil::prettyDate($thread['created'], false)?>">
-        <small><code><?php echo $thread['notified_by']?></code></small>
-    </span>
+    <small>    
+        <span class="info" style="float:left;margin-left: <?php echo $badgesMargin - strlen($thread['notified_by'])*5; $badgesMargin-=$badgesSpacing?>px;" title="Notificado por <?php echo $thread['notified_by'];if($thread['created'] != null) echo '<br/> el '.TimeUtil::prettyDate($thread['created'], false)?>">
+            <code><?php echo $thread['notified_by']?></code>
+        </span>
+    </small>
 <?php endif?>
 
 <!-- COMMENTS -->
@@ -88,32 +100,32 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 <?php
 // Cantidad total de mensajes
 if($thread['driver_traveler_conversation_count'] > 0): // Respondido ?> 
-    <?php echo '<span class="label label-primary info" title="'.$thread['driver_traveler_conversation_count'].' mensajes en total">'.$thread['driver_traveler_conversation_count'].'</span>';?>
+    <?php echo '<small><span class="label label-primary info" title="'.$thread['driver_traveler_conversation_count'].' mensajes en total">'.$thread['driver_traveler_conversation_count'].'</span></small>';?>
 <?php endif?>
 
 <?php if($hasMetadata):?>
     <!-- +1 -->
     <?php if($conversation['TravelConversationMeta']['read_entry_count'] < $thread['driver_traveler_conversation_count']):?>
-    <span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span>
+        <small><span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span></small>
     <?php endif?>
 
     <!-- SIGUIENDO -->
     <?php if($conversation['TravelConversationMeta']['following']):?> 
-        <span class="label label-info" style="margin-left:5px">Siguiendo</span>
+        <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>
     <?php endif?>
 
     <!-- ESTADOS -->
     <?php if($conversation['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
         <?php if($conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-            <span class="label label-warning" style="margin-left:5px" title="Viaje realizado"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span>
+            <small><span class="label label-warning" style="margin-left:5px"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span></small>
         <?php elseif($conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-            <span class="label label-success" style="margin-left:5px" title="Viaje pagado"><i class="glyphicon glyphicon-usd"></i> Pagado</span>
+            <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-usd"></i> Pagado</span></small>
         <?php endif?>
     <?php endif?>
 
 <?php elseif($thread['driver_traveler_conversation_count'] > 0):?>
     <!-- +1 -->
-    <span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'])?></span>
+    <small><span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'])?></span></small>
 <?php endif?>
     
 <!-- GANANCIAS -->

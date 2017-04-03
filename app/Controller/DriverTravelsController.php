@@ -57,7 +57,7 @@ class DriverTravelsController extends AppController {
             $conditions['TravelConversationMeta.following'] = true;
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_DONE) {
-            $this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>50);
+            $this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>100);// Paginacion grande para ver todos los viajes realizados y hacer resumenes de cobros de comisiones facilmente sin tener que cambiar de paginas
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_DONE;
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_PAID) {
