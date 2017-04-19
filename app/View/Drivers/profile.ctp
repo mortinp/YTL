@@ -73,4 +73,5 @@
     <div class="col-md-8 <?php if($userLoggedIn):?>col-md-offset-2<?php else:?>col-md-offset-1<?php endif?>" style="max-width: 500px">
         <?php echo $this->element('form_testimonial_enter_driver_code', array('autofocus'=>false))?>
     </div>
+    <?php echo $this->element('addon_scripts_send_form', array('formId'=>'EnterCodeForm', 'submitId'=>'EnterCodeSubmit'))?>
 </div>
