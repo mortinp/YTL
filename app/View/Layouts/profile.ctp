@@ -1,23 +1,13 @@
+<?php App::uses('User', 'Model')?>
+
 <?php
-// INITIALIZE
-$isLoggedIn = AuthComponent::user('id') ? true : false;
+$userLoggedIn = AuthComponent::user('id') ? true : false;
 
-if($isLoggedIn) {
+if($userLoggedIn) {
     $user = AuthComponent::user();
-    
-    $role = $user['role'];
-    if($user['display_name'] != null) {
-        $splitName = explode('@', $user['display_name']);
-        if(count($splitName) > 1) $pretty_user_name = $splitName[0];
-        else $pretty_user_name = $user['display_name'];
-    } else {
-        $splitEmail = explode('@', $user['username']);
-        $pretty_user_name = $splitEmail[0];
-    }
-    if($role === 'admin' || $role === 'tester') $pretty_user_name.= ' (<b>'.$role.'</b>)';
-    //$pretty_user_date = date('M j, Y', strtotime($user['created']));
+    $userRole = $user['role'];
+    $pretty_user_name = User::prettyName($user, true);
 }
-
 ?>
 
 <?php     
@@ -118,14 +108,14 @@ if($isLoggedIn) {
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <?php if ($isLoggedIn) :?>
+                            <?php if ($userLoggedIn) :?>
                             
-                                <?php if($role === 'regular' || $role === 'admin' || $role === 'tester') :?>
+                                <?php if($userRole === 'regular' || $userRole === 'admin' || $userRole === 'tester') :?>
                                     <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
                                     <li class="divider-vertical"></li>
                                     <li><?php echo $this->Html->link(__('Anunciar Viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     
-                                    <?php if($role === 'admin') :?>
+                                    <?php if($userRole === 'admin') :?>
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
@@ -180,7 +170,7 @@ if($isLoggedIn) {
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <?php if ($isLoggedIn): ?>
+                            <?php if ($userLoggedIn): ?>
                                 <li class="dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
                                         <?php echo $pretty_user_name;?>
@@ -214,7 +204,7 @@ if($isLoggedIn) {
                 <?php echo $this->Session->flash(); ?>
                 <?php echo $this->fetch('content'); ?>
                 
-                <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
+                <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>
                     <!-- Start 1FreeCounter.com code -->
   
                     <script language="JavaScript">
