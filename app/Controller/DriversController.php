@@ -120,9 +120,10 @@ class DriversController extends AppController {
     public function profile($nick) {
         if(Configure::read('show_testimonials_in_profile')) $this->Driver->loadTestimonials($this->DriverProfile);
         
-        $this->Driver->unloadProfile($this->DriverProfile);
+        //$this->Driver->unloadProfile($this->DriverProfile);
         
-        $profile = $this->DriverProfile->findByDriverNick($nick);
+        //$profile = $this->DriverProfile->findByDriverNick($nick);
+        $profile = $this->Driver->find('first', array('conditions'=>array('DriverProfile.driver_nick'=>$nick)));
         
         if($profile != null && !empty ($profile)) {
             $this->layout = 'profile';
@@ -139,12 +140,27 @@ class DriversController extends AppController {
     }
     
     
-    private function getDriverMessagesTimeline($driverId, $iniDate = null, $endDate = null) {
+    private function getDriverMessagesTimeline($driverId) {
+        $today = date('Y-m-d', strtotime('today'));
+        $endDate = $today;
+        $iniDate = date('Y-m-d', strtotime("$endDate - 6 months"));
+        if(!empty ($this->request->query)) {
+            //WARNING: A continuacion estoy asumiendo que las fechas vienen en formato dd-mm-yyyy
+            
+            $strIniDate = $this->request->query['date_ini'];
+            $iniDate = substr($strIniDate,6,4).'-'.substr($strIniDate,3,2).'-'.substr($strIniDate,0,2);
+            
+            if(isset ($this->request->query['date_end'])) {
+                $strEndDate = $this->request->query['date_end'];
+                $endDate = substr($strEndDate,6,4).'-'.substr($strEndDate,3,2).'-'.substr($strEndDate,0,2);
+            }            
+        }  
+        
         $query = "SELECT driver_traveler_conversations.created, driver_traveler_conversations.conversation_id, drivers.id as driver_id, driver_traveler_conversations.response_by, driver_traveler_conversations.response_text
 
                 FROM driver_traveler_conversations
 
-                INNER JOIN drivers_travels ON drivers_travels.id = driver_traveler_conversations.conversation_id AND driver_traveler_conversations.created BETWEEN '2014-01-01' AND '2016-05-24'
+                INNER JOIN drivers_travels ON drivers_travels.id = driver_traveler_conversations.conversation_id AND driver_traveler_conversations.created BETWEEN '$iniDate' AND '$endDate'
 
                 INNER JOIN drivers ON drivers.id = drivers_travels.driver_id AND drivers.id = $driverId
 

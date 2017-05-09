@@ -42,7 +42,24 @@ foreach (Travel::getPreferences() as $key => $value) {
 ?>
 
 <div id="travel-<?php echo $travel['Travel']['id']?>">
-
+<?php if($details):?>
+    <?php 
+    $created_converted = strtotime($travel['Travel']['created']);
+    $now = new DateTime(date('Y-m-d', time()));
+    $daysPosted = $now->diff(new DateTime($travel['Travel']['created']), true)->format('%a');
+    if(isset ($travel['User'])) $user = $travel['User'];
+    else if(isset ($travel['Travel']['User'])) $user = $travel['Travel']['User'];
+    ?>
+    <div class="well" style="background-color: white">
+        <div>
+            <span><big><?php echo $travel['Travel']['id']?></big></span> 
+            <span class="text-muted">creado por</span> <?php echo $user['username'];?>
+            <span class="text-muted">hace </span><?php echo $daysPosted?> <span class="text-muted">días</span>
+        </div>
+        <div><?php echo $this->Html->link($user['travel_count'].' solicitudes »', array('controller'=>'users', 'action'=>'view_travels/'.$user['id']), array('target'=>'_blank'))/*.' | '.$this->Html->link('admin »', array('controller'=>'users', 'action'=>'admin/'.$user['id']), array('title'=>'Ir a la pantalla de administración de este usuario'))*/;?></div>
+    </div>
+<?php endif?>
+    
 <legend>
     <b><span id='travel-locality-label'><?php echo $travel['Travel']['origin']?></span></b> - <b><span id='travel-where-label'><?php echo $travel['Travel']['destination']?></span></b>
     <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
@@ -100,21 +117,7 @@ foreach (Travel::getPreferences() as $key => $value) {
 <?php endif;?>
 
 
-<?php if($details):?>
-    <hr/>
-    <p><b>ID:</b> <?php echo $travel['Travel']['id']?></p>
-    <p><b>Creado por:</b> 
-    <?php 
-    $created_converted = strtotime($travel['Travel']['created']);
-    $now = new DateTime(date('Y-m-d', time()));
-    $daysPosted = $now->diff(new DateTime($travel['Travel']['created']), true)->format('%a');
-    if(isset ($travel['User'])) $user = $travel['User'];
-    else if(isset ($travel['Travel']['User'])) $user = $travel['Travel']['User'];
-    echo $user['username'].' '.$this->Html->link($user['travel_count'].' viajes', array('controller'=>'users', 'action'=>'view_travels/'.$user['id'])).' | '.$this->Html->link('admin »', array('controller'=>'users', 'action'=>'admin/'.$user['id']), array('title'=>'Ir a la pantalla de administración de este usuario'));
-    echo ' - './*'<b>Viaje creado:</b> '.date('d-m-Y', $created_converted).' '.*/'<span class="text-muted">(creado hace '.$daysPosted.' días)</span>';
-    ?>
-    </p>
-    <?php if(isset ($travel['DriverTravel']) && $showConversations):?>
+<?php if($details && isset ($travel['DriverTravel']) && $showConversations):?>
     <p><b>Conversaciones:</b>
     <?php if($travel['Travel']['archive_conversations_count'] > 0): ?>
         <code><big><?php echo $travel['Travel']['archive_conversations_count']; ?> conversaciones en el archivo</big></code>
@@ -164,8 +167,6 @@ foreach (Travel::getPreferences() as $key => $value) {
             
         </ul>
     </p>
-    <?php endif?>
-    
 <?php endif?>
 
 <?php if($actions):?>

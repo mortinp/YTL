@@ -113,6 +113,9 @@ msgstr "View Travel Request"
 #: Controller/AppController.php:196
 msgid "Fotos del chofer %s y su auto"
 msgstr "Pictures of the driver %s and the car"
+#: Controller/AppController.php:196
+msgid "Chofer en %province, Cuba: Fotos y testimonios sobre %driver"
+msgstr "Driver in %province, Cuba: Pictures and reviews about %driver"
 
 #: Controller/AppController.php:196
 msgid "Testimonios de viajeros sorprendentes en Cuba"

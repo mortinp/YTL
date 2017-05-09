@@ -34,7 +34,7 @@ class OperatorScopeBehavior extends ModelBehavior {
                     'OpActionRule.accepted_by_other'=>true)
             ));
 
-            // ... y adicionarlos a $accessTo
+            // ... y adicionarlos a $match
             foreach ($allowedByOthers as $value) {
                 $match[] = array($this->settings[$Model->alias]['match']=>$value['Owner']['id']);
             } 

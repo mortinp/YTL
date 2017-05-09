@@ -11,13 +11,12 @@
     </div>
     <p> 
         <?php $respondEmail = (Configure::read('conversations_via_app') && !isset ($admin));?>
-        
         <?php if($respondEmail):?>
-        Para comunicarte con el viajero <b>responde este correo sin modificar el asunto</b>
-        [<small><b>Nota:</b> Puedes responder desde otro correo, copiando el asunto de este correo en el que vayas a enviar</small>]
+            Para comunicarte con el viajero <b>responde este correo sin modificar el asunto</b>
+            [<small><b>Nota:</b> Puedes responder desde otro correo, copiando el asunto de este correo en el que vayas a enviar</small>]
         <?php endif?>
         <?php if(!isset ($admin)):?>
-        <div>¡Ponte en contacto <?php if(!Configure::read('conversations_via_app')):?>con el viajero<?php endif?> y haz que tu oferta sea la mejor!</div>
+            <div>¡Ponte en contacto <?php if(!Configure::read('conversations_via_app')):?>con el viajero<?php endif?> y haz que tu oferta sea la mejor!</div>
         <?php endif?>
     </p>
 </div>

@@ -218,7 +218,7 @@ class AppController extends Controller {
             'travels.add' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
             'travels.view' =>array('title'=>__d('meta', 'Ver Anuncio de Viaje')),
             
-            'drivers.profile' =>array('title'=>__d('meta', 'Fotos del chofer %s y su auto')),
+            'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver'/*'Fotos del chofer %s y su auto'*/)),
             
             'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),            
             
