@@ -5,6 +5,61 @@ App::uses('Driver', 'Model');
 class RoutinesShell extends AppShell {
     
     public $uses = array('Travel', 'TravelConversationMeta');
+    
+    public function email2drivers_travels_payment_due() {
+        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, travels.id as travel_id, travels.origin as travel_origin, travels.destination as travel_destination, travels.date as travel_date
+
+                from drivers_travels
+
+                inner join travels_conversations_meta on travels_conversations_meta.conversation_id = drivers_travels.id
+
+                inner join drivers on drivers.id = drivers_travels.driver_id
+
+                inner join travels on travels.id = drivers_travels.travel_id
+
+                left join drivers_profiles on drivers_profiles.driver_id = drivers.id
+
+                where travels_conversations_meta.state = 'D' and travels_conversations_meta.archived = false
+
+                order by drivers.id, travels.date asc
+
+                ";
+        
+        $travelsDueToPay = $this->Travel->query($query);
+        
+        $travels = array();
+        for ($index = 0; $index < count($travelsDueToPay);) {
+            $current_driver = $travelsDueToPay[$index]['drivers']['driver_id'];
+            
+            $travels[] = array(
+                'Driver'=>array_merge($travelsDueToPay[$index]['drivers'], $travelsDueToPay[$index]['drivers_profiles']),
+                'Travel'=>array()
+            );
+            
+            while($index < count($travelsDueToPay) && $travelsDueToPay[$index]['drivers']['driver_id'] == $current_driver) {
+                $travels[count($travels) - 1]['Travel'][] = $travelsDueToPay[$index]['travels'];
+                $index++;
+            }
+        }
+        
+        foreach ($travels as $data) {
+            EmailsUtil::email($data['Driver']['driver_email'], 'Recordatorio de viajes por pagar', array('data'=>$data), 'super', 'reminder_driver_payment_due');
+        }
+        
+        // Loguear el reminder para debuguear
+        $logEntry = '<b>Reminder Payment Due</b><br/><br/>';
+        foreach ($travels as $data) {
+            $logEntry .= 'Chofer: '.$data['Driver']['driver_id'];
+            $logEntry .= '<br/>Viajes:<br/>';
+            
+            foreach ($data['Travel'] as $t) {
+                $logEntry .= $t['travel_id'].' '.$t['travel_origin'].' - '.$t['travel_destination'].'<br/>';
+            }
+            
+            $logEntry .= '<br/>';
+        }
+        CakeLog::write('cron', $logEntry);
+    }
 
     
     public function ask_travels_confirmations() {

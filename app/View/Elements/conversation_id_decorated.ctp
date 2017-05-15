@@ -61,12 +61,22 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
     <?php endif?>
         
     <!-- ARCHIVADO -->
-    <?php if(isset ($conversation['TravelConversationMeta']['archived']) && isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date']))):?>
+    <?php if(isset ($conversation['TravelConversationMeta']['archived'])):?>
+        
+        
         <div style="float:right;padding-right: 10px">
-            <?php if(!$conversation['TravelConversationMeta']['archived']):?>
-                <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
-            <?php else:?>
+            <?php if($conversation['TravelConversationMeta']['archived']):?>
                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'unarchive/'.$thread['id']), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
+            <?php endif?>
+
+            <?php if(!$conversation['TravelConversationMeta']['archived'] && 
+                        ( 
+                            (isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date'])))
+                        ||
+                            ($conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($conversation['Travel']['date'])))
+                        ) 
+                    ):?>
+                <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
             <?php endif?>
         </div>
     <?php endif?>
