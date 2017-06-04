@@ -8,7 +8,7 @@ class DriverLocality extends AppModel {
     
     public $belongsTo = array(
         'Driver' => array(
-            'fields'=>array('id', 'username', 'max_people_count', 'travel_count')
+            'fields'=>array('id', 'username', 'max_people_count', 'travel_count', 'operator_id')
         )        
     );
 }

@@ -22,7 +22,7 @@
                 <ul style="list-style-type: none;padding: 0px">
                 <?php foreach ($travels as $travel) :?>                
                     <li style="margin-bottom: 60px">
-                        <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false, 'details'=>true))?>
+                        <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>false, 'details'=>true, 'showMoreUserRequests'=>true))?>
                     </li>                
                 <?php endforeach; ?>
                 </ul>
@@ -38,6 +38,5 @@
 
     </div>
 </div>
-
 
 <?php echo $this->element('addon_scripts_notify_driver')?>

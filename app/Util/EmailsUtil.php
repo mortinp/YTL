@@ -4,7 +4,7 @@ class EmailsUtil {
     
     public static function email($to, $subject, array $vars, $config, $template, $options = null, $format = 'html') {
         $OK = true;
-        if(Configure::read('enqueue_mail')) {
+        if( (Configure::read('enqueue_mail') && !isset($options['enqueue'])) || (isset($options['enqueue']) && $options['enqueue']) ) {
             $defaultOpt = array(
                         'template'=>$template,
                         'format'=>$format,

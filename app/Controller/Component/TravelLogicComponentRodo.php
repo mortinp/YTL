@@ -23,63 +23,13 @@ class TravelLogicComponent extends Component {
             $this->Travel = ClassRegistry::init('Travel');
             $this->prepareForSendingToDrivers();
             
-            // Encontrar todos los choferes que pudieran atender este viaje
-            $drivers = $this->findAllDriversSuitableForTravel($travel);
-            
-            // Obtener los operadores en un orden de prioridad (TODO: Describir la prioridad)
-            $operators = $this->findOperatorsOrderedByPriority($travel);
-            
-            // Encontrar el operador que va a atender el viaje, dependiendo de su tiene choferes que puedan atender el viaje o no
-            $result = $this->matchOperatorAndDrivers($operators, $drivers);
-            if($result) {
-                $operator = $result['operator'];
-                $drivers = $result['drivers'];
+            // Buscar los choferes que pueden atender la solicitud para la localidad que matcheó en el viaje (aqui es donde esta la parte mas importante del algoritmo)
+            try{ $drivers = $this->findDriversForTravel($travel, $travel['Travel']['locality_id']); }
+            catch(Exception $error){
+                return array('success'=>false, 'message'=>$error->getMessage());
             }
             
-            // Trabajar con el resultado y hacer todo lo que se debe hacer
-            if (count($drivers) > 0) {
-                
-                // Actualizar fecha de ultima notificacion del operador
-                $this->User = ClassRegistry::init('User');
-                $this->User->id = $operator['User']['id'];
-                if( !$this->User->saveField('last_notification_date', gmdate('Y-m-d H:i:s')) ) {
-                    $OK = false;
-                    $errorMessage = __("Here go an error message [can't save User.last_notification_date]");
-                }
-                    
-                
-                // Correo del asistente de viajes
-                // Variante 1: Si el operador nunca ha atendido a este usuario, enviarle un correo de parte de este operador al usuario
-                /*$sendEmailFromAssistant = $operator[0]['user_ownership'] == 0;
-                if($sendEmailFromAssistant) {
-                    if(!EmailsUtil::email(
-                            $travel['User']['username'], 
-                            __('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
-                            array(), //TODO: Definir variables para este correo
-                            $operator['User']['email_config'], 
-                            'welcome_operator2traveler')) {
-                        $OK = false;
-                        $errorMessage = __("Here go an error message [Could not send email from operator]");
-                    }
-                }*/
-                // Variante 2: Si es el primer viaje del usuario, mandarle un correo del Asistente de Viajes General (Ana)
-                $sendEmailFromAssistant = $travel['User']['travel_count'] <= 1;
-                if($sendEmailFromAssistant) {
-                    if(!EmailsUtil::email(
-                            $travel['User']['username'], 
-                            __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
-                            array(),
-                            'customer_assistant', 
-                            'welcome_operator_general',
-                            array('lang'=>$travel['User']['lang']))) {
-                        $OK = false;
-                        $errorMessage = __("Here go an error message [Could not send email from operator]");
-                    }
-                }
-                    
-                
-                // Actualizar datos del viaje
-                $travel['Travel']['operator_id'] = $operator['User']['id'];
+            if (count($drivers) > 0) { // Hay choferes? Poner el viaje como confirmado
                 $travel['Travel']['state'] = Travel::$STATE_CONFIRMED;
                 $travel['Travel']['drivers_sent_count'] = count($drivers);
                 if($this->Travel->save($travel)) {
@@ -119,10 +69,10 @@ class TravelLogicComponent extends Component {
         return array('success'=>$OK, 'message'=>$errorMessage);
     }
     
-    private function findAllDriversSuitableForTravel($travel, $count = 5) {
+    public function findDriversForTravel(&$travel, $localityId, $count = 5) {
         // Definir las condiciones primarias para encontrar choferes que pueden atender este viaje
         $primary_conditions = array(
-            'DriverLocality.locality_id'=> $travel['Travel']['locality_id'],
+            'DriverLocality.locality_id'=> $localityId,
             'Driver.active'             => true
         );
         
@@ -154,31 +104,32 @@ class TravelLogicComponent extends Component {
             $secondary_conditions['Driver.has_modern_car'] = true;
             $order[] = 'Driver.has_modern_car DESC';
         }
+        $order = array_merge($order, array('Driver.last_notification_date', 'Driver.travel_count'));
         
-        // Primero buscar los que cumplen con todas las condiciones, y si no se encuentran, probar a buscar solo con las condiciones primarias
-        $drivers = $this->findDrivers(array_merge($primary_conditions, $secondary_conditions), array('Driver.last_notification_date', 'Driver.travel_count'));
-        if( count($drivers) < $count ) $drivers = $this->findDrivers($primary_conditions, array_merge($order, array('Driver.last_notification_date', 'Driver.travel_count')));
-                
-        return $drivers;
+        //Buscar el 1er operador en cola que tenga al menos 1 chofer que pueda atender el viaje
+        $drivers = array();
+        $operator = $this->findOperatorForTravel($travel['User']['id'], $primary_conditions, $secondary_conditions, $order, $count, $drivers);
+        
+        if($operator){
+            $travel['Travel']['operator_id'] = $operator['operator_id'];
+            
+            $this->User = ClassRegistry::init('User');
+            $this->User->id = $operator['operator_id'];
+            if( !$this->User->saveField('last_notification_date', gmdate('Y-m-d H:i:s')) )
+                throw new Exception(__("Here go an error message [can't save User.last_notification_date]"));
+            
+            //TODO: Definir variables para este correo
+            if($operator['first_time'] &&
+                !EmailsUtil::email($travel['User']['username'], 'Hola, soy tu asistente de YoTeLlevo', array(), $operator['email_config'], 'introduce_operator'))
+                throw new Exception(__("Here go an error message [can't send introduce_operator mail]"));    
+        }
+        
+        return $drivers; // TODO: Aqui es mejor retornar el operador y los choferes, y enviar el correo del operador desde afuera
     }
     
-    private function findDrivers($drivers_conditions, $order){
-        $this->DriverLocality = ClassRegistry::init('DriverLocality');
-        $this->Driver = ClassRegistry::init('Driver');
-        $this->Driver->attachProfile($this->DriverLocality); // Esto es para que el chofer se cargue con su perfil
-        
-        // Se buscan primero los choferes que cumplen con las condiciones
-        $drivers = $this->DriverLocality->find('all', array(
-            'conditions' => $drivers_conditions,
-            'order'      => $order
-        ));
-        
-        return $drivers;
-    }
-    
-    private function findOperatorsOrderedByPriority($travel){
+    public function findOperatorForTravel($user_id, $primary_conditions, $secondary_conditions, $order, $count, &$drivers){
         $join = array('table' => 'travels', 'alias' => 'Travel', 'type' => 'left',
-                      'conditions' => array('User.id = Travel.operator_id', 'Travel.user_id' => $travel['Travel']['user_id']));
+                      'conditions' => array('User.id = Travel.operator_id', 'Travel.user_id' => $user_id));
 
         $this->User = ClassRegistry::init('User');
         $operators = $this->User->find('all', array(
@@ -187,23 +138,48 @@ class TravelLogicComponent extends Component {
             'recursive'  => -1,
             'conditions' => array('User.role' => 'operator'),
             'group'      => 'User.id',
-            'order'      => array('user_ownership desc', 'User.last_notification_date') // TODO: Verificar si estas condiciones estan bien, porque me parece que ordenar por la cantidad de viajes que tiene un operador no es una buena idea...
+            'order'      => array('user_ownership desc', 'User.last_notification_date')
         ));
         
-        return $operators;
+        $operator = $this->findMatch($operators, array_merge($primary_conditions, $secondary_conditions), array('Driver.last_notification_date', 'Driver.travel_count'), $count, $drivers);
+        if($operator){
+            if( count($drivers) < $count )
+                $this->findMatch(array($operator), $primary_conditions, $order, $count, $drivers);
+        }
+        else $operator = $this->findMatch($operators, $primary_conditions, $order, $count, $drivers);
+        
+        if($operator)
+            return array('operator_id' => $operator['User']['id'], 'first_time' => ($operator[0]['user_ownership'] == 0), 'email_config' => $operator['User']['email_config']);
+        return array();
     }
     
-    private function matchOperatorAndDrivers($operators, $drivers, $count = 5) {
-        $driversOK = array();
+    
+    /* Busca el primer operador en $operators que tiene choferes que cumplan '$drivers_conditions',
+     * busca los choferes y los ordena según $order y retorna los primeros $count a través de $drivers.
+     * El método asume que los operadores están ordenados por prioridad, o sea que el primero
+     * que cumple las condiciones es el que se escoge. */
+    public function findMatch($operators, $drivers_conditions, $order, $count, &$drivers){
+        $this->DriverLocality = ClassRegistry::init('DriverLocality');
+        $this->Driver = ClassRegistry::init('Driver');
+        $this->Driver->attachProfile($this->DriverLocality); // Esto es para que el chofer se cargue con su perfil
+        
+        // Se buscan primero los choferes que cumplen con las condiciones
+        $all_drivers = $this->DriverLocality->find('all', array(
+            'conditions' => $drivers_conditions,
+            'order'      => $order
+        ));
+        
+        // Luego se buscan los choferes que pertenecen a cada operador, segun el orden en que vienen los operadores
+        $drivers = array();
         foreach($operators as $op){
-            foreach($drivers as $d)
+            foreach($all_drivers as $d)
                 if($d['Driver']['operator_id'] == $op['User']['id'] || $d['Driver']['operator_id'] == null){ // Se escogen los choferes que sean de este operador o los que no son de ningun operador
-                    $driversOK[] = $d;
-                    if(count($driversOK) == $count)
-                        return array('operator'=>$op, 'drivers'=>$driversOK);
+                    $drivers[] = $d;
+                    if(count($drivers) == $count)
+                        return $op;
                 }    
             
-            if($driversOK) return array('operator'=>$op, 'drivers'=>$driversOK); // retornar el operador si tiene al menos un chofer que cumple las condiciones
+            if($drivers) return $op; // retornar el operador si tiene al menos un chofer que cumple las condiciones
         }
         
         return false;

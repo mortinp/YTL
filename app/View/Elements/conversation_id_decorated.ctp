@@ -73,7 +73,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
                         ( 
                             (isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date'])))
                         ||
-                            ($conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($conversation['Travel']['date'])))
+                            (isset ($conversation['Travel']) && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($conversation['Travel']['date'])))
                         ) 
                     ):?>
                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>

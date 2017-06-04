@@ -319,15 +319,22 @@ class UsersController extends AppController {
         $OK = $code != null;
         
         if($OK) {
-            if(Configure::read('enqueue_mail')) {
+            EmailsUtil::email(
+                    $user['username'], 
+                    __d('user_email', 'Bienvenid@, que encuentre un buen chofer en Cuba').'!', 
+                    array('confirmation_code' => $code),
+                    'no_responder', 
+                    $emailTemplate, 
+                    array('lang'=>$user['lang'], 'enqueue'=>false));
+            /*if(Configure::read('enqueue_mail')) {
                 ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                         $user['username'], 
                         array('confirmation_code' => $code), 
                         array(
                             'template'=>$emailTemplate,
                             'format'=>'html',
-                            'subject'=>__d('user_email', 'Que encuentres un buen chofer en Cuba'/*'Bienvenido - Confirma tu cuenta'*/).'!',
-                            'config'=>/*'super'*/'customer_assistant',
+                            'subject'=>__d('user_email', 'Bienvenid@, que encuentre un buen chofer en Cuba').'!',
+                            'config'=>'no_responder',
                             'lang'=>  Configure::read('Config.language')));
             } else {
                 $Email->template($emailTemplate)
@@ -340,7 +347,7 @@ class UsersController extends AppController {
                     } catch ( Exception $e ) {
                         $OK = false;
                     }
-            }
+            }*/
         } 
         
         return $OK;

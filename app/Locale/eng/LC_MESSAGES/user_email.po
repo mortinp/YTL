@@ -15,12 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: Controller/UsersController.php:314
-msgid "Bienvenido - Confirma tu cuenta"
-msgstr "Welcome - Confirm your account"
+msgid "Bienvenid@, que encuentre un buen chofer en Cuba"
+msgstr "Welcome, hope you can find a nice driver in Cuba"
 
-#: Controller/UsersController.php:314
-msgid "Que encuentres un buen chofer en Cuba"
-msgstr "Hope you can find a nice driver in Cuba"
+#: Controller/TravelLogicComponent.php:314
+msgid "Hola, soy su asistente de YoTeLlevo"
+msgstr "Hi, I'm your assistant from YoTeLlevo"
 
 #: Controller/Component/TravelLogicComponent.php:96
 msgid "Nuevo Anuncio de Viaje"
@@ -155,64 +155,88 @@ msgstr "Message"
 
 
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Hola, le doy la bienvenida a YoTeLlevo... y a Cuba también! Gracias por usar nuestro servicio."
 msgstr "Hi, welcome to YoTeLlevo... and welcome to Cuba! Thank you for using our service."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Mi nombre es %s y voy a ser su asistente mientras planea su viaje con nuestros choferes."
 msgstr "My name is %s and I'm going to be your assistant while you arrange your trip with our drivers."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Como asistente voy a estar a cargo de resolver cualquier problema que pueda surgir durante su interacción con los choferes, problemas con el sitio y cualquier duda que pueda surgirle. Aunque todos los términos del servicio los debe arreglar con su chofer (precios, horarios, recorridos, etc), yo estoy al tanto de lo que va ocurriendo y puedo ayudar en algunas cosas. Siéntase libre de responder este correo para hacerme alguna pregunta, o simplemente para decir <em>hola</em>."
 msgstr "As an assitant I'm going to be in charge of solving any problem you might come across while you interact with the drivers, problems with the website and any doubts you have. Even if you have to agree the terms of the service directly with your driver (prices, times, journeys, etc.), I'll keep up with what's going on and I can help in some situations. Feel free to reply this email to get to me and ask me any question, or just to say <em>hi</em>."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Quería además aprovechar y asegurarme de que nuestro servicio le sea de ayuda, y que usted sepa qué esperar y le saque el mayor provecho posible. Para eso le dejo aquí algunos datos y tips que pueden ser muy útiles mientras usa YoTeLlevo y habla con los choferes"
 msgstr "I also wanted to make sure our service is helpful to you, and that you know what to expect so you get the most value from it as well. For that, here I share a few facts and tips that might come handy while using YoTeLlevo and talking to the drivers"
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Primeramente, nuestros choferes son personas propietarias de un auto que se dedican a transportar viajeros como usted aquí en Cuba. Lo interesante es que usted puede estar hablando con personas tan diversas como un economista, un pescador o un piloto retirado."
 msgstr "First, our drivers are regular people who own a car and are in the business of transporting travelers like you here in Cuba. What's interesting is that you might be talking to very diverse people such as an accountant, a fisherman or a retired pilot."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Las ofertas de precios que usted recibirá pueden ser diferentes (a veces muy diferentes). Nuestros choferes trabajan de manera independiente y pueden tener distintas tarifas según sus costos personales u otros factores. Lo bueno es que usted puede escoger."
 msgstr "The quotes you will get might be different (sometimes a lot different). Our drivers work independently and they just have different fares depending on their personal costs or other factors. Good thing is you can choose."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Asegúrese de dejar claro cada detalle antes de la fecha de recogida. Acuerde la hora, lugar y cualquier otra información necesaria para el primer encuentro. Guarde el número telefónico del chofer para contactos de último minuto."
 msgstr "Make every detail clear prior to the pick up date. Arrange the time, place and any other info necessary for the first meeting. Keep the driver's phone number for last minute contacts."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "No espere que los choferes se puedan comunicar por mensajes de texto (sms) o llamadas telefónicas si usted no está dentro de Cuba. Estas opciones son muy caras para ellos. De todas formas, pregúnteles por su número móvil si quiere escribirles más cómodamente; ellos seguramente responderán por correo."
 msgstr "Do not expect the drivers to be able to communicate by text message (sms) or phone call if you are not in Cuba. That is too expensive for them. Anyway, ask for their phone number in case you want to reach them more readily; they will just reply back via email."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "No dude en dejarles saber amablemente a los choferes si usted encuentra el precio un poco caro. Incluso cuando los precios no son negociables todo el tiempo, puede ser que el chofer pueda hacer una mejor oferta si usted se lo pide. Por favor, haga esto sólo si no puede costear el precio inicial."
 msgstr "Do not hesitate to kindly let the drivers know if you find their offer a little expensive. Even when the prices are not negotiable all the time, you might get a better deal if you ask for it. Please do this only if you can not afford the initial price."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Por último, usted va a mantener una conversación con una persona en Cuba. Aproveche y congenie con esa persona que va a ser su chofer :)"
 msgstr "Lastly, this is a conversation you will have with a person in Cuba. Take advantage and engage with the local that will be your driver :)"
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Bueno, si necesita algo más siéntase libre de responder este correo y hacerme una pregunta. Estaré muy feliz de podérsela contestar y ponerme en contacto con usted. O puede preguntarle a los choferes, ellos probablemente tienen más experiencia que yo."
 msgstr "Well, if you need anything else feel free to reply this email and ask me a question. I'll be glad to answer and get in touch with you. Or you can ask the drivers, they are probably more experienced than I am."
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Espero que tenga un maravilloso viaje a Cuba"
 msgstr "Hope you have a wonderful time in Cuba"
 
-#: View/Emails/html/welcome_new.ctp:18
-msgid "Ah, y asegúrese de confirmar su cuenta de correo dando click en %s."
-msgstr "Oh, and make sure you confirm your email account by following %s."
-
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "Saludos"
 msgstr "Cheers"
 
-#: View/Emails/html/welcome_new.ctp:18
+#: View/Emails/html/welcome_operator_general.ctp:18
 msgid "%s y el equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>."
 msgstr "%s and the <a href="http://yotellevocuba.com">YoTeLlevo</a> team."
 
 
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "Hola, le damos la bienvenida a YoTeLlevo."
+msgstr "Hi, welcome to YoTeLlevo."
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "Muchas gracias por decidir usar nuestra plataforma para encontrar un chofer con auto en Cuba. Por aquí podrá comunicarse con varios choferes que operan acá en la isla; ellos le harán sus ofertas de precios y usted podrá ver fotos de ellos, de sus autos, así como leer testimonios de otros viajeros. De esta forma usted podrá contratar a alguno si así lo desea."
+msgstr "Thank you very much for deciding to use our platform to find a driver with car in Cuba. By using it you'll be able to communicate with some drivers who operate here in the island; they will give you quotes and you will see pictures of them and their cars, as well as testimonials from other travelers. Then you'll be able to hire one if that's what you decide."
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "Además de los choferes, usted tendrá un asistente de viajes que estará velando por que su experiencia con nuestra plataforma sea útil y que le saque el mejor provecho. <b>Si ya creó y confirmó su primera solicitud, ya debe haber recibido un correo de su asistente</b>."
+msgstr "Besides the drivers, you will have an assistant that will be making sure your experience with our platform is useful and that you get the most value from it. <b>If you already created and confirmed your first request, you must have already received an email from your assistant</b>."
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "Por último, puede ser que le interese solicitar otros viajes ahora o en el futuro. Para eso deberá confirmar su cuenta de correo dando click en %s"
+msgstr "Lastly, you may be interested in requesting other travels now or in the future. For that you must confirm your account by clicking %s"
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "Esperamos que pueda encontrar el chofer adecuado para su viaje, y que se divierta mucho durante su estancia en Cuba."
+msgstr "We hope you can find the best driver for your trip and that you have fun while you stay in Cuba."
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "Disfrute mucho"
+msgstr "Enjoy"
+
+#: View/Emails/html/welcome_new.ctp:18
+msgid "El equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>."
+msgstr "The team at <a href="http://yotellevocuba.com">YoTeLlevo</a>."

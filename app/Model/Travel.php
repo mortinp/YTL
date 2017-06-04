@@ -35,10 +35,17 @@ class Travel extends AppModel {
         'Locality' => array(
             'fields'=>array('id', 'name')
         ),
+        
         'User' => array(
             'fields'=>array('id', 'username', 'role', 'lang', 'display_name', 'travel_count'),
             'counterCache'=>true
-        )
+        ),
+        
+        'Operator'=>array(
+            'className'=>'User',
+            'foreignKey'=>'operator_id',
+            'fields'=>array('id', 'display_name')
+        ),
     );
 
     public $validate = array(

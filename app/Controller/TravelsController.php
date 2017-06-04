@@ -360,7 +360,7 @@ class TravelsController extends AppController {
      * ADMIN ACTIONS
      */
     
-    public function notify_driver_travel($travelId, $notificationType = 'M'/* defaults to DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN */) {
+    public function notify_driver_travel($travelId, $notificationType = 'M') {
         if ($this->request->is('post') || $this->request->is('put')) {
 
             $driverId = $this->request->data['Driver']['driver_id'];

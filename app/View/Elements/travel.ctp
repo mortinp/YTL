@@ -10,6 +10,7 @@ if (!isset($details)) $details = false;
 if (!isset($showConversations)) $showConversations = true;
 if (!isset($embedEmail)) $embedEmail = false;
 if (!isset($changeDate)) $changeDate = false;
+if (!isset($showMoreUserRequests)) $showMoreUserRequests = false;
 
 $personW = __('persona');
 $pretty_people_count = $travel['Travel']['people_count']. ' ';
@@ -50,14 +51,24 @@ foreach (Travel::getPreferences() as $key => $value) {
     if(isset ($travel['User'])) $user = $travel['User'];
     else if(isset ($travel['Travel']['User'])) $user = $travel['Travel']['User'];
     ?>
-    <div class="well" style="background-color: white">
+    
+    <!-- DATOS PARA OPERADORES -->
+    <div>
+        <!-- DATOS DEL USUARIO Y OTROS DATOS IMPORTANTES -->
         <div>
-            <span><big><?php echo $travel['Travel']['id']?></big></span> 
-            <span class="text-muted">creado por</span> <?php echo $user['username'];?>
-            <span class="text-muted">hace </span><?php echo $daysPosted?> <span class="text-muted">días</span>
+            <span><span class="text-muted">#</span><big><big><?php echo $travel['Travel']['id']?></big></big></span>
+            &nbsp;<i class="glyphicon glyphicon-user text-muted"></i>
+            <?php echo $user['username'];?> <span class="text-muted">hace </span><?php echo $daysPosted?> <span class="text-muted">días</span>
+            <?php $op = isset ($travel['Operator'])? $travel['Operator']: (isset ($travel['Travel']['Operator'])? $travel['Travel']['Operator']:null)?>
+            <div class="info pull-right" title="Operador que atiende este viaje: <?php echo $op['display_name']?>"><?php if($op):?><span class="text-muted">Op: </span> <big><code><?php echo $op['display_name']?></code></big><?php endif?></div>
         </div>
-        <div><?php echo $this->Html->link($user['travel_count'].' solicitudes »', array('controller'=>'users', 'action'=>'view_travels/'.$user['id']), array('target'=>'_blank'))/*.' | '.$this->Html->link('admin »', array('controller'=>'users', 'action'=>'admin/'.$user['id']), array('title'=>'Ir a la pantalla de administración de este usuario'))*/;?></div>
+        
+        <!-- LINK PARA VER TODAS LAS SOLICTUDES DE ESTE USUARIO -->
+        <?php if($showMoreUserRequests):?>
+            <div><?php echo $this->Html->link($user['travel_count'].' solicitudes »', array('controller'=>'users', 'action'=>'view_travels/'.$user['id']), array('target'=>'_blank'));?></div>
+        <?php endif?>
     </div>
+    <br/>
 <?php endif?>
     
 <legend>
