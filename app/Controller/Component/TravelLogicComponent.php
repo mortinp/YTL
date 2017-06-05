@@ -42,51 +42,53 @@ class TravelLogicComponent extends Component {
                 // Actualizar fecha de ultima notificacion del operador
                 $this->User = ClassRegistry::init('User');
                 $this->User->id = $operator['User']['id'];
+                echo 'OP>'.$this->User->id;
                 if( !$this->User->saveField('last_notification_date', gmdate('Y-m-d H:i:s')) ) {
                     $OK = false;
                     $errorMessage = __("Here go an error message [can't save User.last_notification_date]");
                 }
-                    
-                
-                // Correo del asistente de viajes
-                // Variante 1: Si el operador nunca ha atendido a este usuario, enviarle un correo de parte de este operador al usuario
-                /*$sendEmailFromAssistant = $operator[0]['user_ownership'] == 0;
-                if($sendEmailFromAssistant) {
-                    if(!EmailsUtil::email(
-                            $travel['User']['username'], 
-                            __('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
-                            array(), //TODO: Definir variables para este correo
-                            $operator['User']['email_config'], 
-                            'welcome_operator2traveler')) {
-                        $OK = false;
-                        $errorMessage = __("Here go an error message [Could not send email from operator]");
+                 
+                if($OK) {
+                    // Correo del asistente de viajes
+                    // Variante 1: Si el operador nunca ha atendido a este usuario, enviarle un correo de parte de este operador al usuario
+                    /*$sendEmailFromAssistant = $operator[0]['user_ownership'] == 0;
+                    if($sendEmailFromAssistant) {
+                        if(!EmailsUtil::email(
+                                $travel['User']['username'], 
+                                __('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
+                                array(), //TODO: Definir variables para este correo
+                                $operator['User']['email_config'], 
+                                'welcome_operator2traveler')) {
+                            $OK = false;
+                            $errorMessage = __("Here go an error message [Could not send email from operator]");
+                        }
+                    }*/
+                    // Variante 2: Si es el primer viaje del usuario, mandarle un correo del Asistente de Viajes General (Ana)
+                    $sendEmailFromAssistant = $travel['User']['travel_count'] <= 1;
+                    if($sendEmailFromAssistant) {
+                        if(!EmailsUtil::email(
+                                $travel['User']['username'], 
+                                __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
+                                array(),
+                                'customer_assistant', 
+                                'welcome_operator_general',
+                                array('lang'=>$travel['User']['lang']))) {
+                            $OK = false;
+                            $errorMessage = __("Here go an error message [Could not send email from operator]");
+                        }
                     }
-                }*/
-                // Variante 2: Si es el primer viaje del usuario, mandarle un correo del Asistente de Viajes General (Ana)
-                $sendEmailFromAssistant = $travel['User']['travel_count'] <= 1;
-                if($sendEmailFromAssistant) {
-                    if(!EmailsUtil::email(
-                            $travel['User']['username'], 
-                            __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
-                            array(),
-                            'customer_assistant', 
-                            'welcome_operator_general',
-                            array('lang'=>$travel['User']['lang']))) {
+
+
+                    // Actualizar datos del viaje
+                    $travel['Travel']['operator_id'] = $operator['User']['id'];
+                    $travel['Travel']['state'] = Travel::$STATE_CONFIRMED;
+                    $travel['Travel']['drivers_sent_count'] = count($drivers);
+                    if($this->Travel->save($travel)) {
+                        if(!isset ($travel['Travel']['id'])) $travel['Travel']['id'] = $this->Travel->getLastInsertID();
+                    } else {
+                        $errorMessage = __('Ocurrió un error confirmando el viaje. Intenta de nuevo.');
                         $OK = false;
-                        $errorMessage = __("Here go an error message [Could not send email from operator]");
                     }
-                }
-                    
-                
-                // Actualizar datos del viaje
-                $travel['Travel']['operator_id'] = $operator['User']['id'];
-                $travel['Travel']['state'] = Travel::$STATE_CONFIRMED;
-                $travel['Travel']['drivers_sent_count'] = count($drivers);
-                if($this->Travel->save($travel)) {
-                    if(!isset ($travel['Travel']['id'])) $travel['Travel']['id'] = $this->Travel->getLastInsertID();
-                } else {
-                    $errorMessage = __('Ocurrió un error confirmando el viaje. Intenta de nuevo.');
-                    $OK = false;
                 }
             } else {
                 $errorMessage = __('No hay choferes para atender este viaje. Intente confirmarlo más tarde.');
