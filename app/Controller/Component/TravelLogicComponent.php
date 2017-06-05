@@ -42,7 +42,6 @@ class TravelLogicComponent extends Component {
                 // Actualizar fecha de ultima notificacion del operador
                 $this->User = ClassRegistry::init('User');
                 $this->User->id = $operator['User']['id'];
-                echo 'OP>'.$this->User->id;
                 if( !$this->User->saveField('last_notification_date', gmdate('Y-m-d H:i:s')) ) {
                     $OK = false;
                     $errorMessage = __("Here go an error message [can't save User.last_notification_date]");
