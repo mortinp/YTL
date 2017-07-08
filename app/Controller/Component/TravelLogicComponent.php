@@ -146,11 +146,11 @@ class TravelLogicComponent extends Component {
             $order[] = 'Driver.speaks_english DESC';
         }
         
+        // Adicionar las condiciones de aire acondicionado y carro moderno
         if(isset ($travel['Travel']['need_air_conditioner']) && $travel['Travel']['need_air_conditioner']){ 
             $secondary_conditions['Driver.has_air_conditioner'] = true;
             $order[] = 'Driver.has_air_conditioner DESC';
         }
-        
         if(isset ($travel['Travel']['need_modern_car']) && $travel['Travel']['need_modern_car']){
             $secondary_conditions['Driver.has_modern_car'] = true;
             $order[] = 'Driver.has_modern_car DESC';
