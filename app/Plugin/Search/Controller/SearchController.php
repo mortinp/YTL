@@ -12,7 +12,9 @@
             $this->set('case', $case);
 
             Travel::prepareFullConversations($this);
-            $this->Paginator->settings = array('limit' => 10, 'order' => array('Travel.date' => 'desc') );
+            $this->Paginator->settings = array(
+                'limit' => 500/*TODO: Realmente es mejor quitar la paginacion completamente*/, 
+                'order' => array('Travel.date' => 'desc') );
             $this->set('travels', $this->Paginator->paginate('Travel', $conditions) );
             $this->set('drivers', $this->Driver->getAsSuggestions()); // Esto es para notificar a otros choferes
         }  
