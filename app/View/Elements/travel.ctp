@@ -60,7 +60,7 @@ foreach (Travel::getPreferences() as $key => $value) {
             &nbsp;<i class="glyphicon glyphicon-user text-muted"></i>
             <?php echo $user['username'];?> <span class="text-muted">hace </span><?php echo $daysPosted?> <span class="text-muted">días</span>
             <?php $op = isset ($travel['Operator'])? $travel['Operator']: (isset ($travel['Travel']['Operator'])? $travel['Travel']['Operator']:null)?>
-            <div class="info pull-right" title="Operador que atiende este viaje: <?php echo $op['display_name']?>"><?php if($op):?><span class="text-muted">Op: </span> <big><code><?php echo $op['display_name']?></code></big><?php endif?></div>
+            <?php if($op):?><div class="info pull-right" title="Operador que atiende este viaje: <?php echo $op['display_name']?>"><span class="text-muted">Op: </span> <big><code><?php echo $op['display_name']?></code></big></div><?php endif?>
         </div>
         
         <!-- LINK PARA VER TODAS LAS SOLICTUDES DE ESTE USUARIO -->

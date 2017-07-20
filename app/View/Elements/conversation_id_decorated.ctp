@@ -109,14 +109,14 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
 <?php
 // Cantidad total de mensajes
-if($thread['driver_traveler_conversation_count'] > 0): // Respondido ?> 
-    <?php echo '<small><span class="label label-primary info" title="'.$thread['driver_traveler_conversation_count'].' mensajes en total">'.$thread['driver_traveler_conversation_count'].'</span></small>';?>
+if($thread['message_count'] > 0): // Respondido ?> 
+    <?php echo '<small><span class="label label-primary info" title="'.$thread['message_count'].' mensajes en total">'.$thread['message_count'].'</span></small>';?>
 <?php endif?>
 
 <?php if($hasMetadata):?>
     <!-- +1 -->
-    <?php if($conversation['TravelConversationMeta']['read_entry_count'] < $thread['driver_traveler_conversation_count']):?>
-        <small><span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span></small>
+    <?php if($conversation['TravelConversationMeta']['read_entry_count'] < $thread['message_count']):?>
+        <small><span class="label label-success info" title="<?php echo ($thread['message_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['message_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span></small>
     <?php endif?>
 
     <!-- SIGUIENDO -->
@@ -133,9 +133,9 @@ if($thread['driver_traveler_conversation_count'] > 0): // Respondido ?>
         <?php endif?>
     <?php endif?>
 
-<?php elseif($thread['driver_traveler_conversation_count'] > 0):?>
+<?php elseif($thread['message_count'] > 0):?>
     <!-- +1 -->
-    <small><span class="label label-success info" title="<?php echo ($thread['driver_traveler_conversation_count'])?> nuevos mensajes">+<?php echo ($thread['driver_traveler_conversation_count'])?></span></small>
+    <small><span class="label label-success info" title="<?php echo ($thread['message_count'])?> nuevos mensajes">+<?php echo ($thread['message_count'])?></span></small>
 <?php endif?>
     
 <!-- GANANCIAS -->

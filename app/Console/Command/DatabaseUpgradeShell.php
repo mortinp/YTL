@@ -100,7 +100,7 @@
                             "select dt.id, tcm.conversation_id\n".
                             "from travels tr join {$archive}drivers_travels dt on tr.id = dt.travel_id\n".
                                             "left join {$archive}travels_conversations_meta tcm on dt.id = tcm.conversation_id\n".
-                            "where (dt.driver_traveler_conversation_count = 0)  and\n".
+                            "where (dt.message_count = 0)  and\n".
                             "(tcm.conversation_id is null or tcm.following = 0) and\n".
 	                    "(tcm.conversation_id is null or tcm.state = 'N')   and\n".
 	                    "(datediff(current_date, tr.created) > 90)          and\n".
@@ -118,7 +118,7 @@
                             "from travels tr join {$archive}drivers_travels dt on tr.id = dt.travel_id\n".
                                             "join {$archive}driver_traveler_conversations dtc on dt.id = dtc.conversation_id\n".
 			                    "left join {$archive}travels_conversations_meta tcm on dt.id = tcm.conversation_id\n".
-                            "where (dt.driver_traveler_conversation_count = 1)        and\n".
+                            "where (dt.message_count = 1)        and\n".
                                   "(dtc.response_by = 'driver')                       and\n".
                                   "(tcm.conversation_id is null or tcm.following = 0) and\n".
 	                          "(tcm.conversation_id is null or tcm.state = 'N')   and\n".

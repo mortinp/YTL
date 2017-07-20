@@ -23,19 +23,19 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
         
         <div class="btn-wrapper">
             <!-- CANTIDAD TOTAL DE MENSAJES-->
-            <?php if($data['DriverTravel']['driver_traveler_conversation_count'] > 0):?>
-                <span class="label label-primary info" title="Total de mensajes"><?php echo $data['DriverTravel']['driver_traveler_conversation_count']?></span>
+            <?php if($data['DriverTravel']['message_count'] > 0):?>
+                <span class="label label-primary info" title="Total de mensajes"><?php echo $data['DriverTravel']['message_count']?></span>
             <?php endif?>
 
             <!-- MENSAJES NUEVOS & MARCAR COMO LEIDOS -->
             <?php 
             $unreadMessages = 0;
             if($hasMetadata) {
-                if($data['TravelConversationMeta']['read_entry_count'] < $data['DriverTravel']['driver_traveler_conversation_count']) {
-                    $unreadMessages = $data['DriverTravel']['driver_traveler_conversation_count'] - $data['TravelConversationMeta']['read_entry_count'];
+                if($data['TravelConversationMeta']['read_entry_count'] < $data['DriverTravel']['message_count']) {
+                    $unreadMessages = $data['DriverTravel']['message_count'] - $data['TravelConversationMeta']['read_entry_count'];
                 }
-            } else if($data['DriverTravel']['driver_traveler_conversation_count'] > 0) {
-                $unreadMessages = $data['DriverTravel']['driver_traveler_conversation_count'];
+            } else if($data['DriverTravel']['message_count'] > 0) {
+                $unreadMessages = $data['DriverTravel']['message_count'];
             }
             ?>
             <?php if($unreadMessages != 0):?>

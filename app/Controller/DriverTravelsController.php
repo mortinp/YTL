@@ -43,11 +43,11 @@ class DriverTravelsController extends AppController {
             $conditions['OR'] = array(
                 array('AND'=>array(
                     'TravelConversationMeta.read_entry_count' => null,
-                    'DriverTravel.driver_traveler_conversation_count >' => 0                    
+                    'DriverTravel.message_count >' => 0                    
                 )),
                 array('AND'=>array(
                     array('not' => array('TravelConversationMeta.read_entry_count' => null)),
-                    'DriverTravel.driver_traveler_conversation_count > TravelConversationMeta.read_entry_count'
+                    'DriverTravel.message_count > TravelConversationMeta.read_entry_count'
                 ))
             );
             $this->paginate = array('order'=>array('Travel.date'=>'ASC'));

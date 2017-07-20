@@ -13,7 +13,7 @@
 
             Travel::prepareFullConversations($this);
             $this->Paginator->settings = array(
-                'limit' => 500/*TODO: Realmente es mejor quitar la paginacion completamente*/, 
+                'limit' => 20, 
                 'order' => array('Travel.date' => 'desc') );
             $this->set('travels', $this->Paginator->paginate('Travel', $conditions) );
             $this->set('drivers', $this->Driver->getAsSuggestions()); // Esto es para notificar a otros choferes

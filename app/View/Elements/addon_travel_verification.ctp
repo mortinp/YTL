@@ -37,7 +37,7 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
 <div id="travel-verification">
     
         
-    <?php if($expired && $following && !$asked_confirmation):?>
+    <?php if($expired && $following && !$asked_confirmation && !$is_done):?>
         <span class="alert alert-warning" style="display: inline-block; width: 100%">
             <p>
                 <b>Este viaje se está <span class="label label-info">Siguiendo</span> y está <span class="badge">expirado o realizándose hace <?php echo $daysExpired?> días</span></b>

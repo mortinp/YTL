@@ -1,0 +1,2 @@
+ALTER TABLE  `drivers_travels` CHANGE  `driver_traveler_conversation_count`  `message_count` INT( 11 ) NOT NULL DEFAULT  '0';
+ALTER TABLE  `archive_drivers_travels` CHANGE  `driver_traveler_conversation_count`  `message_count` INT( 11 ) NOT NULL DEFAULT  '0';

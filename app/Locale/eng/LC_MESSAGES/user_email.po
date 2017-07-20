@@ -240,3 +240,47 @@ msgstr "Enjoy"
 #: View/Emails/html/welcome_new.ctp:18
 msgid "El equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>."
 msgstr "The team at <a href="http://yotellevocuba.com">YoTeLlevo</a>."
+
+
+
+
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Queremos enviarle un INMENSO GRACIAS por haber decidido usar a %s como su chofer aquí en Cuba, y esperamos que la hayan pasado súper bien en la isla. Seguro recorrieron muchos lugares y la pasaron genial"
+msgstr "We want to send you a BIG THANK YOU for deciding to use %s as your driver here in Cuba, and we hope you had a super time in the island. You most certainly visited many places and had a great time"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Mil gracias por confiar en nosotros y en %s."
+msgstr "A thousand thanks for trusting us and %s."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Queríamos aprovechar este correo y pedirle que si les gustó genuinamente su viaje con %s, por favor escriba una opinión sobre él en nuestro sitio. Eso sería de gran ayuda para él porque otros viajeros podrían inspirarse con su testimonio y sentirse más seguros al contratarlo."
+msgstr "We also wanted to use this email to ask that if you geniunely enjoyed your trip with %s, please write an opinion about him in our website. That would be of huge help for him because other travelers could be inspired by your review and feel safer hiring him."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Si tiene unos minutos puede escribir rápidamente un testimonio sobre %s aquí"
+msgstr "If you have a couple minutes you can write a review about %s here"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Un testimonio se ve mucho mejor con una foto de su viaje; si tiene una a la mano sería genial que la pusiera junto con el comentario - aunque no es obligatorio, por supuesto"
+msgstr "A review looks way better if it has a picture of your trip; if you happen to have one at hand it would be awesome if you uploaded it along with the review -though it's not obligatory, of course"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Le queremos enviar las gracias por adelantado de nuestra parte y de parte de %s también. Esperamos que se hayan sentido bien en Cuba."
+msgstr "We want to thank you once again, and send thanks from %s too. We really hope you enjoyed Cuba."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Saludos y ojalá podamos servirle en otra ocasión nuevamente."
+msgstr "Regards and we look forward to be of help some other time."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Hasta pronto"
+msgstr "Until then"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "%s y el equipo de YoTeLlevo"
+msgstr "%s and the team at YoTeLlevo"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "PD: De verdad, una opinión es algo que haría muy feliz a %s"
+msgstr "PS: Really, a review is something that would make %s very happy"

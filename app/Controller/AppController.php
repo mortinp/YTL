@@ -22,6 +22,8 @@
  */
 App::uses('Controller', 'Controller');
 
+App::uses('User', 'Model');
+
 /**
  * Application Controller
  *
@@ -103,10 +105,20 @@ class AppController extends Controller {
     }
     
     private function _update_language_anywhere($lang){
+        $user = AuthComponent::user();
+        if($user != null && !empty ($user) && $lang != $this->Session->read('Config.language')) {
+            $userModel = new User();
+            $userModel->id = $user['id'];
+            $userModel->saveField('lang', $lang);
+            // TODO: actualizar lang en Auth
+        }
+        
         $this->Session->write('Config.language', $lang);            //most important
         $this->Session->write('app.lang', $lang);
         $this->Cookie->write('app.lang', $lang, true, '+2 weeks');
         Configure::write('Config.language', $lang);
+        
+        
     }
     
     private function _setLanguage() {

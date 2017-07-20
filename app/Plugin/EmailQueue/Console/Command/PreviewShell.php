@@ -39,6 +39,9 @@ class PreviewShell extends AppShell {
 		$configName = $e['EmailQueue']['config'];
 		$template = $e['EmailQueue']['template'];
 		$layout = $e['EmailQueue']['layout'];
+                
+                $lang = $e['EmailQueue']['lang'];
+                if($lang != null) Configure::write ('Config.language', $lang);
 
 		$email = new CakeEmail($configName);
 		$email->transport('Debug')
@@ -58,10 +61,10 @@ class PreviewShell extends AppShell {
 		$this->hr();
 		$this->out($return['headers']);
 		$this->hr();
-		$this->out('Data:');
+		/*$this->out('Data:');
 		$this->hr();
 		debug ($e['EmailQueue']['template_vars']);
-		$this->hr();
+		$this->hr();*/
 		$this->out();
 	}
 

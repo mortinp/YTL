@@ -11,7 +11,7 @@ class DriverTravelerConversation extends AppModel {
     
     public $belongsTo = array(
         'DriverTravel' => array(
-            'counterCache'=>true,
+            'counterCache'=>'message_count',
             'foreignKey'=>'conversation_id',
             'fields'=>array('') // Vacio porque esto es solo para la counterCache
         ),

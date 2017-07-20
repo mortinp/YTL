@@ -294,10 +294,12 @@ class TestimonialsController extends AppController {
         $this->set('testimonial', $data['Testimonial']);
     }
 
-    public function request_testimonial($driver_travel_id) {
+    public function request_testimonial($conversationId) {
+        // TODO: Optimizar el cargado de datos, que sobran muchos en la consulta y en los parametros que se le pasan al correo
+        
         $this->DriverTravel->recursive = 2;
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
-        $data = $this->DriverTravel->findById($driver_travel_id);
+        $data = $this->DriverTravel->findById($conversationId);
         if (!$data)
             throw new NotFoundException('Conversación inválida.');
 
@@ -305,19 +307,26 @@ class TestimonialsController extends AppController {
 
         $datasource = $this->TravelConversationMeta->getDataSource();
         $datasource->begin();
-
+        
+        $subject = 'Puedes agradecer a tu chofer, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', por su servicio aquí en Cuba';
+        if($data['Travel']['User']['lang'] == 'en') $subject = 'You can thank your driver, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', for his service here in Cuba';
+        
         $to = $data['Travel']['User']['username'];
-        $subject = __d('testimonials', 'Prueba de calidad del servicio #') . $data['Travel']['id'] . ' [[' . $driver_travel_id . ']]';
-        $OK = EmailsUtil::email($to, $subject, $vars, 'verificacion_viaje', 'request_testimonial');
+        $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'request_testimonial', array('lang'=>$data['Travel']['User']['lang']));
         if ($OK) {
-            $this->TravelConversationMeta->id = $driver_travel_id;
+            $this->TravelConversationMeta->id = $conversationId;
             $OK = $this->TravelConversationMeta->saveField('testimonial_requested', true);
         }
 
-        if ($OK) $datasource->commit(); 
-        else $datasource->rollback();
+        if ($OK) {
+            $this->setSuccessMessage('Pedido de testimonio enviado');
+            $datasource->commit();
+        } else {
+            $this->setErrorMessage('Falló el pedido de testimonio');
+            $datasource->rollback();
+        }
         
-        return $this->redirect($this->referer() . '#testimonial_addon');
+        return $this->redirect($this->referer());
     }
 
     public function enter_code() {
