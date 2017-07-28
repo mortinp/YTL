@@ -361,9 +361,16 @@ class TravelsController extends AppController {
      */
     
     public function notify_driver_travel($travelId, $notificationType = 'M') {
-        if ($this->request->is('post') || $this->request->is('put')) {
+        if ($this->request->is('post') || $this->request->is('put') || $this->request->is('ajax')) {
+            
+            if ($this->request->is('ajax')) {
+                $this->autoRender = false;
+                $data = $this->data;
+            } else if ($this->request->is('post') || $this->request->is('put')) {
+                $data = $this->request->data;
+            }
 
-            $driverId = $this->request->data['Driver']['driver_id'];
+            $driverId = $data['Driver']['driver_id'];
             
             $this->Driver->id = $driverId;
             if (!$this->Driver->exists()) {
@@ -380,8 +387,8 @@ class TravelsController extends AppController {
             $config = null;
             
             // Dump all the data that comes from TravelConversationMeta in custom variables
-            if( isset ($this->request->data['TravelConversationMeta'])) {
-                $config = array('custom_variables'=>$this->request->data['TravelConversationMeta']);
+            if( isset ($data['TravelConversationMeta'])) {
+                $config = array('custom_variables'=>$data['TravelConversationMeta']);
                 $config['template'] = 'arranged_travel';
             }
             
@@ -396,14 +403,14 @@ class TravelsController extends AppController {
             }
             
             // Save TravelConversationMeta
-            if( isset ($this->request->data['TravelConversationMeta'])) {
-                $this->request->data['TravelConversationMeta']['conversation_id'] = $conversation_id;
+            if( isset ($data['TravelConversationMeta'])) {
+                $data['TravelConversationMeta']['conversation_id'] = $conversation_id;
                 
                 // Hay que ponerle following a los viajes que son arreglados
-                if(isset ($this->request->data['TravelConversationMeta']['arrangement']) && !empty($this->request->data['TravelConversationMeta']['arrangement'])) 
-                        $this->request->data['TravelConversationMeta']['following'] = true;
+                if(isset ($data['TravelConversationMeta']['arrangement']) && !empty($this->request->data['TravelConversationMeta']['arrangement'])) 
+                        $data['TravelConversationMeta']['following'] = true;
                 
-                $OK = $this->TravelConversationMeta->save($this->request->data);
+                $OK = $this->TravelConversationMeta->save($data);
             }
 
             if($OK) {
@@ -413,6 +420,14 @@ class TravelsController extends AppController {
                 $datasource->rollback();
                 $this->setErrorMessage('Error notificando el viaje.');
             }
+        }
+        
+        if ($this->request->is('ajax')) {
+            echo json_encode(array('object'=>array(
+                'conversation_id'=>$conversation_id, 
+                'driver_email'=>$driver['Driver']['username'],
+                'notification_type'=>$notificationType)));
+            return;
         }
         
         return $this->redirect($this->referer().'#travel-'.$travelId);

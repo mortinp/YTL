@@ -138,39 +138,38 @@ foreach (Travel::getPreferences() as $key => $value) {
         <?php foreach ($travel['DriverTravel'] as $sent) :?>
         <li><?php echo $this->element('conversation_id_decorated', array('conversation'=>$sent, 'showComments'=>false))?></li>
         <?php endforeach; ?>
+        <li class="next-conversations"></li>
             
         <?php if(isset($drivers)):?>
             <?php if(!$expired):?>
                 <li>
-                    <span id="notify-driver-travel-set-<?php echo $travel['Travel']['id']?>" style="display: inline-block">
-                        <a href="#!" class="edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Notificar a otro chofer')?></a>
-                    </span>
-                    <span id="notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>" style="display:none">
-                        <a href="#!" class="cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>">&ndash; <?php echo __('Cancelar')?></a>
+                    <span>
+                        <a href="#!" class="open-modal" data-modal="notify-driver-travel-form-<?php echo $travel['Travel']['id']?>" data-title="Notificar este viaje a otro chofer"> 
+                            Notificar este viaje a otro chofer
+                        </a>
                     </span>
                     <div id='notify-driver-travel-form-<?php echo $travel['Travel']['id']?>' style="display:none">
-                        <br/> 
-                        <div class="well">
-                            <span class="h5 text-muted">Notificar viaje a un nuevo chofer</span>
-                            <br/>
+                        <div id="notification-regular-<?php echo $travel['Travel']['id']?>">
+                            Si quieres poner una nota al viaje (ej. es un viaje por acuerdo), da click aquí: 
+                            <div><a href="#!" onclick="$('#notification-regular-<?php echo $travel['Travel']['id']?>, #notification-with-note-<?php echo $travel['Travel']['id']?>').toggle();">Poner una nota</a></div>
+                            <hr/>
                             <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id']))?>
                         </div>
-                        <br/>
-
-                        <div class="well">
-                            <span class="h5 text-muted">Notificar viaje acordado</span>
-                            <br/>
-                            <div class="alert alert-warning"><i class="glyphicon glyphicon-warning-sign"></i> Usar sólo si se ha acordado con el viajero y con el chofer previamente. Notificar al chofer con quien se acordó el viaje.</div>
+                        
+                        <div id="notification-with-note-<?php echo $travel['Travel']['id']?>" style="display:none">
+                            <!--<div class="text-warning"><i class="glyphicon glyphicon-warning-sign"></i> Usar esta opción sólo si se ha acordado con el viajero y con el chofer previamente.</div>-->
+                            <div><a href="#!" onclick="$('#notification-regular-<?php echo $travel['Travel']['id']?>, #notification-with-note-<?php echo $travel['Travel']['id']?>').toggle();">No poner nota al chofer</a></div>
+                            <hr/>
                             <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id'], 'isArranged'=>true, 'notificationType'=>DriverTravel::$NOTIFICATION_TYPE_PREARRANGED))?>
                         </div>
+                        
+                        <hr/>
+                        <!-- DATOS DEL VIAJE -->
+                        <div><?php echo $travel['Travel']['origin']?> - <?php echo $travel['Travel']['destination']?></div>
+                        <div><?php echo $pretty_people_count?></div>
+                        <div>Creado hace <?php echo $daysPosted?> días, para el <?php echo TimeUtil::prettyDate($travel['Travel']['date'])?></div>
                     </div>
                 </li>
-
-                <script type="text/javascript">
-                    $('.edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>, .cancel-edit-notify-driver-travel-<?php echo $travel['Travel']['id']?>').click(function() {
-                        $('#notify-driver-travel-form-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-set-<?php echo $travel['Travel']['id']?>, #notify-driver-travel-cancel-<?php echo $travel['Travel']['id']?>').toggle();
-                    });
-                </script>
             <?php else:?>
                 <li><span class="text-danger" style="margin-top: 5px">Expirado, no se pueden notificar más choferes</span></li>
             <?php endif?>

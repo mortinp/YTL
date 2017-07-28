@@ -11,8 +11,6 @@ if (!isset($form_action)) {
     $intent = 'add_pending';
 }
 
-if (!isset($style))
-    $style = '';
 if (!isset($is_modal))
     $is_modal = false;
 
@@ -64,7 +62,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         <div id='travel-ajax-message'></div>
         <div id="TravelFormDiv">
         <?php 
-        echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'style' => $style, 'id'=>'TravelForm'));?>
+        echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'id'=>'TravelForm'));?>
         <fieldset>
         <?php if(!$horizontal):?>
             <?php

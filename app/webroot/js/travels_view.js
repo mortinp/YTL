@@ -15,7 +15,7 @@ var messages = {
  * - Boton Submit [Alias]Submit (el alias con la primera letra mayuscula)
  * @param onSuccess: una funcion que recibe el resultado del submit del formulario en un objeto que contiene los nuevos datos. Los nombres de los
  * campos en el objeto son los mismos nombres de los id de los campos del formulario, pero sin el [Alias] al final. O sea, si hay un campo cuyo id es
- * 'TravelDescription' y el alias es 'travel', entonces el objeto tiene la un campo con nombre 'description'.
+ * 'TravelDescription' y el alias es 'travel', entonces el objeto tiene un campo con nombre 'description'.
  * @param onError: una funcion que recibe el jqXHR de la respuesta de error del submit del formulario
  **/
 function _ajaxifyForm(form, obj, alias, onSuccess, onError) {

@@ -237,7 +237,6 @@ class TravelLogicComponent extends Component {
             if(isset ($config['custom_variables'])) $customVariables = $config['custom_variables'];
         }
         
-        
         $OK = true;
         
         $this->DriverTravel->create();
