@@ -811,6 +811,74 @@ msgstr "Invalid role"
 msgid "Entra a tu cuenta antes de visitar esa página"
 msgstr "Login to your account before visiting that page"
 
+#: View/Elements/conversation_widget_for_user/travel_data.ctp: ej. para el día tal...
+msgid "para el"
+msgstr "on"
+
+#: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
+msgid "Ver conversación con %s"
+msgstr "See conversation with %s"
+
+#: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
+msgid "%s mensajes"
+msgstr "%s messages"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Tienes %s conversaciones en %s solicitudes de viajes"
+msgstr "You have %s conversations in %s travel requests"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Aún no tienes mensajes con ningún chofer."
+msgstr "You don't have messages with any driver yet."
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Tus mensajes con %s"
+msgstr "Your messages with %s"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Solicitud"
+msgstr "Request"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "%s el %s, hace %s días"
+msgstr "%s on %s, %s days ago"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Chofer"
+msgstr "Driver"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Tú"
+msgstr "You"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Ver adjuntos de este mensaje"
+msgstr "See attachments in this message"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Ver todo el mensaje"
+msgstr "See the entire message"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Mis Mensajes"
+msgstr "My Messages"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Mira los mensajes que tienes con cada uno de los choferes y mantente al tanto de tus acuerdos de viaje"
+msgstr "See your messages with each driver and keep up with your travel arrangements"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "el chofer"
+msgstr "the driver"
+
+
+
+
+
+
+
+
+
 #: /home.ctp:167
 msgid "Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba"
 msgstr "Make%20sure%20you%20hire%20a%20nice%20%23driver%20with%20a%20%23car%20in%20%23Cuba%20at%20http://yotellevocuba.com%0A%0A%23Taxi%20for%20%23transfers%20%26%20%23tours%20via%20%40yotellevocuba"

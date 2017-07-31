@@ -18,6 +18,10 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function isAuthorized($user) {
+        if ($this->action ==='messages') {
+            if($this->Auth->user('role') === 'regular' || $this->Auth->user('role') === 'tester') return true;
+        }
+        
         if(in_array(AuthComponent::user('role'), array('admin', 'operator')) && in_array($this->action, array('view'))) 
             return true;
         
@@ -25,6 +29,17 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function view($conversationId) {
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
+        $this->Driver->attachProfile($this->DriverTravel);
+        
+        $data = $this->DriverTravel->findById($conversationId);
+        $this->set('data', $data);
+        
+        $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);
+        $this->set('conversations', $conversations);
+    }
+    
+    public function messages($conversationId) {
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
         $this->Driver->attachProfile($this->DriverTravel);
         

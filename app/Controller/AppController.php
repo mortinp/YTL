@@ -232,7 +232,11 @@ class AppController extends Controller {
             
             'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver'/*'Fotos del chofer %s y su auto'*/)),
             
-            'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),            
+            'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),
+            
+            'driver_travels.index' =>array('title'=>__d('meta', 'Conversaciones')),
+            
+            'driver_traveler_conversations.messages' =>array('title'=>__d('meta', 'Mensajes con chofer')),
             
             // Admin access
             'users.index' =>array('title'=>'Usuarios'),

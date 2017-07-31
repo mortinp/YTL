@@ -140,7 +140,7 @@ $(document).ready(function() {
                     _form.find('input.driver-typeahead').typeahead('setQuery', '').focus();
 
                     var messageDiv = _form.find('.ajax-msg');
-                    messageDiv.empty().append($("<div class='text-success'>Chofer notificado exitosamente...</div><br/>"));
+                    messageDiv.empty().append($("<div class='text-success'>" + obj.driver_name + " fue notificado exitosamente...</div><br/>"));
                         setTimeout(function(){
                             messageDiv.empty();
                         }, 5000);

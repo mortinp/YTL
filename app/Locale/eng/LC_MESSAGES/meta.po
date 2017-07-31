@@ -152,3 +152,11 @@ msgstr "Opinions and reviews about drivers in Cuba"
 #: Controller/AppController.php:196
 msgid "Opiniones e historias de viajeros sobre sus choferes en Cuba"
 msgstr "Opinions and stories from travelers about their drivers in Cuba"
+
+#: Controller/AppController.php:196
+msgid "Conversaciones"
+msgstr "Conversations"
+
+#: Controller/AppController.php:196
+msgid "Mensajes con chofer"
+msgstr "Messages with driver"

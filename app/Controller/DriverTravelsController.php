@@ -8,21 +8,26 @@ class DriverTravelsController extends AppController {
     public $uses = array('DriverTravel', 'Travel', 'Driver');
     
     public function isAuthorized($user) {
+        if ($this->action ==='index') {
+            if($this->Auth->user('role') === 'regular' || $this->Auth->user('role') === 'tester') return true;
+        }
+        
         if(in_array(AuthComponent::user('role'), array('admin', 'operator')) && in_array($this->action, array('view_filtered'))) 
             return true;
         
         return parent::isAuthorized($user);
     }
     
-    public function all() {
-        $this->DriverTravel->recursive = 2;
+    public function index() {
+        $this->DriverTravel->recursive = 2;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
-        $this->paginate = array('order'=>array('Travel.date'=>'DESC'));
-        $conditions = array(/*'User.role'=>'regular'*/);
+        $order = array('Travel.id'=>'DESC', 'Driver.id');
         
-        $driver_travels = $this->paginate($conditions);
+        // Las conversaciones del usuario logueado y que al menos tengan 1 mensaje
+        $conditions = array('Travel.user_id' => $this->Auth->user('id'), 'DriverTravel.message_count >' =>0);
         
-        $this->set('filter_applied', DriverTravel::$SEARCH_ALL);
+        
+        $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions, 'order'=>$order));
         $this->set('driver_travels', $driver_travels);
     }
     

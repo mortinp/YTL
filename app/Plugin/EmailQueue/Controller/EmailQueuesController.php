@@ -6,6 +6,14 @@ class EmailQueuesController extends AppController {
     
     public $uses = array('EmailQueue.EmailQueue', 'EmailQueue.EmailAttachment');
     
+    public function isAuthorized($user) {
+        if (in_array($this->action, array('get_attachments'))) {
+            if($this->Auth->user('role') === 'regular' || $this->Auth->user('role') === 'tester') return true;
+        }
+        
+        return parent::isAuthorized($user);
+    }
+    
     public function index() {
         $this->set('emails', $this->EmailQueue->find('all'));
     }

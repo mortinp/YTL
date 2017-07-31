@@ -187,9 +187,13 @@ if($userLoggedIn) {
                             <?php endif?>
 
                             <?php if($userRole === 'regular' || $userRole === 'tester') :?>
+                                <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
+                                <li class="divider-vertical"></li>
                                 <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
                                 <li class="divider-vertical"></li>
-                                <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
+                                <li title="<?php echo __('Mira los mensajes que tienes con cada uno de los choferes y mantente al tanto de tus acuerdos de viaje')?>" class="info">
+                                    <?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">'.__('Mis Mensajes').'</button>', array('controller' => 'conversations'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
+                                </li>
                             <?php endif;?>
                                     
                         <?php else: ?>

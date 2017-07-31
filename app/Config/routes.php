@@ -35,6 +35,13 @@
         Router::connect('/:language/pages/*', array('controller' => 'pages', 'action' => 'display'), array('language' => 'en|es'));
         
         
+        // Estas son rutas con alias para que los usuarios vean url mas bonitas...
+        Router::connect('/:language/conversations/messages/*', array('controller' => 'driver_traveler_conversations', 'action'=>'messages'), array('language' => 'en|es'));
+        Router::connect('/:language/conversations/*', array('controller' => 'driver_travels', 'action'=>'index'), array('language' => 'en|es'));
+        Router::connect('/:language/requests/*', array('controller' => 'travels', 'action'=>'index'), array('language' => 'en|es'));
+        
+        
+        
         
         /*MARTIN*/
         //Router::connect('/lang/*', array('controller' => 'lang', 'action' => 'setlang'));

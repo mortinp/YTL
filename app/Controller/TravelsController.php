@@ -423,10 +423,15 @@ class TravelsController extends AppController {
         }
         
         if ($this->request->is('ajax')) {
+            $driverName = $driver['Driver']['username'];
+            if(isset ($driver['DriverProfile']) && !empty ($driver['DriverProfile']) && !empty($driver['DriverProfile']['driver_name'])) 
+                $driverName = $driver['DriverProfile']['driver_name'];
+            
             echo json_encode(array('object'=>array(
                 'conversation_id'=>$conversation_id, 
                 'driver_email'=>$driver['Driver']['username'],
-                'notification_type'=>$notificationType)));
+                'notification_type'=>$notificationType,
+                'driver_name'=>$driverName)));
             return;
         }
         

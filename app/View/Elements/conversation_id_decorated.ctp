@@ -107,18 +107,30 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 </div>
 <?php endif?>
 
+
+<!-- CANTIDAD TOTAL DE MENSAJES -->
 <?php
-// Cantidad total de mensajes
 if($thread['message_count'] > 0): // Respondido ?> 
-    <?php echo '<small><span class="label label-primary info" title="'.$thread['message_count'].' mensajes en total">'.$thread['message_count'].'</span></small>';?>
+     <small><span class="label label-primary info" title="<?php echo$thread['message_count']?> mensajes en total"><?php echo $thread['message_count'];?></span></small>
+<?php endif?>
+     
+<!-- MENSAJES SIN LEER --> 
+<?php 
+$unread = 0;
+if($hasMetadata) {
+     if($conversation['TravelConversationMeta']['read_entry_count'] < $thread['message_count']) {
+         $unread = $thread['message_count'] - $conversation['TravelConversationMeta']['read_entry_count'];
+     }
+} else if($thread['message_count'] > 0) {
+    $unread = $thread['message_count'];
+}
+?>
+<?php if($unread > 0):?>
+    <small><span class="label label-success info" title="<?php echo $unread?> nuevos mensajes">+<?php echo $unread?></span></small>
 <?php endif?>
 
+<!-- METADATOS -->
 <?php if($hasMetadata):?>
-    <!-- +1 -->
-    <?php if($conversation['TravelConversationMeta']['read_entry_count'] < $thread['message_count']):?>
-        <small><span class="label label-success info" title="<?php echo ($thread['message_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?> nuevos mensajes">+<?php echo ($thread['message_count'] - $conversation['TravelConversationMeta']['read_entry_count'])?></span></small>
-    <?php endif?>
-
     <!-- SIGUIENDO -->
     <?php if($conversation['TravelConversationMeta']['following']):?> 
         <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>
@@ -132,10 +144,6 @@ if($thread['message_count'] > 0): // Respondido ?>
             <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-usd"></i> Pagado</span></small>
         <?php endif?>
     <?php endif?>
-
-<?php elseif($thread['message_count'] > 0):?>
-    <!-- +1 -->
-    <small><span class="label label-success info" title="<?php echo ($thread['message_count'])?> nuevos mensajes">+<?php echo ($thread['message_count'])?></span></small>
 <?php endif?>
     
 <!-- GANANCIAS -->

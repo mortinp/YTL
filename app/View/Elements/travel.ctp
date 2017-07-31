@@ -150,7 +150,7 @@ foreach (Travel::getPreferences() as $key => $value) {
                     </span>
                     <div id='notify-driver-travel-form-<?php echo $travel['Travel']['id']?>' style="display:none">
                         <div id="notification-regular-<?php echo $travel['Travel']['id']?>">
-                            Si quieres poner una nota al viaje (ej. es un viaje por acuerdo), da click aquí: 
+                            Si quieres enviar una nota al chofer (ej. es un viaje por acuerdo), da click aquí: 
                             <div><a href="#!" onclick="$('#notification-regular-<?php echo $travel['Travel']['id']?>, #notification-with-note-<?php echo $travel['Travel']['id']?>').toggle();">Poner una nota</a></div>
                             <hr/>
                             <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id']))?>

@@ -2,19 +2,31 @@
         
 <?php
 if($message['response_by'] == 'driver') {
-    $label = 'Chofer';
+    $label = (isset($driver_name))? $driver_name:__('Chofer');
     $class = 'col-md-8 alert bg-info';
 } else {
-    $label = 'Viajero';
+    $label = __('Tú');
     $class = 'col-md-8 col-md-offset-4 well';
 }
 ?>
 
 <div class="<?php echo $class?>" id="<?php echo $messageId?>">
+    
+
+    <?php
+    $created_converted = strtotime($message['created']);
+    $now = new DateTime(date('Y-m-d', time()));
+    $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
+    ?>
+    <div>
+        <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo __('%s el %s, hace %s días', $label, TimeUtil::prettyDate($message['created']),$daysPosted )?></a></b>
+    </div>
+    <br/>
+    
     <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
         <div class="alert alert-info">
             <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
-                <i class="glyphicon glyphicon-link"></i> &ndash; <?php echo __('ver adjuntos de este mensaje')?>
+                <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
             </a>
             <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
 
@@ -58,19 +70,6 @@ if($message['response_by'] == 'driver') {
             </script>
         </div>
     <?php endif?>
-
-    <?php
-    $created_converted = strtotime($message['created']);
-    $now = new DateTime(date('Y-m-d', time()));
-    $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
-    ?>
-    <div>
-        <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo $label?> el <?php echo TimeUtil::prettyDate($message['created']);?> hace <?php echo $daysPosted?> días</a></b>
-        <?php if($message['read_by']):?>
-            <small><code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?> <?php if($message['date_read'] != null) echo 'el '.TimeUtil::prettyDate($message['date_read'], false)?></code></small>
-        <?php endif?>
-    </div>
-    <br/>
     
     <?php 
         $msgWasShortened = false;
@@ -106,7 +105,7 @@ if($message['response_by'] == 'driver') {
         <?php if($msgWasShortened):?>
             <br/>
             <br/>
-            <a href="#!" id="view-full-message-<?php echo $messageId?>">&ndash; ver todo el mensaje</a>
+            <a href="#!" id="view-full-message-<?php echo $messageId?>"><?php echo __('Ver todo el mensaje')?></a>
             <script type="text/javascript">
                 $('#view-full-message-<?php echo $messageId?>').click(function() {
                     $('#msg-body-<?php echo $messageId?>').html('').html($('#msg-full-body-<?php echo $messageId?>').html());
