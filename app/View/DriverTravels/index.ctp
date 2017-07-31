@@ -43,9 +43,7 @@
                         echo '</li>';
                     }
                     ?>
-                
                 </ul>
-
                 <br/>
 
         <?php else :?>
