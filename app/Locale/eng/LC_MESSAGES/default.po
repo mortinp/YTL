@@ -871,11 +871,17 @@ msgstr "See your messages with each driver and keep up with your travel arrangem
 msgid "el chofer"
 msgstr "the driver"
 
+#: View/DriverTravel/index.ctp: oko
+msgid "Todos los mensajes que intercambies con los choferes aparecerán aquí. En cuanto recibas el primer mensaje de un chofer en tu correo, puedes venir y revisar."
+msgstr "All the messages you exchange with the drivers will appear here. As soon as you receive the first message from a driver in your email inbox, you can come and check."
 
+#: View/DriverTravel/index.ctp: oko
+msgid "Puedes enviarle un mensaje a este chofer desde tu correo."
+msgstr "You can send a message to this driver from your email."
 
-
-
-
+#: View/DriverTravel/index.ctp: oko
+msgid "Mira fotos de %s"
+msgstr "See some pictures of %s"
 
 
 

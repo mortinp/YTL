@@ -49,6 +49,9 @@
         <?php else :?>
             <?php echo __('Aún no tienes mensajes con ningún chofer.')?>
             <hr/>
+            <span class="alert alert-warning" style="display: inline-block">
+                <?php echo __('Todos los mensajes que intercambies con los choferes aparecerán aquí. En cuanto recibas el primer mensaje de un chofer en tu correo, puedes venir y revisar.')?>
+            </span>
         <?php endif; ?>
         </div>
 

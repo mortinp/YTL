@@ -12,8 +12,18 @@
 <?php $topPosition = 60?>
 <div class="col-md-8 col-md-offset-2 well" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px">
     <div style="width: 100%">
-        <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" class="info" style="max-height: 30px; max-width: 30px"/></div><?php endif;?>
-        <div style="float: left;padding-left: 10px" class="h5"><?php echo __('Tus mensajes con %s', '<code><big>'.$driverName.'</big></code>')?></div>
+        <?php if($hasProfile):?>
+            <div style="float: left">
+                <img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" class="info" style="max-height: 30px; max-width: 30px"/>
+            </div>
+            <div style="float: left;padding-left: 10px" class="h5">
+                <?php $linkToProfile = $this->Html->link($driverName, array('controller'=>'drivers', 'action'=>'profile', $data['Driver']['DriverProfile']['driver_nick']), array('style'=>'color:inherit', 'class'=>'info', 'title'=>__('Mira fotos de %s', $driverName), 'target'=>'_blank'))?>
+                <?php echo __('Tus mensajes con %s', '<code><big>'.$linkToProfile.'</big></code>')?>
+            </div>
+        <?php else:?>
+            <div style="float: left;padding-left: 10px" class="h5"><?php echo __('Tus mensajes con %s', '<code><big>'.$driverName.'</big></code>')?></div>
+        <?php endif;?>
+        
         <div style="float: left;padding-left: 20px;padding-top: 9px"><span class="text-muted"><?php echo __('Solicitud')?> <small>#</small></span><?php echo $data['Travel']['id']?></div>
     </div>
 </div>
@@ -31,7 +41,7 @@
 <br/>
 
 <!-- MENSAJES -->
-<?php if(empty ($conversations)):?><div class="row"><div class="col-md-6 col-md-offset-3">No hay conversaciones hasta el momento</div></div>
+<?php if(empty ($conversations)):?><div class="row"><div class="col-md-6 col-md-offset-3">No hay mensajes hasta el momento</div></div>
 <?php else:?>
     <?php foreach ($conversations as $message):?>
     <div class="row container-fluid">
@@ -41,6 +51,12 @@
         <br/>
     </div>
     <?php endforeach;?>
+    <br/>
+    <br/>
+    <div class="col-md-6 col-md-offset-3">
+        <div class="alert alert-warning lead" style="display: inline-block"><?php echo __('Puedes enviarle un mensaje a este chofer desde tu correo.')?></div>
+    </div>    
+
 <?php endif?>
 
 <script type="text/javascript">

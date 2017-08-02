@@ -7,6 +7,7 @@ class DriverTravel extends AppModel {
     public static $NOTIFICATION_TYPE_BY_ADMIN = 'M'; // Para los choferes que se notifican manualmente por un administrador
     //public static $NOTIFICATION_TYPE_BY_USER = 'U'; // Para los choferes que el viajero decide notificar adicionalmente (ej. si nosotros le damos la opción)
     public static $NOTIFICATION_TYPE_PREARRANGED = 'R'; // Para los viajes que se le notifiquen a los choferes y hayan sido prearreglados (ej. para hacer un descuento)
+    public static $NOTIFICATION_TYPE_DIRECT_MESSAGES = 'D'; // Para las conversaciones directas (sin un viaje asociado)
     
     
     // Filters
