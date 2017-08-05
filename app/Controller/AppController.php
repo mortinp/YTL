@@ -106,7 +106,9 @@ class AppController extends Controller {
     
     private function _update_language_anywhere($lang){
         $user = AuthComponent::user();
-        if($user != null && !empty ($user) && $lang != $this->Session->read('Config.language')) {
+        $userLoggedIn = $user != null && !empty ($user);
+        $isOtherLang = !$this->Session->check('Config.language') || $lang != $this->Session->read('Config.language'); // Si no esta iniciada la session o el lenguaje es diferente
+        if( $userLoggedIn && $isOtherLang) {
             $userModel = new User();
             $userModel->id = $user['id'];
             $userModel->saveField('lang', $lang);
@@ -208,8 +210,10 @@ class AppController extends Controller {
 
             'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             'users.register' =>array('title'=>__d('meta', 'Registrarse'), 'description'=>__d('meta', 'Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
+            'users.register_and_create' =>array('title'=>__d('meta', 'Bienvenida')),
             
-            'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')/*, 'description'=>__d('meta', 'Crea un Anuncio de Viaje y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')*/),
+            'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
+            'travels.view_pending' =>array('title'=>__d('meta', 'Solicitud Pendiente')),
             
             'testimonials.enter_code' =>array('title'=>__d('meta', 'Deja una opinión sobre tu chofer en Cuba'), 'description'=>__d('meta', 'Opinar y reseñar sobre tu viaje en auto con chofer en Cuba')),
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),

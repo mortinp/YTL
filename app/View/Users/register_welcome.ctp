@@ -6,7 +6,7 @@
             
             <br/>            
             <?php if(isset ($travel)):?>
-                <?php echo __('Estos son los detalles de tu viaje')?>:
+                <?php echo __('Creaste una solicitud de viaje con los siguientes datos')?>:
                 <br/>
                 <br/>
                 <?php echo $this->element('travel', array('travel'=>$travel))?>

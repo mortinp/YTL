@@ -306,6 +306,10 @@ msgstr "Preferences"
 msgid "Ver"
 msgstr "View"
 
+#: View/Elements/travel.ctp:102
+msgid "Ver detalles"
+msgstr "View details"
+
 #: View/Elements/travel.ctp:104
 msgid "Ver detalles de este viaje"
 msgstr "View details of this travel"
@@ -581,6 +585,9 @@ msgstr "The following travel is"
 msgid "Estos son los detalles de tu viaje"
 msgstr "These are the details of your travel"
 
+#: View/Travels/view.ctp:19
+msgid "Creaste una solicitud de viaje con los siguientes datos"
+msgstr "You created a travel request with the following data"
 
 #: View/Travels/view.ctp:26
 msgid "Editar este Viaje"
@@ -615,7 +622,7 @@ msgstr "cancel editing"
 #: View/Travels/view.ctp:54
 #: View/Users/confirm_email.ctp:13
 msgid "Ver mis anuncios de viajes"
-msgstr "View my travel requests"
+msgstr "See my travel requests"
 
 #: View/Users/change_password.ctp:5
 msgid "Cambia tu contraseña"
@@ -882,6 +889,12 @@ msgstr "You can send a message to this driver from your email."
 #: View/DriverTravel/index.ctp: oko
 msgid "Mira fotos de %s"
 msgstr "See some pictures of %s"
+
+#: View/Travel/view.ctp: oko
+msgid "También puedes verlos desde el botón %s en el menú de arriba"
+msgstr "You can also read them by clicking the button %s on the top menu"
+
+
 
 
 

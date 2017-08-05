@@ -17,8 +17,7 @@ $pretty_people_count = $travel['Travel']['people_count']. ' ';
 if($travel['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
 else $pretty_people_count .= $personW;
 
-//$date_converted = strtotime($travel['Travel']['date']);
-$expired = $travel['Travel']['is_expired'];//CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+$expired = $travel['Travel']['is_expired'];
 
 $hasPreferences = false;
 foreach (Travel::getPreferences() as $key => $value) {
@@ -36,8 +35,8 @@ foreach (Travel::getPreferences() as $key => $value) {
         $notice['label'] = Travel::getStateSettings('E', 'label');
         $notice['class'] = Travel::getStateSettings('E', 'class');
     } else {
-        $notice['color'] = Travel::getStateSettings($travel['Travel']['state'], 'color');//Travel::$STATE[$travel['Travel']['state']]['color'];
-        $notice['label'] = Travel::getStateSettings($travel['Travel']['state'], 'label');//Travel::$STATE[$travel['Travel']['state']]['label'];
+        $notice['color'] = Travel::getStateSettings($travel['Travel']['state'], 'color');
+        $notice['label'] = Travel::getStateSettings($travel['Travel']['state'], 'label');
         $notice['class'] = Travel::getStateSettings($travel['Travel']['state'], 'class');
     }
 ?>
@@ -157,7 +156,6 @@ foreach (Travel::getPreferences() as $key => $value) {
                         </div>
                         
                         <div id="notification-with-note-<?php echo $travel['Travel']['id']?>" style="display:none">
-                            <!--<div class="text-warning"><i class="glyphicon glyphicon-warning-sign"></i> Usar esta opción sólo si se ha acordado con el viajero y con el chofer previamente.</div>-->
                             <div><a href="#!" onclick="$('#notification-regular-<?php echo $travel['Travel']['id']?>, #notification-with-note-<?php echo $travel['Travel']['id']?>').toggle();">No poner nota al chofer</a></div>
                             <hr/>
                             <?php echo $this->element('form_notify_driver', array('drivers'=>$drivers, 'travel_id'=>$travel['Travel']['id'], 'isArranged'=>true, 'notificationType'=>DriverTravel::$NOTIFICATION_TYPE_PREARRANGED))?>
@@ -185,8 +183,8 @@ foreach (Travel::getPreferences() as $key => $value) {
         <?php if(!$expired):?>
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
-                /*'<i class="glyphicon glyphicon-eye-open"></i> '.*/__('Ver').' »', 
-                array('controller'=>'travels', 'action'=>'view/'.$travel['Travel']['id']), 
+                __('Ver detalles').' »', 
+                array('controller'=>'requests', 'action'=>'view/'.$travel['Travel']['id']), 
                 array('escape'=>false, 'class'=>'text-warning', 'title'=>__('Ver detalles de este viaje')));?>
         </li>
         <?php endif?>

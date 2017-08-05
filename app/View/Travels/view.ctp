@@ -19,7 +19,7 @@ if($isConfirmed) {
 
 <div class="container">
 <div class="row">
-    <div class="col-md-6 col-md-offset-3"> 
+    <div class="col-md-8 col-md-offset-2"> 
         <div id="travel">
             <?php echo __('Estos son los detalles de tu viaje')?>:
             <br/>
@@ -38,15 +38,17 @@ if($isConfirmed) {
             <?php else:?>   
                 <br/>
                 
+                <span class="alert alert-info" style="display: inline-block">
                     <ul class="text-info" style="list-style-type: none;padding: 0px;font-weight: bold">
                         <li style="margin-bottom: 15px">
-                            <i class="glyphicon glyphicon-hand-right" style="margin-right:10px"></i> <span><?php echo __('%s ya recibieron los detalles de este viaje', '<span class="badge"><big>'.$pretty_drivers_count.'</big></span>')?></span>
+                            <i class="glyphicon glyphicon-hand-right" style="margin-right:10px"></i> <span><?php echo __('%s ya recibieron los detalles de este viaje', '<code><big>'.$pretty_drivers_count.'</big></code>').'.'?></span>
                         </li>
 
                         <li>
-                            <i class="glyphicon glyphicon-envelope" style="margin-right:10px"></i> <?php echo __('Los mensajes de los choferes llegarán a tu correo %s', '<span class="badge"><big>'.$travel['User']['username'].'</big></span>')?>
+                            <i class="glyphicon glyphicon-envelope" style="margin-right:10px"></i> <?php echo __('Los mensajes de los choferes llegarán a tu correo %s', '<code><big>'.$travel['User']['username'].'</big></code>').'. '.__('También puedes verlos desde el botón %s en el menú de arriba', '<span class="label label-success">'.__('Mis Mensajes').'</span>').'.'?>
                         </li>
-                    </ul>               
+                    </ul>
+                </span>  
                 
                 <br/>
                 <?php echo $this->Html->link('<div class="btn btn-default"><big>&laquo;	'.__('Ver mis anuncios de viajes').'</big></div>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>

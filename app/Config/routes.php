@@ -38,6 +38,8 @@
         // Estas son rutas con alias para que los usuarios vean url mas bonitas...
         Router::connect('/:language/conversations/messages/*', array('controller' => 'driver_traveler_conversations', 'action'=>'messages'), array('language' => 'en|es'));
         Router::connect('/:language/conversations/*', array('controller' => 'driver_travels', 'action'=>'index'), array('language' => 'en|es'));
+        
+        Router::connect('/:language/requests/view/*', array('controller' => 'travels', 'action'=>'view'), array('language' => 'en|es'));
         Router::connect('/:language/requests/*', array('controller' => 'travels', 'action'=>'index'), array('language' => 'en|es'));
         
         

@@ -160,3 +160,11 @@ msgstr "Conversations"
 #: Controller/AppController.php:196
 msgid "Mensajes con chofer"
 msgstr "Messages with driver"
+
+#: View/Travels/view_pending.ctp:19
+msgid "Solicitud Pendiente"
+msgstr "Pending Request"
+
+#: View/Users/register_welcome.ctp:19
+msgid "Bienvenida"
+msgstr "Welcome"
