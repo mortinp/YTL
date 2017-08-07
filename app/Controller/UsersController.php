@@ -326,28 +326,6 @@ class UsersController extends AppController {
                     'no_responder', 
                     $emailTemplate, 
                     array('lang'=>$user['lang'], 'enqueue'=>false));
-            /*if(Configure::read('enqueue_mail')) {
-                ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                        $user['username'], 
-                        array('confirmation_code' => $code), 
-                        array(
-                            'template'=>$emailTemplate,
-                            'format'=>'html',
-                            'subject'=>__d('user_email', 'Bienvenid@, que encuentre un buen chofer en Cuba').'!',
-                            'config'=>'no_responder',
-                            'lang'=>  Configure::read('Config.language')));
-            } else {
-                $Email->template($emailTemplate)
-                    ->viewVars(array('confirmation_code' => $code))
-                    ->emailFormat('html')
-                    ->to($user['username'])
-                    ->subject('Verificación de cuenta');
-                    try {
-                        $Email->send();
-                    } catch ( Exception $e ) {
-                        $OK = false;
-                    }
-            }*/
         } 
         
         return $OK;

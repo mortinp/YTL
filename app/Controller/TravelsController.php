@@ -415,7 +415,6 @@ class TravelsController extends AppController {
 
             if($OK) {
                 $datasource->commit();
-                $this->setInfoMessage('Viaje notificado.');
             } else {
                 $datasource->rollback();
                 $this->setErrorMessage('Error notificando el viaje.');

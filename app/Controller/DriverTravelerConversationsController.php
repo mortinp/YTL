@@ -40,14 +40,7 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function messages($conversationId) {
-        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
-        $this->Driver->attachProfile($this->DriverTravel);
-        
-        $data = $this->DriverTravel->findById($conversationId);
-        $this->set('data', $data);
-        
-        $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);
-        $this->set('conversations', $conversations);
+        return $this->view($conversationId);
     }
     
     public function resend($conversationId) {
@@ -135,7 +128,6 @@ class DriverTravelerConversationsController extends AppController {
         if (!$this->DriverTravel->exists()) {
             throw new NotFoundException('Conversación inválida.');
         }
-        //TODO: Verificar que la conversación ya está pagada
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
@@ -286,18 +278,7 @@ class DriverTravelerConversationsController extends AppController {
             $this->DriverProfile->recursive = -1;
             $driver = array_merge($driver, $this->DriverProfile->findByDriverId($driver['id']));
             
-            // User
-            $user = $driverTravel['Travel']['User'];
-            
-            // Profile language
-            $lang = $user['lang'];
-            if($lang == null) $lang = Configure::read('default_language');
-            
-            //$this->Session->write('next.page.lang', $lang);
-            $this->Cookie->write('app.lang', $lang, true, '+2 weeks');
-            $this->Session->write('app.lang', $lang); // Escribir la Session por si no se puede escribir la Cookie
-            
-            return $this->redirect(array('controller'=>'drivers', 'action'=>'profile/'.$driver['DriverProfile']['driver_nick']/*.'/'.$lang.'/1'*/));
+            return $this->redirect(array('controller'=>'drivers', 'action'=>'profile/'.$driver['DriverProfile']['driver_nick']));
         } else {
             throw new NotFoundException();
         }

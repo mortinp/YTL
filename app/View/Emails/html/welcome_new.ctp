@@ -13,6 +13,10 @@
 </p>
 
 <p>
+    <em><?php echo __d('user_email', 'NOTA: Si desea comunicarse con nosotros NO responda este correo. Hágalo respondiendo el correo del operador.')?></em>
+</p>
+
+<p>
     <?php echo __d('user_email', 'Por último, puede ser que le interese solicitar otros viajes ahora o en el futuro. Para eso deberá confirmar su cuenta de correo dando click en %s', '<a href="'.$this->Html->url($urlDef, true).'">'.__d('user_email', 'este enlace').'</a>')?>
 </p>
 

@@ -1,7 +1,5 @@
 <p>Hola, este es un correo automático para explicarle la manera en que trabaja nuestra plataforma, que se llama <b>YoTeLlevo</b>. Asumimos que usted desea formar parte de nuestra base de choferes y quiere trabajar con nosotros con el objetivo de encontrar clientes; nuestra plataforma es perfecta para esto!</p>
 
-<p><em>NOTA: Si usted no es el chofer, pero es el dueño del auto o simplemente la persona que organiza los viajes, también puede trabajar con nosotros.</em></p>
-
 <p>Rápidamente le explicamos qué hace YoTeLlevo y nuestra manera de trabajar.</p>
 
 <p><b>¿Qué es y cómo funciona YoTeLlevo?</b></p>
@@ -25,14 +23,14 @@
 <p>Para comenzar a recibir las solicitudes usted debe estar registrado en nuestro sitio. Este paso nosotros lo hacemos manualmente y para esto necesitaríamos los siguientes datos:</p>
 
 <ul>
-    <li>Su nombre (si usted no es el chofer, necesitaríamos su nombre y el del chofer).</li>
+    <li>Su nombre</li>
     <li>Correo que utilizará para comunicarse con los viajeros</li>
     <li>Provincia donde vive (esto es importante para saber qué viajes enviarle)</li>
     <li>Marca del auto</li>
     <li>Capacidad de pasajeros</li>
     <li>Confort (si tiene aire acondicionado, música, etc.)</li>
-    <li>Si usted o la persona que se comunicará se puede comunicar en inglés. Esto es para saber si el sitio le debe enviar solicitudes de viajeros que sólo hablan inglés.</li>
-    <li>Además necesitaríamos las fotos para su perfil (si usted no es el chofer, enviar una suya, una del chofer y una del auto). Pueden enviar todas las fotos que quieran, pero deben ser fotos que se vean bien, tengan calidad y al menos sean de 640 píxeles de ancho. Esto es importante pues por el perfil muchos viajeros se deciden a contratarlo. Si usted se está riendo en la foto es mucho mejor :)</li>
+    <li>Si usted se puede comunicar en inglés. Esto es para saber si el sitio le debe enviar solicitudes de viajeros que sólo hablan inglés.</li>
+    <li>Además necesitaríamos las fotos para su perfil (enviar una suya y una del auto, o una de usted junto al auto). Pueden enviar todas las fotos que quieran, pero deben ser fotos que se vean bien, tengan calidad y al menos sean de 640 píxeles de ancho. Esto es importante pues por el perfil muchos viajeros se deciden a contratarlo. Si usted se está riendo en la foto es mucho mejor :)</li>
 </ul>
 
 <p>Para hacernos llegar los datos sólo tiene que responder este correo y enviarlos. Con esta información tendríamos todo listo para que comience a recibir solicitudes inmediatamente en su correo.</p>
