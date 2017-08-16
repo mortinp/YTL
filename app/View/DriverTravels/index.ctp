@@ -3,32 +3,49 @@
         <div class="col-md-8 col-md-offset-2">
             <?php if(!empty ($driver_travels)): ?>
             
-                <?php 
-                $travel = $driver_travels[0];
+                <?php
+                $direct_messages = array();
+                $travel = null;
                 $data = array();
-                $data[] = array('request'=>$travel, 'conversations'=>array());
                 $index = 0;
                 foreach ($driver_travels as $dt) {
+                    if($dt['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE) {
+                        $direct_messages[] = $dt;
+                        continue;
+                    }
+                    
+                    if($travel == null) {
+                        $travel = $dt;
+                        $data[] = array('request'=>$travel, 'conversations'=>array());
+                    }
+                    
                     if($dt['Travel']['id'] == $travel['Travel']['id']) {
                         $data[$index]['conversations'][] = $dt;
-                    }
-                    else {
+                    } else {
                         $travel = $dt;
                         $data[] = array('request'=>$travel, 'conversations'=>array($dt));
                         $index++;
                     }   
                 }
                 ?>
-                <span><?php echo __('Tienes %s conversaciones en %s solicitudes de viajes', count($driver_travels), count($data))?></span>
+                <span>
+                    <?php 
+                    if(count($data) > 0 && count($direct_messages))
+                        echo __('Tienes %s conversaciones en %s solicitudes de viajes y %s conversaciones directas', count($driver_travels), count($data),  count($direct_messages));
+                    else if(count($data) > 0)
+                        echo __('Tienes %s conversaciones en %s solicitudes de viajes', count($driver_travels), count($data));
+                    else if(count($direct_messages) > 0)
+                        echo __('Tienes %s conversaciones directas', count($driver_travels), count($data));
+                    ?>
+                </span>
                 <hr/>
             
-                <br/>
+                <?php if(count($data) > 0):?>
                 <br/>
                 
                 <ul style="list-style-type: none;padding: 0px">
                     
                     <?php
-
                         foreach ($data as $t) {
                         echo '<li style="margin-bottom: 60px">';
                         echo $this->element('conversation_widget_for_user/travel_data', array('travel'=>$t['request']));
@@ -44,6 +61,25 @@
                     }
                     ?>
                 </ul>
+                <?php endif?>
+                
+                <?php if(count($direct_messages) > 0):?>
+                <?php if(count($data) > 0):?><p><?php echo __('Otras conversaciones')?>:</p><?php endif?>
+                <br/>
+                
+                <ul style="list-style-type: none;padding: 0px">
+                    
+                    <?php
+                    foreach ($direct_messages as $t) {
+                        echo '<li style="margin-bottom: 10px">';
+                        echo $this->element('conversation_widget_for_user/conversation_data', array('conversation'=>$t));
+                        echo '</li>';
+                    }
+                    ?>
+                </ul>
+                <?php endif?>
+                
+                
                 <br/>
 
         <?php else :?>

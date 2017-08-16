@@ -12,9 +12,8 @@
             <?php
             echo $this->Form->input('username', array('label' => __('Tu correo electrónico'), 'type' => 'email'));
             echo $this->Form->input('password', array('label' => __('Contraseña')));
-            echo $this->Form->checkbox('remember_me').' '.__('Recordarme');
+            //echo $this->Form->checkbox('remember_me').' '.__('Recordarme');
             ?>
-            <br/>
             <br/>
             <?php echo $this->Form->submit(__('Entrar'));?>
         </fieldset>

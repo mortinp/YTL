@@ -48,7 +48,7 @@ class AppController extends Controller {
     public $components = array(
         'Session',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'travels', 'action' => 'index'),
+            'loginRedirect' => array('controller' => 'conversations'),
             'logoutRedirect' => '/',
             'authorize' => array('Controller'),
             
@@ -176,6 +176,22 @@ class AppController extends Controller {
     }
     
     public function _setUserCredentials() {
+        // Try to authenticate
+        $this->justLoggedIn = false; // Ver mas abajo para ver que es esta variable
+        if(!$this->Auth->loggedIn()) {
+            
+            if($this->Auth->login()) {
+                // Esto es un hack para evitar redireccionamientos infinitos en el caso de los controladores que en su beforeFilter()
+                // permiten acciones que dependen de si el usuario esta logueado o no.
+                // Me pasaba con el /users/login, que al loguearse aquí en el AppController, ya no se permitía la accion /login y entonces se
+                // redireccionaba infinitamente... esto lo evita
+                $this->justLoggedIn = true; // Esta variable coge true solo una vez mientras el navegador este abierto...
+                
+                // El UsersController usa esta variable en su beforeFilter()
+                // TODO: verificar si es necesario que otros controladores la usen
+            }
+        }
+        
         // INITIALIZE
         $userLoggedIn = AuthComponent::user('id') ? true : false;
         $this->set('userLoggedIn', $userLoggedIn);
@@ -211,6 +227,7 @@ class AppController extends Controller {
             'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             'users.register' =>array('title'=>__d('meta', 'Registrarse'), 'description'=>__d('meta', 'Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             'users.register_and_create' =>array('title'=>__d('meta', 'Bienvenida')),
+            'users.register_welcome' =>array('title'=>__d('meta', 'Bienvenida')),
             
             'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
             'travels.view_pending' =>array('title'=>__d('meta', 'Solicitud Pendiente')),

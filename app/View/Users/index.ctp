@@ -1,5 +1,8 @@
 <div style="float:left;padding-right:20px"><?php echo count($users)?> usuarios</div>
 <div><?php echo $this->Html->link('Nuevo usuario', array('action'=>'add'))?></div>
+<br/>
+<div>Páginas: <?php echo $this->Paginator->numbers();?></div>
+<br/>
 <table class='table table-striped table-hover'>
     <thead><th></th><th>ID</th><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Idioma</th><th>Viajes</th><th>Verificado</th><th>Registro</th><th>IP Registro</th></thead>
     <tbody> 
@@ -22,3 +25,4 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<div>Páginas: <?php echo $this->Paginator->numbers();?></div>

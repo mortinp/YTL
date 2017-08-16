@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('CakeTime', 'Utility');
+App::uses('TimeUtil', 'Util');
 
 class Travel extends AppModel {
     
@@ -94,10 +95,17 @@ class Travel extends AppModel {
         return true;
     }
     
+    /* This prevents User data to be fetched twice, when making a find operation with enough recursive level */
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+        ClassRegistry::init('DriverTravel')->unbindModel(array('belongsTo' => array('User')));
+        return $queryData;
+    }
+    
     public function afterFind($results, $primary = false) {
         foreach ($results as $key => $val) {
             if (isset($val['Travel']['date'])) {
-                $results[$key]['Travel']['date'] = $this->dateFormatAfterFind($val['Travel']['date']);
+                $results[$key]['Travel']['date'] = TimeUtil::dateFormatAfterFind($val['Travel']['date']);
                 
                 $date_converted = strtotime($val['Travel']['date']);
                 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
@@ -122,10 +130,6 @@ class Travel extends AppModel {
         parent::afterDelete();
             
         CakeSession::write('Auth.User.travel_count', CakeSession::read('Auth.User.travel_count') - 1);
-    }
-        
-    public function dateFormatAfterFind($date) {
-        return date('d-m-Y', strtotime($date));
     }
 
     public function isOwnedBy($id, $user_id) {

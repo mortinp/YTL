@@ -7,7 +7,9 @@ class RoutinesShell extends AppShell {
     public $uses = array('Travel', 'TravelConversationMeta');
     
     public function email2drivers_travels_payment_due() {
-        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, travels.id as travel_id, travels.origin as travel_origin, travels.destination as travel_destination, travels.date as travel_date
+        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, 
+                travels.id as travel_id, travels.origin as travel_origin, travels.destination as travel_destination, travels.date as travel_date, 
+                drivers_travels.travel_date as driver_travel_date, drivers_travels.notification_type, drivers_travels.identifier
 
                 from drivers_travels
 
@@ -15,7 +17,7 @@ class RoutinesShell extends AppShell {
 
                 inner join drivers on drivers.id = drivers_travels.driver_id
 
-                inner join travels on travels.id = drivers_travels.travel_id
+                left join travels on travels.id = drivers_travels.travel_id
 
                 left join drivers_profiles on drivers_profiles.driver_id = drivers.id
 
@@ -37,7 +39,7 @@ class RoutinesShell extends AppShell {
             );
             
             while($index < count($travelsDueToPay) && $travelsDueToPay[$index]['drivers']['driver_id'] == $current_driver) {
-                $travels[count($travels) - 1]['Travel'][] = $travelsDueToPay[$index]['travels'];
+                $travels[count($travels) - 1]['Travel'][] = array_merge($travelsDueToPay[$index]['travels'], $travelsDueToPay[$index]['drivers_travels']);
                 $index++;
             }
         }
@@ -46,7 +48,7 @@ class RoutinesShell extends AppShell {
             EmailsUtil::email($data['Driver']['driver_email'], 'Recordatorio de viajes por pagar', array('data'=>$data), 'super', 'reminder_driver_payment_due');
         }
         
-        // Loguear el reminder para debuguear
+        /*// Loguear el reminder para debuguear
         $logEntry = '<b>Reminder Payment Due</b><br/><br/>';
         foreach ($travels as $data) {
             $logEntry .= 'Chofer: '.$data['Driver']['driver_id'];
@@ -58,7 +60,7 @@ class RoutinesShell extends AppShell {
             
             $logEntry .= '<br/>';
         }
-        CakeLog::write('cron', $logEntry);
+        CakeLog::write('cron', $logEntry);*/
     }
 
     

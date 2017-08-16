@@ -226,12 +226,15 @@ class DriverTravelerConversationsController extends AppController {
         $data = $this->DriverTravel->findById($id);
         
         $vars = array();
-        $vars['travel_id'] = $data['Travel']['id'];
-        $vars['travel_origin'] = $data['Travel']['origin'];
-        $vars['travel_destination'] = $data['Travel']['destination'];
-        $vars['travel_date'] = $data['Travel']['date'];
-        $vars['conversation_id'] = $id;
-        $vars['driver_name'] = (isset ($data['Driver']['DriverProfile']) && !empty($data['Driver']['DriverProfile']))? Driver::shortenName($data['Driver']['DriverProfile']['driver_name']):'chofer';
+        $vars['travel_id']          = DriverTravel::getIdentifier($data);
+        $vars['travel_date']        = $data['DriverTravel']['travel_date'];
+        $vars['conversation_id']    = $id;
+        $vars['driver_name']        = (isset ($data['Driver']['DriverProfile']) && !empty($data['Driver']['DriverProfile']))? Driver::shortenName($data['Driver']['DriverProfile']['driver_name']):'chofer';
+        $vars['notification_type']  = $data['DriverTravel']['notification_type'];
+        if($data['DriverTravel']['notification_type'] != DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE){
+            $vars['travel_origin']      = $data['Travel']['origin'];
+            $vars['travel_destination'] = $data['Travel']['destination'];
+        }
         
         $datasource = $this->TravelConversationMeta->getDataSource();
         $datasource->begin();
@@ -266,19 +269,22 @@ class DriverTravelerConversationsController extends AppController {
     
     
     
-    // Otros
     public function show_profile($conversation) {
         $this->DriverTravel->recursive = 2;
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $driverTravel = $this->DriverTravel->findById($conversation);                
         if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
             
-            // Driver with profile
+            /*// Driver with profile
             $driver = $driverTravel['Driver'];
             $this->DriverProfile->recursive = -1;
-            $driver = array_merge($driver, $this->DriverProfile->findByDriverId($driver['id']));
+            $driver = array_merge($driver, $this->DriverProfile->findByDriverId($driver['id']));*/
             
-            return $this->redirect(array('controller'=>'drivers', 'action'=>'profile/'.$driver['DriverProfile']['driver_nick']));
+            // Poner en la session que este usuario ya esta contactando con este chofer.
+            // Esto se usa por ejemplo, para en el perfil no mostrar la opcion de contactar directamente a este chofer
+            $this->Session->write('visited-driver-'.$driverTravel['Driver']['id'], $conversation);
+            
+            return $this->redirect(array('controller'=>'drivers', 'action'=>'profile/'.$driverTravel['Driver']['DriverProfile']['driver_nick']));
         } else {
             throw new NotFoundException();
         }

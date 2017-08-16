@@ -1,3 +1,5 @@
+<?php App::uses('DriverTravel', 'Model')?>
+
 <?php 
 $hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);
 
@@ -8,10 +10,12 @@ $asked_confirmation = $hasMetadata && $data['TravelConversationMeta']['asked_con
 
 $now = new DateTime(date('Y-m-d', time()));
 
-//$date_converted = strtotime($data['Travel']['date']);
-$expired = $data['Travel']['is_expired'];//CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+$travelDate = DriverTravel::extractDate($data);
+$date_converted = strtotime($travelDate);
+
+$expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted); //$data['Travel']['is_expired'];
 if($expired) {
-    $daysExpired = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
+    $daysExpired = $now->diff(new DateTime($travelDate), true)->format('%a');
 }
 
 $hasMessages = count($conversations) > 0;
@@ -20,11 +24,11 @@ if($hasMessages) {
     $daysLastMessage = $now->diff(new DateTime($lastMessage['created']), true)->format('%a');
 }
 
-$daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
+$daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
 ?>
 
 <div id='conversation-alerts'>
-    <?php if(!$expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($data['Travel']['date']))):?>
+    <?php if(!$expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($travelDate))):?>
         <?php if($hasMessages && $daysLastMessage > 15):?>
             <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Toma las precauciones necesarias!</b></span>
         <?php else: ?>

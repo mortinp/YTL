@@ -3,8 +3,8 @@ App::uses('Driver', 'Model');
 ?>
 
 <?php
-$driver_name = Driver::shortenName($data['Driver']['DriverProfile']['driver_name']);
-$driver_code = $data['Driver']['DriverProfile']['driver_code'];
+$driver_name = Driver::shortenName($profile_data['driver_name']);
+$driver_code = $profile_data['driver_code'];
 ?>
 
 <p><?php echo __d('user_email', 'Hola')?>,</p>

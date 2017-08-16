@@ -1,4 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('DriverTravel', 'Model')?>
 
 <div style="text-align: center;width: 100%">**********</div>
 
@@ -10,7 +11,11 @@
 </p>
 <p>Solo como recordatorio, el viaje fue creado con los siguientes datos:</p>
 <div style="border-left: #efefef solid 2px;padding-left: 15px"> 
-    <div><big><?php echo $travel_origin?> - <?php echo $travel_destination?></big></div>
+    <?php if($notification_type != DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE): ?>
+        <div><big><?php echo $travel_origin?> - <?php echo $travel_destination?></big></div>
+    <?php else: ?>
+        <div><big>Solicitud por mensaje directo</big></div>
+    <?php endif; ?>
     <div>Fecha: <?php echo TimeUtil::prettyDate($travel_date)?></div>
 </div>
 

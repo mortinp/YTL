@@ -41,3 +41,92 @@ msgstr "or login to the website to manage your travels"
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Entrar al sitio"
 msgstr "Login to the website"
+
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Lo sentimos por interrumpirte aquí"
+msgstr "Sorry to interrupt you there"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Estas son un par de cosas que puedes hacer en el perfil de %s"
+msgstr "Here are a couple things you can do from %s's profile"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Enviar un mensaje a %s para arreglar un viaje con él"
+msgstr "Send a message to %s to arrange your trip with him"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Sí, quiero enviar un mensaje a %s"
+msgstr "Yes, I want to send a message to %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Si ya usaste sus servicios, puedes escribir una opinión sobre él"
+msgstr "If you already used his services, you can write a review about him"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Sí, quiero escribir una opinión sobre %s"
+msgstr "Yes, I want to write a review about %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Una vez que cierres esta ventana, puedes acceder a ambas opciones desde el menú de arriba."
+msgstr "Once you close this popup, you can acces both options from the menu on the top."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Quiero seguir viendo el perfil de %s por ahora"
+msgstr "I want to keep seeing %s's profile for now"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Entendido"
+msgstr "Got it"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Mensaje a este chofer"
+msgstr "Message to this driver"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Opinar sobre este chofer"
+msgstr "Review this driver"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Envía un mensaje a este chofer para acordar un viaje con él"
+msgstr "Send a message to this driver and arrange a trip with him"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Escribe una opinión sobre tu viaje con este chofer"
+msgstr "Write a review about your trip with this driver"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Aprende sobre YoTeLlevo"
+msgstr "Learn about YoTeLlevo"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Haz un viaje sorprendente con %s"
+msgstr "Do an amazing travel with %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "<b>Envía un mensaje a %s</b> para comenzar a acordar tus recorridos con él."
+msgstr "<b>Send a message to %s</b> to start arranging your travel with him."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Enviar el mensaje ahora"
+msgstr "Send the message now"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Obtén una oferta de precio de %s y comienza a acordar los detalles de tu viaje"
+msgstr "Get a quote from %s and start arranging the details of your travel"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla."
+msgstr "You are on the website of <b>YoTeLlevo</b>, a platform that connects travelers coming to <b>Cuba</b> with <b>private drivers</b> who operate in the island."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí."
+msgstr "If you need a driver in Cuba, you probably can find him or her here."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ahora mismo estás en el perfil de %s, uno de nuestros choferes."
+msgstr "Right now you are in one of our drivers' profile: %s."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ver mis mensajes con %s"
+msgstr "See my messages with %s"

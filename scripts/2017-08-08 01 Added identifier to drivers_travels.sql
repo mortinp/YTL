@@ -1,0 +1,1 @@
+ALTER TABLE `drivers_travels` ADD `identifier` BIGINT( 20 ) NULL DEFAULT NULL;

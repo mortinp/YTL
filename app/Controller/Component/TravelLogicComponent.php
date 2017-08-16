@@ -63,7 +63,8 @@ class TravelLogicComponent extends Component {
                         }
                     }*/
                     // Variante 2: Si es el primer viaje del usuario, mandarle un correo del Asistente de Viajes General (Ana)
-                    $sendEmailFromAssistant = $travel['User']['travel_count'] <= 1;
+                    $aaa = AuthComponent::user('conversations_count');
+                    $sendEmailFromAssistant = $travel['User']['travel_count'] <= 1 && AuthComponent::user('conversations_count') < 1; // TODO: A lo mejor es mejor enviar este correo en el UsersController solo en la accion registrase...
                     if($sendEmailFromAssistant) {
                         if(!EmailsUtil::email(
                                 $travel['User']['username'], 
@@ -240,8 +241,11 @@ class TravelLogicComponent extends Component {
         $OK = true;
         
         $this->DriverTravel->create();
-        $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel['Travel']['id'], 'notification_type'=>$notificationType);
-        if($notificationType != DriverTravel::$NOTIFICATION_TYPE_AUTO) 
+        //$driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel['Travel']['id'], 'notification_type'=>$notificationType);
+        $driverTravel = array('driver_id'=>$driver['Driver']['id'], 'travel_id'=>$travel['Travel']['id'],'notification_type'=>$notificationType, 
+                              'travel_date'=>$travel['Travel']['date'], 'user_id'=>$travel['User']['id']
+        );
+        if(in_array($notificationType, array(DriverTravel::$NOTIFICATION_TYPE_BY_ADMIN, DriverTravel::$NOTIFICATION_TYPE_PREARRANGED))) 
             $driverTravel['notified_by'] = User::prettyName(AuthComponent::user());
         
         $OK = $this->DriverTravel->save(array('DriverTravel'=>$driverTravel));
@@ -264,6 +268,8 @@ class TravelLogicComponent extends Component {
             $driverName = 'chofer';
             if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
                 $driverName = Driver::shortenName($driver['Driver']['DriverProfile']['driver_name']);
+            else if(isset ($driver['DriverProfile']) && $driver['DriverProfile'] != null && !empty ($driver['DriverProfile']))
+                $driverName = Driver::shortenName($driver['DriverProfile']['driver_name']);
                 
             
             $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName);

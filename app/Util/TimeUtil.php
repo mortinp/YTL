@@ -34,5 +34,18 @@ class TimeUtil {
 
         return $date <= $interval;
     }
+    
+    public static function dmY_to_Ymd($date){
+        $sep = substr($date, 2, 1);
+        $d = substr($date, 0, 2);
+        $m = substr($date, 3, 2);
+        $Y = substr($date, 6);
+        
+        return $Y.$sep.$m.$sep.$d;
+    }
+    
+    public static function dateFormatAfterFind($date) {
+        return date('d-m-Y', strtotime($date));
+    }
 }
 ?>

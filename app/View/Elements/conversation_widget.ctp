@@ -1,26 +1,18 @@
 <?php App::uses('CakeTime', 'Utility')?>
 <?php App::uses('DriverTravelerConversation', 'Model')?>
+<?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('DriverTravel', 'Model')?>
 
 <?php
-$months_es = array(__('Enero'), __('Febrero'), __('Marzo'), __('Abril'), __('Mayo'), __('Junio'), __('Julio'), __('Agosto'), __('Septiembre'), __('Octubre'), __('Noviembre'), __('Diciembre'));
-$days_es = array(__('Domingo'), __('Lunes'), __('Martes'), __('Miércoles'), __('Jueves'), __('Viernes'), __('Sábado'));
 
-$date_converted = strtotime($conversation['Travel']['date']);
-$day = date('j', $date_converted);
-$month = $months_es[date('n', $date_converted) - 1];
-$day_of_week = $days_es[date('w', $date_converted)];
-$year = date('Y', $date_converted);
-$pretty_date = $day.' '.$month.', '.$year.' ('.$day_of_week.')';
+$travelDate = DriverTravel::extractDate($conversation);
+$pretty_date = TimeUtil::prettyDate($travelDate);
+$date_converted = strtotime($travelDate);
 
 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
 if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
 ?>
 
-
-<?php 
-$conversationId = $conversation['DriverTravel']['id'];
-$travelDetails = $conversation['Travel']['origin']. ' - '. $conversation['Travel']['destination']
-?>
 <div>
     <h2>
         <?php 
@@ -33,11 +25,15 @@ $travelDetails = $conversation['Travel']['origin']. ' - '. $conversation['Travel
             <img src="<?php echo $src?>" alt="<?php echo $conversation['Driver']['DriverProfile']['driver_name'].' - '.$conversation['Driver']['username']?>" class="info" title="<?php echo $conversation['Driver']['DriverProfile']['driver_name']?>" style="max-height: 40px; max-width: 40px"/>
         <?php endif;?>
         <span style="display: inline-block">
-            <small>#<?php echo $conversation['Travel']['id']?></small> 
-            <?php echo $travelDetails?>
-            <small><small>[<?php echo $conversation['Travel']['people_count']?> viajeros]</small></small>
-            <small><small><?php echo $conversation['Travel']['User']['username']?></small></small>
-        </span>
+            <small>#<?php echo DriverTravel::getIdentifier($conversation); ?></small> 
+            
+            <?php if( isset($conversation['Travel']['id']) && $conversation['Travel']['id'] !== null): ?>                
+                <?php echo $conversation['Travel']['origin']. ' - '. $conversation['Travel']['destination']; ?>
+                <small><small>[<?php echo $conversation['Travel']['people_count']?> viajeros]</small></small>
+            <?php endif;?>
+                
+            <small><small><?php echo $conversation['User']['username']?></small></small>
+        </span> 
     </h2>
 </div>
 <hr/>

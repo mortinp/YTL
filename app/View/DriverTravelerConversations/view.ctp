@@ -14,7 +14,7 @@
     <div style="width: 100%">
         <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name'].' - '.$data['Driver']['username']?>" style="max-height: 30px; max-width: 30px"/></div><?php endif;?>
         <div style="float: left;padding-left: 10px"><h4>Conversación con <?php echo $driverName?></h4></div>
-        <div style="float: left;padding-left: 20px;padding-top: 10px"><b>Viaje #<?php echo $data['Travel']['id']?></b></div>
+        <div style="float: left;padding-left: 20px;padding-top: 10px"><b>Viaje #<?php echo DriverTravel::getIdentifier($data); ?></b></div>
     </div>
 </div>
 <div style="height: 85px;"></div> <!-- Separator -->
@@ -23,7 +23,12 @@
 <!-- VIAJES Y CONTROLES -->
 <div class="row" style="top: 200px">
     <div class="col-md-6 col-md-offset-3">
-        <?php echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true))?>
+        <?php
+            if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
+                echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));
+            else
+                echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true));
+        ?>
         <div>
             <?php echo $this->element('conversation_controls', array('data'=>$data))?><!-- Acciones para esta conversación -->
         </div>

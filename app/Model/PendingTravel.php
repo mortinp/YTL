@@ -75,29 +75,6 @@ class PendingTravel extends AppModel {
     public function dateFormatAfterFind($date) {
         return date('d-m-Y', strtotime($date));
     }
-    
-    /*public function afterSave($created, array $options = array()) {
-        parent::afterSave($created, $options);
-        
-        if($created) {
-            CakeSession::write('Auth.User.travel_count', CakeSession::read('Auth.User.travel_count') + 1);
-        }
-    }
-    
-    public function afterDelete() {
-        parent::afterDelete();
-            
-        CakeSession::write('Auth.User.travel_count', CakeSession::read('Auth.User.travel_count') - 1);
-    }       
-    
-
-    public function isOwnedBy($id, $user_id) {
-        return $this->field('id', array('id' => $id, 'user_id' => $user_id)) == $id;
-    }
-    
-    public static function isConfirmed($travelState) {
-        return $travelState === Travel::$STATE_CONFIRMED || $travelState === Travel::$STATE_SOLVED;
-    }*/
 }
 
 ?>

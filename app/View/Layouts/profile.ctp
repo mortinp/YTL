@@ -1,4 +1,5 @@
 <?php App::uses('User', 'Model')?>
+<?php App::uses('Driver', 'Model')?>
 
 <?php
 $userLoggedIn = AuthComponent::user('id') ? true : false;
@@ -51,7 +52,7 @@ if($userLoggedIn) {
             }
             
             #content p {
-                font-size: 14pt;
+                font-size: 12pt;
             }
         </style>
         
@@ -59,18 +60,7 @@ if($userLoggedIn) {
         // META
         $this->Html->meta('icon');
         
-        // CSS
-        /*//$this->Html->css('prettify', array('inline' => false));
-        $this->Html->css('bootstrap', array('inline' => false));        
-        $this->Html->css('common/font-awesome.min', array('inline' => false));
-        $this->Html->css('default', array('inline' => false));*/
-        
         $this->Html->css('default-bundle', array('inline' => false));        
-        
-        //JS
-        /*$this->Html->script('jquery', array('inline' => false));
-        $this->Html->script('bootstrap', array('inline' => false));*/
-        
         $this->Html->script('default-bundle', array('inline' => false));
 
         echo $this->fetch('meta');
@@ -173,11 +163,34 @@ if($userLoggedIn) {
                                 <?php endif;?>
                                     
                             <?php else: ?>
-                                <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?></li>
-                            <?php endif;?>            
+                                <li>
+                                    <?php echo $this->Html->link('<button type="button" class="btn btn-default navbar-btn">'.__d('driver_profile', 'Aprende sobre YoTeLlevo').'</button>', '/', array('escape'=>false, 'style'=>'padding:0px;'))?>
+                                    <!--<?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?>-->
+                                </li>
+                            <?php endif;?> 
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
+                            <?php $talkingToDriver = $this->Session->read('visited-driver-'.$profile['Driver']['id']);?>
+                            <?php if (!$talkingToDriver): ?>
+                                <li title="<?php echo __d('driver_profile', 'Envía un mensaje a este chofer para acordar un viaje con él')?>" class="info">
+                                    <a href="#!" class="goto" data-go-to="message-driver" style="padding:0px;padding-right:20px">
+                                        <button type="button" class="btn btn-info navbar-btn">
+                                            <?php echo __d('driver_profile', 'Mensaje a este chofer')?>
+                                        </button>
+                                    </a>
+                                </li>
+                            <?php else:?>
+                                <?php if($userLoggedIn && $talkingToDriver):?>
+                                    <li>
+                                        <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('driver_profile', 'Ver mis mensajes con %s', Driver::shortenName($profile['DriverProfile']['driver_name'])).'</button>', array('controller'=>'conversations', 'action'=>'messages', $talkingToDriver), array('escape'=>false, 'style'=>'padding:0px;padding-right:20px'))?>
+                                    </li>
+                                <?php endif ?>
+                            <?php endif ?>
+                            <li title="<?php echo __d('driver_profile', 'Escribe una opinión sobre tu viaje con este chofer')?>" class="info">
+                                <?php echo $this->Html->link('<button type="button" class="btn btn-warning navbar-btn">'.__d('driver_profile', 'Opinar sobre este chofer').'</button>', array('controller' => 'testimonials', 'action'=>'enter_code'), array('escape'=>false, 'style'=>'padding:0px;padding-right:20px'))?>
+                            </li>
+                            
                             <?php if ($userLoggedIn): ?>
                                 <li class="dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">

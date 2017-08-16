@@ -15,6 +15,14 @@ class DriverProfile extends AppModel {
     );
     
     public $validate = array('driver_code' => array('rule' => 'isUnique', 'message' => 'El código debe ser único') );
+    
+    public static function getAbsolutePath($filePath) {
+        $src = '';
+        if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
+        $src .= '/'.str_replace('\\', '/', $filePath);
+        
+        return $src;
+    }
 }
 
 ?>

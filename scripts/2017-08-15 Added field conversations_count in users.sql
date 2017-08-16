@@ -1,0 +1,1 @@
+ALTER TABLE  `users` ADD  `conversations_count` INT NULL AFTER  `travel_count`;

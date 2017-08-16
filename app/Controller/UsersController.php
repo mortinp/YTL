@@ -6,26 +6,27 @@ App::uses('DriverTravel', 'Model');
 
 class UsersController extends AppController {
     
-    public $uses = array('User', 'UserInteraction', 'Travel', 'DriverTravel', 'Locality', 'Driver', 'Operations.OpActionRule');
+    public $uses = array('User', 'UserInteraction', 'Travel', 'DriverTravel', 'Locality', 'Driver', 'Operations.OpActionRule', 'DriverTravelerConversation');
     
-    public $components = array('TravelLogic');
+    public $components = array('TravelLogic', 'DirectMessages');
 
     public function beforeFilter() {
         parent::beforeFilter();
         
-        $this->Auth->allow('confirm_email');
-        $this->Auth->allow('change_password');
+        $this->Auth->allow( array('confirm_email', 'change_password', 'contact_driver') );
         
         if($this->Auth->loggedIn()) {
-            $this->Auth->allow('logout', 'send_confirm_email', 'unsubscribe');
-        }
-        else $this->Auth->allow('login', 'register', 'register_welcome', 'register_and_create', 'forgot_password', 'send_change_password');
+            $this->Auth->allow('logout', 'send_confirm_email', 'unsubscribe', 'register_welcome');
+            
+            if($this->justLoggedIn) $this->Auth->allow('login'); // la accion login se activa una sola vez por si el usuario se esta logueando (ver AppController)
+            
+        } else $this->Auth->allow('login', 'register', 'register_and_create', 'forgot_password', 'send_change_password');
     }
 
     public function isAuthorized($user) {
         if(in_array($this->action, array('add', 'edit', 'remove')) && $this->Auth->user('role') != 'admin') return false; // Solo los admin pueden hacer esto
         
-        if(in_array($this->action, array('register_welcome', 'password_changed', 'profile'))) { // Allow these actions for the logged-in user
+        if(in_array($this->action, array('password_changed', 'profile'))) { // Allow these actions for the logged-in user
             return true;
         }
         
@@ -61,6 +62,9 @@ class UsersController extends AppController {
     
     private function do_login() {
         if ($this->Auth->login()) {
+            // NEW: Recordar por defecto
+            $this->request->data['User']['remember_me'] = true;
+            
             $this->_setCookie($this->Auth->user('id'));
             
             $lang = Configure::read('Config.language');
@@ -84,24 +88,11 @@ class UsersController extends AppController {
                 $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o <a href="%s">entra con tu cuenta</a>', Router::url(array('action'=>'login'))));// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
-
-            $this->request->data['User']['role'] = 'regular';
-            $this->request->data['User']['active'] = true;
-            $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
-            $this->request->data['User']['register_type'] = 'register_form';
             
-            $datasource = $this->User->getDataSource();
-            $datasource->begin();
-            
-            $OK = $this->do_register($this->request->data['User'], 'welcome_new');
-                
-            if($OK) {
-                $datasource->commit();
-                if($this->do_login()) return $this->render('register_welcome');
-            } else {
-                $datasource->rollback();
-                $this->setErrorMessage(__('Ocurrió un error registrando su usuario. Intente de nuevo'));
-            }
+            if( $this->do_register($this->request->data['User'], 'welcome_new', 'register_form') ){
+                if($this->do_login()) return $this->render('register_welcome');        
+            }    
+            else $this->setErrorMessage(__('Ocurrió un error registrando su usuario. Intente de nuevo.'));
         }
     } 
     
@@ -111,41 +102,34 @@ class UsersController extends AppController {
                 $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o <a href="%s">entra con tu cuenta</a>', Router::url(array('action'=>'login'))));// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
-
-            $this->request->data['User']['role'] = 'regular';
-            $this->request->data['User']['active'] = true;
-            $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
-            $this->request->data['User']['register_type'] = 'pending_travel_register_form';
             
             $datasource = $this->User->getDataSource();
             $datasource->begin();
             
-            $result = array();
+            $result = array('success' => true);
+            if( $this->do_register($this->request->data['User'], 'welcome_new', 'pending_travel_register_form') ){
+                $result = $this->TravelLogic->confirmPendingTravel($pendingTravelId, $this->request->data['User']['id']);
             
-            $OK = $this->do_register($this->request->data['User'], 'welcome_new');
-            if(!$OK) $result['message'] = 'Ocurrió un error registrando tu usuario. Intenta nuevamente.';
-            
-            if($OK) $result = $this->TravelLogic->confirmPendingTravel($pendingTravelId, $this->request->data['User']['id']);
-            
+                if($result['success']){
+                    $datasource->commit();
+                    if($this->do_login()) {
+                        $this->set('travel', $result['travel']);
+                        return $this->render('register_welcome');
+                    }
+                } else {
+                    /**
+                     * Hack: Al guardarse el viaje antes de confirmarlo, se ejecuta el afterSave() de Travel. Esto incrementa la variable travel_count de la sesion.
+                     * Si la transaccion falla, hay que decrementar esa variable nuevamente.
+                     * TODO: existira un metodo mas o menos como afterSaveFail() en los modelos???
+                     */
+                    CakeSession::delete('Auth.User');
+                }
+            } else{
+                $result['success'] = false;
+                $result['message'] = 'Ocurrió un error registrando tu usuario. Intenta nuevamente.';
+            }
             
             if(!$result['success']) {
-                $OK = false;
-                
-                /**
-                 * Hack: Al guardarse el viaje antes de confirmarlo, se ejecuta el afterSave() de Travel. Esto incrementa la variable travel_count de la sesión.
-                 * Si la transacción falla, hay que decrementar esa variable nuevamente.
-                 * TODO: existirá un metodo más o menos como afterSaveFail() en los modelos???
-                 */
-                CakeSession::delete('Auth.User');
-            }
-                
-            if($OK) {
-                $datasource->commit();
-                if($this->do_login()) {
-                    $this->set('travel', $result['travel']);
-                    return $this->render('register_welcome');
-                }
-            } else {
                 $datasource->rollback();
                 $this->setErrorMessage(__($result['message']));
                 $this->redirect($this->referer()/*array('controller'=>'travels', 'action'=>'view_pending/'.$pendingTravelId)*/);
@@ -153,13 +137,27 @@ class UsersController extends AppController {
         }
     } 
     
-    private function do_register(&$user, $emailTemplate) {
-        $OK = true;            
-        $OK = $this->User->save($user);
-        if($OK) $user['id'] = $this->User->getLastInsertID();
-        if($OK) $OK = $this->do_send_confirm_email($user, $emailTemplate);
+    private function do_register(&$user, $emailTemplate, $register_type) {
+        $datasource = $this->User->getDataSource();
+        $datasource->begin();
         
-        return $OK;
+        $this->request->data['User']['role'] = 'regular';
+        $this->request->data['User']['active'] = true;
+        $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
+        $this->request->data['User']['register_type'] = $register_type;    
+        
+        if( $this->User->save($user) ){
+            $user['id'] = $this->User->getLastInsertID();
+            if( $this->do_send_confirm_email($user, $emailTemplate) ){
+                $datasource->commit();
+                return true;
+            }
+            $datasource->rollback();
+            return false;
+        }
+        
+        $datasource->rollback();
+        return false;
     }
     
     public function profile() {
@@ -197,16 +195,10 @@ class UsersController extends AppController {
     }
     
     public function index() {
-        $this->set('users', $this->User->find('all'));
+        $this->paginate = array('order'=>array('User.created'=>'DESC'), 'limit'=>500); // Los ultimos 500 usuarios
+        $users = $this->paginate();
+        $this->set('users', $users);
     }
-
-    /*public function view($id = null) {
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException('Invalid user');
-        }
-        $this->set('user', $this->User->read(null, $id));
-    }*/
 
     public function add() {
         if ($this->request->is('post')) {
@@ -269,12 +261,7 @@ class UsersController extends AppController {
             $this->setErrorMessage('Cuenta de usuario eliminada: '.$this->request->data['Unsubscribe']['text']);
             return $this->redirect(array('action'=>'profile'));
         }
-    }
-    
-    public function resubscribe() {
-        
-    }
-    
+    }    
     
     
     /**
@@ -291,9 +278,7 @@ class UsersController extends AppController {
         );
         $this->Cookie->write('User', $data, true, '+2 week');
         return true;
-    }    
-    
-    
+    } 
     
     
     /**
@@ -319,7 +304,7 @@ class UsersController extends AppController {
         $OK = $code != null;
         
         if($OK) {
-            EmailsUtil::email(
+            $OK = EmailsUtil::email(
                     $user['username'], 
                     __d('user_email', 'Bienvenid@, que encuentre un buen chofer en Cuba').'!', 
                     array('confirmation_code' => $code),
@@ -470,9 +455,56 @@ class UsersController extends AppController {
     } 
     
     
-       
+    public function contact_driver($new = false){
+        if($this->Auth->loggedIn()){
+            $conversation = array('DriverTravel' => $this->request->data['DriverTravel']);
+            $message      = $this->request->data['DriverTravelerConversation']['response_text'];
+            $result       = $this->DirectMessages->send_message($conversation, $message);
+            
+            if($result['success']){
+                if($new) return $this->redirect (array('action' => 'register_welcome', $result['conversation_id']));
+                
+                $this->setInfoMessage($result['message']);
+                return $this->redirect( array('controller' => 'conversations') );
+            }
+            else $this->setErrorMessage ($result['message']);
+        }
+        
+        else if( $this->User->loginExists( $this->request->data['User']['username'] ) ){
+            if( $this->do_login() )  return $this->contact_driver ();
+            else $this->setErrorMessage( __('Verifique su contraseña e intente nuevamente.') );
+        }
+        else if( $this->do_register($this->request->data['User'], 'welcome_new', 'driver_profile_msg_form') && $this->do_login() ) {
+            EmailsUtil::email(
+                $this->request->data['User']['username'], 
+                __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
+                array(),
+                'customer_assistant', 
+                'welcome_operator_general',
+                array('lang'=>$this->request->data['User']['lang']));
+            
+            return $this->contact_driver (true);
+        }
+            
+        else
+            $this->setErrorMessage( __('Ocurrió un error registrando su usuario. Intente de nuevo.') );
+            
+        
+        return $this->redirect( $this->referer() );
+        //El redirect hace que se pierdan los datos del formulario... podria usar un query para volverlos a setear y luego enfocar el formulario
+    }
     
-    
+    // Este metodo se adiciono para evitar que se creara un nuevo mensaje directo al recargar la pagina luego de un contact_driver using $this->render('register_welcome'); 
+    public function register_welcome($conversation_id){
+        DriverTravel::prepare_direct_message($this);
+        $data = $this->DriverTravel->find('first', array('conditions' => array('DriverTravel.id' => $conversation_id)));
+        if(!$data)   throw new NotFoundException( __('ConversaciÃ³n no vÃ¡lida') );
+        
+        if($this->Auth->user('id') != $data['User']['id'])
+            throw new ForbiddenException();
+
+        $this->set('conversation', $data);
+    }
     
     /**
      * ADMINS
@@ -502,6 +534,9 @@ class UsersController extends AppController {
         
         
     }
+    
+    
+    
 }
 
 ?>

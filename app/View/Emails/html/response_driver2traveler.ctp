@@ -1,3 +1,6 @@
+<?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('DriverTravel', 'Model')?>
+
 <?php echo Configure::read('email_message_separator')?>
 
 <?php
@@ -17,11 +20,14 @@ if(isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])) {
     
     $driver_avatar = $fullBaseUrl.'/'.str_replace('\\', '/', $driver['DriverProfile']['avatar_filepath']);
 }
+
+$travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
+( $driver_travel['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE ) ? $travel_hint .= ' '.__('para el').' '.TimeUtil::prettyDate($driver_travel['travel_date']) : $travel_hint .= ' '.$travel['origin'].' - '.$travel['destination'];
 ?>
 
 <div id="conversation-header">
     <p>
-        <?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel['origin'].' - '.$travel['destination'])?>  
+        <?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel_hint)?>
     </p>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>

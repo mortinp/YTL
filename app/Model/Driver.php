@@ -76,6 +76,11 @@ class Driver extends AppModel {
     public static function shortenName($name){
         $name = trim($name);
         
+        // Hack para manejar algunos nombres compuestos o complejos
+        if(substr($name, 0, 11) == 'Juan Carlos') return 'Juan Carlos';
+        if(substr($name, 0, 10) == 'Jorge Luis') return 'Jorge Luis';
+        if(substr($name, 0, 11) == 'Dr. Lázaro') return 'Dr. Lázaro';
+        
         // Eliminar todo despues de un espacio, ej. el apellido
         $split = str_getcsv($name, ' ');
         $name = $split[0];

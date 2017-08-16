@@ -3,7 +3,7 @@
     <?php
     echo $this->Form->input('username', array('label' => __('Tu correo electrónico'), 'type' => 'email'/*, 'id'=>'UserRegisterForm'*/));
     echo $this->Form->input('password', array('label'=> __('Contraseña'), 'placeholder'=>__('Escribe la contraseña que usarás para YoTeLlevo')));
-    echo $this->Form->checkbox('remember_me').' '.__('Recordarme');
+    //echo $this->Form->checkbox('remember_me').' '.__('Recordarme');
     echo $this->Form->input('lang', array('type' => 'hidden', 'value'=>  Configure::read('Config.language')));
     ?>
     <br/>

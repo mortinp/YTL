@@ -30,7 +30,7 @@ App::uses('Auth', 'Component');
                 echo $this->Form->input('fake_username', array('label' => __d('pending_travel', 'Tu correo electrónico'), 'value'=>$travel['PendingTravel']['email'], 'type' => 'email', 'disabled'=>true));
                 echo $this->Form->input('username', array('label' => __d('pending_travel', 'Tu correo electrónico'), 'value'=>$travel['PendingTravel']['email'], 'type' => 'hidden'));
                 echo $this->Form->input('password', array('label'=> __d('pending_travel', 'Crea una contraseña para tu cuenta'), 'placeholder'=>__d('pending_travel', 'Escribe la contraseña que usarás para YoTeLlevo'), 'autofocus'));
-                echo $this->Form->checkbox('remember_me').' '.__d('pending_travel', 'Recordarme');
+                //echo $this->Form->checkbox('remember_me').' '.__d('pending_travel', 'Recordarme');
                 
                 echo $this->Form->input('lang', array('type' => 'hidden', 'value'=>  Configure::read('Config.language')));
                 ?>

@@ -303,16 +303,18 @@ class TestimonialsController extends AppController {
         if (!$data)
             throw new NotFoundException('Conversación inválida.');
 
-        $vars['data'] = $data;
+        $vars['profile_data'] =array(
+            'driver_name'=>$data['Driver']['DriverProfile']['driver_name'],
+            'driver_code'=>$data['Driver']['DriverProfile']['driver_code']) ;
 
         $datasource = $this->TravelConversationMeta->getDataSource();
         $datasource->begin();
         
         $subject = 'Puedes agradecer a tu chofer, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', por su servicio aquí en Cuba';
-        if($data['Travel']['User']['lang'] == 'en') $subject = 'You can thank your driver, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', for his service here in Cuba';
+        if($data['User']['lang'] == 'en') $subject = 'You can thank your driver, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', for his service here in Cuba';
         
-        $to = $data['Travel']['User']['username'];
-        $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'request_testimonial', array('lang'=>$data['Travel']['User']['lang']));
+        $to = $data['User']['username'];
+        $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'request_testimonial', array('lang'=>$data['User']['lang']));
         if ($OK) {
             $this->TravelConversationMeta->id = $conversationId;
             $OK = $this->TravelConversationMeta->saveField('testimonial_requested', true);

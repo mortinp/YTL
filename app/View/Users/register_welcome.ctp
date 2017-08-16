@@ -5,11 +5,19 @@
             <h2><?php echo __('Bienvenido a <em>YoTeLlevo</em>')?> <div><small class="text-muted"><?php echo __('¡Qué bueno tenerte a bordo!')?></small></div></h2>
             
             <br/>            
-            <?php if(isset ($travel)):?>
+            <?php if(isset ($travel) || isset ($conversation)):?>
                 <?php echo __('Creaste una solicitud de viaje con los siguientes datos')?>:
                 <br/>
                 <br/>
-                <?php echo $this->element('travel', array('travel'=>$travel))?>
+                <?php if( isset($travel) ):?> 
+                    <?php echo $this->element('travel', array('travel'=>$travel));?>
+                <?php else:?>
+                    <?php echo $this->element('direct_message', array('data'=>$conversation, 'show_message' => true, 'show_perfil' => false));?>
+                    <div>
+                        <br/>
+                        <?php echo $this->Form->button(__('Ver mis mensajes'), array('controller'=>'conversations', 'class'=>'btn-success'), true)?>
+                    </div>
+                <?php endif?>
             <?php else:?>
                 <h3>
                     <?php echo __('Ya puedes crear tu primer anuncio de viaje')?>: 
@@ -17,7 +25,7 @@
                 </h3>
             <?php endif?>
             
-            <br/> 
+            <!--<br/> 
             <hr/>
             
             <p>                
@@ -25,7 +33,7 @@
             </p>
             
             <?php echo $this->element('email_sent_tips', array('link'=>$this->Html->link('<i class="glyphicon glyphicon-ok"></i> '.__('Enviar correo de verificación'), array('controller'=>'users', 'action'=>'send_confirm_email'), array('escape'=>false))))?>
-                        
+            -->          
         </div>
     </div>
     

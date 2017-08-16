@@ -26,6 +26,12 @@ msgstr "Hi, I'm your assistant from YoTeLlevo"
 msgid "Nuevo Anuncio de Viaje"
 msgstr "New Travel Request"
 
+#: Controller/Component/TravelLogicComponent.php:96
+msgid "Mensaje Directo"
+msgstr "Direct Message"
+
+
+
 #: View/Elements/welcome_tips.ctp:2
 msgid "La comunicación directa con los posibles choferes de tu taxi es una buena oportunidad para aprovechar y detallar algunas cuestiones que quizás te interesen"
 msgstr "The direct communication with the drivers is a good chance to detail a few things that might interest you"

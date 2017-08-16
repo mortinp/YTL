@@ -1,4 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('DriverTravel', 'Model')?>
 
 <?php $driver_name = 'chofer'?>
 <?php if($data['Driver']['driver_name'] != null) $driver_name = $data['Driver']['driver_name']?>
@@ -11,7 +12,13 @@
 <ul>
     <?php foreach ($data['Travel'] as $travel):?>
     <li>
-        #<?php echo $travel['travel_id']?> (<?php echo $travel['travel_origin']?> - <?php echo $travel['travel_destination']?>) con fecha de inicio <?php echo TimeUtil::prettyDate($travel['travel_date'])?>
+        <?php if($travel['notification_type'] != DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE): ?>
+            #<?php echo $travel['travel_id']?> (<?php echo $travel['travel_origin']?> - <?php echo $travel['travel_destination']?>) con fecha de inicio <?php echo TimeUtil::prettyDate($travel['travel_date'])?>
+        <?php else: ?>
+            Mensaje directo #D<?php echo $travel['identifier']?> con fecha de inicio <?php echo TimeUtil::prettyDate($travel['driver_travel_date'])?>
+        <?php endif; ?>
+        
+        
     </li>
     <?php endforeach?>
 </ul>

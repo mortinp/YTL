@@ -4,13 +4,6 @@ App::uses('Travel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('EmailsUtil', 'Util');
 
-// TODO: Me parece que estas 4 inclusiones de abajo no se usan ya (BORRAR)
-/*App::uses('ComponentCollection', 'Controller');
-App::uses('Controller', 'Controller');
-App::uses('TravelLogicComponent', 'Controller/Component');
-App::uses('LocalityRouterComponent', 'Controller/Component');*/
-
-//require_once("PlancakeEmailParser.php");
 require_once ("helper/mailReader.php");
 //require_once ("Config/email.php");
 
@@ -37,8 +30,6 @@ class IncomingMailShell extends AppShell {
         $fd = fopen('php://stdin','r');
         while(!feof($fd)){ $raw .= fread($fd,1024); }
         
-        //CakeLog::write('emails_raw', utf8_encode($raw));
-        //CakeLog::write('emails_raw', "<span style='color:blue'>--------------------------------------------------------------------------------------------------</span>\n\n");
         
         $parser = new mailReader();
         //$parser->debug = true;
@@ -60,40 +51,26 @@ class IncomingMailShell extends AppShell {
         $body = /*h(*/$parser->body/*)*/; // h() para escapar los caracteres html
         
         if($to === 'chofer@'.Configure::read('domain_name')) { 
-            //CakeLog::write('conversations', 'Conversation Started by Traveler: '.$sender);
-            /*if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
-                CakeLog::write('conversations', 'Attachments:');
-                foreach ($parser->attachments as $filename=>$value) {
-                    CakeLog::write('conversations', $filename);
-                }
-            }*/
-            
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                //CakeLog::write('conversations', 'Split Conversation:'.$conversation);
-                
                 $this->Driver->attachProfile($this->DriverTravel); // Esto es para poder coger el nombre de chofer
                 
                 $driverTravel = $this->DriverTravel->findById($conversation);
-                
-                //print_r($driverTravel);
                 
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
                             $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
                         $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
                     else $deliverTo = $driverTravel['Driver']['username'];
-                    
-                    //CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
 
                     $datasource = $this->DriverTravelerConversation->getDataSource();
                     $datasource->begin();
                     
                     
-                    $fixedBody = $this->fixEmailBody($this->removeAllEmailAddresses($body));
+                    $fixedBody = EmailsUtil::fixEmailBody(EmailsUtil::removeAllEmailAddresses($body));
 
                     $OK = $this->DriverTravelerConversation->save(array(
                         'conversation_id'=>$conversation,
@@ -114,7 +91,9 @@ class IncomingMailShell extends AppShell {
                         $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
                         ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             $deliverTo,
-                            array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName),
+                            //array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName),
+                            array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
+                                  'driver_travel'=>$driverTravel['DriverTravel']),
                             array(
                                 'template'=>'response_traveler2driver',
                                 'format'=>'html',
@@ -185,34 +164,19 @@ class IncomingMailShell extends AppShell {
                 }
             }
             
-            //CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
-            
         }  else if($to === 'viajero@'.Configure::read('domain_name') || $to === 'viaje@'.Configure::read('domain_name')) {
-            //CakeLog::write('conversations', 'Conversation Started by Driver: '.$sender);
-            /*if($parser->attachments != null && is_array($parser->attachments) && !empty ($parser->attachments)) {
-                CakeLog::write('conversations', 'Attachments:');
-                foreach ($parser->attachments as $filename=>$value) {
-                    CakeLog::write('conversations', $filename);
-                }
-            }*/
             
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                //CakeLog::write('conversations', 'Split Conversation:'.$conversation);
-                
                 $this->DriverTravel->recursive = 2;
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
                 $driverTravel = $this->DriverTravel->findById($conversation);
                 
-                //print_r($driverTravel['Driver']) ;
-                
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
-                    $deliverTo = $driverTravel['Travel']['User']['username'];
-                    
-                    //CakeLog::write('conversations', 'Deliver To:'.$deliverTo);
+                    $deliverTo = $driverTravel['User']['username'];
 
                     $datasource = $this->DriverTravelerConversation->getDataSource();
                     $datasource->begin();
@@ -234,10 +198,10 @@ class IncomingMailShell extends AppShell {
                     }
                     
                     // Poner el lenguaje para que todo se traduzca bien de aquí para abajo
-                    if(isset ($driverTravel['Travel']['User']['lang']) && $driverTravel['Travel']['User']['lang'] != null)
-                        Configure::write('Config.language', $driverTravel['Travel']['User']['lang']);
+                    if(isset ($driverTravel['User']['lang']) && $driverTravel['User']['lang'] != null)
+                        Configure::write('Config.language', $driverTravel['User']['lang']);
                     
-                    $fixedBody = $this->fixEmailBody($this->removeAllUrls($this->removeAllEmailAddresses($body)));
+                    $fixedBody = EmailsUtil::fixEmailBody(EmailsUtil::removeAllUrls(EmailsUtil::removeAllEmailAddresses($body)));
                     
                     if($OK) $OK = $this->DriverTravelerConversation->save(array(
                         'conversation_id'=>$conversation,
@@ -278,7 +242,8 @@ class IncomingMailShell extends AppShell {
                         $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
                         ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             $deliverTo,
-                            array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel']),
+                            array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel'], 
+                                  'driver_travel'=>$driverTravel['DriverTravel']),
                             array(
                                 'layout'=>$layout,
                                 'template'=>$template,
@@ -286,7 +251,8 @@ class IncomingMailShell extends AppShell {
                                 'subject'=>$subject,
                                 'config'=>'chofer',
                                 'attachments'=>$parser->attachments,
-                                'lang'=>$driverTravel['Travel']['User']['lang'],
+                                //'lang'=>$driverTravel['Travel']['User']['lang'],
+                                'lang'=>$driverTravel['User']['lang'],
                                 'from_name'=>$fromName,
                                 'from_email'=>$fromEmail),
                             $returnData
@@ -336,16 +302,13 @@ class IncomingMailShell extends AppShell {
                 );
             }
             
-            //CakeLog::write('conversations', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
+            
         } else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
-            //CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION RECEIVED------------------------------</span>\n\n");
             
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
                 $conversation = $matches[1];
                 $this->out($conversation);
-                
-                //CakeLog::write('travel_confirmations', "CONFIRMATION RECEIVED - from $sender, parsed conversation: ".$conversation."\n\n");
                 
                 $meta = $this->TravelConversationMeta->findByConversationId($conversation);
                 
@@ -355,10 +318,7 @@ class IncomingMailShell extends AppShell {
                 }// no hacer nada si no existe la conversacion
                 
                 $newMessage = trim($body);
-                //CakeLog::write('travel_confirmations', "Message: ".$newMessage."\n\n");
-                //CakeLog::write('travel_confirmations', "Starting to cut message\n\n");
                 if(strpos($newMessage, '**********')) $newMessage = substr($newMessage, 0, strpos($newMessage, '**********'));
-                //CakeLog::write('travel_confirmations', "Cut Message: ".$newMessage."\n\n");
                 
                 // Verificar si ya se habia recibido otra confirmacion anterior de esta misma conversacion; agregarle el nuevo texto en caso de que sí.
                 if(isset ($meta['TravelConversationMeta']['received_confirmation_details']) && $meta['TravelConversationMeta']['received_confirmation_details'] != null)
@@ -366,15 +326,12 @@ class IncomingMailShell extends AppShell {
                         $meta['TravelConversationMeta']['received_confirmation_details'].
                         "\r\n\r\n (...)\r\n\r\n".
                         $newMessage;
-                //CakeLog::write('travel_confirmations', "Fixed Message: ".$newMessage."\n\n");
                 
                 $meta = array('TravelConversationMeta'=>array(
                     'conversation_id'=>$conversation, 
                     'received_confirmation_details'=>$newMessage, 
                     'received_confirmation_type'=>'K'/*Unknown*/,
                     'asked_confirmation'=>true));
-                
-                //CakeLog::write('travel_confirmations', "Dataset ready to be saved\n\n");
                 
                 if(!$this->TravelConversationMeta->save($meta)) {
                     CakeLog::write('travel_confirmations', "Error saving data on DB\n\n");
@@ -385,7 +342,6 @@ class IncomingMailShell extends AppShell {
                 CakeLog::write('travel_confirmations', "Error parsing conversation in subject $subject\n\n");
             }
             
-            //CakeLog::write('travel_confirmations', "<span style='color:blue'>------------------------CONFIRMATION ENDED------------------------------</span>\n\n");
         } else if($to === 'info-chofer@'.Configure::read('domain_name')) {
             $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
             $driver = $this->Driver->findByUsername($sender);
@@ -411,142 +367,6 @@ class IncomingMailShell extends AppShell {
         }      
     }
     
-    
-    public function fixEmailBody($body) {
-        $fixedBody = $body;
-        
-        // Remove the avatars
-        $replacement = '['.__d('conversation', 'imagen borrada').']';
-        $fixedBody = $this->removeTag($fixedBody,'driver-avatar','<img','/>', $replacement);
-        
-        // Remove the footer
-        $fixedBody = $this->removeTag($fixedBody,'email-salute','<div','/div>');
-        
-        // Remove the social links
-        $fixedBody = $this->removeTag($fixedBody,'social-link','<a','/a>');
-        
-        return $fixedBody;
-    }
-    
-    public function removeAllEmailAddresses($text) {
-        $fixedText = $text;
-        
-        $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
-        $replacement = '['.__d('conversation', 'correo borrado').']';
-        $fixedText = preg_replace($emailpattern, $replacement, $fixedText);
-        
-        return $fixedText;
-    }
-    
-    public function removeAllUrls($text) {
-        $fixedText = $text;
-        
-        $urlpattern = "!\b(((ht|f)tp(s?))\://)?(www.|[a-z].)[a-z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cu)(\:[0-9]+)*(/($|[a-z0-9\.\,\;\?\\'\\\\\+&amp;%\$#\=~_\-]+))*\b!i";
-        $replacement = '['.__d('conversation', 'url borrada').']';
-        //$fixedText = preg_replace($urlpattern, $replacement, $fixedText);
-        $fixedText = preg_replace_callback(
-                $urlpattern, 
-                function ($match) {
-                    if(strpos($match[0], 'yotellevocuba.com') === 0 || strpos($match[0], 'yotellevocuba.com')) return $match[0];
-                    return '['.__d('conversation', 'url borrada').']';
-                }, 
-                $fixedText);
-        
-        return $fixedText;
-    }
-    
-    
-    //str - string to search 
-    //id - text to search for
-    //start_tag - start delimiter to remove
-    //end_tag - end delimiter to remove
-    function removeTag($str, $id, $start_tag, $end_tag, $replacement = '') { // Source: http://www.katcode.com/php-html-parsing-extracting-and-removing-html-tag-of-specific-class-from-string/
-        //find position of tag identifier. loops until all instance of text removed
-        while(($pos_srch = strpos($str,$id))!==false) {
-            //get text before identifier
-            $beg = substr($str,0,$pos_srch);
-            //get position of start tag
-            $pos_start_tag = strrpos($beg,$start_tag);
-            //echo 'start: '.$pos_start_tag.'<br>';
-            //extract text up to but not including start tag
-            $beg = substr($beg,0,$pos_start_tag);
-            //echo "beg: ".$beg."<br>";
-
-            //get text from identifier and on
-            $end = substr($str,$pos_srch);
-
-            //get length of end tag
-            $end_tag_len = strlen($end_tag);
-            //find position of end tag
-            $pos_end_tag = strpos($end,$end_tag);
-            //extract after end tag and on
-            $end = substr($end,$pos_end_tag+$end_tag_len);
-
-            $str = $beg.$replacement.$end;
-        }
-
-        //return processed string
-        return $str;
-    } 
-    
-    function removeTag1($str, $id, $start_tag, $end_tag, $replacement = '') {
-        //find position of tag identifier. loops until all instance of text removed
-        while(($pos_srch = strpos($str,$id)) !== false) {
-            //get text before identifier
-            $beg = substr($str, 0, $pos_srch);
-            //get position of start tag
-            $pos_start_tag = strrpos($beg, $start_tag);
-            //extract text up to but not including start tag
-            $beg = substr($beg, 0, $pos_start_tag);
-            //echo “beg: “.$beg.”";
-            //get text from identifier and on
-            $end = substr($str, $pos_srch);
-            //get length of end tag
-            $end_tag_len = strlen($end_tag);
-            //find the first position of end tag
-            $pos_end_tag = strpos($end, $end_tag);
-            //compare the number of start tags and end tags within the current end tag pointed to
-            //there should be equal number of start tags and end tags (considering children of same tag)
-            while (substr_count(substr($end, 0, $pos_end_tag), $start_tag) < substr_count(substr($end, 0, $pos_end_tag), $end_tag)) {
-                //find position of next end tag
-                $pos_end_tag = strpos($end, $end_tag, $pos_end_tag);
-            }
-            //extract after end tag and on
-            $end = substr($end, $pos_end_tag + $end_tag_len);
-            $str = $beg.$replacement.$end;
-        }
-        //return processed string
-        return $str;
-    }
-
-    
-    //str - string to search
-    //id - text to search for
-    //start_tag - start delimiter
-    //end_tag - end delimiter
-    function extractTag($str, $id, $start_tag, $end_tag) { // Source: http://www.katcode.com/php-html-parsing-extracting-and-removing-html-tag-of-specific-class-from-string/
-         if($id) {
-             $pos_srch = strpos($str,$id);
-             //extract string up to id value
-             $beg = substr($str,0,$pos_srch);
-
-             //get position of start delimiter
-             $pos_start_tag = strrpos($beg,$start_tag);
-         }
-         else
-            $pos_start_tag = strpos($str,$start_tag); //if no id value get first tag found
-
-         //get position of end delimiter
-         $pos_end_tag = strpos($str,$end_tag,$pos_start_tag);
-         //length of end deilimter
-         $end_tag_len = strlen($end_tag);
-         //length of string to extract
-         $len = ($pos_end_tag+$end_tag_len)-$pos_start_tag;
-         //Extract the tag
-         $tag = substr($str,$pos_start_tag,$len);
-
-         return $tag;
-    }
 }
 
 ?>

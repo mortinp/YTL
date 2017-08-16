@@ -1,4 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('DriverTravel', 'Model')?>
 
 <?php 
 if(!isset($showComments)) $showComments = true;
@@ -8,6 +9,8 @@ if(isset ($conversation['DriverTravel']))
 else $thread = $conversation;
 
 $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation['TravelConversationMeta'] != null && !empty ($conversation['TravelConversationMeta']) && strlen(implode($conversation['TravelConversationMeta'])) != 0);
+
+$travelDate = DriverTravel::extractDate($conversation);
 ?>
 
 <?php
@@ -71,9 +74,9 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 
             <?php if(!$conversation['TravelConversationMeta']['archived'] && 
                         ( 
-                            (isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($conversation['Travel']['date'])))
+                            (isset ($conversation['Travel']) && TimeUtil::wasBefore('60 days', strtotime($travelDate)))
                         ||
-                            (isset ($conversation['Travel']) && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($conversation['Travel']['date'])))
+                            (isset ($conversation['Travel']) && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($travelDate)))
                         ) 
                     ):?>
                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>

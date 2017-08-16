@@ -2,10 +2,12 @@
 
 App::uses('DriverTravel', 'Model');
 App::uses('DriverTravelerConversation', 'Model');
+App::uses('TimeUtil', 'Util');
 
 class DriverTravelsController extends AppController {
     
-    public $uses = array('DriverTravel', 'Travel', 'Driver');
+    //public $uses = array('DriverTravel', 'Travel', 'Driver');
+    public $uses = array('DriverTravel', 'Travel', 'Driver', 'DriverTravelerConversation');
     
     public function isAuthorized($user) {
         if ($this->action ==='index') {
@@ -24,7 +26,7 @@ class DriverTravelsController extends AppController {
         $order = array('Travel.id'=>'DESC', 'Driver.id');
         
         // Las conversaciones del usuario logueado y que al menos tengan 1 mensaje
-        $conditions = array('Travel.user_id' => $this->Auth->user('id'), 'DriverTravel.message_count >' =>0);
+        $conditions = array('DriverTravel.user_id' => $this->Auth->user('id'), 'DriverTravel.message_count >' =>0);
         
         
         $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions, 'order'=>$order));
@@ -34,7 +36,6 @@ class DriverTravelsController extends AppController {
     public function view_filtered($filter = 'all') {
         $this->DriverTravel->recursive = 2;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
-        $this->paginate = array('order'=>array('Travel.date'=>'DESC'));
         $conditions = array();
         
         if($filter == DriverTravel::$SEARCH_NEW_MESSAGES) {
@@ -55,23 +56,27 @@ class DriverTravelsController extends AppController {
                     'DriverTravel.message_count > TravelConversationMeta.read_entry_count'
                 ))
             );
-            $this->paginate = array('order'=>array('Travel.date'=>'ASC'));
+            //$this->paginate = array('order'=>array('Travel.date'=>'ASC'));
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'));
                     
         } else if($filter == DriverTravel::$SEARCH_FOLLOWING) {
-            $this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
+            //$this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'), 'limit'=>50);
             $conditions['TravelConversationMeta.following'] = true;
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_DONE) {
-            $this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>100);// Paginacion grande para ver todos los viajes realizados y hacer resumenes de cobros de comisiones facilmente sin tener que cambiar de paginas
+            //$this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>100);// Paginacion grande para ver todos los viajes realizados y hacer resumenes de cobros de comisiones facilmente sin tener que cambiar de paginas
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'DESC'), 'limit'=>100);// Paginacion grande para ver todos los viajes realizados y hacer resumenes de cobros de comisiones facilmente sin tener que cambiar de paginas
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_DONE;
             $conditions['TravelConversationMeta.archived'] = 0; //Que no este archivado
         } else if($filter == DriverTravel::$SEARCH_PAID) {
-            $this->paginate = array('order'=>array('Travel.date'=>'DESC'), 'limit'=>50);
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'DESC'), 'limit'=>50);
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_PAID;
         } else if($filter == DriverTravel::$SEARCH_PINNED) {
-            $this->paginate = array('order'=>array('Travel.date'=>'ASC'), 'limit'=>50);
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'), 'limit'=>50);
             $conditions['TravelConversationMeta.flag_type !='] = null;
         } else if($filter == DriverTravel::$SEARCH_ARCHIVED) {
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'));
             $conditions['TravelConversationMeta.archived'] = 1;
         }
         
@@ -79,9 +84,56 @@ class DriverTravelsController extends AppController {
             $this->DriverTravel->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'C')); // Restringir ver conversaciones
         
         $driver_travels = $this->paginate($conditions);
+        
         $this->set('filter_applied', $filter);
         $this->set('driver_travels', $driver_travels);
         $this->render('all');
+    }
+    
+    public function change_date($id) {
+        $this->DriverTravel->create(false); // se pasa false para evitar que se carguen los valores por defecto, esto evita que se sobreescriba el notification_type = D 
+        $this->DriverTravel->id = $id;
+        if(!$this->DriverTravel->exists()) throw new NotFoundException();
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->DriverTravel->order = null;
+            $conversation = $this->DriverTravel->find('first', array('conditions' => array('DriverTravel.id' => $id), 'recursive' => -1));
+            
+            if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
+                $OK = $this->DriverTravel->save($this->request->data, false);
+            else{        
+                $travel = array('Travel' => array('id' => $conversation['DriverTravel']['travel_id']));
+                $driver_travel = array();
+                if( isset($this->request->data['DriverTravel']['travel_date']) ){
+                    $travel['Travel']['date']     = $this->request->data['DriverTravel']['travel_date'];
+                    $driver_travel['travel_date'] = "'".TimeUtil::dmY_to_Ymd($this->request->data['DriverTravel']['travel_date'])."'";
+                }    
+                
+                if( isset($this->request->data['DriverTravel']['original_date']) ){
+                    $travel['Travel']['original_date'] = $this->request->data['DriverTravel']['original_date'];
+                    $driver_travel['original_date']    = "'".$this->request->data['DriverTravel']['original_date']."'";
+                }    
+                
+                $datasource = $this->DriverTravel->getDataSource();
+                $datasource->begin();
+                
+                $OK = $this->Travel->save($travel, false);
+                
+                if($OK){
+                    $this->DriverTravel->unbindModel(array('belongsTo' => array('Driver', 'Travel', 'User'),
+                                                           'hasOne'    => array('TravelConversationMeta')));
+                    $OK = $OK && $this->DriverTravel->updateAll($driver_travel, array('DriverTravel.travel_id' => $travel['Travel']['id']));
+                }
+                
+                if($OK)  $datasource->commit();
+                else{
+                    $datasource->rollback();
+                    $this->setErrorMessage('OcurriÃ³ un error actualizando esta conversaciÃ³n');
+                }
+            }
+            
+            return $this->redirect($this->referer());
+        } else throw new MethodNotAllowedException();
     }
 }
 

@@ -1,12 +1,16 @@
+<?php app::uses('TimeUtil', 'Util'); ?>
+<?php App::uses('DriverTravel', 'Model')?>
+
 <?php 
 $hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);
 
 $now = new DateTime(date('Y-m-d', time()));
 
-$date_converted = strtotime($data['Travel']['date']);
+$travelDate = DriverTravel::extractDate($data);
+$date_converted = strtotime($travelDate);
 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
 if($expired) {
-    $daysExpired = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
+    $daysExpired = $now->diff(new DateTime($travelDate), true)->format('%a');
 }
 
 $hasMessages = count($conversations) > 0;
@@ -15,7 +19,7 @@ if($hasMessages) {
     $daysLastMessage = $now->diff(new DateTime($lastMessage['created']), true)->format('%a');
 }
 
-$daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a');
+$daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
 ?>          
 
 <div class="control-panel">
@@ -150,10 +154,10 @@ $daysToGo = $now->diff(new DateTime($data['Travel']['date']), true)->format('%a'
 
         <div class="btn-wrapper">
             <!-- TRAVEL DATE -->
-            <?php $fechaCambiada = isset ($data['Travel']['original_date']) && $data['Travel']['original_date'] != null;?>
+            <?php $fechaCambiada = isset ($data['DriverTravel']['original_date']) && $data['DriverTravel']['original_date'] != null;?>
             <span class="alert alert-success" style="display: inline-block; margin-bottom: 0px">
-                <b><?php echo TimeUtil::prettyDate($data['Travel']['date'])?></b>
-                <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($data['Travel']['date'])))?>
+                <b><?php echo TimeUtil::prettyDate($travelDate)?></b>
+                <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
             </span>
         </div>
     </div>

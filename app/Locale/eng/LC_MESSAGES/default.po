@@ -26,6 +26,10 @@ msgstr "<div class="alert alert-danger alert-dismissable" style="text-align: cen
 msgid "Ocurrió un error confirmando el viaje. Intenta de nuevo."
 msgstr "Error confirming travel. Try again."
 
+#: Controller/Component/TravelLogicComponent.php:65
+msgid "Verifique su contraseña e intente nuevamente."
+msgstr "Check your password and try again."
+
 #: Controller/Component/TravelLogicComponent.php:69
 msgid "No hay choferes para atender este viaje. Intente confirmarlo más tarde."
 msgstr "No drivers to do this travel. Try confirming later."
@@ -91,7 +95,7 @@ msgid "Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escri
 msgstr "There is an account with this email already in <em>YoTeLlevo</em>. Type a different email or <a href="%s">login with yours</a>"
 
 #: Controller/UsersController.php:85
-msgid "Ocurrió un error registrando su usuario. Intente de nuevo"
+msgid "Ocurrió un error registrando su usuario. Intente de nuevo."
 msgstr "An error occured registering your user. Try again."
 
 #: Controller/DriversController.php:124
@@ -280,7 +284,11 @@ msgstr "Sign up and contact drivers now"
 
 #: View/Elements/travel.ctp:57
 msgid "Fecha del viaje"
-msgstr "Travel Date"
+msgstr "Travel date"
+
+#: View/Elements/travel.ctp:57
+msgid "Fecha inicial del viaje"
+msgstr "Starting date of the travel"
 
 #: View/Elements/travel.ctp:57
 msgid "Fecha original"
@@ -290,7 +298,11 @@ msgstr "Original date"
 #: View/Elements/travel_by_email.ctp:16
 #: View/Elements/travel_form.ctp:62
 msgid "Detalles del viaje"
-msgstr "Travel Details"
+msgstr "Travel details"
+
+#: View/Elements/travel_form.ctp:62
+msgid "Cualquier detalle que quieras explicarle a %s"
+msgstr "Any details you'd like to explain to %s"
 
 #: View/Elements/travel.ctp:62
 #: View/Elements/travel_by_email.ctp:18
@@ -368,10 +380,6 @@ msgstr "Travel Origin"
 #: View/Elements/travel_form.ctp:59
 msgid "Destino del Viaje"
 msgstr "Travel Destination"
-
-#: View/Elements/travel_form.ctp:60
-msgid "Fecha del viaje"
-msgstr "Travel Date"
 
 #: View/Elements/travel_form.ctp:61
 msgid "Personas que viajan <small class=\"text-info\">(máximo número de personas)</small>"
@@ -835,6 +843,14 @@ msgid "Tienes %s conversaciones en %s solicitudes de viajes"
 msgstr "You have %s conversations in %s travel requests"
 
 #: View/DriverTravel/index.ctp: oko
+msgid "Tienes %s conversaciones directas"
+msgstr "You have %s direct conversations"
+
+#: View/DriverTravel/index.ctp: oko
+msgid "Tienes %s conversaciones en %s solicitudes de viajes y %s conversaciones directas"
+msgstr "You have %s conversations in %s travel requests and %s direct conversations"
+
+#: View/DriverTravel/index.ctp: oko
 msgid "Aún no tienes mensajes con ningún chofer."
 msgstr "You don't have messages with any driver yet."
 
@@ -893,6 +909,34 @@ msgstr "See some pictures of %s"
 #: View/Travel/view.ctp: oko
 msgid "También puedes verlos desde el botón %s en el menú de arriba"
 msgstr "You can also read them by clicking the button %s on the top menu"
+
+#: View/Travel/view.ctp: oko
+msgid "Enviar este mensaje a %s"
+msgstr "Send this message to %s"
+
+#: View/Travel/view.ctp: oko
+msgid "Otras conversaciones"
+msgstr "Other conversations"
+
+#: View/Travel/view.ctp: oko
+msgid "Solicitud directa a %s"
+msgstr "Direct request to %s"
+
+#: View/Travel/view.ctp: oko
+msgid "Ver mis mensajes"
+msgstr "See my messages"
+
+#: View/Travel/view.ctp: oko
+msgid "Mensaje enviado"
+msgstr "Message sent"
+
+#: View/Travel/view.ctp: oko
+msgid "Esperando respuesta del chofer..."
+msgstr "Waiting a reply from the driver..."
+
+#: View/Travel/view.ctp: oko
+msgid "Su mensaje fue enviado satisfactoriamente"
+msgstr "Your message was sent successfully"
 
 
 

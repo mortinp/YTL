@@ -24,7 +24,7 @@ $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation
         <img src="" class="info" title="No hay avatar para este chofer" style="max-height: 20px; max-width: 20px"/>
     <?php endif;?>
     
-    <?php echo $this->Html->link(__('Ver conversación con %s', $conversation['Driver']['DriverProfile']['driver_name'] ), array('controller'=>'conversations', 'action'=>'messages/'.$thread['id']));?>
+    <?php echo $this->Html->link(__('Ver conversación con %s', '<code><big>'.$conversation['Driver']['DriverProfile']['driver_name'].'</big></code>' ), array('controller'=>'conversations', 'action'=>'messages/'.$thread['id']), array('escape'=>false));?>
         
     <!-- CANTIDAD TOTAL DE MENSAJES --> 
     <?php if($thread['message_count'] > 0): // Respondido ?> 

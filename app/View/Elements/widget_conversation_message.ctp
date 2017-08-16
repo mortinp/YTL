@@ -1,3 +1,5 @@
+<?php app::uses('TimeUtil', 'Util'); ?>
+
 <?php $messageId = 'message-'.$message['id']?>
         
 <?php
@@ -19,7 +21,11 @@ if($message['response_by'] == 'driver') {
     $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
     ?>
     <div>
-        <b><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo __('%s el %s, hace %s días', $label, TimeUtil::prettyDate($message['created']),$daysPosted )?></a></b>
+        <span class="text-muted"><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo __('%s el %s, hace %s días', '<b>'.$label.'</b>', '<b>'.TimeUtil::prettyDate($message['created'], false).'</b>', $daysPosted )?></a></span>
+        
+        <?php if(in_array($userRole, array('admin', 'operator')) && $message['read_by']):?>
+            <small><code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?> <?php if($message['date_read'] != null) echo 'el '.TimeUtil::prettyDate($message['date_read'], false)?></code></small>
+        <?php endif?>
     </div>
     <br/>
     

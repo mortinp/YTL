@@ -177,6 +177,8 @@ if($userLoggedIn) {
                                                 <ul class="dropdown-menu">
                                                     <li><?php echo $this->Html->link('Solicitar viaje', array('controller' => 'travels', 'action' => 'add'));?></li> 
                                                     <li><?php echo $this->Html->link('Mis Anuncios', array('controller' => 'travels', 'action' => 'index'));?></li>
+                                                    <li class="divider"></li>
+                                                    <li><?php echo $this->Html->link('Mis Mensajes', array('controller' => 'conversations'));?></li>
                                                 </ul>
                                             </li>
                                         </ul>
