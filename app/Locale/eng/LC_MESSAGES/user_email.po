@@ -23,12 +23,12 @@ msgid "Hola, soy su asistente de YoTeLlevo"
 msgstr "Hi, I'm your assistant from YoTeLlevo"
 
 #: Controller/Component/TravelLogicComponent.php:96
-msgid "Nuevo Anuncio de Viaje"
-msgstr "New Travel Request"
+msgid "Solicitud de viaje"
+msgstr "Travel request"
 
 #: Controller/Component/TravelLogicComponent.php:96
-msgid "Mensaje Directo"
-msgstr "Direct Message"
+msgid "Solicitud directa"
+msgstr "Direct request"
 
 
 

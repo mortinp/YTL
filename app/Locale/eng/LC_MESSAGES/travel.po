@@ -38,3 +38,38 @@ msgstr "Confirmed"
 msgid "Expirado"
 msgstr "Expired"
 
+#: Model/Travel.php:124
+msgid "Origen del viaje"
+msgstr "Travel origin"
+
+#: Model/Travel.php:124
+msgid "Destino del viaje"
+msgstr "Travel destination"
+
+#: Model/Travel.php:124
+msgid "Fecha del viaje"
+msgstr "Travel date"
+
+#: Model/Travel.php:124
+msgid "Detalles del viaje"
+msgstr "Travel details"
+
+#: Model/Travel.php:124
+msgid "Enviar solicitud ahora"
+msgstr "Send request now"
+
+#: Model/Travel.php:124
+msgid "Contacta con %s choferes. Escoge uno para tu viaje."
+msgstr "Contact %s drivers. Choose one for your travel."
+
+#: Model/Travel.php:124
+msgid "¿Qué pasa cuando creas una solicitud de viaje?"
+msgstr "What happens when you create a travel request?"
+
+#: Model/Travel.php:124
+msgid "Enviaremos los detalles de la solicitud a %s de nuestros choferes y ellos responderán con sus ofertas de precio."
+msgstr "We will send the details of your request to %s of our drivers and they will reply with their price offers."
+
+#: Model/Travel.php:124
+msgid "Usted podrá acordar todos los detalles con alguno de ellos según su preferencia, y mantener la comunicación mientras lo arreglan todo."
+msgstr "You will be able to arrange all the details with one of them if you prefer, and to keep communicating while you arrange everything."

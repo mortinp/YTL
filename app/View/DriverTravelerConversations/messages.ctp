@@ -17,8 +17,8 @@
                 <img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" class="info" style="max-height: 30px; max-width: 30px"/>
             </div>
             <div style="float: left;padding-left: 10px" class="h5">
-                <?php $linkToProfile = $this->Html->link($driverName, array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile', $data['DriverTravel']['id']), array('style'=>'color:inherit', 'class'=>'info', 'title'=>__('Mira fotos de %s', $driverName), 'target'=>'_blank'))?>
-                <?php echo __('Tus mensajes con %s', '<code><big>'.$linkToProfile.'</big></code>')?>
+                <?php $linkToProfile = $this->Html->link('<code><big>'.$driverName.'</big> -'.__d('driver_profile', 'mira fotos').' »</code>', array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile', $data['DriverTravel']['id']), array('style'=>'color:inherit', 'class'=>'info', 'title'=>__('Mira fotos de %s', $driverName), 'target'=>'_blank', 'escape'=>false))?>
+                <?php echo __('Tus mensajes con %s', $linkToProfile)?>
             </div>
         <?php else:?>
             <div style="float: left;padding-left: 10px" class="h5"><?php echo __('Tus mensajes con %s', '<code><big>'.$driverName.'</big></code>')?></div>

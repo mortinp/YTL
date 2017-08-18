@@ -154,6 +154,14 @@ msgstr "These are some reviews, comments and stories from travelers who have gon
 msgid "comentario sobre %s"
 msgstr "comment about %s"
 
+#: /preview.ctp:33
+msgid "Ah, y si te interesa compartir la <b>página personal de %s</b> para que otros lo contraten, aquí está:"
+msgstr "Oh, and if you are interested in sharing <b> %s's personal page</b> so others hire him, here it is:"
+
+#: /preview.ctp:33
+msgid "Compártelo en Facebook"
+msgstr "Share it on Facebook"
+
 
 # MENSAJES
 

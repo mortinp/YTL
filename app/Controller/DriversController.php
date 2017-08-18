@@ -120,9 +120,6 @@ class DriversController extends AppController {
     public function profile($nick) {
         if(Configure::read('show_testimonials_in_profile')) $this->Driver->loadTestimonials($this->DriverProfile);
         
-        //$this->Driver->unloadProfile($this->DriverProfile);
-        
-        //$profile = $this->DriverProfile->findByDriverNick($nick);
         $profile = $this->Driver->find('first', array('conditions'=>array('DriverProfile.driver_nick'=>$nick)));
         
         if($profile != null && !empty ($profile)) {

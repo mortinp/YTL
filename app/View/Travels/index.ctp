@@ -19,12 +19,15 @@
         </div>
 
     <?php else :?>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-1">
             <p>
                 <?php echo __('No tienes ningún anuncio de viaje todavía. Crea uno ahora.')?>
             </p>
             <legend><?php echo __('Crear un anuncio de viaje')?></legend>
             <?php echo $this->element('travel_form')?>
+        </div>
+        <div class="col-md-4 ">
+            <?php echo $this->element('addon_travel_request_info'); ?>
         </div>
     <?php endif; ?>
 

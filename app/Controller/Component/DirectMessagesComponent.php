@@ -38,7 +38,7 @@
                     if( 
                         EmailsUtil::email(
                             $conversation['DriverTravel']['last_driver_email'], 
-                            __d('user_email', "Mensaje Directo")." [[{$DriverTravelModel->id}]]", 
+                            __d('user_email', "Solicitud directa")." [[{$DriverTravelModel->id}]]", 
                             $vars, 
                             'viajero', 
                             'new_direct_message') ) {

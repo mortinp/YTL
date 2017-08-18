@@ -130,3 +130,7 @@ msgstr "Right now you are in one of our drivers' profile: %s."
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Ver mis mensajes con %s"
 msgstr "See my messages with %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "mira fotos"
+msgstr "see pictures"

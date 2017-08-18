@@ -7,7 +7,6 @@
     echo $this->Form->input('lang', array('type' => 'hidden', 'value'=>  Configure::read('Config.language')));
     ?>
     <br/>
-    <br/>
     <?php echo $this->Form->submit(__('Registrarme y contactar choferes ahora'));
     ?>
 </fieldset>

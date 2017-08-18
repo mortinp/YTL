@@ -40,14 +40,16 @@
 <?php endif; ?>
     
 <p> 
-    <?php $fechaCambiada = isset ($conversation['original_date']) && $conversation['original_date'] != null;?>
-    <?php if($fechaCambiada):?>
-    <span class="badge">
-    <b><?php echo __('Fecha original')?>:</b> 
-    <span id='travel-date-label'>
-        <?php echo TimeUtil::prettyDate($conversation['original_date'])?>
-    </span>
-    </span>
+    <?php if($userLoggedIn && in_array($userRole, array('admin', 'operator'))):?>    
+        <?php $fechaCambiada = isset ($conversation['original_date']) && $conversation['original_date'] != null;?>
+        <?php if($fechaCambiada):?>
+            <span class="badge">
+            <b><?php echo __('Fecha original')?>:</b> 
+            <span id='travel-date-label'>
+                <?php echo TimeUtil::prettyDate($conversation['original_date'])?>
+            </span>
+            </span>
+        <?php endif;?>
     <?php endif;?>
 
     <b><?php echo __('Fecha del viaje')?>:</b> 

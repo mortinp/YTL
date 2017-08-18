@@ -19,6 +19,8 @@ $buttonStyle = '';
 if ($is_modal)
     $buttonStyle = 'display:inline-block;float:left';
 
+$asLink = false;
+
 $origin = '';
 $destination = '';
 if(isset ($travel) && !empty ($travel)) {
@@ -28,10 +30,12 @@ if(isset ($travel) && !empty ($travel)) {
     $destination = $travel['Travel']['destination'];
     
 } else {
-    $saveButtonText = __('Crear Anuncio');
+    $asLink = true;
+    $buttonStyle = 'font-size:18pt;white-space: normal;';
+    $saveButtonText = __d('travel', 'Enviar solicitud ahora').' <div style="font-size:12pt;padding-left:50px;padding-right:50px">'.__d('travel', 'Contacta con %s choferes. Escoge uno para tu viaje.', '<big>3</big>').'</div>';
 }
 
-$form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') > 0 && !AuthComponent::user('email_confirmed')*/;
+$form_disabled = !User::canCreateTravel();
 ?>
 
 <?php if($intent === 'add' && $form_disabled):?>
@@ -49,17 +53,17 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         <?php echo $this->Form->create('Travel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'style' => $style, 'id'=>'TravelForm'));?>
         <fieldset>
             <?php
-            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
-            echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __('Destino del Viaje'), 'required'=>true, 'value'=>$destination));
-            echo $this->Form->custom_date('date', array('label' => __('Fecha del viaje'), 'dateFormat' => 'dd/mm/yyyy'));
+            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('travel', 'Origen del viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
+            echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('travel', 'Destino del viaje'), 'required'=>true, 'value'=>$destination));
+            echo $this->Form->custom_date('date', array('label' => __d('travel', 'Fecha del viaje'), 'dateFormat' => 'dd/mm/yyyy'));
             echo $this->Form->input('people_count', array('label' => __('Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
-            echo $this->Form->input('details', array('label' => __('Detalles del viaje'), 
+            echo $this->Form->input('details', array('label' => __d('travel', 'Detalles del viaje'), 
                 'placeholder' => __('Cualquier detalle que quieras explicar')));
             echo $this->Form->checkbox_group(Travel::getPreferences(), array('header'=>__('Preferencias')));
             echo $this->Form->input('id', array('type' => 'hidden'));
 
-            $submitOptions = array('style' => $buttonStyle, 'id'=>'TravelSubmit');
-            echo $this->Form->submit(__($saveButtonText), $submitOptions);
+            $submitOptions = array('style' => $buttonStyle, 'class'=>'btn btn-block btn-primary', 'id'=>'TravelSubmit', 'escape'=>false);
+            echo $this->Form->submit(__($saveButtonText), $submitOptions, $asLink);
             if ($is_modal)
                 echo $this->Form->button(__('Cancelar'), array('id' => 'btn-cancel-travel', 'style' => 'display:inline-block'));
             ?>
@@ -138,4 +142,20 @@ echo $this->Js->writeBuffer(array('inline' => false));
         $('.twitter-typeahead').css('display', 'block');
     });
 
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function get_form( element )
+    {
+        while( element )
+        {
+            element = element.parentNode
+            if( element.tagName.toLowerCase() == "form" ) {
+                return element
+            }
+        }
+        return 0; //error: no form found in ancestors
+    }
+    //]]>
 </script>
