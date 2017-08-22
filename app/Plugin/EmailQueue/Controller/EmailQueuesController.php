@@ -15,7 +15,8 @@ class EmailQueuesController extends AppController {
     }
     
     public function index() {
-        $this->set('emails', $this->EmailQueue->find('all'));
+        $this->paginate = array('limit'=>500);
+        $this->set('emails', $this->paginate());
     }
     
     public function remove($id = null) {

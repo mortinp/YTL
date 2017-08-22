@@ -7,9 +7,11 @@ class LocalityRouterComponent extends Component {
     private static $MAX_MATCHING_OFFSET = 0.2;
     
     public function getMatch($origin, $destination) {
+        // Hay algunas localidades que tienen un separador '|'. Ej. Aeropuerto Jose Marti | La Habana... la idea es escoger solamente la parte de alante...
         $split = explode('|', $origin);
         $origin = $split[0];
                 
+        // ... lo mismo con destination
         $split = explode('|', $destination);
         $destination = $split[0];
         

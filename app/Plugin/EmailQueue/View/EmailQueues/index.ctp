@@ -1,6 +1,9 @@
 <div style="float:left;padding-right:20px"><?php echo count($emails)?> emails</div>
 <div><?php echo $this->Html->link('Eliminar enviados hace 2 semanas', array('action'=>'remove_sent'), array('confirm'=>'¿Estás seguro que quieres eliminar estos emails?'))?></div>
 
+<br/>
+<div>Páginas: <?php echo $this->Paginator->numbers();?></div>
+<br/>
 
 <table class='table table-striped table-hover'>
     <thead><th></th><th>Lang</th><th>To</th><th>Subject</th><th>Template</th><th>Template Vars</th><th>Sent</th><th>Locked</th><th>Send Tries</th><th>Send at</th></thead>

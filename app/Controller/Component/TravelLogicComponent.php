@@ -29,7 +29,7 @@ class TravelLogicComponent extends Component {
             // Obtener los operadores en un orden de prioridad (TODO: Describir la prioridad)
             $operators = $this->findOperatorsOrderedByPriority($travel);
             
-            // Encontrar el operador que va a atender el viaje, dependiendo de su tiene choferes que puedan atender el viaje o no
+            // Encontrar el operador que va a atender el viaje, dependiendo de si tiene choferes que puedan atender el viaje o no
             $result = $this->matchOperatorAndDrivers($operators, $drivers);
             if($result) {
                 $operator = $result['operator'];
@@ -48,7 +48,7 @@ class TravelLogicComponent extends Component {
                 }
                  
                 if($OK) {
-                    // Correo del asistente de viajes
+                    // Correo del asistente de viajes - NO BORRAR NADA AQUI AUNQUE ESTE COMENTAREADO
                     // Variante 1: Si el operador nunca ha atendido a este usuario, enviarle un correo de parte de este operador al usuario
                     /*$sendEmailFromAssistant = $operator[0]['user_ownership'] == 0;
                     if($sendEmailFromAssistant) {
