@@ -39,7 +39,7 @@ if (!isset($bgColor)) $bgColor = 'default';
             
             <footer><big><?php echo $intro?></big> <?php if($about):?><span class="pull-right" style="font-size: 8pt"><?php echo $about?></span><?php endif?></footer>
             <br/>
-            <span style="font-size: 12pt"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></span>
+            <span style="font-size: 11pt"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></span>
 
             <?php if ($testimonial['image_filepath']): ?>
                 <div style="max-width:640px">

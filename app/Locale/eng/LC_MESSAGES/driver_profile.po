@@ -134,3 +134,23 @@ msgstr "See my messages with %s"
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "mira fotos"
 msgstr "see pictures"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Datos rápidos sobre %s"
+msgstr "Quick facts about %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "<span class="text-muted">Vive en</span> %s"
+msgstr "<span class="text-muted">Lives in</span> %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "<span class="text-muted">Auto hasta</span> %s pax"
+msgstr "<span class="text-muted">Car up to</span> %s pax"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "<span class="text-muted">con</span> aire acondicionado"
+msgstr "<span class="text-muted">with</span> air conditioner"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "<span class="text-muted">Tiene</span> %s opiniones"
+msgstr "<span class="text-muted">Has</span> %s reviews"

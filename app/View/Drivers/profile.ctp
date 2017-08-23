@@ -8,6 +8,16 @@ $talkingToDriver = $this->Session->read('visited-driver-'.$profile['Driver']['id
 $driver_name = $profile['DriverProfile']['driver_name'];
 $driver_short_name = Driver::shortenName($driver_name);
 ?>
+
+<!-- TESTIMONIOS -->
+<?php 
+$testimonials = null;
+if(isset ($profile['Testimonial']) && !empty ($profile['Testimonial'])) $testimonials = $profile['Testimonial'];
+else if(isset ($profile['Driver']['Testimonial']) && !empty ($profile['Driver']['Testimonial'])) $testimonials = $profile['Driver']['Testimonial'];
+
+$hasTestimonials = $testimonials != null && count($testimonials) > 0;
+?>
+
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         
@@ -28,6 +38,17 @@ $driver_short_name = Driver::shortenName($driver_name);
         </div>
         <hr/>
         
+        <div>
+            <p><?php echo __d('driver_profile', 'Datos rápidos sobre %s', $driver_name)?>:</p>
+            <div><?php echo __d('driver_profile', '<span class="text-muted">Vive en</span> %s', $profile['Province']['name'])?></div>
+            <div>
+                <?php echo __d('driver_profile', '<span class="text-muted">Auto hasta</span> %s pax', $profile['Driver']['max_people_count'])?>
+                <?php if($profile['Driver']['has_air_conditioner']) echo __d('driver_profile', '<span class="text-muted">con</span> aire acondicionado')?>
+            </div>
+            <div><?php if($hasTestimonials):?><a href="#reviews"><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', count($testimonials))?></a><?php endif?></div>
+        </div>
+        <br/>
+        
         <br/>
         <div>
             <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
@@ -41,20 +62,13 @@ $driver_short_name = Driver::shortenName($driver_name);
     </div>
 </div>
 
-<!-- TESTIMONIOS -->
-<?php 
-$testimonials = null;
-if(isset ($profile['Testimonial']) && !empty ($profile['Testimonial'])) $testimonials = $profile['Testimonial'];
-else if(isset ($profile['Driver']['Testimonial']) && !empty ($profile['Driver']['Testimonial'])) $testimonials = $profile['Driver']['Testimonial'];
-?>
-<?php if($testimonials != null):?>
+<?php if($hasTestimonials):?>
 
 <div class="row">
     
-    <div class="col-md-8 col-md-offset-2">
-        <hr/>
+    <div class="col-md-8 col-md-offset-2" id="reviews">
         <span class="lead">
-            <?php echo __d('driver_profile', '%s tiene %s opiniones', Driver::shortenName($driver_name), count($testimonials))?>
+            <?php echo __d('driver_profile', '%s tiene %s opiniones', $driver_short_name, count($testimonials))?>
         </span>
         <hr/>
     </div>

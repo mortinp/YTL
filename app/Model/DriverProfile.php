@@ -6,7 +6,7 @@ class DriverProfile extends AppModel {
     
     public $belongsTo = array(
         'Driver' => array(
-            'fields'=>array('id', 'username', 'max_people_count')
+            'fields'=>array('id', 'username', 'max_people_count', 'has_air_conditioner')
         )
     );
     
