@@ -177,7 +177,7 @@ class IncomingMailShell extends AppShell {
                 
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     
-                    // Bloquear a Juan
+                    /*// Bloquear a Juan
                     if($driverTravel['Driver']['id'] == 71) {
                         $Email = new CakeEmail('super');
                         $Email->to('juandrc59@nauta.cu')
@@ -186,7 +186,7 @@ class IncomingMailShell extends AppShell {
                         
                         CakeLog::write('juan', "Mensaje de Juan bloqueado: $conversation - $body");
                         return;
-                    }
+                    }*/
                     
                     
                     $deliverTo = $driverTravel['User']['username'];
