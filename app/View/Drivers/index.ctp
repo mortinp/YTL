@@ -37,7 +37,7 @@
     <?php foreach ($drivers as $d): ?>
         <?php $hasProfile = isset($d['DriverProfile']) && !empty ($d['DriverProfile']) && $d['DriverProfile']['driver_nick'] != null?>
         
-        <tr class="<?php if(!$d['Driver']['active']) echo "danger";?>">
+        <tr class="<?php if(!$d['Driver']['active']) echo "danger";else if(!$d['Driver']['receive_requests']) echo "info"?>">
             <td>
                 <ul class="list-inline">
                     <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar', array('action'=>'edit/'.$d['Driver']['id']), array('escape'=>false))?></li>

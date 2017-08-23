@@ -125,7 +125,8 @@ class TravelLogicComponent extends Component {
         // Definir las condiciones primarias para encontrar choferes que pueden atender este viaje
         $primary_conditions = array(
             'DriverLocality.locality_id'=> $travel['Travel']['locality_id'],
-            'Driver.active'             => true
+            'Driver.active'             => true,
+            'Driver.receive_requests'   => true // Solo los choferes que esten registrados para recibir solicitudes
         );
         
         if(isset ($travel['Travel']['people_count'])) {

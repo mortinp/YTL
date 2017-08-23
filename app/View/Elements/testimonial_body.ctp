@@ -34,7 +34,12 @@ if (!isset($bgColor)) $bgColor = 'default';
                 $driver_avatar = $fullBaseUrl.'/'.str_replace('\\', '/', $driver['DriverProfile']['avatar_filepath']);
                 ?>
 
-                <?php $about = __d('testimonials', 'comentario sobre %s', '<b>'.$driver_name.'</b> <img src="'.$driver_avatar.'"class="info" title="'.$driver_name.'" style="max-width:30px"/> ')?>
+                <?php 
+                
+                if($driver['active']) $driver_hint = $this->Html->link('<b>'.$driver_name.'</b>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
+                else $driver_hint = '<b>'.$driver_name.'</b>';
+                
+                $about = __d('testimonials', 'comentario sobre %s', $driver_hint.' <img src="'.$driver_avatar.'"class="info" title="'.$driver_name.'" style="max-width:30px"/> ')?>
             <?php endif?>
             
             <footer><big><?php echo $intro?></big> <?php if($about):?><span class="pull-right" style="font-size: 8pt"><?php echo $about?></span><?php endif?></footer>

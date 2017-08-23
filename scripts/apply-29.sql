@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers` ADD  `receive_requests` BOOLEAN NOT NULL DEFAULT  '1' AFTER  `active`;

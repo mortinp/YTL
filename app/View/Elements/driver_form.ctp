@@ -50,9 +50,13 @@ else
             'options' => array('driver' => 'Chofer', 'driver_tester' => 'Chofer de Prueba')
         ));
         
-        echo $this->Form->checkbox('active').' Active';
-        
         echo $this->Form->checkbox('speaks_english').' Habla Inglés';
+        echo '<br/>';
+        echo '<br/>';
+        
+        echo $this->Form->checkbox('active').' Active';
+        echo $this->Form->checkbox('receive_requests').' Recibe solicitudes';
+        
         echo '<br/>';
         echo '<br/>';
         

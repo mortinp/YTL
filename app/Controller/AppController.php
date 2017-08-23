@@ -289,6 +289,8 @@ class AppController extends Controller {
             
             'op_action_rules.index' =>array('title'=>'Reglas Operadores'),
             
+            'search.index' =>array('title'=>'Búsqueda'),
+            
         );
         
         if(isset ($pageTitles[$key])) return $pageTitles[$key];
