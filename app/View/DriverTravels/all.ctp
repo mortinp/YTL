@@ -4,13 +4,14 @@ if(!isset($details)) $details = true;
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <h3>Conversaciones (<?php echo count($driver_travels)?>)</h3>
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
             <br/>
             <?php echo $this->element('addon_filters_for_search', array('filters_for_search'=>DriverTravel::$filtersForSearch))?>
-            
+        </div>
+        <div class="col-md-8 col-md-offset-2">
             <?php if(!empty ($driver_travels)): ?>
                 <br/>
                 <br/>

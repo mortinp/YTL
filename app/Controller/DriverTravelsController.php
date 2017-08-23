@@ -72,6 +72,9 @@ class DriverTravelsController extends AppController {
         } else if($filter == DriverTravel::$SEARCH_PAID) {
             $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'DESC'), 'limit'=>50);
             $conditions['TravelConversationMeta.state'] = DriverTravelerConversation::$STATE_TRAVEL_PAID;
+        } else if($filter == DriverTravel::$SEARCH_DIRECT_MESSAGES) {
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'DESC'), 'limit'=>50);
+            $conditions['DriverTravel.notification_type'] = DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE;
         } else if($filter == DriverTravel::$SEARCH_PINNED) {
             $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'), 'limit'=>50);
             $conditions['TravelConversationMeta.flag_type !='] = null;
