@@ -32,12 +32,9 @@ App::uses('AppController', 'Controller');
  */
 class PagesController extends AppController {
 
-    /**
-     * This controller does not use a model
-     *
-     * @var array
-     */
-    public $uses = array('Locality');
+    public $uses = array('Locality', 'Testimonial', 'Driver');
+    
+    public $components = array('Paginator');
 
     /**
      * Displays a view
@@ -70,6 +67,27 @@ class PagesController extends AppController {
         if($page === 'home' || $page === 'welcome') {
             $this->layout = 'home';
             $this->set('localities', $this->Locality->getAsSuggestions());
+            
+            // Esta es una variable que indica que el visitor ya fue introducido a nuestra plataforma, por lo cual se asume que ya conoce de que trata
+            // Se usa por ejemplo en el perfil de los choferes
+            $this->Session->write('introduced-in-website', true);
+            
+        } else if($page === 'catalog-drivers-cuba') {
+            
+            $this->Testimonial->recursive = 2;
+        
+            $this->Driver->unbindModel(array('belongsTo' => array('Province')));
+            $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
+
+            $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>20);
+            $this->Paginator->settings = $this->paginate;
+            
+            $this->set('testimonials', $this->Paginator->paginate('Testimonial', array('featured'=>true, 'lang'=>Configure::read('Config.language'))));
+            
+            // Esta es una variable que indica que el visitor ya fue introducido a nuestra plataforma, por lo cual se asume que ya conoce de que trata
+            // Se usa por ejemplo en el perfil de los choferes
+            $this->Session->write('introduced-in-website', true);
+            
         } else if($page === 'testimonials') {
             return $this->redirect(array('controller'=>'testimonials', 'action'=>'featured'));
         }

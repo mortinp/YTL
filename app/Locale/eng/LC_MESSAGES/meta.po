@@ -168,3 +168,7 @@ msgstr "Pending Request"
 #: View/Users/register_welcome.ctp:19
 msgid "Bienvenida"
 msgstr "Welcome"
+
+#: View/Users/register_welcome.ctp:19
+msgid "Choferes en Cuba: fotos y testimonios de viajeros"
+msgstr "Drivers in Cuba: pictures and testimonials from travelers"

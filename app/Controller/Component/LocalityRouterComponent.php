@@ -17,21 +17,17 @@ class LocalityRouterComponent extends Component {
         
         $closest = array();
         
-        // Test origin
-        $result = $this->matchLocality($origin);
-        
-        if($result != null && !empty ($result)) {
-            $closest = $result + array('direction'=>0);                    
-        } else {
-            // Test destination
-            $result = $this->matchLocality($destination);
-
-            if($result != null && !empty ($result)) {
-                $closest = $result + array('direction'=>1);                
-            }
-        }
-        
-        return $closest;
+        // Buscar locality_id del origen
+        $origin_result = $this->matchLocality($origin);
+        if( ($origin_result != null && !empty($origin_result)) )
+            $closest['origin'] = $origin_result;
+         
+        // Buscar locality_id del destino
+        $destination_result = $this->matchLocality($destination);
+        if( ($destination_result != null && !empty($destination_result)) )
+            $closest['destination'] = $destination_result;
+      
+        return $closest;;
         
     }
     

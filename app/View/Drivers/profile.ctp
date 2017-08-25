@@ -21,7 +21,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         
-        <?php if(!$userLoggedIn):?>
+        <?php if(!$userLoggedIn && !$this->Session->read('introduced-in-website')):?>
         <span class="alert alert-info alert-dismissable" style="display: inline-block"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'><big>&times;</big></button>
             <p>
                 <?php echo __d('driver_profile', 'Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla.')?>

@@ -4,11 +4,11 @@ class PendingTravel extends AppModel {
     
     public $order = 'PendingTravel.id DESC';
     
-    public $belongsTo = array(
+    /*public $belongsTo = array(
         'Locality' => array(
             'fields'=>array('id', 'name')
         )
-    );
+    );*/
 
     public $validate = array(
         'where' => array(

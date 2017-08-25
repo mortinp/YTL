@@ -124,7 +124,7 @@ class TravelLogicComponent extends Component {
     private function findAllDriversSuitableForTravel($travel, $count = 5) {
         // Definir las condiciones primarias para encontrar choferes que pueden atender este viaje
         $primary_conditions = array(
-            'DriverLocality.locality_id'=> $travel['Travel']['locality_id'],
+            'DriverLocality.locality_id'=> array($travel['Travel']['origin_locality_id'], $travel['Travel']['destination_locality_id']),
             'Driver.active'             => true,
             'Driver.receive_requests'   => true // Solo los choferes que esten registrados para recibir solicitudes
         );
@@ -139,28 +139,31 @@ class TravelLogicComponent extends Component {
         
         // Definir las condiciones secundarias para encontrar choferes que pueden atender este viaje
         $secondary_conditions = array();
-        $order = array();
+        $sec_con_order = array();
+        
+        $direction = ($travel['Travel']['origin_locality_id'] > $travel['Travel']['destination_locality_id']) ? 'DESC' : 'ASC' ; // Primero los choferes del origen
+        $order = array('DriverLocality.locality_id '.$direction, 'Driver.last_notification_date', 'Driver.travel_count');
 
         // Adicionar la condicion del ingles si el idioma del sitio es ingles
         $lang = Configure::read('Config.language');
         if($lang != null && $lang == 'en') {
             $secondary_conditions['Driver.speaks_english'] = true;
-            $order[] = 'Driver.speaks_english DESC';
+            $sec_con_order[] = 'Driver.speaks_english DESC';
         }
         
         // Adicionar las condiciones de aire acondicionado y carro moderno
         if(isset ($travel['Travel']['need_air_conditioner']) && $travel['Travel']['need_air_conditioner']){ 
             $secondary_conditions['Driver.has_air_conditioner'] = true;
-            $order[] = 'Driver.has_air_conditioner DESC';
+            $sec_con_order[] = 'Driver.has_air_conditioner DESC';
         }
         if(isset ($travel['Travel']['need_modern_car']) && $travel['Travel']['need_modern_car']){
             $secondary_conditions['Driver.has_modern_car'] = true;
-            $order[] = 'Driver.has_modern_car DESC';
+            $sec_con_order[] = 'Driver.has_modern_car DESC';
         }
         
         // Primero buscar los que cumplen con todas las condiciones, y si no se encuentran, probar a buscar solo con las condiciones primarias
-        $drivers = $this->findDrivers(array_merge($primary_conditions, $secondary_conditions), array('Driver.last_notification_date', 'Driver.travel_count'));
-        if( count($drivers) < $count ) $drivers = $this->findDrivers($primary_conditions, array_merge($order, array('Driver.last_notification_date', 'Driver.travel_count')));
+        $drivers = $this->findDrivers(array_merge($primary_conditions, $secondary_conditions), $order);
+        if( count($drivers) < $count ) $drivers = $this->findDrivers($primary_conditions, array_merge($sec_con_order, $order));
                 
         return $drivers;
     }

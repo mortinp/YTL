@@ -129,8 +129,9 @@ class TravelsController extends AppController {
                  * - Se le ponen otros datos como el usuario, el ip del usuario, etc.
                  */ 
                 $this->request->data['Travel']['state'] = Travel::$STATE_DEFAULT;
-                $this->request->data['Travel']['locality_id'] = $closest['locality_id'];
-                $this->request->data['Travel']['direction'] = $closest['direction'];
+                if( isset($closest['origin']) )       $this->request->data['Travel']['origin_locality_id']      = $closest['origin']['locality_id'];			
+		if( isset($closest['destination']) )  $this->request->data['Travel']['destination_locality_id'] = $closest['destination']['locality_id'];
+		$this->request->data['Travel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
                 $this->request->data['Travel']['user_id'] = $this->Auth->user('id');
                 $this->request->data['Travel']['created_from_ip'] = $this->request->clientIp();
                 
@@ -195,8 +196,9 @@ class TravelsController extends AppController {
             $closest = $this->LocalityRouter->getMatch($this->request->data['Travel']['origin'], $this->request->data['Travel']['destination']);
             if($closest != null && !empty ($closest)) {
                 
-                $travel['Travel']['locality_id'] = $closest['locality_id'];
-                $travel['Travel']['direction'] = $closest['direction'];
+                if( isset($closest['origin']) )       $travel['Travel']['origin_locality_id']      = $closest['origin']['locality_id'];			
+		if( isset($closest['destination']) )  $travel['Travel']['destination_locality_id'] = $closest['destination']['locality_id'];
+		$travel['Travel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
                 
                 if ($this->Travel->save($travel)) {
                     if($this->request->is('ajax')) {
@@ -292,8 +294,9 @@ class TravelsController extends AppController {
             if($closest != null && !empty ($closest)) {
                 $this->PendingTravel->create();
 
-                $this->request->data['PendingTravel']['locality_id'] = $closest['locality_id'];
-                $this->request->data['PendingTravel']['direction'] = $closest['direction'];
+                if( isset($closest['origin']) )       $this->request->data['PendingTravel']['origin_locality_id']      = $closest['origin']['locality_id'];			
+		if( isset($closest['destination']) )  $this->request->data['PendingTravel']['destination_locality_id'] = $closest['destination']['locality_id'];
+		$this->request->data['PendingTravel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
                 $this->request->data['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
                 $this->request->data['PendingTravel']['created_from_ip'] = $this->request->clientIp();
                 
@@ -327,8 +330,9 @@ class TravelsController extends AppController {
             $closest = $this->LocalityRouter->getMatch($this->request->data['PendingTravel']['origin'], $this->request->data['PendingTravel']['destination']);
             if($closest != null && !empty ($closest)) {
                 
-                $travel['PendingTravel']['locality_id'] = $closest['locality_id'];
-                $travel['PendingTravel']['direction'] = $closest['direction'];
+                if( isset($closest['origin']) )       $travel['PendingTravel']['origin_locality_id']      = $closest['origin']['locality_id'];			
+		if( isset($closest['destination']) )  $travel['PendingTravel']['destination_locality_id'] = $closest['destination']['locality_id'];
+		$travel['PendingTravel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
                 
                 if ($this->PendingTravel->save($travel)) {
                     if($this->request->is('ajax')) {

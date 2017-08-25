@@ -36,7 +36,7 @@ if (!isset($bgColor)) $bgColor = 'default';
 
                 <?php 
                 
-                if($driver['active']) $driver_hint = $this->Html->link('<b>'.$driver_name.'</b>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
+                if($driver['active']) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
                 else $driver_hint = '<b>'.$driver_name.'</b>';
                 
                 $about = __d('testimonials', 'comentario sobre %s', $driver_hint.' <img src="'.$driver_avatar.'"class="info" title="'.$driver_name.'" style="max-width:30px"/> ')?>

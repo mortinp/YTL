@@ -28,6 +28,8 @@
  */
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
         Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
+        
+        //Router::connect('/:language/catalog-drivers-cuba', array('controller' => 'pages', 'action' => 'display', 'catalog-drivers-cuba'), array('language' => 'en|es'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
@@ -44,31 +46,25 @@
         
         
         
-        
-        /*MARTIN*/
-        //Router::connect('/lang/*', array('controller' => 'lang', 'action' => 'setlang'));
-        
         // Plugins urls
-        //Router::connect('/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'));
-        //Router::connect('/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'));
         Router::connect('/:language/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
         Router::connect('/:language/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
         
-        //Router::connect('/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'));
-        Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
-        
-        //Router::connect('/url_invitations/:action/*', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
-        //Router::connect('/url_invitations', array('plugin'=>'invitations', 'controller' => 'url_invitations'));
         Router::connect('/:language/url_invitations/:action/*', array('plugin'=>'invitations', 'controller' => 'url_invitations'), array('language' => 'en|es'));
         Router::connect('/:language/url_invitations', array('plugin'=>'invitations', 'controller' => 'url_invitations'), array('language' => 'en|es'));
         
-        //Router::connect('/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
-        //Router::connect('/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'));
         Router::connect('/:language/op_action_rules/:action/*', array('plugin'=>'operations', 'controller' => 'op_action_rules'), array('language' => 'en|es'));
         Router::connect('/:language/op_action_rules', array('plugin'=>'operations', 'controller' => 'op_action_rules'), array('language' => 'en|es'));
         
         Router::connect('/:language/search/:action/*', array('plugin'=>'search', 'controller' => 'search'), array('language' => 'en|es'));
         Router::connect('/:language/search', array('plugin'=>'search', 'controller' => 'search'), array('language' => 'en|es'));
+        
+        Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
+        
+        
+        
+        //         
+        //Router::connect('/:language/catalog-drivers-cuba/*', array('controller' => 'pages', 'action' => 'display', 'catalog-drivers-cuba'), array('language' => 'en|es'));
         
         
         # prevent routing conflicts with plugins...

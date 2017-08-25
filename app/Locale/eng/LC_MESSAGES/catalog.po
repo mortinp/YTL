@@ -1,0 +1,59 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-15 22:21-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "El Asombroso Catálogo de Choferes en Cuba"
+msgstr "The Awesome Catalog of Cuban Drivers"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "basado en testimonios de sus clientes"
+msgstr "based on testimonials from their customers"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "¿Cómo funciona?"
+msgstr "How it works"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Tenemos muchos choferes con autos que operan en Cuba. Los viajeros que vienen a la isla reseñan el servicio de su chofer en nuestro sitio web usando un código personal secreto que les damos."
+msgstr "We have lots of drivers with cars who operate in Cuba. Travelers that come to the island review their driver's service on our website using a secret personal code we give them."
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "En nuestro sitio mostramos las reseñas, pero sólo mostramos a los choferes que han recibido al menos una reseña en los últimos 3 meses. Esto asegura que esos choferes estén operando activamente."
+msgstr "We showcase each review on our website, but we only showcase the drivers who have received at least one review in the last 3 months. This ensures that those drivers are actively operating."
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Cada reseña tiene un enlace a la página personal del chofer. Puedes navegar estas páginas personales y ver fotos de los choferes y sus autos, así como otras reseñas de clientes anteriores."
+msgstr "Each review has a link to the driver's personal page. You can navigate the personal pages and see pictures of the drivers and their cars, as well as other reviews from previous customers."
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Desde la página personal de cada chofer puedes enviarles un mensaje directo con los detalles de tu viaje, y pedir una oferta de precio. Te comunicas directamente con el chofer mientras arreglas todos los términos del servicio."
+msgstr "From each driver's personal page you can send a message directly to them with the details of your trip, and ask for a quote. You communicate directly with the driver while you arrange all the terms of the service."
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Finalmente contratas un chofer, y una vez en Cuba te encuentras con él y usas su servicio. Al finalizar tu viaje contribuyes a nuestra comunidad dejando una reseña sobre tu chofer"
+msgstr "Finally you hire a driver, and once you arrive in Cuba you meet him and use his service. After you finish your trip you contribute to our community by leaving a review of your driver"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Entonces, empecemos con los testimonios que hemos recibido recientemente"
+msgstr "So, let's get started with the testimonials we've received lately"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "%s historias aqui... y hay más"
+msgstr "%s stories here... and there are more"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Recuerda que puedes navegar las páginas de los choferes desde las reseñas"
+msgstr "Remember you can navigate each driver's personal page from the reviews"

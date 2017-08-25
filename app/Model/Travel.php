@@ -33,9 +33,9 @@ class Travel extends AppModel {
     public $order = 'Travel.id DESC';
     
     public $belongsTo = array(
-        'Locality' => array(
+        /*'Locality' => array(
             'fields'=>array('id', 'name')
-        ),
+        ),*/
         
         'User' => array(
             'fields'=>array('id', 'username', 'role', 'lang', 'display_name', 'travel_count'),

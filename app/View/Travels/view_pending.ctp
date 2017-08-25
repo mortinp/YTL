@@ -35,7 +35,6 @@ App::uses('Auth', 'Component');
                 echo $this->Form->input('lang', array('type' => 'hidden', 'value'=>  Configure::read('Config.language')));
                 ?>
                 <br/>
-                <br/>
                 <div style="text-align: center">
                     <?php echo $this->Form->submit(__d('pending_travel', "Registrarme y Confirmar este Anuncio de Viaje <div style='font-size:11pt;padding-left:50px;padding-right:50px'>Contacta con <big>3</big> choferes ahora</div>"), array(/*'class'=>'btn btn-success', */'style'=>'font-size:14pt;white-space: normal;', 'escape'=>false), true);?>
                 </div>
