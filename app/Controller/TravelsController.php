@@ -8,7 +8,7 @@ class TravelsController extends AppController {
     
     public $uses = array('Travel', 'TravelByEmail', 'PendingTravel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus', 'DriverTravel', 'TravelConversationMeta');
     
-    public $components = array('TravelLogic', 'LocalityRouter');
+    public $components = array('TravelLogic', 'LocalityRouter', 'Paginator');
     
     public function beforeFilter() {
         parent::beforeFilter();
@@ -273,7 +273,10 @@ class TravelsController extends AppController {
      */
     
     public function all_pending() {
-        $this->set('travels', $this->PendingTravel->find('all'));
+        $this->paginate = array('limit'=>50);
+        $this->Paginator->settings = $this->paginate;
+
+        $this->set('travels', $this->Paginator->paginate('PendingTravel'));
     }
     
     public function view_pending($id) {
