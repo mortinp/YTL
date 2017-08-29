@@ -36,7 +36,7 @@
             
             <h4 style="text-align: center"><?php echo __d('catalog', 'Entonces, empecemos con los testimonios que hemos recibido recientemente')?>:</h4>
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div style="text-align: center"><?php echo __d('catalog', '%s historias aqui... y hay más', count($testimonials))?>: <?php echo $this->Paginator->numbers();?></div>
+                <div style="text-align: center"><?php echo __d('catalog', '%s historias aquí... y hay más', count($testimonials))?>: <?php echo $this->Paginator->numbers();?></div>
                 <br/>
                 <br/>
             <?php endif?>

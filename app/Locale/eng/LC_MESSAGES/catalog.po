@@ -51,7 +51,7 @@ msgid "Entonces, empecemos con los testimonios que hemos recibido recientemente"
 msgstr "So, let's get started with the testimonials we've received lately"
 
 #: Lib/Errors/ExpiredLinkException.php:23
-msgid "%s historias aqui... y hay más"
+msgid "%s historias aquí... y hay más"
 msgstr "%s stories here... and there are more"
 
 #: Lib/Errors/ExpiredLinkException.php:23
