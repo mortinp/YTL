@@ -45,8 +45,11 @@ if($userLoggedIn) {
                 background-color:transparent;
                 text-decoration:none
             }
+            #navbar #nav .navbar-btn{
+                margin-left:15px;
+            }
             
-            #content img {
+            #profile-description img {
                 margin-top: 20px;
                 margin-bottom: 20px;
             }
@@ -76,7 +79,7 @@ if($userLoggedIn) {
     </head>
     <body>
         <div id="container">
-            <div id="navbar" class="navbar navbar-default" role="navigation">
+            <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <!--<div class="container-fluid">-->
@@ -174,7 +177,7 @@ if($userLoggedIn) {
                             <?php $talkingToDriver = $this->Session->read('visited-driver-'.$profile['Driver']['id']);?>
                             <?php if (!$talkingToDriver): ?>
                                 <li title="<?php echo __d('driver_profile', 'Envía un mensaje a este chofer para acordar un viaje con él')?>" class="info">
-                                    <a href="#!" class="goto" data-go-to="message-driver" style="padding:0px;padding-right:20px">
+                                    <a href="#!" class="goto" data-go-to="message-driver" style="padding:0px;padding-right:5px">
                                         <button type="button" class="btn btn-info navbar-btn">
                                             <?php echo __d('driver_profile', 'Mensaje a este chofer')?>
                                         </button>
@@ -183,12 +186,12 @@ if($userLoggedIn) {
                             <?php else:?>
                                 <?php if($userLoggedIn && $talkingToDriver):?>
                                     <li>
-                                        <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('driver_profile', 'Ver mis mensajes con %s', Driver::shortenName($profile['DriverProfile']['driver_name'])).'</button>', array('controller'=>'conversations', 'action'=>'messages', $talkingToDriver), array('escape'=>false, 'style'=>'padding:0px;padding-right:20px'))?>
+                                        <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('driver_profile', 'Ver mis mensajes con %s', Driver::shortenName($profile['DriverProfile']['driver_name'])).'</button>', array('controller'=>'conversations', 'action'=>'messages', $talkingToDriver), array('escape'=>false, 'style'=>'padding:0px;padding-right:5px'))?>
                                     </li>
                                 <?php endif ?>
                             <?php endif ?>
                             <li title="<?php echo __d('driver_profile', 'Escribe una opinión sobre tu viaje con este chofer')?>" class="info">
-                                <?php echo $this->Html->link('<button type="button" class="btn btn-warning navbar-btn">'.__d('driver_profile', 'Opinar sobre este chofer').'</button>', array('controller' => 'testimonials', 'action'=>'enter_code'), array('escape'=>false, 'style'=>'padding:0px;padding-right:20px'))?>
+                                <?php echo $this->Html->link('<button type="button" class="btn btn-warning navbar-btn">'.__d('driver_profile', 'Opinar sobre este chofer').'</button>', array('controller' => 'testimonials', 'action'=>'enter_code'), array('escape'=>false, 'style'=>'padding:0px;padding-right:5px'))?>
                             </li>
                             
                             <?php if ($userLoggedIn): ?>

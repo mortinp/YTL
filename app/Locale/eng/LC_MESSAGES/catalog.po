@@ -57,3 +57,41 @@ msgstr "%s stories here... and there are more"
 #: Lib/Errors/ExpiredLinkException.php:23
 msgid "Recuerda que puedes navegar las páginas de los choferes desde las reseñas"
 msgstr "Remember you can navigate each driver's personal page from the reviews"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "¿Necesitas un chofer con auto en Cuba?"
+msgstr "Need a driver with a car in Cuba?"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Échale un vistazo a"
+msgstr "Take a look at"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "¿Dónde empieza tu viaje?"
+msgstr "Where does your trip start?"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Encontrar choferes"
+msgstr "Find drivers"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Encontrar choferes en el origen de tu viaje (Ej. La Habana, Trinidad, Santiago de Cuba, Cayo Coco, etc.)"
+msgstr "Find drivers at the origin of your trip (ex. La Habana, Trinidad, Santiago de Cuba, Cayo Coco, etc.)"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Se muestran reseñas en %s e %s"
+msgstr "Showing reviews in %s and %s"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Mostrar sólo en %s"
+msgstr "Show only in %s"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Descubre más choferes"
+msgstr "Discover more drivers"
+
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Mostrar también reseñas en %s"
+msgstr "Show also reviews in %s"
+
+

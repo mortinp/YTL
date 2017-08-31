@@ -82,11 +82,20 @@ class PagesController extends AppController {
             $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>20);
             $this->Paginator->settings = $this->paginate;
             
-            $this->set('testimonials', $this->Paginator->paginate('Testimonial', array('featured'=>true, 'lang'=>Configure::read('Config.language'))));
+            $langs = array(Configure::read('Config.language'));
+            if(isset($this->request->query['also']) && Configure::read('Config.language') != $this->request->query['also']) {
+                $langs[] = $this->request->query['also'];
+            }
+            
+            $conditions =  array('featured'=>true, 'lang'=>$langs);
+            
+            $this->set('testimonials', $this->Paginator->paginate('Testimonial', $conditions));
             
             // Esta es una variable que indica que el visitor ya fue introducido a nuestra plataforma, por lo cual se asume que ya conoce de que trata
             // Se usa por ejemplo en el perfil de los choferes
             $this->Session->write('introduced-in-website', true);
+            
+            $this->layout = 'catalog';
             
         } else if($page === 'testimonials') {
             return $this->redirect(array('controller'=>'testimonials', 'action'=>'featured'));

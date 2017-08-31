@@ -938,6 +938,14 @@ msgstr "Waiting a reply from the driver..."
 msgid "Su mensaje fue enviado satisfactoriamente"
 msgstr "Your message was sent successfully"
 
+#: View/Travel/view.ctp: oko
+msgid "Español"
+msgstr "Spanish"
+
+#: View/Travel/view.ctp: oko
+msgid "Inglés"
+msgstr "English"
+
 
 
 

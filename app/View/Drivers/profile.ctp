@@ -18,7 +18,7 @@ else if(isset ($profile['Driver']['Testimonial']) && !empty ($profile['Driver'][
 $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 ?>
 
-<div class="row">
+<div class="row" style="margin-top: 60px">
     <div class="col-md-8 col-md-offset-2">
         
         <?php if(!$userLoggedIn && !$this->Session->read('introduced-in-website')):?>
@@ -50,7 +50,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         <br/>
         
         <br/>
-        <div>
+        <div id="profile-description">
             <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
         </div>
     </div>
@@ -99,6 +99,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         <div class="bg-info row">
             <div class="row">
                 <div id="message-driver" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
+                    <div style="height: 60px;clear: both"></div>
                     <legend style="text-align:center">
                         <div class="handwritten-2"><big><big><?php echo __d('driver_profile', 'Haz un viaje sorprendente con %s', $driver_name) ?></big></big></div>
                         <div><small><?php echo __d('driver_profile', '<b>Envía un mensaje a %s</b> para comenzar a acordar tus recorridos con él.', $driver_name) ?></small></div>
