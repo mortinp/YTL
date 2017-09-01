@@ -39,7 +39,7 @@
             
             <h4 style="text-align: center"><?php echo __d('catalog', 'Entonces, empecemos con los testimonios que hemos recibido recientemente')?>:</h4>
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div style="text-align: center"><?php echo __d('catalog', '%s historias aquí... y hay más', count($testimonials))?>: <?php echo $this->Paginator->numbers();?></div>
+                <div style="text-align: center"><?php echo __d('catalog', '%s historias aquí... y hay más', count($testimonials))?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
                 
                 <?php $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'))?>
                 <?php 
@@ -53,7 +53,7 @@
                     <br/>
                     <div style="text-align: center">
                         <span class="text-muted"><?php echo __d('catalog', 'Descubre más choferes')?>:</span>
-                        <?php echo $this->Html->link(__d('catalog', 'Mostrar también reseñas en %s', $currentLang['altDesc']), '?also='.$currentLang['alt'].'#reviews')?>
+                        <span style="display: inline-block"><?php echo $this->Html->link(__d('catalog', 'Mostrar también reseñas en %s', $currentLang['altDesc']), '?also='.$currentLang['alt'].'#reviews')?></span>
                     </div>
                 <?php else:?>
                     <br/>
@@ -75,7 +75,7 @@
             <?php endforeach;?>
             
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div><?php echo __d('testimonials', 'Mira más historias')?>: <?php echo $this->Paginator->numbers();?></div>
+                <div><?php echo __d('testimonials', 'Mira más historias')?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
             <?php endif?>
         </div>
     </div>

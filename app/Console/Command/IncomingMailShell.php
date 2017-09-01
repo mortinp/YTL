@@ -177,16 +177,16 @@ class IncomingMailShell extends AppShell {
                 
                 if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                     
-                    /*// Bloquear a Juan
+                    // Bloquear a Juan
                     if($driverTravel['Driver']['id'] == 71) {
                         $Email = new CakeEmail('super');
                         $Email->to('juandrc59@nauta.cu')
                               ->subject('Usted está bloqueado');
-                        $Email->send('Hola Juan, usted está bloqueado en YoTeLlevo. Lo sentimos, sus mensaje no le llegarán a sus clientes mientras permanezca bloqueado. Comuníquese con nosotros al 54530482.');
+                        $Email->send('Hola Juan, usted está bloqueado en YoTeLlevo. Lo sentimos, sus mensaje no le llegarán a sus clientes mientras permanezca bloqueado. Comuníquese con nosotros al 54530482 o a este correo.');
                         
                         CakeLog::write('juan', "Mensaje de Juan bloqueado: $conversation - $body");
                         return;
-                    }*/
+                    }
                     
                     
                     $deliverTo = $driverTravel['User']['username'];
