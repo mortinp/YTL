@@ -47,8 +47,8 @@ msgid "Finalmente contratas un chofer, y una vez en Cuba te encuentras con él y
 msgstr "Finally you hire a driver, and once you arrive in Cuba you meet him and use his service. After you finish your trip you contribute to our community by leaving a review of your driver"
 
 #: Lib/Errors/ExpiredLinkException.php:23
-msgid "Entonces, empecemos con los testimonios que hemos recibido recientemente"
-msgstr "So, let's get started with the testimonials we've received lately"
+msgid "... o podemos comenzar con los testimonios que hemos recibido recientemente"
+msgstr "... or we can get started with the testimonials we've received lately"
 
 #: Lib/Errors/ExpiredLinkException.php:23
 msgid "%s historias aquí... y hay más"
@@ -94,4 +94,6 @@ msgstr "Discover more drivers"
 msgid "Mostrar también reseñas en %s"
 msgstr "Show also reviews in %s"
 
-
+#: Lib/Errors/ExpiredLinkException.php:23
+msgid "Primero, déjanos saber dónde comienza tu viaje para poder encontrar los mejores choferes"
+msgstr "First, let us know where you will start your trip so we can find the best drivers"

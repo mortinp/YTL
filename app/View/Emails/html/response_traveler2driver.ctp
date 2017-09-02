@@ -7,15 +7,12 @@
 
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <div id="conversation-header">
-    <p>
-        <em>Hola <?php echo $driver_name?>. Este correo contiene la respuesta del viajero para el viaje <b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b> <b><?php echo $travel_hint; ?></b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.</em>
-    </p>
+    <em>Hola <?php echo $driver_name?>. Este correo contiene la respuesta del viajero para el viaje <b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b> <b><?php echo $travel_hint; ?></b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.</em>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
 
-<?php $user_desc = 'El viajero';?>
+<p><b>A continuación se listan los últimos mensajes:</b></p>
 
-<p><b><?php echo $user_desc?> dice:</b></p>
 <div style="border-left: #efefef solid 2px;padding-left: 15px">
    <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $response);?>
 </div>

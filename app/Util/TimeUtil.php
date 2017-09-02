@@ -47,5 +47,11 @@ class TimeUtil {
     public static function dateFormatAfterFind($date) {
         return date('d-m-Y', strtotime($date));
     }
+    
+    public static function daysFrom($str_date) {
+        $now = new DateTime(date('Y-m-d', time()));
+        return $now->diff(new DateTime($str_date), true)->format('%a');
+    }
+    
 }
 ?>

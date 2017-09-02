@@ -946,6 +946,10 @@ msgstr "Spanish"
 msgid "Inglés"
 msgstr "English"
 
+#: View/Elements/pretty_message.ctp:9
+msgid "Viajero"
+msgstr "Traveler"
+
 
 
 

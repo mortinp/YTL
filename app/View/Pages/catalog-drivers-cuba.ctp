@@ -34,40 +34,68 @@
         
     </div>
     
+    <div class="row" style="padding-top: 90px;text-align: center" id="search">
+        <div class="col-md-10 col-md-offset-1">
+            <p class="lead"><?php echo __d('catalog', 'Primero, déjanos saber dónde comienza tu viaje para poder encontrar los mejores choferes')?>:</p>
+            
+            <div>
+                <?php echo $this->Form->create('Search', array('class'=>'form-inline','type'=>'GET')); ?>
+                <?php echo $this->Form->input('in', array('type'=>'text','label'=>false, 'class'=>'input-lg', 'placeholder'=>__d('catalog', 'Ej. La Habana, Trinidad, Santa Clara, Santiago de Cuba')));?>
+                <?php if(isset($this->request->query['also'])) echo $this->Form->input('also', array('type'=>'hidden', 'value'=>$this->request->query['also']));?>
+                <?php echo $this->Form->submit(__d('catalog', 'Encontrar choferes'), array('class'=>'btn btn-lg btn-info info','div'=>false, 'title'=>__d('catalog', 'Encontrar choferes en el origen de tu viaje (Ej. La Habana, Trinidad, Santiago de Cuba, Cayo Coco, etc.)')));?>
+                <?php echo $this->Form->end(); ?>
+            </div>
+        </div>
+    </div>
+    
     <div class="row" style="padding-top: 70px" id="reviews">
         <div class="col-md-10 col-md-offset-1">
             
-            <h4 style="text-align: center"><?php echo __d('catalog', 'Entonces, empecemos con los testimonios que hemos recibido recientemente')?>:</h4>
+            <h4 style="text-align: center"><?php echo __d('catalog', '... o podemos comenzar con los testimonios que hemos recibido recientemente')?>:</h4>
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
                 <div style="text-align: center"><?php echo __d('catalog', '%s historias aquí... y hay más', count($testimonials))?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
                 
-                <?php $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'))?>
-                <?php 
-                $proposeAltLang = 
-                        !isset($this->request->query['also']) 
-                        || Configure::read('Config.language') == $this->request->query['also']
-                        || !in_array($this->request->query['also'], array('en', 'es'))
-                ?>
                 
-                <?php if($proposeAltLang):?>
-                    <br/>
-                    <div style="text-align: center">
-                        <span class="text-muted"><?php echo __d('catalog', 'Descubre más choferes')?>:</span>
-                        <span style="display: inline-block"><?php echo $this->Html->link(__d('catalog', 'Mostrar también reseñas en %s', $currentLang['altDesc']), '?also='.$currentLang['alt'].'#reviews')?></span>
-                    </div>
-                <?php else:?>
-                    <br/>
-                    <div style="text-align: center">
-                        <span class="text-muted"><?php echo __d('catalog', 'Se muestran reseñas en %s e %s', $currentLang['desc'], $currentLang['altDesc'])?></span>
-                        <div><?php echo $this->Html->link(__d('catalog', 'Mostrar sólo en %s', $currentLang['desc']), array('action'=>'catalog-drivers-cuba/#reviews') )?></div>
-                    </div>
-                <?php endif?>
-                
-                <br/><br/>
             <?php endif?>
                 
-            <!--<div class="text-muted" style="text-align: center"><?php echo __d('catalog', 'Recuerda que puedes navegar las páginas de los choferes desde las reseñas', count($testimonials))?></div>
-            <br/>--><br/>
+            <?php $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'))?>
+            <?php 
+            $proposeAltLang = 
+                    !isset($this->request->query['also']) 
+                    || Configure::read('Config.language') == $this->request->query['also']
+                    || !in_array($this->request->query['also'], array('en', 'es'))
+            ?>
+
+                
+            <?php 
+            $query = null;
+            if(isset($this->request->query['in'])) $query = '?in='.$this->request->query['in'];
+            ?>    
+            <?php if($proposeAltLang):?>
+                <?php 
+                $query = '?also='.$currentLang['alt'];
+                if(isset($this->request->query['in'])) $query .= '&in='.$this->request->query['in'];
+                $query .= '#search';
+                ?> 
+                <br/>
+                <div style="text-align: center">
+                    <span class="text-muted"><?php echo __d('catalog', 'Descubre más choferes')?>:</span>
+                    <span style="display: inline-block"><?php echo $this->Html->link(__d('catalog', 'Mostrar también reseñas en %s', $currentLang['altDesc']), $query)?></span>
+                </div>
+            <?php else:?>
+                <?php 
+                $query = '';
+                if(isset($this->request->query['in'])) $query .= '?in='.$this->request->query['in'];
+                $query .= '#search';
+                ?>
+                <br/>
+                <div style="text-align: center">
+                    <span class="text-muted"><?php echo __d('catalog', 'Se muestran reseñas en %s e %s', $currentLang['desc'], $currentLang['altDesc'])?></span>
+                    <div><?php echo $this->Html->link(__d('catalog', 'Mostrar sólo en %s', $currentLang['desc']), array('action'=>'catalog-drivers-cuba'.$query) )?></div>
+                </div>
+            <?php endif?>
+                
+            <br/><br/><br/>
             <?php
             foreach($testimonials as $data):?>
                 <?php echo $this->element('testimonial_body', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver']));?>

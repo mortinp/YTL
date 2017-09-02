@@ -34,7 +34,7 @@ class PagesController extends AppController {
 
     public $uses = array('Locality', 'Testimonial', 'Driver');
     
-    public $components = array('Paginator');
+    public $components = array('Paginator', 'LocalityRouter');
 
     /**
      * Displays a view
@@ -78,16 +78,27 @@ class PagesController extends AppController {
         
             $this->Driver->unbindModel(array('belongsTo' => array('Province')));
             $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
-
+            
             $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>20);
             $this->Paginator->settings = $this->paginate;
+            
+            $conditions = array();
+            
+            if(isset($this->request->query['in'])) {
+                $match = $this->LocalityRouter->matchLocality($this->request->query['in']);
+                
+                $this->request->data['Search']['in'] =  $this->request->query['in'];
+                
+                if($match != null && !empty($match))
+                    $conditions[] = "Driver.id IN (SELECT driver_id FROM drivers_localities WHERE locality_id=".$match['locality_id'].")";
+            }
             
             $langs = array(Configure::read('Config.language'));
             if(isset($this->request->query['also']) && Configure::read('Config.language') != $this->request->query['also']) {
                 $langs[] = $this->request->query['also'];
             }
             
-            $conditions =  array('featured'=>true, 'lang'=>$langs);
+            $conditions = array_merge($conditions, array('Testimonial.featured'=>true, 'Testimonial.lang'=>$langs));
             
             $this->set('testimonials', $this->Paginator->paginate('Testimonial', $conditions));
             

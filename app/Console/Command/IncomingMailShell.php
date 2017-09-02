@@ -87,12 +87,15 @@ class IncomingMailShell extends AppShell {
                         if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
                             $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
                         
+                        $email_text = $this->getPrettyMsgList($conversation, __('Tú'), __('Viajero'));
+                        
                         // El $returnData es para coger los ids de los attachments que hayan
                         $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
                         ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                             $deliverTo,
                             //array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName),
-                            array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
+                            //array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
+                            array('conversation_id'=>$conversation, 'response'=>$email_text, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
                                   'driver_travel'=>$driverTravel['DriverTravel']),
                             array(
                                 'template'=>'response_traveler2driver',
@@ -378,6 +381,22 @@ class IncomingMailShell extends AppShell {
                 EmailsUtil::email($sender, 'Tus datos en YoTeLlevo', $vars, 'super', 'info_our_drivers');
             }
         }      
+    }
+    
+    private function getPrettyMsgList($conversation, $driver_name, $traveler_name){
+        $msg_list = $this->DriverTravelerConversation->find('all', array(
+                'conditions' => array('DriverTravelerConversation.conversation_id'=>$conversation), 
+                                      'recursive'  => -1,
+                                      'order' => 'DriverTravelerConversation.id DESC',
+                                      'limit' => 10
+        ));
+
+        $view = new View();
+        $email_text = "";
+        foreach($msg_list as $msg)
+            $email_text .= trim ($view->element('pretty_message', array('message' => $msg['DriverTravelerConversation']) + compact('driver_name', 'traveler_name'))).'<br/><br/>';
+            
+        return $email_text;
     }
     
 }

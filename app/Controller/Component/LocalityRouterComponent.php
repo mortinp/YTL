@@ -31,7 +31,7 @@ class LocalityRouterComponent extends Component {
         
     }
     
-    private function matchLocality($locality) {
+    public function matchLocality($locality) {
         $shortest = -1;
         $closest = array();
         $perfectMatch = false;

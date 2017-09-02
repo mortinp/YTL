@@ -1,4 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('EmailsUtil', 'Util')?>
 <?php App::uses('DriverTravel', 'Model')?>
 
 <?php echo Configure::read('email_message_separator')?>
@@ -26,9 +27,7 @@ $travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
 ?>
 
 <div id="conversation-header">
-    <p>
-        <?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel_hint)?>
-    </p>
+    <?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel_hint)?>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
 
@@ -52,7 +51,7 @@ $travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
 
 
 <div style="border-left: #efefef solid 2px;padding-left: 15px">
-   <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $response);?>
+   <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", EmailsUtil::getFirsPart($response));?>
 </div>
 
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-top: 10px;margin-bottom: 10px;"/>
