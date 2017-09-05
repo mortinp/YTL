@@ -65,8 +65,17 @@ class TestimonialsController extends AppController {
         $this->Driver->unbindModel(array('belongsTo' => array('Province')));
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
         
+        $langs = array(Configure::read('Config.language'));
+        if(isset($this->request->query['also']) && Configure::read('Config.language') != $this->request->query['also']) {
+            $langs[] = $this->request->query['also'];
+        }
+        
+        $conditions = array('Testimonial.featured'=>true, 'Testimonial.lang'=>$langs);
+        
         $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>20);
-        $this->set('testimonials', $this->paginate(array('featured'=>true)));
+        $this->set('testimonials', $this->paginate($conditions));
+        
+        $this->set('localities', Locality::getAsSuggestions());
     }
 
     public function view_filtered($filtro = 'pending') {

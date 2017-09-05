@@ -24,8 +24,8 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         <?php if(!$userLoggedIn && !$this->Session->read('introduced-in-website')):?>
         <span class="alert alert-info alert-dismissable" style="display: inline-block"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'><big>&times;</big></button>
             <p>
-                <?php echo __d('driver_profile', 'Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla.')?>
-                <?php echo __d('driver_profile', 'Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí.')?>
+                <?php echo __('Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla.')?>
+                <?php echo __('Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí.')?>
             </p>
             <p>
                 <?php echo __d('driver_profile', 'Ahora mismo estás en el perfil de %s, uno de nuestros choferes.', '<code>'.$driver_name.'</code>')?>

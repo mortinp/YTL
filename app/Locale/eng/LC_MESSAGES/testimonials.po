@@ -137,9 +137,13 @@ msgstr "%s from %s wrote on %s"
 msgid "¿Estás aquí para escribir un testimonio sobre %s?"
 msgstr "Are you here to write a review about %s?"
 
-#: /featured.ctp:33
-msgid "... y hay más historias"
-msgstr "... and there are more stories"
+#: /featured:23
+msgid "Ahora mismo estás en nuestra <code>página de Testimonios</code>."
+msgstr "Right now you are at our <code>Testimonials section</code>."
+
+#: /featured:23
+msgid "%s historias aquí... y hay más"
+msgstr "%s stories here... and there are more"
 
 #: /featured.ctp:33
 msgid "Mira más historias"
@@ -149,6 +153,9 @@ msgstr "See more stories"
 msgid "Estas son algunas opiniones, comentarios e historias de viajeros que han hecho recorridos y transfers con nuestros choferes. Lee algunas, inspírate y anímate a contratar a algún chofer con auto aquí en Cuba."
 msgstr "These are some reviews, comments and stories from travelers who have gone on journeys or transfers with our drivers. Read some of them, get inspired and go ahead and hire a driver with a car here in Cuba."
 
+#: /featured.ctp:33
+msgid "Puedes visitar la página personal de cada chofer desde los testimonios"
+msgstr "You can visit each driver's personal page from the reviews"
 
 #: /featured.ctp:33
 msgid "comentario sobre %s"
@@ -161,6 +168,15 @@ msgstr "Oh, and if you are interested in sharing <b> %s's personal page</b> so o
 #: /preview.ctp:33
 msgid "Compártelo en Facebook"
 msgstr "Share it on Facebook"
+
+#: /featured.ctp:33
+msgid "¿Ya te gustan nuestros choferes?"
+msgstr "Like our drivers already?"
+
+#: /featured.ctp:33
+msgid "Contacta con %s de ellos creando una solicitud de viaje"
+msgstr "Get in touch with %s of them by creating a travel request"
+
 
 
 # MENSAJES

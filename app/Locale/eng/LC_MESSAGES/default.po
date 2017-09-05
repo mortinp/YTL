@@ -950,7 +950,13 @@ msgstr "English"
 msgid "Viajero"
 msgstr "Traveler"
 
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla."
+msgstr "You are on the website of <b>YoTeLlevo</b>, a platform that connects travelers coming to <b>Cuba</b> with <b>private drivers</b> who operate in the island."
 
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí."
+msgstr "If you need a driver in Cuba, you probably can find him or her here."
 
 
 

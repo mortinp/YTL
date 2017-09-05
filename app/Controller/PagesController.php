@@ -22,6 +22,8 @@
  */
 App::uses('AppController', 'Controller');
 
+App::uses('Locality', 'Model');
+
 /**
  * Static content controller
  *
@@ -66,11 +68,7 @@ class PagesController extends AppController {
         
         if($page === 'home' || $page === 'welcome') {
             $this->layout = 'home';
-            $this->set('localities', $this->Locality->getAsSuggestions());
-            
-            // Esta es una variable que indica que el visitor ya fue introducido a nuestra plataforma, por lo cual se asume que ya conoce de que trata
-            // Se usa por ejemplo en el perfil de los choferes
-            $this->Session->write('introduced-in-website', true);
+            $this->set('localities', Locality::getAsSuggestions());
             
         } else if($page === 'catalog-drivers-cuba') {
             
@@ -101,10 +99,6 @@ class PagesController extends AppController {
             $conditions = array_merge($conditions, array('Testimonial.featured'=>true, 'Testimonial.lang'=>$langs));
             
             $this->set('testimonials', $this->Paginator->paginate('Testimonial', $conditions));
-            
-            // Esta es una variable que indica que el visitor ya fue introducido a nuestra plataforma, por lo cual se asume que ya conoce de que trata
-            // Se usa por ejemplo en el perfil de los choferes
-            $this->Session->write('introduced-in-website', true);
             
             $this->layout = 'catalog';
             

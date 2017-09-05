@@ -43,10 +43,11 @@ class Locality extends AppModel {
         return $localities;
     }
     
-    public function getAsSuggestions() {
+    public static function getAsSuggestions() {
         $list = Cache::read('localities_suggestion');
         if (!$list) {
-            $localities = $this->find('all');
+            $localitiesModel = new Locality();
+            $localities = $localitiesModel->find('all');
             $list = array();
             foreach ($localities as $l) {
                 $list[] = $l['Locality'];

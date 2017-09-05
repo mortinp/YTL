@@ -116,14 +116,6 @@ msgid "Obtén una oferta de precio de %s y comienza a acordar los detalles de tu
 msgstr "Get a quote from %s and start arranging the details of your travel"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
-msgid "Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla."
-msgstr "You are on the website of <b>YoTeLlevo</b>, a platform that connects travelers coming to <b>Cuba</b> with <b>private drivers</b> who operate in the island."
-
-#: View/DriverTravelerConversations/show_profile.ctp:9
-msgid "Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí."
-msgstr "If you need a driver in Cuba, you probably can find him or her here."
-
-#: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Ahora mismo estás en el perfil de %s, uno de nuestros choferes."
 msgstr "Right now you are in one of our drivers' profile: %s."
 

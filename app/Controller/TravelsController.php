@@ -3,6 +3,7 @@ App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('User', 'Model');
 App::uses('Travel', 'Model');
+App::uses('Locality', 'Model');
 
 class TravelsController extends AppController {
     
@@ -463,7 +464,7 @@ class TravelsController extends AppController {
      */
     
     private function getLocalitiesList() {
-        return $this->Locality->getAsSuggestions();
+        return Locality::getAsSuggestions();
     }
 }
 

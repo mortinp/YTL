@@ -54,23 +54,20 @@
             <h4 style="text-align: center"><?php echo __d('catalog', '... o podemos comenzar con los testimonios que hemos recibido recientemente')?>:</h4>
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
                 <div style="text-align: center"><?php echo __d('catalog', '%s historias aquí... y hay más', count($testimonials))?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
-                
-                
             <?php endif?>
                 
-            <?php $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'))?>
             <?php 
+            $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'));
+            
             $proposeAltLang = 
                     !isset($this->request->query['also']) 
                     || Configure::read('Config.language') == $this->request->query['also']
-                    || !in_array($this->request->query['also'], array('en', 'es'))
-            ?>
-
-                
-            <?php 
+                    || !in_array($this->request->query['also'], array('en', 'es'));
+            
             $query = null;
             if(isset($this->request->query['in'])) $query = '?in='.$this->request->query['in'];
-            ?>    
+            ?>  
+                
             <?php if($proposeAltLang):?>
                 <?php 
                 $query = '?also='.$currentLang['alt'];

@@ -142,6 +142,12 @@ msgstr "It might seem insignificant but it is a huge help for the driver."
 msgid "Comparte esta página con tus familiares y amigos"
 msgstr "Share this page with your family and friends"
 
+#: /home.ctp:167;168
+msgid "Mira algunos testimonios sobre nuestros choferes"
+msgstr "See some reviews about our drivers"
+
+
+
 
 
 #: /home.ctp:167;168

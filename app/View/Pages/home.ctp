@@ -104,6 +104,7 @@
             <br/>
             <br/>
             <p class="lead"><?php echo __d('homepage', 'El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, profesionales, todos propietarios de un auto que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras.') ?></p>
+            <p><?php echo $this->Html->link('<big>'.__d('homepage', 'Mira algunos testimonios sobre nuestros choferes').'</big>', array('controller'=>'testimonials', 'action'=>'featured'), array('class'=>'btn btn-success', 'target'=>'_blank', 'escape'=>false))?></p>
         </div>
     </div>
 

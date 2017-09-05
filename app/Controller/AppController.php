@@ -138,17 +138,21 @@ class AppController extends Controller {
             $this->_update_language_anywhere($this->params['language']);
     }
     
-    private function _setupLanguage() {
-        $lang = $this->Session->read('next.page.lang');
-        if($lang == null) $lang = $this->Cookie->read('app.lang');
-        if($lang == null) $lang = Configure::read('Config.language')/*Configure::read('default_language')*/;
-        
-        $this->Session->write('app.lang', $lang);
-        Configure::write('Config.language', $this->Session->read('app.lang'));
-    }
-    
     public function afterFilter() {
         $this->Session->write('next.page.lang', null);
+        
+        /**
+         * Lo siguiente hace que cuando el usuario visita algunas paginas, se ponga una variable en la session que indica que
+         * el usuario ya fue introducido a lo que hace YoTeLlevo.
+         * Esto se usa para en algunas paginas no mostrar algunas informaciones, etc.
+         */
+        $is_intro_page = 
+            ($this->request->controller === 'pages' && $this->request->action ==='display' && $this->request->params['pass'][0] === 'home') ||
+            ($this->request->controller === 'pages' && $this->request->action ==='display' && $this->request->params['pass'][0] === 'catalog-drivers-cuba') ||
+            ($this->request->controller === 'testimonials' && $this->request->action ==='featured');
+        if ($is_intro_page) {
+            $this->Session->write('introduced-in-website', true);
+        }
     }
     
     private function _setPageTitle() {
