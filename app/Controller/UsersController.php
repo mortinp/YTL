@@ -389,7 +389,7 @@ class UsersController extends AppController {
             
             // Verificar existencia de usuario
             if($user == null || empty ($user)) {
-                $this->setErrorMessage('Este correo no pertenece a ningún usuario.');
+                $this->setErrorMessage(__('Este correo no pertenece a ningún usuario.'));
                 return $this->redirect(array('action'=>'forgot_password'));
             }
             
@@ -436,9 +436,10 @@ class UsersController extends AppController {
                     $this->Auth->logout();
                     if ($this->Auth->login($user['User'])) {
                         $this->_setCookie($this->Auth->user('id'));
+                        
+                        $this->setInfoMessage(__('Su contraseña fue cambiada exitosamente.'));
                         return $this->redirect($this->Auth->redirect());
                     }
-                    
                 } 
                 $this->setInfoMessage('Tu contrseña ha sido cambiada. Entra a <em>YoTeLlevo</em> usando la nueva contraseña.');
                 return $this->redirect(array('action'=>'login'));

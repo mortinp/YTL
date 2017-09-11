@@ -4,7 +4,7 @@
 
 <p><b>¿Qué es y cómo funciona YoTeLlevo?</b></p>
 
-<p>YoTeLlevo es una plataforma en Internet cuyo sitio web está en <a href="http://yotellevocuba.com">http://yotellevocuba.com</a>. Nuestra plataforma le permite a usted como chofer recibir en su correo solicitudes de viajes de clientes que vienen a Cuba y desean contratar un chofer con auto.</p>
+<p>YoTeLlevo es una plataforma en Internet cuyo sitio web está en <a href="http://yotellevocuba.com">YoTeLlevoCuba.com</a>. Nuestra plataforma le permite a usted como chofer recibir en su correo solicitudes de viajes de clientes que vienen a Cuba y desean contratar un chofer con auto.</p>
 
 <p>Las solicitudes que le llegan contienen datos como el origen y el destino del viaje, la fecha para la que los clientes desean el servicio, la cantidad de personas que son y otros detalles que los clientes quieran especificar. Los viajes pueden ser recogidas en el aeropuerto de su ciudad, transfers a otras provincias, tours de varios días, etc.</p>
 

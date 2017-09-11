@@ -63,8 +63,12 @@ msgid "Hola viajero"
 msgstr "Hi traveler"
 
 #: View/Emails/html/change_password.ctp:5
-msgid "Para cambiar la contraseña de <em>YoTeLlevo</em> da click en <a href=\"%s\">este enlace</a>."
-msgstr "To change your password in <em>YoTeLlevo</em>, click <a href=\"%s\">this link</a>."
+msgid "Acabas de solicitar cambiar tu contraseña en <em>YoTeLlevo</em> para este correo."
+msgstr "You just requested to change your password in <em>YoTeLlevo</em> for this email account."
+
+#: View/Emails/html/change_password.ctp:5
+msgid "Para cambiar la contraseña da click en <a href=\"%s\">este enlace</a>."
+msgstr "To change your password click <a href=\"%s\">this link</a>."
 
 #: View/Emails/html/change_password.ctp:8
 #: View/Emails/html/email_confirmation.ctp:8

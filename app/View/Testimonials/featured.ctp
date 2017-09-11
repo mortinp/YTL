@@ -25,7 +25,7 @@
         
         <div class="col-md-10 col-md-offset-1">
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div><?php echo __d('testimonials', '%s historias aquí... y hay más', count($testimonials))?>: <?php echo $this->Paginator->numbers();?></div>
+                <div><?php echo __d('testimonials', '%s historias aquí... y hay más', count($testimonials))?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
                 
                 <?php 
                 $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'));
@@ -84,7 +84,7 @@
             <?php endforeach;?>
             
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div><?php echo __d('testimonials', 'Mira más historias')?>: <?php echo $this->Paginator->numbers();?></div>
+                <div><?php echo __d('testimonials', 'Mira más historias')?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
             <?php endif?>
         </div>
 

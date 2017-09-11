@@ -1,0 +1,12 @@
+ALTER TABLE  `drivers` ADD  `created` DATE NULL;
+
+UPDATE `testimonials` SET text='Contratamos a Pedro durante 10 días. Sin duda RECOMENDABLE 100 %.  Hicimos un recorrido Habana-Viñales-Cienfuegos-Trinidad-CayoCoco-Camagüey-CayoCoco -Bayamo-Santiago. Destacaría en él que nos ha parecido un profesional con dedicación, honesto y preocupado por ofrecer un buen servicio.
+   La conducción buena, se nota que tiene experiencia, se le ve seguro
+y decidido, siempre atento.
+   En medio del viaje improvisamos algún pequeño "cambio" como quedarnos un día más en Trinidad y hacer algunas excursiones  desviándonos algo del trayecto pactado, para lo cual Pedro ni nos puso pegas ni nos pidió más dinero - cuidado con estas cosas porque otros conductores, como les propongas el más mínimo  cambio que se salga de lo pactado se les va a poner el símbolo del dólar en los ojos -. Se nota que es un tipo que pretende quedar bien contigo por mera integridad, y eso se agradece.
+   De carácter, es un hombre educado, discreto y respetuoso, con buena conversación, simpático, con sentido del humor, tiene historias interesantes que contar, y algo que es importante para mi también,  que es, oportuno y con saber estar, sabe disfrutar de los momentos de silencio del viaje y este detalle es importante para mi, ya que no hubiera soportado al típico conductor pesado que no supiera parar de hablar o que se hubiera tomado demasiadas confianzas.
+   Le pedimos que escogiera las casas de cubanos donde dormir y lo hizo con buen criterio, para mi son las mejores casas donde he dormido en Cuba. De haberlo sabido antes también le habría pedido asesoramiento para dormir en La Habana, que ahí buscamos por nuestra cuenta y no estaban tan bien como las que eligió él. Es proactivo y tiene iniciativa proponiendo planes de excursiones
+  ¿Defectos?. A destacar ninguno. Por intentar ser objetivos, el coche no tiene 
+  cinturones de seguridad, pero eso es  habitual en Cuba, y si quieres un coche más moderno, lo tienes que pagar más caro.
+   En definitiva, creo que es MUY difícil encontrar un conductor con una mejor relación calidad/precio que esta. 
+   Por favor, no abusen de él y trátenlo bien, lo merece.' WHERE id='58fb845f-74d8-439a-b4b4-52b64f8fb177';

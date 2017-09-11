@@ -958,6 +958,18 @@ msgstr "You are on the website of <b>YoTeLlevo</b>, a platform that connects tra
 msgid "Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí."
 msgstr "If you need a driver in Cuba, you probably can find him or her here."
 
+#: View/Elements/pretty_message.ctp:9
+msgid "Su contraseña fue cambiada exitosamente."
+msgstr "You password was changed successfully."
+
+#: View/Elements/pretty_message.ctp:9
+msgid "Este correo no pertenece a ningún usuario."
+msgstr "This email does not belog to any of our users."
+
+
+
+
+
 
 
 #: /home.ctp:167

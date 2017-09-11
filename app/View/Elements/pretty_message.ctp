@@ -17,7 +17,7 @@
 ?>
 
 <div style="<?php echo $color?>">
-    <span><?php echo __('%s el %s, hace %s días', '<b>'.$label.'</b>', '<b>'.TimeUtil::prettyDate($message['created'], false).'</b>', $daysPosted) ?></span>
-    
-    <p><?php echo $text; ?></p>
+    <span><small><?php echo __('%s el %s, hace %s días', '<b>'.$label.'</b>', '<b>'.TimeUtil::prettyDate($message['created'], false).'</b>', $daysPosted) ?></small></span>
+    <hr style="background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
+    <span><?php echo $text; ?></span>
 </div>
