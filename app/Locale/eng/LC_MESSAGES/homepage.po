@@ -143,8 +143,8 @@ msgid "Comparte esta página con tus familiares y amigos"
 msgstr "Share this page with your family and friends"
 
 #: /home.ctp:167;168
-msgid "Mira algunos testimonios sobre nuestros choferes"
-msgstr "See some reviews about our drivers"
+msgid "Mira testimonios sobre nuestros choferes"
+msgstr "See reviews about our drivers"
 
 
 

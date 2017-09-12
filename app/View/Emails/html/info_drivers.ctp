@@ -1,5 +1,7 @@
 <p>Hola, este es un correo automático para explicarle la manera en que trabaja nuestra plataforma, que se llama <b>YoTeLlevo</b>. Asumimos que usted desea formar parte de nuestra base de choferes y quiere trabajar con nosotros con el objetivo de encontrar clientes; nuestra plataforma es perfecta para esto!</p>
 
+<p><em><b>NOTA:</b> Preferimos trabajar con choferes independientes, o sea, choferes que se comuniquen para ser ellos mismos quienes realicen el viaje, no otra persona. Además, estamos particularmente interesados en encontrar choferes que puedan comunicarse en inglés -aunque no es obligatorio.</em></p>
+
 <p>Rápidamente le explicamos qué hace YoTeLlevo y nuestra manera de trabajar.</p>
 
 <p><b>¿Qué es y cómo funciona YoTeLlevo?</b></p>
@@ -16,11 +18,11 @@
 
 <p>Además de que a usted le llegan solicitudes desde nuestro sitio, podrá tener también una página de perfil donde ponemos al menos una foto suya y una del auto para que los viajeros las puedan ver mientras entablan la conversación, y así tengan más información para decidir. Lo bueno de tener esta página de perfil es que usted nunca tiene que adjuntar fotos en sus correos, pues los viajeros la ven directamente en nuestro sitio -sólo la ven cuando usted les responde.</p>
 
-<p>En conclusión, con nuestra plataforma usted tendrá la oportunidad de conversar y atrapar a los viajeros que nosotros logramos atraer -que son muchos- para trabajar con ellos, y lo único que necesita para recibir las solicitudes es tener un correo electrónico (ej. una cuenta Nauta).</p>
+<p>En conclusión, con nuestra plataforma usted tendrá la oportunidad de conversar y atrapar a los viajeros que nosotros logramos atraer -que son muchos- para trabajar con ellos, y lo único que necesita para recibir las solicitudes es tener un correo electrónico (ej. una cuenta Nauta, Gmail, Yahoo, Hotmail, u otra).</p>
 
 <p><b>¿Cómo me uno a la plataforma para comenzar a trabajar?</b></p>
 
-<p>Para comenzar a recibir las solicitudes usted debe estar registrado en nuestro sitio. Este paso nosotros lo hacemos manualmente y para esto necesitaríamos los siguientes datos:</p>
+<p>Para comenzar a recibir las solicitudes usted debe estar registrado en nuestro sitio como chofer. Este paso nosotros lo hacemos manualmente y para esto necesitaríamos los siguientes datos:</p>
 
 <ul>
     <li>Su nombre</li>
@@ -30,7 +32,7 @@
     <li>Capacidad de pasajeros</li>
     <li>Confort (si tiene aire acondicionado, música, etc.)</li>
     <li>Si usted se puede comunicar en inglés. Esto es para saber si el sitio le debe enviar solicitudes de viajeros que sólo hablan inglés.</li>
-    <li>Además necesitaríamos las fotos para su perfil (enviar una suya y una del auto, o una de usted junto al auto). Pueden enviar todas las fotos que quieran, pero deben ser fotos que se vean bien, tengan calidad y al menos sean de 640 píxeles de ancho. Esto es importante pues por el perfil muchos viajeros se deciden a contratarlo. Si usted se está riendo en la foto es mucho mejor :)</li>
+    <li>Además necesitaríamos las fotos para su perfil (enviar una suya y una del auto, o una de usted junto al auto). Puede enviar todas las fotos que quiera, pero deben ser fotos que se vean bien, tengan calidad y al menos sean de 640 píxeles de ancho. Esto es importante pues por el perfil muchos viajeros se deciden a contratarlo. Si usted se está riendo en la foto es mucho mejor :)</li>
 </ul>
 
 <p>Para hacernos llegar los datos sólo tiene que responder este correo y enviarlos. Con esta información tendríamos todo listo para que comience a recibir solicitudes inmediatamente en su correo.</p>

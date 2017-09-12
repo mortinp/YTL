@@ -56,7 +56,7 @@
                     <br/>
                     <div>
                         <span class="text-muted"><?php echo __d('catalog', 'Se muestran reseñas en %s e %s', $currentLang['desc'], $currentLang['altDesc'])?></span>
-                        <div><?php echo $this->Html->link(__d('catalog', 'Mostrar sólo en %s', $currentLang['desc']), array('action'=>'featured'.$query) )?></div>
+                        - <span><?php echo $this->Html->link(__d('catalog', 'Mostrar sólo en %s', $currentLang['desc']), array('action'=>'featured'.$query) )?></span>
                     </div>
                 <?php endif?>
 
