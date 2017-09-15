@@ -14,14 +14,13 @@ if($message['response_by'] == 'driver') {
 
 <div class="<?php echo $class?>" id="<?php echo $messageId?>">
     
-
     <?php
     $created_converted = strtotime($message['created']);
     $now = new DateTime(date('Y-m-d', time()));
     $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
     ?>
     <div>
-        <span class="text-muted"><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo __('%s el %s, hace %s días', '<b>'.$label.'</b>', '<b>'.TimeUtil::prettyDate($message['created'], false).'</b>', $daysPosted )?></a></span>
+        <span class="text-muted <?php if(!$message['read_by']) echo 'porleer'; ?>"><a href="#<?php echo $messageId?>" style="color: inherit"><?php echo __('%s el %s, hace %s días', '<b>'.$label.'</b>', '<b>'.TimeUtil::prettyDate($message['created'], false).'</b>', $daysPosted )?></a></span>
         
         <?php if(in_array($userRole, array('admin', 'operator')) && $message['read_by']):?>
             <small><code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?> <?php if($message['date_read'] != null) echo 'el '.TimeUtil::prettyDate($message['date_read'], false)?></code></small>

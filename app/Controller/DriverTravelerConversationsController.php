@@ -60,6 +60,9 @@ class DriverTravelerConversationsController extends AppController {
         
         $OK = true;
         if (!$this->TravelConversationMeta->save($meta)) {
+            if($this->request->is('ajax'))
+                throw new BadRequestException('Ocurrió un error.');
+            
             $OK = false;
             $this->setErrorMessage('Ocurrió un error.');
         }
@@ -68,12 +71,26 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function follow($conversationId, $following = true) {
-        $this->tag($conversationId, 'following', true);        
+        $this->tag($conversationId, 'following', true);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            echo json_encode(array('follow'));
+            return;
+        }
+        
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
     public function unfollow($conversationId) {
         $this->tag($conversationId, 'following', false);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            echo json_encode(array('unfollow'));
+            return;
+        }
+        
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
@@ -150,6 +167,9 @@ class DriverTravelerConversationsController extends AppController {
         // Verificar que la cantidad de entradas es igual o menor que la real
         $Total = $this->DriverTravelerConversation->find( 'count', array('conditions' => array('conversation_id' => "$conversationId") ) );
         if($entriesCount > $Total){
+            if($this->request->is('ajax'))
+                throw new BadRequestException("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total");
+            
            $this->setErrorMessage("Se está intentando marcar como leídos $entriesCount mensajes de un total de $Total"); 
            return;
         }        
@@ -179,6 +199,17 @@ class DriverTravelerConversationsController extends AppController {
             $meta['TravelConversationMeta']['read_entry_count'] = $entriesCount;
             
             $OK = $this->TravelConversationMeta->save($meta);
+        }
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+          
+            if($OK){
+                echo json_encode (array('Se marcaron todos los mensajes de este viaje como leídos'));
+                $datasource->commit();
+            } else throw new BadRequestException('Ocurrió un error salvando los datos.');
+            
+            return;
         }
         
         if ($OK) {

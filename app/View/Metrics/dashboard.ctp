@@ -38,28 +38,6 @@ App::uses('DriverTravelerConversation', 'Model');
         </div>
         <div class="col-md-12" style="padding-bottom: 50px">
             <div id="travels-count-div" style="width: 100%; height: 400px;"></div>
-        </div>   
-        
-        
-        <div class="col-md-12" style="text-align: center">
-            <legend>Engagement</legend>
-            <br/>
-            <?php 
-            $totalMsgDrivers = 0;
-            $totalMsgTravelers = 0;
-            foreach ($messages_count as $msgs) {
-                if(isset ($msgs['messages_count_drivers'])) $totalMsgDrivers += $msgs['messages_count_drivers'];
-                if(isset ($msgs['messages_count_travelers'])) $totalMsgTravelers += $msgs['messages_count_travelers'];
-            }
-            ?>
-            <div>            
-                <big><span class="label label-primary"><i class="glyphicon glyphicon-comment"></i> <?php echo $totalMsgDrivers?> mensajes de choferes</span></big>
-                <big><span class="label label-warning"><i class="glyphicon glyphicon-comment"></i> <?php echo $totalMsgTravelers?> mensajes de viajeros</span></big>
-            </div>
-            <br/>
-        </div>
-        <div class="col-md-12" style="text-align: center;padding-bottom: 50px">
-            <div id="messages-count-div" style="width: 100%; height: 400px;"></div>
         </div>
         
         
@@ -82,6 +60,28 @@ App::uses('DriverTravelerConversation', 'Model');
         </div>
         <div class="col-md-12" style="text-align: center">
             <div id="incomes-div" style="width: 100%; height: 400px;"></div>
+        </div>
+        
+        
+        <div class="col-md-12" style="text-align: center">
+            <legend>Engagement</legend>
+            <br/>
+            <?php 
+            $totalMsgDrivers = 0;
+            $totalMsgTravelers = 0;
+            foreach ($messages_count as $msgs) {
+                if(isset ($msgs['messages_count_drivers'])) $totalMsgDrivers += $msgs['messages_count_drivers'];
+                if(isset ($msgs['messages_count_travelers'])) $totalMsgTravelers += $msgs['messages_count_travelers'];
+            }
+            ?>
+            <div>            
+                <big><span class="label label-primary"><i class="glyphicon glyphicon-comment"></i> <?php echo $totalMsgDrivers?> mensajes de choferes</span></big>
+                <big><span class="label label-warning"><i class="glyphicon glyphicon-comment"></i> <?php echo $totalMsgTravelers?> mensajes de viajeros</span></big>
+            </div>
+            <br/>
+        </div>
+        <div class="col-md-12" style="text-align: center;padding-bottom: 50px">
+            <div id="messages-count-div" style="width: 100%; height: 400px;"></div>
         </div>
         
         

@@ -10,6 +10,13 @@ $this->Html->script('bootstrap', array('inline' => false));
 $this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
 $this->Html->script('bootbox/bootbox', array('inline' => false));
 
+$drivers_in = array();
+foreach($users as $user)
+    foreach($user as $travel)
+        foreach($travel['DriverTravel'] as $conversation)
+            $drivers_in[ $conversation['travel_id'] ][] = $conversation['driver_id'];
+
+$this->Js->set('drivers_in', $drivers_in);
 
 $this->Js->set('drivers', $drivers);
 echo $this->Js->writeBuffer(array('inline' => false));
@@ -124,6 +131,7 @@ $(document).ready(function() {
             _ajaxifyForm(_form, null,
                 // onSuccess
                 function(obj) {
+                    window.app.drivers_in[window.app.notificationtravel].push(window.app.notifieddriver);
                     convLinkClass = 'text-muted';
                     if(obj.notification_type == 'R') convLinkClass = 'text-success';
                     var convLink = 
@@ -176,4 +184,23 @@ $(document).ready(function() {
     
 });
 
+</script>
+
+<script type="text/javascript">
+    function validar(travel_id, index){
+        var driver_id = $(".bootbox-body").find("." + travel_id + "input" + index).val();
+        if(driver_id == "") return true;
+        var drivers_in = window.app.drivers_in;
+        
+        var i, result = true;
+        for(i in drivers_in[travel_id]){
+            if(driver_id == drivers_in[travel_id][i]){
+                result = confirm('Este chofer ya fue notificado en este viaje. ¿Notificar de todas formas?');
+                break;
+            }    
+        }
+        window.app.notifieddriver     = driver_id;
+        window.app.notificationtravel = travel_id;
+        return result;
+    }
 </script>

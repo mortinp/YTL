@@ -15,12 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: Controller/AppController.php:169
-msgid "Contrata un chofer con auto para tus viajes: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
-msgstr "Hire a driver with a car for your trips: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
+msgid "Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
+msgstr "Hire a driver with a car in Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
 
 #: Controller/AppController.php:169
-msgid "Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla."
-msgstr "Find a taxi to move around Cuba. Arrange the details of the travel directly with your driver and plan your transportation budget before you arrive in the island."
+msgid "Recibe ofertas de precio directamente de choferes que operan en Cuba y contrata al mejor para tu viaje."
+msgstr "Get price quotes directly from drivers who operate in Cuba and hire the best for your trip."
 
 #: Controller/AppController.php:173
 msgid "Contactar"
@@ -150,8 +150,8 @@ msgid "Opiniones y reseñas sobre choferes en Cuba"
 msgstr "Opinions and reviews about drivers in Cuba"
 
 #: Controller/AppController.php:196
-msgid "Opiniones e historias de viajeros sobre sus choferes en Cuba"
-msgstr "Opinions and stories from travelers about their drivers in Cuba"
+msgid "Mira opiniones y fotos de choferes en Cuba y solicita un viaje al que creas mejor"
+msgstr "See reviews and pictures of drivers in Cuba and request a trip with the one you think is best"
 
 #: Controller/AppController.php:196
 msgid "Conversaciones"

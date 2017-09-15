@@ -220,7 +220,7 @@ class AppController extends Controller {
     
     private function _getPageTitle($key) {
         $pageTitles = array(
-            'default' =>array('title'=>'Cuba | '.__d('meta', 'Contrata un chofer con auto para tus viajes: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Consigue un taxi para moverte dentro de Cuba. Acuerda los detalles del viaje directamente con tu chofer y arma tu presupuesto de transporte antes de llegar a la isla.')),
+            'default' =>array('title'=>__d('meta', 'Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Recibe ofertas de precio directamente de choferes que operan en Cuba y contrata al mejor para tu viaje.')),
             
             // Unrestricted access
             'pages.display' =>array(
@@ -240,7 +240,7 @@ class AppController extends Controller {
             'testimonials.enter_code' =>array('title'=>__d('meta', 'Deja una opinión sobre tu chofer en Cuba'), 'description'=>__d('meta', 'Opinar y reseñar sobre tu viaje en auto con chofer en Cuba')),
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),
             'testimonials.preview' =>array('title'=>__d('meta', 'Gracias por tu opinión')),
-            'testimonials.featured' =>array('title'=>__d('meta', 'Opiniones y reseñas sobre choferes en Cuba'), 'description'=>__d('meta', 'Opiniones e historias de viajeros sobre sus choferes en Cuba')),
+            'testimonials.featured' =>array('title'=>__d('meta', 'Opiniones y reseñas sobre choferes en Cuba'), 'description'=>__d('meta', 'Mira opiniones y fotos de choferes en Cuba y solicita un viaje al que creas mejor')),
                 
             
             // Users access

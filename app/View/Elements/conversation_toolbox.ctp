@@ -20,6 +20,13 @@ if($hasMessages) {
 }
 
 $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
+
+
+echo $this->Html->script('ajaxify/buttons');
+$this->Html->script('jquery', array('inline' => false));
+$this->Js->set('operator', User::prettyName( AuthComponent::user() ));
+echo $this->Js->writeBuffer(array('inline' => false));
+
 ?>          
 
 <div class="control-panel">
@@ -43,15 +50,16 @@ $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
             }
             ?>
             <?php if($unreadMessages != 0):?>
-                <span class="label label-success info" style="margin-left:5px" title="Mensajes nuevos">+<?php echo $unreadMessages?></span>
+                <span id="unreadMessages">
+                    <span class="label label-success info" style="margin-left:5px" title="Mensajes nuevos">+<?php echo $unreadMessages?></span>
 
-                <?php $firstUnreadMessage = $conversations[count($conversations) - $unreadMessages]['DriverTravelerConversation'];?>
-                <span><a href="#!" class="last-msg" data-where="message-<?php echo $firstUnreadMessage['id']?>">&ndash; leer nuevos</a></span>
-                <!--<span><a href="#!" class="next-msg" data-where="message-<?php echo $conversations[0]['DriverTravelerConversation']['id']?>">&ndash; próximo</a></span>-->
+                    <?php $firstUnreadMessage = $conversations[count($conversations) - $unreadMessages]['DriverTravelerConversation'];?>
+                    <span><a href="#!" class="last-msg" data-where="message-<?php echo $firstUnreadMessage['id']?>">&ndash; leer nuevos</a></span>
 
-                <br/>
-                <br/>
-                <?php echo $this->Form->button('Marcar todos como leídos', array('class'=>'btn btn-primary', 'action'=>'update_read_entries/'.$data['DriverTravel']['id'].'/'.count($conversations)), true);?>
+                    <br/>
+                    <br/>
+                    <?php echo $this->Form->button('Marcar todos como leídos', array('id' => 'ajax-leer', 'data-url' => $this->Html->url(array('action' => 'update_read_entries', $data['DriverTravel']['id'], count($conversations)), true), 'class'=>'btn btn-primary'), true);?>
+                </span>
             <?php else:?>
                 &nbsp;No mensajes nuevos
             <?php endif?>
@@ -66,19 +74,19 @@ $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
             <!-- FOLLOW / UNFOLLOW -->
             <?php $following = $hasMetadata? $data['TravelConversationMeta']['following']: false;?>
             
-            <?php if($following):?>
-                <div class="input-group info" title="Esta conversación se está Siguiendo" data-placement="left">
-                    <span class="input-group-addon">
-                        <span class="label label-info">Siguiendo</span>
-                    </span>
-                    <span class="input-group-btn">
-                        <?php echo $this->Form->button('Quitar', array('class'=>'btn-danger', 'action'=>'unfollow/'.$data['DriverTravel']['id']), true);?>
-                    </span>
-                </div>
-            <?php else:?>
-                <?php echo $this->Form->button('Seguir esta conversación', array('class'=>'btn-info', 'action'=>'follow/'.$data['DriverTravel']['id']), true);?>
+            <div class="input-group info follow" title="Esta conversación se está Siguiendo" data-placement="left" style="display: <?php echo ($following) ? 'table' : 'none'; ?>">
+                <span class="input-group-addon">
+                    <span class="label label-info">Siguiendo</span>
+                </span>
+                <span class="input-group-btn">
+                    <?php echo $this->Form->button('Quitar', array('class'=>'btn-danger follow-btn', 'data-url' => $this->Html->url(array('action' => 'unfollow', $data['DriverTravel']['id']), true)), true);?>
+                </span>
+            </div>
+
+            <div class="input-group info follow" style="display: <?php echo ($following) ? 'none' : 'table'; ?>">
+                <?php echo $this->Form->button('Seguir esta conversación', array('class'=>'btn-info follow-btn', 'data-url' => $this->Html->url(array('action' => 'follow', $data['DriverTravel']['id']), true)), true);?>
                 <br/>
-            <?php endif?>
+            </div>
             
             <br/>
             
@@ -239,7 +247,33 @@ echo $this->Js->writeBuffer(array('inline' => false));
     });
  </script>
  
- <script type="text/javascript">
+<script type="text/javascript">
+    function pretty_date(date){
+        var months = new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+        return date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear(); 
+    }
     
+    function onError(error){
+        alert(error.responseText);
+    }
+     
+    function followSuccess(response){
+        $(".follow").toggle();
+        
+        if(response == 'unfollow')
+            $('#travel_verification_div').css('display', 'none');
+        else
+            $('#travel_verification_div').css('display', 'inline-block');
+    }
     
-</script>
+    function readSuccess(response){
+        var operator = window.app.operator;
+        $('#unreadMessages').after('&nbsp;No mensajes nuevos').remove();
+      
+        $('.porleer').after("<small><code class='pull-right info' title='Leído por" +  operator + "'>" + operator + " el " + pretty_date(new Date()) + "</code></small>").removeClass('porleer');
+        $('#content').prepend("<div class='alert alert-success alert-dismissable' style='text-align: center'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + response + "</div>");
+    }
+    
+    ajaxifyButton($('.follow-btn'), followSuccess, onError);
+    ajaxifyButton($('#ajax-leer'), readSuccess, onError);
+ </script>
