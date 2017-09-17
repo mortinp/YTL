@@ -16,11 +16,11 @@ msgstr ""
 
 #: Controller/AppController.php:169
 msgid "Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
-msgstr "Hire a driver with a car in Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
+msgstr "Hire a driver with car in Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
 
 #: Controller/AppController.php:169
-msgid "Recibe ofertas de precio directamente de choferes que operan en Cuba y contrata al mejor para tu viaje."
-msgstr "Get price quotes directly from drivers who operate in Cuba and hire the best for your trip."
+msgid "Descubre choferes que operan en Cuba, recibe ofertas de precio directamente de ellos y contrata al mejor para tu viaje."
+msgstr "Discover drivers operating in Cuba, get price quotes directly from them and hire the best for your trip."
 
 #: Controller/AppController.php:173
 msgid "Contactar"

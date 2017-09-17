@@ -60,19 +60,43 @@
         </div>
 
         <?php 
+        // Contar los mensajes del chofer y los mensajes del viajero
         if($message['DriverTravelerConversation']['response_by'] == 'driver') $driverMsgsCount++;
         else if($message['DriverTravelerConversation']['response_by'] == 'traveler') $travelerMsgsCount++;
         ?>
     <?php endforeach;?>
     
+    <?php if($driverMsgsCount == 0):?>
     <br/>
     <br/>
-    <?php 
-    if($driverMsgsCount > 0) $note = __('Puedes enviarle un mensaje a este chofer desde tu correo.');
-    else $note = __('Esperando respuesta del chofer...');
-    ?>
     <div class="col-md-6 col-md-offset-3">
-        <div class="alert alert-warning" style="display: inline-block"><?php echo $note?></div>
+        <div class="alert alert-warning" style="display: inline-block"><?php echo __('Esperando respuesta del chofer...')?></div>
+    </div>
+    <?php endif?>
+    
+    <div class="col-md-9 col-md-offset-1"><hr/></div>
+    
+    <!-- FORMULARIO PARA ENVIAR MENSAJE AL CHOFER  -->
+    <div class="col-md-6 col-md-offset-4 well">
+        <div class="">
+            <span><?php echo __d('conversation', 'Envía un mensaje a %s', '<big><code>'.$driverName.'</code></big>')?></span>
+            <hr/>
+            <?php
+               echo $this->Form->create('DriverTravelerConversation', array('type'=>'file', 'id'=>'DriverTravelerConversationForm', 'url' => array('action' => 'sendMessage2Driver')));
+               echo $this->Form->input('conversation_id', array('type' => 'hidden', 'value' => $data['DriverTravel']['id']));
+
+               echo $this->Form->input('body', array('label' => false, 'type' => 'textarea', 'required' => 'required'));
+
+               echo '<br/>';
+               echo $this->Form->label('adjunto', __d('conversation', 'Adjuntar archivo (foto, pdf o txt | 2MB máx.)'));
+               echo $this->Form->file('adjunto');
+               echo '<br/><br/>';
+               echo $this->Form->submit('<big>'.__d('conversation', 'Enviar este mensaje').'</big>', array('id'=>'DriverTravelerConversationSubmit', 'class'=>'btn btn-block btn-primary', 'escape'=>false), true);
+               echo $this->Form->end();
+            ?>
+
+            <?php echo $this->element('addon_scripts_send_form', array('formId'=>'DriverTravelerConversationForm', 'submitId'=>'DriverTravelerConversationSubmit'))?>
+        </div>
     </div>
 
 <?php endif?>

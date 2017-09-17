@@ -6,6 +6,7 @@ App::uses('DriverTravel', 'Model');
 App::uses('DriverTravelerConversation', 'Model');
 App::uses('User', 'Model');
 App::uses('EmailsUtil', 'Util');
+App::uses('MessagesUtil', 'Util');
 
 
 class DriverTravelerConversationsController extends AppController {
@@ -331,6 +332,29 @@ class DriverTravelerConversationsController extends AppController {
         }   
         $this->set('data', $data);
     }
+    
+    public function sendMessage2Driver(){  
+        $data = $this->request->data['DriverTravelerConversation'];
+        $adjunto = $data['adjunto'];
+        
+        $attachment = array();
+        if($adjunto['name'] != '')
+            $attachment = array($adjunto['name'] => array('contents' => file_get_contents($adjunto['tmp_name']), 'mimetype' => $adjunto['type']));
+        
+        $sender = $this->Auth->user('username');
+        $mu = new MessagesUtil();
+        $msgId = $mu->sendMessage('traveler', $data['conversation_id'], $sender, $data['body'], $attachment);
+        
+        // 
+        $parts = preg_split('/highlight=message-[0-9]+/', $this->referer());
+        $redirect = (substr($parts[0], -1) != '?')? $parts[0]:substr($parts[0], 0, -1);
+        if(count($parts) == 1)  $redirect .= '?highlight=message-'.$msgId;
+        else                    $redirect .= '?highlight=message-'.$msgId . $parts[1];
+        return $this->redirect($redirect);
+        
+        //return $this->redirect(array('action' => 'messages', $data['conversation_id']), '?highlight=message-'.$msgId);
+    }
+    
 }
 
 ?>

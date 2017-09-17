@@ -277,5 +277,20 @@ if($userLoggedIn) {
                 </div>
             </div>
         </div>
+        
+        <script type="text/javascript">
+            function goTo(id, time) {
+                $('html, body').animate({
+                    scrollTop: $('#' + id).offset().top - 70
+                }, time);
+            };
+            
+            <?php if(isset($this->request->query['highlight'])):?>
+                $(document).ready(function() {
+                    goTo('<?php echo $this->request->query['highlight']?>', 500);
+                });
+            <?php endif?>
+         </script>
+        
     </body>
 </html>

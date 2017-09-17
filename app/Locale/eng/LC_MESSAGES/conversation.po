@@ -79,3 +79,16 @@ msgstr "Driver %s"
 #: Console/Command/IncomingMailShell.php:311
 msgid "%s de YoTeLlevo"
 msgstr "%s from YoTeLlevo"
+
+#: View/DriverTravelerConversations/messages.ctp:311
+msgid "Envía un mensaje a %s"
+msgstr "Send a message to %s"
+
+#: View/DriverTravelerConversations/messages.ctp:311
+msgid "Adjuntar archivo (foto, pdf o txt | 2MB máx.)"
+msgstr "Attach a file (picture, pdf or txt | 2MB max.)"
+
+#: View/DriverTravelerConversations/messages.ctp:311
+msgid "Enviar este mensaje"
+msgstr "Send this message"
+

@@ -1,7 +1,7 @@
 <?php
     App::uses('ClassRegistry', 'Utility');
 
-    class MessagesUtil{
+    class MessagesUtil {
         public $errorMessage;
         public $uses = array('Driver', 'DriverTravel', 'DriverTravelerConversation');
         
@@ -18,12 +18,11 @@
  * @param string $from            ==> indica de quien proviene el mensaje ('driver', 'traveler')
  * @param UUID   $conversation    ==> id de la conversación a la que se añadirá el mensaje
  * @param email  $sender          ==> dirección de correo del que envía el mensaje
- * @param string $subject         ==> asunto del correo
  * @param string $body            ==> texto del correo sin procesar
  * @param array  $attachments     ==> un arreglo de ajuntos, formato de cada adjunto: array(<nombre_de_archivo> => array('contents' => <contenido_del_adjunto>, 'mimeType' => <tipo_de_fichero>))
  * @return void, si falla se guarda un mensaje de error en 'conversations' log file
  */
-        public function sendMessage($from, $conversation, $sender, $subject, $body, array $attachments){
+        public function sendMessage($from, $conversation, $sender, $body, array $attachments){
             $this->errorMessage = "Conversation Failed!";
             
             $this->prepareToGetData($from);
@@ -40,19 +39,28 @@
                     'response_by'=> $from,
                     'response_text'=> $fixedBody
                 ));
+                
                 if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo salvar la conversación en driver_traveler_conversations"; 
                 
-                if($OK) 
-                    if($from == 'traveler') $OK = $this->messageTraveler2Driver($conversation, $subject, $attachments, $driverTravel);
-                    else                    $OK = $this->messageDriver2Traveler ($conversation, $sender, $subject, $fixedBody, $attachments, $driverTravel);
+                if($OK) {
+                    if($from == 'traveler') $OK = $this->messageTraveler2Driver($conversation, $attachments, $driverTravel);
+                    else                    $OK = $this->messageDriver2Traveler ($conversation, $sender, $fixedBody, $attachments, $driverTravel);
+                }   
                 
-                if($OK) $datasource->commit();
+                if($OK) {
+                    $msgId = $this->DriverTravelerConversation->getLastInsertID();
+                    $datasource->commit();
+                    
+                    return $msgId;
+                }
                 else{    
                     $datasource->rollback();
                     $this->errorLog($this->errorMessage, compact('sender', 'subject', 'body'));
                 }  
             } 
             else $this->errorLog("Conversation Failed: No se encontró la conversación", compact('sender', 'subject', 'body'));
+            
+            return null;
         }
         
         private function errorLog($error, array $message = array()){
@@ -90,28 +98,33 @@
             return $OK;
         }
         
-        private function getPrettyMsgList($conversation, $driver_name, $traveler_name, $limit = 10){
+        private function getMessagesInConversation($conversation){
             $msg_list = $this->DriverTravelerConversation->find('all', array(
                     'conditions' => array('DriverTravelerConversation.conversation_id'=>$conversation), 
                                           'recursive'  => -1,
                                           'order' => 'DriverTravelerConversation.id DESC',
-                                          'limit' => $limit
+                                          'limit' => 10
             ));
 
+            return $msg_list;
+        }
+
+        private function concatMessages($messages, $driver_name, $traveler_name) {
             $view = new View();
             $email_text = "";
-            foreach($msg_list as $msg)
-                $email_text .= $view->element('pretty_message', array('message' => $msg['DriverTravelerConversation']) + compact('driver_name', 'traveler_name'));
+            foreach($messages as $msg)
+                $email_text .= trim ($view->element('pretty_message', array('message' => $msg['DriverTravelerConversation']) + compact('driver_name', 'traveler_name'))).'<br/>';
 
             return $email_text;
-        }
+        }       
         
-        private function messageTraveler2Driver($conversation, $subject, array $attachments, &$driverTravel){;
+        private function messageTraveler2Driver($conversation, array $attachments, &$driverTravel){;
             $driverName = 'chofer';
             if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
                 $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
 
-            $email_text = $this->getPrettyMsgList($conversation, __('Tú'), __('Viajero'));
+            $messages = $this->getMessagesInConversation($conversation);
+            $email_text = $this->concatMessages($messages , 'Tú', 'Viajero');
 
             if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
                       $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
@@ -122,12 +135,12 @@
             $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
             $OK = ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                 $deliverTo,
-                array('conversation_id'=>$conversation, 'response'=>$email_text, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
+                array('conversation_id'=>$conversation, 'response'=>$email_text, 'messages_count'=>count($messages), 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
                       'driver_travel'=>$driverTravel['DriverTravel']),
                 array(
                     'template'=>'response_traveler2driver',
                     'format'=>'html',
-                    'subject'=>$subject,
+                    'subject'=>MessagesUtil::getEmailSubject($conversation),
                     'config'=>'viajero',
                     'attachments'=>$attachments),
                 $returnData
@@ -139,7 +152,7 @@
             return $OK;
         }   
         
-        private function messageDriver2Traveler($conversation, $sender, $subject, $fixedBody, array $attachments, &$driverTravel){
+        private function messageDriver2Traveler($conversation, $sender, $fixedBody, array $attachments, &$driverTravel){
             $OK = true;
             // Bloquear a Juan
             if($driverTravel['Driver']['id'] == 71) {
@@ -203,7 +216,7 @@
                         'layout'=>$layout,
                         'template'=>$template,
                         'format'=>'html',
-                        'subject'=>$subject,
+                        'subject'=>MessagesUtil::getEmailSubject($conversation, $driverTravel['User']['lang']),
                         'config'=>'chofer',
                         'attachments'=>$attachments,
                         //'lang'=>$driverTravel['Travel']['User']['lang'],
@@ -218,6 +231,15 @@
             }
             
             return $OK;
+        }
+        
+        
+        private static function getEmailSubject($conversationId, $lang = 'es') {
+            $subject = '[['.$conversationId.']]';
+            if($lang == 'es') $subject = 'Nuevo mensaje [['.$conversationId.']]';
+            else if($lang == 'en') $subject = 'New message [['.$conversationId.']]';
+            
+            return $subject;
         }
     }
 ?>

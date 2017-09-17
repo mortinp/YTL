@@ -7,13 +7,12 @@ function ajaxifyButton(button, onSuccess, onError) {
 
         // Deshabilitar boton y poner Espere...
         var boton = $(this);
-        var prevText = boton.text();
+        //var prevText = boton.text();
         boton.attr('disabled', true);
-        boton.text('Espere ...');
+        //boton.text('Espere ...');
 
         $.ajax({
             type: "POST",
-            //data: <Si vas a enviar datos habria que buscar la forma, pero por ahora creo que no se envia nada>,
             url: $(this).data('url'),
             success: function(response) {
                 if(response == "") response = "{}";
@@ -32,7 +31,7 @@ function ajaxifyButton(button, onSuccess, onError) {
             complete: function(){
                 // Habilitar boton y restaurar texto
                 boton.attr('disabled', false);
-                boton.text(prevText);
+                //boton.text(prevText);
             }
         });
     });

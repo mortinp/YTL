@@ -29,51 +29,49 @@ if($message['response_by'] == 'driver') {
     <br/>
     
     <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
-        <div class="alert alert-info">
+        <div class="alert">
             <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
                 <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
             </a>
             <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
-
-            <script type="text/javascript">
-                $('#show-attachments-<?php echo $messageId?>').click(function() {
-
-                    $.ajax({
-                        type: "POST",
-                        data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
-                        url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
-                        success: function(response) {
-                            //alert(response);
-                            response = JSON.parse(response);
-
-                            var place = $('#attachments-<?php echo $messageId?>');
-                            for (var a in response.attachments) {
-                                var att = response.attachments[a];
-                                if(att.mimetype.substr(0, 5) == 'image') {
-                                    //alert('imagen: ' + att.url);
-                                    //alert($('#attachments-<?php echo $messageId?>').attr('id'));
-                                    place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/><br/>');
-                                } else if(att.mimetype == 'text/plain') {
-                                    place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
-                                } else {
-                                    place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/><br/>');
-                                }
-                            }
-
-                            $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
-
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            alert(jqXHR.responseText);
-                        },
-                        complete: function() {
-
-                        }
-                    });
-
-                });
-            </script>
         </div>
+        <script type="text/javascript">
+            $('#show-attachments-<?php echo $messageId?>').click(function() {
+
+                $.ajax({
+                    type: "POST",
+                    data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
+                    url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
+                    success: function(response) {
+                        //alert(response);
+                        response = JSON.parse(response);
+
+                        var place = $('#attachments-<?php echo $messageId?>');
+                        for (var a in response.attachments) {
+                            var att = response.attachments[a];
+                            if(att.mimetype.substr(0, 5) == 'image') {
+                                place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/>');
+                            } else if(att.mimetype == 'text/plain') {
+                                place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                            } else {
+                                place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                            }
+                        }
+
+                        $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    },
+                    complete: function() {
+
+                    }
+                });
+
+            });
+        </script>
+        
     <?php endif?>
     
     <?php 
@@ -97,16 +95,16 @@ if($message['response_by'] == 'driver') {
             $msgWasShortened = true;
         }
     ?>
-    
+        
     <?php if($msgWasShortened):?>
         <div id="msg-full-body-<?php echo $messageId?>" style="display: none">
             <?php echo $fullText; ?>
         </div>
     <?php endif;?>
-    
+
     <div id="msg-body-<?php echo $messageId?>">
         <?php echo $shortText; ?>
-        
+
         <?php if($msgWasShortened):?>
             <br/>
             <br/>
@@ -118,4 +116,5 @@ if($message['response_by'] == 'driver') {
             </script>
         <?php endif;?>
     </div>
+        
 </div>

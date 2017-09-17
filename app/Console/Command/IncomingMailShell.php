@@ -3,6 +3,7 @@
 App::uses('Travel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('EmailsUtil', 'Util');
+App::uses('MessagesUtil', 'Util');
 
 require_once ("helper/mailReader.php");
 //require_once ("Config/email.php");
@@ -56,86 +57,8 @@ class IncomingMailShell extends AppShell {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                $this->Driver->attachProfile($this->DriverTravel); // Esto es para poder coger el nombre de chofer
-                
-                $driverTravel = $this->DriverTravel->findById($conversation);
-                
-                if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
-                    if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
-                            $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
-                        $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
-                    else $deliverTo = $driverTravel['Driver']['username'];
-
-                    $datasource = $this->DriverTravelerConversation->getDataSource();
-                    $datasource->begin();
-                    
-                    
-                    $fixedBody = EmailsUtil::fixEmailBody(EmailsUtil::removeAllEmailAddresses($body));
-
-                    $OK = $this->DriverTravelerConversation->save(array(
-                        'conversation_id'=>$conversation,
-                        'response_by'=>'traveler',
-                        'response_text'=>$fixedBody
-                    ));
-                    if(!$OK) {
-                        CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar la conversación en driver_traveler_conversations</span>");
-                        CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                    }
-
-                    if($OK) {
-                        $driverName = 'chofer';
-                        if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
-                            $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
-                        
-                        $messages = $this->getMessagesInConversation($conversation);
-                        $email_text = $this->concatMessages($messages , __('Tú'), __('Viajero'));
-                        
-                        // El $returnData es para coger los ids de los attachments que hayan
-                        $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
-                        ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            $deliverTo,
-                            //array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName),
-                            //array('conversation_id'=>$conversation, 'response'=>$fixedBody, 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
-                            array('conversation_id'=>$conversation, 'response'=>$email_text, 'messages_count'=>count($messages), 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
-                                  'driver_travel'=>$driverTravel['DriverTravel']),
-                            array(
-                                'template'=>'response_traveler2driver',
-                                'format'=>'html',
-                                'subject'=>$subject,
-                                'config'=>'viajero',
-                                'attachments'=>$parser->attachments),
-                            $returnData
-                        );
-                        // Guardar los ids de los attachments en la forma id1-id2-id3
-                        if(isset ($returnData['attachments_ids']) && !empty($returnData['attachments_ids'])) {
-                            $strIds = '';
-                            $sep = '';
-                            foreach ($returnData['attachments_ids'] as $id) {
-                                $strIds .= $sep.$id;
-                                $sep = '-';
-                            }
-                            
-                            $this->out($strIds);
-                            $this->DriverTravelerConversation->saveField('attachments_ids', $strIds);
-                        }
-                    }
-                    if(!$OK) {
-                        CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar en emails_queue</span>");
-                        CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                    }
-
-                    if($OK) {
-                        $datasource->commit();
-                        //CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
-                    } else {
-                        $datasource->rollback();
-                        CakeLog::write('conversations', "<span style='color:red'>Conversation Failed!</span>");
-                        CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                    }
-                } else {
-                    CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se encontró la conversación</span>");
-                    CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                }
+                $mu = new MessagesUtil();
+                $mu->sendMessage('traveler', $conversation, $sender, $body, $parser->attachments);
             } else {
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
@@ -175,135 +98,8 @@ class IncomingMailShell extends AppShell {
                 $conversation = $matches[1];
                 $this->out($conversation);
                 
-                $this->DriverTravel->recursive = 2;
-                $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
-                $driverTravel = $this->DriverTravel->findById($conversation);
-                
-                if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
-                    
-                    // Bloquear a Juan
-                    if($driverTravel['Driver']['id'] == 71) {
-                        $Email = new CakeEmail('super');
-                        $Email->to('juandrc59@nauta.cu')
-                              ->subject('Usted está bloqueado');
-                        $Email->send('Hola Juan, usted está bloqueado en YoTeLlevo. Lo sentimos, sus mensaje no le llegarán a sus clientes mientras permanezca bloqueado. Comuníquese con nosotros al 54530482 o a este correo.');
-                        
-                        CakeLog::write('juan', "Mensaje de Juan bloqueado: $conversation - $body");
-                        return;
-                    }
-                    
-                    
-                    $deliverTo = $driverTravel['User']['username'];
-
-                    $datasource = $this->DriverTravelerConversation->getDataSource();
-                    $datasource->begin();
-                    $OK = true;
-
-                    if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
-                        ($driverTravel['DriverTravel']['last_driver_email'] == null ||
-                        strlen($driverTravel['DriverTravel']['last_driver_email']) == 0 ||
-                        $driverTravel['DriverTravel']['last_driver_email'] != $sender)) {
-
-                        $driverTravel['DriverTravel']['last_driver_email'] = $sender;
-                        $this->DriverTravel->id = $conversation;
-                        $this->DriverTravel->order = null;
-                        $OK = $this->DriverTravel->saveField('last_driver_email', $driverTravel['DriverTravel']['last_driver_email']);
-                        if(!$OK) {
-                            CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo actulizar el campo last_driver_email en la tabla drivers_travels</span>");
-                            CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                        }
-                    }
-                    
-                    // Poner el lenguaje para que todo se traduzca bien de aquí para abajo
-                    if(isset ($driverTravel['User']['lang']) && $driverTravel['User']['lang'] != null)
-                        Configure::write('Config.language', $driverTravel['User']['lang']);
-                    
-                    $fixedBody = EmailsUtil::fixEmailBody(EmailsUtil::removeAllUrls(EmailsUtil::removeAllEmailAddresses($body)));
-                    
-                    if($OK) $OK = $this->DriverTravelerConversation->save(array(
-                        'conversation_id'=>$conversation,
-                        'response_by'=>'driver',
-                        'response_text'=>$fixedBody
-                    ));
-                    if(!$OK) {
-                        CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar la conversación en driver_traveler_conversations</span>");
-                        CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);                       
-                    }
-
-                    if($OK) {
-                        
-                        $layout = 'default';
-                        $template = 'response_driver2traveler';
-                        if(Configure::read('Email.html')) {
-                            $layout = 'html_ink';
-                            $template = 'response_driver2traveler_html';
-                        }
-                        
-                        $driverName = __d('conversation', 'Chofer %s', '#'.$driverTravel['Driver']['id']); // ej. Chofer #23
-                        if(isset ($driverTravel['Driver']['DriverProfile']) && !empty($driverTravel['Driver']['DriverProfile'])) {
-                            $driverName = Driver::removeParenthesisFromName($driverTravel['Driver']['DriverProfile']['driver_name']); // No eliminar el apellido para que no haya confusiones
-                        }
-                        $fromName = __d('conversation', '%s de YoTeLlevo', $driverName);
-                        
-                        $fromEmail = null;
-                        if (class_exists('EmailConfig')) {
-                            $emailConfig = new EmailConfig();
-                            $keysFrom = array_keys($emailConfig->chofer['from']);
-                            if(!empty ($keysFrom)) $fromEmail = $keysFrom[0];
-			} else {
-                            $fromEmail = 'chofer@yotellevocuba.com'; // TODO: Deberia dejar esto fijo???
-                        }
-                        
-                        
-                        // El $returnData es para coger los ids de los attachments que hayan
-                        $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
-                        ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-                            $deliverTo,
-                            array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel'], 
-                                  'driver_travel'=>$driverTravel['DriverTravel']),
-                            array(
-                                'layout'=>$layout,
-                                'template'=>$template,
-                                'format'=>'html',
-                                'subject'=>$subject,
-                                'config'=>'chofer',
-                                'attachments'=>$parser->attachments,
-                                //'lang'=>$driverTravel['Travel']['User']['lang'],
-                                'lang'=>$driverTravel['User']['lang'],
-                                'from_name'=>$fromName,
-                                'from_email'=>$fromEmail),
-                            $returnData
-                        );
-                        // Guardar los ids de los attachments en la forma id1-id2-id3
-                        if(isset ($returnData['attachments_ids']) && !empty($returnData['attachments_ids'])) {
-                            $strIds = '';
-                            $sep = '';
-                            foreach ($returnData['attachments_ids'] as $id) {
-                                $strIds .= $sep.$id;
-                                $sep = '-';
-                            }
-                            
-                            $this->out($strIds);
-                            $this->DriverTravelerConversation->saveField('attachments_ids', $strIds);
-                        }
-                    }
-                    if(!$OK) {
-                        CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo salvar en emails_queue</span>");
-                        CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                    }
-
-                    if($OK) {
-                        $datasource->commit();
-                        //CakeLog::write('conversations', 'Conversation Saved and Email Enqueued!');
-                    } else {
-                        $datasource->rollback();
-                        CakeLog::write('conversations', "<span style='color:red'>Conversation Failed!</span>");
-                        CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                    }
-                } else {
-                    CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se encontró la conversación</span>");
-                    CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
-                }
+                $mu = new MessagesUtil();
+                $mu->sendMessage('driver', $conversation, $sender, $body, $parser->attachments);
             } else {
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
@@ -382,28 +178,7 @@ class IncomingMailShell extends AppShell {
                 EmailsUtil::email($sender, 'Tus datos en YoTeLlevo', $vars, 'super', 'info_our_drivers');
             }
         }      
-    }
-    
-    private function getMessagesInConversation($conversation){
-        $msg_list = $this->DriverTravelerConversation->find('all', array(
-                'conditions' => array('DriverTravelerConversation.conversation_id'=>$conversation), 
-                                      'recursive'  => -1,
-                                      'order' => 'DriverTravelerConversation.id DESC',
-                                      'limit' => 10
-        ));
-        
-        return $msg_list;
-    }
-    
-    private function concatMessages($messages, $driver_name, $traveler_name) {
-        $view = new View();
-        $email_text = "";
-        foreach($messages as $msg)
-            $email_text .= trim ($view->element('pretty_message', array('message' => $msg['DriverTravelerConversation']) + compact('driver_name', 'traveler_name'))).'<br/>';
-            
-        return $email_text;
-    }
-    
+    }  
 }
 
 ?>

@@ -220,7 +220,7 @@ class AppController extends Controller {
     
     private function _getPageTitle($key) {
         $pageTitles = array(
-            'default' =>array('title'=>__d('meta', 'Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Recibe ofertas de precio directamente de choferes que operan en Cuba y contrata al mejor para tu viaje.')),
+            'default' =>array('title'=>__d('meta', 'Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Descubre choferes que operan en Cuba, recibe ofertas de precio directamente de ellos y contrata al mejor para tu viaje.')),
             
             // Unrestricted access
             'pages.display' =>array(

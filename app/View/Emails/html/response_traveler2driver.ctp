@@ -7,9 +7,9 @@
 
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <div id="conversation-header">
-    <em>Hola <?php echo $driver_name?>. Este correo contiene una respuesta del viajero para el viaje <b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b> <b><?php echo $travel_hint; ?></b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.</em>
+    Hola <?php echo $driver_name?>. Este correo contiene una respuesta del viajero para el viaje <b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b> <b><?php echo $travel_hint; ?></b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.
 </div>
-<hr/>
+<hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
 
 <p>A continuación puedes leer los <b>últimos <?php echo $messages_count?> mensajes</b> de la conversación:</p>
 
