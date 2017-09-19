@@ -12,7 +12,10 @@ if (isset($driver_profile))
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="panel-title"><?php echo "<b>Testimonio {$testimonial['id']}:</b>"; ?>
+                &nbsp;
                 <?php echo $this->Html->link('admin »', array('controller' => 'testimonials', 'action' => 'admin', $testimonial['id']))?>
+                &nbsp;
+                <?php echo $this->Html->link('permalink »', array('language'=>$testimonial['lang'], 'controller' => 'testimonials', 'action' => 'view', $testimonial['id']), array('target'=>'_blank'))?>
             </div>
         </div>
 

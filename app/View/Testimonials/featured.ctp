@@ -45,8 +45,8 @@
                     ?> 
                     <br/>
                     <div>
-                        <span class="text-muted"><?php echo __d('catalog', 'Descubre más choferes')?>:</span>
-                        <span style="display: inline-block"><?php echo $this->Html->link(__d('catalog', 'Mostrar también reseñas en %s', $currentLang['altDesc']), $query)?></span>
+                        <span class="text-muted"><?php echo __d('testimonials', 'Descubre más choferes')?>:</span>
+                        <span style="display: inline-block"><?php echo $this->Html->link(__d('testimonials', 'Mostrar también reseñas en %s', $currentLang['altDesc']), $query)?></span>
                     </div>
                 <?php else:?>
                     <?php 
@@ -55,8 +55,8 @@
                     ?>
                     <br/>
                     <div>
-                        <span class="text-muted"><?php echo __d('catalog', 'Se muestran reseñas en %s e %s', $currentLang['desc'], $currentLang['altDesc'])?></span>
-                        - <span><?php echo $this->Html->link(__d('catalog', 'Mostrar sólo en %s', $currentLang['desc']), array('action'=>'featured'.$query) )?></span>
+                        <span class="text-muted"><?php echo __d('testimonials', 'Se muestran reseñas en %s e %s', $currentLang['desc'], $currentLang['altDesc'])?></span>
+                        - <span><?php echo $this->Html->link(__d('testimonials', 'Mostrar sólo en %s', $currentLang['desc']), array('action'=>'featured'.$query) )?></span>
                     </div>
                 <?php endif?>
 

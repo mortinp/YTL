@@ -12,10 +12,12 @@
                     'en' => array('controller' => 'testimonials', 'action' => "lang_change/{$testimonial['id']}/es") );
 ?>
 
-<h2 align="center"> Administrar Testimonio #<?php echo $testimonial['id']; ?></h2>
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
+        <div class="lead"> <span class="text-muted">Administrar Testimonio #</span><?php echo $testimonial['id']; ?> <?php echo $this->Html->link('permalink »', array('language'=>$testimonial['lang'], 'controller' => 'testimonials', 'action' => 'view', $testimonial['id']), array('target'=>'_blank'))?></div>
       <?php 
         echo $this->element('testimonial_admin', array('testimonial' => $testimonial) ); 
         echo $this->element('testimonial_body', array('testimonial' => $testimonial) );

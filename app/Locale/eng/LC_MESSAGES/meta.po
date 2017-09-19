@@ -170,5 +170,11 @@ msgid "Bienvenida"
 msgstr "Welcome"
 
 #: View/Users/register_welcome.ctp:19
+msgid "Opinión sobre chofer en Cuba"
+msgstr "Review about a driver in Cuba"
+
+
+
+#: View/Users/register_welcome.ctp:19
 msgid "Choferes en Cuba: fotos y testimonios de viajeros"
 msgstr "Drivers in Cuba: pictures and testimonials from travelers"

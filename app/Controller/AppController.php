@@ -149,7 +149,8 @@ class AppController extends Controller {
         $is_intro_page = 
             ($this->request->controller === 'pages' && $this->request->action ==='display' && $this->request->params['pass'][0] === 'home') ||
             ($this->request->controller === 'pages' && $this->request->action ==='display' && $this->request->params['pass'][0] === 'catalog-drivers-cuba') ||
-            ($this->request->controller === 'testimonials' && $this->request->action ==='featured');
+            ($this->request->controller === 'testimonials' && $this->request->action ==='featured') ||
+            ($this->request->controller === 'testimonials' && $this->request->action ==='view');
         if ($is_intro_page) {
             $this->Session->write('introduced-in-website', true);
         }
@@ -241,7 +242,9 @@ class AppController extends Controller {
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),
             'testimonials.preview' =>array('title'=>__d('meta', 'Gracias por tu opinión')),
             'testimonials.featured' =>array('title'=>__d('meta', 'Opiniones y reseñas sobre choferes en Cuba'), 'description'=>__d('meta', 'Mira opiniones y fotos de choferes en Cuba y solicita un viaje al que creas mejor')),
-                
+            'testimonials.view' =>array('title'=>__d('meta', 'Opinión sobre chofer en Cuba')),
+            
+            'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver')),    
             
             // Users access
             'users.profile' =>array('title'=>__d('meta', 'Preferencias')),
@@ -255,8 +258,6 @@ class AppController extends Controller {
             'travels.index' =>array('title'=>__d('meta', 'Anuncios de Viajes')),
             'travels.add' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
             'travels.view' =>array('title'=>__d('meta', 'Ver Anuncio de Viaje')),
-            
-            'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver'/*'Fotos del chofer %s y su auto'*/)),
             
             'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),
             

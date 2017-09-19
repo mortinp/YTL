@@ -177,6 +177,39 @@ msgstr "Like our drivers already?"
 msgid "Contacta con %s de ellos creando una solicitud de viaje"
 msgstr "Get in touch with %s of them by creating a travel request"
 
+#: /featured.ctp:33
+msgid "Descubre más choferes"
+msgstr "Discover more drivers"
+
+#: /featured.ctp:33
+msgid "Mostrar también reseñas en %s"
+msgstr "Show also reviews in %s"
+
+#: /featured.ctp:33
+msgid "Se muestran reseñas en %s e %s"
+msgstr "Showing reviews in %s and %s"
+
+#: /featured.ctp:33
+msgid "Mostrar sólo en %s"
+msgstr "Show only in %s"
+
+#: /view.ctp:33
+msgid "Estás viendo un testimonio sobre %s, uno de nuestros choferes."
+msgstr "You are seeing a review about %s, one of our drivers."
+
+#: /view.ctp:33
+msgid "<span class="text-muted">Puedes</span> %s <span class="text-muted"> en su perfil, o puedes</span> %s <span class="text-muted">en nuestra página de testimonios.</span>"
+msgstr "<span class="text-muted">You can</span> %s <span class="text-muted"> in his profile, or you can</span> %s <span class="text-muted">at our testimonials page.</span>"
+
+#: /view.ctp:33
+msgid "ver más opiniones sobre %s"
+msgstr "see more reviews about %s"
+
+#: /view.ctp:33
+msgid "ver otras opiniones sobre nuestros choferes"
+msgstr "see other reviews about our drivers"
+
+
 
 
 # MENSAJES
@@ -184,4 +217,3 @@ msgstr "Get in touch with %s of them by creating a travel request"
 #: /code.ctp:33
 msgid "No se encontró un chofer con este código. Revíselo e intente de nuevo."
 msgstr "We could't find a driver with that code. Check it and try again."
-

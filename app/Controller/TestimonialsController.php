@@ -12,7 +12,7 @@ class TestimonialsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
 
-        $this->Auth->allow('enter_code', 'featured');
+        $this->Auth->allow('enter_code', 'featured', 'view');
         if (isset($this->request->params['pass']['0'])) {
             if ($this->request->params['action'] == 'add') {
                 if (!isset($this->request->params['pass']['1']))
@@ -189,6 +189,15 @@ class TestimonialsController extends AppController {
     }
 
     public function preview($id) {
+        $this->Driver->attachProfile($this->Testimonial);
+        $data = $this->Testimonial->findById($id);
+        if (!$data)
+            throw new NotFoundException(__d('testimonials', 'No existe el testimonio solicitado'));
+
+        $this->set('data', $data);
+    }
+    
+    public function view($id) {
         $this->Driver->attachProfile($this->Testimonial);
         $data = $this->Testimonial->findById($id);
         if (!$data)

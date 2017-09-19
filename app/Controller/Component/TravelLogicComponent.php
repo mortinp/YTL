@@ -63,7 +63,6 @@ class TravelLogicComponent extends Component {
                         }
                     }*/
                     // Variante 2: Si es el primer viaje del usuario, mandarle un correo del Asistente de Viajes General (Ana)
-                    $aaa = AuthComponent::user('conversations_count');
                     $sendEmailFromAssistant = $travel['User']['travel_count'] <= 1 && AuthComponent::user('conversations_count') < 1; // TODO: A lo mejor es mejor enviar este correo en el UsersController solo en la accion registrase...
                     if($sendEmailFromAssistant) {
                         if(!EmailsUtil::email(

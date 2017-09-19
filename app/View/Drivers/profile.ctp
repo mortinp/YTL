@@ -99,10 +99,11 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         <div class="bg-info row">
             <div class="row">
                 <div id="message-driver" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
-                    <div style="height: 60px;clear: both"></div>
+                    <div style="height: 50px;clear: both"></div>
+                    <div style="text-align:center"><?php echo __d('driver_profile', '¿Necesitas un chofer con auto en Cuba?') ?></div>
                     <legend style="text-align:center">
                         <div class="handwritten-2"><big><big><?php echo __d('driver_profile', 'Haz un viaje sorprendente con %s', $driver_name) ?></big></big></div>
-                        <div><small><?php echo __d('driver_profile', '<b>Envía un mensaje a %s</b> para comenzar a acordar tus recorridos con él.', $driver_name) ?></small></div>
+                        <div><small><small><?php echo __d('driver_profile', '<b>Envía un mensaje a %s</b> para comenzar a acordar tus recorridos con él.', $driver_name) ?></small></small></div>
                     </legend>
                     <?php echo $this->Session->flash(); ?> 
                     <br/>
