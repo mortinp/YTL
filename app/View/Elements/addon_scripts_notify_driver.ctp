@@ -10,12 +10,6 @@ $this->Html->script('bootstrap', array('inline' => false));
 $this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
 $this->Html->script('bootbox/bootbox', array('inline' => false));
 
-$drivers_in = array();
-foreach($users as $user)
-    foreach($user as $travel)
-        foreach($travel['DriverTravel'] as $conversation)
-            $drivers_in[ $conversation['travel_id'] ][] = $conversation['driver_id'];
-
 $this->Js->set('drivers_in', $drivers_in);
 
 $this->Js->set('drivers', $drivers);

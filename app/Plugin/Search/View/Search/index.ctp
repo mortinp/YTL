@@ -39,4 +39,11 @@
     </div>
 </div>
 
-<?php echo $this->element('addon_scripts_notify_driver')?>
+<?php
+    $drivers_in = array();
+    foreach($travels as $travel)
+        foreach($travel['DriverTravel'] as $conversation)
+            $drivers_in[ $conversation['travel_id'] ][] = $conversation['driver_id'];
+
+    echo $this->element('addon_scripts_notify_driver', compact('drivers_in'));
+?>
