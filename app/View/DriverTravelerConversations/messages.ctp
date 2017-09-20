@@ -82,7 +82,7 @@
             <span><?php echo __d('conversation', 'Envía un mensaje a %s', '<big><code>'.$driverName.'</code></big>')?></span>
             <hr/>
             <?php
-               echo $this->Form->create('DriverTravelerConversation', array('type'=>'file', 'id'=>'DriverTravelerConversationForm', 'url' => array('action' => 'sendMessage2Driver')));
+               echo $this->Form->create('DriverTravelerConversation', array('type'=>'file', 'id'=>'DriverTravelerConversationForm', 'url' => array('action' => 'msg_to_driver')));
                echo $this->Form->input('conversation_id', array('type' => 'hidden', 'value' => $data['DriverTravel']['id']));
 
                echo $this->Form->input('body', array('label' => false, 'type' => 'textarea', 'required' => 'required'));

@@ -43,14 +43,14 @@
                 if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo salvar la conversación en driver_traveler_conversations"; 
                 
                 if($OK) {
+                    $msgId = $this->DriverTravelerConversation->getLastInsertID();
+                    
                     if($from == 'traveler') $OK = $this->messageTraveler2Driver($conversation, $attachments, $driverTravel);
-                    else                    $OK = $this->messageDriver2Traveler ($conversation, $sender, $fixedBody, $attachments, $driverTravel);
+                    else                    $OK = $this->messageDriver2Traveler($conversation, $sender, $fixedBody, $attachments, $driverTravel, $msgId);
                 }   
                 
                 if($OK) {
-                    $msgId = $this->DriverTravelerConversation->getLastInsertID();
                     $datasource->commit();
-                    
                     return $msgId;
                 }
                 else{    
@@ -152,7 +152,7 @@
             return $OK;
         }   
         
-        private function messageDriver2Traveler($conversation, $sender, $fixedBody, array $attachments, &$driverTravel){
+        private function messageDriver2Traveler($conversation, $sender, $fixedBody, array $attachments, &$driverTravel, $lastMsgId){
             $OK = true;
             // Bloquear a Juan
             if($driverTravel['Driver']['id'] == 71) {
@@ -211,7 +211,7 @@
                 $OK = ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                     $deliverTo,
                     array('conversation_id'=>$conversation, 'response'=>$fixedBody,'driver'=>$driverTravel['Driver'], 'travel'=>$driverTravel['Travel'], 
-                          'driver_travel'=>$driverTravel['DriverTravel']),
+                          'driver_travel'=>$driverTravel['DriverTravel'], 'last_msg_id'=>$lastMsgId),
                     array(
                         'layout'=>$layout,
                         'template'=>$template,

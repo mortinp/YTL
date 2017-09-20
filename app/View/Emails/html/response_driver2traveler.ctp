@@ -36,7 +36,7 @@ $travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
         <p>
             <?php
             //$profile_path = $fullBaseUrl.'/driver_traveler_conversations/show_profile/'.$conversation_id;
-            $messages_path = $fullBaseUrl.'/conversations/messages/'.$conversation_id;
+            $messages_path = $fullBaseUrl.'/conversations/messages/'.$conversation_id.'?highlight=message-'.$last_msg_id;
             ?>
             <a href="<?php echo $messages_path/*$profile_path*/?>"><?php echo __d('conversation', 'Mira tus mensajes y fotos de %s y su auto', $driver_intro)/*__d('conversation', 'Mira fotos de %s y su auto', $driver_intro)*/?> »</a>
         </p>

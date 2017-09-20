@@ -19,7 +19,7 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function isAuthorized($user) {
-        if ($this->action ==='messages') {
+        if ($this->action ==='messages' || $this->action ==='msg_to_driver') {
             if($this->Auth->user('role') === 'regular' || $this->Auth->user('role') === 'tester') return true;
         }
         
@@ -333,7 +333,7 @@ class DriverTravelerConversationsController extends AppController {
         $this->set('data', $data);
     }
     
-    public function sendMessage2Driver(){  
+    public function msg_to_driver(){  
         $data = $this->request->data['DriverTravelerConversation'];
         $adjunto = $data['adjunto'];
         
