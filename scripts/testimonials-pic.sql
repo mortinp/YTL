@@ -1,1 +1,1 @@
-UPDATE testimonials SET image_filepath='files/1505738190_Clement_driving_us_to_Trinidad-small_jpg' WHERE id='59b97a6f-fc7c-408c-bf9d-30004f8fb177';
+UPDATE testimonials SET image_filepath='files/1505920513_yosvany-grupo_jpg' WHERE id='59c15eb7-db8c-484d-a8b9-610b4f8fb177';
