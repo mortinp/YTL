@@ -112,7 +112,7 @@ msgid "Enviar el mensaje ahora"
 msgstr "Send the message now"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
-msgid "Obtén una oferta de precio de %s y comienza a acordar los detalles de tu viaje"
+msgid "Recibe una oferta de precio de %s y comienza a acordar los detalles de tu viaje"
 msgstr "Get a quote from %s and start arranging the details of your travel"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9

@@ -11,18 +11,18 @@
     <div style="border-left: #efefef solid 2px;padding-left: 15px">
         <p><b>Fecha de inicio del viaje:</b> <?php echo TimeUtil::prettyDate(TimeUtil::dmY_to_Ymd($travel_date))?></p>
         <p><b>Mensaje del viajero:</b></p>
-        <p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $message)?></p>
-		
-        <p>
-            <em><b>NOTA: Este mensaje te llega sólo a tí y a más ningún chofer. Ya este cliente está interesado en hacer el viaje contigo.</b></em>
-        </p>
+        <p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $message)?></p>        
     </div>
+    
+    <p>
+        <em><b>NOTA: Este mensaje te llega sólo a tí y a más ningún chofer. Ya este cliente está interesado en hacer el viaje contigo.</b></em>
+    </p>
     
     <p> 
         <?php $respondEmail = (Configure::read('conversations_via_app'));?>
         <?php if($respondEmail):?>
             Para comunicarte con el viajero <b>responde este correo sin modificar el asunto</b>
-            [<small><b>Nota:</b> Puedes responder desde otro correo, copiando el asunto de este correo en el que vayas a enviar</small>]
+            <b>Nota:</b> Puedes responder desde otro correo, copiando el asunto de este correo en el que vayas a enviar.
         <?php endif?>
     </p>
 	

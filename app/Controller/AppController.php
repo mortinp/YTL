@@ -236,7 +236,7 @@ class AppController extends Controller {
             'users.register_welcome' =>array('title'=>__d('meta', 'Bienvenida')),
             
             'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
-            'travels.view_pending' =>array('title'=>__d('meta', 'Solicitud Pendiente')),
+            'travels.view_pending' =>array('title'=>__d('meta', 'Solicitud pendiente')),
             
             'testimonials.enter_code' =>array('title'=>__d('meta', 'Deja una opinión sobre tu chofer en Cuba'), 'description'=>__d('meta', 'Opinar y reseñar sobre tu viaje en auto con chofer en Cuba')),
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),
@@ -255,9 +255,9 @@ class AppController extends Controller {
             'users.send_change_password' =>array('title'=>__d('meta', 'Instrucciones para Cambio de Contraseña')),
             'users.send_confirm_email' =>array('title'=>__d('meta', 'Instrucciones para Verificación de Correo')),
             
-            'travels.index' =>array('title'=>__d('meta', 'Anuncios de Viajes')),
-            'travels.add' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
-            'travels.view' =>array('title'=>__d('meta', 'Ver Anuncio de Viaje')),
+            'travels.index' =>array('title'=>__d('meta', 'Solicitudes de viajes')),
+            'travels.add' =>array('title'=>__d('meta', 'Crear solicitud de viaje')),
+            'travels.view' =>array('title'=>__d('meta', 'Ver solicitud de viaje')),
             
             'casas.add_request' =>array('title'=>__d('meta', 'Consigue casas particulares en Cuba con la ayuda de un experto')),
             

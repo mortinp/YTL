@@ -407,8 +407,8 @@ msgid "Solicitar viaje"
 msgstr "Request a travel"
 
 #: View/Layouts/default.ctp:159
-msgid "Inicio"
-msgstr "Home"
+msgid "Ir al Inicio"
+msgstr "Home Page"
 
 #: View/Layouts/default.ctp:171
 msgid "Perfil"
@@ -600,6 +600,14 @@ msgstr "You created a travel request with the following data"
 #: View/Travels/view.ctp:26
 msgid "Editar este Viaje"
 msgstr "Edit this travel"
+
+#: View/Travels/view.ctp:26
+msgid "Editar esta solicitud"
+msgstr "Edit this request"
+
+#: View/Travels/view.ctp:26
+msgid "Cambiar datos de la solicitud antes de enviarla a los choferes"
+msgstr "Change some data in this request before sending it to the drivers"
 
 #: View/Travels/view.ctp:29
 msgid "Confirmar este Anuncio de Viaje"

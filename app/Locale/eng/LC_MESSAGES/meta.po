@@ -70,6 +70,10 @@ msgstr "Sign up and get a taxi right away. Arrange the details of the travel wit
 msgid "Crear Anuncio de Viaje"
 msgstr "Create a Travel Request"
 
+#: Controller/AppController.php:182;195
+msgid "Crear solicitud de viaje"
+msgstr "Create a travel request"
+
 #: Controller/AppController.php:186
 msgid "Preferencias"
 msgstr "Preferences"
@@ -99,6 +103,10 @@ msgid "Anuncios de Viajes"
 msgstr "Travel Requests"
 
 #: Controller/AppController.php:194
+msgid "Solicitudes de viajes"
+msgstr "Travel requests"
+
+#: Controller/AppController.php:194
 msgid "Viajes"
 msgstr "Travels"
 
@@ -109,6 +117,10 @@ msgstr "Messages in conversation"
 #: Controller/AppController.php:196
 msgid "Ver Anuncio de Viaje"
 msgstr "View Travel Request"
+
+#: Controller/AppController.php:196
+msgid "Ver solicitud de viaje"
+msgstr "View travel request"
 
 #: Controller/AppController.php:196
 msgid "Fotos del chofer %s y su auto"
@@ -164,6 +176,10 @@ msgstr "Messages with driver"
 #: View/Travels/view_pending.ctp:19
 msgid "Solicitud Pendiente"
 msgstr "Pending Request"
+
+#: View/Travels/view_pending.ctp:19
+msgid "Solicitud pendiente"
+msgstr "Pending request"
 
 #: View/Users/register_welcome.ctp:19
 msgid "Bienvenida"

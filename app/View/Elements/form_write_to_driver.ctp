@@ -24,7 +24,7 @@
     </div>
     <div class="submit col-md-<?php if($userLoggedIn) echo '12';else echo '6 col-md-offset-3'?>" style="text-align: center">
         <?php
-        $saveButtonText = __d('driver_profile', 'Enviar el mensaje ahora').' <div style="font-size:12pt;padding-left:50px;padding-right:50px">'.__d('driver_profile', 'Obtén una oferta de precio de %s y comienza a acordar los detalles de tu viaje', $profile['DriverProfile']['driver_name']).'</div>';
+        $saveButtonText = __d('driver_profile', 'Enviar el mensaje ahora').' <div style="font-size:12pt;padding-left:50px;padding-right:50px">'.__d('driver_profile', 'Recibe una oferta de precio de %s y comienza a acordar los detalles de tu viaje', $profile['DriverProfile']['driver_name']).'</div>';
         $buttonStyle = 'font-size:18pt;white-space: normal;';
         echo $this->Form->submit($saveButtonText, array('style' => $buttonStyle, 'id' => 'CDirectSubmit', 'class'=>'btn btn-block btn-info', 'escape'=>false, 'rel'=>'nofollow'), true);
         ?>

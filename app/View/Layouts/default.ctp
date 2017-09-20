@@ -199,7 +199,7 @@ if($userLoggedIn) {
                             <?php endif;?>
                                     
                         <?php else: ?>
-                            <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-home"></i> '.__('Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?></li>
+                            <li><?php echo $this->Html->link(__('Ir al Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?></li>
                         <?php endif;?>            
                     </ul>
 
@@ -279,15 +279,15 @@ if($userLoggedIn) {
         </div>
         
         <script type="text/javascript">
-            function goTo(id, time) {
+            function goTo(id, time, offset) {
                 $('html, body').animate({
-                    scrollTop: $('#' + id).offset().top - 70
+                    scrollTop: $('#' + id).offset().top + offset
                 }, time);
             };
             
             <?php if(isset($this->request->query['highlight'])):?>
                 $(document).ready(function() {
-                    goTo('<?php echo $this->request->query['highlight']?>', 500);
+                    goTo('<?php echo $this->request->query['highlight']?>', 500, -70);
                 });
             <?php endif?>
          </script>

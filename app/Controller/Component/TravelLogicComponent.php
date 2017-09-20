@@ -291,7 +291,7 @@ class TravelLogicComponent extends Component {
         /*$tag = $travel[$travelType]['origin'].' - '.$travel[$travelType]['destination'];
         if(strlen($tag) > 80) $subject .= substr ($tag, 0, 80).'...';
         else $subject .= $tag;*/
-        $subject .= __d('user_email', 'Solicitud de viaje');
+        $subject .= 'Solicitud de viaje';
         $subject .= ' [['.$id.']]';
         
         return $subject;

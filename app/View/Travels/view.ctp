@@ -25,10 +25,9 @@ if($isConfirmed) {
             <br/>
             <br/>
             <?php echo $this->element('travel', array('actions'=>false))?>
-            <br/>
-
+            
             <?php if(!$isConfirmed):?>
-                <a title="<?php echo __('Editar este Viaje')?>" href="#!" class="edit-travel">&ndash; <?php echo __('Editar este Viaje')?></a>    
+                <a title="<?php echo __('Cambiar datos de la solicitud antes de enviarla a los choferes')?>" href="#!" class="edit-travel info">&ndash; <?php echo __('Editar esta solicitud')?></a>    
                 <br/>
                 <br/>
                 <?php echo $this->Html->link(__('Confirmar este Anuncio de Viaje').' 

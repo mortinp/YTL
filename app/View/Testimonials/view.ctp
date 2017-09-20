@@ -19,20 +19,17 @@ $driver_name = $data['Driver']['DriverProfile']['driver_name'];
                 </span>
             <?php endif?>
             <p>
-                <?php echo __d('testimonials', 'Estás viendo un testimonio sobre %s, uno de nuestros choferes.', '<code>'.$driver_name.'</code>')?>
+                <?php echo __d('testimonials', 'Estás viendo un testimonio sobre %s, uno de nuestros choferes en Cuba.', '<code>'.$driver_name.'</code>')?>
+            </p>
+            <p>
+                <span style="display: inline-block"><?php echo $this->Html->link(__d('testimonials', 'Mira el perfil de %s', $driver_name), array('controller' => 'drivers', 'action' => 'profile/' . $data['Driver']['DriverProfile']['driver_nick'])) ?></span>
+                &nbsp;|&nbsp;
+                <span style="display: inline-block"><?php echo $this->Html->link(__d('testimonials', 'Ver otras opiniones sobre nuestros choferes', $driver_name), array('action' => 'featured'))?></span>
             </p>
             
             <br/>
             <br/>
             <?php echo $this->element('testimonial_body', array('testimonial' => $testimonial, 'driver'=>$data['Driver']));?>
-            
-            <br/>
-            <br/>
-            <p class="lead">
-                <?php echo __d('testimonials', '<span class="text-muted">Puedes</span> %s <span class="text-muted"> en su perfil, o puedes</span> %s <span class="text-muted">en nuestra página de testimonios.</span>', 
-                        $this->Html->link(__d('testimonials', 'ver más opiniones sobre %s', $driver_name), array('controller' => 'drivers', 'action' => 'profile/' . $data['Driver']['DriverProfile']['driver_nick'])), 
-                        $this->Html->link(__d('testimonials', 'ver otras opiniones sobre nuestros choferes', $driver_name), array('action' => 'featured')))?>
-            </p>
         </div>
         
     </div>
