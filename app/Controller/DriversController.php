@@ -5,9 +5,11 @@ App::uses('CakeEmail', 'Network/Email');
 
 class DriversController extends AppController {
     
-    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User');
+    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User', 'Testimonial');
     
-    public $components = array('TravelLogic');
+    public $components = array('TravelLogic', 'Paginator', 'RequestHandler');
+    
+    public $helpers = array('Js');
     
     public function beforeFilter() {
         parent::beforeFilter();
@@ -118,13 +120,26 @@ class DriversController extends AppController {
     }
     
     public function profile($nick) {
-        if(Configure::read('show_testimonials_in_profile')) $this->Driver->loadTestimonials($this->DriverProfile);
+        //if(Configure::read('show_testimonials_in_profile')) $this->Driver->loadTestimonials($this->DriverProfile);
+        $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         
         $profile = $this->Driver->find('first', array('conditions'=>array('DriverProfile.driver_nick'=>$nick)));
         
         if($profile != null && !empty ($profile)) {
             $this->layout = 'profile';
             $this->set('profile', $profile);
+            
+            if(Configure::read('show_testimonials_in_profile')){        
+                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => 'Testimonial.created DESC') );
+                $this->set( 'testimonials', $this->paginate('Testimonial', array(
+                    'Testimonial.driver_id' => $profile['Driver']['id'], 
+                    'Testimonial.state'=>Testimonial::$statesValues['approved']))
+                );
+                
+                if($this->request->is('ajax')) 
+                    return $this->render('/elements/ajax_testimonials_list', false);
+            }
+            
         } else {
             throw new NotFoundException(__('Este perfil no existe'));
         }

@@ -209,6 +209,14 @@ msgstr "See %s's profile page"
 msgid "Ver otras opiniones sobre nuestros choferes"
 msgstr "See other reviews about our drivers"
 
+#: /view.ctp:33
+msgid "Cargar más testimonios"
+msgstr "Load more reviews"
+
+#: /view.ctp:33
+msgid "No hay más testimonios"
+msgstr "No more reviews"
+
 
 
 

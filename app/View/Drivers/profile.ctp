@@ -10,11 +10,8 @@ $driver_short_name = Driver::shortenName($driver_name);
 ?>
 
 <!-- TESTIMONIOS -->
-<?php 
-$testimonials = null;
-if(isset ($profile['Testimonial']) && !empty ($profile['Testimonial'])) $testimonials = $profile['Testimonial'];
-else if(isset ($profile['Driver']['Testimonial']) && !empty ($profile['Driver']['Testimonial'])) $testimonials = $profile['Driver']['Testimonial'];
-
+<?php
+$testimonialsCount = $this->request->paging['Testimonial']['count'];
 $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 ?>
 
@@ -45,7 +42,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                 <?php echo __d('driver_profile', '<span class="text-muted">Auto hasta</span> %s pax', $profile['Driver']['max_people_count'])?>
                 <?php if($profile['Driver']['has_air_conditioner']) echo __d('driver_profile', '<span class="text-muted">con</span> aire acondicionado')?>
             </div>
-            <div><?php if($hasTestimonials):?><a href="#reviews"><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', count($testimonials))?></a><?php endif?></div>
+            <div><?php if($hasTestimonials):?><a href="#reviews"><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', $testimonialsCount)?></a><?php endif?></div>
         </div>
         <br/>
         
@@ -55,39 +52,34 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         </div>
     </div>
     
-    <div class="col-md-8 col-md-offset-2" style="padding-top: 30px;">
+    
     <?php if(AuthComponent::user('role') === 'admin'):?>
+    <div class="col-md-8 col-md-offset-2" style="padding-top: 30px;">
         <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
-    <?php endif?>
     </div>
+    <?php endif?>
+    
 </div>
 
 <?php if($hasTestimonials):?>
-
 <div class="row">
-    
-    <div class="col-md-8 col-md-offset-2" id="reviews">
+    <div style="height: 60px" id="reviews"></div>
+    <div class="col-md-8 col-md-offset-2">
         <span class="lead">
-            <?php echo __d('driver_profile', '%s tiene %s opiniones', $driver_short_name, count($testimonials))?>
+            <?php echo __d('driver_profile', '%s tiene %s opiniones', $driver_short_name, $testimonialsCount)?>
         </span>
         <hr/>
     </div>
     
-    <?php $i = 0?>
-    <?php foreach ($testimonials as $testimonial):?>
-        <div class="col-md-8 col-md-offset-2">
-            <?php echo $this->element('testimonial_body', array('testimonial'=>$testimonial));?>
-            <br/>
-            <br/>
-        </div>
-        <?php $i++?>
-    <?php endforeach?>
-    
+    <?php echo $this->element('ajax_testimonials_list', compact('testimonials')); ?>
+    <hr/>
 </div>
 <?php endif?>
 
 
 <?php if(!$talkingToDriver):?>
+<br/>
+<br/>
 <br/>
 <div class="row">
     <?php
@@ -96,7 +88,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
     ?>
     <div class="<?php echo $class?>">
         <div class="row arrow_box arrow_box_bottom"></div>
-        <div class="bg-info row">
+        <div class="row" style="background-color: #ebebeb">
             <div class="row">
                 <div id="message-driver" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
                     <div style="height: 50px;clear: both"></div>
