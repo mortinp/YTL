@@ -219,12 +219,6 @@ echo $this->Js->writeBuffer(array('inline' => false));
 
 <script type="text/javascript">
     
-    function goTo(id) {
-        $('html, body').animate({
-            scrollTop: $('#' + id).offset().top
-        }, 300);
-    };
-    
     $(document).ready(function(){
         $( ".open-form" ).click(function( event ) {
             bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('form') ).html()});
@@ -242,7 +236,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
         });
 
         $('.last-msg').click(function() {
-            goTo($(this).data('where'));
+            goTo($(this).data('where'), 100, -70);
         });
     });
  </script>
