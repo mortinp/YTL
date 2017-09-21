@@ -19,12 +19,12 @@ $driver_name = $data['Driver']['DriverProfile']['driver_name'];
                 </span>
             <?php endif?>
             <p>
-                <?php echo __d('testimonials', 'Estás viendo un testimonio sobre %s, uno de nuestros choferes en Cuba.', '<code>'.$driver_name.'</code>')?>
+                <?php echo __d('testimonials', 'Estás viendo un testimonio sobre %s, uno de nuestros choferes en %s, Cuba.', '<code><big>'.$driver_name.'</big></code>', '<code><big>'.$data['Driver']['Province']['name'].'</big></code>')?>
             </p>
             <p>
                 <span style="display: inline-block"><?php echo $this->Html->link(__d('testimonials', 'Mira el perfil de %s', $driver_name), array('controller' => 'drivers', 'action' => 'profile/' . $data['Driver']['DriverProfile']['driver_nick'])) ?></span>
                 &nbsp;|&nbsp;
-                <span style="display: inline-block"><?php echo $this->Html->link(__d('testimonials', 'Ver otras opiniones sobre nuestros choferes', $driver_name), array('action' => 'featured'))?></span>
+                <span style="display: inline-block"><?php echo $this->Html->link(__d('testimonials', 'Descubre más choferes en nuestra Página de Testimonios', $driver_name), array('action' => 'featured'))?></span>
             </p>
             
             <br/>

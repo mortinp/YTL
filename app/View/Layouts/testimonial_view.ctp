@@ -22,15 +22,37 @@ if($userLoggedIn) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>        
         <?php echo $this->Html->charset(); ?>
         <?php
-        $title = str_replace('%driver', $profile['DriverProfile']['driver_name'], $page_title);
-        $title = str_replace('%province', $profile['Province']['name'], $title);
+        $testimonial = $data['Testimonial'];
+        $profile = $data['Driver']['DriverProfile'];
+        
+        $title = str_replace('%driver', $profile['driver_name'], $page_title);
+        $description = str_replace('%author', $testimonial['author'], $page_description);
+        $description = str_replace('%driver', $profile['driver_name'], $description);
         ?>
         <title><?php echo $title.' | YoTeLlevo' ?></title>
-        <meta name="description" content="<?php echo $page_description?>"/>
+        <meta name="description" content="<?php echo $description?>"/>
+        
+        <!-- FACEBOOK SHARE -->
+        <?php
+        $fbImgUrl = '';
+        $fullBaseUrl = Configure::read('App.fullBaseUrl');
+        if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
+        
+        if ($testimonial['image_filepath']){
+            $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $testimonial['image_filepath']);
+        } else {
+            $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['avatar_filepath']);
+        }
+        
+        
+        ?>
+        <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $testimonial['author'], $profile['driver_name']), 0, 90)?>">
+        <meta property="og:image" content="<?php echo $fbImgUrl?>">
+        <meta property="og:description" content="<?php echo substr($testimonial['text'], 0, 300)?>...">
         
         <style type="text/css">
             
@@ -79,7 +101,7 @@ if($userLoggedIn) {
     </head>
     <body>
         <div id="container">
-            <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div id="navbar" class="navbar navbar-default" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <!--<div class="container-fluid">-->
@@ -108,91 +130,15 @@ if($userLoggedIn) {
                             <?php if ($userLoggedIn) :?>
                             
                                 <?php if($userRole === 'regular' || $userRole === 'admin' || $userRole === 'tester') :?>
-                                    <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
-                                    <li class="divider-vertical"></li>
-                                    <li><?php echo $this->Html->link(__('Mis Anuncios'), array('controller' => 'travels', 'action' => 'index'), array('class' => 'nav-link', 'escape'=>false));?></li>
-                                    <li class="divider-vertical"></li>
-                                    <li title="<?php echo __('Mira los mensajes que tienes con cada uno de los choferes y mantente al tanto de tus acuerdos de viaje')?>" class="info">
-                                        <?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">'.__('Mis Mensajes').'</button>', array('controller' => 'conversations'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
-                                    </li>
                                     
-                                    <?php if($userRole === 'admin') :?>
-                                    <li class="divider-vertical"></li>
-                                    <li class="dropdown">
-                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
-                                            Administrar
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Administrar</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Usuarios', array('controller' => 'users', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link('Choferes', array('controller' => 'drivers', 'action' => 'index')) ?></li>                                            
-                                                    <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link('Provincias', array('controller' => 'provinces', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link('Localidades', array('controller' => 'localities', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link('Tesauro', array('controller' => 'locality_thesaurus', 'action' => 'index')) ?></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Ver</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Viajes (Todos)', array('controller' => 'travels', 'action' => 'all')) ?></li>
-                                                    <li><?php echo $this->Html->link('Pendientes (Todos)', array('controller' => 'travels', 'action' => 'all_pending')) ?></li>
-                                                    <li class="divider"></li>
-                                                    <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Logs</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Raw Emails', array('controller' => 'admins', 'action' => 'view_log/emails_raw')) ?></li>
-                                                    <li><?php echo $this->Html->link('Info Requerida', array('controller' => 'admins', 'action' => 'view_log/info_requested')) ?></li>
-                                                    <li><?php echo $this->Html->link('Viajes por Correo', array('controller' => 'admins', 'action' => 'view_log/travels_by_email')) ?></li>                                                    
-                                                    <li><?php echo $this->Html->link('Conversaciones', array('controller' => 'admins', 'action' => 'view_log/conversations')) ?></li>
-                                                </ul>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="#">Tests</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><?php echo $this->Html->link('Ver Viajes Admins', array('controller' => 'travels', 'action' => 'all_admins')) ?></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <?php endif;?>
                                 <?php endif;?>
                                     
                             <?php else: ?>
-                                <li>
-                                    <?php echo $this->Html->link(__('Ir al Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?>
-                                </li>
+                                <li><?php echo $this->Html->link(__('Ir al Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?></li>
                             <?php endif;?> 
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <?php $talkingToDriver = $this->Session->read('visited-driver-'.$profile['Driver']['id']);?>
-                            <?php if (!$talkingToDriver): ?>
-                                <li title="<?php echo __d('driver_profile', 'Envía un mensaje a este chofer para acordar un viaje con él')?>" class="info">
-                                    <a href="#!" class="goto" data-go-to="message-driver" style="padding:0px;padding-right:5px">
-                                        <button type="button" class="btn btn-info navbar-btn">
-                                            <?php echo __d('driver_profile', 'Mensaje a este chofer')?>
-                                        </button>
-                                    </a>
-                                </li>
-                            <?php else:?>
-                                <?php if($userLoggedIn && $talkingToDriver):?>
-                                    <li>
-                                        <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('driver_profile', 'Ver mis mensajes con %s', Driver::shortenName($profile['DriverProfile']['driver_name'])).'</button>', array('controller'=>'conversations', 'action'=>'messages', $talkingToDriver), array('escape'=>false, 'style'=>'padding:0px;padding-right:5px'))?>
-                                    </li>
-                                <?php endif ?>
-                            <?php endif ?>
-                            <li title="<?php echo __d('driver_profile', 'Escribe una opinión sobre tu viaje con este chofer')?>" class="info">
-                                <?php echo $this->Html->link('<button type="button" class="btn btn-warning navbar-btn">'.__d('driver_profile', 'Opinar sobre este chofer').'</button>', array('controller' => 'testimonials', 'action'=>'enter_code'), array('escape'=>false, 'style'=>'padding:0px;padding-right:5px'))?>
-                            </li>
-                            
                             <?php if ($userLoggedIn): ?>
                                 <li class="dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">

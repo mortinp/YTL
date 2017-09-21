@@ -242,7 +242,7 @@ class AppController extends Controller {
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),
             'testimonials.preview' =>array('title'=>__d('meta', 'Gracias por tu opinión')),
             'testimonials.featured' =>array('title'=>__d('meta', 'Opiniones y reseñas sobre choferes en Cuba'), 'description'=>__d('meta', 'Mira opiniones y fotos de choferes en Cuba y solicita un viaje al que creas mejor')),
-            'testimonials.view' =>array('title'=>__d('meta', 'Opinión sobre chofer en Cuba')),
+            'testimonials.view' =>array('title'=>__d('meta', 'Opinión sobre %driver, chofer en Cuba'), 'description'=>__d('meta', 'Comentario de %author sobre su viaje con %driver en Cuba')),
             
             'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver')),    
             

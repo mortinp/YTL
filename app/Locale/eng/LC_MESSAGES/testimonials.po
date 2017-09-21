@@ -194,8 +194,8 @@ msgid "Mostrar sólo en %s"
 msgstr "Show only in %s"
 
 #: /view.ctp:33
-msgid "Estás viendo un testimonio sobre %s, uno de nuestros choferes en Cuba."
-msgstr "You are seeing a review about %s, one of our drivers in Cuba."
+msgid "Estás viendo un testimonio sobre %s, uno de nuestros choferes en %s, Cuba."
+msgstr "You are seeing a review about %s, one of our drivers in %s, Cuba."
 
 #: /view.ctp:33
 msgid "<span class="text-muted">Puedes</span> %s <span class="text-muted"> en su perfil, o puedes</span> %s <span class="text-muted">en nuestra página de testimonios.</span>"
@@ -216,6 +216,14 @@ msgstr "Load more reviews"
 #: /view.ctp:33
 msgid "No hay más testimonios"
 msgstr "No more reviews"
+
+#: /view.ctp:33
+msgid "Testimonio de %s sobre su chofer en Cuba, %s"
+msgstr "Review by %s about their driver in Cuba, %s"
+
+#: /view.ctp:33
+msgid "Descubre más choferes en nuestra Página de Testimonios"
+msgstr "Discover more drivers at our Reviews Page"
 
 
 

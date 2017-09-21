@@ -203,6 +203,7 @@ class TestimonialsController extends AppController {
         if (!$data)
             throw new NotFoundException(__d('testimonials', 'No existe el testimonio solicitado'));
 
+        $this->layout = 'testimonial_view';
         $this->set('data', $data);
     }
     

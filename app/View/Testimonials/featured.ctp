@@ -69,7 +69,7 @@
                 
                 <?php if($i == 2):?>
                     <br/><br/>
-                    <div class="bg-info" style="padding: 30px">
+                    <div style="padding: 30px;background-color: #ebebeb">
                         <div style="text-align: center">
                             <p><?php echo __d('testimonials', '¿Ya te gustan nuestros choferes?')?></p>
                             <p class="lead"><?php echo __d('testimonials', 'Contacta con %s de ellos creando una solicitud de viaje', 3)?></p>
