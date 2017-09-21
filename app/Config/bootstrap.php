@@ -131,3 +131,4 @@ Configure::write('email_message_separator_stripped', '***************');
 Configure::write('email_message_separator', '<div style="font-size: 1pt;text-align: center;width: 100%">'.Configure::read('email_message_separator_stripped').'</div>');
 
 Configure::write('show_testimonials_in_profile', true);
+Configure::write('cut_messages', true);

@@ -30,6 +30,8 @@
 
             if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
                 $fixedBody = $this->getFixedBody($from, $body);
+                if(Configure::read('cut_messages')) 
+                    $fixedBody = EmailsUtil::splitBySeparator($fixedBody);
                 
                 $datasource = $this->DriverTravelerConversation->getDataSource();
                 $datasource->begin();

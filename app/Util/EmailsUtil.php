@@ -78,15 +78,21 @@ class EmailsUtil {
         return $fixedText;
     }
     
-    public static function getFirsPart($message){
+    public static function splitBySeparator($message){
         $text = strip_tags( trim($message) );
         $splitter = strpos($text, Configure::read('email_message_separator_stripped')); 
         
         if($splitter !== false)
             $text = substr($text, 0, $splitter);
         
+        return trim($text);
+    }
+    
+    public static function getFirsPart($message){
+        $text = EmailsUtil::splitBySeparator($message);
+        
         $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*cuc*/i", "<b>$0</b>", $text);
-        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilÃ³metros*)/i", '<span style="color:tomato"><b>$0</b></span>', $text);
+        $text = preg_replace("/\d+\.*\d*\s*(\r\n|\n|\r)*(kms*|kilometros*|kilómetros*|km*)/i", '<span style="color:tomato"><b>$0</b></span>', $text);
         $text = preg_replace("/(\r\n|\n|\r)/", "<br/>", $text);
         return $text;
     }
