@@ -70,15 +70,6 @@ if($userLoggedIn) {
             #navbar #nav .navbar-btn{
                 margin-left:15px;
             }
-            
-            #profile-description img {
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-            
-            #content p {
-                font-size: 12pt;
-            }
         </style>
         
         <?php
