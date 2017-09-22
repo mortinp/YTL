@@ -7,14 +7,23 @@
 
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
 <div id="conversation-header">
-    Hola <?php echo $driver_name?>. Este correo contiene una respuesta del viajero para el viaje <b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b> <b><?php echo $travel_hint; ?></b>. Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.
+    <div>Hola <?php echo $driver_name?>, tienes un nuevo mensaje de un viajero.</div> 
+    <div>Para enviar tu respuesta, <b>responde este correo sin modificar el asunto</b>.</div>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
 
+<p>Viaje <big><b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b></big> <b><?php echo $travel_hint; ?></b>.</p> 
 <p>A continuación puedes leer los <b>últimos <?php echo $messages_count?> mensajes</b> de la conversación:</p>
 
+
+<?php
+$email_text = '';
+foreach($messages as $msg)
+    $email_text .= trim ($this->element('pretty_message', array('message' => $msg['DriverTravelerConversation'], 'driver_name'=>'Tú', 'traveler_name'=>'Viajero'))).'<br/>';
+?>
+
 <div>
-   <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $response);?>
+   <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $email_text);?>
 </div>
 
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-top: 10px;margin-bottom: 10px;"/>

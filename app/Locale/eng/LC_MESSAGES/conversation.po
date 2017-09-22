@@ -22,6 +22,18 @@ msgstr "Hi traveler. This email contains the reply of the driver <b>%s</b> from 
 msgid "Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>."
 msgstr "Hi, you have a message from the driver <b>%s</b> from YoTeLlevo, notified with your travel <span style="display:inline-block"><b>%s</b></span>. To send your answer <b>reply this email without modifying the subject</b>."
 
+#: View/Emails/html/response_driver2traveler.ctp:3
+msgid "Hola, tienes un mensaje del chofer %s de YoTeLlevo."
+msgstr "Hi, you have a message from the driver %s from YoTeLlevo."
+
+#: View/Emails/html/response_driver2traveler.ctp:3
+msgid "Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>."
+msgstr "To send your answer <b>reply this email without modifying the subject</b>."
+
+#: View/Emails/html/response_driver2traveler.ctp:3
+msgid "Solicitud"
+msgstr "Request"
+
 
 #: View/Emails/html/response_driver2traveler.ctp:3
 msgid "Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>."

@@ -16,8 +16,8 @@
     $daysPosted = TimeUtil::daysFrom($message['created']);
 ?>
 
-<div style="padding:10px;<?php echo $color?>">
+<div style="border: #efefef solid 1px;padding:10px;<?php echo $color?>">
     <span><small><?php echo __('%s el %s, hace %s días', '<b>'.$label.'</b>', '<b>'.TimeUtil::prettyDate($message['created'], false).'</b>', $daysPosted) ?></small></span>
-    <hr style="background-color:#efefef; height:1px; max-height: 1px; border:none;"/>
+    <hr style="background-color:#efefef; height:1px; max-height: 1px; border:none;margin-bottom:5px"/>
     <span><?php echo $text; ?></span>
 </div>

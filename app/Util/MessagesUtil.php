@@ -111,14 +111,14 @@
             return $msg_list;
         }
 
-        private function concatMessages($messages, $driver_name, $traveler_name) {
+        /*private function concatMessages($messages, $driver_name, $traveler_name) {
             $view = new View();
             $email_text = "";
             foreach($messages as $msg)
                 $email_text .= trim ($view->element('pretty_message', array('message' => $msg['DriverTravelerConversation']) + compact('driver_name', 'traveler_name'))).'<br/>';
 
             return $email_text;
-        }       
+        }  */     
         
         private function messageTraveler2Driver($conversation, array $attachments, &$driverTravel){;
             $driverName = 'chofer';
@@ -126,7 +126,7 @@
                 $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
 
             $messages = $this->getMessagesInConversation($conversation);
-            $email_text = $this->concatMessages($messages , 'Tú', 'Viajero');
+            //$email_text = $this->concatMessages($messages , 'Tú', 'Viajero');
 
             if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
                       $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
@@ -137,7 +137,7 @@
             $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
             $OK = ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
                 $deliverTo,
-                array('conversation_id'=>$conversation, 'response'=>$email_text, 'messages_count'=>count($messages), 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
+                array('conversation_id'=>$conversation, 'messages'=>$messages, 'messages_count'=>count($messages), 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
                       'driver_travel'=>$driverTravel['DriverTravel']),
                 array(
                     'template'=>'response_traveler2driver',

@@ -27,9 +27,12 @@ $travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
 ?>
 
 <div id="conversation-header">
-    <?php echo __d('conversation', 'Hola, tienes un mensaje del chofer <b>%s</b> de YoTeLlevo, notificado con los datos de tu viaje <span style="display:inline-block"><b>%s</b></span>. Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.', $driver_desc, $travel_hint)?>
+    <div><?php echo __d('conversation', 'Hola, tienes un mensaje del chofer %s de YoTeLlevo.', '<b>'.$driver_desc.'</b>')?></div>
+    <div><?php echo __d('conversation', 'Para enviar tu respuesta <b>responde este correo sin modificar el asunto</b>.')?></div>
 </div>
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
+
+<p><?php echo __d('conversation', 'Solicitud')?> <b><?php echo $travel_hint?></b>.</p>
 
 <div>
     <?php if($show_profile):?>    
@@ -57,5 +60,5 @@ $travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-top: 10px;margin-bottom: 10px;"/>
 <div class="email-salute">
     <p><?php echo __d('conversation', 'Atentamente, el equipo de')?> <a href="http://yotellevocuba.com">YoTeLlevo</a></p>
-    <p><a href="http://yotellevocuba.com/blog/<?php echo Configure::read('Config.language')?>">Blog</a> | <a href="https://twitter.com/yotellevocuba">Twitter</a> | <a href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
+    <p><a href="http://yotellevocuba.com/blog/<?php echo Configure::read('Config.language')?>">Blog</a> | <a href="https://www.facebook.com/yotellevoTaxiCuba">Facebook</a></p>
 </div>
