@@ -42,11 +42,9 @@ if($userLoggedIn) {
         $fullBaseUrl = Configure::read('App.fullBaseUrl');
         if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
         
-        if ($testimonial['image_filepath']){
-            $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $testimonial['image_filepath']);
-        } else {
-            $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['avatar_filepath']);
-        }
+        if ($testimonial['image_filepath']) $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $testimonial['image_filepath']);
+        else if ($profile['featured_img_url']) $fbImgUrl = $profile['featured_img_url'];
+        else $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['avatar_filepath']);
         ?>
         <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $testimonial['author'], $profile['driver_name']), 0, 90)?>">
         <meta property="og:image" content="<?php echo $fbImgUrl?>">

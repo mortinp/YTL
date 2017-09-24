@@ -16,6 +16,12 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 ?>
 
 <div class="row" style="margin-top: 60px">
+    <?php if($userLoggedIn && $userRole === 'admin'):?>
+    <div class="col-md-8 col-md-offset-2" style="padding-top: 30px;">
+        <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
+    </div>
+    <?php endif?>
+    
     <div class="col-md-8 col-md-offset-2">
         
         <?php if(!$userLoggedIn && !$this->Session->read('introduced-in-website')):?>
@@ -51,13 +57,6 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
             <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
         </div>
     </div>
-    
-    
-    <?php if(AuthComponent::user('role') === 'admin'):?>
-    <div class="col-md-8 col-md-offset-2" style="padding-top: 30px;">
-        <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
-    </div>
-    <?php endif?>
     
 </div>
 
@@ -107,15 +106,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 </div>
 <?php endif?>
 
-
 <?php echo $this->element('addon_scripts_send_form', array('formId'=>'EnterCodeForm', 'submitId'=>'EnterCodeSubmit'))?>
-
-<!--
-<?php if(!$userLoggedIn):?>
-<br/><br/>
-<?php echo $this->element('addon_driver_profile_popup', array('driver_short_name'=>$driver_short_name))?>
-<?php endif?>
--->
 
 <script type="text/javascript">
 $(document).ready(function() {
