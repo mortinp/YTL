@@ -146,3 +146,19 @@ msgstr "<span class="text-muted">with</span> air conditioner"
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "<span class="text-muted">Tiene</span> %s opiniones"
 msgstr "<span class="text-muted">Has</span> %s reviews"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "%s, chofer en %s, Cuba"
+msgstr "%s, driver in %s, Cuba"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo."
+msgstr "Contact %s to arrange your trips in Cuba. Get a price quote directly from him and decide whether you'd like to hire him."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Auto hasta %s pax"
+msgstr "Car up to %s pax"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "con aire acondicionado"
+msgstr "with air conditioner"

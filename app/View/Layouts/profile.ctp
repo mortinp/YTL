@@ -22,15 +22,25 @@ if($userLoggedIn) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <?php
-        $title = str_replace('%driver', $profile['DriverProfile']['driver_name'], $page_title);
-        $title = str_replace('%province', $profile['Province']['name'], $title);
+        <?php        
+        $title = __d('driver_profile', '%s, chofer en %s, Cuba', $profile['DriverProfile']['driver_name'], $profile['Province']['name']).' - '.__d('driver_profile', 'Auto hasta %s pax', $profile['Driver']['max_people_count']);
+        if($profile['Driver']['has_air_conditioner']) $title .= ' '.__d('driver_profile', 'con aire acondicionado');
+        
+        $description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
         ?>
         <title><?php echo $title.' | YoTeLlevo' ?></title>
-        <meta name="description" content="<?php echo $page_description?>"/>
+        <meta name="description" content="<?php echo $description?>"/>
+        
+        <!-- FACEBOOK SHARE -->
+        
+        <meta property="og:title" content="<?php echo substr($title, 0, 90)?>">
+        <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
+        <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
+        <?php endif?>
+        <meta property="og:description" content="<?php echo $description?>">
         
         <style type="text/css">
             

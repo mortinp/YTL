@@ -47,8 +47,6 @@ if($userLoggedIn) {
         } else {
             $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['avatar_filepath']);
         }
-        
-        
         ?>
         <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $testimonial['author'], $profile['driver_name']), 0, 90)?>">
         <meta property="og:image" content="<?php echo $fbImgUrl?>">
