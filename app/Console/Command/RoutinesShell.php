@@ -4,7 +4,7 @@ App::uses('Driver', 'Model');
 
 class RoutinesShell extends AppShell {
     
-    public $uses = array('Travel', 'TravelConversationMeta');
+    public $uses = array('Travel', 'TravelConversationMeta', 'DriverTransactionalEmail');
     
     public function email2drivers_travels_payment_due() {
         $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, 
@@ -62,6 +62,66 @@ class RoutinesShell extends AppShell {
         }
         CakeLog::write('cron', $logEntry);*/
     }
+    
+    
+    
+    public function email2drivers_reminder_testimonials() {
+        $today = date('Y-m-d', strtotime('today'));
+        $checkDate = date('Y-m-d', strtotime("$today - 1 month"));
+        
+        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers_profiles.driver_code, drivers.username as driver_email,
+                max(testimonials.created) as last_testimonial_date, 
+                dte.id as transaction_id, dte.last_sent
+
+                from drivers
+
+                inner join testimonials 
+                on testimonials.driver_id = drivers.id 
+                and testimonials.state = 'A' 
+                and testimonials.created < '$checkDate'
+                and drivers.active = 1
+
+                left join drivers_transactional_emails dte 
+                on dte.driver_id = drivers.id 
+                and dte.transaction_type = ".DriverTransactionalEmail::$TYPE_REMINDER_TESTIMONIALS."
+
+                inner join drivers_profiles 
+                on drivers_profiles.driver_id = drivers.id
+                and drivers_profiles.show_profile = 1
+
+                group by driver_id, driver_name, driver_email
+
+                order by  last_testimonial_date asc
+                ";
+        
+        $results = $this->Travel->query($query);
+        
+        //print_r($results);
+        
+        foreach ($results as $data) {
+            //echo strtotime($data['dte']['last_sent']).' > '.strtotime($checkDate).'<br/>';
+            
+            // Si tiene una transaccion de este tipo y ademas es mas reciente que $checkDate, no enviar...
+            if($data['dte']['transaction_id'] != null && strtotime($data['dte']['last_sent']) > strtotime($checkDate)) continue;
+            
+            //print_r($data);
+            
+            if($data['dte']['transaction_id'] == null) {
+                $this->DriverTransactionalEmail->create();
+                $this->DriverTransactionalEmail->save(array(
+                    'last_sent'=>$today,
+                    'driver_id'=>$data['drivers']['driver_id'],
+                    'transaction_type'=> DriverTransactionalEmail::$TYPE_REMINDER_TESTIMONIALS));
+            } else {
+                $this->DriverTransactionalEmail->id = $data['dte']['transaction_id'];
+                $this->DriverTransactionalEmail->saveField('last_sent', $today);
+            }
+            
+            EmailsUtil::email($data['drivers']['driver_email'], 'Sugerencia sobre su perfil', array('data'=>$data), 'super', 'reminder_driver_testimonials');
+        }
+    }
+    
+    
 
     
     public function ask_travels_confirmations() {

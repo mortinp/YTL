@@ -19,7 +19,7 @@ App::uses('Auth', 'Component');
             </div>
         </div>
         
-        <div class="col-md-6 col-md-offset-1 well" style="background-color: lightgoldenrodyellow"> 
+        <div class="col-md-6 col-md-offset-1 alert" style="background-color: lightgoldenrodyellow"> 
             <div >
                 <p><?php echo __d('pending_travel', 'Un gran viaje hasta <em>%s</em> está esperando por tí', $travel['PendingTravel']['destination'])?>.</p>
                 <p><big><big><b><?php echo __d('pending_travel', 'Regístrate para confirmar este viaje')?></b></big></big></p>
