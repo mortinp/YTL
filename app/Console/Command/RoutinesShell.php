@@ -139,7 +139,10 @@ class RoutinesShell extends AppShell {
                 on drivers_profiles.driver_id = drivers.id
                 and drivers_profiles.show_profile = 1
                 
-                where drivers.active = 1 and drivers.id not in (select testimonials.driver_id from testimonials where testimonials.state = 'A')
+                where 
+                drivers.active = 1 
+                and drivers.created < '$checkDate'
+                and drivers.id not in (select testimonials.driver_id from testimonials where testimonials.state = 'A')
                 ";
         
         $results = $this->Travel->query($query);
