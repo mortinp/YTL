@@ -156,9 +156,13 @@ if($userLoggedIn) {
                                                 <a tabindex="-1" href="#">Sistema</a>
                                                 <ul class="dropdown-menu">
                                                     <li><?php echo $this->Html->link('Email Queue', array('controller' => 'email_queues', 'action' => 'index')) ?></li>
-                                                    <li class="divider"></li>
+                                                    <!--<li class="divider"></li>
                                                     <li><?php echo $this->Html->link('Datos Archivados', array('controller' => 'driver_traveler_conversations', 'action' => 'archive_state'));?></li>
+                                                    -->
+                                                    <li class="divider"></li>
+                                                    <li><?php echo $this->Html->link('Transactional Emails: Choferes', array('controller' => 'd_transactional_emails', 'action' => 'index')) ?></li>
                                                     
+                                                    <li class="divider"></li>
                                                     <li class="dropdown-submenu">
                                                         <a tabindex="-1" href="#">Logs</a>
                                                         <ul class="dropdown-menu">

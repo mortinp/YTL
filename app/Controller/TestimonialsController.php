@@ -132,8 +132,13 @@ class TestimonialsController extends AppController {
             $OK = $this->Testimonial->save($this->request->data);
             if($OK) {
                 $tid = $this->Testimonial->id;
-                $OK = $this->_sendAdminMail($tid);
+                $testimonial = $this->_getTestimonial($tid);
+                
+                // Enviar correos al admin y al chofer
+                $OK = $this->_sendAdminMail($testimonial);
                 if(!$OK) CakeLog::write('testimonial_errors', "Error al enviar mensaje de nuevo testimonio $tid al admin");
+                $OK = $this->_sendEmailToDriver($testimonial);
+                if(!$OK) CakeLog::write('testimonial_errors', "Error al enviar mensaje de nuevo testimonio $tid al chofer");
                 
                 //if( $this->_sendVerificationMail($tid) )
                     $datasource->commit();
@@ -141,7 +146,6 @@ class TestimonialsController extends AppController {
                     $datasource->rollback();
                     $this->setErrorMessage( __d('testimonials', 'Error al enviar mensaje de verificación') );
                 }  */
-                
                 return $this->redirect(array('action' => 'preview', $tid));
             } else {
                 $datasource->rollback();
@@ -275,25 +279,27 @@ class TestimonialsController extends AppController {
         if ($this->Testimonial->delete($id))
             return $this->redirect(array('action' => 'index'));
     }
-
-    private function _sendAdminMail($id) {
+    
+    private function _getTestimonial($id) {
         $this->Testimonial->recursive = 3;
         $this->DriverTravel->unbindModel(array('hasOne' => array('TravelConversationMeta')));
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
         $this->Driver->unbindModel(array('belongsTo' => array('Province')));
-        $data = $this->Testimonial->findById($id);
+        return $this->Testimonial->findById($id);
+    }
 
-        $vars = array('testimonial' => $data['Testimonial'], 'driver' => $data['Driver']);
+    private function _sendAdminMail($testimonial) {
+        $vars = array('testimonial' => $testimonial['Testimonial'], 'driver' => $testimonial['Driver']);
         /*if (isset($data['Driver']['DriverProfile']['avatar_filepath'])) {
             $vars = array_merge($vars, array('driver_profile' => $data['Driver']['DriverProfile']));
         }*/ 
 
-        if (isset($data['DriverTravel']['Travel']))
-            $vars = array_merge($vars, array('travel' => $data['DriverTravel']['Travel'], 'user' => $data['DriverTravel']['Travel']['User']));
+        if (isset($testimonial['DriverTravel']['Travel']))
+            $vars = array_merge($vars, array('travel' => $testimonial['DriverTravel']['Travel'], 'user' => $testimonial['DriverTravel']['Travel']['User']));
         
         $to = 'martin@yotellevocuba.com'/*Configure::read('superadmin_email')*/;//TODO: Poner el superadmin_email para martin@...
         $subject = 'Nuevo testimonio';
-        if(isset ($data['Driver']['DriverProfile'])) $subject .= ' sobre '.$data['Driver']['DriverProfile']['driver_name'];
+        if(isset ($testimonial['Driver']['DriverProfile'])) $subject .= ' sobre '.$testimonial['Driver']['DriverProfile']['driver_name'];
 
         return EmailsUtil::email($to, $subject, $vars, 'no_responder', 'testimonial_new');
     }
@@ -303,6 +309,20 @@ class TestimonialsController extends AppController {
         $vars['Testimonial'] = $data['Testimonial'];
         
         return EmailsUtil::email($data['Testimonial']['email'], __d('testimonial', 'Sobre YoTeLlevo'), $vars, 'no_responder', 'testimonial_verify');
+    }
+    
+    private function _sendEmailToDriver($testimonial) {
+        $vars = array(
+            'driver_name'=>$testimonial['Driver']['DriverProfile']['driver_name'],
+            'testimonial'=>$testimonial['Testimonial'],            
+        );
+        return EmailsUtil::email(
+                $testimonial['Driver']['username'], 
+                'Tienes un nuevo testimonio', 
+                $vars, 
+                'super', 
+                'new_testimonial2driver', 
+                array('from_name'=>'Nuevo Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
     }
 
     public function admin($id) {

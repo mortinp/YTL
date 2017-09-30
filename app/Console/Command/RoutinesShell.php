@@ -4,7 +4,7 @@ App::uses('Driver', 'Model');
 
 class RoutinesShell extends AppShell {
     
-    public $uses = array('Travel', 'TravelConversationMeta', 'DriverTransactionalEmail');
+    public $uses = array('Travel', 'TravelConversationMeta', 'TransactionalEmails.DriverTransactionalEmail');
     
     public function email2drivers_travels_payment_due() {
         $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, 

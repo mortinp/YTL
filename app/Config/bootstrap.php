@@ -116,6 +116,7 @@ CakePlugin::load('Invitations');
 CakePlugin::load('Operations');
 //CakePlugin::load('SharedTravels');
 CakePlugin::load('Search');
+CakePlugin::load('TransactionalEmails');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 Configure::write('Email.html', false);

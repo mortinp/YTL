@@ -59,6 +59,9 @@
         Router::connect('/:language/search/:action/*', array('plugin'=>'search', 'controller' => 'search'), array('language' => 'en|es'));
         Router::connect('/:language/search', array('plugin'=>'search', 'controller' => 'search'), array('language' => 'en|es'));
         
+        Router::connect('/:language/d_transactional_emails/:action/*', array('plugin'=>'transactional_emails', 'controller' => 'driver_transactional_emails'), array('language' => 'en|es'));
+        Router::connect('/:language/d_transactional_emails', array('plugin'=>'transactional_emails', 'controller' => 'driver_transactional_emails'), array('language' => 'en|es'));
+        
         Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
         
         
