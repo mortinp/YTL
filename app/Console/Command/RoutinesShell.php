@@ -1,6 +1,7 @@
 <?php
 App::uses('EmailsUtil', 'Util');
 App::uses('Driver', 'Model');
+App::uses('DriverTransactionalEmail', 'TransactionalEmails.Model');
 
 class RoutinesShell extends AppShell {
     
