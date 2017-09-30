@@ -95,7 +95,7 @@ class RoutinesShell extends AppShell {
                 order by  last_testimonial_date asc
                 ";
         
-        $results = $this->Travel->query($query);
+        $results = $this->DriverTransactionalEmail->query($query);
         
         //print_r($results);
         
@@ -146,7 +146,7 @@ class RoutinesShell extends AppShell {
                 and drivers.id not in (select testimonials.driver_id from testimonials where testimonials.state = 'A')
                 ";
         
-        $results = $this->Travel->query($query);
+        $results = $this->DriverTransactionalEmail->query($query);
         
         //print_r($results);
         

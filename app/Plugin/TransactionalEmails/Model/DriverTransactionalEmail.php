@@ -1,8 +1,5 @@
 <?php
 App::uses('AppModel', 'Model');
-App::uses('Testimonial', 'Model');
-?>
-<?php
 
 class DriverTransactionalEmail extends AppModel {
     
