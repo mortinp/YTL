@@ -137,7 +137,7 @@ class DriversController extends AppController {
                 );
                 
                 if($this->request->is('ajax')) 
-                    return $this->render('/elements/ajax_testimonials_list', false);
+                    return $this->render('/Elements/ajax_testimonials_list', false);
             }
             
         } else {
