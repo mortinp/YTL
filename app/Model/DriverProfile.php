@@ -23,6 +23,26 @@ class DriverProfile extends AppModel {
         
         return $src;
     }
+    
+    public function afterSave($created, array $options = array()) {
+        parent::afterSave($created, $options);
+        
+        if($created) {
+            // Enviar un correo de bienvenida al chofer
+            $driverModel = new Driver();
+            $driverModel->recursive = -1;
+            $driver = $driverModel->findById($this->data['DriverProfile']['driver_id']);
+            EmailsUtil::email(
+                $driver['Driver']['username'], 
+                'Bienvenido a YoTeLlevo', 
+                array('profile'=>$this->data['DriverProfile']), 
+                'super',
+                'welcome_driver', 
+                array('from_name'=>'Bienvenido, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
+        }
+    }
+    
+    
 }
 
 ?>
