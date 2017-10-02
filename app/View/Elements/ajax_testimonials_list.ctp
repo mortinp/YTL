@@ -22,7 +22,7 @@
             echo "<center>".
                     $this->Paginator->next(
                         '+ '.__d('testimonials', 'Cargar más testimonios').'...',
-                        null,
+                        array('class'=>'lead'),
                         __d('testimonials', 'No hay más testimonios'),
                         array('escape'=> false, 'class'=>'text-muted')).
                 "</center>";

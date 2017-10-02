@@ -80,6 +80,7 @@ class Driver extends AppModel {
         if(substr($name, 0, 11) == 'Juan Carlos') return 'Juan Carlos';
         if(substr($name, 0, 10) == 'Jorge Luis') return 'Jorge Luis';
         if(substr($name, 0, 11) == 'Dr. Lázaro') return 'Dr. Lázaro';
+        if(substr($name, 0, 11) == 'José Angel') return 'José Angel';
         
         // Eliminar todo despues de un espacio, ej. el apellido
         $split = str_getcsv($name, ' ');

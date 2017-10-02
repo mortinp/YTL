@@ -130,7 +130,7 @@ class DriversController extends AppController {
             $this->set('profile', $profile);
             
             if(Configure::read('show_testimonials_in_profile')){        
-                $this->paginate = array( 'Testimonial' => array('limit' => 20, 'recursive' => -1, 'order' => 'Testimonial.created DESC') );
+                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => 'Testimonial.created DESC') );
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
                     'Testimonial.state'=>Testimonial::$statesValues['approved']))

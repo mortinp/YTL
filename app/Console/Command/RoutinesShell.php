@@ -78,8 +78,7 @@ class RoutinesShell extends AppShell {
 
                 inner join testimonials 
                 on testimonials.driver_id = drivers.id 
-                and testimonials.state = 'A' 
-                and testimonials.created < '$checkDate'
+                and testimonials.state = 'A'
                 and drivers.active = 1
 
                 left join drivers_transactional_emails dte 
@@ -92,7 +91,7 @@ class RoutinesShell extends AppShell {
 
                 group by driver_id, driver_name, driver_email
 
-                order by  last_testimonial_date asc
+                order by last_testimonial_date asc
                 ";
         
         $results = $this->DriverTransactionalEmail->query($query);
@@ -102,8 +101,12 @@ class RoutinesShell extends AppShell {
         foreach ($results as $data) {
             //echo strtotime($data['dte']['last_sent']).' > '.strtotime($checkDate).'<br/>';
             
-            // Si tiene una transaccion de este tipo y ademas es mas reciente que $checkDate, no enviar...
-            if($data['dte']['transaction_id'] != null && strtotime($data['dte']['last_sent']) > strtotime($checkDate)) continue;
+            // No enviar reminder cuando...
+            if( 
+                strtotime($data[0]['last_testimonial_date']) > strtotime($checkDate) // ...la fecha del ultimo testimonio es reciente
+                || ($data['dte']['transaction_id'] != null && strtotime($data['dte']['last_sent']) > strtotime($checkDate)) // ...ya se le envio el reminder recientemente
+            ) 
+                continue;
             
             //print_r($data);
             
