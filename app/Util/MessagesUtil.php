@@ -142,7 +142,7 @@
                 array(
                     'template'=>'response_traveler2driver',
                     'format'=>'html',
-                    'subject'=>MessagesUtil::getEmailSubject($conversation),
+                    'subject'=>MessagesUtil::getEmailSubject('driver', $driverTravel),
                     'config'=>'viajero',
                     'attachments'=>$attachments),
                 $returnData
@@ -218,7 +218,7 @@
                         'layout'=>$layout,
                         'template'=>$template,
                         'format'=>'html',
-                        'subject'=>MessagesUtil::getEmailSubject($conversation, $driverTravel['User']['lang']),
+                        'subject'=>MessagesUtil::getEmailSubject('traveler', $driverTravel, $driverTravel['User']['lang']),
                         'config'=>'chofer',
                         'attachments'=>$attachments,
                         //'lang'=>$driverTravel['Travel']['User']['lang'],
@@ -236,10 +236,14 @@
         }
         
         
-        private static function getEmailSubject($conversationId, $lang = 'es') {
-            $subject = '[['.$conversationId.']]';
-            if($lang == 'es') $subject = 'Nuevo mensaje [['.$conversationId.']]';
-            else if($lang == 'en') $subject = 'New message [['.$conversationId.']]';
+        private static function getEmailSubject($target/* driver o traveler */, $driverTravel, $lang = 'es') {
+            $conversationId = $driverTravel['DriverTravel']['id'];
+            
+            $subject = '';
+            if($target == 'driver') $subject = date('y-m-d', strtotime($driverTravel['DriverTravel']['travel_date'])).' ';
+            if($lang == 'es') $subject .= 'Nuevo mensaje [['.$conversationId.']]';
+            else if($lang == 'en') $subject .= 'New message [['.$conversationId.']]';
+            else $subject .= '[['.$conversationId.']]';
             
             return $subject;
         }
