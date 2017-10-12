@@ -98,7 +98,7 @@ class SharedTravelsController extends AppController {
         if($OK) $OK = $this->SharedTravel->saveField('state', SharedTravel::$STATE_ACTIVATED);
         
         if($OK) $OK = EmailsUtil::email(
-            'martin@yotellevocuba.com', 
+            'andiels@nauta.cu',
             'Solicitud de viaje compartido '.'[['.$request['SharedTravel']['id_token'].']]',
             array('request' => $request), 
             'shared_travel', 
