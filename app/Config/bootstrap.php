@@ -114,7 +114,7 @@ CakePlugin::load('EmailQueue');
 CakePlugin::load('Casas');
 CakePlugin::load('Invitations');
 CakePlugin::load('Operations');
-//CakePlugin::load('SharedTravels');
+CakePlugin::load('SharedTravels');
 CakePlugin::load('Search');
 CakePlugin::load('TransactionalEmails');
 

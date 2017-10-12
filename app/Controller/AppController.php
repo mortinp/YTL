@@ -223,7 +223,7 @@ class AppController extends Controller {
         $pageTitles = array(
             'default' =>array('title'=>__d('meta', 'Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más'), 'description'=>__d('meta', 'Descubre choferes que operan en Cuba, recibe ofertas de precio directamente de ellos y contrata al mejor para tu viaje.')),
             
-            // Unrestricted access
+            // Access to all
             'pages.display' =>array(
                 'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
                 'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
@@ -245,6 +245,13 @@ class AppController extends Controller {
             'testimonials.view' =>array('title'=>__d('meta', 'Opinión sobre %driver, chofer en Cuba'), 'description'=>__d('meta', 'Comentario de %author sobre su viaje con %driver en Cuba')),
             
             'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver')),    
+            
+            // Viajes compartidos
+            'shared_travels.create' =>array('title'=>__d('shared_travels', 'Comparte tu auto con chofer en tu viaje a Cuba')),
+            'shared_travels.thanks' =>array('title'=>__d('shared_travels', 'Gracias por la solicitud')),
+            'shared_travels.activate' =>array('title'=>__d('shared_travels', 'Solicitud confirmada')),
+            'shared_travels.view' =>array('title'=>__d('shared_travels', 'Datos de la solicitud')),
+            'shared_travels.index' =>array('title'=>__d('shared_travels', 'Compartidos')),
             
             // Users access
             'users.profile' =>array('title'=>__d('meta', 'Preferencias')),

@@ -4,13 +4,14 @@ App::uses('Travel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('EmailsUtil', 'Util');
 App::uses('MessagesUtil', 'Util');
+App::uses('SharedTravel', 'SharedTravels.Model');
 
 require_once ("helper/mailReader.php");
 //require_once ("Config/email.php");
 
 class IncomingMailShell extends AppShell {
     
-    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation', 'TravelConversationMeta', 'Testimonial');
+    public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation', 'TravelConversationMeta', 'Testimonial', 'SharedTravels.SharedTravel');
 
     public function main() {
         $this->out('IncomingMail shell reporting.');
@@ -176,6 +177,53 @@ class IncomingMailShell extends AppShell {
                 );
                 
                 EmailsUtil::email($sender, 'Tus datos en YoTeLlevo', $vars, 'super', 'info_our_drivers');
+            }
+        } else if($to === 'compartido@'.Configure::read('domain_name')) {
+            // TODO: Implementar la confirmacion de solicitud de viaje compartido
+            $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
+            if($parseOK) {
+                $requestId = $matches[1];
+                
+                $this->out($requestId);
+                
+                $request = $this->SharedTravel->findByIdToken($requestId);
+                
+                print_r($request);
+                
+                // Sanity checks
+                if($request == null || empty($request)) return;
+                if($request['SharedTravel']['state'] != SharedTravel::$STATE_ACTIVATED) return; // Solo se puede confirmar cuando esta en estado ACTIVATED
+                
+                $datasource = $this->SharedTravel->getDataSource();
+                $datasource->begin();
+                
+                $this->SharedTravel->id = $request['SharedTravel']['id'];
+                $OK = $this->SharedTravel->saveField('state', SharedTravel::$STATE_CONFIRMED);
+                
+                $lang = $request['SharedTravel']['lang'];
+                
+                $subject = 'Su viaje compartido está confirmado';
+                if($lang == 'en') $subject = 'Your shared ride is confirmed';
+                
+                if($OK) $OK = EmailsUtil::email(
+                    $request['SharedTravel']['email'], 
+                    $subject,
+                    array('request' => $request), 
+                    'customer_assistant', 
+                    'SharedTravels.email2user_request_confirmed',
+                    array('lang'=>$lang)
+                );
+                
+                if($OK) {
+                    $datasource->commit();
+                    
+                    // Email para mi
+                    $Email = new CakeEmail('no_responder');
+                    $Email->to('martin@yotellevocuba.com')
+                          ->subject('Viaje compartido confirmado');
+                    $Email->send('http://yotellevocuba.com/shared-rides/view/'.$request['SharedTravel']['id_token']);
+                }
+                else $datasource->rollback();
             }
         }      
     }  

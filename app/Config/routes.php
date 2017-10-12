@@ -61,6 +61,11 @@
         
         Router::connect('/:language/d_transactional_emails/:action/*', array('plugin'=>'transactional_emails', 'controller' => 'driver_transactional_emails'), array('language' => 'en|es'));
         Router::connect('/:language/d_transactional_emails', array('plugin'=>'transactional_emails', 'controller' => 'driver_transactional_emails'), array('language' => 'en|es'));
+       
+        Router::connect('/:language/shared-rides/:action/*', array('plugin'=>'shared_travels', 'controller' => 'shared_travels'), array('language' => 'en|es'));
+        Router::connect('/:language/shared-rides', array('plugin'=>'shared_travels', 'controller' => 'shared_travels'), array('language' => 'en|es'));
+        Router::connect('/:language/shared_travels/:action/*', array('plugin'=>'shared_travels', 'controller' => 'shared_travels'), array('language' => 'en|es'));
+        Router::connect('/:language/shared_travels', array('plugin'=>'shared_travels', 'controller' => 'shared_travels'), array('language' => 'en|es'));
         
         Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
         

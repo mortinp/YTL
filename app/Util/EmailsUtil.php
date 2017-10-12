@@ -1,5 +1,7 @@
 <?php
 
+App::uses('CakeEmail', 'Network/Email');
+
 class EmailsUtil {
     
     public static function email($to, $subject, array $vars, $config, $template, $options = null, $format = 'html') {
