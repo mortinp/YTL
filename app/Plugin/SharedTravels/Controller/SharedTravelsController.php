@@ -128,7 +128,7 @@ class SharedTravelsController extends AppController {
         
         // Correo a gestor para que confirme la solicitud
         if($OK) $OK = EmailsUtil::email(
-            'andiels@nauta.cu',
+            'andielsl@nauta.cu',
             'Solicitud de viaje compartido '.'[['.$request['SharedTravel']['id_token'].']]',
             array('request' => $request), 
             'shared_travel', 
