@@ -207,12 +207,8 @@ msgid "Idioma"
 msgstr "Language"
 
 #: View/SharedTravel/activate.ctp:8
-msgid "Idioma"
-msgstr "Language"
-
-#: View/SharedTravel/activate.ctp:8
-msgid "Idioma"
-msgstr "Language"
+msgid "SOLICITA OTROS TRANSFERS PARA EL RESTO DE TU VIAJE"
+msgstr "REQUEST OTHER TRANSFERS FOR THE REST OF YOUR TRIP"
 
 
 
@@ -251,16 +247,12 @@ msgid "En este viaje usted va a compartir un auto moderno de 4 plazas con aire a
 msgstr "In this trip you are going to share a 4 pax, air conditioned modern car with other travelers."
 
 #: View/Emails/email2user_request_confirmed.ctp:8
-msgid "Mi nombre es %s y voy a ser su asistente mientras llega la fecha de la recogida."
-msgstr "My name is %s and I'm going to be your assistant while the pick up date arrives."
+msgid "Recuerde que puede ver los datos de su solicitud en este enlace"
+msgstr "Remember you can see all the info of your request in this link"
 
 #: View/Emails/email2user_request_confirmed.ctp:8
-msgid "Como asistente voy a estar a cargo de resolver cualquier problema que pueda surgir, problemas con el sitio y cualquier duda que usted pueda tener."
-msgstr "As your assistant, I'm going to deal with any problem that might come up, problems with the website or any doubts you might have."
-
-#: View/Emails/email2user_request_confirmed.ctp:8
-msgid "Por ahora puede ver los datos de su solicitud en este enlace"
-msgstr "For now you can see all the info of your request in this link"
+msgid "Siéntase libre de contactarme en cualquier momento que necesite ayuda."
+msgstr "Feel free to reach back to me any time you need help."
 
 #: View/Emails/email2user_request_confirmed.ctp:8
 msgid "Le deseo un feliz viaje a Cuba y un cómodo recorrido hasta %s"
@@ -269,6 +261,36 @@ msgstr "I wish you have a happy trip to Cuba and a confortable journey to %s"
 #: View/Emails/email2user_request_confirmed.ctp:8
 msgid "%s y el equipo de"
 msgstr "%s and the team at"
+
+
+#: Controller/SharedTravelsController.ctp:8
+msgid "Recibimos su solicitud de viaje compartido"
+msgstr "We have your request for a shared ride"
+
+#: View/Emails/email2user_assistant_intro.ctp:8
+msgid "Le quiero informar que recibimos su solicitud de viaje compartido desde %s hasta %s para el día %s"
+msgstr "I want to let you know that we have your request for a shared ride from %s to %s on %s"
+
+#: View/Emails/email2user_assistant_intro.ctp:8
+msgid "Mi nombre es %s y voy a ser su asistente mientras llega la fecha de la recogida, para este viaje y cualquier otro que usted solicite."
+msgstr "My name is %s and I'm going to be your assistant while the pick up date arrives, for this trip and any other requests you create."
+
+#: View/Emails/email2user_assistant_intro.ctp:8
+msgid "Como asistente voy a estar a cargo de resolver cualquier problema que pueda surgir, problemas con el sitio y cualquier duda que usted pueda tener."
+msgstr "As your assistant, I'm going to deal with any problem that might come up, problems with the website or any doubts you might have."
+
+#: View/Emails/email2user_assistant_intro.ctp:8
+msgid "Por ahora <b>este viaje está sin confirmar</b> porque recién comenzamos a gestionarlo. Yo voy a estar al tanto de la confirmación de su viaje y le haré saber enseguida."
+msgstr "For now <b>this transfer is not confirmed</b> because we just started to arrange it. I am going to be watching for its confirmation and will let you know right away."
+
+#: View/Emails/email2user_assistant_intro.ctp:8
+msgid "En cualquier momento puede ver los datos de su solicitud en el siguiente enlace"
+msgstr "You can see the details of your request any time at this link"
+
+#: View/Emails/email2user_assistant_intro.ctp:8
+msgid "Un cordial saludo desde Cuba"
+msgstr "Warm regards from Cuba"
+
 
 
 #: Controller/SharedTravelsController.ctp:8

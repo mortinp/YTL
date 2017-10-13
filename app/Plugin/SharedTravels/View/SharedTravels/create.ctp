@@ -46,7 +46,7 @@
     
 </div>
 
-<div id="request-ride"class="row arrow_box arrow_box_bottom" style="margin-top: 80px"></div>
+<div id="request-ride" data-h-offset="0" class="row arrow_box arrow_box_bottom" style="margin-top: 80px"></div>
 <div class="row" style="background-color: #ebebeb;padding-bottom: 20px">
     <div class="row" style="padding-top: 80px;">
         <div class="col-md-10 col-md-offset-1" style="text-align: center">
