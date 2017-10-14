@@ -5,6 +5,16 @@ $modalityCode = $this->request->query['s'];
 $modality = SharedTravel::$modalities[$modalityCode];
 ?>
 
+<?php
+$emailValue = null;
+$peopleCountValue = 1;
+$nameIdValue = null;
+if($this->Session->read('SharedTravels.email')) $emailValue = $this->Session->read('SharedTravels.email');
+else if($userLoggedIn) $emailValue = AuthComponent::user('username');
+if($this->Session->read('SharedTravels.people_count')) $peopleCountValue = $this->Session->read('SharedTravels.people_count');
+if($this->Session->read('SharedTravels.name_id')) $nameIdValue = $this->Session->read('SharedTravels.name_id');
+?>
+
 <div>
     <?php 
     echo $this->Form->create('SharedTravel', array('url' => array('controller' => 'shared_travels', 'action' => 'create'), 'id'=>'SharedTravelForm'));?>
@@ -16,7 +26,7 @@ $modality = SharedTravel::$modalities[$modalityCode];
                 <?php echo $this->Form->input('modality_code', array('type' => 'hidden', 'value'=>$modalityCode));?>
                 
                 <?php echo $this->Form->custom_date('date', array('label' => __d('shared_travels', 'Fecha en que necesitas el servicio'), 'dateFormat' => 'dd/mm/yyyy'));?>
-                <?php echo $this->Form->input('people_count', array('label' => __d('shared_travels', 'Cantidad de personas'), 'default' => 1, 'min' => 1, 'max' => 4));?>
+                <?php echo $this->Form->input('people_count', array('label' => __d('shared_travels', 'Cantidad de personas'), 'value'=>$peopleCountValue, 'default' => 1, 'min' => 1, 'max' => 4));?>
                 <div class="form-group required">
                     <label for="AddressOrigin"><?php echo __d('shared_travels', 'Dirección de recogida en %s', '<code><big>'.$modality['origin'].'</big></code>')?></label>
                     <textarea name="data[SharedTravel][address_origin]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Dirección exacta de la casa o nombre del hotel donde debemos recogerlo')?>" rows="3" id="AddressOrigin" required="required"></textarea>
@@ -28,11 +38,8 @@ $modality = SharedTravel::$modalities[$modalityCode];
             </div>
             <div class="col-md-6">
                 <p><b><?php echo __d('shared_travels', 'DATOS DE CONTACTO')?></b></p><hr/>
-                <?php 
-                $value = $userLoggedIn? AuthComponent::user('username'):null;
-                echo $this->Form->input('email', array('label' => __d('shared_travels', 'Tu correo electrónico'), 'value'=>$value, 'type' => 'email', 'required'=>'required'));
-                ?>
-                <?php echo $this->Form->input('name_id', array('label' => __d('shared_travels', 'Tu nombre para fácil identificación'), 'type' => 'text', 'required'=>'required'));?>
+                <?php echo $this->Form->input('email', array('label' => __d('shared_travels', 'Tu correo electrónico'), 'value'=>$emailValue, 'type' => 'email', 'required'=>'required'));?>
+                <?php echo $this->Form->input('name_id', array('label' => __d('shared_travels', 'Tu nombre para fácil identificación'),'value'=>$nameIdValue, 'type' => 'text', 'required'=>'required'));?>
                 <!--<div class="form-group">
                     <label for="Contacts"><?php echo __d('shared_travels', 'Teléfono de contacto (ej. teléfono de la casa u hotel en Cuba)')?></label>
                     <textarea name="data[SharedTravel][contacts]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Teléfono para rápìda comunicación en caso necesario')?>" rows="2" id="Contacts"></textarea>

@@ -135,6 +135,12 @@ class SharedTravelsController extends AppController {
             'SharedTravels.new_request'
         );
         
+        // Guardar algunos datos en la session para si el cliente quiere crear mas solicitudes que no tenga que repetirlas
+        // TODO: Guardarlos en una Cookie???
+        $this->Session->write('SharedTravels.email', $request['SharedTravel']['email']);
+        $this->Session->write('SharedTravels.people_count', $request['SharedTravel']['people_count']);
+        $this->Session->write('SharedTravels.name_id', $request['SharedTravel']['name_id']);
+        
         return $OK;
     }
     
