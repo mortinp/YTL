@@ -1,0 +1,1 @@
+ALTER TABLE  `shared_travels` CHANGE  `verified`  `activated` TINYINT( 1 ) NOT NULL DEFAULT  '0';

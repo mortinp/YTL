@@ -211,6 +211,24 @@ msgid "SOLICITA OTROS TRANSFERS PARA EL RESTO DE TU VIAJE"
 msgstr "REQUEST OTHER TRANSFERS FOR THE REST OF YOUR TRIP"
 
 
+#: View/SharedTravel/activate.ctp:8
+msgid "Buenas noticias"
+msgstr "Good news"
+
+#: View/SharedTravel/activate.ctp:8
+msgid "Su solicitud fue confirmada automáticamente porque %s."
+msgstr "Your request was automatically confirmed because %s."
+
+
+#: Controller/SharedTravelsController.php:8
+msgid "llena uno de nuestros autos de 4 plazas"
+msgstr "it fills one of our 4 pax cars"
+
+#: Controller/SharedTravelsController.php:8
+msgid "fue emparejada con otras solicitudes para llenar las 4 plazas de uno de nuestros autos"
+msgstr "it was paired with other requests to fill one of our 4 pax cars"
+
+
 
 #: Controller/SharedTravelsController.php:8
 msgid "Confirma tu solicitud de viaje compartido"
@@ -243,12 +261,20 @@ msgid "Buenas noticias: su viaje desde %s hasta %s el día %s ya fue gestionado 
 msgstr "Good news: your trip from %s to %s on %s has already been arranged and it is confirmed."
 
 #: View/Emails/email2user_request_confirmed.ctp:8
-msgid "En este viaje usted va a compartir un auto moderno de 4 plazas con aire acondicionado con otros viajeros."
-msgstr "In this trip you are going to share a 4 pax, air conditioned modern car with other travelers."
+msgid "El chofer le recogerá en esa fecha a las %s en %s."
+msgstr "The driver will pick you up on that date at %s at %s."
+
+#: View/Emails/email2user_request_confirmed.ctp:8
+msgid "Usted compartirá un auto moderno de 4 plazas con aire acondicionado con otros %s viajeros."
+msgstr "You are going to share a 4 pax, air conditioned modern car with other %s travelers."
 
 #: View/Emails/email2user_request_confirmed.ctp:8
 msgid "Recuerde que puede ver los datos de su solicitud en este enlace"
 msgstr "Remember you can see all the info of your request in this link"
+
+#: View/Emails/email2user_request_confirmed.ctp:8
+msgid "Hasta ahora este es su plan de viajes"
+msgstr "So far this is your travel plan"
 
 #: View/Emails/email2user_request_confirmed.ctp:8
 msgid "Siéntase libre de contactarme en cualquier momento que necesite ayuda."
@@ -264,8 +290,8 @@ msgstr "%s and the team at"
 
 
 #: Controller/SharedTravelsController.ctp:8
-msgid "Recibimos su solicitud de viaje compartido"
-msgstr "We have your request for a shared ride"
+msgid "Tenemos los datos de su solicitud"
+msgstr "We have the info of your request"
 
 #: View/Emails/email2user_assistant_intro.ctp:8
 msgid "Le quiero informar que recibimos su solicitud de viaje compartido desde %s hasta %s para el día %s"
@@ -292,6 +318,11 @@ msgid "Un cordial saludo desde Cuba"
 msgstr "Warm regards from Cuba"
 
 
+#: Controller/SharedTravelsController.ctp:8
+msgid "Tenemos los datos de su nueva solicitud"
+msgstr "We have the info of your new request"
+
+
 
 #: Controller/SharedTravelsController.ctp:8
 msgid "Comparte tu auto con chofer en tu viaje a Cuba"
@@ -310,3 +341,41 @@ msgid "Datos de la solicitud"
 msgstr "Request info"
 
 
+#: View/Elements/requests_summary.ctp:8
+msgid "%s personas desde %s hasta %s el día %s con recogida a las %s."
+msgstr "%s people from %s to %s on %s with pick up at %s."
+
+#: View/Elements/requests_summary.ctp:8
+msgid "Ver datos de esta solicitud"
+msgstr "See info of this request"
+
+
+#: View/Emails/html/requests_summary.ctp:8
+msgid "Acabamos de recibir los datos de su solicitud de viaje compartido desde %s hasta %s para el día %s."
+msgstr "We just received the info of your shared ride request from %s to %s on %s."
+
+#: View/Emails/html/requests_summary.ctp:8
+msgid "Ahora usted tiene %s solicitudes"
+msgstr "Now you have %s requests"
+
+#: View/Emails/html/requests_summary.ctp:8
+msgid "Saludos"
+msgstr "Regards"
+
+
+#: Model/SharedTravel.ctp:8
+msgid "Pendiente"
+msgstr "Pending"
+
+#: Model/SharedTravel.ctp:8
+msgid "No Confirmado"
+msgstr "Not Confirmed"
+
+#: Model/SharedTravel.ctp:8
+msgid "Confirmado"
+msgstr "Confirmed"
+
+
+#: View/SharedTravels/view.ctp:8
+msgid "Transfer desde %s hasta %s el %s"
+msgstr "Transfer from %s to %s on %s"

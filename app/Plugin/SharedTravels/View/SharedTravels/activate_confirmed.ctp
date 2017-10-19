@@ -6,8 +6,10 @@ $modality = SharedTravel::$modalities[$modalityCode];
     <div class="row" style="margin-top: 40px">
         <div class="col-md-8 col-md-offset-1">
             <p class="lead"><?php echo __d('shared_travels', 'Muchas gracias %s', $request['SharedTravel']['name_id'])?>!</p> 
-            <p class="lead"><?php echo __d('shared_travels', 'Nuestros operadores acaban de recibir los datos de tu solicitud y enseguida empiezan a organizar todo. En menos de 24 horas recibirás la confirmación.')?></p> 
-            <p><?php echo __d('shared_travels', 'En cuanto todo esté listo recibirás un correo de tu operador asistente, con quien quedarás en contacto mientras llega la fecha del servicio.')?></p>
+            <p class="lead">
+                <?php echo __d('shared_travels', 'Buenas noticias')?>! 
+                <?php echo __d('shared_travels', 'Su solicitud fue confirmada automáticamente porque %s.', $confirmed_reason)?>
+            </p> 
             <p><?php echo __d('shared_travels', 'Estos son todos los datos de tu solicitud')?>:</p>
         </div>
         
@@ -18,7 +20,6 @@ $modality = SharedTravel::$modalities[$modalityCode];
         
         <div class="col-md-3 alert alert-warning" style="display: inline-block">
             <?php echo $this->element('suggest_transfers', compact('modality'))?>
-        </div>
-        
+        </div>        
     </div>
 </div>

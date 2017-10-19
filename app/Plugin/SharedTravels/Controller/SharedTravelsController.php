@@ -40,13 +40,12 @@ class SharedTravelsController extends AppController {
             $OK = $this->SharedTravel->save($this->request->data);
             
             if($OK) {
-                // Ver si se debe enviar el correo de verificacion
+                
+                /*// Ver si se debe enviar el correo de verificacion
                 $user = $this->User->findByUsername($this->request->data['SharedTravel']['email']);
                 $byUser = $user != null && !empty ($user) && $user['User']['email_confirmed'];
-
-                // TODO: Ver si este correo tiene otras solicitudes ya verificadas
-                
-                $mustVerify = !$byUser;
+                // TODO: Ver si este correo tiene otras solicitudes ya verificadas*/
+                $mustVerify = true/*!$byUser*/;
                 
                 if($mustVerify) {
                     // Obtener la solicitud para que los datos vengan formateados (ej. la fecha)
@@ -56,7 +55,7 @@ class SharedTravelsController extends AppController {
                         __d('shared_travels', 'Confirma tu solicitud de viaje compartido'),
                         array('request' => $request), 
                         'no_responder', 
-                        'SharedTravels.email2user_activate_request',
+                        'SharedTravels.activate_request',
                         array('lang'=>Configure::read('Config.language'), 'enqueue'=>false)
                     );
                 } else {
@@ -88,52 +87,136 @@ class SharedTravelsController extends AppController {
         
         // Sanity checks
         if($request == null || empty ($request)) throw new NotFoundException();
-        if($request['SharedTravel']['verified']) throw new ExpiredLinkException();
+        //if($request['SharedTravel']['activated']) throw new ExpiredLinkException();
         
-        if(!$this->doActivate($request)) throw new InternalErrorException();
+        $datasource = $this->SharedTravel->getDataSource();
+        $datasource->begin();
         
-        $this->set('request', $request);
+        $result = $this->doActivate($request);
+        $OK = $result['success'];
+        
+        if($OK) {
+            $datasource->commit();
+            $this->set('request', $request);
+            
+            // Si se confirmo el viaje, mostrar otra vista
+            if($result['confirmed']) {
+                $this->set('confirmed_reason', $result['confirmed_reason']);
+                $this->render('activate_confirmed');
+            }
+        } else {
+            $datasource->rollback();
+            throw new InternalErrorException();
+        }
     }
     
     private function doActivate($request) {
-        // Buscar si este cliente tiene otras solicitudes verificadas
-        $count = $this->SharedTravel->find('count', 
-                array('conditions'=>
-                    array(
-                        'email'=>$request['SharedTravel']['email'],
-                        'verified'=>true)
-                )
-            );
-        
-        $sendIntroFromAssistant = $count <= 0; // Enviar correo de presentacion del asistente solo si esta es la primera solicitud
-        
         $this->SharedTravel->id = $request['SharedTravel']['id'];
-        $OK = $this->SharedTravel->saveField('verified', true);
+        $OK = $this->SharedTravel->saveField('activated', true);
         if($OK) $OK = $this->SharedTravel->saveField('state', SharedTravel::$STATE_ACTIVATED);
         
-        
-        // Correo de presentacion del asistente
+        $confirmed = false;
+        $confirmedReason = null;
+        $coupled = null; // default: no hay emparejamientos       
         if($OK) {
-            if($sendIntroFromAssistant) {
-                 $OK = EmailsUtil::email(
-                        $request['SharedTravel']['email'], 
-                        __d('shared_travels', 'Recibimos su solicitud de viaje compartido'),
-                        array('request' => $request), 
-                        'customer_assistant', 
-                        'SharedTravels.email2user_assistant_intro',
-                        array('lang'=>$request['SharedTravel']['lang'])
+            
+            // Si es de 4 la solicitud, confirmarla directamente
+            if($request['SharedTravel']['people_count'] == 4) {
+                $this->SharedTravel->create();
+                $OK = $this->SharedTravel->confirmRequest($request);
+                
+                // Correo a facilitador con el viaje completo
+                $facilitator = Configure::read('shared_rides_facilitator');
+                if($OK) $OK = EmailsUtil::email(
+                    $facilitator['email'],
+                    'Viaje de 4 pax completo',
+                    array('request' => $request ), 
+                    'shared_travel', 
+                    'SharedTravels.new_full_ride'
+                );
+                
+                $confirmed = true;
+                $confirmedReason = __d('shared_travels', 'llena uno de nuestros autos de 4 plazas');
+                
+            } else {
+                // Intentar emparejar con otras solicitudes
+                $couplings = $this->findCouplings($request);
+                if($couplings != null) {
+                    $coupled = array_merge ($couplings, array($request));
+
+                    // Crear un nuevo id para el emparejamiento
+                    $couplingId = $this->SharedTravel->query ('select coalesce(max(coupling_id) + 1, 1) as new_id  from shared_travels');
+
+                    // Crear emparejamientos y confirmar solicitudes emparejadas
+                    foreach ($coupled as $c) {
+                        $this->SharedTravel->create();
+
+                        $this->SharedTravel->id = $c['SharedTravel']['id'];
+                        $OK = $this->SharedTravel->saveField('coupling_id', $couplingId[0][0]['new_id']);
+
+                        if($OK) $OK = $this->SharedTravel->confirmRequest($c);
+
+                        if(!$OK) break;
+                    }
+
+                    // Correo a facilitador con el viaje completo
+                    $facilitator = Configure::read('shared_rides_facilitator');
+                    if($OK) $OK = EmailsUtil::email(
+                        $facilitator['email'],
+                        'Solicitudes emparejadas (4 pax completo)',
+                        array('requests' => $coupled ), 
+                        'shared_travel', 
+                        'SharedTravels.new_requests_coupled'
                     );
+                    
+                    $confirmed = true;
+                    $confirmedReason = __d('shared_travels', 'fue emparejada con otras solicitudes para llenar las 4 plazas de uno de nuestros autos');
+
+                } else {
+
+                    // Buscar si este cliente tiene otras solicitudes activadas
+                    $all_requests = $this->SharedTravel->findActiveRequests($request['SharedTravel']['email']);
+
+                    // Buscar si tiene otras solicitudes activadas que no sean esta
+                    $countOther = 0;
+                    foreach ($all_requests as $r) {
+                        if($r['SharedTravel']['id'] == $request['SharedTravel']['id']) continue;
+
+                        $countOther++;
+                    }
+
+                    if($countOther == 0) {// Si es la primera solicitud (no tiene otras solicitudes), enviarle el correo de presentacion del operador
+                        $OK = EmailsUtil::email(
+                                $request['SharedTravel']['email'], 
+                                __d('shared_travels', 'Tenemos los datos de su solicitud'),
+                                array('request' => $request), 
+                                'customer_assistant', 
+                                'SharedTravels.assistant_intro',
+                                array('lang'=>$request['SharedTravel']['lang'])
+                            );
+                    } else { // Si no, enviarle el correo de resumen
+                        $OK = EmailsUtil::email(
+                                $request['SharedTravel']['email'], 
+                                __d('shared_travels', 'Tenemos los datos de su nueva solicitud'),
+                                array('request' => $request, 'all_requests'=>$all_requests),
+                                'customer_assistant', 
+                                'SharedTravels.requests_summary',
+                                array('lang'=>$request['SharedTravel']['lang'])
+                            );
+                    }
+
+                    // Correo a gestor para que confirme la solicitud
+                    $facilitator = Configure::read('shared_rides_facilitator');
+                    if($OK) $OK = EmailsUtil::email(
+                        $facilitator['email'],
+                        'Solicitud de viaje compartido '.'[['.$request['SharedTravel']['id_token'].']]',
+                        array('request' => $request), 
+                        'shared_travel', 
+                        'SharedTravels.new_request'
+                    );
+                }
             }
-        }
-        
-        // Correo a gestor para que confirme la solicitud
-        if($OK) $OK = EmailsUtil::email(
-            'andielsl@nauta.cu',
-            'Solicitud de viaje compartido '.'[['.$request['SharedTravel']['id_token'].']]',
-            array('request' => $request), 
-            'shared_travel', 
-            'SharedTravels.new_request'
-        );
+        }        
         
         // Guardar algunos datos en la session para si el cliente quiere crear mas solicitudes que no tenga que repetirlas
         // TODO: Guardarlos en una Cookie???
@@ -141,7 +224,7 @@ class SharedTravelsController extends AppController {
         $this->Session->write('SharedTravels.people_count', $request['SharedTravel']['people_count']);
         $this->Session->write('SharedTravels.name_id', $request['SharedTravel']['name_id']);
         
-        return $OK;
+        return array('success'=>$OK, 'confirmed'=>$confirmed, 'confirmed_reason'=>$confirmedReason, 'coupled'=>$coupled);
     }
     
     public function view($token) {
@@ -149,9 +232,41 @@ class SharedTravelsController extends AppController {
         
         // Sanity checks
         if($request == null || empty ($request)) throw new NotFoundException();
-        if(!$request['SharedTravel']['verified']) throw new NotFoundException();
+        if(!$request['SharedTravel']['activated']) throw new NotFoundException();
         
         $this->set('request', $request);
+    }
+    
+    private function findCouplings($request) {
+        // Buscar posibles emparejamiento para esta solicitud
+        $candidates = $this->SharedTravel->find('all', array(
+            'conditions'=>array(
+                'modality_code'=>$request['SharedTravel']['modality_code'], // Esto empareja por ruta y hora
+                'date'=> TimeUtil::dateFormatBeforeSave($request['SharedTravel']['date']),
+                'people_count <='=> 4 - $request['SharedTravel']['people_count'],
+                'email !='=>$request['SharedTravel']['email'], // Que no sea de este mismo cliente
+                'activated'=>true,
+                'coupling_id'=>null,// Que no haya sido emparejado antes
+                'state !='=>SharedTravel::$STATE_CONFIRMED // Que no este confirmado (por si el facilitador lo confirmo dirctamente).
+                
+            ),
+            'order'=>'people_count DESC' // Las de mas personas primero, para tener que hacer menos recorridos al recoger. TODO: sera mejor priorizar a las mas antiguas???
+        ));
+        
+        // Armar los emparejamientos
+        $count = $request['SharedTravel']['people_count'];
+        $couplings = array();
+        foreach ($candidates as $r) {
+            if($count +  $r['SharedTravel']['people_count'] > 4) continue;
+            
+            $couplings[] = $r;
+            $count += $r['SharedTravel']['people_count'];
+        }
+        if($count == 4) { // Emparejamiento exitoso
+            return $couplings;
+        } 
+        
+        return null;
     }
 }
 

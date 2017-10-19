@@ -1,0 +1,1 @@
+ALTER TABLE  `shared_travels` ADD  `coupling_id` BIGINT UNSIGNED NULL AFTER  `lang`;

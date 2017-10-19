@@ -197,32 +197,9 @@ class IncomingMailShell extends AppShell {
                 $datasource = $this->SharedTravel->getDataSource();
                 $datasource->begin();
                 
-                $this->SharedTravel->id = $request['SharedTravel']['id'];
-                $OK = $this->SharedTravel->saveField('state', SharedTravel::$STATE_CONFIRMED);
+                $OK = $this->SharedTravel->confirmRequest($request);
                 
-                $lang = $request['SharedTravel']['lang'];
-                
-                $subject = 'Su viaje compartido está confirmado';
-                if($lang == 'en') $subject = 'Your shared ride is confirmed';
-                
-                if($OK) $OK = EmailsUtil::email(
-                    $request['SharedTravel']['email'], 
-                    $subject,
-                    array('request' => $request), 
-                    'customer_assistant', 
-                    'SharedTravels.email2user_request_confirmed',
-                    array('lang'=>$lang)
-                );
-                
-                if($OK) {
-                    $datasource->commit();
-                    
-                    // Email para mi
-                    $Email = new CakeEmail('no_responder');
-                    $Email->to('martin@yotellevocuba.com')
-                          ->subject('Viaje compartido confirmado');
-                    $Email->send('http://yotellevocuba.com/shared-rides/view/'.$request['SharedTravel']['id_token']);
-                }
+                if($OK) $datasource->commit();
                 else $datasource->rollback();
             }
         }      

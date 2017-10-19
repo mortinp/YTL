@@ -48,6 +48,14 @@ class TimeUtil {
         return date('d-m-Y', strtotime($date));
     }
     
+    public static function dateFormatBeforeSave($date) {
+        $d = str_replace('-', '/', $date);
+        $d = explode('/', $d);
+        $newD = $d['2'].'-'.$d[1].'-'.$d[0];
+        
+        return $newD;
+    }
+    
     public static function daysFrom($str_date) {
         $now = new DateTime(date('Y-m-d', time()));
         return $now->diff(new DateTime($str_date), true)->format('%a');
