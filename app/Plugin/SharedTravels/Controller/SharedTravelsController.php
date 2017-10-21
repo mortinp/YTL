@@ -11,7 +11,7 @@ class SharedTravelsController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('create', 'thanks', 'activate', 'view');
+        $this->Auth->allow('create', 'thanks', 'activate', 'view', 'home');
     }
     
     public function index() {
@@ -87,7 +87,8 @@ class SharedTravelsController extends AppController {
         
         // Sanity checks
         if($request == null || empty ($request)) throw new NotFoundException();
-        //if($request['SharedTravel']['activated']) throw new ExpiredLinkException();
+        if($request['SharedTravel']['activated']) throw new ExpiredLinkException();
+        // TODO: Verificar que la solicitud no este expirada
         
         $datasource = $this->SharedTravel->getDataSource();
         $datasource->begin();
@@ -238,6 +239,7 @@ class SharedTravelsController extends AppController {
     }
     
     private function findCouplings($request) {
+        
         // Buscar posibles emparejamiento para esta solicitud
         $candidates = $this->SharedTravel->find('all', array(
             'conditions'=>array(

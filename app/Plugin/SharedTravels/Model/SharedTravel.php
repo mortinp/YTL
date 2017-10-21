@@ -6,6 +6,8 @@ App::uses('CakeEmail', 'Network/Email');
 
 class SharedTravel extends AppModel {
     
+    public static $localities = array('La Habana', 'Trinidad', 'Viñales', 'Varadero', 'Cienfuegos', 'Cayo Coco', 'Cayo Guillermo');
+    
     public static $modalities = array(
         // El origin_id y el destination_id son indicadores unicos de cada lugar que se usan para recomendar transfers
         'HABTRI8'=>array('origin_id'=>0, 'destination_id'=>1, 'origin'=>'La Habana', 'destination'=>'Trinidad', 'time'=>'8 am', 'price'=>35),
@@ -103,6 +105,16 @@ class SharedTravel extends AppModel {
         return true;
     }
     
+    public function beforeFind($query = array()) {
+        
+        if(isset($query['conditions']['email'])) $query['conditions']['email'] = strtolower ($query['conditions']['email']);
+        if(isset($query['conditions']['SharedTravel.email'])) $query['conditions']['SharedTravel.email'] = strtolower ($query['conditions']['SharedTravel.email']);
+        if(isset($query['conditions']['email !='])) $query['conditions']['email !='] = strtolower ($query['conditions']['email !=']);
+        if(isset($query['conditions']['SharedTravel.email !='])) $query['conditions']['SharedTravel.email !='] = strtolower ($query['conditions']['SharedTravel.email !=']);
+        
+        return $query;
+    }
+    
     public function afterFind($results, $primary = false) {
         foreach ($results as $key => $val) {
             if (isset($val[$this->alias]['date'])) {
@@ -117,12 +129,14 @@ class SharedTravel extends AppModel {
     }
     
     public function findActiveRequests($userEmail) {
+        $today = date('Y-m-d', strtotime('today'));
+        
         return $this->find('all', 
                 array(
                     'conditions'=>array(
                         'email'=>$userEmail,
                         'activated'=>true,
-                        // TODO: Buscar que no esten expiradas (date > hoy)
+                        'date >'=>$today // Buscar que no esten expiradas
                         ),
 
                     'order'=>'SharedTravel.date ASC, SharedTravel.id ASC'

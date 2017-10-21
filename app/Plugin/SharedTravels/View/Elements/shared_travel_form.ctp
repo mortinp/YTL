@@ -29,7 +29,7 @@ if($this->Session->read('SharedTravels.name_id')) $nameIdValue = $this->Session-
                 <?php echo $this->Form->input('people_count', array('label' => __d('shared_travels', 'Cantidad de personas'), 'value'=>$peopleCountValue, 'default' => 1, 'min' => 1, 'max' => 4));?>
                 <div class="form-group required">
                     <label for="AddressOrigin"><?php echo __d('shared_travels', 'Dirección de recogida en %s', '<code><big>'.$modality['origin'].'</big></code>')?></label>
-                    <textarea name="data[SharedTravel][address_origin]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Dirección exacta de la casa o nombre del hotel donde debemos recogerlo')?>" rows="3" id="AddressOrigin" required="required"></textarea>
+                    <textarea name="data[SharedTravel][address_origin]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Dirección exacta de la casa o nombre del hotel donde debemos recogerle')?>" rows="3" id="AddressOrigin" required="required"></textarea>
                 </div>
                 <div class="form-group required">
                     <label for="AddressDestination"><?php echo __d('shared_travels', 'Dirección de destino en %s', '<code><big>'.$modality['destination'].'</big></code>')?></label>

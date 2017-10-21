@@ -14,6 +14,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+
+#: View/SharedTravels/home.ctp:8
+msgid "¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a <code><big><big>Cuba</big></big></code>?"
+msgstr "Need to go <code><big>from one destination to another</big></code> during your trip to <code><big><big>Cuba</big></big></code>?"
+
+#: View/SharedTravels/home.ctp:8
+msgid "Solicitas el servicio para algunas de nuestras rutas y horarios. Nos dices cuándo necesitas el servicio, dónde recogerte y cuántas personas son."
+msgstr "You request the service for some of our routes and departure times. You let us know when and where to pick you up and how many people you are."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Enseguida hacemos todos los arreglos y te confirmamos el viaje en cuanto tengamos otras solicitudes que llenen las 4 plazas de un auto."
+msgstr "We do all the arrangements right away and confirm as soon as we have other requests that get the 4 pax car filled up."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Mientras llega la fecha del viaje te asignamos un operador asistente con quien mantendrás comunicación todo el tiempo."
+msgstr "While the date of the service arrives, we assign an operator that will keep communicating with you all the time."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Llegada la fecha enviamos el auto con chofer a recogerte al lugar donde indiques y en el horario pactado para realizar el viaje."
+msgstr "When the date arrives, we send the car with a driver to pick you up at the place you indicated and at the time we agreed on to do the trip."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Selecciona una de nuestras rutas y horarios para reservar un transfer"
+msgstr "Select on of our routes and departure times to book a transfer"
+
+#: View/SharedTravels/home.ctp:8
+msgid "Uno de nuestros choferes te recogerá en el lugar y fecha que indiques"
+msgstr "One of our drivers will pick you up at the place and date you indicate"
+
+#: View/SharedTravels/home.ctp:8
+msgid "Transfers disponibles desde %s"
+msgstr "Transfers available from %s"
+
+#: View/SharedTravels/home.ctp:8
+msgid "Preguntas frecuentes"
+msgstr "Frequently asked questions"
+
+#: View/SharedTravels/home.ctp:8
+msgid "¿Cuánto demoran en confirmarme la realización del viaje?"
+msgstr "How long will it take you to confirm my transfer?"
+
+#: View/SharedTravels/home.ctp:8
+msgid "A veces confirmamos instantáneamente porque tenemos otras solicitudes pendientes que se pueden emparejar en el mismo viaje con usted."
+msgstr "Sometimes we confirm instantly because we have other pending requests that can be paired with yours in the same trip."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Cuando esto no ocurre entonces usamos otras vías para recibir solicitudes, por lo cual lo normal es que confirmemos  en las primeras 24 horas."
+msgstr "When that doesn't happen, we use other ways to receive requests and normally we will always confirm within the first 24 hours."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Una vez que le confirmamos, ya su viaje queda en nuestra agenda y el viaje se realizará sin problemas."
+msgstr "Once we confirm, your transfer is already in our agenda and it is going to happen without troubles."
+
+#: View/SharedTravels/home.ctp:8
+msgid "¿Puedo llevar mucho equipaje?"
+msgstr "Can I carry lots of luggage?"
+
+#: View/SharedTravels/home.ctp:8
+msgid "Siempre sugerimos considerar NO solicitar nuestro servicio si se lleva mucho equipaje. Esto se debe a que el auto va a ser compartido, y por tanto también el espacio del maletero."
+msgstr "We always suggest to consider NOT requesting our service if you carry lots of luggage. This is because you are going to share the car, and also the space in the truck."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Una maleta mediana por cada persona es aceptable, pero si las maletas son demasiado grandes entonces es mejor considerar viajar en bus."
+msgstr "A medium sized suitcase by each person is good, but if the suitcases are too large then it is better to consider to travel by bus."
+
+#: View/SharedTravels/home.ctp:8
+msgid "¿Puedo hacer paradas para hacer fotos en lugares que me interesen dentro del recorrido?"
+msgstr "Can we stop to take pictures in places I'm intersted in within the route?"
+
+#: View/SharedTravels/home.ctp:8
+msgid "NO realizamos paradas de tipo excursionistas porque el auto debe llegar a su destino a una hora adecuada para prestar otro servicio."
+msgstr "We DON'T make excursion-like stops during  the journey because the car must get to its destination at a proper time to start another service."
+
+#: View/SharedTravels/home.ctp:8
+msgid "En los tramos largos (ej. La Habana - Trinidad) realizamos una parada en cafetería para merendar e ir al baño, y además se pueden solicitar otras paradas para cualquier otra necesidad."
+msgstr "We DO stop during long journeys (ex. La Habana - Trinidad) to go for a coffee, have a snack or use the bathroom. Also, you can ask for a stop for any other need you have."
+
+#: View/SharedTravels/home.ctp:8
+msgid "Ver las rutas y horarios disponibles"
+msgstr "See all the routes and departure times available"
+
+
+
+#: View/Elements/modality_info.ctp:8
+msgid "Hora de recogida %s"
+msgstr "Pick up time %s"
+
+#: View/Elements/modality_info.ctp:8
+msgid "%s por persona"
+msgstr "%s per person"
+
+#: View/Elements/modality_info.ctp:8
+msgid "Solicitar este transfer"
+msgstr "Request this transfer"
+
+
+
 #: View/SharedTravels/create.ctp:8
 msgid "¿Necesitas ir desde %s hasta %s durante tu viaje a Cuba?"
 msgstr "Need to go from %s to %s during your trip to Cuba?"
@@ -97,7 +194,7 @@ msgid "Dirección de recogida en %s"
 msgstr "Pick up address in %s"
 
 #: View/Elements/shared_travel_form.ctp:8
-msgid "Dirección exacta de la casa o nombre del hotel donde debemos recogerlo"
+msgid "Dirección exacta de la casa o nombre del hotel donde debemos recogerle"
 msgstr "Exact address of the guest-house or hotel name where we must pick you up"
 
 #: View/Elements/shared_travel_form.ctp:8
