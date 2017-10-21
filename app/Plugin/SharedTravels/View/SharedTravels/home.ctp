@@ -76,7 +76,7 @@
             <p class="lead"><big><?php echo __d('shared_travels', 'Preguntas frecuentes')?></big></p>
             <hr/>
             <p class="lead">1. <?php echo __d('shared_travels', '¿Cuánto demoran en confirmarme la realización del viaje?')?></p>
-            <p><?php echo __d('shared_travels', 'A veces confirmamos instantáneamente porque tenemos otras solicitudes pendientes que se pueden emparejar en el mismo viaje con usted.')?></p>
+            <p><?php echo __d('shared_travels', 'Usualmente confirmamos instantáneamente porque tenemos otras solicitudes pendientes que se pueden emparejar en el mismo viaje con usted.')?></p>
             <p><?php echo __d('shared_travels', 'Cuando esto no ocurre entonces usamos otras vías para recibir solicitudes, por lo cual lo normal es que confirmemos  en las primeras 24 horas.')?></p>
             <p><?php echo __d('shared_travels', 'Una vez que le confirmamos, ya su viaje queda en nuestra agenda y el viaje se realizará sin problemas.')?></p>
             <br/>

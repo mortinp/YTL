@@ -9,6 +9,8 @@ class SharedTravelsController extends AppController {
     
     public $uses = array('SharedTravels.SharedTravel', 'User');
     
+    public $layout = 'shared_rides';
+    
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('create', 'thanks', 'activate', 'view', 'home');

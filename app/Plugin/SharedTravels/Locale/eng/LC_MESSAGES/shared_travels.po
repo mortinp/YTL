@@ -15,6 +15,11 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 
+#: View/Layouts/shared_rides.ctp:8
+msgid "VER TRANSFERS DISPONIBLES"
+msgstr "SEE TRANSFERS AVAILABLE"
+
+
 #: View/SharedTravels/home.ctp:8
 msgid "¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a <code><big><big>Cuba</big></big></code>?"
 msgstr "Need to go <code><big>from one destination to another</big></code> during your trip to <code><big><big>Cuba</big></big></code>?"
@@ -56,8 +61,8 @@ msgid "¿Cuánto demoran en confirmarme la realización del viaje?"
 msgstr "How long will it take you to confirm my transfer?"
 
 #: View/SharedTravels/home.ctp:8
-msgid "A veces confirmamos instantáneamente porque tenemos otras solicitudes pendientes que se pueden emparejar en el mismo viaje con usted."
-msgstr "Sometimes we confirm instantly because we have other pending requests that can be paired with yours in the same trip."
+msgid "Usualmente confirmamos instantáneamente porque tenemos otras solicitudes pendientes que se pueden emparejar en el mismo viaje con usted."
+msgstr "Usually we confirm instantly because we have other pending requests that can be paired with yours in the same trip."
 
 #: View/SharedTravels/home.ctp:8
 msgid "Cuando esto no ocurre entonces usamos otras vías para recibir solicitudes, por lo cual lo normal es que confirmemos  en las primeras 24 horas."
@@ -231,8 +236,8 @@ msgstr "We already have your transfer request."
 
 
 #: View/SharedTravels/thanks.ctp:8
-msgid "%s hasta %s el %s a las %s."
-msgstr "%s to %s on %s at %s"
+msgid "%s personas desde %s hasta %s el %s a las %s."
+msgstr "%s people from %s to %s on %s at %s"
 
 #: View/SharedTravels/thanks.ctp:8
 msgid "Te enviamos un correo a %s con un enlace para confirmar la solicitud."
