@@ -16,10 +16,12 @@ if($userLoggedIn) {
     $other = array('en' => 'es', 'es' => 'en');
     $lang = $this->Session->read('Config.language');
  
-    $lang_changed_url             = $this->request['pass'];
-    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
-    $lang_changed_url['?']        = $this->request->query;
-    $lang_changed_url['language'] = $other[$lang];
+    $lang_changed_url               = $this->request['pass'];
+    $lang_changed_url               = array_merge($lang_changed_url, $this->request['named']);
+    $lang_changed_url['?']          = $this->request->query;
+    $lang_changed_url['language']   = $other[$lang];
+    $lang_changed_url['controller'] = ($this->request->controller == 'shared_travels')? 'shared-rides':$this->request->controller;
+    $lang_changed_url['action']     = $this->request->action;
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +74,7 @@ if($userLoggedIn) {
     </head>
     <body>
         <div id="container">
-            <div id="navbar" class="navbar navbar-default" role="navigation">
+            <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -96,7 +98,7 @@ if($userLoggedIn) {
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li><?php echo $this->Html->link(__('Ir al Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?></li>
-                            <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('shared_travels', 'VER TRANSFERS DISPONIBLES').'</button>', array('controller'=>'shared-rides', 'action'=>'home#transfers-available'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
+                            <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('shared_travels', 'VER RUTAS DISPONIBLES').'</button>', array('controller'=>'shared-rides', 'action'=>'home#transfers-available'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
@@ -107,6 +109,7 @@ if($userLoggedIn) {
 
             <div id="content" class="container-fluid">
                 <?php echo $this->Session->flash(); ?>
+                <div style="height: 60px;clear: both"></div>
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>

@@ -193,7 +193,7 @@ class SharedTravelsController extends AppController {
                                 $request['SharedTravel']['email'], 
                                 __d('shared_travels', 'Tenemos los datos de su solicitud'),
                                 array('request' => $request), 
-                                'customer_assistant', 
+                                'customer_assistant_shr', 
                                 'SharedTravels.assistant_intro',
                                 array('lang'=>$request['SharedTravel']['lang'])
                             );
@@ -202,7 +202,7 @@ class SharedTravelsController extends AppController {
                                 $request['SharedTravel']['email'], 
                                 __d('shared_travels', 'Tenemos los datos de su nueva solicitud'),
                                 array('request' => $request, 'all_requests'=>$all_requests),
-                                'customer_assistant', 
+                                'customer_assistant_shr', 
                                 'SharedTravels.requests_summary',
                                 array('lang'=>$request['SharedTravel']['lang'])
                             );

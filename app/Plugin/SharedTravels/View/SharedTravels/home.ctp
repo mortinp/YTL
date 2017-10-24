@@ -13,11 +13,17 @@
         </div>
     </div>
     
+    <div class="row" style="margin-top: 20px">
+        <div class="col-md-4 col-md-offset-4">
+            <a class="btn btn-block btn-info" href="#transfers-available"><big><big><?php echo __d('shared_travels', 'Ver rutas y precios disponibles')?></big></big></a>
+        </div>
+    </div>
+    
     <div class="row" style="margin-top: 50px;text-align: center">
         <h3><?php echo __d('shared_travels', '¿Cómo funciona?')?></h3>
     
         <br/>
-        <div class="col-md-2 center col-md-offset-2 col-sm-6" style="padding-bottom: 30px">
+        <!--<div class="col-md-2 center col-md-offset-2 col-sm-6" style="padding-bottom: 30px">
             <?php echo __d('shared_travels', 'Solicitas el servicio para algunas de nuestras rutas y horarios. Nos dices cuándo necesitas el servicio, dónde recogerte y cuántas personas son.')?>
         </div>
         <div class="col-md-2 center col-sm-6" style="padding-bottom: 30px">
@@ -28,8 +34,17 @@
         </div>
         <div class="col-md-2 center col-sm-6" style="padding-bottom: 30px">
             <?php echo __d('shared_travels', 'Llegada la fecha enviamos el auto con chofer a recogerte al lugar donde indiques y en el horario pactado para realizar el viaje.')?>
-        </div>
+        </div>-->
         
+        <div class="col-md-4 center" style="padding-bottom: 30px">
+            <p><big><?php echo __d('shared_travels', 'Reservas para una de nuestras rutas y horarios establecidos, indicando la fecha en que necesitas el servicio, dónde debe ser la recogida (casa de hospedaje u hotel) y la cantidad de personas que viajan.')?></big></p>
+        </div>
+        <div class="col-md-4 center" style="padding-bottom: 30px">
+            <p><big><?php echo __d('shared_travels', 'Nosotros arreglamos todo de manera que compartas el viaje con otros viajeros que van al mismo destino, y así abarates los costos. El auto que compartirás es un auto moderno de 4 plazas con aire acondicionado.')?></big></p>
+        </div>
+        <div class="col-md-4 center" style="padding-bottom: 30px">
+            <p><big><?php echo __d('shared_travels', 'Llegada la fecha, uno de nuestros choferes te recogerá puntual en el lugar indicado y te llevará a tí y a tus compañeros de viaje en un recorrido muy cómodo hasta tu destino.')?></big></p>
+        </div>
     </div>
     
 </div>
@@ -47,7 +62,24 @@
                 </p>
             </div>        
         </div>
-            
+        
+        <div class="row" style="margin-top: 50px;text-align: center">
+            <div class="col-md-10 col-md-offset-1 alert alert-warning" style="display: inline-block">
+                <div class="col-md-4 center">
+                    <div style="float:left;width:20%;font-size:40px"><i class="glyphicon glyphicon-certificate"></i></div>
+                    <div style="float:left;width:80%"><p><big><?php echo __d('shared_travels', 'Choferes y autos registrados y con licencia para realizar este servicio')?></big></p></div>
+                </div>
+                <div class="col-md-4 center">
+                    <div style="float:left;width:20%;font-size:40px"><i class="glyphicon glyphicon-usd"></i></div>
+                    <div style="float:left;width:80%"><p><big><?php echo __d('shared_travels', 'Pago en efectivo directamente al chofer en el momento de la recogida')?></big></p></div>
+                </div>
+                <div class="col-md-4 center">
+                    <div style="float:left;width:20%;font-size:40px"><i class="glyphicon glyphicon-check"></i></div>
+                    <div style="float:left;width:80%"><p><big><?php echo __d('shared_travels', 'Cada viaje confirmado queda en nuestra agenda para su realización')?></big></p></div>
+                </div>
+            </div>
+        </div>
+        
         <?php foreach (SharedTravel::$localities as $locality_id => $locality):?>
             <div class="row" style="margin-top: 40px;">
             <div><big><?php echo __d('shared_travels', 'Transfers disponibles desde %s', '<b><code><big><big>'.$locality.'</big></big></code></b>')?></big></div>

@@ -164,7 +164,7 @@ class SharedTravel extends AppModel {
                 $request['SharedTravel']['email'], 
                 $subject,
                 array('request' => $request, 'all_requests'=>$all_requests),
-                'customer_assistant', 
+                'customer_assistant_shr', 
                 'SharedTravels.request_confirmed',
                 array('lang'=>$lang)
             );
