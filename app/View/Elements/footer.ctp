@@ -2,7 +2,7 @@
     
     <div class="col-md-3">
         <p class="text-muted pull-left" style="margin: 20px 0;">
-            &copy; 2015-2016 <?php echo __('YoTeLlevo')?>
+            &copy; 2015-2017 <?php echo __('YoTeLlevo')?>
         </p>
     </div>
     

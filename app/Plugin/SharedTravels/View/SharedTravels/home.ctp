@@ -2,7 +2,7 @@
     <div class="row" style="margin-top: 40px">
         <div class="col-md-10 col-md-offset-1">
             <br/>
-            <p class="text-muted" style="text-align: center"><?php echo __d('shared_travels', '¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a <code><big><big>Cuba</big></big></code>?') ?></p>
+            <p class="text-muted" style="text-align: center"><?php echo __d('shared_travels', '¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a %s?', '<code><big><big><big>Cuba</big></big></big></code>') ?></p>
             <h1 style="text-align: center">
                 <?php echo __d('shared_travels', 'Comparte un auto cómodo con otros viajeros.') ?> <?php echo __d('shared_travels', 'Haz tu viaje por un precio muy conveniente.') ?>
             </h1> 
@@ -15,7 +15,9 @@
     
     <div class="row" style="margin-top: 20px">
         <div class="col-md-4 col-md-offset-4">
-            <a class="btn btn-block btn-info" href="#transfers-available"><big><big><?php echo __d('shared_travels', 'Ver rutas y precios disponibles')?></big></big></a>
+            <a class="btn btn-block btn-info" href="#transfers-available" style="white-space: normal;"><big><big><big><?php echo __d('shared_travels', 'Ver rutas y precios disponibles')?></big></big></big></a>
+            <div style="padding-top:10px;text-align: center"><code><big>La Habana</big></code> • <code><big>Viñales</big></code> • <code><big>Trinidad</big></code> • <code><big>Varadero</big></code></div>
+            <div style="text-align: center">... <?php echo __d('shared_travels', 'y otros')?></div>
         </div>
     </div>
     

@@ -28,9 +28,13 @@ msgstr "SEE ROUTES AVAILABLE"
 msgid "Ver rutas y precios disponibles"
 msgstr "See routes and prices available"
 
+#: View/SharedTravels/home.ctp:8
+msgid "y otros"
+msgstr "and others"
+
 
 #: View/SharedTravels/home.ctp:8
-msgid "¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a <code><big><big>Cuba</big></big></code>?"
+msgid "¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a %s?"
 msgstr "Need to go <code><big>from one destination to another</big></code> during your trip to <code><big><big>Cuba</big></big></code>?"
 
 #: View/SharedTravels/home.ctp:8
@@ -515,3 +519,8 @@ msgstr "Confirmed"
 #: View/SharedTravels/view.ctp:8
 msgid "Transfer desde %s hasta %s el %s"
 msgstr "Transfer from %s to %s on %s"
+
+#: View/Layouts/shared_rides.ctp:8
+msgid "Por los creadores de %s, la plataforma para contactar choferes en Cuba"
+msgstr "By the creators of %s, the platform to hire drivers in Cuba"
+
