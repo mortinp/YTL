@@ -97,7 +97,7 @@ if($userLoggedIn) {
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li><?php echo $this->Html->link(__('Ir al Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?></li>
+                            <li><?php echo $this->Html->link(__('Ir al Inicio'), array('controller'=>'shared-rides', 'action'=>'home'), array('class' => 'nav-link', 'escape'=>false));?></li>
                             <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('shared_travels', 'VER RUTAS DISPONIBLES').'</button>', array('controller'=>'shared-rides', 'action'=>'home#transfers-available'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
                         </ul>
                     </div><!-- /.navbar-collapse -->
