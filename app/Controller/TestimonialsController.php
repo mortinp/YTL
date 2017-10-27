@@ -333,6 +333,42 @@ class TestimonialsController extends AppController {
         $this->set('testimonial', $data['Testimonial']);
     }
 
+    public function enter_code() {
+        if ($this->request->is('post')) {
+            $driver_code = $this->request->data['Testimonial']['driver_code'];
+            if (!$driver_code)
+                return;
+
+            $driver_code = strtolower($driver_code); // El codigo siempre va a estar en lowercase en la BD. Ver DriversController::edit_profile
+            $driver = $this->DriverProfile->findByDriverCode($driver_code);
+            if (!$driver) {
+                // TODO: Mostrar una respuesta elegante donde se ayude al usuario
+                $this->setErrorMessage(__d('testimonials', 'No se encontró un chofer con este código. Revíselo e intente de nuevo.'));
+            } else{
+                $this->DriverProfile->id = $driver['DriverProfile']['id'];
+                $attempts = $driver['DriverProfile']['testimonial_attempts'] + 1;
+                if( !$this->DriverProfile->saveField('testimonial_attempts', $attempts) )
+                    CakeLog::write('testimonial_errors', "Error al actualizar 'testimonial_attempts', driver_code = $driver_code, attempt = $attempts"); 
+
+                $this->redirect( array('action' => 'add', $driver_code) );
+            }
+        }
+    }
+    
+    public function verify($token) {
+        $data = $this->Testimonial->findByValidationToken($token);
+        if(!$data)
+           throw new NotFoundException( __d('testimonials', 'El token para la validación es incorrecto') );
+        
+        $this->Testimonial->id = $data['Testimonial']['id'];
+        if( $this->Testimonial->saveField('validated', true) ){
+            $this->setSuccessMessage( __d('testimonials', 'Su comentario ha sido validado') );
+        }
+        else $this->setErrorMessage( __d('testimonials', 'Ha ocurrido un error al salvar los datos') );
+    }
+    
+    
+    
     public function request_testimonial($conversationId) {
         // TODO: Optimizar el cargado de datos, que sobran muchos en la consulta y en los parametros que se le pasan al correo
         
@@ -368,40 +404,6 @@ class TestimonialsController extends AppController {
         }
         
         return $this->redirect($this->referer());
-    }
-
-    public function enter_code() {
-        if ($this->request->is('post')) {
-            $driver_code = $this->request->data['Testimonial']['driver_code'];
-            if (!$driver_code)
-                return;
-
-            $driver_code = strtolower($driver_code); // El codigo siempre va a estar en lowercase en la BD. Ver DriversController::edit_profile
-            $driver = $this->DriverProfile->findByDriverCode($driver_code);
-            if (!$driver) {
-                // TODO: Mostrar una respuesta elegante donde se ayude al usuario
-                $this->setErrorMessage(__d('testimonials', 'No se encontró un chofer con este código. Revíselo e intente de nuevo.'));
-            } else{
-                $this->DriverProfile->id = $driver['DriverProfile']['id'];
-                $attempts = $driver['DriverProfile']['testimonial_attempts'] + 1;
-                if( !$this->DriverProfile->saveField('testimonial_attempts', $attempts) )
-                    CakeLog::write('testimonial_errors', "Error al actualizar 'testimonial_attempts', driver_code = $driver_code, attempt = $attempts"); 
-
-                $this->redirect( array('action' => 'add', $driver_code) );
-            }
-        }
-    }
-    
-    public function verify($token) {
-        $data = $this->Testimonial->findByValidationToken($token);
-        if(!$data)
-           throw new NotFoundException( __d('testimonials', 'El token para la validación es incorrecto') );
-        
-        $this->Testimonial->id = $data['Testimonial']['id'];
-        if( $this->Testimonial->saveField('validated', true) ){
-            $this->setSuccessMessage( __d('testimonials', 'Su comentario ha sido validado') );
-        }
-        else $this->setErrorMessage( __d('testimonials', 'Ha ocurrido un error al salvar los datos') );
     }
 }
 

@@ -38,7 +38,7 @@ class Travel extends AppModel {
         ),*/
         
         'User' => array(
-            'fields'=>array('id', 'username', 'role', 'lang', 'display_name', 'travel_count'),
+            'fields'=>array('id', 'username', 'role', 'lang', 'display_name', 'travel_count', 'shared_ride_offered'),
             'counterCache'=>true
         ),
         

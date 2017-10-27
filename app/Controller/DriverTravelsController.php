@@ -3,11 +3,12 @@
 App::uses('DriverTravel', 'Model');
 App::uses('DriverTravelerConversation', 'Model');
 App::uses('TimeUtil', 'Util');
+App::uses('EmailsUtil', 'Util');
 
 class DriverTravelsController extends AppController {
     
     //public $uses = array('DriverTravel', 'Travel', 'Driver');
-    public $uses = array('DriverTravel', 'Travel', 'Driver', 'DriverTravelerConversation');
+    public $uses = array('DriverTravel', 'Travel', 'Driver', 'DriverTravelerConversation', 'User');
     
     public function isAuthorized($user) {
         if ($this->action ==='index') {
@@ -138,6 +139,43 @@ class DriverTravelsController extends AppController {
             return $this->redirect($this->referer());
         } else throw new MethodNotAllowedException();
     }
+    
+    
+    
+    public function offer_shared_ride($conversationId) {
+        
+        $this->DriverTravel->recursive = 2;
+        $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
+        $data = $this->DriverTravel->findById($conversationId);
+        if (!$data)
+            throw new NotFoundException('Conversación inválida.');
+
+        $vars['people_count'] = $data['Travel']['people_count'];
+
+        $datasource = $this->DriverTravel->getDataSource();
+        $datasource->begin();
+        
+        $subject = 'Ir de un destino a otro en Cuba por un precio muy conveniente';
+        if($data['User']['lang'] == 'en') $subject = 'Go from one place to another in Cuba for a very good price';
+        
+        $to = $data['User']['username'];
+        $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'offer_shared_ride', array('lang'=>$data['User']['lang']));
+        if ($OK) {
+            $this->User->id = $data['User']['id'];
+            $OK = $this->User->saveField('shared_ride_offered', true);
+        }
+
+        if ($OK) {
+            $this->setSuccessMessage('Ofrecido el viaje compartido');
+            $datasource->commit();
+        } else {
+            $this->setErrorMessage('Falló la oferta de viaje compartido');
+            $datasource->rollback();
+        }
+        
+        return $this->redirect($this->referer());
+    }
+    
 }
 
 ?>

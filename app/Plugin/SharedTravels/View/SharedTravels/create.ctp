@@ -60,11 +60,6 @@
                 <?php echo __d('shared_travels', 'Recogida a las %s en el lugar y fecha que indiques','<code><big>'.$modality['time'].'</big></code>')?>
             </p>
         </div>
-        
-        <!--<div class="col-md-10 col-md-offset-1 center">
-            <span class="alert alert-danger" style="display: inline-block"><?php echo __d('shared_travels', 'Considera NO solicitar este servicio si llevas mucho equipaje. El espacio del auto es compartido y queremos que todos viajen cómodos.')?></span>
-        </div>-->
-        
     </div>
     <div class="row" style="margin-top: 40px;">
         

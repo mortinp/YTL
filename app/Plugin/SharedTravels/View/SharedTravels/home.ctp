@@ -2,7 +2,7 @@
     <div class="row" style="margin-top: 40px">
         <div class="col-md-10 col-md-offset-1">
             <br/>
-            <p class="text-muted" style="text-align: center"><?php echo __d('shared_travels', '¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a %s?', '<code><big><big><big>Cuba</big></big></big></code>') ?></p>
+            <p class="text-muted" style="text-align: center"><?php echo __d('shared_travels', '¿Necesitas <code><big>ir de un destino a otro</big></code> durante tu viaje a %s?', '<code><big><big><big>Cuba</big></big></big></code>') ?></p>
             <h1 style="text-align: center">
                 <?php echo __d('shared_travels', 'Comparte un auto cómodo con otros viajeros.') ?> <?php echo __d('shared_travels', 'Haz tu viaje por un precio muy conveniente.') ?>
             </h1> 
@@ -84,16 +84,16 @@
         
         <?php foreach (SharedTravel::$localities as $locality_id => $locality):?>
             <div class="row" style="margin-top: 40px;">
-            <div><big><?php echo __d('shared_travels', 'Transfers disponibles desde %s', '<b><code><big><big>'.$locality.'</big></big></code></b>')?></big></div>
-            <br/>
-            <?php $i=0?>
-            <?php foreach (SharedTravel::$modalities as $code=>$modality):?>
-                <?php if($modality['origin_id'] == $locality_id):?>
-                    <div class="col-md-3 col-sm-6" style="padding: 20px"><?php echo $this->element('modality_info', compact('modality') + compact('code'))?></div>
-                    <?php $i++?>
-                    <?php if($i == 4):?><?php $i = 0?><br/><br/><?php endif?>
-                <?php endif?>
-            <?php endforeach?>
+                <div style="padding-left: 20px"><big><?php echo __d('shared_travels', 'Transfers disponibles desde %s', '<b><code><big><big>'.$locality.'</big></big></code></b>')?></big></div>
+                <br/>
+                <?php $i=0?>
+                <?php foreach (SharedTravel::$modalities as $code=>$modality):?>
+                    <?php if($modality['origin_id'] == $locality_id):?>
+                        <div class="col-md-3 col-sm-6" style="padding: 20px"><?php echo $this->element('modality_info', compact('modality') + compact('code'))?></div>
+                        <?php $i++?>
+                        <?php if($i == 4):?><?php $i = 0?><br/><br/><?php endif?>
+                    <?php endif?>
+                <?php endforeach?>
             </div>
             
             <br/>

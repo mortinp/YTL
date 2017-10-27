@@ -34,8 +34,8 @@ msgstr "and others"
 
 
 #: View/SharedTravels/home.ctp:8
-msgid "¿Necesitas ir <code><big>desde un destino a otro</big></code> durante tu viaje a %s?"
-msgstr "Need to go <code><big>from one destination to another</big></code> during your trip to <code><big><big>Cuba</big></big></code>?"
+msgid "¿Necesitas <code><big>ir de un destino a otro</big></code> durante tu viaje a %s?"
+msgstr "Need to <code><big>go from one destination to another</big></code> during your trip to <code><big><big>Cuba</big></big></code>?"
 
 #: View/SharedTravels/home.ctp:8
 msgid "Solicitas el servicio para algunas de nuestras rutas y horarios. Nos dices cuándo necesitas el servicio, dónde recogerte y cuántas personas son."
@@ -521,6 +521,6 @@ msgid "Transfer desde %s hasta %s el %s"
 msgstr "Transfer from %s to %s on %s"
 
 #: View/Layouts/shared_rides.ctp:8
-msgid "Por los creadores de %s, la plataforma para contactar choferes en Cuba"
-msgstr "By the creators of %s, the platform to hire drivers in Cuba"
+msgid "Por los creadores de %s, la plataforma para contratar choferes privados en Cuba"
+msgstr "By the creators of %s, the platform to hire private drivers in Cuba"
 
