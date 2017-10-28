@@ -1,3 +1,8 @@
+<?php
+$otherTravelers = __d('user_email', 'otros %s viajeros', 4 - $people_count);
+if($people_count == 3) $otherTravelers = __d('user_email', 'otro viajero');
+?>
+
 <p><?php echo __d('user_email', 'Hola')?>,</p>
 
 <p><?php echo __d('user_email', 'Soy %s de YoTeLlevoCuba.com, el sitio web donde han estado buscando un chofer aquí en Cuba para hacer algunos recorridos.', 'Martín')?></p>
@@ -10,7 +15,7 @@
 
 <p><?php echo __d('user_email', 'Quiero comentarles que recientemente lanzamos un nuevo servicio dentro de YoTeLlevo, que permite ir de un destino a otro en Cuba compartiendo un auto con chofer con otros viajeros, de manera que el viaje se abarate.')?></p>
 
-<p><?php echo __d('user_email', 'La idea principal es que por ejemplo, si van de La Habana a Trinidad, compartan un auto moderno de 4 plazas con otros %s viajeros y así el costo del viaje es mucho más bajo para cada uno, porque comparten el precio del viaje completo también.', 4 - $people_count)?></p>
+<p><?php echo __d('user_email', 'La idea principal es que por ejemplo, si van de La Habana a Trinidad, compartan un auto moderno de 4 plazas con %s y así el costo del viaje es mucho más bajo para cada uno, porque comparten el precio del viaje completo también.', $otherTravelers)?></p>
 
 <p><?php echo __d('user_email', 'Es como viajar en bus, pero solo viajan 4 personas en un mismo auto (más el chofer).')?></p>
 

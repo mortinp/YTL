@@ -163,8 +163,8 @@ msgid "Comparte un auto cómodo con otros viajeros."
 msgstr "Share a confortable car with other travelers."
 
 #: View/SharedTravels/create.ctp:8
-msgid "Haz tu viaje por un precio muy conveniente."
-msgstr "Do your trip for a very convenient price."
+msgid "Haz cada viaje por un precio muy conveniente."
+msgstr "Do each trip for a very convenient price."
 
 #: View/SharedTravels/create.ctp:8
 msgid "Autos modernos de 4 plazas. Aire acondicionado. Servicio puerta a puerta."

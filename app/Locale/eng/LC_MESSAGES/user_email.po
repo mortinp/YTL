@@ -324,8 +324,8 @@ msgid "Quiero comentarles que recientemente lanzamos un nuevo servicio dentro de
 msgstr "I want to let you know that we recently launched a new service inside of YoTeLlevo, which allows to share a car and driver with other travelers to go from one place to another, in a way that the prices get lower."
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "La idea principal es que por ejemplo, si van de La Habana a Trinidad, compartan un auto moderno de 4 plazas con otros %s viajeros y así el costo del viaje es mucho más bajo para cada uno, porque comparten el precio del viaje completo también."
-msgstr "The idea is that, for instance, if you go from La Habana to Trinidad, you can share a 4 pax modern car with other %s travelers and so the costs for each traveler is lower, because you also share the total price of the trip."
+msgid "La idea principal es que por ejemplo, si van de La Habana a Trinidad, compartan un auto moderno de 4 plazas con %s y así el costo del viaje es mucho más bajo para cada uno, porque comparten el precio del viaje completo también."
+msgstr "The idea is that, for instance, if you go from La Habana to Trinidad, you can share a 4 pax modern car with %s and so the costs for each is lower, because you also share the total price of the trip."
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Es como viajar en bus, pero solo viajan 4 personas en un mismo auto (más el chofer)."
@@ -370,3 +370,11 @@ msgstr "Please let me know any questions you have. I'll be very glad to answer t
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Saludos cordiales desde Cuba y les deseo un magnífico viaje a la isla!"
 msgstr "Kind regards from Cuba and I wish you have a magnificent trip to the island!"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "otros %s viajeros"
+msgstr "other %s travelers"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "otro viajero"
+msgstr "one more traveler"

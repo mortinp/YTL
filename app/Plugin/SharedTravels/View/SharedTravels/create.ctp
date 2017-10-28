@@ -1,16 +1,6 @@
 <?php $modality = SharedTravel::$modalities[$this->request->query['s']]?>
 
-<?php     
-    $other = array('en' => 'es', 'es' => 'en');
-    $lang = $this->Session->read('Config.language');
-
-    $lang_changed_url             = $this->request['pass'];
-    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
-    $lang_changed_url['?']        = $this->request->query;
-    $lang_changed_url['language'] = $other[$lang];
-?>
-
-<div class="container">
+<!--<div class="container">
     <div class="row" style="margin-top: 40px">
         <div class="col-md-10 col-md-offset-1">
             <br/>
@@ -44,7 +34,7 @@
         
     </div>
     
-</div>
+</div>-->
 
 <div id="request-ride" data-h-offset="0" class="row arrow_box arrow_box_bottom" style="margin-top: 80px"></div>
 <div class="row" style="background-color: #ebebeb;padding-bottom: 20px">

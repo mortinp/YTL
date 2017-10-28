@@ -18,7 +18,7 @@ class SharedTravelsController extends AppController {
     
     public function index() {
         $this->paginate = array('order'=>array('SharedTravel.id'=>'DESC'));
-        $this->set('travels', $this->paginate());
+        $this->set('travels', $this->paginate(array('SharedTravel.email !=' => 'martin@yotellevocuba.com')));
     }
     
     public function home() {
@@ -246,10 +246,10 @@ class SharedTravelsController extends AppController {
         $candidates = $this->SharedTravel->find('all', array(
             'conditions'=>array(
                 'modality_code'=>$request['SharedTravel']['modality_code'], // Esto empareja por ruta y hora
-                'date'=> TimeUtil::dateFormatBeforeSave($request['SharedTravel']['date']),
-                'people_count <='=> 4 - $request['SharedTravel']['people_count'],
+                'date'=> TimeUtil::dateFormatBeforeSave($request['SharedTravel']['date']), // Esto empareja por fecha
+                'people_count <='=> 4 - $request['SharedTravel']['people_count'], // Esto llena el carro hasta 4 plazas
                 'email !='=>$request['SharedTravel']['email'], // Que no sea de este mismo cliente
-                'activated'=>true,
+                'activated'=>true, // Que este activada la solicitud
                 'coupling_id'=>null,// Que no haya sido emparejado antes
                 'state !='=>SharedTravel::$STATE_CONFIRMED // Que no este confirmado (por si el facilitador lo confirmo dirctamente).
                 
