@@ -68,7 +68,7 @@ msgstr "When the date arrives, one of our drivers will pick you up at the place 
 
 #: View/SharedTravels/home.ctp:8
 msgid "Selecciona una de nuestras rutas y horarios para reservar un transfer"
-msgstr "Select on of our routes and departure times to book a transfer"
+msgstr "Select one of our routes and departure times to book a transfer"
 
 #: View/SharedTravels/home.ctp:8
 msgid "Uno de nuestros choferes te recogerá en el lugar y fecha que indiques"
@@ -149,8 +149,13 @@ msgid "%s por persona"
 msgstr "%s per person"
 
 #: View/Elements/modality_info.ctp:8
-msgid "Solicitar este transfer"
-msgstr "Request this transfer"
+msgid "<span class="text-muted"><small>- mejor que</small></span> <s>%s</s> <span class="text-muted"><small>por viaje privado -</small></span>"
+msgstr "<span class="text-muted"><small>- better than</small></span> <s>%s</s> <span class="text-muted"><small>for a private trip -</small></span>"
+
+#: View/Elements/modality_info.ctp:8
+msgid "<big>Compartir este viaje</big> <div>y pagar sólo <b>%s</b> por persona</div>"
+msgstr "<big>Share this trip</big> <div>and pay only <b>%s</b> per person</div>"
+
 
 
 
@@ -163,12 +168,12 @@ msgid "Comparte un auto cómodo con otros viajeros."
 msgstr "Share a confortable car with other travelers."
 
 #: View/SharedTravels/create.ctp:8
-msgid "Haz cada viaje por un precio muy conveniente."
-msgstr "Do each trip for a very convenient price."
+msgid "Llega a cada destino por un precio muy conveniente."
+msgstr "Get to each destination for a very convenient price."
 
 #: View/SharedTravels/create.ctp:8
-msgid "Autos modernos de 4 plazas. Aire acondicionado. Servicio puerta a puerta."
-msgstr "Modern cars with 4 pax. Air conditioner. Door to door service."
+msgid "Autos modernos con aire acondicionado. Sólo 4 pasajeros en un auto. Recogida en casa u hotel."
+msgstr "Modern cars with air conditioner. Only 4 passengers in one car. Pick up at guest house or hotel."
 
 #: View/SharedTravels/create.ctp:8
 msgid "¿Cómo funciona?"
@@ -257,8 +262,8 @@ msgid "Tu correo electrónico"
 msgstr "Your email"
 
 #: View/Elements/shared_travel_form.ctp:8
-msgid "Tu nombre para fácil identificación"
-msgstr "Your name for easy identification"
+msgid "Tu nombre completo para fácil identificación"
+msgstr "Your full name for easy identification"
 
 #: View/Elements/shared_travel_form.ctp:8
 msgid "Solicitar este transfer %s - %s"

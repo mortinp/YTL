@@ -39,7 +39,7 @@ if($this->Session->read('SharedTravels.name_id')) $nameIdValue = $this->Session-
             <div class="col-md-6">
                 <p><b><?php echo __d('shared_travels', 'DATOS DE CONTACTO')?></b></p><hr/>
                 <?php echo $this->Form->input('email', array('label' => __d('shared_travels', 'Tu correo electrónico'), 'value'=>$emailValue, 'type' => 'email', 'required'=>'required'));?>
-                <?php echo $this->Form->input('name_id', array('label' => __d('shared_travels', 'Tu nombre para fácil identificación'),'value'=>$nameIdValue, 'type' => 'text', 'required'=>'required'));?>
+                <?php echo $this->Form->input('name_id', array('label' => __d('shared_travels', 'Tu nombre completo para fácil identificación'),'value'=>$nameIdValue, 'type' => 'text', 'required'=>'required'));?>
                 <!--<div class="form-group">
                     <label for="Contacts"><?php echo __d('shared_travels', 'Teléfono de contacto (ej. teléfono de la casa u hotel en Cuba)')?></label>
                     <textarea name="data[SharedTravel][contacts]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Teléfono para rápìda comunicación en caso necesario')?>" rows="2" id="Contacts"></textarea>

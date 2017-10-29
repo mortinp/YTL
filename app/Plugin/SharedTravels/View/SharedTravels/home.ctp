@@ -4,10 +4,10 @@
             <br/>
             <p class="text-muted" style="text-align: center"><?php echo __d('shared_travels', '¿Necesitas <code><big>ir de un destino a otro</big></code> durante tu viaje a %s?', '<code><big><big><big>Cuba</big></big></big></code>') ?></p>
             <h1 style="text-align: center">
-                <?php echo __d('shared_travels', 'Comparte un auto cómodo con otros viajeros.') ?> <?php echo __d('shared_travels', 'Haz cada viaje por un precio muy conveniente.') ?>
+                <?php echo __d('shared_travels', 'Comparte un auto cómodo con otros viajeros.') ?> <?php echo __d('shared_travels', 'Llega a cada destino por un precio muy conveniente.') ?>
             </h1> 
             <br/>
-            <h4 style="text-align: center"><?php echo __d('shared_travels', 'Autos modernos de 4 plazas. Aire acondicionado. Servicio puerta a puerta.') ?></h4>
+            <h4 style="text-align: center"><?php echo __d('shared_travels', 'Autos modernos con aire acondicionado. Sólo 4 pasajeros en un auto. Recogida en casa u hotel.') ?></h4>
             
             <hr/>
         </div>

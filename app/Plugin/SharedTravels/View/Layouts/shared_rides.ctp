@@ -109,7 +109,7 @@ if($userLoggedIn) {
 
             <div id="content" class="container-fluid">
                 <?php echo $this->Session->flash(); ?>
-                <div style="height: 60px;clear: both"></div>
+                <div style="height: 50px;clear: both"></div>
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>

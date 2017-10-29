@@ -1,42 +1,5 @@
 <?php $modality = SharedTravel::$modalities[$this->request->query['s']]?>
-
-<!--<div class="container">
-    <div class="row" style="margin-top: 40px">
-        <div class="col-md-10 col-md-offset-1">
-            <br/>
-            <p class="text-muted" style="text-align: center"><?php echo __d('shared_travels', '¿Necesitas ir desde %s hasta %s durante tu viaje a Cuba?', '<code><big><big>'.$modality['origin'].'</big></big></code>', '<code><big><big>'.$modality['destination'].'</big></big></code>') ?></p>
-            <h1 style="text-align: center">
-                <?php echo __d('shared_travels', 'Comparte un auto cómodo con otros viajeros.') ?> <?php echo __d('shared_travels', 'Haz tu viaje por un precio muy conveniente.') ?>
-            </h1> 
-            <br/>
-            <h4 style="text-align: center"><?php echo __d('shared_travels', 'Autos modernos de 4 plazas. Aire acondicionado. Servicio puerta a puerta.') ?></h4>
-            
-            <hr/>
-        </div>
-    </div>
-    
-    <div class="row" style="margin-top: 50px;text-align: center">
-        <h3><?php echo __d('shared_travels', '¿Cómo funciona?')?></h3>
-    
-        <br/>
-        <div class="col-md-2 center col-md-offset-2">
-            <?php echo __d('shared_travels', 'Solicitas el servicio y nos dices cuándo y dónde recogerte en %s.', $modality['origin'])?>
-        </div>
-        <div class="col-md-2 center">
-            <?php echo __d('shared_travels', 'Enseguida hacemos todos los arreglos y te confirmamos en menos de 24 horas.')?>
-        </div>
-        <div class="col-md-2 center">
-            <?php echo __d('shared_travels', 'Te asignamos un operador con quien mantendrás comunicación todo el tiempo.')?>
-        </div>
-        <div class="col-md-2 center">
-            <?php echo __d('shared_travels', 'Cuando llega la fecha, enviamos el auto a recogerte y haces tu viaje hasta %s.', $modality['destination'])?>
-        </div>
-        
-    </div>
-    
-</div>-->
-
-<div id="request-ride" data-h-offset="0" class="row arrow_box arrow_box_bottom" style="margin-top: 80px"></div>
+<div id="request-ride" data-h-offset="0" class="row arrow_box arrow_box_bottom"></div>
 <div class="row" style="background-color: #ebebeb;padding-bottom: 20px">
     <div class="row" style="padding-top: 80px;">
         <div class="col-md-10 col-md-offset-1" style="text-align: center">
