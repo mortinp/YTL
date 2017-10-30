@@ -155,8 +155,8 @@ class DriverTravelsController extends AppController {
         $datasource = $this->DriverTravel->getDataSource();
         $datasource->begin();
         
-        $subject = 'Ir de un destino a otro en Cuba por un precio muy conveniente';
-        if($data['User']['lang'] == 'en') $subject = 'Go from one place to another in Cuba for a very good price';
+        $subject = 'Mejores precios para un taxi en Cuba';
+        if($data['User']['lang'] == 'en') $subject = 'Better prices for a taxi in Cuba';
         
         $to = $data['User']['username'];
         $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'offer_shared_ride', array('lang'=>$data['User']['lang']));

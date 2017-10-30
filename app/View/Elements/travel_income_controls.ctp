@@ -1,14 +1,16 @@
 <?php
-if(!isset ($modal)) $modal = false; // Esto es para hacer que el formulario se comporte de forma modal o no
+if(!isset ($modal)) $modal = true; // Esto es para hacer que el formulario se comporte de forma modal o no
 ?>
 
-<!-- GANANCIAS -->
-<?php if($conversation['TravelConversationMeta']['income'] != null && $conversation['TravelConversationMeta']['income'] != 0):?>
-    <span class="label label-success info" title="Ganancia total"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income']?></span>
-<?php endif?>
-<?php if($conversation['TravelConversationMeta']['income_saving'] != null && $conversation['TravelConversationMeta']['income_saving'] != 0):?>
-    <span class="label label-default info" title="Ahorro"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income_saving']?></span>
-<?php endif?>
+<span id="ganancias-<?php echo $thread['id']?>">
+    <!-- GANANCIAS -->
+    <?php if($conversation['TravelConversationMeta']['income'] != null && $conversation['TravelConversationMeta']['income'] != 0):?>
+        <span class="label label-success info" title="Ganancia total"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income']?></span>
+    <?php endif?>
+    <?php if($conversation['TravelConversationMeta']['income_saving'] != null && $conversation['TravelConversationMeta']['income_saving'] != 0):?>
+        <span class="label label-default info" title="Ahorro"><i class="glyphicon glyphicon-usd"></i><?php echo $conversation['TravelConversationMeta']['income_saving']?></span>
+    <?php endif?>
+</span>
 
 <!-- TODO: Poner ganancias solo los super administradores -->
 <?php if(AuthComponent::user('username') == 'mproenza@grm.desoft.cu' || AuthComponent::user('username') == 'martin@yotellevocuba.com'):?>

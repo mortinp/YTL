@@ -34,10 +34,10 @@ if(!isset($details)) $details = true;
                     <div>Resumen de esta página</div>
                     <big><big>
                         <span class="label label-success">
-                            Ganancia Total: $<?php echo $totalIncome;?>
+                            Ganancia Total: $<span id="income-total"><?php echo $totalIncome;?></span>
                         </span>
                         <span class="label label-default" style="margin-left:5px">
-                            Ahorro Total: $<?php echo $totalSavings;?>
+                            Ahorro Total: $<span id="income-save-total"><?php echo $totalSavings;?></span>
                         </span>
                     </big></big>
                     <br/>
@@ -59,6 +59,30 @@ if(!isset($details)) $details = true;
         <?php endif; ?>
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
         </div>
+        
+        <!-- all .open-form opens in a bootbox -->
+        <?php
+            $this->Html->css('bootstrap', array('inline' => false));
+            $this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));
+
+            $this->Html->script('jquery', array('inline' => false));
+            $this->Html->script('bootstrap', array('inline' => false));
+            $this->Html->script('bootbox/bootbox', array('inline' => false));
+            $this->Html->script('vitalets-bootstrap-datepicker/bootstrap-datepicker.min', array('inline' => false));
+
+            echo $this->Js->writeBuffer(array('inline' => true));
+        ?>
+        
+        <script type="text/javascript"> 
+            $(document).ready(function(){
+                $(".open-form").click(
+                    function (event){
+                        bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('form') ).html()});
+                        event.preventDefault();
+                    }
+                );
+            });
+        </script>
 
     </div>
 </div>

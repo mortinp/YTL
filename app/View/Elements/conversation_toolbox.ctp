@@ -115,49 +115,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
             
         </div>
 
-        <div class="btn-wrapper">
-            <!-- STATES -->
-            <?php
-            $btnType = 'default';
-            if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) $btnType = 'warning';
-            else if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) $btnType = 'success';
-            ?>
-            <div class="btn-group">
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-<?php echo $btnType?> dropleft-toggle" data-toggle="dropdown">
-                            <?php 
-                            if ($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_NONE) echo 'Ninguno';
-                            elseif ($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE) echo '<i class="glyphicon glyphicon-thumbs-up"></i> Realizado';
-                            elseif ($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) echo '<i class="glyphicon glyphicon-usd"></i> Pagado';
-                            ?>
-                            <span class="caret"></span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
-                                <div><?php echo $this->Form->button('Ninguno', array('class'=>'btn btn-default', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_NONE), true);?></div>
-                            <?php endif?>
-
-                            <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-                                <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn btn-warning', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_DONE, 'escape'=>false), true);?></div>
-                            <?php endif?>
-
-                            <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-                                <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success', 'action'=>'set_state/'.$data['DriverTravel']['id'].'/'.DriverTravelerConversation::$STATE_TRAVEL_PAID, 'escape'=>false), true);?></div>
-                            <?php endif?>
-                        </div>
-                    </span>
-                    <span class="input-group-addon">Estado</span>
-                </div>
-                
-            </div>
-
-            <!-- INCOME CONTROLS -->
-            <?php
-            if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID) {
-                echo $this->element('travel_income_controls', array('thread'=>$data['DriverTravel'], 'conversation'=>$data, 'modal'=>true));
-            }
-            ?>
+        <div class="btn-wrapper" id="states">
+            <?php echo $this->element('conversation_toolbox_states'); ?>
         </div>
 
         <div class="btn-wrapper">
@@ -219,21 +178,24 @@ echo $this->Js->writeBuffer(array('inline' => false));
 
 <script type="text/javascript">
     
-    $(document).ready(function(){
-        $( ".open-form" ).click(function( event ) {
-            bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('form') ).html()});
+    function openForm(event) {
+        bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('form') ).html()});
 
-            $('.datepicker').datepicker({
-                format: "dd/mm/yyyy",
-                language: '<?php echo Configure::read('Config.language')?>',
-                //startDate: 'today',
-                todayBtn: "linked",
-                autoclose: true,
-                todayHighlight: true
-            });
-
-            event.preventDefault();
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: '<?php echo Configure::read('Config.language')?>',
+            //startDate: 'today',
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true
         });
+        
+        event.preventDefault();
+    }
+            
+
+    $(document).ready(function(){
+        $( ".open-form" ).click(openForm);
 
         $('.last-msg').click(function() {
             goTo($(this).data('where'), 100, -70);

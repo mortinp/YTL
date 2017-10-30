@@ -124,7 +124,7 @@ msgstr "A medium sized suitcase by each person is good, but if the suitcases are
 
 #: View/SharedTravels/home.ctp:8
 msgid "¿Puedo hacer paradas para hacer fotos en lugares que me interesen dentro del recorrido?"
-msgstr "Can we stop to take pictures in places I'm intersted in within the route?"
+msgstr "Can we stop to take pictures in places I'm interested in within the route?"
 
 #: View/SharedTravels/home.ctp:8
 msgid "NO realizamos paradas de tipo excursionistas porque el auto debe llegar a su destino a una hora adecuada para prestar otro servicio."

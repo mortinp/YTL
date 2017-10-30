@@ -128,6 +128,25 @@ class DriverTravelerConversationsController extends AppController {
      */
     public function set_state($conversationId, $state) {
         $OK = $this->tag($conversationId, 'state', $state);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            $data = $this->DriverTravel->findById($conversationId);
+            $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);
+            
+            $view = new View();
+            $elements = array(
+                'conversation_toolbox_states' => $view->element('conversation_toolbox_states', compact('data')),
+                'addon_travel_verification'   => $view->element('addon_travel_verification', compact('data', 'conversations')),
+                'addon_testimonial_request'   => $view->element('addon_testimonial_request', compact('data')),
+                'state'                       => $state
+            );
+            
+            echo json_encode($elements);
+            return;
+        }
+        
+        
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
@@ -230,6 +249,7 @@ class DriverTravelerConversationsController extends AppController {
         if (!$this->TravelConversationMeta->exists()) {
             throw new NotFoundException('Conversación inválida.');
         }
+        $beforeSave = $this->TravelConversationMeta->findByConversationId($id);
         //TODO: Verificar que la conversación ya está pagada
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -238,7 +258,20 @@ class DriverTravelerConversationsController extends AppController {
             
             if ($this->TravelConversationMeta->save($this->request->data)) {
                 $this->setInfoMessage('Se guardó la ganancia del viaje <b>'.$id.'</b> exitosamente.');
-                return $this->redirect($this->referer()/*array('controller'=>'driver_travels', 'action' => 'view_filtered/'.DriverTravel::$SEARCH_PAID)*/);
+                
+                if($this->request->is('ajax')){
+                    $this->autoRender = false;
+                    echo json_encode( array('object' => array(
+                        'id'                => $id,
+                        'income'            => $this->request->data['TravelConversationMeta']['income'],
+                        'income_saving'     => $this->request->data['TravelConversationMeta']['income_saving'],
+                        'income_dif'        => $this->request->data['TravelConversationMeta']['income'] - $beforeSave['TravelConversationMeta']['income'],
+                        'income_saving_dif' => $this->request->data['TravelConversationMeta']['income_saving'] - $beforeSave['TravelConversationMeta']['income_saving']
+                    )));
+                    return;
+                }
+                
+                return $this->redirect($this->referer());
             }
             $this->setErrorMessage('Ocurrió un error salvando la ganacia del viaje '.$id);
         } else throw new UnauthorizedException();

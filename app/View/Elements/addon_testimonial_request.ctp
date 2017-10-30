@@ -10,14 +10,16 @@
 
 <?php if($travelDone): ?>
 <div id="testimonial_addon">
-   <span class="alert alert-warning" style="display: inline-block; width: 100%">
-      <?php if($testimonial_received):?>
-	    <b><i style='padding: 5px' class='glyphicon glyphicon-heart'></i> Testimonio recibido</b>
+    <span class="alert alert-warning" style="display: inline-block; width: 100%">
+        <?php if($testimonial_received):?>
+            <b><i style='padding: 5px' class='glyphicon glyphicon-heart'></i> Testimonio recibido</b>
             <?php echo $this->Html->link('Ver »', array('controller' => 'testimonials', 'action' => 'admin', $data['Testimonial']['id']), array('target'=>'_blank'))?>
-      <?php else:?>
-        <?php if($solicitado):?>
-	       <i style='padding: 5px' class='glyphicon glyphicon-heart-empty'></i>Solicitud de testimonio enviada al viajero!
-            <?php else:?>
+        <?php else:?>
+            <div class="testimonial-ajax-toggle" style="display: <?php echo ($solicitado) ? 'inline-block' : 'none'; ?>">
+                <i style='padding: 5px' class='glyphicon glyphicon-heart-empty'></i>Solicitud de testimonio enviada al viajero!
+            </div>
+
+            <div class="testimonial-ajax-toggle" style="display: <?php echo ($solicitado) ? 'none' : 'inline-block'; ?>">
                 <p>
                     <b>Este viaje está <span class="label label-warning">Realizado</span></b>
                 </p>
@@ -31,16 +33,32 @@
                 </ul>
                 <br/>
    	       <?php echo $this->Form->button('<i style="padding: 5px" class="glyphicon glyphicon-heart-empty"></i> Solicitar testimonio al viajero', 
-                    array('controller' => 'testimonials',
-                          'action' => "request_testimonial/".$data['DriverTravel']['id'],
-                          'confirm' => 'Está a punto de enviar un correo de solicitud de testimonio al viajero. ¿Desea continuar?',
+                    array(
                           'class'=>'btn-warning btn btn-block',
+                          'data-dtype' => 'text',
+                          'data-url' => $this->Html->url(array('controller' => 'testimonials', 'action' => 'request_testimonial', $data['DriverTravel']['id']), true),
+                          'id' => 'testimonial-ajax-btn'
                     ), array('escape'=>false));
                 ?>
-            <?php endif;?>
+            </div>
 	    
         <?php endif;?>										
       
    </span>
 </div>   
 <?php endif; ?>
+
+<?php
+    echo $this->Html->script('ajaxify/buttons');
+    $this->Html->script('jquery', array('inline' => false));
+    echo $this->Js->writeBuffer(array('inline' => false));
+?>
+
+<script type="text/javascript">    
+    ajaxifyButton( 
+        $('#testimonial-ajax-btn'), 
+        function(response){ $('.testimonial-ajax-toggle').toggle(); }, //success
+        function(error){ alert(error.responseText); },                 //error
+        'Está a punto de enviar un correo de solicitud de testimonio al viajero. ¿Desea continuar?'
+    );
+</script>
