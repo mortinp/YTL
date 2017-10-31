@@ -340,8 +340,12 @@ msgid "%s por persona"
 msgstr "%s per person"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "En el caso de ustedes que son %s personas, un viaje de La Habana a Trinidad les costaría %s en total. Es mucho más bajo que un chofer privado!"
-msgstr "In your case, a trip from La Habana to Trinidad for %s people would cost %s in total. That is way cheaper than a private driver!"
+msgid "mejor que <b>%s por un viaje privado</b>"
+msgstr "better than <b>%s for a private trip</b>"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "En el caso de ustedes que son <b>%s personas</b>, un viaje de La Habana a Trinidad les costaría <b>%s</b> en total. Es mucho más bajo que un chofer privado!"
+msgstr "In your case, a trip from La Habana to Trinidad for <b>%s people</b> would cost <b>%s</b> in total. That is way cheaper than a private driver!"
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Estos son algunos ejemplos, pero cubrimos muchas otras rutas también, no sólo desde La Habana. También tenemos viajes desde Viñales, Trinidad, Varadero, Cayo Coco/Guillermo, etc."

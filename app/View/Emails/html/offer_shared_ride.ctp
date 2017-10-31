@@ -1,9 +1,12 @@
 <?php
 $otherTravelers = __d('user_email', 'otros %s viajeros', 4 - $people_count);
 if($people_count == 3) $otherTravelers = __d('user_email', 'otro viajero');
+
+if(!isset ($traveler_name) || $traveler_name == null) $traveler_name = '';
+else $traveler_name = ' '.$traveler_name;
 ?>
 
-<p><?php echo __d('user_email', 'Hola')?>,</p>
+<p><?php echo __d('user_email', 'Hola')?><?php echo $traveler_name?>,</p>
 
 <p><?php echo __d('user_email', 'Soy %s de YoTeLlevoCuba.com, el sitio web donde han estado buscando un chofer aquí en Cuba para hacer algunos recorridos.', 'Martín')?></p>
 
@@ -22,14 +25,14 @@ if($people_count == 3) $otherTravelers = __d('user_email', 'otro viajero');
 <p><?php echo __d('user_email', 'Estos son algunos de los precios que ofrecemos')?>:</p>
 
 <ul>
-    <li>La Habana - Viñales: <?php echo __d('user_email', '%s por persona', '<b>25 cuc</b>')?></li>
-    <li>La Habana - Trinidad: <?php echo __d('user_email', '%s por persona', '<b>35 cuc</b>')?></li>
-    <li>La Habana - Varadero: <?php echo __d('user_email', '%s por persona', '<b>25 cuc</b>')?></li>
+    <li>La Habana - Viñales: <?php echo __d('user_email', '%s por persona', '<b>25 cuc</b>')?>, <?php echo __d('user_email', 'mejor que <b>%s por un viaje privado</b>', '100 cuc')?></li>
+    <li>La Habana - Trinidad: <?php echo __d('user_email', '%s por persona', '<b>35 cuc</b>')?>, <?php echo __d('user_email', 'mejor que <b>%s por un viaje privado</b>', '140 cuc')?></li>
+    <li>La Habana - Varadero: <?php echo __d('user_email', '%s por persona', '<b>25 cuc</b>')?>, <?php echo __d('user_email', 'mejor que <b>%s por un viaje privado</b>', '100 cuc')?></li>
 </ul>
 
 <p><?php echo __d('user_email', 'Estos son algunos ejemplos, pero cubrimos muchas otras rutas también, no sólo desde La Habana. También tenemos viajes desde Viñales, Trinidad, Varadero, Cayo Coco/Guillermo, etc.')?></p>
 
-<p><?php echo __d('user_email', 'En el caso de ustedes que son %s personas, un viaje de La Habana a Trinidad les costaría %s en total. Es mucho más bajo que un chofer privado!', $people_count, 35*$people_count.' cuc')?></p>
+<p><?php echo __d('user_email', 'En el caso de ustedes que son <b>%s personas</b>, un viaje de La Habana a Trinidad les costaría <b>%s</b> en total. Es mucho más bajo que un chofer privado!', $people_count, 35*$people_count.' cuc')?></p>
 
 <p><?php echo __d('user_email', 'Aquí pueden ver todos los detalles del servicio')?>:</p>
 
