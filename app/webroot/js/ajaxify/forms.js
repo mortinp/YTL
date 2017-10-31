@@ -13,7 +13,7 @@ function _ajaxifyForm(form, obj, onSuccess, onError) {
     
     var btnSubmit = form.find('.submit').find('input');
 
-    var doAjax = form.attr('onsubmit') != '' && form.attr('onsubmit') != null && form.attr('onsubmit') != undefined;// Esto es un hack, pero pincha bien!
+    var doAjax = true /*form.attr('onsubmit') != '' && form.attr('onsubmit') != null && form.attr('onsubmit') != undefined*/;// Esto es un hack, pero pincha bien!
     if(doAjax == true) {
         form.submit(function(event) {
             event.preventDefault();
