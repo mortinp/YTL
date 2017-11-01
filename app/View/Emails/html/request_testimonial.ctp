@@ -27,6 +27,6 @@ $driver_code = $profile_data['driver_code'];
 
 <p><?php echo __d('user_email', 'Hasta pronto')?>!</p>
 
-<p><?php echo __d('user_email', '%s y el equipo de YoTeLlevo', 'Martin')?></p>
+<p><?php echo __d('user_email', '%s y el equipo de YoTeLlevo', 'Yuniel')?></p>
 
 <p><?php echo __d('user_email', 'PD: De verdad, una opinión es algo que haría muy feliz a %s', $driver_name)?> :)</p>

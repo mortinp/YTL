@@ -297,7 +297,7 @@ class TestimonialsController extends AppController {
         if (isset($testimonial['DriverTravel']['Travel']))
             $vars = array_merge($vars, array('travel' => $testimonial['DriverTravel']['Travel'], 'user' => $testimonial['DriverTravel']['Travel']['User']));
         
-        $to = 'martin@yotellevocuba.com'/*Configure::read('superadmin_email')*/;//TODO: Poner el superadmin_email para martin@...
+        $to = 'yuniel@yotellevocuba.com';
         $subject = 'Nuevo testimonio';
         if(isset ($testimonial['Driver']['DriverProfile'])) $subject .= ' sobre '.$testimonial['Driver']['DriverProfile']['driver_name'];
 
@@ -389,7 +389,7 @@ class TestimonialsController extends AppController {
         if($data['User']['lang'] == 'en') $subject = 'You can thank your driver, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', for his service here in Cuba';
         
         $to = $data['User']['username'];
-        $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'request_testimonial', array('lang'=>$data['User']['lang']));
+        $OK = EmailsUtil::email($to, $subject, $vars, 'coo', 'request_testimonial', array('lang'=>$data['User']['lang']));
         if ($OK) {
             $this->TravelConversationMeta->id = $conversationId;
             $OK = $this->TravelConversationMeta->saveField('testimonial_requested', true);

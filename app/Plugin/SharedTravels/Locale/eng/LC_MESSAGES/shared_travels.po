@@ -164,8 +164,8 @@ msgid "¿Necesitas ir desde %s hasta %s durante tu viaje a Cuba?"
 msgstr "Need to go from %s to %s during your trip to Cuba?"
 
 #: View/SharedTravels/create.ctp:8
-msgid "Comparte un auto cómodo con otros viajeros."
-msgstr "Share a confortable car with other travelers."
+msgid "Comparte un taxi cómodo con otros viajeros."
+msgstr "Share a confortable taxi with other travelers."
 
 #: View/SharedTravels/create.ctp:8
 msgid "Llega a cada destino por un precio muy conveniente."
