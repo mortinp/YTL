@@ -1,3 +1,5 @@
+<?php $doBootbox = Configure::read('shared_book_bootbox');?>
+
 <div class="container">
     <div class="row" style="margin-top: 40px">
         <div class="col-md-10 col-md-offset-1">
@@ -17,7 +19,7 @@
         <div class="col-md-4 col-md-offset-4">
             <a class="btn btn-block btn-info" href="#transfers-available" style="white-space: normal;"><big><big><big><?php echo __d('shared_travels', 'Ver rutas y precios disponibles')?></big></big></big></a>
             <div style="padding-top:10px;text-align: center"><code><big>La Habana</big></code> • <code><big>Viñales</big></code> • <code><big>Trinidad</big></code> • <code><big>Varadero</big></code></div>
-            <div style="text-align: center">... <?php echo __d('shared_travels', 'y otros')?></div>
+            <div style="text-align: center">... <?php echo __d('shared_travels', 'y otros destinos')?></div>
         </div>
     </div>
     
@@ -89,7 +91,7 @@
                 <?php $i=0?>
                 <?php foreach (SharedTravel::$modalities as $code=>$modality):?>
                     <?php if($modality['origin_id'] == $locality_id):?>
-                        <div class="col-md-3 col-sm-6" style="padding: 20px"><?php echo $this->element('modality_info', compact('modality') + compact('code'))?></div>
+                        <div class="col-md-3 col-sm-6" style="padding: 20px"><?php echo $this->element('modality_info', compact('modality') + compact('code') + compact('doBootbox'))?></div>
                         <?php $i++?>
                         <?php if($i == 4):?><?php $i = 0?><br/><br/><?php endif?>
                     <?php endif?>
@@ -127,3 +129,67 @@
         </div>
     </div>
 </div>
+
+<?php if($doBootbox):?>
+
+<?php
+// CSS
+$this->Html->css('bootstrap', array('inline' => false));
+$this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));
+
+//JS
+$this->Html->script('jquery', array('inline' => false));
+$this->Html->script('bootstrap', array('inline' => false));
+
+$this->Html->script('bootbox/bootbox-new', array('inline' => false));
+
+$this->Html->script('vitalets-bootstrap-datepicker/bootstrap-datepicker.min', array('inline' => false));
+
+$this->Html->script('jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));
+$this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure::read('Config.language'), array('inline' => false));
+
+echo $this->Js->writeBuffer(array('inline' => false));
+
+?>
+
+<script type="text/javascript">    
+    $(document).ready(function() { 
+        
+        $( ".open-modal" ).click(function( event ) {
+            
+            event.preventDefault();
+            
+            bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('modal') ).html(), size:'large'});
+            
+            form = $('.bootbox form');
+            datepicker = form.find('.datepicker');
+
+            datepicker.datepicker({
+                format: "dd/mm/yyyy",
+                language: '<?php echo Configure::read('Config.language')?>',
+                //startDate: 'today',
+                todayBtn: "linked",
+                autoclose: true,
+                todayHighlight: true
+            });
+            
+            form.validate({
+                wrapper: 'div',
+                errorClass: 'text-danger',
+                errorElement: 'div'
+            });
+            
+            form.submit(function() {
+                if (!$(this).valid()) return false;
+
+                var submit = $(this).find('submit');
+
+                submit.attr('disabled', true);
+                submit.val('<?php echo __('Espera')?> ...');
+            });
+            
+        });
+    })
+</script>
+
+<?php endif?>

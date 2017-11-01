@@ -15,11 +15,10 @@ if($this->Session->read('SharedTravels.name_id')) $nameIdValue = $this->Session-
     echo $this->Form->create('SharedTravel', array('url' => array('controller' => 'shared_travels', 'action' => 'create'), 'id'=>'SharedTravelForm'));?>
     <fieldset>
         <div class="row">
-            
             <div class="col-md-6">
                 <p><b><?php echo __d('shared_travels', 'DATOS DEL TRANSFER')?></b></p><hr/>
                 <?php echo $this->Form->input('modality_code', array('type' => 'hidden', 'value'=>$code));?>
-                
+
                 <?php echo $this->Form->custom_date('date', array('label' => __d('shared_travels', 'Fecha en que necesitas el servicio'), 'dateFormat' => 'dd/mm/yyyy'));?>
                 <?php echo $this->Form->input('people_count', array('label' => __d('shared_travels', 'Cantidad de personas'), 'value'=>$peopleCountValue, 'default' => 1, 'min' => 1, 'max' => 4));?>
                 <div class="form-group required">
@@ -31,14 +30,11 @@ if($this->Session->read('SharedTravels.name_id')) $nameIdValue = $this->Session-
                     <textarea name="data[SharedTravel][address_destination]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Dirección de la casa o nombre del hotel')?>" rows="3" id="AddressDestination" required="required"></textarea>
                 </div>
             </div>
+            
             <div class="col-md-6">
                 <p><b><?php echo __d('shared_travels', 'DATOS DE CONTACTO')?></b></p><hr/>
                 <?php echo $this->Form->input('email', array('label' => __d('shared_travels', 'Tu correo electrónico'), 'value'=>$emailValue, 'type' => 'email', 'required'=>'required'));?>
-                <?php echo $this->Form->input('name_id', array('label' => __d('shared_travels', 'Tu nombre para fácil identificación'),'value'=>$nameIdValue, 'type' => 'text', 'required'=>'required'));?>
-                <!--<div class="form-group">
-                    <label for="Contacts"><?php echo __d('shared_travels', 'Teléfono de contacto (ej. teléfono de la casa u hotel en Cuba)')?></label>
-                    <textarea name="data[SharedTravel][contacts]" class="form-control" placeholder="<?php echo __d('shared_travels', 'Teléfono para rápìda comunicación en caso necesario')?>" rows="2" id="Contacts"></textarea>
-                </div>-->
+                <?php echo $this->Form->input('name_id', array('label' => __d('shared_travels', 'Tu nombre completo para fácil identificación'),'value'=>$nameIdValue, 'type' => 'text', 'required'=>'required'));?>
             </div>
             
         </div>

@@ -29,8 +29,8 @@ msgid "Ver rutas y precios disponibles"
 msgstr "See routes and prices available"
 
 #: View/SharedTravels/home.ctp:8
-msgid "y otros"
-msgstr "and others"
+msgid "y otros destinos"
+msgstr "and other destinations"
 
 
 #: View/SharedTravels/home.ctp:8
@@ -169,7 +169,7 @@ msgstr "Share a confortable car with other travelers."
 
 #: View/SharedTravels/create.ctp:8
 msgid "Llega a cada destino por un precio muy conveniente."
-msgstr "Get to each destination for a very convenient price."
+msgstr "Go to each destination for a very convenient price."
 
 #: View/SharedTravels/create.ctp:8
 msgid "Autos modernos con aire acondicionado. Sólo 4 pasajeros en un auto. Recogida en casa u hotel."
@@ -203,6 +203,10 @@ msgstr "Request a transfer from %s to %s for a price of %s per person"
 #: View/SharedTravels/create.ctp:8
 msgid "Recogida a las %s en el lugar y fecha que indiques"
 msgstr "Pick up at %s at the place and time you indicate"
+
+#: View/SharedTravels/create.ctp:8
+msgid "Taxi compartido por <code><big><big>%s pasajeros</big></big></code>"
+msgstr "Taxi shared by <code><big><big>%s passengers</big></big></code>"
 
 #: View/SharedTravels/create.ctp:8
 msgid "TÉRMINOS DEL SERVICIO"

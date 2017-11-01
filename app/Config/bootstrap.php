@@ -123,7 +123,9 @@ Configure::write('Email.html', false);
 
 Configure::write('casas_expert', array('name'=>'Gianny', 'email'=>array('roomsrentalcuba@gmail.com', 'giannybsb@gmail.com'), 'avatar_path'=>'avatar-gianny-small-lightgoldenrodyellow.jpg'));
 Configure::write('customer_assistant', array('name'=>'Ana'));
+
 Configure::write('shared_rides_facilitator', array('name'=>'Andiel', 'email'=>'andielsl@nauta.cu'));
+Configure::write('shared_book_bootbox', true); // Para saber si mostrar el formulario para reservar en un bootbox o en una pagina aparte
 
 /**
  * Esto es un separador para poder cortar los mensajes y que no se vea todo el hilo de emails en cada mensaje de las conversaciones. 
