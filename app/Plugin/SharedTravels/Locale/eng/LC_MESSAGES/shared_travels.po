@@ -226,6 +226,14 @@ msgid "Servicio de <b>taxi compartido</b> en <b>auto moderno</b> con <b>aire aco
 msgstr "<b>Shared taxi</b> service in a <b>modern car</b> with <b>air conditioner</b> and excellent confort for <b>4 passengers</b>."
 
 #: View/SharedTravels/create.ctp:8
+msgid "Servicio <b>compartido</b> en <b>auto moderno</b> de <b>4 plazas</b> con <b>aire acondicionado</b> y excelente confort."
+msgstr "<b>Shared</b> service in <b>modern car</b> with <b>4 pax</b>, <b>air conditioner</b> and excellent confort."
+
+#: View/SharedTravels/create.ctp:8
+msgid "Servicio <b>puerta a puerta</b> (recogida en casa u hotel y se deja en casa u hotel del destino)."
+msgstr "<b>Door to door</b> service (pick up at guest-house or hotel and drop off at guest-house or hotel in destination)."
+
+#: View/SharedTravels/create.ctp:8
 msgid "Servicio <b>puerta a puerta</b>. Recogida en casa u hotel y se deja en casa u hotel del destino."
 msgstr "<b>Door to door</b> service. Pick up at guest-house or hotel and drop off at guest-house or hotel in destination."
 
