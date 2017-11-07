@@ -3,7 +3,7 @@ $modalityCode = $request['SharedTravel']['modality_code'];
 $modality = SharedTravel::$modalities[$modalityCode];
 ?>
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-top: 40px">
         <div class="col-md-8 col-md-offset-1">
             <?php echo __d('shared_travels', 'Transfer desde %s hasta %s el %s', '<code><big>'.$modality['origin'].'</big></code>', '<code><big>'.$modality['destination'].'</big></code>', '<code><big>'.TimeUtil::prettyDate($request['SharedTravel']['date'], false).'</big></code>')?>
             <hr/>

@@ -23,6 +23,15 @@ msgstr "SEE TRANSFERS AVAILABLE"
 msgid "VER RUTAS DISPONIBLES"
 msgstr "SEE ROUTES AVAILABLE"
 
+#: View/Layouts/shared_rides.ctp:8
+msgid "Características y Términos"
+msgstr "Features and Terms"
+
+#: View/Layouts/shared_rides.ctp:8
+msgid "CARACTERÍSTICAS Y TÉRMINOS DEL SERVICIO"
+msgstr "FEATURES AND TERMS OF THE SERVICE"
+
+
 
 #: View/SharedTravels/home.ctp:8
 msgid "Ver rutas y precios disponibles"
@@ -213,12 +222,12 @@ msgid "TÉRMINOS DEL SERVICIO"
 msgstr "TERMS OF THE SERVICE"
 
 #: View/SharedTravels/create.ctp:8
-msgid "Servicio <b>compartido</b> en <b>auto moderno</b> de <b>4 plazas</b> con <b>aire acondicionado</b> y excelente confort."
-msgstr "<b>Shared</b> service in <b>modern car</b> with <b>4 pax</b>, <b>air conditioner</b> and excellent confort."
+msgid "Servicio de <b>taxi compartido</b> en <b>auto moderno</b> con <b>aire acondicionado</b> y excelente confort para <b>4 pasajeros</b>."
+msgstr "<b>Shared taxi</b> service in a <b>modern car</b> with <b>air conditioner</b> and excellent confort for <b>4 passengers</b>."
 
 #: View/SharedTravels/create.ctp:8
-msgid "Servicio <b>puerta a puerta</b> (recogida en casa u hotel y se deja en casa u hotel del destino)."
-msgstr "<b>Door to door</b> service (pick up at guest-house or hotel and drop off at guest-house or hotel in destination)."
+msgid "Servicio <b>puerta a puerta</b>. Recogida en casa u hotel y se deja en casa u hotel del destino."
+msgstr "<b>Door to door</b> service. Pick up at guest-house or hotel and drop off at guest-house or hotel in destination."
 
 #: View/SharedTravels/create.ctp:8
 msgid "La <b>recogida puede demorar hasta 30 minutos</b> después de la hora establecida para el servicio, pues el chofer planifica su recorrido para recoger a los 4 viajeros."
@@ -227,6 +236,10 @@ msgstr "<b>Pick up can be delayed up to 30 minutes</b> after the indicated time 
 #: View/SharedTravels/create.ctp:8
 msgid "El <b>pago es en efectivo y en CUC</b> directamente al chofer al efectuarse la recogida."
 msgstr "<b>Payment is in cash and in CUC</b> directly to the driver right after pick up."
+
+#: View/SharedTravels/create.ctp:8
+msgid "<b>Un operador asistente le atenderá por correo</b> en cuanto haga la reservación y mientras llega la fecha del viaje, para cualquier pregunta, cambios o cancelaciones."
+msgstr "<b>An operator will assist you by email</b> as soon as you book and while the date of the trip arrives, for any questions, changes or cancellations."
 
 
 #: View/Elements/shared_travel_form.ctp:8
@@ -473,19 +486,19 @@ msgstr "We have the info of your new request"
 
 
 
-#: Controller/SharedTravelsController.ctp:8
-msgid "Comparte tu auto con chofer en tu viaje a Cuba"
-msgstr "Share your car with driver in your trip to Cuba"
+#: Controller/AppController.ctp:8
+msgid "Comparte un taxi en Cuba"
+msgstr "Share a taxi in Cuba"
 
-#: Controller/SharedTravelsController.ctp:8
+#: Controller/AppController.ctp:8
 msgid "Gracias por la solicitud"
 msgstr "Thank you for your request"
 
-#: Controller/SharedTravelsController.ctp:8
+#: Controller/AppController.ctp:8
 msgid "Solicitud confirmada"
 msgstr "Request confirmed"
 
-#: Controller/SharedTravelsController.ctp:8
+#: Controller/AppController.ctp:8
 msgid "Datos de la solicitud"
 msgstr "Request info"
 
@@ -532,4 +545,3 @@ msgstr "Transfer from %s to %s on %s"
 #: View/Layouts/shared_rides.ctp:8
 msgid "Por los creadores de %s, la plataforma para contratar choferes privados en Cuba"
 msgstr "By the creators of %s, the platform to hire private drivers in Cuba"
-

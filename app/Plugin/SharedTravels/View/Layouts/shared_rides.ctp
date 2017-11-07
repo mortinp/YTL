@@ -100,6 +100,10 @@ if($userLoggedIn) {
                             <li><?php echo $this->Html->link(__('Ir al Inicio'), array('controller'=>'shared-rides', 'action'=>'home'), array('class' => 'nav-link', 'escape'=>false));?></li>
                             <?php echo $this->Html->link('<button type="button" class="btn btn-info navbar-btn">'.__d('shared_travels', 'VER RUTAS DISPONIBLES').'</button>', array('controller'=>'shared-rides', 'action'=>'home#transfers-available'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
                         </ul>
+                        
+                        <!--<ul class="nav navbar-nav">
+                            <li><a href="#!" class="nav-link" id="menu-features-terms" data-modal="features-terms"><?php echo __d('shared_travels', 'Características y Términos')?></a></li>
+                        </ul>-->
                     </div><!-- /.navbar-collapse -->
                 </nav>
             </div>
@@ -152,6 +156,17 @@ if($userLoggedIn) {
             </div>
         </div>
         
+        <!--<div id="features-terms" style="display: none"><?php /*echo $this->element('terms_of_service')*/?></div>
+        <script type="text/javascript">
+            $('#menu-features-terms').click(function(event) {
+                event.preventDefault();
+            
+                bootbox.dialog({title:'<?php echo __d('shared_travels', 'CARACTERÍSTICAS Y TÉRMINOS DEL SERVICIO')?>', message:$( '#' + $(this).data('modal') ).html(), size:'large'});
+            });
+            
+         </script>-->
+        
+        
         <script type="text/javascript">
             function goTo(id, time, offset) {
                 $('html, body').animate({
@@ -163,7 +178,7 @@ if($userLoggedIn) {
                 $(document).ready(function() {
                     goTo('<?php echo $this->request->query['highlight']?>', 500, -70);
                 });
-            <?php endif?>
+            <?php endif?>            
          </script>
         
     </body>

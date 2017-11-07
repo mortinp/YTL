@@ -247,8 +247,8 @@ class AppController extends Controller {
             'drivers.profile' =>array('title'=>__d('meta', 'Chofer en %province, Cuba: Fotos y testimonios sobre %driver')),    
             
             // Viajes compartidos
-            'shared_travels.home' =>array('title'=>__d('shared_travels', 'Comparte tu auto con chofer en tu viaje a Cuba')),
-            'shared_travels.create' =>array('title'=>__d('shared_travels', 'Comparte tu auto con chofer en tu viaje a Cuba')),
+            'shared_travels.home' =>array('title'=>__d('shared_travels', 'Comparte un taxi en Cuba')),
+            'shared_travels.create' =>array('title'=>__d('shared_travels', 'Comparte un taxi en Cuba')),
             'shared_travels.thanks' =>array('title'=>__d('shared_travels', 'Gracias por la solicitud')),
             'shared_travels.activate' =>array('title'=>__d('shared_travels', 'Solicitud confirmada')),
             'shared_travels.view' =>array('title'=>__d('shared_travels', 'Datos de la solicitud')),
