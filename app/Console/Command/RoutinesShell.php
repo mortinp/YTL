@@ -121,7 +121,7 @@ class RoutinesShell extends AppShell {
                 $this->DriverTransactionalEmail->saveField('last_sent', $today);
             }
             
-            EmailsUtil::email($data['drivers']['driver_email'], 'Sugerencia sobre su perfil', array('data'=>$data), 'super', 'reminder_driver_old_testimonials');
+            EmailsUtil::email($data['drivers']['driver_email'], 'Sugerencia sobre su perfil', array('data'=>$data), 'coo', 'reminder_driver_old_testimonials');
         }
     }
     
@@ -172,7 +172,7 @@ class RoutinesShell extends AppShell {
                 $this->DriverTransactionalEmail->saveField('last_sent', $today);
             }
             
-            EmailsUtil::email($data['drivers']['driver_email'], 'Sugerencia sobre su perfil', array('data'=>$data), 'super', 'reminder_driver_still_no_testimonials');
+            EmailsUtil::email($data['drivers']['driver_email'], 'Sugerencia sobre su perfil', array('data'=>$data), 'coo', 'reminder_driver_still_no_testimonials');
         }
     }
     

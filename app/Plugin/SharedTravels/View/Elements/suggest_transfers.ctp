@@ -18,5 +18,5 @@ foreach (SharedTravel::$modalities as $code=>$mod)
     <?php endforeach;?>
 </ul>
 <hr/>
-<?php echo $this->Html->link('<button type="button" class="btn btn-block btn-info">'.__d('shared_travels', 'VER RUTAS DISPONIBLES').'</button>', array('controller'=>'shared-rides', 'action'=>'home#transfers-available'), array('escape'=>false))?>
+<?php echo $this->Html->link(__d('shared_travels', 'VER RUTAS DISPONIBLES'), array('controller'=>'shared-rides', 'action'=>'home#transfers-available'), array('class'=>'btn btn-block btn-info'))?>
 <?php endif;?>
