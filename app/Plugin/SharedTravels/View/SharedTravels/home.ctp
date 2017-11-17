@@ -91,9 +91,9 @@
                 <?php $i=0?>
                 <?php foreach (SharedTravel::$modalities as $code=>$modality):?>
                     <?php if($modality['origin_id'] == $locality_id):?>
-                        <div class="col-md-3 col-sm-6" style="padding: 20px"><?php echo $this->element('modality_info', compact('modality') + compact('code') + compact('doBootbox'))?></div>
+                        <div class="col-md-4 col-sm-6" style="padding: 20px"><?php echo $this->element('modality_info', compact('modality') + compact('code') + compact('doBootbox'))?></div>
                         <?php $i++?>
-                        <?php if($i == 4):?><?php $i = 0?><br/><br/><?php endif?>
+                        <?php if($i == 3):?><?php $i = 0?><br/><br/><?php endif?>
                     <?php endif?>
                 <?php endforeach?>
             </div>
