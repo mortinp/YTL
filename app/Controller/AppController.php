@@ -253,6 +253,7 @@ class AppController extends Controller {
             'shared_travels.activate' =>array('title'=>__d('shared_travels', 'Solicitud confirmada')),
             'shared_travels.view' =>array('title'=>__d('shared_travels', 'Datos de la solicitud')),
             'shared_travels.index' =>array('title'=>__d('shared_travels', 'Compartidos')),
+            'shared_travels.admin' =>array('title'=>__d('shared_travels', 'Admin Compartido')),
             
             // Users access
             'users.profile' =>array('title'=>__d('meta', 'Preferencias')),

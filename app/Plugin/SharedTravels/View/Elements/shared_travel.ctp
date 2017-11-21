@@ -5,6 +5,7 @@
 if(!isset($fromEmail)) $fromEmail = false;
 if(!isset($showEmail)) $showEmail = true;
 if(!isset($showDetails)) $showDetails = false;
+if(!isset($admin)) $admin = false;
 ?>
 
 <?php $modality = SharedTravel::$modalities[$request['SharedTravel']['modality_code']]?>
@@ -38,6 +39,9 @@ if(!isset($showDetails)) $showDetails = false;
             <p><span class="text-muted"><?php echo __d('shared_travels', 'Estado')?>:</span> <?php echo $request['SharedTravel']['state']?></p>
             <p><span class="text-muted"><?php echo __d('shared_travels', 'Idioma')?>:</span> <?php echo $request['SharedTravel']['lang']?></p>
             <p><?php echo $this->Html->link('Permalink', array('controller'=>'shared_travels', 'action' => 'view/' . $request['SharedTravel']['id_token']))?></p>
+        <?php endif?>
+        <?php if($admin):?>
+            <p><?php echo $this->Html->link('admin', array('controller'=>'shared_travels', 'action' => 'admin/' . $request['SharedTravel']['id']))?></p>
         <?php endif?>
     </div>
 </div>

@@ -111,9 +111,9 @@ if($userLoggedIn) {
             
             <?php echo $this->Session->flash('auth'); ?>
 
-            <div id="content" class="container-fluid">
-                <?php echo $this->Session->flash(); ?>
+            <div id="content" class="container-fluid"> 
                 <div style="height: 50px;clear: both"></div>
+                <?php echo $this->Session->flash(); ?>
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>

@@ -240,6 +240,15 @@ class SharedTravelsController extends AppController {
         $this->set('request', $request);
     }
     
+    public function admin($id) {
+        $request = $this->SharedTravel->findById($id);
+        
+        // Sanity checks
+        if($request == null || empty ($request)) throw new NotFoundException();
+        
+        $this->set('request', $request);
+    }
+    
     private function findCouplings($request) {
         
         // Buscar posibles emparejamiento para esta solicitud
@@ -271,6 +280,27 @@ class SharedTravelsController extends AppController {
         } 
         
         return null;
+    }
+    
+    
+    
+    
+    
+    public function change_date($id) {
+        $this->SharedTravel->create(false); // se pasa false para evitar que se carguen los valores por defecto, esto evita que se sobreescriba el notification_type = D 
+        $this->SharedTravel->id = $id;
+        if(!$this->SharedTravel->exists()) throw new NotFoundException();
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+            $new = array('SharedTravel'=>array_merge($this->request->data['SharedTravel'], array('id'=>$id)));
+            
+            $OK = $this->SharedTravel->save($new, false);
+            if(!$OK) $this->setErrorMessage ('Error actualizando la fecha.');
+            
+            return $this->redirect($this->referer());
+            
+        } else throw new MethodNotAllowedException();
     }
 }
 
