@@ -10,6 +10,11 @@
                 <?php
                 //echo $this->Form->input('conversation_id', array('type'=>'hidden'));
                 echo $this->Form->input('name', array('type'=>'text', 'label'=>'Nombre(s) de los viajeros'));
+                
+                $langs = ($data['Travel']['User']['lang'] == 'es')? array('es'=>'Español', 'en'=>'English'): array('en'=>'English', 'es'=>'Español');
+                echo $this->Form->input('lang', array(
+                    'options' => $langs
+                ));
                 echo $this->Form->submit('Enviar oferta de viaje compartido', array('class'=>'btn-info btn btn-block', 'confirm' => 'Está a punto de enviar un correo de oferta de viaje compartido a este viajero. ¿Desea continuar?'));
                 ?>
             </fieldset>

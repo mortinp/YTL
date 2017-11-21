@@ -156,12 +156,14 @@ class DriverTravelsController extends AppController {
 
             $datasource = $this->DriverTravel->getDataSource();
             $datasource->begin();
+            
+            $lang = (isset($this->request->data['Data']['lang']))?$this->request->data['Data']['lang']:$data['User']['lang'];
 
             $subject = 'Mejores precios para un taxi en Cuba';
-            if($data['User']['lang'] == 'en') $subject = 'Better prices for a taxi in Cuba';
+            if($lang == 'en') $subject = 'Better prices for a taxi in Cuba';
 
             $to = $data['User']['username'];
-            $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'offer_shared_ride', array('lang'=>$data['User']['lang']));
+            $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'offer_shared_ride', array('lang'=>$lang));
             if ($OK) {
                 $this->User->id = $data['User']['id'];
                 $OK = $this->User->saveField('shared_ride_offered', true);
