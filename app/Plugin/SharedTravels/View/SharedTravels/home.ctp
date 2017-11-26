@@ -167,10 +167,10 @@ echo $this->Js->writeBuffer(array('inline' => false));
             datepicker.datepicker({
                 format: "dd/mm/yyyy",
                 language: '<?php echo Configure::read('Config.language')?>',
-                //startDate: 'today',
+                startDate: '+2d',
                 todayBtn: "linked",
                 autoclose: true,
-                todayHighlight: true
+                todayHighlight: false
             });
             
             form.validate({
