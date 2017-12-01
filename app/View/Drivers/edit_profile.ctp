@@ -6,8 +6,8 @@
             <fieldset>
                 <?php
                 echo $this->Form->input('id', array('type'=>'hidden'));
-                echo $this->Form->input('driver_nick', array('type'=>'text', 'label'=>'Nick (todo con minúscula, ej. martin-proenza-grm)'));  
                 echo $this->Form->input('driver_name', array('type'=>'text', 'label'=>'Nombre'));
+                echo $this->Form->input('driver_nick', array('type'=>'text', 'label'=>'Nick (todo con minúscula, ej. martin-proenza-grm)'));
                 echo $this->Form->input('driver_code', array('type'=>'text', 'label'=>'Código del chofer (max. 10 caracteres)', 'style'=>'text-transform:uppercase'));
 
                 echo $this->Form->label('avatar');

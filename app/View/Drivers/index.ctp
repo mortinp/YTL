@@ -30,7 +30,7 @@
 </div>
 
 <div style="float:left;padding-right:20px"><?php echo count($drivers)?> choferes</div>
-<div style="float:left"><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Add New', array('action'=>'add'), array('escape'=>false))?></div>
+<div style="float:left"><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Nuevo Chofer', array('action'=>'add'), array('escape'=>false))?></div>
 <table class='table table-striped table-hover'>
     <thead><th></th><th>ID</th><th>Código</th><th>Correo</th><th>PAX</th><th>Moderno</th><th>A/C</th><th>Inglés</th><th>Descripción</th><th>Provincia</th><th>Localidades</th><th>Operador</th><th>Fecha Registro</th></thead>
     <tbody> 
