@@ -59,10 +59,12 @@ foreach (Travel::getPreferences() as $key => $value) {
             &nbsp;<i class="glyphicon glyphicon-user text-muted"></i>
             <?php echo $user['username'];?> <span class="text-muted">hace </span><?php echo $daysPosted?> <span class="text-muted">días</span>
             
-            <?php if($userLoggedIn && $userRole == 'admin' && isset($user['shared_ride_offered']) && $user['shared_ride_offered']):?>
-                <span class="label label-primary">Enviada solicitud compartidos</span>
-            <?php elseif(in_array($travel['Travel']['people_count'], array(2, 3))):?>
-                <span class="label label-success">Compartido?</span>
+            <?php if($userLoggedIn && $userRole == 'admin'):?>
+                <?php if(isset($user['shared_ride_offered']) && $user['shared_ride_offered']):?>
+                    <span class="label label-primary">Enviada solicitud compartidos</span>
+                <?php elseif(in_array($travel['Travel']['people_count'], array(2, 3))):?>
+                    <span class="label label-success">Compartido?</span>
+                <?php endif;?>
             <?php endif;?>
                 
             <?php $op = isset ($travel['Operator'])? $travel['Operator']: (isset ($travel['Travel']['Operator'])? $travel['Travel']['Operator']:null)?>
