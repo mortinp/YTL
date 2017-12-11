@@ -1,4 +1,4 @@
-<?php if($userLoggedIn && $userRole == 'admin' && in_array($data['Travel']['people_count'], array(2, 3))):?>
+<?php if($userLoggedIn && $userRole == 'admin' && in_array($data['Travel']['people_count'], array(1, 2, 3))):?>
 <div id="shared_ride_addon">
     <span class="alert alert-success" style="display: inline-block; width: 100%">
         <?php if(!$data['Travel']['User']['shared_ride_offered']):?>

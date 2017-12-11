@@ -23,31 +23,19 @@
         </div>
     </div>
     
-    <div class="row" style="margin-top: 50px;text-align: center">
-        <h3><?php echo __d('shared_travels', '¿Cómo funciona?')?></h3>
     
-        <br/>
-        <!--<div class="col-md-2 center col-md-offset-2 col-sm-6" style="padding-bottom: 30px">
-            <?php echo __d('shared_travels', 'Solicitas el servicio para algunas de nuestras rutas y horarios. Nos dices cuándo necesitas el servicio, dónde recogerte y cuántas personas son.')?>
-        </div>
-        <div class="col-md-2 center col-sm-6" style="padding-bottom: 30px">
-            <?php echo __d('shared_travels', 'Enseguida hacemos todos los arreglos y te confirmamos el viaje en cuanto tengamos otras solicitudes que llenen las 4 plazas de un auto.')?>
-        </div>
-        <div class="col-md-2 center col-sm-6" style="padding-bottom: 30px">
-            <?php echo __d('shared_travels', 'Mientras llega la fecha del viaje te asignamos un operador asistente con quien mantendrás comunicación todo el tiempo.')?>
-        </div>
-        <div class="col-md-2 center col-sm-6" style="padding-bottom: 30px">
-            <?php echo __d('shared_travels', 'Llegada la fecha enviamos el auto con chofer a recogerte al lugar donde indiques y en el horario pactado para realizar el viaje.')?>
-        </div>-->
-        
+    <div class="row" style="margin-top: 60px;text-align: center">
         <div class="col-md-4 center" style="padding-bottom: 30px">
-            <p><big><?php echo __d('shared_travels', 'Reservas para una de nuestras rutas y horarios establecidos, indicando la fecha en que necesitas el servicio, dónde debe ser la recogida (casa de hospedaje u hotel) y la cantidad de personas que viajan.')?></big></p>
+            <h3><?php echo __d('shared_travels', 'Paga menos por un taxi')?></h3>
+            <p><big><?php echo __d('shared_travels', 'Paga sólo por los asientos que ocupes en el taxi y no por el viaje completo. Si ustedes son menos de 4 personas, es conveniente compartir los asientos sobrantes con otros pasajeros para que ellos paguen parte del viaje. Lo bueno es que todos pagan menos.')?></big></p>
         </div>
         <div class="col-md-4 center" style="padding-bottom: 30px">
-            <p><big><?php echo __d('shared_travels', 'Nosotros arreglamos todo de manera que compartas el viaje con otros viajeros que van al mismo destino, y así abarates los costos. El auto que compartirás es un auto moderno de 4 plazas con aire acondicionado.')?></big></p>
+            <h3><?php echo __d('shared_travels', 'Reserva, y listo!')?></h3>
+            <p><big><?php echo __d('shared_travels', 'En cuanto reservas, nosotros arreglamos todo de manera que compartas el viaje con otros viajeros que van al mismo destino en la misma fecha y horario. De esta manera no tienes que encontrar tú a otros pasajeros que quieran unirse.')?></big></p>
         </div>
         <div class="col-md-4 center" style="padding-bottom: 30px">
-            <p><big><?php echo __d('shared_travels', 'Llegada la fecha, uno de nuestros choferes te recogerá puntual en el lugar indicado y te llevará a tí y a tus compañeros de viaje en un recorrido muy cómodo hasta tu destino.')?></big></p>
+            <h3><?php echo __d('shared_travels', 'Llega cómodo y rápido')?></h3>
+            <p><big><?php echo __d('shared_travels', 'Te buscamos donde te estés hospedando (casa, hotel u otro) y te llevamos exactamente hasta el lugar donde te hospedarás en tu destino. Junto a tus compañeros harás un recorrido muy cómodo y rápido hasta tu destino en un auto moderno con mucho confort.')?></big></p>
         </div>
     </div>
     
@@ -59,7 +47,7 @@
         <div class="row" style="padding-top: 80px;">
             <div class="col-md-10 col-md-offset-1" style="text-align: center">
                 <p class="lead">
-                    <?php echo __d('shared_travels', 'Selecciona una de nuestras rutas y horarios para reservar un transfer')?>
+                    <?php echo __d('shared_travels', 'Selecciona una de nuestras rutas y horarios para reservar un taxi')?>
                 </p>
                 <p>
                     <big><?php echo __d('shared_travels', 'Uno de nuestros choferes te recogerá en el lugar y fecha que indiques')?></big>
@@ -86,7 +74,7 @@
         
         <?php foreach (SharedTravel::$localities as $locality_id => $locality):?>
             <div class="row" style="margin-top: 60px;">
-                <div style="padding-left: 20px"><big><?php echo __d('shared_travels', 'Transfers disponibles desde %s', '<b><code><big><big>'.$locality.'</big></big></code></b>')?></big></div>
+                <div style="padding: 20px;" class="col-md-12"><big><?php echo __d('shared_travels', 'Rutas disponibles desde %s', '<b><code><big><big>'.$locality.'</big></big></code></b>')?></big></div>
                 <br/>
                 <?php $i=0?>
                 <?php foreach (SharedTravel::$modalities as $code=>$modality):?>

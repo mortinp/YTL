@@ -22,13 +22,15 @@ class Travel extends AppModel {
     public static $SEARCH_ADMINS = 'admins';
     public static $SEARCH_TESTERS = 'testers';
     public static $SEARCH_OPERATORS = 'operators';
+    public static $SEARCH_MAYBE_SHARE = 'maybe-share';
     public static $filtersForSearch = array(
         'all'=>array('label'=>'Todos', 'title'=>''), 
         'closer-to-expire'=>array('label'=>'Próximos a expirar', 'title'=>''), 
         'expired-newest'=>array('label'=>'Expirados recientemente', 'title'=>''), 
         'admins'=>array('label'=>'Admins', 'title'=>''), 
         'testers'=>array('label'=>'Testers', 'title'=>''), 
-        'operators'=>array('label'=>'Operadores', 'title'=>''));
+        'operators'=>array('label'=>'Operadores', 'title'=>''),
+        'maybe-share'=>array('label'=>'Compartido???', 'title'=>''));
     
     public $order = 'Travel.id DESC';
     

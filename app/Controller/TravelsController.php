@@ -69,7 +69,8 @@ class TravelsController extends AppController {
             Travel::$SEARCH_EXPIRED_NEWEST   => 'max(Travel.date) desc, max(Travel.id) desc',
             Travel::$SEARCH_ADMINS           => 'max(Travel.id)   desc',
             Travel::$SEARCH_TESTERS          => 'max(Travel.id)   desc',
-            Travel::$SEARCH_OPERATORS        => 'max(Travel.id)   desc'
+            Travel::$SEARCH_OPERATORS        => 'max(Travel.id)   desc',
+            Travel::$SEARCH_MAYBE_SHARE      => 'min(Travel.date) asc,  max(Travel.id) desc',
         );
         
         $conditions = array('User.role'=>'regular');
@@ -90,6 +91,18 @@ class TravelsController extends AppController {
             $conditions['User.role'] = 'tester';
         } else if($filter == Travel::$SEARCH_OPERATORS) {
             $conditions['User.role'] = 'operator';
+        } else if($filter == Travel::$SEARCH_MAYBE_SHARE) {
+            
+            $conditions['User.shared_ride_offered'] = false;
+            $conditions['Travel.people_count >='] = 1;
+            $conditions['Travel.people_count <='] = 3;
+        
+            $today = date('Y-m-d', strtotime('today'));
+            $conditions['Travel.date >='] = $today;
+            $conditions['Travel.date <='] = date('Y-m-d', strtotime("$today + 60 days"));
+            $conditions['Travel.created <='] = date('Y-m-d', strtotime("$today - 2 days"));
+            
+            $this->paginate = array('order'=>array('Travel.date'=>'ASC', 'Travel.id' => 'ASC'));
         }
         
         /*if(AuthComponent::user('role') == 'operator')
@@ -465,6 +478,57 @@ class TravelsController extends AppController {
     
     private function getLocalitiesList() {
         return Locality::getAsSuggestions();
+    }
+    
+    
+    
+    
+    
+    /**
+     * COMPARTIDOS
+     */
+    public function maybe_share() {
+        Travel::prepareFullConversations($this);
+        
+        $users_order = array(
+            Travel::$SEARCH_ALL              => 'max(Travel.id)   desc',
+            Travel::$SEARCH_CLOSER_TO_EXPIRE => 'min(Travel.date) asc,  max(Travel.id) desc',
+            Travel::$SEARCH_EXPIRED_NEWEST   => 'max(Travel.date) desc, max(Travel.id) desc',
+            Travel::$SEARCH_ADMINS           => 'max(Travel.id)   desc',
+            Travel::$SEARCH_TESTERS          => 'max(Travel.id)   desc',
+            Travel::$SEARCH_OPERATORS        => 'max(Travel.id)   desc'
+        );
+        
+        
+        
+        
+        if($filter == Travel::$SEARCH_ALL) {
+            $this->paginate = array('limit'=>30);
+        } else if($filter == Travel::$SEARCH_CLOSER_TO_EXPIRE) {
+            //$this->paginate = array('order'=>array('Travel.date'=>'ASC'));
+            $this->paginate = array('order'=>array('Travel.date'=>'ASC', 'Travel.id' => 'DESC'));
+            $conditions['Travel.date >='] = date('Y-m-d', mktime());
+        } else if($filter == Travel::$SEARCH_EXPIRED_NEWEST) {
+            //$this->paginate = array('order'=>array('Travel.date'=>'DESC'));
+            
+        } else if($filter == Travel::$SEARCH_ADMINS) {
+            $conditions['User.role'] = 'admin';
+        } else if($filter == Travel::$SEARCH_TESTERS) {
+            $conditions['User.role'] = 'tester';
+        } else if($filter == Travel::$SEARCH_OPERATORS) {
+            $conditions['User.role'] = 'operator';
+        }
+        
+        /*if(AuthComponent::user('role') == 'operator')
+            $this->Travel->Behaviors->load('Operations.OperatorScope', array('match'=>'Travel.operator_id', 'action'=>array('R'))); // Restringir ver solicitudes*/
+        
+        $this->Travel->Behaviors->load('GroupByUsers', array( 'users_order' => $users_order[$filter] ));
+        
+        $this->set('filter_applied', $filter);
+        //$this->set('travels', $this->paginate($conditions));
+        $this->set('users', $this->paginate($conditions));
+        $this->set('drivers', $this->Driver->getAsSuggestions());
+        $this->render('all');
     }
 }
 

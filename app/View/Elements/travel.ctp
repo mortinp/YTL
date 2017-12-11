@@ -62,7 +62,7 @@ foreach (Travel::getPreferences() as $key => $value) {
             <?php if($userLoggedIn && $userRole == 'admin'):?>
                 <?php if(isset($user['shared_ride_offered']) && $user['shared_ride_offered']):?>
                     <span class="label label-primary">Enviada solicitud compartidos</span>
-                <?php elseif(in_array($travel['Travel']['people_count'], array(2, 3))):?>
+                <?php elseif(in_array($travel['Travel']['people_count'], array(1, 2, 3))):?>
                     <span class="label label-success">Compartido?</span>
                 <?php endif;?>
             <?php endif;?>

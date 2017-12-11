@@ -47,37 +47,32 @@ msgid "¿Necesitas <code><big>ir de un destino a otro</big></code> durante tu vi
 msgstr "Need to <code><big>go from one destination to another</big></code> during your trip to <code><big><big>Cuba</big></big></code>?"
 
 #: View/SharedTravels/home.ctp:8
-msgid "Solicitas el servicio para algunas de nuestras rutas y horarios. Nos dices cuándo necesitas el servicio, dónde recogerte y cuántas personas son."
-msgstr "You request the service for some of our routes and departure times. You let us know when and where to pick you up and how many people you are."
+msgid "Paga menos por un taxi"
+msgstr "Pay less for a taxi"
 
 #: View/SharedTravels/home.ctp:8
-msgid "Enseguida hacemos todos los arreglos y te confirmamos el viaje en cuanto tengamos otras solicitudes que llenen las 4 plazas de un auto."
-msgstr "We do all the arrangements right away and confirm as soon as we have other requests that get the 4 pax car filled up."
+msgid "Paga sólo por los asientos que ocupes en el taxi y no por el viaje completo. Si ustedes son menos de 4 personas, es conveniente compartir los asientos sobrantes con otros pasajeros para que ellos paguen parte del viaje. Lo bueno es que todos pagan menos."
+msgstr "Pay only for the seats you occupy in the taxi and not for the whole taxi. If you are less than 4 people, it is convenient to share the empty seats with other passengers and let them pay part of the trip. The good thing is that everyone gets to pay less."
 
 #: View/SharedTravels/home.ctp:8
-msgid "Mientras llega la fecha del viaje te asignamos un operador asistente con quien mantendrás comunicación todo el tiempo."
-msgstr "While the date of the service arrives, we assign an operator that will keep communicating with you all the time."
+msgid "Reserva, y listo!"
+msgstr "Book, and that's it!"
 
 #: View/SharedTravels/home.ctp:8
-msgid "Llegada la fecha enviamos el auto con chofer a recogerte al lugar donde indiques y en el horario pactado para realizar el viaje."
-msgstr "When the date arrives, we send the car with a driver to pick you up at the place you indicated and at the time we agreed on to do the trip."
+msgid "En cuanto reservas, nosotros arreglamos todo de manera que compartas el viaje con otros viajeros que van al mismo destino en la misma fecha y horario. De esta manera no tienes que encontrar tú a otros pasajeros que quieran unirse."
+msgstr "As soon as you book, we arrange everything in a way that you share your trip with other travelers going to the same destination in the same date and time. This way you don't have to worry about finding other passengers to join you."
 
 #: View/SharedTravels/home.ctp:8
-msgid "Reservas para una de nuestras rutas y horarios establecidos, indicando la fecha en que necesitas el servicio, dónde debe ser la recogida (casa de hospedaje u hotel) y la cantidad de personas que viajan."
-msgstr "You book one of our routes and departure times, indicating the date you need the service, where we should pick you up (guest house or hotel) and how many people you are."
+msgid "Llega cómodo y rápido"
+msgstr "Get there quickly and easy"
 
 #: View/SharedTravels/home.ctp:8
-msgid "Nosotros arreglamos todo de manera que compartas el viaje con otros viajeros que van al mismo destino, y así abarates los costos. El auto que compartirás es un auto moderno de 4 plazas con aire acondicionado."
-msgstr "We arrange everything in a way that you share your trip with other travelers going to the same destination, so that the prices are lower for each. You will share a 4 pax, air-conditioned modern car."
+msgid "Te buscamos donde te estés hospedando (casa, hotel u otro) y te llevamos exactamente hasta el lugar donde te hospedarás en tu destino. Junto a tus compañeros harás un recorrido muy cómodo y rápido hasta tu destino en un auto moderno con mucho confort."
+msgstr "We pick you up where you are staying (guest house, hotel or other) and take you to the exact place you will stay at your destination. You will do a confortable and quick trip to your destination in a modern car, along with your travel partners."
 
 #: View/SharedTravels/home.ctp:8
-msgid "Llegada la fecha, uno de nuestros choferes te recogerá puntual en el lugar indicado y te llevará a tí y a tus compañeros de viaje en un recorrido muy cómodo hasta tu destino."
-msgstr "When the date arrives, one of our drivers will pick you up at the place you indicated and will take you and your travel partners in a very confortable trip to your destination."
-
-
-#: View/SharedTravels/home.ctp:8
-msgid "Selecciona una de nuestras rutas y horarios para reservar un transfer"
-msgstr "Select one of our routes and departure times to book a transfer"
+msgid "Selecciona una de nuestras rutas y horarios para reservar un taxi"
+msgstr "Select one of our routes and departure times to book a taxi"
 
 #: View/SharedTravels/home.ctp:8
 msgid "Uno de nuestros choferes te recogerá en el lugar y fecha que indiques"
@@ -96,8 +91,8 @@ msgid "Cada viaje confirmado queda en nuestra agenda para su realización"
 msgstr "Each confirmed trip is in our agenda and will happen as agreed"
 
 #: View/SharedTravels/home.ctp:8
-msgid "Transfers disponibles desde %s"
-msgstr "Transfers available from %s"
+msgid "Rutas disponibles desde %s"
+msgstr "Routes available from %s"
 
 #: View/SharedTravels/home.ctp:8
 msgid "Preguntas frecuentes"
