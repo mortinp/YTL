@@ -11,12 +11,15 @@ $modality = SharedTravel::$modalities[$modalityCode];
         <div class="col-md-8 col-md-offset-2">
             <?php echo $this->element('shared_travel', compact('request'))?>
             
+            <hr/>
+            <div><b>Código Activación:</b> <?php echo $request['SharedTravel']['activation_token']?></div>
+            <br/>
             <?php $fechaCambiada = isset ($request['SharedTravel']['original_date']) && $request['SharedTravel']['original_date'] != null;?>
-            <span class="alert alert-success" style="display: inline-block; margin-bottom: 0px">
+            <div class="alert alert-success" style="display: inline-block; margin-bottom: 0px">
                 <?php if($fechaCambiada):?><span class="badge"><b><?php echo TimeUtil::prettyDate($request['SharedTravel']['original_date'])?></b></span><?php endif?>
                 <b><?php echo TimeUtil::prettyDate($request['SharedTravel']['date'])?></b>
                 <?php echo $this->element('form_shared_travel_date_controls', array('request'=>$request, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($request['SharedTravel']['date'])))?>
-            </span>
+            </div>
         </div>
     </div>
 </div>
