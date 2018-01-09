@@ -1,0 +1,1 @@
+--num <?php echo $travel['Travel']['id']?> --origin <?php echo $travel['Travel']['origin']?> --destination <?php echo $travel['Travel']['destination']?> --pax <?php echo $travel['Travel']['people_count']?> --date <?php echo $travel['Travel']['date']?> --details <?php echo $travel['Travel']['details']?>

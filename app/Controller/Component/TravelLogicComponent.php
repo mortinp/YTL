@@ -279,6 +279,19 @@ class TravelLogicComponent extends Component {
             $variables = array_merge($variables, $customVariables);
             
             EmailsUtil::email($driver['Driver']['username'], $subject, $variables, $emailConfig, $template);
+            
+            // MOBILE TEST
+            $testEmail = Configure::read('mobile_test_email');
+            if($driver['Driver']['username'] == $testEmail) {
+                $Email = new CakeEmail('viaje');
+                $Email->to($testEmail)
+                      ->subject($conversation)
+                      ->template('mob_new_request')
+                      ->viewVars(array('travel' => $travel));
+
+                    $Email->send();
+               
+            }
         }
         
         if($OK) $OK = array('success'=>true, 'conversation_id'=>$conversation);

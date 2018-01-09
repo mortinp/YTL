@@ -136,3 +136,6 @@ Configure::write('email_message_separator', '<div style="font-size: 1pt;text-ali
 
 Configure::write('show_testimonials_in_profile', true);
 Configure::write('cut_messages', true);
+
+// MOBILE
+Configure::write('mobile_test_email', 'lenier.1987@nauta.cu'/*'martin@yotellevocuba.com'*/);

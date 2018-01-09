@@ -202,7 +202,22 @@ class IncomingMailShell extends AppShell {
                 if($OK) $datasource->commit();
                 else $datasource->rollback();
             }
-        }      
+        } else if($to === 'mauth@'.Configure::read('domain_name')) {
+            
+            $testEmail = Configure::read('mobile_test_email');
+            
+            if($sender == $testEmail) {
+                if($subject == 'bf361dc6bf0067bc818e1d4804027cabe754ce15') {
+                    $Email = new CakeEmail('mauth');
+                    $Email->to($testEmail)->subject('bf361dc6bf0067bc818e1d4804027cabe754ce15');
+                    $Email->send('ok');
+                } else {
+                    $Email = new CakeEmail('mauth');
+                    $Email->to($testEmail)->subject('bf361dc6bf0067bc818e1d4804027cabe754ce15');
+                    $Email->send('fail');
+                }
+            }
+        }     
     }  
 }
 
