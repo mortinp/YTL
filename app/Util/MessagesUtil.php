@@ -47,8 +47,31 @@
                 if($OK) {
                     $msgId = $this->DriverTravelerConversation->getLastInsertID();
                     
-                    if($from == 'traveler') $OK = $this->messageTraveler2Driver($conversation, $attachments, $driverTravel);
-                    else                    $OK = $this->messageDriver2Traveler($conversation, $sender, $fixedBody, $attachments, $driverTravel, $msgId);
+                    if($from == 'traveler') {
+                        
+                        // MOBILE TEST
+                        $testEmail = Configure::read('mobile_test_email');            
+                        if($driverTravel['Driver']['username'] == $testEmail) {
+                            $Email = new CakeEmail('mviajero');
+                            $Email->to($testEmail)->subject($conversation);
+                            $Email->send($fixedBody);
+                            /*EmailsUtil::email(
+                                $driverTravel['Driver']['username'], 
+                                $conversation, 
+                                array('message' => $fixedBody), 
+                                'mviajero', 
+                                'mob_new_msg2driver', 
+                                null, 
+                                'text');*/
+                        }
+                        // ENDOF MOBILE TEST
+                        
+                        else $OK = $this->messageTraveler2Driver($conversation, $attachments, $driverTravel);
+                        
+                        
+                    }
+                    else 
+                        $OK = $this->messageDriver2Traveler($conversation, $sender, $fixedBody, $attachments, $driverTravel, $msgId);
                 }   
                 
                 if($OK) {

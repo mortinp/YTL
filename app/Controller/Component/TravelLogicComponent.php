@@ -59,7 +59,7 @@ class TravelLogicComponent extends Component {
                                 $operator['User']['email_config'], 
                                 'welcome_operator2traveler')) {
                             $OK = false;
-                            $errorMessage = __("Here go an error message [Could not send email from operator]");
+                            $errorMessage = __("Ocurrió un error confirmando el viaje. Intenta de nuevo.");
                         }
                     }*/
                     // Variante 2: Si es el primer viaje del usuario, mandarle un correo del Asistente de Viajes General (Ana)
@@ -73,7 +73,7 @@ class TravelLogicComponent extends Component {
                                 'welcome_operator_general',
                                 array('lang'=>$travel['User']['lang']))) {
                             $OK = false;
-                            $errorMessage = __("Here go an error message [Could not send email from operator]");
+                            $errorMessage = __("Ocurrió un error confirmando el viaje. Intenta de nuevo.");
                         }
                     }
 
@@ -268,7 +268,7 @@ class TravelLogicComponent extends Component {
             // MOBILE TEST
             $testEmail = Configure::read('mobile_test_email');
             if($driver['Driver']['username'] == $testEmail) {
-                EmailsUtil::email($testEmail, $conversation, array('travel' => $travel), 'msolicitud', 'mob_new_request', null, 'text');
+                EmailsUtil::email($testEmail, $conversation, array('travel' => $travel), 'msolicitud', 'mob_new_request', array('enqueue'=>false), 'text');
                 /*$Email = new CakeEmail('msolicitud');
                 $Email->to($testEmail)
                       ->subject($conversation)

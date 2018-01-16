@@ -135,7 +135,7 @@ class Driver extends AppModel {
     public function getAsSuggestions($localityId = null) {
         /**
          * Aqui asumo que cuando se llama a esta funcion, es porque en la vista se va a permitir notificar a mas choferes. Entonces, lo mejor es
-         * que siempre que se llame restringir la notificacion se choferes si esta logueado un operador.
+         * que siempre que se llame restringir la notificacion de choferes si está logueado un operador.
          */
         if(AuthComponent::user('role') == 'operator')
             $this->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'N'));

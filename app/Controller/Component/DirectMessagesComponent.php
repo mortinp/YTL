@@ -20,10 +20,12 @@
             $DriverTravelModel->order = null;  //$conversation['DriverTravel']['travel_id'] = null;
             $conversation['DriverTravel']['user_id'] = $this->Auth->user('id');
             if( $DriverTravelModel->save($conversation) ){
+                $conversation['DriverTravel']['id'] = $DriverTravelModel->getLastInsertID();
+                
                 $message = EmailsUtil::fixEmailBody(EmailsUtil::removeAllEmailAddresses($message));
                 
                 $message_to_driver = array('DriverTravelerConversation' => array(
-                    'conversation_id' => $DriverTravelModel->getLastInsertID(),
+                    'conversation_id' => $conversation['DriverTravel']['id'],
                     'response_by'     => 'traveler',
                     'response_text'   => $message             
                 ));
@@ -35,14 +37,31 @@
                     if( isset($driver['DriverProfile']['driver_name']) )
                         $vars['driver_name'] = Driver::shortenName($driver['DriverProfile']['driver_name']);
                                         
-                    if( 
+                    
+                    $OK = true;                    
+
+                    // MOBILE TEST
+                    $testEmail = Configure::read('mobile_test_email');            
+                    if($conversation['DriverTravel']['last_driver_email'] == $testEmail) {
                         EmailsUtil::email(
+                                $testEmail, 
+                                $conversation['DriverTravel']['id'], 
+                                array('conversation' => $conversation['DriverTravel'], 'message'=>$message),
+                                'mdirecto', 
+                                'mob_new_direct_msg', 
+                                array('enqueue'=>false), 
+                                'text');
+                    }
+                    // ENDOF MOBILE TEST
+                    
+                    else $OK = EmailsUtil::email(
                             $conversation['DriverTravel']['last_driver_email'], 
                             'Mensaje directo'.' [['.$DriverTravelModel->id.']]',
                             $vars, 
                             'viajero', 
-                            'new_direct_message') ) {
-                                
+                            'new_direct_message');
+                    
+                    if($OK) {   
                         $datasource->commit();
                         return array('success' => true, 'message' => __('Su mensaje fue enviado satisfactoriamente'), 'conversation_id' => $DriverTravelModel->id);
                     }    

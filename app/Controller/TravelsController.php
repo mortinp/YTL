@@ -105,8 +105,8 @@ class TravelsController extends AppController {
             $this->paginate = array('order'=>array('Travel.date'=>'ASC', 'Travel.id' => 'ASC'));
         }
         
-        /*if(AuthComponent::user('role') == 'operator')
-            $this->Travel->Behaviors->load('Operations.OperatorScope', array('match'=>'Travel.operator_id', 'action'=>array('R'))); // Restringir ver solicitudes*/
+        if(AuthComponent::user('role') == 'operator')
+            $this->Travel->Behaviors->load('Operations.OperatorScope', array('match'=>'Travel.operator_id', 'action'=>array('R'))); // Restringir ver solicitudes
         
         $this->Travel->Behaviors->load('GroupByUsers', array( 'users_order' => $users_order[$filter] ));
         
