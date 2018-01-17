@@ -117,7 +117,19 @@ class IncomingMailShell extends AppShell {
             }
             
             
-        } else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
+        }
+        
+        // MOBILE TEST
+        else if($to === 'mviajero@'.Configure::read('domain_name')) {
+            $conversation = $subject;
+            $this->out($conversation);
+
+            $mu = new MessagesUtil();
+            $mu->sendMessage('driver', $conversation, $sender, $body, $parser->attachments);            
+        }
+        // ENDOF MOBILE TEST
+        
+        else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
             
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
