@@ -122,16 +122,7 @@
             ));
 
             return $msg_list;
-        }
-
-        /*private function concatMessages($messages, $driver_name, $traveler_name) {
-            $view = new View();
-            $email_text = "";
-            foreach($messages as $msg)
-                $email_text .= trim ($view->element('pretty_message', array('message' => $msg['DriverTravelerConversation']) + compact('driver_name', 'traveler_name'))).'<br/>';
-
-            return $email_text;
-        }  */     
+        }   
         
         private function messageTraveler2Driver($conversation, array $attachments, &$driverTravel){;
             $driverName = 'chofer';
@@ -139,7 +130,6 @@
                 $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
 
             $messages = $this->getMessagesInConversation($conversation);
-            //$email_text = $this->concatMessages($messages , 'Tú', 'Viajero');
 
             if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
                       $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
@@ -234,7 +224,6 @@
                         'subject'=>MessagesUtil::getEmailSubject('traveler', $driverTravel, $driverTravel['User']['lang']),
                         'config'=>'chofer',
                         'attachments'=>$attachments,
-                        //'lang'=>$driverTravel['Travel']['User']['lang'],
                         'lang'=>$driverTravel['User']['lang'],
                         'from_name'=>$fromName,
                         'from_email'=>$fromEmail),

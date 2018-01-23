@@ -65,6 +65,7 @@ class SharedTravel extends AppModel {
         
         'CFGHAB8'=>array('origin_id'=>4, 'destination_id'=>0, 'origin'=>'Cienfuegos', 'destination'=>'La Habana', 'time'=>'8 am', 'price'=>35),
         'CFGHAB14'=>array('origin_id'=>4, 'destination_id'=>0, 'origin'=>'Cienfuegos', 'destination'=>'La Habana', 'time'=>'2 pm', 'price'=>35),
+        'CFGTRI7'=>array('origin_id'=>4, 'destination_id'=>1, 'origin'=>'Cienfuegos', 'destination'=>'Trinidad', 'time'=>'7 am', 'price'=>15),
         'CFGVIN8'=>array('origin_id'=>4, 'destination_id'=>2, 'origin'=>'Cienfuegos', 'destination'=>'Viñales', 'time'=>'8 am', 'price'=>50),
         'CFGVAR8'=>array('origin_id'=>4, 'destination_id'=>3, 'origin'=>'Cienfuegos', 'destination'=>'Varadero', 'time'=>'8 am', 'price'=>35),
         'CFGVAR14'=>array('origin_id'=>4, 'destination_id'=>3,'origin'=>'Cienfuegos', 'destination'=>'Varadero', 'time'=>'2 pm', 'price'=>35),
@@ -184,6 +185,7 @@ class SharedTravel extends AppModel {
         return $results;
     }
     
+    //Encuentra las solicitudes activas de un usuario
     public function findActiveRequests($userEmail) {
         $today = date('Y-m-d', strtotime('today'));
         
@@ -227,9 +229,7 @@ class SharedTravel extends AppModel {
             
             // Email para mi
             $Email = new CakeEmail('no_responder');
-            $Email->to('martin@yotellevocuba.com')
-                  ->subject('Viaje compartido confirmado');
-            $Email->send('http://yotellevocuba.com/shared-rides/view/'.$request['SharedTravel']['id_token']);
+            $Email->to('martin@yotellevocuba.com')->subject('Viaje compartido confirmado')->send('http://yotellevocuba.com/shared-rides/view/'.$request['SharedTravel']['id_token']);
         }
         
         return $OK;

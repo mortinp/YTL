@@ -47,7 +47,7 @@ class SharedTravelsController extends AppController {
                 $user = $this->User->findByUsername($this->request->data['SharedTravel']['email']);
                 $byUser = $user != null && !empty ($user) && $user['User']['email_confirmed'];
                 // TODO: Ver si este correo tiene otras solicitudes ya verificadas*/
-                $mustVerify = true/*!$byUser*/;
+                $mustVerify = true/*!$byUser*/; // TODO: Por ahora vamos siempre a enviar un correo de activacion de la solicitud
                 
                 if($mustVerify) {
                     // Obtener la solicitud para que los datos vengan formateados (ej. la fecha)
@@ -71,11 +71,12 @@ class SharedTravelsController extends AppController {
             $this->setErrorMessage(__('Ocurrió un error realizando la solicitud.'));
         }
         
+        //
         if(!isset ($this->request->query['s'])) throw new NotFoundException ();
         if(!array_key_exists($this->request->query['s'], SharedTravel::$modalities)) throw new NotFoundException();
     }
     
-    public function thanks() {
+    public function thanks() { // Esta es una action que no hace ningun procesamiento, solamente es una thank you page
         if(!isset ($this->request->query['t'])) throw new NotFoundException ();
         
         $request = $this->SharedTravel->findByIdToken($this->request->query['t']);
@@ -95,14 +96,14 @@ class SharedTravelsController extends AppController {
         $datasource = $this->SharedTravel->getDataSource();
         $datasource->begin();
         
-        $result = $this->doActivate($request);
+        $result = $this->doActivate($request); // Aqui es donde se hace todo el procesamiento!!!
         $OK = $result['success'];
         
         if($OK) {
             $datasource->commit();
             $this->set('request', $request);
             
-            // Si se confirmo el viaje, mostrar otra vista
+            // Si se confirmo el viaje (ej. se emparejo con otro solicitud), mostrar otra vista
             if($result['confirmed']) {
                 $this->set('confirmed_reason', $result['confirmed_reason']);
                 $this->render('activate_confirmed');
@@ -123,7 +124,7 @@ class SharedTravelsController extends AppController {
         $coupled = null; // default: no hay emparejamientos       
         if($OK) {
             
-            // Si es de 4 la solicitud, confirmarla directamente
+            // Si la solicitud es de 4 personas, confirmarla directamente
             if($request['SharedTravel']['people_count'] == 4) {
                 $this->SharedTravel->create();
                 $OK = $this->SharedTravel->confirmRequest($request);
@@ -144,13 +145,13 @@ class SharedTravelsController extends AppController {
             } else {
                 // Intentar emparejar con otras solicitudes
                 $couplings = $this->findCouplings($request);
-                if($couplings != null) {
+                if($couplings != null) { // Se encontro coupling!
                     $coupled = array_merge ($couplings, array($request));
 
                     // Crear un nuevo id para el emparejamiento
-                    $couplingId = $this->SharedTravel->query ('select coalesce(max(coupling_id) + 1, 1) as new_id  from shared_travels');
+                    $couplingId = $this->SharedTravel->query ('select coalesce(max(coupling_id) + 1, 1) as new_id from shared_travels');
 
-                    // Crear emparejamientos y confirmar solicitudes emparejadas
+                    // Crear emparejamientos y confirmar todas las solicitudes emparejadas
                     foreach ($coupled as $c) {
                         $this->SharedTravel->create();
 
@@ -175,7 +176,7 @@ class SharedTravelsController extends AppController {
                     $confirmed = true;
                     $confirmedReason = __d('shared_travels', 'fue emparejada con otras solicitudes para llenar las 4 plazas de uno de nuestros autos');
 
-                } else {
+                } else { // No se encontraron couplings
 
                     // Buscar si este cliente tiene otras solicitudes activadas
                     $all_requests = $this->SharedTravel->findActiveRequests($request['SharedTravel']['email']);
@@ -197,7 +198,7 @@ class SharedTravelsController extends AppController {
                                 'SharedTravels.assistant_intro',
                                 array('lang'=>$request['SharedTravel']['lang'])
                             );
-                    } else { // Si no, enviarle el correo de resumen
+                    } else { // Si tiene otras solicitudes, enviarle el correo de resumen
                         $OK = EmailsUtil::email(
                                 $request['SharedTravel']['email'], 
                                 __d('shared_travels', 'Tenemos los datos de su nueva solicitud'),
@@ -254,16 +255,16 @@ class SharedTravelsController extends AppController {
         // Buscar posibles emparejamiento para esta solicitud
         $candidates = $this->SharedTravel->find('all', array(
             'conditions'=>array(
-                'modality_code'=>$request['SharedTravel']['modality_code'], // Esto empareja por ruta y hora
-                'date'=> TimeUtil::dateFormatBeforeSave($request['SharedTravel']['date']), // Esto empareja por fecha
-                'people_count <='=> 4 - $request['SharedTravel']['people_count'], // Esto llena el carro hasta 4 plazas
+                'modality_code'=>$request['SharedTravel']['modality_code'], // Que coincidan en la ruta y hora
+                'date'=> TimeUtil::dateFormatBeforeSave($request['SharedTravel']['date']), // Que coincidan en la fecha
+                'people_count <='=> 4 - $request['SharedTravel']['people_count'], // Que sumen no mas de 4 personas
                 'email !='=>$request['SharedTravel']['email'], // Que no sea de este mismo cliente
                 'activated'=>true, // Que este activada la solicitud
                 'coupling_id'=>null,// Que no haya sido emparejado antes
                 'state !='=>SharedTravel::$STATE_CONFIRMED // Que no este confirmado (por si el facilitador lo confirmo dirctamente).
                 
             ),
-            'order'=>'people_count DESC' // Las de mas personas primero, para tener que hacer menos recorridos al recoger. TODO: sera mejor priorizar a las mas antiguas???
+            'order'=>'people_count DESC' // Obtener las de mas personas primero, para tener que hacer menos recorridos al recoger. TODO: sera mejor priorizar a las mas antiguas???
         ));
         
         // Armar los emparejamientos
