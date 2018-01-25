@@ -210,14 +210,18 @@ class SharedTravelsController extends AppController {
                     }
 
                     // Correo a gestor para que confirme la solicitud
-                    $facilitator = Configure::read('shared_rides_facilitator');
-                    if($OK) $OK = EmailsUtil::email(
-                        $facilitator['email'],
-                        'Solicitud de viaje compartido '.'[['.$request['SharedTravel']['id_token'].']]',
-                        array('request' => $request), 
-                        'shared_travel', 
-                        'SharedTravels.new_request'
-                    );
+                    
+                    if($OK) {
+                        $facilitator = Configure::read('shared_rides_facilitator');
+                        $modality = SharedTravel::$modalities[$request['SharedTravel']['modality_code']];
+                        $OK = EmailsUtil::email(
+                            $facilitator['email']/*'martin@yotellevocuba.com'*/,
+                            '#'.$request['SharedTravel']['id'].' '.$modality['origin'].'-'.$modality['destination'].' [['.$request['SharedTravel']['id_token'].']]',
+                            array('request' => $request), 
+                            'shared_travel', 
+                            'SharedTravels.new_request'
+                            );
+                    }
                 }
             }
         }        
