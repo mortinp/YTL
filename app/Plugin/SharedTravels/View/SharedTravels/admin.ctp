@@ -9,9 +9,14 @@ $modality = SharedTravel::$modalities[$modalityCode];
             <hr/>
         </div>
         <div class="col-md-8 col-md-offset-2">
-            <?php echo $this->element('shared_travel', compact('request'))?>
+            <?php echo $this->element('shared_travel', compact('request') + array('showDetails'=>true))?>
             
             <hr/>
+            <div><?php echo $this->Html->link(
+                    'Cancelar', 
+                    array('controller'=>'shared-rides', 'action'=>'cancel/'.$request['SharedTravel']['id_token']),
+                    array('class'=>'btn btn-danger', 'confirm'=>'¿Está seguro que quiere cancelar esta solicitud?'))?></div>
+            <br/>
             <div><b>Código Activación:</b> <?php echo $request['SharedTravel']['activation_token']?></div>
             <br/>
             <?php $fechaCambiada = isset ($request['SharedTravel']['original_date']) && $request['SharedTravel']['original_date'] != null;?>

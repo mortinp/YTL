@@ -240,7 +240,7 @@ class SharedTravelsController extends AppController {
         
         // Sanity checks
         if($request == null || empty ($request)) throw new NotFoundException();
-        if(!$request['SharedTravel']['activated']) throw new NotFoundException();
+        //if(!$request['SharedTravel']['activated']) throw new NotFoundException();
         
         $this->set('request', $request);
     }
@@ -252,6 +252,18 @@ class SharedTravelsController extends AppController {
         if($request == null || empty ($request)) throw new NotFoundException();
         
         $this->set('request', $request);
+    }
+    
+    public function cancel($token) {
+        $request = $this->SharedTravel->findByIdToken($token);
+        
+        // Sanity checks
+        if($request == null || empty ($request)) throw new NotFoundException();
+        
+        $this->SharedTravel->id = $request['SharedTravel']['id'];
+        $this->SharedTravel->saveField('state', SharedTravel::$STATE_CANCELLED);
+        
+        return $this->redirect($this->referer());
     }
     
     private function findCouplings($request) {

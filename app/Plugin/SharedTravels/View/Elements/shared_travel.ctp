@@ -35,8 +35,10 @@ if(!isset($admin)) $admin = false;
             <p><span class="text-muted"><?php echo __d('shared_travels', 'Contactos')?>:</span> <?php echo $request['SharedTravel']['contacts']?></p>
         <?php endif?>
             
+        <?php $st = SharedTravel::getStateDesc($request['SharedTravel']['state'])?>
+        <p><span class="text-muted"><?php echo __d('shared_travels', 'Estado')?>:</span> <big><abbr class="info" title="<?php echo $st['description']?>" style="text-decoration: none"><span class="<?php echo $st['class']?>"><?php echo $st['title'] ?></span></abbr></big></p>
+            
         <?php if($showDetails):?>
-            <p><span class="text-muted"><?php echo __d('shared_travels', 'Estado')?>:</span> <?php echo $request['SharedTravel']['state']?></p>
             <p><span class="text-muted"><?php echo __d('shared_travels', 'Idioma')?>:</span> <?php echo $request['SharedTravel']['lang']?></p>
             <p><?php echo $this->Html->link('Permalink', array('controller'=>'shared_travels', 'action' => 'view/' . $request['SharedTravel']['id_token']))?></p>
         <?php endif?>

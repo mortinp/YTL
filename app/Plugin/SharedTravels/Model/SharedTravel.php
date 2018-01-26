@@ -114,6 +114,8 @@ class SharedTravel extends AppModel {
     public static $STATE_PENDING = 'P'; // Cuando se crea
     public static $STATE_ACTIVATED = 'A'; //Cuando se activa (se le envian los datos a Andiel para comenzar a gestionar)
     public static $STATE_CONFIRMED = 'C'; // Cuando se confirma que se puede realizar (Andiel confirma)
+    public static $STATE_CANCELLED = 'X'; //
+    public static $STATE_DONE = 'D'; //
     
     public $validate = array(
         'date' => array(
@@ -138,9 +140,11 @@ class SharedTravel extends AppModel {
     );
     
     public static function getStateDesc($state) {
-        $desc = __d('shared_travels', 'Pendiente');
-        if($state == SharedTravel::$STATE_ACTIVATED) $desc = __d('shared_travels', 'No Confirmado');
-        else if($state == SharedTravel::$STATE_CONFIRMED) $desc = __d('shared_travels', 'Confirmado');
+        
+        $desc = array('title'=>__d('shared_travels', 'Pendiente'), 'class'=>'label label-warning', 'description'=>__d('shared_travels', 'No has activado esta solicitud por lo cual no hemos empezado las gestiones. Revisa tu correo y dale click al enlace que te enviamos.'));
+        if($state == SharedTravel::$STATE_ACTIVATED) $desc = array('title'=>__d('shared_travels', 'Activada / No confirmada'), 'class'=>'label label-info', 'description'=>__d('shared_travels', 'Ya activaste la solicitud y ahora estamos haciendo las gestiones. Te enviaremos un email con la confirmación de la recogida en la fecha y dirección indicada.'));
+        else if($state == SharedTravel::$STATE_CONFIRMED) $desc = array('title'=>__d('shared_travels', 'Confirmada'), 'class'=>'label label-success', 'description'=>__d('shared_travels', 'Ya tu viaje se encuentra en nuestra agenda para la fecha, hora y lugar indicado. Un taxi te buscará ese día a tu puerta!'));
+        else if($state == SharedTravel::$STATE_CANCELLED) $desc = array('title'=>__d('shared_travels', 'Cancelada'), 'class'=>'label label-danger', 'description'=>__d('shared_travels', 'La solicitud fue cancelada por tí o por los administradores. La recogida está suspendida.'));
         
         return $desc;
     }

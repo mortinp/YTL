@@ -528,17 +528,40 @@ msgid "Saludos"
 msgstr "Regards"
 
 
+### ESTADOS DE LAS SOLICITUDES
+
 #: Model/SharedTravel.ctp:8
 msgid "Pendiente"
 msgstr "Pending"
 
 #: Model/SharedTravel.ctp:8
-msgid "No Confirmado"
-msgstr "Not Confirmed"
+msgid "No has activado esta solicitud por lo cual no hemos empezado las gestiones. Revisa tu correo y dale click al enlace que te enviamos."
+msgstr "You haven't activated this request, so we haven't started to arrange it. Check your email and click the link we sent."
 
 #: Model/SharedTravel.ctp:8
-msgid "Confirmado"
+msgid "Activada / No confirmada"
+msgstr "Activated / Not confirmed"
+
+#: Model/SharedTravel.ctp:8
+msgid "Ya activaste la solicitud y ahora estamos haciendo las gestiones. Te enviaremos un email con la confirmación de la recogida en la fecha y dirección indicada."
+msgstr "You activated the request and now we are arranging the agenda. We will send an email to you confirming the pick up on the date and place you indicated."
+
+#: Model/SharedTravel.ctp:8
+msgid "Confirmada"
 msgstr "Confirmed"
+
+#: Model/SharedTravel.ctp:8
+msgid "Ya tu viaje se encuentra en nuestra agenda para la fecha, hora y lugar indicado. Un taxi te buscará ese día a tu puerta!"
+msgstr "You trip is already in our agenda for the date, time and place you indicated. A taxi will pick you up at your door!"
+
+#: Model/SharedTravel.ctp:8
+msgid "Cancelada"
+msgstr "Cancelled"
+
+#: Model/SharedTravel.ctp:8
+msgid "La solicitud fue cancelada por tí o por los administradores. La recogida está suspendida."
+msgstr "The request was cancelled by you or the administrators. The pick up is suspended."
+
 
 
 #: View/SharedTravels/view.ctp:8
