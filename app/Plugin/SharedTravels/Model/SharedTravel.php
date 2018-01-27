@@ -196,9 +196,10 @@ class SharedTravel extends AppModel {
         return $this->find('all', 
                 array(
                     'conditions'=>array(
-                        'email'=>$userEmail,
-                        'activated'=>true,
-                        'date >'=>$today // Buscar que no esten expiradas
+                        'email'=>$userEmail, // Que sean de este usuario
+                        'activated'=>true, // Que esten activadas
+                        'state !='=>SharedTravel::$STATE_CANCELLED, // Que NO esten canceladas
+                        'date >'=>$today // Que no esten expiradas
                         ),
 
                     'order'=>'SharedTravel.date ASC, SharedTravel.id ASC'

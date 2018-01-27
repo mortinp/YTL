@@ -60,6 +60,11 @@ class SharedTravelsController extends AppController {
                         'SharedTravels.activate_request',
                         array('lang'=>Configure::read('Config.language'), 'enqueue'=>false)
                     );
+                    
+                    // Email para mi
+                    $Email = new CakeEmail('no_responder');
+                    $Email->to('martin@yotellevocuba.com')->subject('Nueva solicitud')->send('Hay una nueva solicitud...');
+                    
                 } else {
                     return $this->redirect(array('action'=>'activate/'.$activationToken));
                 }
