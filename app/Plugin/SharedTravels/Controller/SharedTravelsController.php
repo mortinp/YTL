@@ -119,7 +119,7 @@ class SharedTravelsController extends AppController {
         }
     }
     
-    private function doActivate($request) {
+    private function doActivate(&$request) {
         $this->SharedTravel->id = $request['SharedTravel']['id'];
         $OK = $this->SharedTravel->saveField('activated', true);
         if($OK) $OK = $this->SharedTravel->saveField('state', SharedTravel::$STATE_ACTIVATED);
@@ -229,7 +229,12 @@ class SharedTravelsController extends AppController {
                     }
                 }
             }
-        }        
+        }   
+        
+        // Ponerle algunos datos a la solicitud para que en la vista salga bien
+        if($OK) {
+            $request['SharedTravel']['state'] = SharedTravel::$STATE_ACTIVATED;
+        }
         
         // Guardar algunos datos en la session para si el cliente quiere crear mas solicitudes que no tenga que repetirlas
         // TODO: Guardarlos en una Cookie???
