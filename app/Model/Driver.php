@@ -140,7 +140,7 @@ class Driver extends AppModel {
         if(AuthComponent::user('role') == 'operator')
             $this->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'N'));
         
-        $drivers = $this->find('all', array('conditions'=>array('active'=>true)));
+        $drivers = $this->find('all', array('conditions'=>array('active'=>true, 'role'=>'driver')));
         $list = array();
         foreach ($drivers as $d) {
             $list[] = array(
