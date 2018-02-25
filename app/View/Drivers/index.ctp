@@ -10,7 +10,7 @@
                 $subject = $d['Province']['id'];
                 $count = 0;
                 foreach($drivers as $again) {
-                    if($again['Driver']['active'] && $again['Driver']['role'] == 'driver' && $again['Province']['id'] == $subject) $count ++;
+                    if($again['Driver']['active'] && $again['Driver']['receive_requests'] && $again['Driver']['role'] == 'driver' && $again['Province']['id'] == $subject) $count ++;
                 }
                 $results[$subject] = array(
                     'province_name' => $d['Province']['name'],
