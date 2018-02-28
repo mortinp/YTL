@@ -10,7 +10,7 @@ class SharedTravel extends AppModel {
         0=>'La Habana', 
         1=>'Trinidad', 
         2=>'Viñales', 
-        //3=>'Varadero', 
+        3=>'Varadero', 
         4=>'Cienfuegos', 
         7=>'Santa Clara',
         5=>'Cayo Coco', 
@@ -51,14 +51,16 @@ class SharedTravel extends AppModel {
         'TRIPLG14'=>array('origin_id'=>1, 'destination_id'=>9, 'origin'=>'Trinidad', 'destination'=>'Playa Girón', 'time'=>'2 pm', 'price'=>30),
         
         'VINHAB8'=>array('origin_id'=>2, 'destination_id'=>0, 'origin'=>'Viñales', 'destination'=>'La Habana', 'time'=>'8 am', 'price'=>25),
-        'VINHAB14'=>array('origin_id'=>2, 'destination_id'=>0, 'origin'=>'Viñales', 'destination'=>'La Habana', 'time'=>'2 pm', 'price'=>25),
+        'VINHAB14'=>array('origin_id'=>2, 'destination_id'=>0, 'origin'=>'Viñales', 'destination'=>'La Habana', 'time'=>'2 pm', 'price'=>25),        
+        'VINVAR8'=>array('origin_id'=>2, 'destination_id'=>3, 'origin'=>'Viñales', 'destination'=>'Varadero', 'time'=>'8 am', 'price'=>45),
+        'VINVAR14'=>array('origin_id'=>2, 'destination_id'=>3, 'origin'=>'Viñales', 'destination'=>'Varadero', 'time'=>'2 pm', 'price'=>45),        
         'VINTRI8'=>array('origin_id'=>2, 'destination_id'=>1, 'origin'=>'Viñales', 'destination'=>'Trinidad', 'time'=>'8 am', 'price'=>50),
         'VINCFG8'=>array('origin_id'=>2, 'destination_id'=>4, 'origin'=>'Viñales', 'destination'=>'Cienfuegos', 'time'=>'8 am', 'price'=>50),
         'VINSCL8'=>array('origin_id'=>2, 'destination_id'=>7, 'origin'=>'Viñales', 'destination'=>'Santa Clara', 'time'=>'8 am', 'price'=>45),
         'VINPLL8'=>array('origin_id'=>2, 'destination_id'=>8, 'origin'=>'Viñales', 'destination'=>'Playa Larga', 'time'=>'8 am', 'price'=>40),
         'VINPLG8'=>array('origin_id'=>2, 'destination_id'=>9, 'origin'=>'Viñales', 'destination'=>'Playa Girón', 'time'=>'8 am', 'price'=>45),
         
-        'VARHAB8'=>array('origin_id'=>3, 'destination_id'=>0, 'origin'=>'Varadero', 'destination'=>'La Habana', 'time'=>'8 am', 'price'=>25, 'active'=>false),
+        'VARHAB8'=>array('origin_id'=>3, 'destination_id'=>0, 'origin'=>'Varadero', 'destination'=>'La Habana', 'time'=>'8 am', 'price'=>30),
         'VARHAB14'=>array('origin_id'=>3, 'destination_id'=>0, 'origin'=>'Varadero', 'destination'=>'La Habana', 'time'=>'2 pm', 'price'=>25, 'active'=>false),
         /*'VARTRI14'=>array('origin_id'=>3, 'destination_id'=>1, 'origin'=>'Varadero', 'destination'=>'Trinidad', 'time'=>'2 pm', 'price'=>35),
         'VARCFG14'=>array('origin_id'=>3, 'destination_id'=>4, 'origin'=>'Varadero', 'destination'=>'Cienfuegos', 'time'=>'2 pm', 'price'=>35),*/
