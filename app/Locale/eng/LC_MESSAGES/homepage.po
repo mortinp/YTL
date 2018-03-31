@@ -103,8 +103,8 @@ msgid "Cuba es un país hermoso para visitar y recorrer, y ninguno de sus lugare
 msgstr "Cuba is a wonderful country to visit and none of its places is similar. Arrange your journeys the way you want, without being attached to rigid and boring itineraries. Do last minute changes, learn and decide along the way and create the best memories."
 
 #: /home.ctp:124
-msgid "Haz un viaje sorprendente con tu chofer"
-msgstr "Do an amazing travel with your driver"
+msgid "Haz un viaje sorprendente con tu chofer en Cuba"
+msgstr "Do an amazing travel with your driver in Cuba"
 
 #: /home.ctp:125
 msgid "<b>Consigue un chofer con auto</b> creando un Anuncio de Viaje"

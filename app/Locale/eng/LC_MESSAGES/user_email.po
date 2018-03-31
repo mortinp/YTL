@@ -320,16 +320,12 @@ msgid "¿Quizás el problema es que el precio para contratar un chofer privado e
 msgstr "Maybe the problem is that the price to hire a private driver is too high?"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "Quiero comentarles que recientemente lanzamos un nuevo servicio dentro de YoTeLlevo, que permite ir de un destino a otro en Cuba compartiendo un auto con chofer con otros viajeros, de manera que el viaje se abarate."
-msgstr "I want to let you know that we recently launched a new service inside of YoTeLlevo, which allows to share a car and driver with other travelers to go from one place to another, in a way that the prices get lower."
+msgid "Quiero comentarles que recientemente lanzamos un nuevo servicio que permite abaratar mucho los costos para ir de un destino a otro en Cuba, compartiendo un taxi con otros viajeros que van al mismo destino, de manera que cada pasajero pague sólo por los asientos que ocupe."
+msgstr "I want to let you know that we recently launched a new service that allows to lower the prices to go from one place to another in Cuba, by sharing a taxi with other travelers going to the same destination as you, in a way that each passenger pays only for his/her seat."
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "La idea principal es que por ejemplo, si van de La Habana a Trinidad, compartan un auto moderno de 4 plazas con %s y así el costo del viaje es mucho más bajo para cada uno, porque comparten el precio del viaje completo también."
 msgstr "The idea is that, for instance, if you go from La Habana to Trinidad, you can share a 4 pax modern car with %s and so the costs for each is lower, because you also share the total price of the trip."
-
-#: View/Emails/html/request_testimonial.ctp:18
-msgid "Es como viajar en bus, pero solo viajan 4 personas en un mismo auto (más el chofer)."
-msgstr "It's like going in a bus, but only 4 travelers share the same car (plus the driver)."
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Estos son algunos de los precios que ofrecemos"
@@ -348,12 +344,12 @@ msgid "En el caso de ustedes que son <b>%s personas</b>, un viaje de La Habana a
 msgstr "In your case, a trip from La Habana to Trinidad for <b>%s people</b> would cost <b>%s</b> in total. That is way cheaper than a private driver!"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "Estos son algunos ejemplos, pero cubrimos muchas otras rutas también, no sólo desde La Habana. También tenemos viajes desde Viñales, Trinidad, Varadero, Cayo Coco/Guillermo, etc."
-msgstr "These are some examples, but we cover a lot of other routes, not only from La Habana. We also have routes from Viñales, Trinidad, Varadero, Cayo Coco/Guillermo, etc."
+msgid "Estos son algunos ejemplos, pero cubrimos muchas otras rutas también."
+msgstr "These are some examples, but we cover a lot of other routes."
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "Aquí pueden ver todos los detalles del servicio"
-msgstr "Here you can see all the details of the service"
+msgid "Nuestro nuevo servicio de llama PickoCar, y aquí pueden ver todos los detalles"
+msgstr "Our new service's name is PickoCar, and here you can see all the details"
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Debo adicionar además que en este servicio se les recoge en su casa de alquiler u hotel donde se hospeden. Dependiendo del horario que reserven, un chofer les recogerá puntual en el lugar pactado para llevarlos hasta su destino."
