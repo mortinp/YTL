@@ -8,7 +8,7 @@
             echo $this->Form->input('DriverTravel.last_driver_email', array('type' => 'hidden', 'value' => $profile['Driver']['username']));
             echo $this->Form->custom_date('DriverTravel.travel_date', array('label' => __('Fecha inicial del viaje'), 'dateFormat' => 'dd/mm/yyyy', 'class'=>'input-sm'));
 
-            echo $this->Form->input('DriverTravelerConversation.response_text', array('label' => __('Detalles del viaje'), 'type' => 'textarea',
+            echo $this->Form->input('DriverTravelerConversation.response_text', array('label' => __('Mensaje a %s sobre lo que quieres hacer', Driver::shortenName($profile['DriverProfile']['driver_name'])), 'type' => 'textarea',
                                     'placeholder' => __('Cualquier detalle que quieras explicarle a %s', Driver::shortenName($profile['DriverProfile']['driver_name'])), 'required' => 'required'));        
             ?>
         <?php if(!$userLoggedIn):?></div><?php endif?>
@@ -21,8 +21,10 @@
             }
             ?>
         <?php if(!$userLoggedIn):?></div><?php endif?>
+        
+        </big>
     </div>
-    <div class="submit col-md-<?php if($userLoggedIn) echo '12';else echo '6 col-md-offset-3'?>" style="text-align: center">
+    <div class="submit col-md-12" style="text-align: center">
         <?php
         $saveButtonText = __d('driver_profile', 'Enviar el mensaje ahora').' <div style="font-size:12pt;padding-left:50px;padding-right:50px">'.__d('driver_profile', 'Recibe una oferta de precio de %s y comienza a acordar los detalles de tu viaje', $profile['DriverProfile']['driver_name']).'</div>';
         $buttonStyle = 'font-size:18pt;white-space: normal;';

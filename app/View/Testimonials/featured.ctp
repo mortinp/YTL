@@ -10,16 +10,13 @@
                     <?php echo __('Si necesitas un chofer en Cuba, probablemente puedas encontrarlo aquí.')?>
                 </p>
                 <p>
-                    <?php echo __d('testimonials', 'Ahora mismo estás en nuestra <code>página de Testimonios</code>.')?>
+                    <?php echo __d('testimonials', 'Ahora mismo estás en nuestra <code>Página de Testimonios</code>.')?>
                 </p>
             </span>
             <?php endif?>
             
             <br/>
             <p><?php echo __d('testimonials', 'Estas son algunas opiniones, comentarios e historias de viajeros que han hecho recorridos y transfers con nuestros choferes. Lee algunas, inspírate y anímate a contratar a algún chofer con auto aquí en Cuba.')?></p> 
-            <!--<br/>
-            <p class="text-muted"><?php echo __d('testimonials', 'Puedes visitar la página personal de cada chofer desde los testimonios')?>.</p> 
-            -->
             <br/>
             
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
@@ -86,7 +83,7 @@
                             </div>
                         </div>
                         <div>
-                            <?php echo $this->Html->link('<div style="font-size:12pt">'.__d('testimonials', 'Mira más sobre %s en su perfil', $driver_name).' »</div>'.'<div style="font-size:10pt">'.__d('testimonials', 'También podrás contactarlo', $driver_name).'</div>', array('controller'=>'drivers', 'action'=>'profile', $driver_nick), array('class'=>'btn btn-info', 'target'=>'_blank', 'escape'=>false))?>
+                            <?php echo $this->Html->link('<div style="font-size:12pt">'.__d('testimonials', 'Mira más sobre %s en su perfil', $driver_name).' »</div>'.'<div style="font-size:10pt">'.__d('testimonials', 'También podrás contactarlo si lo deseas', $driver_name).'</div>', array('controller'=>'drivers', 'action'=>'profile', $driver_nick), array('class'=>'btn btn-info', 'target'=>'_blank', 'escape'=>false))?>
                         </div>
                     <?php else:?>
                         <span class="text-muted"><?php echo __d('testimonials', '%s no está activo en nuestro sitio y su perfil no es accesible', '<b>'.$driver_name.'</b>')?></span>

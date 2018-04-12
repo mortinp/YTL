@@ -80,14 +80,15 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 <br/>
 <br/>
 <br/>
+<br/>
 <div class="row">
     <?php
-    $class = 'col-md-10 col-md-offset-1';
-    if($userLoggedIn) $class = 'col-md-6 col-md-offset-3';
+    $class = 'col-md-8 col-md-offset-2';
+    if($userLoggedIn) $class = 'col-md-4 col-md-offset-4';
     ?>
     <div class="<?php echo $class?>">
         <div class="row arrow_box arrow_box_bottom"></div>
-        <div class="row" style="background-color: #ebebeb">
+        <div class="row bg-info">
             <div class="row">
                 <div id="message-driver" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
                     <div style="height: 50px;clear: both"></div>

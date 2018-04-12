@@ -291,6 +291,10 @@ msgid "Fecha inicial del viaje"
 msgstr "Starting date of the travel"
 
 #: View/Elements/travel.ctp:57
+msgid "Mensaje a %s sobre lo que quieres hacer"
+msgstr "Message to %s about what you want to do"
+
+#: View/Elements/travel.ctp:57
 msgid "Fecha original"
 msgstr "Original date"
 
