@@ -17,15 +17,13 @@
             
             <br/>
             <p><?php echo __d('testimonials', 'Estas son algunas opiniones, comentarios e historias de viajeros que han hecho recorridos y transfers con nuestros choferes. Lee algunas, inspírate y anímate a contratar a algún chofer con auto aquí en Cuba.')?></p> 
-            <br/>
+            <!--<br/>
             <p class="text-muted"><?php echo __d('testimonials', 'Puedes visitar la página personal de cada chofer desde los testimonios')?>.</p> 
+            -->
             <br/>
-        </div>
-        
-        
-        <div class="col-md-10 col-md-offset-1">
+            
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div><?php echo __d('testimonials', '%s historias aquí... y hay más', count($testimonials))?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
+                <div><?php echo __d('testimonials', '%s historias aquí... y hay más', count($testimonials))?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers(array('modulus'=>20));?></span></div>
                 
                 <?php 
                 $currentLang = LangUtil::getLangSetup(Configure::read('Config.language'));
@@ -62,13 +60,44 @@
 
                 <br/><br/><br/>
             <?php endif?>
-            
+        </div>
+        
+        <div class="col-md-10 col-md-offset-1">
             <?php
             foreach($testimonials as $i=>$data):?>
-                <?php echo $this->element('testimonial_body', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver']));?>
+                <div>
+                    <?php echo $this->element('testimonial_body', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver']/*, 'nameAsLink'=>false*/));?>
+                </div>
+            
+                <div>
+                    <hr/>
+                    <?php $driver_name = Driver::shortenName($data['Driver']['DriverProfile']['driver_name']);?>
+                    <?php $driver_nick = $data['Driver']['DriverProfile']['driver_nick'];?>
+                    
+                    <?php if($data['Driver']['active']):?>
+                        <div style="float: left;margin-right: 30px;margin-bottom: 30px">
+                            <p><small><?php echo __d('driver_profile', 'Datos rápidos sobre %s', '<b>'.$driver_name.'</b>')?>:</small></p>
+                            <div><small><?php echo __d('driver_profile', '<span class="text-muted">Vive en</span> %s', $data['Driver']['Province']['name'])?></small></div>
+                            <div>
+                                <small>
+                                <?php echo __d('driver_profile', '<span class="text-muted">Auto hasta</span> %s pax', $data['Driver']['max_people_count'])?>
+                                <?php if($data['Driver']['has_air_conditioner']) echo __d('driver_profile', '<span class="text-muted">con</span> aire acondicionado')?>
+                                </small>
+                            </div>
+                        </div>
+                        <div>
+                            <?php echo $this->Html->link('<div style="font-size:12pt">'.__d('testimonials', 'Mira más sobre %s en su perfil', $driver_name).' »</div>'.'<div style="font-size:10pt">'.__d('testimonials', 'También podrás contactarlo', $driver_name).'</div>', array('controller'=>'drivers', 'action'=>'profile', $driver_nick), array('class'=>'btn btn-info', 'target'=>'_blank', 'escape'=>false))?>
+                        </div>
+                    <?php else:?>
+                        <span class="text-muted"><?php echo __d('testimonials', '%s no está activo en nuestro sitio y su perfil no es accesible', '<b>'.$driver_name.'</b>')?></span>
+                    <?php endif?>
+                </div>
                 
-                <?php if($i == 2):?>
-                    <br/><br/>
+            
+                <br/><br/><br/><br/><br/><br/>
+                
+                <!-- Poner el formulario de solicitud despues del nth testimonio -->
+                <?php if($i == 4):?>
                     <div style="padding-top:30px;padding-bottom:30px;background-color: #ebebeb">
                         <div style="text-align: center">
                             <p><?php echo __d('testimonials', '¿Ya te gustan nuestros choferes?')?></p>
@@ -78,9 +107,10 @@
                         <?php echo $this->Session->flash(); ?>            
                         <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
                     </div>
+                <br/><br/><br/><br/><br/><br/>
                 <?php endif?>
                 
-                <br/><br/>
+                
             <?php endforeach;?>
             
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>

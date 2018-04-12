@@ -55,6 +55,19 @@ msgstr "See some pictures of %s"
 msgid "Ver el perfil de %s"
 msgstr "See %s's profile"
 
+#: /featured.ctp:33
+msgid "Mira más sobre %s en su perfil"
+msgstr "See more about %s at his profile"
+
+#: /featured.ctp:33
+msgid "También podrás contactarlo"
+msgstr "You'll be able to contact him too"
+
+#: /featured.ctp:33
+msgid "%s no está activo en nuestro sitio y su perfil no es accesible"
+msgstr "%s is not active in our website and his profile is not accesible"
+
+
 #: /code.ctp:33
 msgid "Cuéntanos sobre tu experiencia"
 msgstr "Tell us about your experience"

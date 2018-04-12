@@ -11,6 +11,8 @@ if (!isset($height)) $height = 100;
 
 if (!isset($isReverse)) $isReverse = false;
 if (!isset($bgColor)) $bgColor = 'default';
+
+if (!isset($nameAsLink)) $nameAsLink = true;
 ?>
 
 <div> <!--style="font-family:'Engagement', cursive"-->
@@ -36,7 +38,7 @@ if (!isset($bgColor)) $bgColor = 'default';
 
                 <?php 
                 
-                if($driver['active']) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
+                if($driver['active'] && $nameAsLink) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
                 else $driver_hint = '<b>'.$driver_name.'</b>';
                 
                 $about = __d('testimonials', 'comentario sobre %s', $driver_hint.' <img src="'.$driver_avatar.'"class="info" title="'.$driver_name.'" style="max-width:30px"/> ')?>

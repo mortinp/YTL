@@ -2,7 +2,7 @@
     
     <div class="col-md-3">
         <p class="text-muted pull-left" style="margin: 20px 0;">
-            &copy; 2015-2017 <?php echo __('YoTeLlevo')?>
+            &copy; 2015-2018 <?php echo __('YoTeLlevo')?>
         </p>
     </div>
     
@@ -28,9 +28,6 @@
             |
             
             <a href="<?php echo $urlBlog ?>" title="YoTeLlevo Blog">Blog</a>
-            |
-            
-            <a href="https://twitter.com/yotellevocuba" title="YoTeLlevo in Twitter">Twitter</a>
             |
             
             <a href="https://www.facebook.com/yotellevoTaxiCuba" title="YoTeLlevo in Facebook">Facebook</a>

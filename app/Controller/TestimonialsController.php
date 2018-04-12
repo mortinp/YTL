@@ -62,7 +62,7 @@ class TestimonialsController extends AppController {
     public function featured() {
         $this->Testimonial->recursive = 2;
         
-        $this->Driver->unbindModel(array('belongsTo' => array('Province')));
+        //$this->Driver->unbindModel(array('belongsTo' => array('Province')));
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
         
         $langs = array(Configure::read('Config.language'));
