@@ -84,7 +84,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 <div class="row">
     <?php
     $class = 'col-md-8 col-md-offset-2';
-    if($userLoggedIn) $class = 'col-md-4 col-md-offset-4';
+    if($userLoggedIn) $class = 'col-md-6 col-md-offset-3';
     ?>
     <div class="<?php echo $class?>">
         <div class="row arrow_box arrow_box_bottom"></div>

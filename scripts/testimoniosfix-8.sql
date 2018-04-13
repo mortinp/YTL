@@ -1,0 +1,1 @@
+UPDATE testimonials SET image_filepath='files/1523629856_misael2_jpg' WHERE id='5acf469c-98f4-4b05-a18b-7f674f8fb177';
