@@ -1,1 +1,0 @@
-UPDATE testimonials SET image_filepath='files/1517417983_andrea-edixan_jpg' WHERE id='5a3ba804-f974-4f49-8895-16f14f8fb177';

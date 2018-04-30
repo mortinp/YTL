@@ -1,1 +1,0 @@
-UPDATE testimonials SET image_filepath='files/1519590005_yosley_jpg' WHERE id='5a922750-618c-4fe9-8f17-26f94f8fb177';

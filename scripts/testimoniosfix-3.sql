@@ -1,1 +1,0 @@
-UPDATE testimonials SET image_filepath='files/1518984325_ruben_foto_testimonio2_jpg' WHERE id='5a88722b-5c2c-4e35-adeb-614b4f8fb177';
