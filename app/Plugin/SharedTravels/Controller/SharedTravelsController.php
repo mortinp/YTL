@@ -22,6 +22,7 @@ class SharedTravelsController extends AppController {
     }
     
     public function home() {
+        return $this->redirect('http://pickocar.com');
     }
     
     public function create() {
