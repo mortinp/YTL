@@ -103,6 +103,6 @@
 
 <script type="text/javascript">
     $(window).scroll(function(){
-        $("#fixed").css("top", Math.max(0, <?php echo $topPosition?> - $(this).scrollTop()));
+        $("#fixed").css("top", Math.max(50, <?php echo $topPosition?> - $(this).scrollTop()));
     });
 </script>

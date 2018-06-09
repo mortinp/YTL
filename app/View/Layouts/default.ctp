@@ -72,7 +72,7 @@ if($userLoggedIn) {
     </head>
     <body>
         <div id="container">
-            <div id="navbar" class="navbar navbar-default" role="navigation">
+            <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -236,9 +236,10 @@ if($userLoggedIn) {
         </div>
             
             
+            <div style="height: 80px;width:100%;clear:both"></div>
             <?php echo $this->Session->flash('auth'); ?>
-
             <div id="content" class="container-fluid">
+                
                 <?php echo $this->Session->flash(); ?>
                 <?php echo $this->fetch('content'); ?>
                 
