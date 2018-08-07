@@ -23,14 +23,16 @@ class TravelLogicComponent extends Component {
             $this->Travel = ClassRegistry::init('Travel');
             $this->prepareForSendingToDrivers();
             
+            $numberOfDrivers = 7;
+            
             // Encontrar todos los choferes que pudieran atender este viaje
-            $drivers = $this->findAllDriversSuitableForTravel($travel);
+            $drivers = $this->findAllDriversSuitableForTravel($travel, $numberOfDrivers);
             
             // Obtener los operadores en un orden de prioridad (TODO: Describir la prioridad)
             $operators = $this->findOperatorsOrderedByPriority($travel);
             
             // Encontrar el operador que va a atender el viaje, dependiendo de si tiene choferes que puedan atender el viaje o no
-            $result = $this->matchOperatorAndDrivers($operators, $drivers);
+            $result = $this->matchOperatorAndDrivers($operators, $drivers, $numberOfDrivers);
             if($result) {
                 $operator = $result['operator'];
                 $drivers = $result['drivers'];
@@ -136,12 +138,13 @@ class TravelLogicComponent extends Component {
         if(User::isRegular($travel['User'])) $primary_conditions['Driver.role'] = 'driver';
         else                                 $primary_conditions['Driver.role'] = 'driver_tester';
         
-        // Definir las condiciones secundarias para encontrar choferes que pueden atender este viaje
-        $secondary_conditions = array();
-        $sec_con_order = array();
         
         $direction = ($travel['Travel']['origin_locality_id'] > $travel['Travel']['destination_locality_id']) ? 'DESC' : 'ASC' ; // Primero los choferes del origen
         $order = array('DriverLocality.locality_id '.$direction, 'Driver.last_notification_date', 'Driver.travel_count');
+        
+        // Definir las condiciones secundarias para encontrar choferes que pueden atender este viaje
+        $secondary_conditions = array();
+        $sec_con_order = $order;
 
         // Adicionar la condicion del ingles si el idioma del sitio es ingles
         $lang = Configure::read('Config.language');
@@ -162,7 +165,7 @@ class TravelLogicComponent extends Component {
         
         // Primero buscar los que cumplen con todas las condiciones, y si no se encuentran, probar a buscar solo con las condiciones primarias
         $drivers = $this->findDrivers(array_merge($primary_conditions, $secondary_conditions), $order);
-        if( count($drivers) < $count ) $drivers = $this->findDrivers($primary_conditions, array_merge($sec_con_order, $order));
+        if( count($drivers) < $count ) $drivers = $this->findDrivers($primary_conditions, $sec_con_order);
                 
         return $drivers;
     }

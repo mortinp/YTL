@@ -45,7 +45,8 @@ class DriverTravel extends AppModel {
             'fields'=>array('id', 'user_id', 'origin', 'destination', 'date', 'people_count'),
             'counterCache'=>array(
                 'drivers_sent_by_admin_count'=>array('DriverTravel.notification_type'=>'M'),
-                'drivers_sent_by_user_count'=>array('DriverTravel.notification_type'=>'U'))
+                'drivers_sent_by_user_count'=>array('DriverTravel.notification_type'=>'U')/*,
+                'drivers_replied_count'=>array('DriverTravel.message_count >'=>0)*/)
         ),
         'User' => array(
             'fields'=>array('id', 'username', 'role', 'lang', 'display_name', 'travel_count', 'conversations_count'),

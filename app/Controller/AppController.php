@@ -233,7 +233,7 @@ class AppController extends Controller {
             'users.login' =>array('title'=>__d('meta', 'Entrar'), 'description'=>__d('meta', 'Entra y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             'users.register' =>array('title'=>__d('meta', 'Registrarse'), 'description'=>__d('meta', 'Regístrate y consigue un taxi enseguida. Acuerda los detalles del viaje con tu chofer directamente')),
             'users.register_and_create' =>array('title'=>__d('meta', 'Bienvenida')),
-            'users.register_welcome' =>array('title'=>__d('meta', 'Bienvenida')),
+            'users.register_welcome' =>array('title'=>__d('meta', 'Bienvenido')),
             
             'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
             'travels.view_pending' =>array('title'=>__d('meta', 'Solicitud pendiente')),

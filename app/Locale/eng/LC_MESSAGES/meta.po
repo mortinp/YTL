@@ -182,7 +182,7 @@ msgid "Solicitud pendiente"
 msgstr "Pending request"
 
 #: View/Users/register_welcome.ctp:19
-msgid "Bienvenida"
+msgid "Bienvenido"
 msgstr "Welcome"
 
 #: View/Users/register_welcome.ctp:19

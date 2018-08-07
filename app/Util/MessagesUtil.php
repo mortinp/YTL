@@ -159,7 +159,8 @@
         
         private function messageDriver2Traveler($conversation, $sender, $fixedBody, array $attachments, &$driverTravel, $lastMsgId){
             $OK = true;
-            // Bloquear a Juan
+            
+            /*// Bloquear a Juan
             if($driverTravel['Driver']['id'] == 71) {
                 $Email = new CakeEmail('super');
                 $Email->to('juandrc59@nauta.cu')
@@ -168,7 +169,7 @@
 
                 CakeLog::write('juan', "Mensaje de Juan bloqueado: $conversation - $fixedBody");
                 return false;
-            }
+            }*/
 
             if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
                 ($driverTravel['DriverTravel']['last_driver_email'] == null ||

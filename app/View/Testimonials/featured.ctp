@@ -111,7 +111,7 @@
             <?php endforeach;?>
             
             <?php if((int)$this->Paginator->counter('{:pages}') > 1):?>
-                <div><?php echo __d('testimonials', 'Mira más historias')?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers();?></span></div>
+                <div><?php echo __d('testimonials', 'Mira más historias')?>: <span style="display: inline-block"><?php echo $this->Paginator->numbers(array('modulus'=>20));?></span></div>
             <?php endif?>
         </div>
 

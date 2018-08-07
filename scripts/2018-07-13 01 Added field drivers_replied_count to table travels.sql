@@ -1,0 +1,1 @@
+ALTER TABLE  `travels` ADD  `drivers_replied_count` INT UNSIGNED NOT NULL DEFAULT  '0' AFTER  `drivers_sent_by_user_count`;

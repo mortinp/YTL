@@ -24,7 +24,7 @@
                 return array('case' => 'EMAIL', 'value' => $in);
             
             if( filter_var($in, FILTER_VALIDATE_INT) )
-                return array('case' => 'INT', 'value' => $in);    
+                return array('case' => 'INT', 'value' => $in);
             
             try{ 
                 $result = $this->parse_date($in);
