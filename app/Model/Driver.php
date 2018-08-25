@@ -6,7 +6,7 @@ App::uses('Testimonial', 'Model');
 
 class Driver extends AppModel {
     
-    public $order = 'travel_count DESC, Driver.id ASC';
+    public $order = 'Driver.active DESC, Driver.operator_id DESC, Driver.id ASC';
     
     public $hasAndBelongsToMany = 'Locality';
     

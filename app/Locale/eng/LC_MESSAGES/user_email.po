@@ -332,28 +332,24 @@ msgid "Estos son algunos de los precios que ofrecemos"
 msgstr "These are some of the prices we offer"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "%s por persona"
-msgstr "%s per person"
+msgid "%s por asiento"
+msgstr "%s per seat"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "mejor que <b>%s por un viaje privado</b>"
-msgstr "better than <b>%s for a private trip</b>"
+msgid "mejor que <b>%s por un taxi privado</b>"
+msgstr "better than <b>%s for a private taxi</b>"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "En el caso de ustedes que son <b>%s personas</b>, un viaje de La Habana a Trinidad les costaría <b>%s</b> en total. Es mucho más bajo que un chofer privado!"
-msgstr "In your case, a trip from La Habana to Trinidad for <b>%s people</b> would cost <b>%s</b> in total. That is way cheaper than a private driver!"
+msgid "También %s y otros."
+msgstr "Also %s and others."
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "Estos son algunos ejemplos, pero cubrimos muchas otras rutas también."
-msgstr "These are some examples, but we cover a lot of other routes."
-
-#: View/Emails/html/request_testimonial.ctp:18
-msgid "Nuestro nuevo servicio de llama PickoCar, y aquí pueden ver todos los detalles"
+msgid "Nuestro nuevo servicio se llama PickoCar, y aquí pueden ver todos los detalles"
 msgstr "Our new service's name is PickoCar, and here you can see all the details"
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "Debo adicionar además que en este servicio se les recoge en su casa de alquiler u hotel donde se hospeden. Dependiendo del horario que reserven, un chofer les recogerá puntual en el lugar pactado para llevarlos hasta su destino."
-msgstr "I must add that in this service, we will pick you up at the guest-house or hotel you are staying. Depending on the departure time you book, a driver will pick you up punctually at the place you indicate to take you to your destination."
+msgid "Debo adicionar además que en este servicio <b>se les recoge en su casa de alquiler u hotel donde se hospeden</b>. Dependiendo del horario que reserven, un chofer les recogerá puntual en el lugar pactado para llevarlos hasta su destino."
+msgstr "I must add that in this service, <b>we will pick you up at the guest-house or hotel you are staying</b>. Depending on the departure time you book, a driver will pick you up punctually at the place you indicate to take you to your destination."
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "¿Qué les parece?"
