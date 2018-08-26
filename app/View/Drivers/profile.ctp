@@ -15,16 +15,26 @@ $testimonialsCount = $this->request->paging['Testimonial']['count'];
 $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 ?>
 
-<div class="row" style="margin-top: 60px">
-    <?php if($userLoggedIn && $userRole === 'admin'):?>
-    <div class="col-md-8 col-md-offset-2" style="padding-top: 30px;">
-        <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
+<?php $topPosition = 60?>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 1px;">
+        <div style="width: 100%">
+            <span class="h4"><img src="<?php echo DriverProfile::getAbsolutePath($profile['DriverProfile']['avatar_filepath'])?>"/> <span style="display: inline-block"><?php echo __d('driver_profile', 'Conoce a %s un poco más...', $driver_name)?></span></span>
+
+            <?php if($userLoggedIn && $userRole === 'admin'):?>
+                <div style="padding-top: 30px;">
+                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
+                </div>
+            <?php endif?>
+        </div>
     </div>
-    <?php endif?>
+</div>
+<div style="height: <?php echo $topPosition + 100?>px;"></div> <!-- Separator -->
+
+<div class="row" style="margin-top: 50px">
     
+    <?php if(!$userLoggedIn && !$this->Session->read('introduced-in-website')):?>
     <div class="col-md-8 col-md-offset-2">
-        
-        <?php if(!$userLoggedIn && !$this->Session->read('introduced-in-website')):?>
         <span class="alert alert-info alert-dismissable" style="display: inline-block"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'><big>&times;</big></button>
             <p>
                 <?php echo __('Estás en el sitio web de <b>YoTeLlevo</b>, una plataforma que conecta viajeros que vienen a <b>Cuba</b> con <b>choferes privados</b> que operan en la isla.')?>
@@ -34,44 +44,37 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                 <?php echo __d('driver_profile', 'Ahora mismo estás en el perfil de %s, uno de nuestros choferes.', '<code>'.$driver_name.'</code>')?>
             </p>
         </span>
-        <?php endif?>
-        
+    </div>
+    <?php endif?>
+    
+    <div class="col-md-8 col-md-offset-2">
+        <p><b><?php echo __d('driver_profile', 'Datos rápidos sobre %s', $driver_name)?>:</b></p>
+        <div><big><?php echo __d('driver_profile', '<span class="text-muted">Vive en</span> %s', $profile['Province']['name'])?></big></div>
         <div>
-            <h3><img src="<?php echo DriverProfile::getAbsolutePath($profile['DriverProfile']['avatar_filepath'])?>"/> <span style="display: inline-block"><?php echo __d('driver_profile', 'Conoce a %s un poco más...', $driver_name)?></span></h3>
-        </div>
-        <hr/>
-        
-        <div>
-            <p><?php echo __d('driver_profile', 'Datos rápidos sobre %s', $driver_name)?>:</p>
-            <div><?php echo __d('driver_profile', '<span class="text-muted">Vive en</span> %s', $profile['Province']['name'])?></div>
-            <div>
+            <big>
                 <?php echo __d('driver_profile', '<span class="text-muted">Auto hasta</span> %s pax', $profile['Driver']['max_people_count'])?>
                 <?php if($profile['Driver']['has_air_conditioner']) echo __d('driver_profile', '<span class="text-muted">con</span> aire acondicionado')?>
-            </div>
-            <div><?php if($hasTestimonials):?><a href="#reviews"><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', $testimonialsCount)?></a><?php endif?></div>
+            </big>
         </div>
-        <br/>
-        
-        <br/>
-        <div id="profile-description">
-            <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
-        </div>
+        <?php if($hasTestimonials):?><div><big><a href="#reviews"><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', $testimonialsCount)?></a></div><?php endif?>
+    </div>
+    
+    <div class="col-md-8 col-md-offset-2" id="profile-description" style="margin-top: 40px">
+        <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
     </div>
     
 </div>
 
 <?php if($hasTestimonials):?>
 <div class="row">
-    <div style="height: 60px" id="reviews"></div>
+    <div style="height: 160px" id="reviews"></div>
     <div class="col-md-8 col-md-offset-2">
         <span class="lead">
             <?php echo __d('driver_profile', '%s tiene %s opiniones', $driver_short_name, $testimonialsCount)?>
         </span>
-        <hr/>
     </div>
     
     <?php echo $this->element('ajax_testimonials_list', compact('testimonials')); ?>
-    <hr/>
 </div>
 <?php endif?>
 
@@ -122,4 +125,8 @@ function goTo(id) {
         scrollTop: $('#' + id).offset().top
     }, 300);
 };
+
+$(window).scroll(function(){
+        $("#fixed").css("top", Math.max(50, <?php echo $topPosition?> - $(this).scrollTop()));
+    });
 </script>

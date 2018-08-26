@@ -21,7 +21,7 @@
         <?php
             echo "<center>".
                     $this->Paginator->next(
-                        '+ <big><big>'.__d('testimonials', 'Cargar más testimonios').'...</big></big>',
+                        '<big><big>'.__d('testimonials', 'VER MÁS OPINIONES').'...</big></big>',
                         array('class'=>'btn btn-warning', 'style'=>'color: inherit;text-decoration:none', 'escape'=> false),
                         __d('testimonials', 'No hay más testimonios'),
                         array('escape'=> false, 'class'=>'text-muted')).

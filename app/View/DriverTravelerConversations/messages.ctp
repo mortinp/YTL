@@ -10,7 +10,7 @@
     ?>
 <?php endif;?>
 <?php $topPosition = 60?>
-<div class="col-md-8 col-md-offset-2 well" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px">
+<div class="col-md-8 col-md-offset-2" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 1px;">
     <div style="width: 100%">
         <?php if($hasProfile):?>
             <div style="float: left">
