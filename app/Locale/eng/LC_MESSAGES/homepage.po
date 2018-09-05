@@ -23,24 +23,28 @@ msgid "Registrarse"
 msgstr "Sign Up"
 
 #: /home.ctp:27
-msgid "¿Necesitas un chofer con auto en Cuba?"
-msgstr "Need a driver with a car in Cuba?"
+msgid "¿Necesitas un chofer con auto en %s?"
+msgstr "Need a driver with a car in %s?"
 
 #: /home.ctp:29
-msgid "Contacta tres choferes independientes que viven en la isla"
-msgstr "Contact three independent drivers who live in the island"
+msgid "Envía tu solicitud a %s choferes que operan en Cuba y recibe ofertas directamente de ellos"
+msgstr "Send your request to %s drivers who operate in Cuba and get quotes directly from them"
 
 #: /home.ctp:29
-msgid "... y consigue un taxi para tu excursión o transfer"
-msgstr "... and arrange a taxi for your transfer or tour"
+msgid "Conoce los precios para tus excursiones y traslados"
+msgstr "Learn the prices for your excursions and trips"
+
+#: /home.ctp:29
+msgid "Acuerda todo con tu chofer antes de llegar a la isla"
+msgstr "Arrange all with your driver before you arrive in the island"
 
 #: /home.ctp:33
 msgid "Conoce 3 choferes por correo"
 msgstr "Meet 3 drivers via email"
 
 #: /home.ctp:35
-msgid "Recibe ofertas directamente de ellos. Contrata al que creas mejor."
-msgstr "Get quotes directly from them. Hire the one you think is best."
+msgid "Contrata al que creas mejor"
+msgstr "Hire the one you think is best"
 
 #: /home.ctp:50
 msgid "Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla"

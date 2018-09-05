@@ -32,32 +32,27 @@
                 <div class="navbar-collapse navbar-ex1-collapse collapse" style="height: 1px;">
                     <ul class="nav navbar-nav navbar-right">
                         <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
-                        <!--<li><?php echo $this->Html->link(__d('homepage', 'Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>-->
+                        <li><?php echo $this->Html->link(__d('homepage', 'Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
                     </ul>
                 </div>
             </nav>
         </div>
 
     </div>
-    
-    <div class="col-md-8 col-md-offset-2 value-proposition" style="margin-top: 20px">
-        <h1 id="sell"><big><?php echo __d('homepage', '¿Necesitas un chofer con auto en %s?', '<code><b><big>Cuba</big></b></code>') ?></big></h1>
-        <br/>
-        <h2>
-            <b><?php echo __d('homepage', 'Envía tu solicitud a %s choferes que operan en Cuba y recibe ofertas directamente de ellos', __('tres')) ?></b>
-        </h2>
-        <br/>
-        <h3>
-            <?php echo __d('homepage', 'Conoce los precios para tus excursiones y traslados')?> • <?php echo __d('homepage', 'Acuerda todo con tu chofer antes de llegar a la isla')?>
-        </h3>
-        <div class="sell-button" style="padding-top:30px">
-            <a href="#!" class="btn btn-success show-travel-form">
-                <?php echo __d('homepage', 'Conoce 3 choferes por correo') ?>
-                <div class="sub">
-                    <?php echo __d('homepage', 'Contrata al que creas mejor') ?>
-                </div>
-            </a>
-        </div>
+    <h1 id="sell" class="handwritten white"><?php echo __d('homepage', '¿Necesitas un chofer con auto en Cuba?') ?></h1>
+    <h2 class="handwritten-2 white">
+        <big><?php echo __d('homepage', 'Contacta tres choferes independientes que viven en la isla') ?></big>
+    </h2>
+    <h3 class="handwritten-2 white">
+        <?php echo __d('homepage', '... y consigue un taxi para tu excursión o transfer') ?>
+    </h3>
+    <div class="sell-button" style="padding-top:50px">
+        <a href="#!" class="btn btn-success show-travel-form">
+            <?php echo __d('homepage', 'Conoce 3 choferes por correo') ?>
+            <div class="sub">
+                <?php echo __d('homepage', 'Recibe ofertas directamente de ellos. Contrata al que creas mejor.') ?>
+            </div>
+        </a>
     </div>
 </div>
 

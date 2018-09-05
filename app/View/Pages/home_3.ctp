@@ -44,12 +44,15 @@
         <h1 id="sell"><big><?php echo __d('homepage', '¿Necesitas un chofer con auto en %s?', '<code><b><big>Cuba</big></b></code>') ?></big></h1>
         <br/>
         <h2>
-            <b><?php echo __d('homepage', 'Envía tu solicitud a %s choferes que operan en Cuba y recibe ofertas directamente de ellos', __('tres')) ?></b>
+            <b><?php echo __d('homepage', 'Contacta %s choferes independientes que viven en la isla', __('tres')) ?></b>
         </h2>
-        <br/>
         <h3>
-            <?php echo __d('homepage', 'Conoce los precios para tus excursiones y traslados')?> • <?php echo __d('homepage', 'Acuerda todo con tu chofer antes de llegar a la isla')?>
+            <b><?php echo __d('homepage', '... y consigue un taxi para tus excursiones y traslados') ?></b>
         </h3>
+        <br/>
+        <h4 class="h3">
+            <?php echo __d('home', 'Recibe ofertas directamente de los choferes')?> • <?php echo __d('home', 'Mira sus fotos y testimonios')?>
+        </h4>
         <div class="sell-button" style="padding-top:30px">
             <a href="#!" class="btn btn-success show-travel-form">
                 <?php echo __d('homepage', 'Conoce 3 choferes por correo') ?>
