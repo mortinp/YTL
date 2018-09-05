@@ -983,6 +983,10 @@ msgstr "This email does not belog to any of our users."
 msgid "tres"
 msgstr "three"
 
+#: View/Elements/pretty_message.ctp:9
+msgid "varios"
+msgstr "some"
+
 
 
 

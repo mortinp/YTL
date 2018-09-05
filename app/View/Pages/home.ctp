@@ -44,7 +44,7 @@
         <h1 id="sell"><big><?php echo __d('homepage', '¿Necesitas un chofer con auto en %s?', '<code><b><big>Cuba</big></b></code>') ?></big></h1>
         <br/>
         <h2>
-            <b><?php echo __d('homepage', 'Envía tu solicitud a %s choferes que operan en Cuba y recibe ofertas directamente de ellos', __('tres')) ?></b>
+            <b><?php echo __d('homepage', 'Envía tu solicitud a %s choferes de taxi que viven en Cuba y recibe ofertas directamente de ellos', __('varios')) ?></b>
         </h2>
         <br/>
         <h3>

@@ -27,8 +27,8 @@ msgid "¿Necesitas un chofer con auto en %s?"
 msgstr "Need a driver with a car in %s?"
 
 #: /home.ctp:29
-msgid "Envía tu solicitud a %s choferes que operan en Cuba y recibe ofertas directamente de ellos"
-msgstr "Send your request to %s drivers who operate in Cuba and get quotes directly from them"
+msgid "Envía tu solicitud a %s choferes de taxi que viven en Cuba y recibe ofertas directamente de ellos"
+msgstr "Send your request to %s taxi drivers who live in Cuba and get quotes directly from them"
 
 #: /home.ctp:29
 msgid "Conoce los precios para tus excursiones y traslados"
