@@ -1,1 +1,1 @@
-UPDATE testimonials SET image_filepath='files/1531496333_erio_jpg' WHERE id='5b4531bd-8174-4104-9fe0-08174f8fb177';
+UPDATE testimonials SET image_filepath='files/1536360317_yoslandy-and-his-taxi-customers_jpg' WHERE id='5b92dbed-51a0-4bb7-9a53-14914f8fb177';
