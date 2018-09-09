@@ -18,7 +18,7 @@
             $urlBlog .= '/'.Configure::read('Config.language');
             ?>
             
-            <?php echo $this->Html->link(__('Testimonios'), array('controller'=>'testimonials', 'action'=>'featured')); ?>
+            <?php echo $this->Html->link(__('Testimonios'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es'))); ?>
             |
             
             <?php echo $this->Html->link(__('Contactar'), array('controller'=>'pages', 'action'=>'display', 'contact')); ?>

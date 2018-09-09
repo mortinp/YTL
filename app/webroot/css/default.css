@@ -104,13 +104,13 @@ code {
 
 
 .arrow_box_bottom {
-    border-bottom: 2px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
 }
 .arrow_box_right {
-    border-right: 2px solid #cccccc;
+    border-right: 1px solid #cccccc;
 }
 .arrow_box_top {
-    border-top: 2px solid #cccccc; 
+    border-top: 1px solid #cccccc; 
 } 
 
 
@@ -146,24 +146,24 @@ code {
 
 
 .arrow_box:before {
-    border-width: 43px;
+    border-width: 42px;
 }
 .arrow_box_bottom:before {
     border-top-color: #cccccc;
-    margin-left: -43px;
+    margin-left: -42px;
 }
 .arrow_box_right:before {
     border-left-color: #cccccc;
-    margin-top: -43px;
+    margin-top: -42px;
 }
 .arrow_box_top:before { 
     border-bottom-color: #cccccc; 
-    margin-left: -43px;
+    margin-left: -42px;
 }
 
 
 .form-cover {
-    background-color: lightgoldenrodyellow;/*#ebebeb*/;
+    /*background-color: lightgoldenrodyellow;;*/
     padding: 40px;
 }
 @media (max-width: 767px){

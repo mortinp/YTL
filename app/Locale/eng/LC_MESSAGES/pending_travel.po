@@ -39,12 +39,12 @@ msgid "Crear Anuncio"
 msgstr "Create Request"
 
 #: View/Elements/pending_travel_form.ctp:44
-msgid "Pónme en contacto ahora"
-msgstr "Arrange my travel now"
+msgid "Pónme en contacto con %s choferes ahora"
+msgstr "Get me in contact with %s drivers now"
 
 #: View/Elements/pending_travel_form.ctp:44
-msgid "Contacta con <big>3</big> choferes. Escoge uno para tu viaje."
-msgstr "Contact <big>3</big> drivers. Choose one for your travel."
+msgid "Compara las ofertas. Escoge un chofer si te gusta."
+msgstr "Compare the offers. Choose one driver if you like one."
 
 #: View/Elements/pending_travel_form.ctp:71;89
 msgid "Origen del Viaje"

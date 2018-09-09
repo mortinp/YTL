@@ -49,18 +49,36 @@ if($isLoggedIn) {
         $this->Html->css('home', array('inline' => false));
         
         $this->Html->script('default-bundle', array('inline' => false));
-        
 
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
         ?>
         
-        <script type="text/javascript">
+        <!--<script type="text/javascript">
             $(document).ready(function() {
                 $('.info').tooltip({placement:'bottom', html:true});
+                
+                // STICKY MENU
+                var offset = 20;
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop >= offset) {
+                    $('#nav').addClass('btn-success');
+                } else if (scrollTop < offset) {
+                    $('#nav').removeClass('btn-success');
+                }
+                $(window).scroll(function(){
+                    scrollTop = $(window).scrollTop();
+                        $('.counter').html(scrollTop);
+
+                    if (scrollTop >= offset) {
+                        $('#nav').addClass('btn-success');
+                    } else if (scrollTop < offset) {
+                        $('#nav').removeClass('btn-success');
+                    } 
+                });
             })
-        </script>
+        </script>-->
     </head>
     <body>
             
@@ -98,11 +116,5 @@ if($isLoggedIn) {
 
             <!-- End 1FreeCounter.com code -->
         <?php endif;?>
-
-        <div id="footer">
-            <div class="container-fluid">
-                <?php echo $this->element('footer')?>
-            </div>
-        </div>
     </body>
 </html>

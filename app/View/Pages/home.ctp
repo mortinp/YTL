@@ -11,7 +11,7 @@
 <div id="front-page-bg">
     <div id="navgradient">
         <div id="navbar">
-            <nav id="nav">
+            <nav id="nav" class="navbar">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -32,7 +32,6 @@
                 <div class="navbar-collapse navbar-ex1-collapse collapse" style="height: 1px;">
                     <ul class="nav navbar-nav navbar-right">
                         <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
-                        <!--<li><?php echo $this->Html->link(__d('homepage', 'Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>-->
                     </ul>
                 </div>
             </nav>
@@ -44,7 +43,7 @@
         <h1 id="sell"><big><?php echo __d('homepage', '¿Necesitas un chofer con auto en %s?', '<code><b><big>Cuba</big></b></code>') ?></big></h1>
         <br/>
         <h2>
-            <b><?php echo __d('homepage', 'Envía tu solicitud a %s choferes de taxi que viven en Cuba y recibe ofertas directamente de ellos', __('varios')) ?></b>
+            <b><?php echo __d('homepage', 'Envía tu solicitud a %s de nuestros choferes de taxi en Cuba y recibe ofertas directamente de ellos', __('varios')) ?></b>
         </h2>
         <br/>
         <h3>
@@ -52,7 +51,7 @@
         </h3>
         <div class="sell-button" style="padding-top:30px">
             <a href="#!" class="btn btn-success show-travel-form">
-                <?php echo __d('homepage', 'Conoce 3 choferes por correo') ?>
+                <?php echo __d('homepage', 'Sí, solicitar ofertas a choferes en Cuba') ?>
                 <div class="sub">
                     <?php echo __d('homepage', 'Contrata al que creas mejor') ?>
                 </div>
@@ -61,9 +60,7 @@
     </div>
 </div>
 
-<br/>
-
-<div class="row sell">
+<div class="row sell" style="margin-top:80px">
     <div class="col-md-4 center">
         <?php
         $filesBaseUrl = '/files';
@@ -71,21 +68,21 @@
             $filesBaseUrl = '/yotellevo'.$filesBaseUrl;
         }
         ?>
-        <span class="glyphicon"><img src="<?php echo $filesBaseUrl.'/1423880259_avatar-alexis_jpg'?>" class="img-responsive"/></span>
-        <span class="glyphicon"><img src="<?php echo $filesBaseUrl.'/1424441088_avatar-fidel_jpg'?>" class="img-responsive"/></span>
-        <span class="glyphicon"><img src="<?php echo $filesBaseUrl.'/1423880166_avatar-ovidio_jpg'?>" class="img-responsive"/></span>
+        <span class="glyphicon"><?php echo $this->Html->image('avatar-yoslandy.jpg', array('class'=>'img-responsive'))?></span>
+        <span class="glyphicon"><?php echo $this->Html->image('avatar-escurdia.jpg', array('class'=>'img-responsive'))?></span>
+        <span class="glyphicon"><?php echo $this->Html->image('avatar-paco.jpg', array('class'=>'img-responsive'))?></span>
         <p class="lead">
             <?php echo __d('homepage', 'Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla') ?>.
         </p>
     </div>
-    <div class="col-md-4 center">
+    <div class="col-md-4 center sell-snippet">
         <span class="glyphicon glyphicon-comment"></span>
         <span class="glyphicon glyphicon-usd"></span>
         <p class="lead">
             <?php echo __d('homepage', 'Los choferes te darán sus precios y tú puedes preguntar cualquier cosa relativa al viaje. Conoce un poco a los choferes mientras intercambian correos') ?>.
         </p>
     </div>
-    <div class="col-md-4 center">
+    <div class="col-md-4 center sell-snippet">
         <span class="glyphicon glyphicon-briefcase"></span>
         <span class="glyphicon glyphicon-camera"></span>
         <span class="glyphicon glyphicon-music"></span>
@@ -102,7 +99,7 @@
 
     <div class="row featurette">
         <div class="col-md-5">
-            <?php echo $this->Html->image('driver.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Chofer de taxi sonriendo'))) ?>
+            <?php echo $this->Html->image('driver.jpg', array('class' => 'featurette-image img-responsive img-rounded', 'alt'=>__d('homepage', 'Chofer de taxi sonriendo'))) ?>
         </div>
         <div class="col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'Conoce a tu chofer') ?></h2>
@@ -117,7 +114,7 @@
     
     <div class="row featurette">
         <div class="col-md-push-7 col-md-5">
-            <?php echo $this->Html->image('budget-plan.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Pareja planeando presupuesto de viaje'))) ?>
+            <?php echo $this->Html->image('budget-plan.jpg', array('class' => 'featurette-image img-responsive img-rounded', 'alt'=>__d('homepage', 'Pareja planeando presupuesto de viaje'))) ?>
         </div>
         <div class="col-md-pull-5 col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'Planifica tu presupuesto de antemano') ?></h2>
@@ -131,7 +128,7 @@
     
     <div class="row featurette">
         <div class="col-md-5">
-            <?php echo $this->Html->image('taxi-pick.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Familia subiendo al auto'))) ?>
+            <?php echo $this->Html->image('taxi-pick.jpg', array('class' => 'featurette-image img-responsive img-rounded', 'alt'=>__d('homepage', 'Familia subiendo al auto'))) ?>
         </div>
         <div class="col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'No pierdas tiempo esperando transporte') ?></h2>
@@ -145,7 +142,7 @@
 
     <div class="row featurette">
         <div class="col-md-push-7 col-md-5">
-            <?php echo $this->Html->image('collage.jpg', array('class' => 'featurette-image img-responsive img-circle', 'alt'=>__d('homepage', 'Varios destinos turísticos en Cuba'))) ?>
+            <?php echo $this->Html->image('collage.jpg', array('class' => 'featurette-image img-responsive img-rounded', 'alt'=>__d('homepage', 'Varios destinos turísticos en Cuba'))) ?>
         </div>
         <div class="col-md-pull-5 col-md-7">
             <h2 class="featurette-heading"><?php echo __d('homepage', 'Desata tu creatividad') ?></h2>
@@ -157,13 +154,13 @@
 </div>
 <!-- /END THE FEATURETTES -->
 
-<div id="travel-create" class="form-cover">
+<div id="travel-create" class="form-cover bg-warning">
     <div class="row">
         <div id="TravelRequest" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
-            <legend style="text-align:center">
-                <div class="handwritten-2"><big><big><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer en Cuba') ?></big></big></div>
-                <div><small><?php echo __d('homepage', '<b>Consigue un chofer con auto</b> creando un Anuncio de Viaje') ?></small></div>
-            </legend>
+            <div style="text-align:center;margin-bottom: 30px">
+                <div class="handwritten-2"><big><big><b><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer en Cuba') ?></b></big></big></div>
+                <div><big><?php echo __d('homepage', '<b>Consigue un chofer con auto</b> creando una solicitud de viaje') ?></big></div>
+            </div>
             <?php echo $this->Session->flash(); ?>            
             <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>
         </div>
@@ -179,7 +176,7 @@
         </div>
         <div class="col-sm-6 col-md-3 center">
             <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded varadero">
+                <div class="destination-thumb varadero">
                     <p class="handwritten white dest" style="font-size: 24pt">Varadero</p>
                     <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Varadero</b></h1>
                 </div>
@@ -187,7 +184,7 @@
         </div>
         <div class="col-sm-6  col-md-3 center">
             <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded trinidad">
+                <div class="destination-thumb trinidad">
                     <p class="handwritten white dest" style="font-size: 24pt">Trinidad</p>
                     <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Trinidad</b></h1>
                 </div>
@@ -195,7 +192,7 @@
         </div>
         <div class="col-sm-6  col-md-3 center">
             <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded vinales">
+                <div class="destination-thumb vinales">
                     <p class="handwritten white dest" style="font-size: 24pt">Viñales</p>
                     <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-Viñales</b></h1>
                 </div>
@@ -203,7 +200,7 @@
         </div>
         <div class="col-sm-6  col-md-3 center">
             <a href="#!" style="text-decoration: none">
-                <div class="destination-thumb img-rounded all-around">
+                <div class="destination-thumb all-around">
                     <p class="handwritten white dest" style="font-size: 24pt"><?php echo __d('homepage', 'Recorrido por la isla') ?></p>
                     <h1 class="action white"><?php echo __d('homepage', 'Conseguir taxi') ?> <b>La Habana-<?php echo __d('homepage', 'Recorrido por la isla') ?></b></h1>
                 </div>
@@ -212,10 +209,7 @@
     </div>
 </div>
 
-<br/>
-<br/>
-
-<div id="social-media-sharer" class="row">
+<div id="social-media-sharer" class="row" style="margin-top: 140px">
     <div class="row center" style="padding-bottom: 20px">
         <span class="lead"><?php echo __d('homepage', 'Comparte esta página con tus familiares y amigos')?>!</span>
     </div>
@@ -226,14 +220,7 @@
     </div>
 </div>
 
-<br/>
-<br/>
-<br/>
-<br/>
-
-<hr/>
-
-<div id="review-driver" class="row">
+<div id="review-driver" class="row" style="margin-top: 100px">
     <div class="row center" style="padding-bottom: 20px">
         <span class="lead"><big><big><?php echo __d('homepage', '¿Viajaste con alguno de nuestros choferes?')?></big></big></span>
     </div>
@@ -243,6 +230,12 @@
             <?php echo __d('homepage', 'Si GENUINAMENTE disfrutaste tu viaje, por favor deja una opinión.')?>
             <?php echo __d('homepage', 'Puede parecer insignificante pero es de gran ayuda para el chofer.')?>
         </p>
+    </div>
+</div>
+
+<div id="footer">
+    <div class="row">
+        <?php echo $this->element('footer')?>
     </div>
 </div>
 

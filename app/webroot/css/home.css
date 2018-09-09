@@ -56,10 +56,28 @@
     background-position:center;
     background-color: lightblue;
     width:100%;
-    height:550px;
+    height:600px;
     text-align:center
 }
-#front-page-bg #navbar{background-color:transparent}
+@media (max-width: 767px) {
+    #front-page-bg h1 {
+        font-size:20pt
+    }
+    #front-page-bg h2 {
+        font-size:16pt
+    }
+    #front-page-bg h3 {
+        font-size:12pt
+    }
+}
+
+/*#front-page-bg #navbar{background-color:transparent}*/
+#nav.scrolled {
+    background-color: #1DE1A0 !important;
+}
+#nav.scrolled #nav-toggler {
+    color:white !important;
+}
 
 .handwritten{/*font-family:'Engagement', cursive;*/font-size:48px}
 .handwritten-2{/*font-family:'Engagement', cursive;*/font-size:24px}
@@ -72,45 +90,36 @@
 .center{text-align:center}
 
 .sell-button a {
-    font-size:20pt;
+    font-size:18pt;
     white-space: normal;
-    max-width:400px
+    max-width:500px
 }
-
 .sell-button a .sub {
-   font-size:12pt;
+   font-size:13pt;
    padding-left:50px;
    padding-right:50px
 }
 @media (max-width: 767px) {
+    .sell-button a {
+        font-size:16pt;
+    }
     .sell-button a .sub {padding-left:20px;padding-right:20px}
 }
 
 
 .sell{margin:20px 0;padding:0 100px}
-@media (max-width: 767px){
-    .sell{padding:0 25px}
-}
-
 .sell span{font-size:50px;}
-@media (max-width: 767px){
-    .sell span{font-size:30px;}
-    .sell span img{max-height: 40px;}
-}
-
 .sell span img{max-height: 50px;}
 @media (max-width: 767px){
-    .sell span img{max-height: 40px;}
+    .sell-snippet{margin-top:40px}
+    .sell{padding:0 25px}
+    .sell span{font-size:30px;}
+    .sell p.lead{font-size:16pt}
 }
-
-/*.sell span img{max-height: 40px;}*/
 
 .icon-bar{
 	background-color:white;
 }
-
-
-
 
 
 .twitter-typeahead {
