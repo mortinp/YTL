@@ -50,9 +50,17 @@ msgstr "Compare the offers. Choose one driver if you like one."
 msgid "Origen del Viaje"
 msgstr "Travel Origin"
 
+#: View/Elements/pending_travel_form.ctp:71;89
+msgid "donde comienza tu viaje, ej. %s"
+msgstr "where your trip begins, ex. %s"
+
 #: View/Elements/pending_travel_form.ctp:72;90
 msgid "Destino del Viaje"
 msgstr "Travel Destination"
+
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "ej. %s, <em>Varios destinos</em>, <em>Mi hotel en La Habana</em>, etc."
+msgstr "ex. %s, <em>Different destinations</em>, <em>My hotel in Havana</em>, etc."
 
 #: View/Elements/pending_travel.ctp:57
 #: View/Elements/pending_travel_form.ctp:74;91

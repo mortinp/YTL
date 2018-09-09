@@ -65,8 +65,8 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
         echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'id'=>'TravelForm'));?>
         <fieldset>
         <?php if(!$horizontal):?>
+            <?php echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));?>
             <?php
-            echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));
             echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Destino del Viaje'), 'required'=>true, 'value'=>$destination));
 
             echo $this->Form->custom_date('date', array('label' => __d('pending_travel', 'Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
@@ -84,8 +84,8 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
             <div class="col-md-12">
                 <div class="col-md-6">
                     <?php 
-                    echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje'), 'required'=>true, 'value'=>$origin/*, 'autofocus'=>'autofocus'*/));
-                    echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Destino del Viaje'), 'required'=>true, 'value'=>$destination));
+                    echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje').' <small class="text-muted">- '.__d('pending_travel', 'donde comienza tu viaje, ej. %s', 'La Habana, Varadero, Trinidad, Santiago de Cuba, etc.').'</small>', 'required'=>true, 'value'=>$origin/*, 'autofocus'=>'autofocus'*/));
+                    echo $this->Form->input('destination', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Destino del Viaje').' <small class="text-muted">- '.__d('pending_travel', 'ej. %s, <em>Varios destinos</em>, <em>Mi hotel en La Habana</em>, etc.', 'Viñales, Cienfuegos').'</small>', 'required'=>true, 'value'=>$destination));
                     echo $this->Form->custom_date('date', array('label' => __d('pending_travel', 'Fecha del Viaje'), 'dateFormat' => 'dd/mm/yyyy'));
                     echo $this->Form->input('people_count', array('label' => __d('pending_travel', 'Personas que viajan <small class="text-info">(máximo número de personas)</small>'), 'default' => 1, 'min' => 1));
                     ?>
