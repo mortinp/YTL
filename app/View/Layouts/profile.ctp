@@ -25,6 +25,7 @@ if($userLoggedIn) {
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>        
         <?php echo $this->Html->charset(); ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php        
         $title = __d('driver_profile', '%s, chofer en %s, Cuba', $profile['DriverProfile']['driver_name'], $profile['Province']['name']).' - '.__d('driver_profile', 'Auto hasta %s pax', $profile['Driver']['max_people_count']);
         if($profile['Driver']['has_air_conditioner']) $title .= ' '.__d('driver_profile', 'con aire acondicionado');

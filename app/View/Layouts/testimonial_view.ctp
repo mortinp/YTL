@@ -25,6 +25,7 @@ if($userLoggedIn) {
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>        
         <?php echo $this->Html->charset(); ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php
         $testimonial = $data['Testimonial'];
         $profile = $data['Driver']['DriverProfile'];
