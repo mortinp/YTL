@@ -9,34 +9,31 @@
 ?>
 
 <div id="front-page-bg">
-    <div id="navgradient">
-        <div id="navbar">
-            <nav id="nav" class="navbar">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                        <span class="white navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
-                    <div class="pull-left navbar-brand">
-                        <?php $lang = SessionComponent::read('app.lang');?>
-                        <?php if($lang != null && $lang == 'en'):?>
-                            <?php echo $this->Html->link($this->Html->image('Spain.png').' Español', $lang_changed_url, array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false)) ?>
-                        <?php else:?>
-                            <?php echo $this->Html->link($this->Html->image('UK.png').' English', $lang_changed_url, array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false)) ?>
-                        <?php endif;?>
-                    </div>
+    <div id="navbar">
+        <nav id="nav" class="navbar">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <span class="white navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
+                <div class="pull-left navbar-brand">
+                    <?php $lang = SessionComponent::read('app.lang');?>
+                    <?php if($lang != null && $lang == 'en'):?>
+                        <?php echo $this->Html->link($this->Html->image('Spain.png').' Español', $lang_changed_url, array('class' => 'nav-link', 'title'=>'Traducir al Español', 'escape'=>false)) ?>
+                    <?php else:?>
+                        <?php echo $this->Html->link($this->Html->image('UK.png').' English', $lang_changed_url, array('class' => 'nav-link', 'title'=>'Translate to English', 'escape'=>false)) ?>
+                    <?php endif;?>
                 </div>
-                <div class="navbar-collapse navbar-ex1-collapse collapse" style="height: 1px;">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-
+            </div>
+            <div class="navbar-collapse navbar-ex1-collapse collapse" style="height: 1px;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
+                </ul>
+            </div>
+        </nav>
     </div>
     
     <div class="col-md-8 col-md-offset-2 value-proposition" style="margin-top: 20px">
@@ -209,33 +206,27 @@
     </div>
 </div>
 
-<div id="social-media-sharer" class="row" style="margin-top: 140px">
-    <div class="row center" style="padding-bottom: 20px">
+<div id="social-media-sharer" style="margin-top: 140px">
+    <div class="center" style="padding-bottom: 20px">
         <span class="lead"><?php echo __d('homepage', 'Comparte esta página con tus familiares y amigos')?>!</span>
     </div>
-    <div class="row center">
+    <div class="center">
         <span class="social-button"><a rel="nofollow" class="twitter" target="_blank" href="https://twitter.com/home?status=<?php echo __('Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba')?>">Twitter</a></span>
         <span class="social-button"><a rel="nofollow" class="google" target="_blank" href="https://plus.google.com/share?url=http://yotellevocuba.com">Google+</a></span>
         <span class="social-button"><a rel="nofollow" class="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yotellevocuba.com">Facebook</a></span>
     </div>
 </div>
 
-<div id="review-driver" class="row" style="margin-top: 100px">
-    <div class="row center" style="padding-bottom: 20px">
+<div id="review-driver" style="margin-top: 100px">
+    <div class="center" style="padding-bottom: 20px">
         <span class="lead"><big><big><?php echo __d('homepage', '¿Viajaste con alguno de nuestros choferes?')?></big></big></span>
     </div>
     <div class="col-md-6 col-md-offset-3">
         <?php echo $this->Form->button('<big><big><big>'.__d('homepage', 'Deja una opinión aquí sobre él o ella').' »</big></big></big>', array('controller'=>'testimonials', 'action'=>'enter_code', 'class'=>'btn-warning btn-block'), true); ?></big>
-        <p style="text-align: center;padding-top: 20px;padding-bottom: 20px" class="alert-warning">
+        <p class="text-warning center" style="margin-top: 20px;">
             <?php echo __d('homepage', 'Si GENUINAMENTE disfrutaste tu viaje, por favor deja una opinión.')?>
             <?php echo __d('homepage', 'Puede parecer insignificante pero es de gran ayuda para el chofer.')?>
         </p>
-    </div>
-</div>
-
-<div id="footer">
-    <div class="row">
-        <?php echo $this->element('footer')?>
     </div>
 </div>
 

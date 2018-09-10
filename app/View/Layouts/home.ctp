@@ -83,7 +83,12 @@ if($isLoggedIn) {
     <body>
             
         <?php echo $this->Session->flash('auth'); ?>        
-        <?php echo $this->fetch('content'); ?>
+        <div class="container-fluid" style="padding: 0px"><?php echo $this->fetch('content');?></div>
+        <div id="footer">
+            <div class="container-fluid">
+                <?php echo $this->element('footer')?>
+            </div>
+        </div>
 
         <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
             <!-- Start 1FreeCounter.com code -->
