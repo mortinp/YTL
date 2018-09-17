@@ -26,7 +26,7 @@ if($userLoggedIn) {
 <html>
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title><?php echo $page_title." | YoTeLlevo" ?></title>
         <meta name="description" content="<?php echo $page_description?>"/>
         
@@ -225,9 +225,6 @@ if($userLoggedIn) {
                         <?php else: ?>
                             <li>
                                 <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
-                            </li>
-                            <li>
-                                <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?>
                             </li>
                         <?php endif ?>
 

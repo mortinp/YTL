@@ -1,0 +1,139 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:19
+msgid "Averigua precios de choferes privados en %s"
+msgstr "Find out the prices of private drivers in %s"
+
+#: /home.ctp:29
+msgid "Te conectamos con %s choferes independientes que viven en Cuba para que acuerdes precios directamente con ellos"
+msgstr "We connect you to %s independent drivers who live in Cuba so that you can arrange prices directly with them"
+
+#: /home.ctp:29
+msgid "Conoce los precios para tus excursiones y traslados antes de llegar a la isla"
+msgstr "Learn the prices for your excursions and trips before you arrive in the island"
+
+#: /home.ctp:33
+msgid "Sí, solicitar ofertas a choferes en Cuba"
+msgstr "Yes, request quotes from drivers in Cuba"
+
+#: /home.ctp:35
+msgid "Contrata un chofer si así lo decides"
+msgstr "Hire one driver if you decide to"
+
+#: /home.ctp:50
+msgid "Te ponemos en contacto con hasta 3 de nuestros choferes para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla"
+msgstr "We connect you with up to 3 of our drivers so that you can arrange your travel directly with them via email before you arrive in the island"
+
+#: /home.ctp:59
+msgid "Los choferes te darán sus precios y tú puedes preguntar cualquier cosa relativa al viaje. Conoce un poco a los choferes mientras intercambian correos"
+msgstr "The drivers will give you quotes and you can ask anything until you feel comfortable. Get to meet the drivers as you exchange emails"
+
+#: /home.ctp:68
+msgid "Contrata al chofer que creas mejor de acuerdo a tu presupuesto o necesidades especiales. O simplemente haz un amigo que te lleve en su auto a donde quieras ir"
+msgstr "Hire the driver you think is best according to your budget or special needs. Or just make a friend to ride you anywhere"
+
+#: /home.ctp:83
+msgid "Chofer de taxi sonriendo"
+msgstr "Taxi driver smiling"
+
+#: /home.ctp:83
+msgid "Conoce a tu chofer"
+msgstr "Meet your driver"
+
+#: /home.ctp:86
+msgid "El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos, pescadores, comediantes, todos propietarios de un auto que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras."
+msgstr "The driver you travel with is important and makes the difference. Our drivers are pilots, fishermen, comedians, all of them owners of a car who help us move you around the island. Connect with your driver the way you prefer."
+
+#: View/Pages/home.ctp:100
+msgid "Pareja planeando presupuesto de viaje"
+msgstr "Couple planning travel budget"
+
+#: View/Pages/home.ctp:100
+msgid "Planifica tu presupuesto de antemano"
+msgstr "Plan your budget before hand"
+
+#: View/Pages/home.ctp:103
+msgid "Planifica los costos de transportación con tu chofer antes de llegar a la isla. Asegúrate de cuánto puedes disponer para otras actividades y ahórrate las sorpresas de tener que negociar tarifas con choferes en la calle en el momento de llegar."
+msgstr "Plan all the transportation costs with your driver before you arrive in the island. Know for sure what you can spare for other activites and save yourself from the surprises of having to negotiate fares with drivers on the streets the moment you arrive."
+
+#: View/Pages/home.ctp:114
+msgid "Familia subiendo al auto"
+msgstr "Family getting in the car"
+
+#: View/Pages/home.ctp:114
+msgid "No pierdas tiempo esperando transporte"
+msgstr "Don't waste time waiting for transport"
+
+#: View/Pages/home.ctp:117
+msgid "¿Por qué esperar por un bus para llegar a dónde quieres? ¿Por qué ajustarte a su horario de salida? Tu tiempo en Cuba es limitado y es mejor tener un taxi a tu disposición y decidir cuándo moverte y hacia qué lugar. Es tan simple como recostarte en tu asiento y dejarte llevar."
+msgstr "Why wait for a bus to get where you want? Why have to schedule yourself to meet its departure time? Your time visiting Cuba is limited, and it's better to have a taxi at your disposal and decide when to take a ride, anytime, anywhere. It's as simple as laying back in your seat and saying <em>Go</em>."
+
+#: View/Pages/home.ctp:128
+msgid "Varios destinos turísticos en Cuba"
+msgstr "Various tourism destinations in Cuba"
+
+#: View/Pages/home.ctp:128
+msgid "Desata tu creatividad"
+msgstr "Unleash your creativity"
+
+#: View/Pages/home.ctp:131
+msgid "Cuba es un país hermoso para visitar y recorrer, y ninguno de sus lugares es igual. Arma tu viaje de la manera que quieras. Decide dónde quieres ir sin ajustarte a itinerarios rígidos y aburridos. Haz cambios de última hora cuando desees, aprende y decide en el camino y crea los mejores recuerdos."
+msgstr "Cuba is a wonderful country to visit and none of its places is similar. Arrange your journeys the way you want, without being attached to rigid and boring itineraries. Do last minute changes, learn and decide along the way and create the best memories."
+
+#: /home.ctp:124
+msgid "Haz un viaje sorprendente con tu chofer en Cuba"
+msgstr "Do an amazing trip with your driver in Cuba"
+
+#: /home.ctp:125
+msgid "Envía tu solicitud a varios choferes y <b>recibe ofertas directamente de ellos</b>"
+msgstr "Send your request to some drivers and <b>get quotes directly from them</b>"
+
+#: /home.ctp:137
+msgid "¿Necesitas ideas? Estos son destinos populares con origen en"
+msgstr "Need ideas? These are popular destinations with origin in"
+
+#: /home.ctp:144;152;160;168
+msgid "Conseguir taxi"
+msgstr "Get a taxi"
+
+#: /home.ctp:167;168
+msgid "Recorrido por la isla"
+msgstr "All around the island"
+
+#: /home.ctp:167;168
+msgid "¿Viajaste con alguno de nuestros choferes?"
+msgstr "Did you take a ride with one of our drivers?"
+
+#: /home.ctp:167;168
+msgid "Deja una opinión aquí sobre él o ella"
+msgstr "Leave a review about him or her"
+
+#: /home.ctp:167;168
+msgid "Si GENUINAMENTE disfrutaste tu viaje, por favor deja una opinión."
+msgstr "If you GENUINELY enjoyed your ride, please leave a review."
+
+#: /home.ctp:167;168
+msgid "Puede parecer insignificante pero es de gran ayuda para el chofer."
+msgstr "It might seem insignificant but it is a huge help for the driver."
+
+#: /home.ctp:167;168
+msgid "Comparte esta página con tus familiares y amigos"
+msgstr "Share this page with your family and friends"
+
+#: /home.ctp:167;168
+msgid "Mira fotos y testimonios sobre nuestros choferes"
+msgstr "See pictures and reviews about our drivers"

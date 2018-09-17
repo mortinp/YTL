@@ -25,7 +25,7 @@ if($userLoggedIn) {
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <?php        
         $title = __d('driver_profile', '%s, chofer en %s, Cuba', $profile['DriverProfile']['driver_name'], $profile['Province']['name']).' - '.__d('driver_profile', 'Auto hasta %s pax', $profile['Driver']['max_people_count']);
         if($profile['Driver']['has_air_conditioner']) $title .= ' '.__d('driver_profile', 'con aire acondicionado');
@@ -65,9 +65,6 @@ if($userLoggedIn) {
                 margin-bottom: 20px;
             }
             
-            #content p {
-                font-size: 12pt;
-            }
         </style>
         
         <?php
@@ -89,7 +86,10 @@ if($userLoggedIn) {
         </script>
     </head>
     <body>
-        <div id="container">
+
+        <?php echo $this->Session->flash('auth'); ?>
+
+        <div class="container-fluid">
             <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -117,7 +117,7 @@ if($userLoggedIn) {
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <?php if ($userLoggedIn) :?>
-                            
+
                                 <?php if($userRole === 'regular' || $userRole === 'admin' || $userRole === 'tester') :?>
                                     <li><?php echo $this->Html->link(__('Solicitar viaje'), array('controller' => 'travels', 'action' => 'add'), array('class' => 'nav-link', 'escape'=>false));?></li> 
                                     <li class="divider-vertical"></li>
@@ -126,7 +126,7 @@ if($userLoggedIn) {
                                     <li title="<?php echo __('Mira los mensajes que tienes con cada uno de los choferes y mantente al tanto de tus acuerdos de viaje')?>" class="info">
                                         <?php echo $this->Html->link('<button type="button" class="btn btn-success navbar-btn">'.__('Mis Mensajes').'</button>', array('controller' => 'conversations'), array('escape'=>false, 'style'=>'padding:0px;padding-right:10px'))?>
                                     </li>
-                                    
+
                                     <?php if($userRole === 'admin') :?>
                                     <li class="divider-vertical"></li>
                                     <li class="dropdown">
@@ -175,10 +175,10 @@ if($userLoggedIn) {
                                     </li>
                                     <?php endif;?>
                                 <?php endif;?>
-                                    
+
                             <?php else: ?>
                                 <li>
-                                    <?php echo $this->Html->link(__('Ir al Inicio'), '/', array('class' => 'nav-link', 'escape'=>false));?>
+                                    <?php echo $this->Html->link(__('Ir al Inicio'), '/'.SessionComponent::read('Config.language'), array('class' => 'nav-link', 'escape'=>false));?>
                                 </li>
                             <?php endif;?> 
                         </ul>
@@ -203,7 +203,7 @@ if($userLoggedIn) {
                             <li title="<?php echo __d('driver_profile', 'Escribe una opinión sobre tu viaje con este chofer')?>" class="info">
                                 <?php echo $this->Html->link('<button type="button" class="btn btn-warning navbar-btn">'.__d('driver_profile', 'Opinar sobre este chofer').'</button>', array('controller' => 'testimonials', 'action'=>'enter_code'), array('escape'=>false, 'style'=>'padding:0px;padding-right:5px'))?>
                             </li>
-                            
+
                             <?php if ($userLoggedIn): ?>
                                 <li class="dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">
@@ -220,9 +220,6 @@ if($userLoggedIn) {
                                 <li>
                                     <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link')) ?>
                                 </li>
-                                <li>
-                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link')) ?>
-                                </li>
                             <?php endif ?>
 
                         </ul>
@@ -230,52 +227,45 @@ if($userLoggedIn) {
                 <!--</div>-->
                 </nav>
             </div>
-            
-            
-            <?php echo $this->Session->flash('auth'); ?>
-
-            <div id="content" class="container-fluid">
-                <?php echo $this->Session->flash(); ?>
-                <?php echo $this->fetch('content'); ?>
-                
-                <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>
-                    <!-- Start 1FreeCounter.com code -->
-  
-                    <script language="JavaScript">
-                    var data = '&r=' + escape(document.referrer)
-                        + '&n=' + escape(navigator.userAgent)
-                        + '&p=' + escape(navigator.userAgent)
-                        + '&g=' + escape(document.location.href);
-
-                    if (navigator.userAgent.substring(0,1)>'3')
-                    data = data + '&sd=' + screen.colorDepth 
-                        + '&sw=' + escape(screen.width+'x'+screen.height);
-
-                    document.write('<a href="http://www.1freecounter.com/stats.php?i=109722" target=\"_blank\" >');
-                    document.write('<img alt="Free Counter" border=0 hspace=0 '+'vspace=0 src="http://www.1freecounter.com/counter.php?i=109722' + data + '">');
-                    document.write('</a>');
-                    </script>
-
-                    <!-- End 1FreeCounter.com code -->
-                    
-                    <!-- Google Analytics -->
-                    <script>
-                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-                    ga('create', 'UA-60694533-1', 'auto');
-                    ga('send', 'pageview');
-                    </script>
-                <?php endif;?>
-            </div>
-
-            <div id="footer">
-                <div class="container-fluid">
-                    <?php echo $this->element('footer')?>
-                </div>
-            </div>
+            <?php echo $this->Session->flash(); ?>
+            <?php echo $this->fetch('content'); ?>
         </div>
+        <div id="footer">
+            <div class="container-fluid">
+                <?php echo $this->element('footer')?>
+            </div>
+        </div> 
+        
+        <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>
+            <!-- Start 1FreeCounter.com code -->
+
+            <script language="JavaScript">
+            var data = '&r=' + escape(document.referrer)
+                + '&n=' + escape(navigator.userAgent)
+                + '&p=' + escape(navigator.userAgent)
+                + '&g=' + escape(document.location.href);
+
+            if (navigator.userAgent.substring(0,1)>'3')
+            data = data + '&sd=' + screen.colorDepth 
+                + '&sw=' + escape(screen.width+'x'+screen.height);
+
+            document.write('<a href="http://www.1freecounter.com/stats.php?i=109722" target=\"_blank\" >');
+            document.write('<img alt="Free Counter" border=0 hspace=0 '+'vspace=0 src="http://www.1freecounter.com/counter.php?i=109722' + data + '">');
+            document.write('</a>');
+            </script>
+
+            <!-- End 1FreeCounter.com code -->
+
+            <!-- Google Analytics -->
+            <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-60694533-1', 'auto');
+            ga('send', 'pageview');
+            </script>
+        <?php endif;?>
     </body>
 </html>

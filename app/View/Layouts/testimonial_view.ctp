@@ -25,7 +25,7 @@ if($userLoggedIn) {
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>        
         <?php echo $this->Html->charset(); ?>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <?php
         $testimonial = $data['Testimonial'];
         $profile = $data['Driver']['DriverProfile'];
@@ -142,9 +142,6 @@ if($userLoggedIn) {
                             <?php else: ?>
                                 <li>
                                     <?php echo $this->Html->link(__('Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link')) ?>
-                                </li>
-                                <li>
-                                    <?php echo $this->Html->link(__('Registrarse'), array('controller' => 'users', 'action' => 'register'), array('class' => 'nav-link')) ?>
                                 </li>
                             <?php endif ?>
 

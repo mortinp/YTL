@@ -23,6 +23,10 @@ msgid "%s tiene %s opiniones"
 msgstr "%s has %s reviews"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Opiniones sobre %s (%s opiniones)"
+msgstr "Reviews about %s (%s reviews)"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "¿Necesitas un chofer con auto en Cuba?"
 msgstr "Need a driver with a car in Cuba?"
 
@@ -162,3 +166,7 @@ msgstr "Car up to %s pax"
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "con aire acondicionado"
 msgstr "with air conditioner"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Fotos de %s"
+msgstr "Pictures of %s"

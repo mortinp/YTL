@@ -16,20 +16,20 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 ?>
 
 <?php $topPosition = 60?>
-<div class="row">
-    <div class="col-md-8 col-md-offset-2" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 3px;">
-        <div style="width: 100%">
-            <span class="h4"><img src="<?php echo DriverProfile::getAbsolutePath($profile['DriverProfile']['avatar_filepath'])?>"/> <span style="display: inline-block"><?php echo __d('driver_profile', 'Conoce a %s un poco más...', $driver_name)?></span></span>
+<div id="fixed" class="row" style="width: 100%;position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 3px;">
 
-            <?php if($userLoggedIn && $userRole === 'admin'):?>
-                <div style="padding-top: 30px;">
-                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
-                </div>
-            <?php endif?>
-        </div>
+    <div class="col-md-8 col-md-offset-2">
+        <span class="h4"><img id="driver-avatar" src="<?php echo DriverProfile::getAbsolutePath($profile['DriverProfile']['avatar_filepath'])?>" style="max-width:60px"/> <span style="display: inline-block"><?php echo __d('driver_profile', 'Conoce a %s un poco más...', $driver_name)?></span></span>
+
+        <?php if($userLoggedIn && $userRole === 'admin'):?>
+            <div style="padding-top: 30px;">
+                <?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> Editar este perfil', array('action'=>'edit_profile/'.$profile['Driver']['id']), array('escape'=>false))?>
+            </div>
+        <?php endif?>
     </div>
+
 </div>
-<div style="height: <?php echo $topPosition + 100?>px;"></div> <!-- Separator -->
+<div style="height: <?php echo $topPosition + 80?>px;"></div> <!-- Separator -->
 
 <div class="row" style="margin-top: 50px">
     
@@ -48,7 +48,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
     <?php endif?>
     
     <div class="col-md-8 col-md-offset-2">
-        <p><b><?php echo __d('driver_profile', 'Datos rápidos sobre %s', $driver_name)?>:</b></p>
+        <p><b><?php echo __d('driver_profile', 'Datos rápidos sobre %s', $driver_name)?></b></p>
         <div><big><?php echo __d('driver_profile', '<span class="text-muted">Vive en</span> %s', $profile['Province']['name'])?></big></div>
         <div>
             <big>
@@ -56,24 +56,39 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                 <?php if($profile['Driver']['has_air_conditioner']) echo __d('driver_profile', '<span class="text-muted">con</span> aire acondicionado')?>
             </big>
         </div>
-        <?php if($hasTestimonials):?><div><big><a href="#reviews"><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', $testimonialsCount)?></a></div><?php endif?>
+        <?php if($hasTestimonials):?><div><a href="#reviews"><big><?php echo __d('driver_profile', '<span class="text-muted">Tiene</span> %s opiniones', $testimonialsCount)?></big></a></div><?php endif?>
     </div>
     
     <div class="col-md-8 col-md-offset-2" id="profile-description" style="margin-top: 40px">
-        <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
+        <?php $desc = json_decode($profile['DriverProfile']['description_'.Configure::read('Config.language')], true)?>
+        <?php if($desc != null):?>
+            <p>
+                <b><?php echo __d('driver_profile', 'Fotos de %s', $driver_name)?></b>
+            </p>
+            <div>
+                <?php foreach ($desc['pics'] as $pic):?>
+                    <?php
+                    $attr = '';
+                    foreach ($pic as $prop=>$val) {
+                        $attr .= $prop.'="'.$val.'" ';
+                    }
+                    ?>
+                    <img <?php echo $attr?> class="img-responsive center" style="padding: 5px;max-width: 640px"/>
+                <?php endforeach?>
+            </div>
+        <?php else:?>
+            <?php echo $profile['DriverProfile']['description_'.Configure::read('Config.language')]?>
+        <?php endif?>
     </div>
     
 </div>
 
 <?php if($hasTestimonials):?>
-<div class="row">
-    <div style="height: 160px" id="reviews"></div>
+<div class="row" style="margin-top: 50px">
+    <div id="reviews"></div>
     <div class="col-md-8 col-md-offset-2">
-        <span class="lead">
-            <?php echo __d('driver_profile', '%s tiene %s opiniones', $driver_short_name, $testimonialsCount)?>
-        </span>
+        <b><?php echo __d('driver_profile', 'Opiniones sobre %s (%s opiniones)', $driver_name, $testimonialsCount)?></b>
     </div>
-    
     <?php echo $this->element('ajax_testimonials_list', compact('testimonials')); ?>
 </div>
 <?php endif?>
@@ -128,5 +143,5 @@ function goTo(id) {
 
 $(window).scroll(function(){
         $("#fixed").css("top", Math.max(50, <?php echo $topPosition?> - $(this).scrollTop()));
-    });
+});
 </script>
