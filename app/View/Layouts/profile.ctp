@@ -90,7 +90,7 @@ if($userLoggedIn) {
         <?php echo $this->Session->flash('auth'); ?>
 
         <div class="container-fluid">
-            <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div id="navbar" class="navbar navbar-default" role="navigation">
                 <nav id="nav">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <!--<div class="container-fluid">-->

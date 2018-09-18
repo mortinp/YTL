@@ -17,16 +17,14 @@
 <?php endforeach?>
 
 <div class="ajax-load">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2 center">
         <?php
-            echo "<center>".
-                    $this->Paginator->next(
-                        '<big><big>'.__d('testimonials', 'VER MÁS OPINIONES').'...</big></big>',
-                        array('class'=>'btn btn-warning', 'style'=>'color: inherit;text-decoration:none', 'escape'=> false),
-                        __d('testimonials', 'No hay más testimonios'),
-                        array('escape'=> false, 'class'=>'text-muted')).
-                "</center>";
-            echo "<center><big>".$this->Html->image('loading.gif', array('id' => 'busy-indicator', 'style' => 'display:none'))."</big></center>";
+            echo $this->Paginator->next(
+                        '<big>'.__d('testimonials', 'VER MÁS OPINIONES').'...</big>',
+                        array('class'=>'btn btn-warning', 'style'=>'color:inherit !important;text-decoration:none', 'escape'=> false),
+                        __d('testimonials', 'No hay más opiniones'),
+                        array('escape'=> false, 'class'=>'text-muted'));
+            echo "<big>".$this->Html->image('loading.gif', array('id' => 'busy-indicator', 'style' => 'display:none'))."</big>";
         ?>
     </div>
     <?php echo $this->Js->writeBuffer(); ?>

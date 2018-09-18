@@ -16,9 +16,16 @@ code {
     font-style: inherit !important;
     font-size: inherit !important;
 }
-
 .inline-block {
     display: inline-block;
+}
+.white{color:white !important}
+.center{text-align:center}
+
+.visible-sm {display: none;}
+@media (max-width: 767px) {
+    .visible-sm {display: inline-block;}
+    .visible-md {display: none;}
 }
 
 #footer {

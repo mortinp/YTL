@@ -227,7 +227,7 @@ msgid "VER MÁS OPINIONES"
 msgstr "SEE MORE REVIEWS"
 
 #: /view.ctp:33
-msgid "No hay más testimonios"
+msgid "No hay más opiniones"
 msgstr "No more reviews"
 
 #: /view.ctp:33
