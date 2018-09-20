@@ -27,16 +27,20 @@ msgid "¿Necesitas un chofer con auto en %s?"
 msgstr "Need a driver with a car in %s?"
 
 #: /home.ctp:29
-msgid "Envía tu solicitud a %s de nuestros choferes de taxi en Cuba y recibe ofertas directamente de ellos"
-msgstr "Send your request to %s of our taxi drivers who live in Cuba and get quotes directly from them"
+msgid "Recibe ofertas directamente de %s choferes que viven en Cuba y consigue un taxi para tus excursiones y traslados"
+msgstr "Get quotes directly from %s drivers who live in Cuba and arrange a taxi for your transfers, tours and journeys"
 
 #: /home.ctp:29
-msgid "Conoce los precios para tus excursiones y traslados"
-msgstr "Learn the prices for your excursions and trips"
+msgid "Conoce los precios de antemano"
+msgstr "Learn the prices in advance"
 
 #: /home.ctp:29
-msgid "Acuerda todo con tu chofer antes de llegar a la isla"
-msgstr "Arrange all with your driver before you arrive in the island"
+msgid "Mira fotos y opiniones sobre los choferes"
+msgstr "See pictures and reviews about the drivers"
+
+#: /home.ctp:29
+msgid "Acuerda todo antes de llegar a la isla"
+msgstr "Arrange all before you arrive in the island"
 
 #: /home.ctp:33
 msgid "Sí, solicitar ofertas a choferes en Cuba"
@@ -111,8 +115,8 @@ msgid "Haz un viaje sorprendente con tu chofer en Cuba"
 msgstr "Do an amazing trip with your driver in Cuba"
 
 #: /home.ctp:125
-msgid "<b>Consigue un chofer con auto</b> creando una solicitud de viaje"
-msgstr "<b>Find a driver with a car</b> creating a travel request"
+msgid "<b>Consigue un taxi para tus traslados</b> creando una solicitud de viaje"
+msgstr "<b>Find a taxi for your trips</b> by creating a travel request"
 
 #: /home.ctp:137
 msgid "¿Necesitas ideas? Estos son destinos populares con origen en"

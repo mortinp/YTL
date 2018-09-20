@@ -174,8 +174,8 @@ class Travel extends AppModel {
     public static function getStateSettings($state, $property = null) {
         $settings = array(
             'P' => array('color'=>'green', 'label'=>__d('travel', 'Pendiente'), 'class'=>'label-default'),
-            'U' => array('color'=>'goldenrod', 'label'=>__d('travel', 'Pendiente de Confirmación'), 'class'=>'label-warning'),
-            'C' => array('color'=>'#0088cc', 'label'=>__d('travel', 'Confirmado'), 'class'=>'label-success'),
+            'U' => array('color'=>'goldenrod', 'label'=>__d('travel', 'Pendiente de envío a choferes'), 'class'=>'label-warning'),
+            'C' => array('color'=>'#0088cc', 'label'=>__d('travel', 'Enviada a choferes'), 'class'=>'label-success'),
             'E' => array('color'=>'lightcoral', 'label'=>__d('travel', 'Expirado'), 'class'=>'label-default'),
         );       
         

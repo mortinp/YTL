@@ -1,4 +1,4 @@
-# LANGUAGE translation of CakePHP Application
+e# LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy
@@ -596,6 +596,9 @@ msgstr "The following travel is"
 #: View/Travels/view.ctp:19
 msgid "Estos son los detalles de tu viaje"
 msgstr "These are the details of your travel"
+#: View/Travels/view.ctp:19
+msgid "Estos son los detalles de tu solicitud"
+msgstr "These are the details of your request"
 
 #: View/Travels/view.ctp:19
 msgid "Creaste una solicitud de viaje con los siguientes datos"

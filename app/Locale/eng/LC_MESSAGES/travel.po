@@ -27,12 +27,15 @@ msgid "Pendiente"
 msgstr "Pending"
 
 #: Model/Travel.php:122
-msgid "Pendiente de Confirmación"
-msgstr "Pending for Confirmation"
+msgid "Pendiente de envío a choferes"
+msgstr "Pending to be sent to drivers"
 
 #: Model/Travel.php:123
 msgid "Confirmado"
 msgstr "Confirmed"
+#: Model/Travel.php:123
+msgid "Enviada a choferes"
+msgstr "Sent to drivers"
 
 #: Model/Travel.php:124
 msgid "Expirado"

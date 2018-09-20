@@ -83,7 +83,7 @@ if($userLoggedIn) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                            <span class="white navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
+                            <span class="navbar-brand"><big>Yo</big>Te<big>Llevo</big></span>
                         <div class="pull-left navbar-brand">
                             <?php $lang = SessionComponent::read('Config.language');?>
                             <?php if($lang != null && $lang == 'en'):?>

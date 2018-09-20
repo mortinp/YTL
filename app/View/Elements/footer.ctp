@@ -1,3 +1,4 @@
+<hr/>
 <div class="col-md-3">
     <p class="text-muted pull-left" style="margin: 20px 0;">
         &copy; 2014-2018 <?php echo __('YoTeLlevo')?>

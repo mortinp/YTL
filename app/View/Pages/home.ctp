@@ -40,11 +40,11 @@
         <h1 id="sell"><big><?php echo __d('homepage', '¿Necesitas un chofer con auto en %s?', '<code><b><big>Cuba</big></b></code>') ?></big></h1>
         <br/>
         <h2>
-            <b><?php echo __d('homepage', 'Envía tu solicitud a %s de nuestros choferes de taxi en Cuba y recibe ofertas directamente de ellos', __('varios')) ?></b>
+            <b><?php echo __d('homepage', 'Recibe ofertas directamente de %s choferes que viven en Cuba y consigue un taxi para tus excursiones y traslados', __('varios')) ?></b>
         </h2>
         <br/>
         <h3>
-            <?php echo __d('homepage', 'Conoce los precios para tus excursiones y traslados')?> • <?php echo __d('homepage', 'Acuerda todo con tu chofer antes de llegar a la isla')?>
+            <?php echo __d('homepage', 'Conoce los precios de antemano')?> • <?php echo __d('homepage', 'Mira fotos y opiniones sobre los choferes')?> • <?php echo __d('homepage', 'Acuerda todo antes de llegar a la isla')?>
         </h3>
         <div class="sell-button" style="padding-top:30px">
             <a href="#!" class="btn btn-success show-travel-form">
@@ -156,7 +156,7 @@
         <div id="TravelRequest" style="margin-top: 25px;padding: 15px;padding-top: 25px;">
             <div style="text-align:center;margin-bottom: 30px">
                 <div class="handwritten-2"><big><big><b><?php echo __d('homepage', 'Haz un viaje sorprendente con tu chofer en Cuba') ?></b></big></big></div>
-                <div><big><?php echo __d('homepage', '<b>Consigue un chofer con auto</b> creando una solicitud de viaje') ?></big></div>
+                <div><big><?php echo __d('homepage', '<b>Consigue un taxi para tus traslados</b> creando una solicitud de viaje') ?></big></div>
             </div>
             <?php echo $this->Session->flash(); ?>            
             <?php echo $this->element('pending_travel_form', array('bigButton' => true, 'horizontal' => true)); ?>

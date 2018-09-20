@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             
             <h2><?php echo __('Bienvenido a <em>YoTeLlevo</em>')?> <div><small class="text-muted"><?php echo __('¡Qué bueno tenerte a bordo!')?></small></div></h2>
             
@@ -23,17 +23,7 @@
                     <?php echo __('Ya puedes crear tu primer anuncio de viaje')?>: 
                     <?php echo $this->Html->link(__('Crear un anuncio de viaje'), array('controller'=>'travels', 'action'=>'add'), array('escape'=>false))?>.                
                 </h3>
-            <?php endif?>
-            
-            <!--<br/> 
-            <hr/>
-            
-            <p>                
-                <?php echo __('Enviamos un correo a tu cuenta (<b>%s</b>) para ser verificada. <b>Revisa tu correo y sigue las instrucciones</b>.', AuthComponent::user('username'))?>
-            </p>
-            
-            <?php echo $this->element('email_sent_tips', array('link'=>$this->Html->link('<i class="glyphicon glyphicon-ok"></i> '.__('Enviar correo de verificación'), array('controller'=>'users', 'action'=>'send_confirm_email'), array('escape'=>false))))?>
-            -->          
+            <?php endif?>        
         </div>
     </div>
     
