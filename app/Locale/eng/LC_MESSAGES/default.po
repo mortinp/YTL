@@ -404,6 +404,9 @@ msgstr "Wait"
 #: View/Layouts/default.ctp:105
 msgid "Mis Anuncios"
 msgstr "My Requests"
+#: View/Layouts/default.ctp:105
+msgid "Mis Solicitudes"
+msgstr "My Requests"
 
 #: View/Layouts/default.ctp:107
 #: View/Users/confirm_email.ctp:14
@@ -646,6 +649,9 @@ msgstr "cancel editing"
 #: View/Users/confirm_email.ctp:13
 msgid "Ver mis anuncios de viajes"
 msgstr "See my travel requests"
+#: View/Users/confirm_email.ctp:13
+msgid "Ver todas mis solicitudes"
+msgstr "See all my requests"
 
 #: View/Users/change_password.ctp:5
 msgid "Cambia tu contraseña"

@@ -50,7 +50,7 @@ if($isConfirmed) {
                 </span>  
                 
                 <br/>
-                <?php echo $this->Html->link('<div class="btn btn-default"><big>&laquo;	'.__('Ver mis anuncios de viajes').'</big></div>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
+                <?php echo $this->Html->link('<div class="btn btn-default"><big>&laquo;	'.__('Ver todas mis solicitudes').'</big></div>', array('controller'=>'travels', 'action'=>'index'), array('escape'=>false))?>
             <?php endif?>
         </div>
         <?php if(!$isConfirmed):?>
