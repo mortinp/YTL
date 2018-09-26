@@ -16,7 +16,7 @@
             
             <div style="margin-top: 30px">
                 <?php if(isset($travels) && !empty ($travels)):?>
-                    <h3><?php echo $this->Paginator->counter("({:count}) ").$header; ?></h3>
+                    <p><b>SOLICITUDES DE VIAJE</b></p>
                     <?php if($this->Paginator->counter("{:pages}") > 1): ?><div>Páginas: <?php echo $this->Paginator->numbers();?></div><?php endif;?>
                     <?php if(!empty ($travels)): ?>                
                         <br/>
@@ -36,14 +36,15 @@
 
             <?php if(count($direct_messages) > 0):?>
                 <div style="margin-top: 30px">
-                    <p>SOLICITUDES DIRECTAS</p>
+                    <p><b>SOLICITUDES DIRECTAS</b></p>
+                    
 
                     <ul style="list-style-type: none;padding: 0px">
 
                         <?php
                         foreach ($direct_messages as $t) {
-                            echo '<li style="margin-bottom: 10px">';
-                            echo $this->element('conversation_widget_for_user/conversation_data', array('conversation'=>$t));
+                            echo '<li style="margin-bottom: 80px">';
+                            echo $this->element('conversation_widget', array('conversation'=>$t));
                             echo '</li>';
                         }
                         ?>

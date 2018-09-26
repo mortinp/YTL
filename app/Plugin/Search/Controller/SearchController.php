@@ -3,7 +3,7 @@
     App::uses('DriverTravel', 'Model');
     
     class SearchController extends AppController { 
-        public $uses = array('Search.Search', 'Travel', 'Driver', 'DriverTravel', 'Locality', 'User');
+        public $uses = array('Search.Search', 'Travel', 'Driver', 'DriverTravel', 'Locality', 'User', 'DriverTravelerConversation');
         public $components = array('Paginator');  
         
         public function index() {
@@ -31,13 +31,14 @@
             
             // Si es un correo, ademas cargar los mensajes directos
             if($case['case'] == 'EMAIL') {
-                $this->DriverTravel->recursive = 2;        
+                $this->DriverTravel->recursive = 2;
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
-
+                $this->DriverTravel->unbindModel(array('hasOne'=>array('DriverTravelerConversation')));
+                
                 $user_id = $conditions['Travel.user_id'];
                 
-                // Las conversaciones del usuario logueado y que al menos tengan 1 mensaje
                 $conditions = array('DriverTravel.user_id' => $user_id, 'DriverTravel.notification_type' => DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE);
+                //$order = array('Travel.id'=>'DESC', 'Driver.id');
 
                 $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions));
                 $this->set('direct_messages', $driver_travels);
