@@ -1,0 +1,144 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:29
+msgid "La mayor comunidad de choferes privados en Cuba"
+msgstr "The biggest community of private drivers in Cuba"
+
+#: /home.ctp:29
+msgid "Listos para darte precios para tus traslados y para ser contratados"
+msgstr "Ready to give you quotes for your trips and to be hired"
+
+#: /home.ctp:29
+msgid "Contacta a los choferes directamente"
+msgstr "Contact the drivers directly"
+
+#: /home.ctp:29
+msgid "Averigua los precios para tus recorridos antes de llegar a la isla"
+msgstr "Learn the prices of your trips before you arrive in the island"
+
+#: /home.ctp:33
+msgid "Conoce a los choferes mientras intercambias correos"
+msgstr "Get to know the drivers while you exchange emails"
+
+#: /home.ctp:35
+msgid "Mira fotos y opiniones de viajeros anteriores"
+msgstr "See pictures and reviews about them"
+
+#: /home.ctp:35
+msgid "Múltiples contactos"
+msgstr "Multiple contacts"
+
+#: /home.ctp:50
+msgid "<strong>Te ponemos en contacto directo con varios choferes en Cuba</strong> para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla."
+msgstr "<strong>We connect you directly with multiple drivers in Cuba</strong> so that you can arrange your travel with them via email before you arrive in the island."
+
+#: /home.ctp:35
+msgid "Averigua los precios"
+msgstr "Learn the prices"
+
+#: /home.ctp:59
+msgid "<strong>Los choferes te darán sus precios</strong> y tú puedes preguntar cualquier cosa relativa al viaje. Conoce un poco a los choferes mientras intercambian correos y ves sus fotos."
+msgstr "<strong>The drivers will give you quotes</strong> and you can ask anything until you feel comfortable. Get to meet the drivers as you exchange emails."
+
+#: /home.ctp:35
+msgid "Encuentra a tu chofer"
+msgstr "Find your driver"
+
+#: /home.ctp:68
+msgid "<strong>Contrata al chofer que creas mejor</strong> de acuerdo a tu presupuesto, necesidades especiales o porque te gusta su auto. Haz un amigo que te lleve a donde quieras ir."
+msgstr "<strong>Hire the driver you think is best</strong> according to your budget, special needs or just because you like the car. Make a friend to ride you anywhere in Cuba."
+
+#: /home.ctp:83
+msgid "Sí, solicitar ofertas a choferes en Cuba"
+msgstr "Yes, request quotes from drivers in Cuba"
+
+#: /home.ctp:83
+msgid "Nuestros choferes están activos y reciben opiniones todo el tiempo"
+msgstr "Our drivers are active and being reviewed all the time"
+
+#: /home.ctp:83
+msgid "Mira opiniones actualizadas y fotos de los choferes. Decide si quieres contratar a alguno"
+msgstr "See up to date reviews and pictures of the drivers. Decide whether you'd like to hire one"
+
+#: /home.ctp:83
+msgid "y muchas más"
+msgstr "and many more"
+
+#: /home.ctp:83
+msgid "Mira opiniones recientes sobre nuestros choferes"
+msgstr "See the latest reviews about our drivers"
+
+#: /home.ctp:83
+msgid "Para todo tipo de servicios"
+msgstr "For every type of service"
+
+#: /home.ctp:83
+msgid "Recogida en aeropuerto, llegar directo a un destino, chofer a tiempo completo por varios días, tours alrededor de la isla... de todo"
+msgstr "Airport pick up, quick drop off at your destination, full time driver for several days, tours around Cuba... anything."
+
+#: /home.ctp:83
+msgid "Desde y hasta cualquier lugar"
+msgstr "From and to any place"
+
+#: /home.ctp:83
+msgid "%s y más."
+msgstr "%s and more."
+
+#: /home.ctp:83
+msgid "Recibe ofertas de choferes en Cuba"
+msgstr "Get quotes from drivers in Cuba"
+
+#: /home.ctp:83
+msgid "Conoce a tu chofer"
+msgstr "Get to know your driver"
+
+#: /home.ctp:86
+msgid "El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos retirados, pescadores, comediantes, contadores, todos propietarios de un auto que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras."
+msgstr "The driver you travel with is important and makes the difference. Our drivers are retired pilots, fishermen, comedians, accountants, all of them owners of a car who help us move you around the island. Connect with your driver the way you prefer."
+
+#: View/Pages/home.ctp:100
+msgid "Haz un viaje sorprendente con tu chofer en Cuba"
+msgstr "Do an amazing trip with a driver in Cuba"
+
+
+#: View/Pages/home.ctp:100
+msgid "Comienza solicitando a varios choferes el precio para tus recorridos."
+msgstr "Start by asking some of them a quote for the trips you want to do."
+
+#: View/Pages/home.ctp:100
+msgid "Selecciona uno si así lo decides."
+msgstr "Choose one if you decide to."
+
+#: View/Pages/home.ctp:103
+msgid "Envía esta solicitud a varios choferes ahora"
+msgstr "Send this request to some drivers now"
+
+#: View/Pages/home.ctp:114
+msgid "Recibe ofertas de ellos"
+msgstr "Get quotes from them"
+
+#: View/Pages/home.ctp:114
+msgid "Comparte esta página"
+msgstr "Share this page"
+
+#: View/Pages/home.ctp:117
+msgid "Nuestra plataforma ha sido mencionada en los medios como uno de los negocios online líderes en Cuba"
+msgstr "Our platform has been featured in the media as one of the leading online businesses in Cuba"
+
+#: View/Pages/home.ctp:114
+msgid "solicitar"
+msgstr "request"

@@ -75,6 +75,22 @@ class PendingTravel extends AppModel {
     public function dateFormatAfterFind($date) {
         return date('d-m-Y', strtotime($date));
     }
+    
+    public static function getStateSettings($state, $property = null) {
+        $settings = array(
+            'P' => array('color'=>'green', 'label'=>__d('travel', 'Pendiente'), 'class'=>'label-default'),
+            'U' => array('color'=>'goldenrod', 'label'=>__d('travel', 'Pendiente de envío a choferes'), 'class'=>'badge badge-warning'),
+            'C' => array('color'=>'#0088cc', 'label'=>__d('travel', 'Enviada a choferes'), 'class'=>'badge badge-success'),
+            'E' => array('color'=>'lightcoral', 'label'=>__d('travel', 'Expirado'), 'class'=>'badge badge-secondary'),
+        );       
+        
+        if(isset ($settings[$state])) {
+            if($property == null || $property == '') return $settings[$state];
+            else if(isset ($settings[$state][$property])) return $settings[$state][$property];
+        }
+        
+        return null;
+    }
 }
 
 ?>

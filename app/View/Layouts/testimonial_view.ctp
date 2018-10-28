@@ -156,6 +156,9 @@ if($userLoggedIn) {
 
             <div id="content" class="container-fluid">
                 <?php echo $this->Session->flash(); ?>
+                <div class='alert alert-info alert-dismissable' style="text-align: center"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <?php echo __('Estamos haciendo un rediseño visual de nuestra plataforma y <b>esta página no está rediseñada todavía</b>... pero todo funciona bien');?> :)
+                </div>
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>

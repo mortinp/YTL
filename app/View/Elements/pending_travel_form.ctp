@@ -61,8 +61,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
     <div>
         <div id='travel-ajax-message'></div>
         <div id="TravelFormDiv">
-        <?php 
-        echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'id'=>'TravelForm'));?>
+        <?php echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'id'=>'TravelForm'));?>
         <fieldset>
         <?php if(!$horizontal):?>
             <?php echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje'), 'required'=>true, 'value'=>$origin, 'autofocus'=>'autofocus'));?>

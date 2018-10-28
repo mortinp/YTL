@@ -996,9 +996,12 @@ msgstr "three"
 msgid "varios"
 msgstr "some"
 
-
+#: View/Elements/pretty_message.ctp:9
+msgid "Estamos haciendo un rediseño visual de nuestra plataforma y <b>esta página no está rediseñada todavía</b>... pero todo funciona bien"
+msgstr "We are doing a visual redesign of our platform and <b>this page is not redesigned yet</b>... but everything works fine"
 
 
 #: /home.ctp:167
 msgid "Aseg%C3%BArate%20de%20tener%20el%20mejor%20%23chofer%20con%20%23auto%20en%20%23Cuba%20en%20http://yotellevocuba.com%0A%0A%23Taxi%20para%20%23excursiones%20y%20%23transfers%20via%20%40yotellevocuba"
 msgstr "Make%20sure%20you%20hire%20a%20nice%20%23driver%20with%20a%20%23car%20in%20%23Cuba%20at%20http://yotellevocuba.com%0A%0A%23Taxi%20for%20%23transfers%20%26%20%23tours%20via%20%40yotellevocuba"
+

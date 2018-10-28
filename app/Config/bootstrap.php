@@ -139,3 +139,6 @@ Configure::write('cut_messages', true);
 
 // MOBILE
 Configure::write('mobile_test_email', 'lenier.1987@nauta.cu'/*'martin@yotellevocuba.com'*/);
+
+// THEME
+Configure::write('App.theme', 'mobirise');

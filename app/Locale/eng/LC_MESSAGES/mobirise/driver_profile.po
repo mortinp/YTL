@@ -1,0 +1,84 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 10:02-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Conoce a %s"
+msgstr "Meet %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Chofer de taxi en %s"
+msgstr "Taxi driver in %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Vive en %s"
+msgstr "Lives in %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Auto hasta %s pax"
+msgstr "Car up to %s pax"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Aire acondicionado"
+msgstr "Air conditioner"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "%s opiniones"
+msgstr "%s reviews"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Recibir oferta de %s"
+msgstr "Get a quote from %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Opinar sobre %s"
+msgstr "Review %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "¿Te interesa contratar un chofer privado en Cuba?"
+msgstr "Interested in hiring a private driver in Cuba?"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "<strong>Contacta a %s</strong> y recibe una oferta directamente de él para el viaje que quieres hacer"
+msgstr "<strong>Contact %s</strong> and get a quote directly from him about the trip you want to do"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ver más opiniones"
+msgstr "See more reviews"
+
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "%s, chofer en %s, Cuba"
+msgstr "%s, driver in %s, Cuba"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Enviar este mensaje a %s"
+msgstr "Send this message to %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Recibe una oferta y empieza a acordar tu viaje"
+msgstr "Get a quote and start arranging your trip"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Contactar a %s"
+msgstr "Contact %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ver mis mensajes con %s"
+msgstr "See my messages with %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ya tienes una conversación con %s"
+msgstr "You already have a conversation with  %s"

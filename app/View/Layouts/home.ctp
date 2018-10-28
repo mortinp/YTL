@@ -44,7 +44,7 @@ if($isLoggedIn) {
         
         <?php
         // META
-        $this->Html->meta('icon');        
+        $this->Html->meta('icon');
         
         $this->Html->css('default-bundle', array('inline' => false)); 
         $this->Html->css('home', array('inline' => false));

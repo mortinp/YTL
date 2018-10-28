@@ -136,8 +136,12 @@ class DriversController extends AppController {
                     'Testimonial.state'=>Testimonial::$statesValues['approved']))
                 );
                 
-                if($this->request->is('ajax')) 
-                    return $this->render('/Elements/ajax_testimonials_list', false);
+                if($this->request->is('ajax')) {
+                    $render = '/Elements';
+                    if(Configure::read('App.theme') != null) $render .= '/'.Configure::read('App.theme');
+                    $render .= '/ajax_testimonials_list';
+                    return $this->render($render, false);
+                }   
             }
             
         } else {

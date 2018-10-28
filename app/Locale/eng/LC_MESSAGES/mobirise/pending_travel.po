@@ -1,0 +1,109 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 10:02-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: View/Elements/pending_travel.ctp:59
+#: View/Elements/pending_travel_form.ctp:76;96
+#: View/Travels/view_pending.ctp:96;97
+msgid "Tu correo"
+msgstr "Your email"
+
+#: View/Elements/pending_travel.ctp:61
+#: View/Elements/pending_travel_form.ctp:77;98
+msgid "Detalles del viaje"
+msgstr "Travel details"
+
+#: View/Elements/pending_travel.ctp:65
+msgid "Preferencias"
+msgstr "Preferences"
+
+#: View/Elements/pending_travel.ctp:65
+#: View/Elements/pending_travel_form.ctp:79;103
+msgid "Cantidad de personas"
+msgstr "People count"
+
+#: View/Elements/pending_travel_form.ctp:71;89
+msgid "Origen del Viaje"
+msgstr "Travel Origin"
+
+#: View/Elements/pending_travel_form.ctp:71;89
+msgid "donde comienza tu viaje, ej. %s"
+msgstr "where your trip begins, ex. %s"
+
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "Destino del Viaje"
+msgstr "Travel Destination"
+
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "ej. %s, <em>Varios destinos</em>, <em>Mi hotel en La Habana</em>, etc."
+msgstr "ex. %s, <em>Different destinations</em>, <em>My hotel in Havana</em>, etc."
+
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "ej. %s"
+msgstr "ex. %s"
+
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "Cualquier destino en Cuba"
+msgstr "Any destination in Cuba"
+#: View/Elements/pending_travel_form.ctp:72;90
+msgid "Varios destinos, tu hotel en %s"
+msgstr "Different destinations, your hotel in %s"
+
+#: View/Elements/pending_travel.ctp:57
+#: View/Elements/pending_travel_form.ctp:74;91
+msgid "Fecha del Viaje"
+msgstr "Travel Date"
+msgid "Fecha del viaje"
+msgstr "Travel date"
+
+#: View/Elements/pending_travel_form.ctp:107
+msgid "Auto Moderno"
+msgstr "Modern Car"
+
+#: View/Elements/pending_travel_form.ctp:111
+msgid "Aire Acondicionado"
+msgstr "Air Conditioner"
+
+#: View/Travels/view_pending.ctp:98
+msgid "Crea una contraseña para tu cuenta"
+msgstr "Create a password for your account"
+
+#: View/Travels/view_pending.ctp:98
+msgid "Escribe la contraseña que usarás para YoTeLlevo"
+msgstr "Type the password you will use for YoTeLlevo"
+
+#: View/Travels/view_pending.ctp:99
+msgid "Muchísimas gracias"
+msgstr "Thank you very much"
+
+#: View/Travels/view_pending.ctp:99
+msgid "Ya tenemos los datos de tu solicitud."
+msgstr "We already have the info of your request."
+
+#: View/Travels/view_pending.ctp:99
+msgid "Enseguida enviaremos tu solicitud a varios choferes acá en %s para que arregles precios y demás detalles del servicio con ellos."
+msgstr "We will send your request to some drivers here in Cuba right away so you can arrange prices and everything with them."
+
+#: View/Travels/view_pending.ctp:99
+msgid "Como último paso <strong>crea una contraseña</strong> para que puedas gestionar tus conversaciones en el sitio y ver los perfiles de los choferes."
+msgstr "As a last step <strong>create a password</strong> to be able to manage your conversations on the website and see the drivers' profile pages."
+
+#: View/Travels/view_pending.ctp:99
+msgid "Enviar esta solicitud ahora y recibir ofertas de choferes"
+msgstr "Send this request now and get quotes from the drivers"
+
+#: View/Travels/view_pending.ctp:99
+msgid "Enviar esta solicitud a los buzones de los choferes ahora"
+msgstr "Send this request to the drivers' inboxes now"

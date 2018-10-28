@@ -189,7 +189,7 @@ class Travel extends AppModel {
     
     public static function getPreferences() {
         $preferences = array(
-            'need_modern_car'=>__d('travel', 'Carro Moderno'),
+            'need_modern_car'=>__d('travel', 'Auto Moderno'),
             'need_air_conditioner'=>__d('travel', 'Aire Acondicionado')
         );
         

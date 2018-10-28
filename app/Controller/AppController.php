@@ -95,6 +95,54 @@ class AppController extends Controller {
         $this->_setUserCredentials();
     }
     
+    public function beforeRender() {
+        parent::beforeRender();
+        
+        // Si no hay tema configurado, no hacer nada
+        if(Configure::read('App.theme') == null) return;
+        
+        //
+        $applyThemeIn = array(
+            array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
+            array('controller'=>'testimonials', 'action'=>'featured'),
+            array('controller'=>'drivers', 'action'=>'profile'),
+            array('controller'=>'travels', 'action'=>'pending'),
+            
+        );
+        
+        $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);
+        
+        $matched = null;
+        foreach ($applyThemeIn as $url) {
+            $diff = array_diff_assoc($url, $current);
+            
+            $leftKeys = array_keys($diff);
+            
+            // Comprobar si quedaron las keys 'controller' y 'action'
+            if(in_array('controller', $leftKeys) || in_array('action', $leftKeys)) continue;
+            
+            // Comprobar si el parametro pasado es correcto
+            if(isset($url['pass']) &&  $url['pass'] != $this->request->params['pass'][0]) continue;
+            
+            // OK
+            $matched = $url;
+            break;
+        }
+        
+        if($matched) {
+            $page = $matched['action'];
+            if(isset($matched['render'])) $page = $matched['render'];
+            
+            if(!$this->layout) $this->layout = 'default';
+            $this->layout = Configure::read('App.theme').'/'.$this->layout;
+            $this->viewPath = $this->viewPath.'/'.Configure::read('App.theme');
+            
+            Configure::write('App.cssBaseUrl', 'assets/');
+            Configure::write('App.jsBaseUrl', 'assets/');
+            Configure::write('App.imageBaseUrl', 'assets/images/');
+        }
+    }
+    
     // esto no es completamente necesario solo evita el overhead que causarÃ­a redireccionarse a una url sin idioma
     // (tendrÃ­a que llegar al beforeFilter para solicitar nuevamente la url, ahora con el idioma)
     public function redirect( $url, $status = NULL, $exit = true ) {
@@ -237,6 +285,7 @@ class AppController extends Controller {
             
             'travels.add_pending' =>array('title'=>__d('meta', 'Crear Anuncio de Viaje')),
             'travels.view_pending' =>array('title'=>__d('meta', 'Solicitud pendiente')),
+            'travels.pending' =>array('title'=>__d('meta', 'Solicitud pendiente')),
             
             'testimonials.enter_code' =>array('title'=>__d('meta', 'Deja una opinión sobre tu chofer en Cuba'), 'description'=>__d('meta', 'Opinar y reseñar sobre tu viaje en auto con chofer en Cuba')),
             'testimonials.add' =>array('title'=>__d('meta', 'Opina sobre este chofer')),

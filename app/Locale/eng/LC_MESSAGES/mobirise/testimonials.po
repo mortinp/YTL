@@ -1,0 +1,99 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:19
+msgid "%s sobre %s"
+msgstr "%s about %s"
+
+#: /home.ctp:27
+msgid "Sobre Nosotros"
+msgstr "About Us"
+
+#: /home.ctp:27
+msgid "Recibir ofertas de choferes en Cuba"
+msgstr "Get quotes from drivers in Cuba"
+
+#: /home.ctp:27
+msgid "Opiniones sobre choferes de taxi en Cuba"
+msgstr "Reviews about taxi drivers in Cuba"
+
+#: /home.ctp:27
+msgid "Desde Enero 2016, nuestros choferes han estado trabajando para lograr números como estos"
+msgstr "Since January 2016, our drivers have been working to achieve numbers like these"
+
+#: /home.ctp:27
+msgid "%s contrataciones"
+msgstr "%s hires"
+
+#: /home.ctp:27
+msgid "Nuestros choferes han sido contratados %s veces. Un contrato puede ser una simple recogida en aeropuerto, hasta un viaje de más de tres semanas por toda la isla."
+msgstr "Our drivers have been hired %s times. One hire can go from a simple airport pick up, to a trip of more than 3 weeks around the island."
+
+#: /home.ctp:27
+msgid "%s viajeros"
+msgstr "%s travelers"
+
+#: /home.ctp:27
+msgid "Desde viajeros solitarios, hasta parejas de vacaciones, familias enteras, o grupos de más de 10 personas, %s viajeros han ido de viaje con nuestros choferes hasta ahora."
+msgstr "From solo travelers, to couples on vacations, to entire families,&nbsp;to groups of 10+, %s people have gone on trips with our drivers so far."
+
+#: /home.ctp:27
+msgid "%s opiniones"
+msgstr "%s reviews"
+
+#: /home.ctp:27
+msgid "Desde Diciembre 2016 comenzamos a recolectar opiniones, y %s comentarios han sido escritos sobre nuestros choferes, muchos con fotos incluídas."
+msgstr "Since December 2016 we started collecting reviews, and %s comments have been written about our drivers, many with pictures included."
+
+#: /featured.ctp:33
+msgid "Estas son algunas opiniones, comentarios e historias de viajeros que han hecho recorridos y traslados con nuestros choferes. Lee algunas, inspírate y anímate a contratar a algún chofer con auto aquí en Cuba."
+msgstr "These are some reviews, comments and stories from travelers who have gone on journeys or transfers with our drivers. Read some of them, get inspired and go ahead and hire a driver with a car here in Cuba."
+
+#: /home.ctp:27
+msgid "de %s"
+msgstr "from %s"
+
+#: /home.ctp:27
+msgid "Escrita el %s"
+msgstr "Written on %s"
+
+#: /featured.ctp:33
+msgid "Mira más historias"
+msgstr "See more stories"
+
+#: /featured.ctp:33
+msgid "Hoy"
+msgstr "Today"
+
+#: /featured.ctp:33
+msgid "Ayer"
+msgstr "Yesterday"
+
+#: /featured.ctp:33
+msgid "Hace %s días"
+msgstr "%s days ago"
+
+#: /featured.ctp:33
+msgid "Ver perfil de %s"
+msgstr "See %s's profile"
+
+#: /featured.ctp:33
+msgid "¿Ya te gustan nuestros choferes?"
+msgstr "Like our drivers already?"
+
+#: /featured.ctp:33
+msgid "Solicita presupuesto para tu viaje a varios de ellos."
+msgstr "Request a quote from some of them for the trip you want to do."

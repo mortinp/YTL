@@ -13,7 +13,7 @@ class TravelsController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        if(!$this->Auth->loggedIn()) $this->Auth->allow('add_pending', 'view_pending', 'edit_pending');
+        if(!$this->Auth->loggedIn()) $this->Auth->allow('add_pending', 'view_pending', 'pending', 'edit_pending');
     }
     
     public function isAuthorized($user) {
@@ -293,6 +293,17 @@ class TravelsController extends AppController {
         $this->set('travels', $this->Paginator->paginate('PendingTravel'));
     }
     
+    public function pending($id) {
+        $travel = $this->PendingTravel->findById($id);
+        $travel['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
+        
+        $this->set('localities', $this->getLocalitiesList());
+        $this->set('travel', $travel);
+        
+        $this->request->data = $travel;
+        
+        $this->layout = 'transition'; // Un layout transicional, pues el usuario se encuentra en medio de una transaccion
+    }
     public function view_pending($id) {
         $travel = $this->PendingTravel->findById($id);
         $travel['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
@@ -319,7 +330,7 @@ class TravelsController extends AppController {
                 
                 if ($this->PendingTravel->save($this->request->data)) {
                     $id = $this->PendingTravel->getLastInsertID();
-                    return $this->redirect(array('action' => 'view_pending/' . $id));
+                    return $this->redirect(array('action' => 'pending/' . $id));
                 }
                 $this->setErrorMessage(__('Error al crear el viaje'));                
             } else {
@@ -327,7 +338,7 @@ class TravelsController extends AppController {
                 CakeLog::write('travels_failed', 'Created by: '.$this->request->data['PendingTravel']['email']);
                 CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
                 $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
-                $this->redirect($this->referer().'#TravelRequest');
+                $this->redirect($this->referer().'#'.__d('mobirise/default', 'solicitar'));
             }
         }
         

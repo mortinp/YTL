@@ -35,8 +35,7 @@ if($userLoggedIn) {
         <title><?php echo $title.' | YoTeLlevo' ?></title>
         <meta name="description" content="<?php echo $description?>"/>
         
-        <!-- FACEBOOK SHARE -->
-        
+        <!-- FACEBOOK SHARE -->        
         <meta property="og:title" content="<?php echo substr($title, 0, 90)?>">
         <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
         <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">

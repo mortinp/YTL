@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: Model/Travel.php:27
-msgid "Carro Moderno"
+msgid "Auto Moderno"
 msgstr "Modern Car"
 
 #: Model/Travel.php:28

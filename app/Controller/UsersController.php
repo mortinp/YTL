@@ -491,7 +491,7 @@ class UsersController extends AppController {
             $this->setErrorMessage( __('Ocurrió un error registrando su usuario. Intente de nuevo.') );
             
         
-        return $this->redirect( $this->referer() );
+        return $this->redirect( $this->referer().'#'.__d('mobirise/default', 'solicitar') );
         //El redirect hace que se pierdan los datos del formulario... podria usar un query para volverlos a setear y luego enfocar el formulario
     }
     
