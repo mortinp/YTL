@@ -18,6 +18,14 @@ if($userLoggedIn) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="generator" content="Mobirise v4.8.6, mobirise.com">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        
+        <?php
+            $url = $this->request['pass'];
+            $url = array_merge($url, $this->request['named']);
+            $url['language'] = Configure::read('Config.language');
+        ?>
+        <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
+        
         <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
         <?php
         $title = __d('driver_profile', '%s, chofer en %s, Cuba', $profile['DriverProfile']['driver_name'], $profile['Province']['name']) . ' - ' . __d('driver_profile', 'Auto hasta %s pax', $profile['Driver']['max_people_count']);
