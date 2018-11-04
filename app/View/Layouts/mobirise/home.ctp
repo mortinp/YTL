@@ -20,7 +20,7 @@ if($isLoggedIn) {
 
 ?>
 <!DOCTYPE html>
-<html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
   <!-- Site made with Mobirise Website Builder v4.8.6, https://mobirise.com -->
   <meta charset="UTF-8">
@@ -35,9 +35,16 @@ if($isLoggedIn) {
   ?>
   <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
   
-  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">  
-  <meta name="description" content="<?php echo $page_description?>"/>
+  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
   <title><?php echo $page_title." | YoTeLlevo" ?></title>
+  <meta name="description" content="<?php echo $page_description?>"/>
+  
+  <!-- FACEBOOK SHARE -->        
+  <meta property="og:title" content="<?php echo substr($page_title, 0, 90)?>">
+  <meta property="og:image" content="/assets/images/1513797872-20171205-094514-jpg-1-2000x1500.jpg">
+  <meta property="og:description" content="<?php echo $page_description?>">
+  
+  
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="assets/tether/tether.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">

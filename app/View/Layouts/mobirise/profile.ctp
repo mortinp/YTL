@@ -10,7 +10,7 @@ if($userLoggedIn) {
 }
 ?>
 <!DOCTYPE html>
-<html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
     <head>
 
         <!-- Site made with Mobirise Website Builder v4.8.6, https://mobirise.com -->
