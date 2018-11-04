@@ -88,7 +88,7 @@ class AppController extends Controller {
             $url['?']        = $this->request->query;
             $url['language'] = $lang;
             
-            return $this->redirect($url);
+            return $this->redirect($url, 301);
         }
         
         $this->_setPageTitle();
@@ -172,8 +172,7 @@ class AppController extends Controller {
     }
     
     private function _setLanguage() {
-        //if Config.language has not been set initialize it using
-        //the value from the Cookie if there exists or default lang detected from browser
+        //if Config.language has not been set, initialize it using the value from the Cookie if there exists or default lang detected from browser
         if( !$this->Session->check('Config.language') ){
             $lang = ( $this->Cookie->read('app.lang') ) ? $this->Cookie->read('app.lang') : Configure::read('Config.language');
             $this->_update_language_anywhere($lang);

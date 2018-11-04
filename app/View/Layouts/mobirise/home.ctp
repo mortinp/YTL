@@ -27,7 +27,15 @@ if($isLoggedIn) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.8.6, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+  
+  <?php
+    $url = $this->request['pass'];
+    $url = array_merge($url, $this->request['named']);
+    $url['language'] = Configure::read('Config.language');
+  ?>
+  <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
+  
+  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">  
   <meta name="description" content="<?php echo $page_description?>"/>
   <title><?php echo $page_title." | YoTeLlevo" ?></title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
