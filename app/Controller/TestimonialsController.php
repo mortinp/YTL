@@ -12,7 +12,7 @@ class TestimonialsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
 
-        $this->Auth->allow('enter_code', 'featured', 'view');
+        $this->Auth->allow('enter_code', 'featured', 'view', 'reviews');
         if (isset($this->request->params['pass']['0'])) {
             if ($this->request->params['action'] == 'add') {
                 if (!isset($this->request->params['pass']['1']))
@@ -59,7 +59,9 @@ class TestimonialsController extends AppController {
         $this->redirect(array('action' => 'view_filtered/pending'));
     }
     
-    public function featured() {
+    public function featured($redirect = true) {
+        if($redirect) return $this->redirect(array('action'=>'reviews', '?'=>$this->request->query), 301);
+        
         $this->Testimonial->recursive = 2;
         
         //$this->Driver->unbindModel(array('belongsTo' => array('Province')));
@@ -106,6 +108,10 @@ class TestimonialsController extends AppController {
         }
         
         $this->set(compact('stats'));
+    }
+    public function reviews() {
+        $this->featured(false);
+        $this->render('featured');
     }
 
     public function view_filtered($filtro = 'pending') {

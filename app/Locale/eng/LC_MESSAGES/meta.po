@@ -162,6 +162,10 @@ msgid "Opiniones y reseñas sobre choferes en Cuba"
 msgstr "Opinions and reviews about drivers in Cuba"
 
 #: Controller/AppController.php:196
+msgid "Opiniones y reseñas sobre choferes de taxi en Cuba"
+msgstr "Opinions and reviews about taxi drivers in Cuba"
+
+#: Controller/AppController.php:196
 msgid "Mira opiniones y fotos de choferes en Cuba y solicita un viaje al que creas mejor"
 msgstr "See reviews and pictures of drivers in Cuba and request a trip with the one you think is best"
 
