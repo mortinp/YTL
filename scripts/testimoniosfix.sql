@@ -1,1 +1,1 @@
-UPDATE testimonials SET image_filepath='files/1541430896_paco-adele_jpg' WHERE id='5be03f58-5b04-44f4-a645-6a4e4f8fb177';
+UPDATE testimonials SET image_filepath='files/1541524226_pi__a-colada-frank_jpg' WHERE id='5bba8230-f638-4e34-891c-1e5c4f8fb177';

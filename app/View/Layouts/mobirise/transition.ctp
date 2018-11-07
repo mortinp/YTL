@@ -22,6 +22,8 @@ if($userLoggedIn) {
   <meta name="description" content="<?php echo $page_description?>"/>
   <title><?php echo $page_title." | YoTeLlevo" ?></title>
   
+  <meta name="robots" content="noindex"/>
+  
   <?php
     // CSS
     $this->Html->css('web/assets/mobirise-icons/mobirise-icons', array('inline' => false));
