@@ -66,17 +66,15 @@ class PagesController extends AppController {
         }
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         
-        if($page === 'home' || $page === 'welcome' || $page === 'price-drivers-cuba') {
-            $this->layout = 'home';
+        if($page === 'home' || $page === 'taxi-cuba' || $page === 'welcome' || $page === 'price-drivers-cuba') {
+            if($page === 'home') $this->layout = 'home';
+            
             $this->set('localities', Locality::getAsSuggestions());
             
             $this->Testimonial->recursive = 2;
-        
-            //$this->Driver->unbindModel(array('belongsTo' => array('Province')));
             $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
 
             $lang = array(Configure::read('Config.language'));
-
             $conditions = array('Testimonial.featured'=>true, 'Testimonial.lang'=>$lang, 'Testimonial.image_filepath IS NOT NULL', 'Testimonial.image_filepath !='=>'');
             
             $testimonials_sample = $this->Testimonial->find('all', array('conditions'=>$conditions, 'order'=>array('Testimonial.created'=>'DESC'), 'limit'=>3));
@@ -120,15 +118,6 @@ class PagesController extends AppController {
         }
 
         try {
-            
-            // Aplicar tema
-            /*$page = implode('/', $path);
-            if(Configure::read('App.theme') != null) {
-                $this->layout = Configure::read('App.theme').'/'.$this->layout;
-                $page = Configure::read('App.theme').'/'.$page;
-            }
-            
-            $this->render($page);*/
             $this->render(implode('/', $path));
         } catch (MissingViewException $e) {
             if (Configure::read('debug')) {

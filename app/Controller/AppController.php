@@ -104,6 +104,7 @@ class AppController extends Controller {
         //
         $applyThemeIn = array(
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
+            array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
             array('controller'=>'testimonials', 'action'=>'featured'),
             array('controller'=>'testimonials', 'action'=>'reviews'),
             array('controller'=>'drivers', 'action'=>'profile'),
@@ -273,6 +274,7 @@ class AppController extends Controller {
             
             // Access to all
             'pages.display' =>array(
+                'taxi-cuba'=>array('title'=>__d('meta', 'Taxi con conductor en Cuba. A cualquier parte de la isla.'), 'description'=>__d('meta', 'YoTeLlevo es la mayor comunidad online de taxistas independientes en Cuba, listos para darte precios para tus traslados en la isla.')), 
                 'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
                 'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
                 'testimonials'=>array('title'=>__d('meta', 'Testimonios de viajeros sorprendentes en Cuba'), 'description'=>__d('meta', 'Testimonios de viajeros que contrataron choferes con YoTeLlevo, Cuba')),

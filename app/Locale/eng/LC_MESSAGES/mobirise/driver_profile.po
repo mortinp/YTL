@@ -60,8 +60,12 @@ msgstr "See more reviews"
 
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
-msgid "%s, chofer en %s, Cuba"
-msgstr "%s, driver in %s, Cuba"
+msgid "Taxi en %s, Cuba: %s"
+msgstr "Taxi in %s, Cuba: %s"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Auto hasta %s capacidades"
+msgstr "Car up to %s seats"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Enviar este mensaje a %s"

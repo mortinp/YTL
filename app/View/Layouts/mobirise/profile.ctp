@@ -28,7 +28,7 @@ if($userLoggedIn) {
         
         <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
         <?php
-        $title = __d('driver_profile', '%s, chofer en %s, Cuba', $profile['DriverProfile']['driver_name'], $profile['Province']['name']) . ' - ' . __d('driver_profile', 'Auto hasta %s pax', $profile['Driver']['max_people_count']);
+        $title = __d('mobirise/driver_profile', 'Taxi en %s, Cuba: %s', $profile['Province']['name'], $profile['DriverProfile']['driver_name']) . ' - ' . __d('mobirise/driver_profile', 'Auto hasta %s capacidades', $profile['Driver']['max_people_count']);
         if ($profile['Driver']['has_air_conditioner']) $title .= ' ' . __d('driver_profile', 'con aire acondicionado');
 
         $description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
