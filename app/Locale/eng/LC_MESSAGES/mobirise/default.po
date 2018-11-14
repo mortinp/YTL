@@ -48,3 +48,7 @@ msgstr "CONTACT"
 #: /home.ctp:27
 msgid "TESTIMONIOS"
 msgstr "TESTIMONIALS"
+
+#: /home.ctp:27
+msgid "OPINAR SOBRE CHOFER"
+msgstr "REVIEW DRIVER"

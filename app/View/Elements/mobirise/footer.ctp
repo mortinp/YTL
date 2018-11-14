@@ -9,9 +9,10 @@
             <div class="col-md-9">
                 <p class="mbr-text align-right links mbr-fonts-style display-7">
                     <em>
-                        <?php echo $this->Html->link(__d('mobirise/default', 'SOBRE NOSOTROS'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'text-white')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?php echo $this->Html->link(__d('mobirise/default', 'TESTIMONIOS'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'text-white')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?php echo $this->Html->link(__d('mobirise/default', 'CONTACTO'), array('controller'=>'pages', 'action'=>'display', 'contact'), array('class'=>'text-white')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <b><?php echo $this->Html->link(__d('mobirise/default', 'OPINAR SOBRE CHOFER'), array('controller'=>'testimonials', 'action'=>'enter_code'), array('class'=>'text-white')); ?></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <?php echo $this->Html->link(__d('mobirise/default', 'SOBRE NOSOTROS'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'text-white')); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <?php echo $this->Html->link(__d('mobirise/default', 'TESTIMONIOS'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'text-white')); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <?php echo $this->Html->link(__d('mobirise/default', 'CONTACTO'), array('controller'=>'pages', 'action'=>'display', 'contact'), array('class'=>'text-white')); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <?php
                         $urlBlog = Configure::read('App.fullBaseUrl');
                         if(Configure::read('debug') > 0) {
