@@ -37,7 +37,7 @@
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
                         <?php echo __d('mobirise/taxi-cuba', 'Recibe múltiples ofertas')?></h4>
                     <p class="mbr-text mbr-fonts-style display-5">
-                        <?php echo __d('mobirise/taxi-cuba', 'Te permitiremos intercambiar mensajes y <b>comunicarte directamente con varios choferes acá en Cuba</b> para que acuerdes todo con ellos. Recibe múltiples ofertas de precios.')?></p>
+                        <?php echo __d('mobirise/taxi-cuba', 'Te permitiremos intercambiar mensajes y <b>comunicarte directamente con varios taxistas independientes acá en Cuba</b> para que acuerdes todo con ellos. Cada uno hará su oferta.')?></p>
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
                         <?php echo __d('mobirise/taxi-cuba', 'Contrata a tu conductor')?></h4>
                     <p class="mbr-text mbr-fonts-style display-5">
-                        <?php echo __d('mobirise/taxi-cuba', '<b>Puedes contratar cualquier traslado si así lo deseas</b>: recogida en aeropuerto, taxi directo a un destino, taxi con chofer a tiempo completo por varios días, tours alrededor de la isla, etc.')?>
+                        <?php echo __d('mobirise/taxi-cuba', '<b>Elije a tu conductor y taxi y contrata cualquier traslado</b>: recogida en aeropuerto, taxi directo a un destino, taxi con chofer a tiempo completo por varios días, tours alrededor de la isla, etc.')?>
                     </p>
                 </div>
             </div>
