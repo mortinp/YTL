@@ -19,6 +19,10 @@
 
             $DriverTravelModel->order = null;  //$conversation['DriverTravel']['travel_id'] = null;
             $conversation['DriverTravel']['user_id'] = $this->Auth->user('id');
+            
+            // Ponerle el orden de este mensaje del cliente, que es 1 porque es el primer mensaje
+            $conversation['DriverTravel']['c_message_order'] = 1;
+            
             if( $DriverTravelModel->save($conversation) ){
                 $conversation['DriverTravel']['id'] = $DriverTravelModel->getLastInsertID();
                 

@@ -52,9 +52,23 @@
                         // MOBILE TEST
                         $testEmail = Configure::read('mobile_test_email');            
                         if($driverTravel['Driver']['username'] == $testEmail) {
-                            $Email = new CakeEmail('mviajero');
+                            
+                            // Obtener la cantidad total de mensajes del viajero que tiene esta conversacion, para poder mandar el c_message_order de este mensaje
+                            $query = "select count(*) as total from driver_traveler_conversations where conversation_id = '$conversation' and response_by = 'traveler';";
+                            $qResult = $this->DriverTravelerConversation->query($query);
+                            $driverTravel['DriverTravel']['c_message_order'] = $qResult[0][0]['total'];
+                            
+                            EmailsUtil::email(
+                                $testEmail, 
+                                $conversation, 
+                                array('conversation' => $driverTravel['DriverTravel'], 'message'=>$fixedBody),
+                                'mviajero', 
+                                'mob_new_msg', 
+                                array('enqueue'=>false), 
+                                'text');
+                            /*$Email = new CakeEmail('mviajero');
                             $Email->to($testEmail)->subject($conversation);
-                            $Email->send($fixedBody);
+                            $Email->send($fixedBody);*/
                         }
                         // ENDOF MOBILE TEST
                         

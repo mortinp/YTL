@@ -457,12 +457,15 @@ class UsersController extends AppController {
     
     
     public function contact_driver($new = false){
+        
+        // Si el usuario esta logueado, simplemente mandar el mensaje y continuar
         if($this->Auth->loggedIn()){
             $conversation = array('DriverTravel' => $this->request->data['DriverTravel']);
             $message      = $this->request->data['DriverTravelerConversation']['response_text'];
             $result       = $this->DirectMessages->send_message($conversation, $message);
             
             if($result['success']){
+                
                 if($new) return $this->redirect (array('action' => 'register_welcome', $result['conversation_id']));
                 
                 $this->setInfoMessage($result['message']);
@@ -471,10 +474,13 @@ class UsersController extends AppController {
             else $this->setErrorMessage ($result['message']);
         }
         
+        // Si no está logueado, pero el usuario existe, intentar loguearse con la contraseña y mandar el mensaje
         else if( $this->User->loginExists( $this->request->data['User']['username'] ) ){
             if( $this->do_login() )  return $this->contact_driver ();
             else $this->setErrorMessage( __('Verifique su contraseña e intente nuevamente.') );
         }
+        
+        // Si es un nuevo usuario, registrarlo, loguearlo, mandar la bienvenida y enviar el mensaje
         else if( $this->do_register($this->request->data['User'], 'welcome_new', 'driver_profile_msg_form') && $this->do_login() ) {
             EmailsUtil::email(
                 $this->request->data['User']['username'], 
