@@ -54,7 +54,7 @@ if(isset ($travel) && !empty ($travel)) {
     <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __d('pending_travel', 'Cualquier detalle que quieras explicar')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
 </div>
 
-<div style="clear:both;height:100%;overflow:auto;padding-bottom:20px">
+<div style="clear:both;overflow:auto;padding-bottom:20px">
     <div>
         <label><?php echo __d('pending_travel', 'Preferencias')?></label>
     </div>
