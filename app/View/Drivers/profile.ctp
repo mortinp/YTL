@@ -9,6 +9,8 @@ $driver_name = $profile['DriverProfile']['driver_name'];
 $driver_short_name = Driver::shortenName($driver_name);
 ?>
 
+<?php echo DriverProfile::getAbsolutePath($profile['DriverProfile']['avatar_filepath'])?>
+
 <!-- TESTIMONIOS -->
 <?php
 $testimonialsCount = $this->request->paging['Testimonial']['count'];

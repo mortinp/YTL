@@ -7,6 +7,7 @@ $driver_short_name = Driver::shortenName($driver_name);
 
 <!-- TESTIMONIOS -->
 <?php
+//print_r($this->request->query('url'));
 $testimonialsCount = $this->request->paging['Testimonial']['count'];
 $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 ?>
@@ -18,7 +19,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
     <div class="container">
         <div class="media-container-row">
             <div class="mbr-figure" style="width: 50%;">
-                <img src="<?php echo $profile['DriverProfile']['featured_img_url']?>" alt="<?php echo $driver_short_name?>" title="">
+                <img src="" alt="<?php echo $driver_short_name?>" title="">
             </div>
 
             <div class="media-content">

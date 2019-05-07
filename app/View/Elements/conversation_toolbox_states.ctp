@@ -6,6 +6,7 @@ else if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::
 ?>
 <div class="btn-group">
     <div class="input-group">
+	<span class="input-group-addon">Estado</span>
         <span class="input-group-btn">
             <button type="button" class="btn btn-<?php echo $btnType?> dropleft-toggle" data-toggle="dropdown">
                 <?php 
@@ -28,8 +29,7 @@ else if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::
                     <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success states-btn', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_PAID), true), 'escape'=>false), true);?></div>
                 <?php endif?>
             </div>
-        </span>
-        <span class="input-group-addon">Estado</span>
+        </span>        
     </div>
 </div> 
 

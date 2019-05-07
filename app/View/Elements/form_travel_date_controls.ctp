@@ -1,6 +1,6 @@
 <div>  
-    <span id="date-change-set-<?php echo $travel['DriverTravel']['id']?>" style="display: inline-block">
-        <a href="#!" class="open-form edit-date-change-<?php echo $travel['DriverTravel']['id']?>" data-form="date-change-form-<?php echo $travel['DriverTravel']['id']?>">&ndash; <?php echo __('cambiar fecha')?></a>
+    <span id="date-change-set-<?php echo $travel['DriverTravel']['id']?>">
+        <a href="#!" class="open-form edit-date-change-<?php echo $travel['DriverTravel']['id']?>" data-form="date-change-form-<?php echo $travel['DriverTravel']['id']?>"></span><span class="glyphicon glyphicon-edit"></span></a>
     </span>
     <span id="date-change-cancel-<?php echo $travel['DriverTravel']['id']?>" style="display:none">
         <a href="#!" class="cancel-edit-date-change-<?php echo $travel['DriverTravel']['id']?>">&ndash; <?php echo __('cancelar')?></a>
