@@ -26,6 +26,7 @@ class TravelsController extends AppController {
         }
 
         if (in_array($this->action, array('edit', 'view', 'confirm', 'delete'))) {
+            // Verificar que venga el id del viaje
             if(isset ($this->request->params['pass'][0])) {
                 $id = $this->request->params['pass'][0];
                 if ($this->Travel->isOwnedBy($id, $user['id'])) {
