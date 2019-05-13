@@ -30,8 +30,20 @@ msgid "Contactar choferes en Cuba"
 msgstr "Contact drivers in Cuba"
 
 #: /home.ctp:27
+msgid "Comparte esta página"
+msgstr "Share this page"
+
+#: /home.ctp:27
 msgid "Comparte esta página en %s"
 msgstr "Share this page on %s"
+
+#: /home.ctp:27
+msgid "Comparte el perfil de %s"
+msgstr "Share %s's profile page"
+
+#: /home.ctp:27
+msgid "Para que otros viajeros puedan encontrarlo y contratarlo"
+msgstr "So that other travelers can find him and hire him"
 
 #: /home.ctp:27
 msgid "Espera"

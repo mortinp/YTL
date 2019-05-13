@@ -1,10 +1,19 @@
+<?php
+if(!isset($shareTitle)) $shareTitle = __d('mobirise/default', 'Comparte esta página');
+if(!isset($shareSubtitle)) $shareSubtitle = null;
+?>
 <section class="cid-r6SRH2DkY0">
     <div class="container">
         <div class="media-container-row">
             <div class="col-md-8 align-center">
                 <h2 class="pb-3 mbr-section-title mbr-fonts-style display-2">
-                    <?php echo __d('mobirise/homepage', 'Comparte esta página')?>!
+                    <?php echo $shareTitle?>
                 </h2>
+                <?php if($shareSubtitle != null):?>
+                <div class="pb-3 mbr-section-title mbr-fonts-style display-5">
+                    <?php echo $shareSubtitle?>
+                </div>
+                <?php endif?>
                 <div>
                     <div class="mbr-social-likes" data-counters="false">
                         <span class="btn btn-social facebook mx-2" title="<?php echo __d('mobirise/default', 'Comparte esta página en %s', 'Facebook')?>">

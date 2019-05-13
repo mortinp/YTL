@@ -218,4 +218,7 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 </section>
 <?php endif?>
 
-<?php echo $this->element('mobirise/share-page')?>
+<?php echo $this->element('mobirise/share-page', array(
+    'shareTitle'=>__d('mobirise/default', 'Comparte el perfil de %s', $driver_short_name),
+    'shareSubtitle'=>__d('mobirise/default', 'Para que otros viajeros puedan encontrarlo y contratarlo'),
+    ))?>
