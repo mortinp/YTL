@@ -4,7 +4,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
 <?php $hasProfile = isset ($data['Driver']['DriverProfile']) && $data['Driver']['DriverProfile'] != null && !empty ($data['Driver']['DriverProfile'])?>
 <?php if($hasProfile) :?>
     <?php
-        $src = '';
+        $src = Configure::read('App.fullBaseUrl');//Esto para que la ruta a la imagen sea correcta
         if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
         $src .= '/'.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']);
         
@@ -26,16 +26,16 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
         }*/
 
     .theme-config {
-        position: absolute;
-        top: 100px;
+        position: fixed;
+        top: 110px;
         right: 0; 
         overflow: hidden;
+        z-index: 2000;
     }
     .theme-config-box {
         margin-right: -220px;
-        position: relative;
-        z-index: 2000;
-        transition-duration: 1.5s;
+        position: relative;        
+        transition-duration: 0.6s;
 
     }
     .theme-config-box.show {
@@ -214,8 +214,18 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
         #page-wrapper {
             margin: 0;
         }
+        
     }
-
+    
+    /*Ocultar el panel superior*/
+    #main-header {      
+      transition: top 0.2s ease-in-out;
+      
+   }
+    /* Usando javascript ocultamos el panel, a;adiendo esta clase */
+    .nav-up {
+      top: -90px; /*same as header height. use variables in LESS/SASS*/
+    }
 
 
 </style>
@@ -225,8 +235,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
         <div class="spin-icon">
             <i id="box-menu" class="glyphicon glyphicon-chevron-left pull-left"></i><i class="glyphicon glyphicon-list pull-right"></i>
         </div>
-        <div class="skin-settings">
-            <div class="col-md-12" style="padding-top: 5px; margin-bottom: 3px"><span class="btn-primary col-md-12 text-center" style="margin: 0px"><b>Operaciones</b></span></div>
+        <div class="skin-settings">            
             <div class="setings-item">
                    <?php echo $this->element('conversation_toolbox')?>
             </div>           
@@ -235,17 +244,26 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     </div>
 </div>
 <div class="row">
-    <div class="col-md-9 col-md-offset-2 well" style="background-color: white">
-        <?php if($hasProfile):?><div class="col-md-3"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 30px; max-width: 30px"/></div><?php endif;?>
-        <div class="col-md-9" style="padding-left: 10px"><h4>Chofer <?php echo $driverName?></h4></div>
-
+    <div id="main-header" class="col-md-8 col-xs-12 col-md-offset-2 well" style="background-color: white; position: fixed; z-index: 50; margin-top: -20px">
+        <div class="col-md-4 col-xs-4 bg-success"><h3>#<?php echo $data['Travel']['id'] ?></h3>
+            <?php echo TimeUtil::prettyDate($data['Travel']['date']) ?>
+            <!--Control para el cambio de fecha-->
+                    <?php if($userLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
+                    <?php echo $this->element('form_travel_date_controls', array('travel'=>$travel, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
+                    <?php endif; ?>
+        </div>
+        <?php if($hasProfile):?>
+            <div class="col-md-4 col-xs-4 centeralign"><img class="pull-left" src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 80px; max-width: 80px"/>
+                <h4 style="padding-top: 15px; margin-left: 10px"><?php echo $this->html->link($data['Driver']['DriverProfile']['driver_name'],array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank')); ?></h4>
+            </div>                    
+        <?php endif;?>
     </div>
 </div>
 
 
 <!-- VIAJES Y CONTROLES -->
-<div class="row">    
-        <div class="col-md-6 col-md-offset-3">
+<div class="row" style="margin-top: 110px">    
+        <div class="col-md-6 col-md-offset-3" >
         <?php        
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));
@@ -271,7 +289,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     <br/>
 
     <!-- MENSAJES -->
-<?php if(empty ($conversations)):?><div class="row"><div class="col-md-6 col-md-offset-3">No hay conversaciones hasta el momento</div></div>
+<?php if(empty ($conversations)):?><div class="col-md-6 col-md-offset-3">No hay conversaciones hasta el momento</div>
 <?php else:?>
     <?php foreach ($conversations as $message):?>
     <div class="row container-fluid">
@@ -286,6 +304,46 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
 </div>
 
 <script type="text/javascript">
+   /************** Logica para ocultar el panel superior****************/
+    var lastScrollTop = 0;
+    var delta = 5;
+    var navbarHeight = $("#main-header").outerHeight();
+   
+    var didScroll;
+        // on scroll, let the interval function know the user has scrolled
+        $(window).scroll(function(event){
+          didScroll = true;
+        });
+        // run hasScrolled() and reset didScroll status
+        setInterval(function() {
+          if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+          }
+        }, 250);
+        
+        function hasScrolled() {            
+          var st = $(this).scrollTop();
+          if (Math.abs(lastScrollTop -  st) <= delta)
+          return;
+        
+        // If current position > last position AND scrolled past top panel...
+            if (st > lastScrollTop && st > navbarHeight){
+              // Scroll Down
+              $("#main-header").removeClass('nav-down').addClass('nav-up');
+            } else {
+              // Scroll Up
+              // If did not scroll past the document (possible on mac)...
+              if(st + $(window).height() < $(document).height()) { 
+                $("#main-header").removeClass('nav-up').addClass('nav-down');
+              }
+            }
+            
+            lastScrollTop = st;
+           }
+    
+    /************** FIN Logica para ocultar el panel superior****************/
+    
     // Config box
 
     // SKIN Select

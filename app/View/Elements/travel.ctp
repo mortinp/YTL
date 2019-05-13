@@ -125,11 +125,6 @@ if($expired) {
             <?php $fechaCambiada = isset ($travel['DriverTravel']['original_date']) && $travel['DriverTravel']['original_date'] != null;?>
             </span>
         </div>
-         <?php if($userLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
-        <div class="col-md-4">              
-                <?php echo $this->element('form_travel_date_controls', array('travel'=>$travel, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
-        </div><br>
-        <?php endif; ?>
     </div>
 </p>
 

@@ -1,4 +1,4 @@
-<div>  
+<div class="pull-right">  
     <span id="date-change-set-<?php echo $travel['DriverTravel']['id']?>">
         <a href="#!" class="open-form edit-date-change-<?php echo $travel['DriverTravel']['id']?>" data-form="date-change-form-<?php echo $travel['DriverTravel']['id']?>"></span><span class="glyphicon glyphicon-edit"></span></a>
     </span>

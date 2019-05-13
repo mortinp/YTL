@@ -39,16 +39,17 @@ if($userLoggedIn) {
                             <meta name="description" content="<?php echo $description ?>"/>
 
                             <!-- FACEBOOK SHARE -->        
-                            <meta property="og:title" content="<?php echo substr($title, 0, 90)?>">
-        <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
-                                <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
-        <?php endif?>
-                                    <meta property="og:description" content="<?php echo $description?>">
-    <style type="text/css">
-        .yellow{
-            color: #e0a800;
-        }
-    </style>
+                        <meta property="og:title" content="<?php echo substr($title, 0, 90)?>">
+                        <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
+                        <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
+                        <?php endif?>
+                        <meta property="og:description" content="<?php echo $description?>">
+                            <!--END FACEBOOK SHARE-->
+                                        <style type="text/css">
+                                            .yellow{
+                                                color: #e0a800;
+                                            }
+                                        </style>
         <?php
         // CSS
         $this->Html->css('web/assets/mobirise-icons/mobirise-icons', array('inline' => false));
@@ -189,7 +190,8 @@ if($userLoggedIn) {
                                             <!-- Google Analytics -->
                                             <script>
                                                 (function (i, s, o, g, r, a, m) {
-                                                    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+                                                    i['GoogleAnalyticsObject'] = r;
+                                                    i[r] = i[r] || function () {
                                                         (i[r].q = i[r].q || []).push(arguments)
                                                     }, i[r].l = 1 * new Date();
                                                     a = s.createElement(o),
@@ -204,7 +206,7 @@ if($userLoggedIn) {
                                             </script>
         <?php endif;?>
 
-                                           <!--Getting a given review for highlight :) -->
+                                            <!--Getting a given review for highlight :) -->
                                             <script type="text/javascript">
                                                 function goTo(id, time, offset) {
                                                     $('html, body').animate({
@@ -214,10 +216,15 @@ if($userLoggedIn) {
                                                 ;
 
                                             <?php if($this->request->query('see-review')): ?>
+                                                //aqui modificamos todo para facebook share                                               
+                                                //ESTA Fallando lo quite por eso
+                                                <!-- FACEBOOK SHARE -->
+                                                <!--END FACEBOOK SHARE MODIFFICATION-->
+                                                
                                                 $(document).ready(function () {
                                                     goTo('<?php echo $this->request->query['see-review']?>', 500, -70);//Here we goTo
-                                                    $('#'+'<?php echo $this->request->query['see-review']?>').attr('class',$('#'+'<?php echo $this->request->query['see-review']?>').attr('class')+' img-thumbnail alert-dark');//Here we highlight
-                                                    $('#star-'+'<?php echo $this->request->query['see-review']?>').attr('class',$('#star-'+'<?php echo $this->request->query['see-review']?>').attr('class')+' fa fa-2x fa-star yellow');
+                                                    $('#' + '<?php echo $this->request->query['see-review']?>').attr('class', $('#' + '<?php echo $this->request->query['see-review']?>').attr('class') + ' img-thumbnail alert-dark');//Here we highlight
+                                                    $('#star-' + '<?php echo $this->request->query['see-review']?>').attr('class', $('#star-' + '<?php echo $this->request->query['see-review']?>').attr('class') + ' fa fa-2x fa-star yellow');
                                                 });
                                             <?php endif; ?>
 

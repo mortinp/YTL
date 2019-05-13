@@ -137,6 +137,7 @@ class DriversController extends AppController {
                 if($this->request->query('see-review')){
                 //getting given testimonial
                 $askedreview = $this->Testimonial->findById($this->request->query('see-review'));
+                $highlighted = $askedreview;
                 
                 //Getting specific values for virtual field adding                
                     $haystack = array ('0'=>$askedreview['Testimonial']['id']);
@@ -155,9 +156,12 @@ class DriversController extends AppController {
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
                     'Testimonial.state'=>Testimonial::$statesValues['approved']))
-                );
+                );   
                 
+                $this->set('highlighted',$highlighted);
+                                
                 if($this->request->is('ajax')) {
+                    $this->set('highlighted',$highlighted);
                     $render = '/Elements';
                     if(Configure::read('App.theme') != null) $render .= '/'.Configure::read('App.theme');
                     $render .= '/ajax_testimonials_list';

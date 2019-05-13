@@ -56,7 +56,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
 
                     <br/>
                     <br/>
-                    <?php echo $this->Form->button('Marcar todos como leídos', array('id' => 'ajax-leer', 'data-url' => $this->Html->url(array('action' => 'update_read_entries', $data['DriverTravel']['id'], count($conversations)), true), 'class'=>'btn btn-primary'), true);?>
+                    <?php echo $this->Form->button('Marcar como leídos', array('id' => 'ajax-leer', 'data-url' => $this->Html->url(array('action' => 'update_read_entries', $data['DriverTravel']['id'], count($conversations)), true), 'class'=>'btn btn-primary col-md-12'), true);?>
                 </span>
             <?php else:?>
                 &nbsp;No mensajes nuevos
@@ -77,7 +77,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 </span>
             </div>
         </div>-->
-        <div class="col-md-12">
+        <div class="col-md-12" style="display: ">
         
             <!-- FOLLOW / UNFOLLOW -->
             <?php $following = $hasMetadata? $data['TravelConversationMeta']['following']: false;?>
@@ -91,8 +91,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 </span>
             </div>
 
-            <div class="input-group info follow" style="display: <?php echo ($following) ? 'none' : 'table'; ?>">
-                <?php echo $this->Form->button('<i class="glyphicon glyphicon-check"></i> Seguir', array('class'=>'btn-info follow-btn col-md-12', 'data-url' => $this->Html->url(array('action' => 'follow', $data['DriverTravel']['id']), true)), true);?>
+            <div class="input-group info follow col-md-12" style="display: <?php echo ($following) ? 'none' : 'block'; ?>">
+                <?php echo $this->Form->button('<i class="glyphicon glyphicon-check"></i> Seguir', array('class'=>'btn btn-info follow-btn col-md-12','data-url' => $this->Html->url(array('action' => 'follow', $data['DriverTravel']['id']), true)), true);?>
                 <br/>
 				
             </div>
@@ -115,7 +115,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 </div>
             
             <?php else:?>
-                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
+                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info col-md-12', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
             <?php endif?>
             
             <div id="form-flag-comment" style="display: none">
