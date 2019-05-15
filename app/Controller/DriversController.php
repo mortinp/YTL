@@ -2,10 +2,12 @@
 
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('DriverTravel', 'Model');
+App::uses('User', 'Model');
 
 class DriversController extends AppController {
     
-    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User', 'Testimonial');
+    public $uses = array('DriverTravelerConversation',/*-*/ 'Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User', 'Testimonial', 'TravelConversationMeta', 'UserInteraction');
     
     public $components = array('TravelLogic', 'Paginator', 'RequestHandler');
     
@@ -13,7 +15,7 @@ class DriversController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('profile');
+        $this->Auth->allow('profile','messages');
     }
     
     public function index() {
@@ -129,8 +131,27 @@ class DriversController extends AppController {
             $this->layout = 'profile';
             $this->set('profile', $profile);
             
-            if(Configure::read('show_testimonials_in_profile')){        
-                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => 'Testimonial.created DESC') );
+            if(Configure::read('show_testimonials_in_profile')){
+                
+                /*Primero chequeamos si es una vista directa de testimonio*/
+                if($this->request->query('see-review')){
+                //getting given testimonial
+                $askedreview = $this->Testimonial->findById($this->request->query('see-review'));
+                
+                //Getting specific values for virtual field adding                
+                    $haystack = array ('0'=>$askedreview['Testimonial']['id']);
+                //Transforming in a semmicolon separated string                
+                   $askedreview = implode(',', $haystack); 
+                   
+                }else                
+                $askedreview = '';//if direct profile view
+               
+                //Creating a virtual field for returning given testimonial (if given) into pagination
+                $this->Testimonial->virtualFields['in_review']=  "IF (Testimonial.id IN ('$askedreview'),0,1)";
+                
+                               
+                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => array('in_review'=>'asc'/*our given testimonial comes first*/,'Testimonial.created'=> 'desc')) );
+                
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
                     'Testimonial.state'=>Testimonial::$statesValues['approved']))
@@ -204,6 +225,22 @@ class DriversController extends AppController {
         }
         
         return $fixedMessages;
+    }
+    
+    public function messages($conversationId) {
+        $this->layout = 'driver_panel';
+        
+        //die($conversationId);
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
+        $this->Driver->attachProfile($this->DriverTravel);
+        
+        $data = $this->DriverTravel->findById($conversationId);
+        $this->set('data', $data);
+               
+        $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);        
+        $this->set('conversations', $conversations);
+        
+                
     }
 }
 

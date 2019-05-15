@@ -30,14 +30,14 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function view($conversationId) {
+        
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
         $this->Driver->attachProfile($this->DriverTravel);
         
         $data = $this->DriverTravel->findById($conversationId);
-        $this->set('data', $data);
-        
+        $this->set('data', $data);        
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);
-        $this->set('conversations', $conversations);
+        $this->set('conversations', $conversations);        
     }
     
     public function messages($conversationId) {
@@ -317,7 +317,62 @@ class DriverTravelerConversationsController extends AppController {
         return $this->redirect($this->referer());
     }
     
-    
+     public function direct_messaging_to_driver() {
+         
+         $id = $this->request->data['id'];         
+       
+        
+        $this->DriverTravel->id =  $id;
+        if (!$this->DriverTravel->exists()) {
+            throw new NotFoundException('Conversación inválida.');
+        }
+        
+        $this->Driver->attachProfile($this->DriverTravel);
+        
+        $data = $this->DriverTravel->findById($id);
+        
+        $vars = array();
+        $vars['message']= $this->request->data['body'];
+        $vars['travel_id']          = DriverTravel::getIdentifier($data);
+        $vars['travel_date']        = $data['DriverTravel']['travel_date'];
+        $vars['conversation_id']    = $id;
+        $vars['driver_name']        = (isset ($data['Driver']['DriverProfile']) && !empty($data['Driver']['DriverProfile']))? Driver::shortenName($data['Driver']['DriverProfile']['driver_name']):'chofer';
+        $vars['notification_type']  = $data['DriverTravel']['notification_type'];
+        if($data['DriverTravel']['notification_type'] != DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE){
+            $vars['travel_origin']      = $data['Travel']['origin'];
+            $vars['travel_destination'] = $data['Travel']['destination'];
+        }
+        
+        /*
+        $datasource = $this->TravelConversationMeta->getDataSource();
+        $datasource->begin(); Aun no almacenamos nada*/
+
+        $to = $data['Driver']['username'];
+        $subject = 'Asunto asociado al viaje #'.$vars['travel_id'].' [['.$vars['conversation_id'].']]';
+        
+        
+        $OK = EmailsUtil::email($to, $subject, $vars, 'no_responder', 'direct_messaging_to_driver');
+        
+        
+       /*
+        if($OK) {           
+            $this->TravelConversationMeta->id = $vars['conversation_id'];
+            $OK = $this->TravelConversationMeta->saveField('asked_confirmation', true);
+        }
+        */
+        
+        
+        $this->response->type('ajax');
+
+        if($OK){ /*$datasource->commit();*/ $this->response->body('true'); }
+        else{ /*$datasource->rollback();*/
+        $this->response->body('false');
+        }
+        
+        return $this->response;
+        
+        //return $this->redirect($this->referer());
+    }
     
     
     /**
@@ -366,10 +421,9 @@ class DriverTravelerConversationsController extends AppController {
         $this->set('data', $data);
     }
     
-    public function msg_to_driver(){  
+    public function msg_to_driver(){       
         $data = $this->request->data['DriverTravelerConversation'];
-        $adjunto = $data['adjunto'];
-        
+        $adjunto = $data['adjunto']; 
         $attachment = array();
         if($adjunto['name'] != '')
             $attachment = array($adjunto['name'] => array('contents' => file_get_contents($adjunto['tmp_name']), 'mimetype' => $adjunto['type']));
@@ -388,6 +442,7 @@ class DriverTravelerConversationsController extends AppController {
         //return $this->redirect(array('action' => 'messages', $data['conversation_id']), '?highlight=message-'.$msgId);
     }
     
+       
 }
 
 ?>

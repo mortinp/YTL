@@ -7,14 +7,14 @@ if (Configure::read('debug') > 0)
 $src .= '/' . str_replace('\\', '/', $testimonial['image_filepath']);
 ?>
 
-<div class="media-container-row">
+<div class="media-container-row" id="<?php echo $testimonial['id']; ?>">
     <div class="media-content px-3 align-self-center mbr-white py-2">
         <p class="mbr-author-name pt-4 mb-2 mbr-fonts-style display-6">
             <?php echo $testimonial['author']?>
             <?php if($testimonial['country'] != null && !empty($testimonial['country'])):?>
             <span style="font-weight: normal;"><?php echo __d('mobirise/testimonials', 'de %s', '<b>'.$testimonial['country'].'</b>')?></span>
             <?php endif;?>
-        </p>
+        </p><span class="pull-right" id="star-<?php echo $testimonial['id']; ?>"></span>
         <p class="mbr-author-desc mbr-fonts-style display-6 text-muted">
            <?php echo __d('mobirise/testimonials', 'Escrita el %s', TimeUtil::prettyDate($testimonial['created'], false))?>
         </p>

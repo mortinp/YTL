@@ -28,11 +28,9 @@ $this->Js->set('operator', User::prettyName( AuthComponent::user() ));
 echo $this->Js->writeBuffer(array('inline' => false));
 
 ?>          
+<div class="row">
 
-<div class="control-panel">
-    <div class="control-panel-frame">
-        
-        <div class="btn-wrapper">
+        <div class="col-md-12">     
             <!-- CANTIDAD TOTAL DE MENSAJES-->
             <?php if($data['DriverTravel']['message_count'] > 0):?>
                 <span class="label label-primary info" title="Total de mensajes"><?php echo $data['DriverTravel']['message_count']?></span>
@@ -65,16 +63,26 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php endif?>
             <br/>
             <br/>
-            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'left'));?>
+            <?php echo $this->Html->link('Otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'bottom','style'=>'color: #0c0b0b!important'));?>
+        <hr>
         </div>
         <br/>
         <br/>
+		
         
-        <div class="btn-wrapper">
+        <!-- <div class="btn-wrapper">
+            <div class="input-group" title="Enviar mensaje directo al chofer" data-placement="left">                
+                <span class="btn btn-info">Escribir al chofer                
+                    <span class="glyphicon glyphicon-send"></span>                
+                </span>
+            </div>
+        </div>-->
+        <div class="col-md-12">
+        
             <!-- FOLLOW / UNFOLLOW -->
             <?php $following = $hasMetadata? $data['TravelConversationMeta']['following']: false;?>
             
-            <div class="input-group info follow" title="Esta conversación se está Siguiendo" data-placement="left" style="display: <?php echo ($following) ? 'table' : 'none'; ?>">
+            <div class="input-group info follow col-md-9" title="Esta conversación se está Siguiendo" data-placement="bottom" style="display: <?php echo ($following) ? 'table' : 'none'; ?>;">
                 <span class="input-group-addon">
                     <span class="label label-info">Siguiendo</span>
                 </span>
@@ -84,8 +92,9 @@ echo $this->Js->writeBuffer(array('inline' => false));
             </div>
 
             <div class="input-group info follow" style="display: <?php echo ($following) ? 'none' : 'table'; ?>">
-                <?php echo $this->Form->button('Seguir esta conversación', array('class'=>'btn-info follow-btn', 'data-url' => $this->Html->url(array('action' => 'follow', $data['DriverTravel']['id']), true)), true);?>
+                <?php echo $this->Form->button('<i class="glyphicon glyphicon-check"></i> Seguir', array('class'=>'btn-info follow-btn col-md-12', 'data-url' => $this->Html->url(array('action' => 'follow', $data['DriverTravel']['id']), true)), true);?>
                 <br/>
+				
             </div>
             
             <br/>
@@ -94,7 +103,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php $flagged = $hasMetadata && $data['TravelConversationMeta']['flag_type'] != null? true:false?>
             <?php if($flagged) :?>
             
-            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $data['TravelConversationMeta']['flag_comment']);?>" data-placement="left">
+            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $data['TravelConversationMeta']['flag_comment']);?>" data-placement="bottom">
                     <span class="input-group-addon">
                         <span class="label label-warning">
                             <a href="#!" class="open-form" data-form="form-flag-comment"><i class="glyphicon glyphicon-pushpin"></i> Pineado</a>
@@ -106,28 +115,38 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 </div>
             
             <?php else:?>
-                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'left', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
+                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
             <?php endif?>
             
             <div id="form-flag-comment" style="display: none">
                 <?php echo $this->element('form_conversation_flag_comment', array('data' => $data)); ?>
-            </div>
-            
+            </div>    
+            <hr>
         </div>
-
-        <div class="btn-wrapper" id="states">
+        
+        <div id="states" class="col-md-12" style="margin-top: 10px">        
             <?php echo $this->element('conversation_toolbox_states'); ?>
+        
         </div>
-
-        <div class="btn-wrapper">
-            <!-- TRAVEL DATE -->
-            <?php $fechaCambiada = isset ($data['DriverTravel']['original_date']) && $data['DriverTravel']['original_date'] != null;?>
-            <span class="alert alert-success" style="display: inline-block; margin-bottom: 0px">
-                <b><?php echo TimeUtil::prettyDate($travelDate)?></b>
-                <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
-            </span>
-        </div>
+		<br>
+        
+   
+    
+</div>
+<div class="row"><hr>
+    <?php if($data['DriverTravel']['notification_type'] != DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE): ?> <!--En conversaciones directas no se tiene cantidad de viajeros-->
+    <!-- CHANGING PEOPLE COUNT -->
+    <div class="col-md-4 col-xs-4" style="margin-bottom: 20px">
+        <?php echo $this->element('people_count_controls', array('thread' => $data['DriverTravel'], 'conversation'=>$data)); ?>
     </div>
+    <?php endif; ?>
+    <div id="comment-icon" class="col-md-4 col-xs-4" style="margin-bottom: 20px">
+        
+    </div>
+    <div id="messaging-icon" style="margin-bottom: 20px">
+        
+    </div>
+       
 </div>
 
 <?php
@@ -144,18 +163,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
 
 
 <style type="text/css">
-    .control-panel{
-        right: 10px;
-        position: fixed;
-        z-index: 10;
-        top: 120px;
-        padding: 0px;
-
-    }
-    .control-panel-frame {
-        width: 210px;
-    }
-    
+   
     .btn-group-vertical .btn {
         margin: 10px;
     }
@@ -170,17 +178,13 @@ echo $this->Js->writeBuffer(array('inline' => false));
         min-width: 100%;
     }
     
-    /* Esto es un hack para que el datepicker salga por delante del bootbox*/
-    .datepicker {
-        z-index: 99999 !important;
-    }
 </style>
 
 <script type="text/javascript">
     
     function openForm(event) {
         bootbox.dialog({title:$(this).data('title'), message:$( '#' + $(this).data('form') ).html()});
-
+        
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",
             language: '<?php echo Configure::read('Config.language')?>',
@@ -232,4 +236,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
     
     ajaxifyButton($('.follow-btn'), followSuccess, onError);
     ajaxifyButton($('#ajax-leer'), readSuccess, onError);
+       
+
+    
+    
  </script>

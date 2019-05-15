@@ -56,7 +56,7 @@
                             // Obtener la cantidad total de mensajes del viajero que tiene esta conversacion, para poder mandar el c_message_order de este mensaje
                             $query = "select count(*) as total from driver_traveler_conversations where conversation_id = '$conversation' and response_by = 'traveler';";
                             $qResult = $this->DriverTravelerConversation->query($query);
-                            $driverTravel['DriverTravel']['c_message_order'] = $qResult[0][0]['total'];
+                            $driverTravel['DriverTravel']['c_message_order'] = $qResult[0][0]['total'];                            
                             
                             EmailsUtil::email(
                                 $testEmail, 
@@ -89,6 +89,7 @@
             } 
             else $this->errorLog("Conversation Failed: No se encontró la conversación", compact('sender', 'subject', 'body'));
             
+                     
             return null;
         }
         
@@ -150,6 +151,8 @@
                 $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
             else $deliverTo = $driverTravel['Driver']['username'];
 
+            
+           
             // El $returnData es para coger los ids de los attachments que hayan
             $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
             $OK = ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
