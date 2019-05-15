@@ -18,15 +18,15 @@ else if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::
             </button>
             <div class="dropdown-menu">
                 <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
-                    <div><?php echo $this->Form->button('Ninguno', array('class'=>'btn btn-default states-btn', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_NONE), true)), true);?></div>
+                    <div><?php echo $this->Form->button('Ninguno', array('class'=>'btn btn-default states-btn col-md-12', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_NONE), true)), true);?></div>
                 <?php endif?>
 
                 <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn btn-warning states-btn', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_DONE), true), 'escape'=>false), true);?></div>
+                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn btn-warning states-btn col-md-9 col-xs-9', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_DONE), true), 'escape'=>false), true);?></div>
                 <?php endif?>
 
                 <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success states-btn', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_PAID), true), 'escape'=>false), true);?></div>
+                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success states-btn col-md-9 col-xs-9', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_PAID), true), 'escape'=>false), true);?></div>
                 <?php endif?>
             </div>
         </span>        

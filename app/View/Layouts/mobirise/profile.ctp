@@ -33,7 +33,7 @@ if($userLoggedIn) {
         $title = __d('mobirise/driver_profile', 'Taxi en %s, Cuba: %s', $profile['Province']['name'], $profile['DriverProfile']['driver_name']) . ' - ' . __d('mobirise/driver_profile', 'Auto hasta %s capacidades', $profile['Driver']['max_people_count']);
         if ($profile['Driver']['has_air_conditioner']) $title .= ' ' . __d('driver_profile', 'con aire acondicionado');
 
-        $description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
+        $description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de �l y decide si te gustar�a contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
         ?>
                             <title><?php echo $title . ' | YoTeLlevo' ?></title>
                             <meta name="description" content="<?php echo $description ?>"/>
@@ -205,7 +205,27 @@ if($userLoggedIn) {
                                                 ga('send', 'pageview');
                                             </script>
         <?php endif;?>
+                                            
+                                            
+                                           <?php if($this->request->query('see-review')): ?>   
+                                            <!--aqui modificamos todo para facebook share  -->                               
+                                                
+                                                <!-- FACEBOOK SHARE -->
+                                                    <?php                                                    
+                                                    $fbImgUrl = '';
+                                                    $fullBaseUrl = Configure::read('App.fullBaseUrl');
+                                                    if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
 
+                                                    if ($highlighted['image_filepath']) $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $highlighted['image_filepath']);
+                                                    else if ($profile['featured_img_url']) $fbImgUrl = $profile['featured_img_url'];
+                                                    else $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['avatar_filepath']);
+                                                    ?>
+                                                    <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['author'], $profile['driver_name']), 0, 90)?>">
+                                                    <meta property="og:image" content="<?php echo $fbImgUrl?>">
+                                                    <meta property="og:description" content="<?php echo substr($highlighted['text'], 0, 300)?>...">
+                                               <!--END FACEBOOK SHARE MODIFFICATION-->
+                                              <?php endif; ?>
+                                               
                                             <!--Getting a given review for highlight :) -->
                                             <script type="text/javascript">
                                                 function goTo(id, time, offset) {
@@ -215,11 +235,7 @@ if($userLoggedIn) {
                                                 }
                                                 ;
 
-                                            <?php if($this->request->query('see-review')): ?>
-                                                //aqui modificamos todo para facebook share                                               
-                                                //ESTA Fallando lo quite por eso
-                                                <!-- FACEBOOK SHARE -->
-                                                <!--END FACEBOOK SHARE MODIFFICATION-->
+                                            <?php if($this->request->query('see-review')): ?>                                           
                                                 
                                                 $(document).ready(function () {
                                                     goTo('<?php echo $this->request->query['see-review']?>', 500, -70);//Here we goTo

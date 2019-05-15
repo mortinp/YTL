@@ -25,9 +25,17 @@ else $comments = $title;
 
 
 <script type="text/javascript">
-    $("#messaging-icon").html("<span id='messaging-set-<?php echo $thread['id']?>' style='display: inline-block;' class='btn btn-default'><a href='#!' title='<?php echo $title?>'  class='edit-messaging-<?php echo $thread['id']?>' style='text-decoration: none'><span class='info' title='<?php echo $comments?>' data-placement='bottom'><i class='glyphicon glyphicon-send <?php echo $colorClass?>'></i></span></a></span>");
+    $("#messaging-icon").html("<span id='messaging-set-<?php echo $thread['id']?>' style='display: inline-block;' class='btn btn-default'><a href='#!' title='<?php echo $title?>'  class='edit-messaging-<?php echo $thread['id']?>' style='text-decoration: none' data-where='messaging-form-<?php echo $thread['id']?>'><span class='info' title='<?php echo $comments?>' data-placement='bottom'><i class='glyphicon glyphicon-send <?php echo $colorClass?>'></i></span></a></span>");
     
-    $('.edit-messaging-<?php echo $thread['id']?>, .cancel-edit-messaging-<?php echo $thread['id']?>').click(function() {
+    $('.cancel-edit-messaging-<?php echo $thread['id']?>').click(function() {        
+        $('#messaging-form-<?php echo $thread['id']?>, #messaging-cancel-<?php echo $thread['id']?>').toggle();
+        $(".theme-config-box").toggleClass("show");
+    });
+    
+    
+    $('.edit-messaging-<?php echo $thread['id']?>').click(function() {
+        /*goTo messaging form*/
+        goTo($(this).data('where'),1,100);        
         $('#messaging-form-<?php echo $thread['id']?>, #messaging-cancel-<?php echo $thread['id']?>').toggle();
         $(".theme-config-box").toggleClass("show");
     });

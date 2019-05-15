@@ -12,7 +12,8 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     ?>
 <?php endif;?>
 <?php $topPosition = 60?>
-
+<!--Traido de Travels por el cambio de lugar del control de Cambio de Fechas-->
+<?php $fechaCambiada = isset ($data['Travel']['original_date']) && $data['Travel']['original_date'] != null;?>
 <style>
     /*
  *
@@ -57,7 +58,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     .skin-settings {
         width: 220px;
         margin-left: 40px;
-        background-color: rgba(200, 219, 243, 1);
+        background-color: rgba(200, 219, 243, 0.6);
         /*box-shadow:  5px 1px 1px 2px rgba(0, 0, 0, 0.4);*/
         border-radius: 0 0 0 10px;
 
@@ -219,14 +220,15 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     
     /*Ocultar el panel superior*/
     #main-header {      
-      transition: top 0.2s ease-in-out;
-      
+      transition: top 0.5s!important;
+      display: block;
+      background-color: white;
+      position: fixed;
+      z-index: 10;
+      top: 45px
+           
    }
-    /* Usando javascript ocultamos el panel, a;adiendo esta clase */
-    .nav-up {
-      top: -90px; /*same as header height. use variables in LESS/SASS*/
-    }
-
+    
 
 </style>
 
@@ -244,12 +246,12 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     </div>
 </div>
 <div class="row">
-    <div id="main-header" class="col-md-8 col-xs-12 col-md-offset-2 well" style="background-color: white; position: fixed; z-index: 50; margin-top: -20px">
-        <div class="col-md-4 col-xs-4 bg-success"><h3>#<?php echo $data['Travel']['id'] ?></h3>
+    <div id="main-header" class="col-md-8 col-xs-12 col-md-offset-2 well">
+        <div class="col-md-4 col-xs-4" style="/*background-color: rgba(200, 219, 243, 0.6);*/ padding: 3px;"><h3>#<?php echo $data['Travel']['id'] ?></h3>
             <?php echo TimeUtil::prettyDate($data['Travel']['date']) ?>
             <!--Control para el cambio de fecha-->
                     <?php if($userLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
-                    <?php echo $this->element('form_travel_date_controls', array('travel'=>$travel, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
+                    <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($data['Travel']['date'])))?>
                     <?php endif; ?>
         </div>
         <?php if($hasProfile):?>
@@ -305,42 +307,22 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
 
 <script type="text/javascript">
    /************** Logica para ocultar el panel superior****************/
-    var lastScrollTop = 0;
-    var delta = 5;
-    var navbarHeight = $("#main-header").outerHeight();
-   
-    var didScroll;
+       
+    var prevscroll=window.pageYOffset;
         // on scroll, let the interval function know the user has scrolled
         $(window).scroll(function(event){
-          didScroll = true;
-        });
-        // run hasScrolled() and reset didScroll status
-        setInterval(function() {
-          if (didScroll) {
-            hasScrolled();
-            didScroll = false;
-          }
-        }, 250);
-        
-        function hasScrolled() {            
-          var st = $(this).scrollTop();
-          if (Math.abs(lastScrollTop -  st) <= delta)
-          return;
-        
-        // If current position > last position AND scrolled past top panel...
-            if (st > lastScrollTop && st > navbarHeight){
-              // Scroll Down
-              $("#main-header").removeClass('nav-down').addClass('nav-up');
-            } else {
-              // Scroll Up
-              // If did not scroll past the document (possible on mac)...
-              if(st + $(window).height() < $(document).height()) { 
-                $("#main-header").removeClass('nav-up').addClass('nav-down');
-              }
-            }
+            var current = window.pageYOffset;
             
-            lastScrollTop = st;
-           }
+            if(prevscroll > current)
+                document.getElementById("main-header").style.top="45px";
+            else
+                document.getElementById("main-header").style.top="-150px";
+           
+           prevscroll = current;
+        });
+        
+        
+        
     
     /************** FIN Logica para ocultar el panel superior****************/
     

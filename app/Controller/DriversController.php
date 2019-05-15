@@ -50,10 +50,10 @@ class DriversController extends AppController {
             
             //$this->request->data['Driver']['role'] = 'driver';
             if ($this->Driver->saveAssociated($this->request->data)) {
-                $this->setInfoMessage('El chofer se guardó exitosamente.');
+                $this->setInfoMessage('El chofer se guard� exitosamente.');
                 return $this->redirect(array('action' => 'index'));                
             }
-            $this->setErrorMessage('Ocurrió un error guardando el chofer.');
+            $this->setErrorMessage('Ocurri� un error guardando el chofer.');
         }
         $this->set('localities', $this->Driver->Locality->getAsList());
         $this->set('provinces', $this->Driver->Province->find('list'));
@@ -63,17 +63,17 @@ class DriversController extends AppController {
     public function edit($id = null) {
         $this->Driver->id = $id;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer inválido.');
+            throw new NotFoundException('Chofer inv�lido.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             
             if(strlen($this->request->data['Driver']['password']) == 0) unset ($this->request->data['Driver']['password']);
             
             if ($this->Driver->saveAll($this->request->data)) {
-                $this->setInfoMessage('El chofer se guardó exitosamente.');
+                $this->setInfoMessage('El chofer se guard� exitosamente.');
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->setErrorMessage('Ocurrió un error salvando el chofer');
+            $this->setErrorMessage('Ocurri� un error salvando el chofer');
         } else {
             $this->request->data = $this->Driver->read(null, $id);
             unset($this->request->data['Driver']['password']);
@@ -90,9 +90,9 @@ class DriversController extends AppController {
             throw new NotFoundException('Invalid driver');
         }
         if ($this->Driver->delete()) {
-            $this->setInfoMessage('El chofer se eliminó exitosamente.');
+            $this->setInfoMessage('El chofer se elimin� exitosamente.');
         } else {
-            $this->setErrorMessage('Ocurrió un error eliminando el chofer');
+            $this->setErrorMessage('Ocurri� un error eliminando el chofer');
         }
         
         return $this->redirect(array('action' => 'index'));
@@ -101,14 +101,14 @@ class DriversController extends AppController {
     public function edit_profile($id = null) {
         $this->Driver->id = $id;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer inválido.');
+            throw new NotFoundException('Chofer inv�lido.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['DriverProfile']['driver_id'] = $id;
             $this->request->data['DriverProfile']['driver_code'] = strtolower($this->request->data['DriverProfile']['driver_code']); // Salvar el codigo siempre lowercase
             
             if($this->DriverProfile->save($this->request->data)) {
-                $this->setInfoMessage('El perfil  se guardó exitosamente.');
+                $this->setInfoMessage('El perfil  se guard� exitosamente.');
                 return $this->redirect(array('action'=>'profile/'.$this->request->data['DriverProfile']['driver_nick']));
             }
         }
@@ -138,7 +138,7 @@ class DriversController extends AppController {
                 //getting given testimonial
                 $askedreview = $this->Testimonial->findById($this->request->query('see-review'));
                 $highlighted = $askedreview;
-                
+                $this->set('highlighted',$highlighted);//Sending given review data for filling metadata
                 //Getting specific values for virtual field adding                
                     $haystack = array ('0'=>$askedreview['Testimonial']['id']);
                 //Transforming in a semmicolon separated string                
@@ -158,10 +158,8 @@ class DriversController extends AppController {
                     'Testimonial.state'=>Testimonial::$statesValues['approved']))
                 );   
                 
-                $this->set('highlighted',$highlighted);
-                                
-                if($this->request->is('ajax')) {
-                    $this->set('highlighted',$highlighted);
+                                            
+                if($this->request->is('ajax')) {                    
                     $render = '/Elements';
                     if(Configure::read('App.theme') != null) $render .= '/'.Configure::read('App.theme');
                     $render .= '/ajax_testimonials_list';
