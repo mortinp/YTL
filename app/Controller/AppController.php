@@ -101,7 +101,7 @@ class AppController extends Controller {
         // Si no hay tema configurado, no hacer nada
         if(Configure::read('App.theme') == null) return;
         
-        //
+        // Aqui van las paginas a las que les vamos a aplicar el tema (ej. las que vamos migrando a mobirise)
         $applyThemeIn = array(
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
@@ -112,16 +112,15 @@ class AppController extends Controller {
             
         );
         
-        $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);
+        // Coger el controller y la actio de la request actual
+        $currentURL = array('controller'=>$this->request->controller, 'action'=>$this->request->action);
         
         $matched = null;
         foreach ($applyThemeIn as $url) {
-            $diff = array_diff_assoc($url, $current);
-            
+            // Verificar si la currentURL coincide con alguna de a las que queremos aplicar el tema
+            $diff = array_diff_assoc($url, $currentURL);            
             $leftKeys = array_keys($diff);
-            
-            // Comprobar si quedaron las keys 'controller' y 'action'
-            if(in_array('controller', $leftKeys) || in_array('action', $leftKeys)) continue;
+            if(in_array('controller', $leftKeys) || in_array('action', $leftKeys)) continue; // Comprobar si quedaron las keys 'controller' y 'action' y continuar
             
             // Comprobar si el parametro pasado es correcto
             if(isset($url['pass']) &&  $url['pass'] != $this->request->params['pass'][0]) continue;
