@@ -6,7 +6,6 @@ else if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::
 ?>
 <div class="btn-group">
     <div class="input-group">
-	<span class="input-group-addon">Estado</span>
         <span class="input-group-btn">
             <button type="button" class="btn btn-<?php echo $btnType?> dropleft-toggle" data-toggle="dropdown">
                 <?php 
@@ -22,14 +21,15 @@ else if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::
                 <?php endif?>
 
                 <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn btn-warning states-btn col-md-9 col-xs-9', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_DONE), true), 'escape'=>false), true);?></div>
+                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-thumbs-up"></i> Realizado', array('class'=>'btn btn-warning states-btn col-md-12', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_DONE), true), 'escape'=>false), true);?></div>
                 <?php endif?>
 
                 <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success states-btn col-md-9 col-xs-9', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_PAID), true), 'escape'=>false), true);?></div>
+                    <div><?php echo $this->Form->button('<i class="glyphicon glyphicon-usd"></i> Pagado', array('class'=>'btn btn-success states-btn col-md-12', 'data-url' => $this->Html->url(array('action' => 'set_state', $data['DriverTravel']['id'], DriverTravelerConversation::$STATE_TRAVEL_PAID), true), 'escape'=>false), true);?></div>
                 <?php endif?>
             </div>
-        </span>        
+        </span>
+        <span class="input-group-addon">Estado</span>
     </div>
 </div> 
 

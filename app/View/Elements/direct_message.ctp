@@ -1,4 +1,6 @@
 <?php app::uses('TimeUtil', 'Util'); ?>
+<?php App::uses('Travel', 'Model')?>
+<?php App::uses('DriverTravelerConversation', 'Model')?>
 <?php
     if(!isset($show_message)) $show_message = false;
     if(!isset($show_perfil)) $show_perfil = true;

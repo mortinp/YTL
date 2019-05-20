@@ -1,5 +1,4 @@
 <?php
-
 $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['username'].')</small>'?>
 <?php $hasProfile = isset ($data['Driver']['DriverProfile']) && $data['Driver']['DriverProfile'] != null && !empty ($data['Driver']['DriverProfile'])?>
 <?php if($hasProfile) :?>
@@ -31,7 +30,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
         top: 110px;
         right: 0; 
         overflow: hidden;
-        z-index: 2000;
+        z-index: 40;
     }
     .theme-config-box {
         margin-right: -220px;

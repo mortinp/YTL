@@ -30,13 +30,22 @@ else $comments = $title;
     $('.cancel-edit-messaging-<?php echo $thread['id']?>').click(function() {        
         $('#messaging-form-<?php echo $thread['id']?>, #messaging-cancel-<?php echo $thread['id']?>').toggle();
         $(".theme-config-box").toggleClass("show");
+        
+        if ($("#box-menu").hasClass('glyphicon glyphicon-chevron-left'))
+            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-right');
+        else
+            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-left');
     });
     
     
     $('.edit-messaging-<?php echo $thread['id']?>').click(function() {
-        /*goTo messaging form*/
-        goTo($(this).data('where'),1,100);        
+        /*goTo messaging form*/        
+        goTo('messaging-controls',150,-70);        
         $('#messaging-form-<?php echo $thread['id']?>, #messaging-cancel-<?php echo $thread['id']?>').toggle();
         $(".theme-config-box").toggleClass("show");
+         if ($("#box-menu").hasClass('glyphicon glyphicon-chevron-left'))
+            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-right');
+        else
+            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-left');
     });
 </script>

@@ -27,6 +27,11 @@ else $comments = $title;
     $("#comment-icon").html("<span id='comments-set-<?php echo $thread['id']?>' style='display: inline-block;' class='btn btn-default'><a href='#!' title='<?php echo $title?>' class='edit-comments-<?php echo $thread['id']?>' style='text-decoration: none'><span class='info' title='<?php echo $comments?>'><i class='glyphicon glyphicon-comment <?php echo $colorClass?>'></i></span></a></span>");
         $('.edit-comments-<?php echo $thread['id']?>, .cancel-edit-comments-<?php echo $thread['id']?>').click(function() {
         $('#comments-form-<?php echo $thread['id']?>, #comments-cancel-<?php echo $thread['id']?>').toggle();
-        $(".theme-config-box").toggleClass("show");
+        $(".theme-config-box").toggleClass("show"); 
+        goTo('comment-controls',150,-30);        
+         if ($("#box-menu").hasClass('glyphicon glyphicon-chevron-left'))
+            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-right');
+        else
+            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-left');
     });
 </script>
