@@ -30,36 +30,25 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
                     <div class="nav-link info" title="Translate to English"><?php echo $this->Html->link($this->Html->image('UK.png'), $lang_changed_url, array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
                             <?php //endif;?>
                 </div>-->            
-                
+
 
             </div>
-            
+
             <div class="nav-link pull-right">
                     <?php if($hasProfile):?><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 3.9em; max-width: 3.9em"/><?php endif;?>
             <?php echo $driverName." " ?>
-                    
+
                 <?php echo $this->html->link('Vea su perfil>>',array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank')); ?>
-                    | <h3 class="badge btn-primary">Viaje #<?php echo DriverTravel::getIdentifier($data)?></h3>
-                
-            
-            </div>
-              
-            
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <!--<div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><?php echo $this->Html->link(__d('homepage', 'Entrar'), array('controller' => 'users', 'action' => 'login'), array('class' => 'nav-link', 'rel'=>'nofollow')) ?></li>
-                </ul>
+                | <h3 class="badge btn-primary">Viaje #<?php echo DriverTravel::getIdentifier($data)?></h3>
 
 
-
-            </div><!-- /.navbar-collapse -->
+            </div>    
 
         </nav>
     </div>
 </header>
 
-<div class="row" style="top: 200px">    
+<div class="row" style="top: 200px"> 
     <div class="col-md-6 col-md-offset-3">
         <?php        
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)

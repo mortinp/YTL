@@ -246,8 +246,8 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
 </div>
 <div class="row">
     <div id="main-header" class="col-md-8 col-xs-12 col-md-offset-2 well">
-        <div class="col-md-4 col-xs-4" style="/*background-color: rgba(200, 219, 243, 0.6);*/ padding: 3px;"><h3>#<?php echo $data['Travel']['id'] ?></h3>
-            <?php echo TimeUtil::prettyDate($data['Travel']['date']) ?>
+        <div class="col-md-4 col-xs-4" style="/*background-color: rgba(200, 219, 243, 0.6);*/ padding: 3px;"><h3>#<?php echo DriverTravel::getIdentifier($data); ?></h3>
+            <?php echo TimeUtil::prettyDate($data['DriverTravel']['travel_date']) ?>
             <!--Control para el cambio de fecha-->
                     <?php if($userLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
                     <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($data['Travel']['date'])))?>

@@ -230,9 +230,8 @@ class DriversController extends AppController {
     }
     
     public function messages($conversationId) {
-        $this->layout = 'driver_panel';
-        
-        //die($conversationId);
+        $this->layout = 'driver_panel';        
+       
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
         $this->Driver->attachProfile($this->DriverTravel);
         

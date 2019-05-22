@@ -63,15 +63,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php echo $this->Html->link('Otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'bottom','style'=>'color: #0c0b0b!important'));?>
         <hr>
         
-        
-        <!-- <div class="btn-wrapper">
-            <div class="input-group" title="Enviar mensaje directo al chofer" data-placement="left">                
-                <span class="btn btn-info">Escribir al chofer                
-                    <span class="glyphicon glyphicon-send"></span>                
-                </span>
-            </div>
-        </div>-->
-        
+        <!-- FOLLOW / UNFOLLOW -->
+        <?php $following = $hasMetadata? $data['TravelConversationMeta']['following']: false;?>       
         
            <div class="input-group info follow" title="Esta conversación se está Siguiendo" data-placement="bottom" style="display: <?php echo ($following) ? 'table' : 'none'; ?>">
                 <span class="input-group-addon">
