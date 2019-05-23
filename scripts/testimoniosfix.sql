@@ -1,1 +1,1 @@
-UPDATE testimonials SET image_filepath='files/1542300447_diego-havana-family_jpg' WHERE id='5bed94a3-ae14-4435-9bbf-6e2c4f8fb177';
+UPDATE testimonials SET image_filepath='files/1557593620_eduardo-taxi-opinion-catalanas_jpeg' WHERE id='5cd6ef7e-6628-4afb-bda9-23144f8fb177';
