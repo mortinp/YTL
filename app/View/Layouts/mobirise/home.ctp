@@ -168,25 +168,8 @@ echo $this->fetch('script');
 </script>
 
 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
-    <!-- Start 1FreeCounter.com code -->
-      <script language="JavaScript">
-      var data = '&r=' + escape(document.referrer)
-            + '&n=' + escape(navigator.userAgent)
-            + '&p=' + escape(navigator.userAgent)
-            + '&g=' + escape(document.location.href);
-
-      if (navigator.userAgent.substring(0,1)>'3')
-        data = data + '&sd=' + screen.colorDepth 
-            + '&sw=' + escape(screen.width+'x'+screen.height);
-
-      document.write('<a href="http://www.1freecounter.com/stats.php?i=138410" target=\"_blank\" >');
-      document.write('<img alt="Free Counter" border=0 hspace=0 '+'vspace=0 src="http://www.1freecounter.com/counter.php?i=138410' + data + '">');
-      document.write('</a>');
-      </script>
-    <!-- End 1FreeCounter.com code -->
-
-    <!-- Google Analytics -->
-    <script>
+<!-- Google Analytics -->
+<script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
