@@ -248,25 +248,13 @@ class TravelsController extends AppController {
     public function edit_travel_data($id, $validate = true) {        
         $this->Travel->create();
        
-        $this->Travel->id = $this->request->data['Travel']['id'];
-        
-         $id = $this->request->data['Travel']['id'];   
-         
-       
-        
-        $travel = $this->Travel->findById($id);
-                
-        //Procedure for updating given Travel attributes
-        foreach ($travel['Travel'] as $key => $value) {            
-            if (!isset($this->request->data['Travel'][$key])) $this->request->data['Travel'][$key] = $value;
-        }
+        $this->Travel->id = $id;
       
         if(!$this->Travel->exists()) throw new NotFoundException();
         
         if ($this->request->is('post') || $this->request->is('put')) {            
             
             if (!$this->Travel->save($this->request->data, $validate)) $this->setErrorMessage('Ocurrió un error actualizando este viaje');
-            else $this->setInfoMessage('Se ha modificado la cantidad de viajeros para este viaje');
             
             return $this->redirect($this->referer());
             
