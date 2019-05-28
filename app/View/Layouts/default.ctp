@@ -239,29 +239,10 @@ if($userLoggedIn) {
             <div id="content" class="container-fluid">
                 
                 <?php echo $this->Session->flash(); ?>
-                <div class='alert alert-info alert-dismissable' style="text-align: center"><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <?php echo __('Estamos haciendo un rediseño visual de nuestra plataforma y <b>esta página no está rediseñada todavía</b>... pero todo funciona bien');?> :)
-                </div>
+                
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>
-                    <!-- 1FreeCounter -->
-  
-                    <script language="JavaScript">
-                    var data = '&r=' + escape(document.referrer)
-                        + '&n=' + escape(navigator.userAgent)
-                        + '&p=' + escape(navigator.userAgent)
-                        + '&g=' + escape(document.location.href);
-
-                    if (navigator.userAgent.substring(0,1)>'3')
-                    data = data + '&sd=' + screen.colorDepth 
-                        + '&sw=' + escape(screen.width+'x'+screen.height);
-
-                    document.write('<a href="http://www.1freecounter.com/stats.php?i=109722" target=\"_blank\" >');
-                    document.write('<img alt="Free Counter" border=0 hspace=0 '+'vspace=0 src="http://www.1freecounter.com/counter.php?i=109722' + data + '">');
-                    document.write('</a>');
-                    </script>
-                    
                     <!-- Google Analytics -->
                     <script>
                     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
