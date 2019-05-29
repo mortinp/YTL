@@ -33,7 +33,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 0);
+	Configure::write('debug', 2);
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -115,7 +115,7 @@
  * will override the automatic detection of full base URL and can be
  * useful when generating links from the CLI (e.g. sending emails)
  */
-	Configure::write('App.fullBaseUrl', 'http://yotellevocuba.com');
+	/*Configure::write('App.fullBaseUrl', 'http://localhost/ytl-last/YTL-master/');*/
 
 /**
  * Web path to the public images directory under webroot.
