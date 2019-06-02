@@ -44,7 +44,7 @@ if($userLoggedIn) {
             <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
             <?php endif?>
             <meta property="og:description" content="<?php echo $description?>">                
-         <?php endif; ?>
+        <?php endif; ?>
         <?php if($this->request->query('see-review')):?>                                             
                 <?php                                                    
                 $fbImgUrl = '';
@@ -58,14 +58,17 @@ if($userLoggedIn) {
                 <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['Testimonial']['author'], $profile['DriverProfile']['driver_name']), 0, 120)?>">
                 <meta property="og:image" content="<?php echo $fbImgUrl?>">
                 <meta property="og:description" content="<?php echo substr($highlighted['Testimonial']['text'], 0, 300)?>...">
+                    
+                <?php
+                    $currentFullUrl             = $this->request['pass'];
+                    $currentFullUrl             = array_merge($currentFullUrl, $this->request['named']);
+                    $currentFullUrl['?']        = $this->request->query;
+                    $currentFullUrl['language'] = Configure::read('Config.language');
+                    $currentFullUrl['base'] = false;
+                ?>
+                <meta property="og:url" content="<?php echo $this->Html->url($currentFullUrl, true) ?>" />
         <?php endif; ?>
         <!--END FACEBOOK SHARE-->
-                                           
-        <style type="text/css">
-            .yellow{
-                color: #e0a800;
-            }
-        </style>
         
         <?php
         // CSS
