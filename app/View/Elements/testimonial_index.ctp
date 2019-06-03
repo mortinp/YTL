@@ -16,6 +16,8 @@ if (isset($driver_profile))
                 <?php echo $this->Html->link('admin »', array('controller' => 'testimonials', 'action' => 'admin', $testimonial['id']))?>
                 &nbsp;               
                 <?php echo $this->Html->link('permalink »', array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id'])), array('target'=>'_blank'))?>
+                &nbsp;
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id']))) ?>" class="glyphicon glyphicon-share" target="_blank"></a>           
             </div>
         </div>
 

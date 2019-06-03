@@ -16,7 +16,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <nav id="nav">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">                                                 
+            <div>                                                 
                 <span class="pull-left">
                             <?php echo $this->Html->link($this->Html->image('logo-big-notext.jpg',array('style'=>' height:5.8rem')), "/", array('escape'=>false, 'style'=>'text-decoration:none;')) ?>
 
@@ -37,9 +37,8 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
             <div class="nav-link pull-right">
                     <?php if($hasProfile):?><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 3.9em; max-width: 3.9em"/><?php endif;?>
             <?php echo $driverName." " ?>
-
                 <?php echo $this->html->link('Vea su perfil>>',array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank')); ?>
-                | <h3 class="badge btn-primary">Viaje #<?php echo DriverTravel::getIdentifier($data)?></h3>
+                    | <h4><span class="text-muted">Viaje #</span><?php echo DriverTravel::getIdentifier($data)?></h4>
 
 
             </div>    
