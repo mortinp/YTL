@@ -31,47 +31,37 @@ $travelDate = DriverTravel::extractDate($data);
         right: 0; 
         overflow: hidden;
         z-index: 40;
-		padding-bottom: 80px;
+        padding-bottom: 80px;
     }
     .theme-config-box {
         margin-right: -220px;
         position: relative;        
-        transition-duration: 0.6s;
+        transition-duration: 0.4s;
 
     }
     .theme-config-box.show {
         margin-right: 0;
     }
     .spin-icon {
-        background:#06f;
+        /*background:#06f;*/
         position: absolute;
         padding: 3px;
-        border-radius: 20px 0 0 20px;
+        padding-right: 20px;
+        /*border-radius: 20px 0 0 20px;*/
         font-size: 20px;
-        top: 0;
+        top: 150px;
         left: 0;	
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
-        opacity: .8;
+        /*opacity: .8;*/
         height: 35px;
     }
     .skin-settings {
         width: 220px;
-        margin-left: 40px;
+        margin-left: 43px;
         background-color: rgba(200, 219, 243, 0.6);
         /*box-shadow:  5px 1px 1px 2px rgba(0, 0, 0, 0.4);*/
         border-radius: 0 0 0 10px;
-
-
-    }
-    .skin-settings .title {
-        background: #efefef;
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: 600;
-        display: block;
-        padding: 10px 15px;
-        font-size: 12px;
     }
     .setings-item {
         padding: 10px 30px;
@@ -114,31 +104,38 @@ $travelDate = DriverTravel::extractDate($data);
 <!--Iria aqui dentro para vista de admin-->
 </div>
 <!--Header animado que entra y sale-->
-    <div id="main-header" class="col-md-8 col-xs-12 col-md-offset-2 well">
-        <div class="col-md-4 col-xs-4" style="/*background-color: rgba(200, 219, 243, 0.6);*/ padding: 3px;"><h3>#<?php echo DriverTravel::getIdentifier($data); ?></h3>
-            <?php echo TimeUtil::prettyDate($data['DriverTravel']['travel_date']) ?>
-            <!--Control para el cambio de fecha-->
-                    <?php if($userLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
-                    <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
-                    <?php endif; ?>
+    <div id="main-header" class="col-md-8 col-md-offset-2 col-xs-12 well">
+        <div class="row" style="/*background-color: rgba(200, 219, 243, 0.6);*/ padding: 3px;">
+            
+            <div class="col-md-6 col-xs-12">
+                <?php if($hasProfile):?><div style="float: left"><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 30px; max-width: 30px"/></div> <?php endif;?>
+                <div style="float: left;padding-left: 10px"><h4><?php echo $this->html->link($data['Driver']['DriverProfile']['driver_name'],array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank', 'style'=>'color:inherit')); ?></h4></div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($data)?></big></big></span>
+                
+                <br/>
+                <?php echo TimeUtil::prettyDate($data['DriverTravel']['travel_date']) ?>
+                
+                <!--Control para el cambio de fecha-->
+                <?php if($userLoggedIn && ($userRole == 'admin' || $userRole == 'operator')):?>
+                <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
+                <?php endif; ?>
+            </div>
+            
         </div>
-        <?php if($hasProfile):?>
-            <div class="col-md-4 col-xs-4 centeralign"><img class="pull-left" src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 80px; max-width: 80px"/>
-                <h4 style="padding-top: 15px; margin-left: 10px"><?php echo $this->html->link($data['Driver']['DriverProfile']['driver_name'],array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank')); ?></h4>
-            </div>                    
-        <?php endif;?>
+        
     </div>
 </div>
 <div class="theme-config">
     <div class="theme-config-box">
-        <div class="spin-icon">
-            <i id="box-menu" class="glyphicon glyphicon-chevron-left pull-left"></i><i class="glyphicon glyphicon-list pull-right"></i>
+        <div class="spin-icon alert alert-info">
+            <i id="box-menu" class="glyphicon glyphicon-chevron-left pull-left"></i>
         </div>
         <div class="skin-settings">            
-            <div class="setings-item">
+            <div class="well">
                    <?php echo $this->element('conversation_toolbox')?>
-            </div>           
-
+            </div>
         </div>
     </div>
 </div>  
@@ -150,7 +147,7 @@ $travelDate = DriverTravel::extractDate($data);
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));
             else
-                echo $this->element('travel', array('travel'=>$data, 'details'=>false, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true));
+                echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true));
         ?>
         <div>
             <?php echo $this->element('conversation_controls', array('data'=>$data))?><!-- Acciones para esta conversación -->

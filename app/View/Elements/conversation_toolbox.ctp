@@ -68,7 +68,6 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'bottom'));?>
         </div>
         <br/>
-        <br/>
         
         <div class="btn-wrapper">
             <!-- FOLLOW / UNFOLLOW -->
