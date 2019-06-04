@@ -14,7 +14,7 @@ $src .= '/' . str_replace('\\', '/', $testimonial['image_filepath']);
             <?php if($testimonial['country'] != null && !empty($testimonial['country'])):?>
             <span style="font-weight: normal;"><?php echo __d('mobirise/testimonials', 'de %s', '<b>'.$testimonial['country'].'</b>')?></span>
             <?php endif;?>
-        </p><span class="pull-right" id="star-<?php echo $testimonial['id']; ?>"></span>
+        </p>
         <p class="mbr-author-desc mbr-fonts-style display-6 text-muted">
            <?php echo __d('mobirise/testimonials', 'Escrita el %s', TimeUtil::prettyDate($testimonial['created'], false))?>
         </p>
