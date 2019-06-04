@@ -17,7 +17,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
         <nav id="nav">
             
             <div class="nav-link center" style="padding: 20px">
-                <?php if($hasProfile):?><img src="<?php echo $src?>" style="max-height: 3.9em; max-width: 3.9em"/><?php endif;?>
+                <?php if($hasProfile):?><img src="<?php echo $src?>" style="max-height:30px;max-width:30px"/><?php endif;?>
                 <?php echo 'Hola '.$driverName.'! ' ?>
                 <?php echo $this->html->link('Vea su perfil',array('controller'=>'drivers', 'action'=>'profile', $data['Driver']['DriverProfile']['driver_nick'])); ?>
                 <h4><small class="text-muted">#</small><?php echo DriverTravel::getIdentifier($data)?></h4>
