@@ -6,41 +6,21 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     <?php
         $src = '';
         if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-        $src .= 'http://localhost/ytl-master/'.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']);
+        $src .= '/'.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']);
         
-        $driverName = $data['Driver']['DriverProfile']['driver_name'].'</small>';
+        $driverName = $data['Driver']['DriverProfile']['driver_name'];
     ?>
 <?php endif;?>
 
 <header id="header">
     <div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <nav id="nav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div>                                                 
-                <span class="pull-left">
-                            <?php echo $this->Html->link($this->Html->image('logo-big-notext.jpg',array('style'=>' height:5.8rem')), "/", array('escape'=>false, 'style'=>'text-decoration:none;')) ?>
-
-                </span>
-                <span class="navbar-brand"><big>Yo</big>Te<big>Llevo</big><big> <b>Chofer</b></big></span>
-                <!--<div class="pull-left navbar-brand">
-                            <?php //$lang = SessionComponent::read('Config.language');?>
-                            <?php //if($lang != null && $lang == 'en'):?>
-                    <div class="nav-link info" title="Traducir al Español"><?php echo $this->Html->link($this->Html->image('Spain.png'), $lang_changed_url, array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
-                            <?php //else:?>
-                    <div class="nav-link info" title="Translate to English"><?php echo $this->Html->link($this->Html->image('UK.png'), $lang_changed_url, array('escape'=>false, 'style'=>'text-decoration:none')) ?></div>
-                            <?php //endif;?>
-                </div>-->            
-
-
-            </div>
-
-            <div class="nav-link pull-right">
-                    <?php if($hasProfile):?><img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" style="max-height: 3.9em; max-width: 3.9em"/><?php endif;?>
-            <?php echo $driverName." " ?>
-                <?php echo $this->html->link('Vea su perfil>>',array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank')); ?>
-                    | <h4><span class="text-muted">Viaje #</span><?php echo DriverTravel::getIdentifier($data)?></h4>
-
-
+            
+            <div class="nav-link center" style="padding: 20px">
+                <?php if($hasProfile):?><img src="<?php echo $src?>" style="max-height: 3.9em; max-width: 3.9em"/><?php endif;?>
+                <?php echo 'Hola '.$driverName.'! ' ?>
+                <?php echo $this->html->link('Vea su perfil',array('controller'=>'drivers', 'action'=>'profile', $data['Driver']['DriverProfile']['driver_nick'])); ?>
+                <h4><small class="text-muted">#</small><?php echo DriverTravel::getIdentifier($data)?></h4>
             </div>    
 
         </nav>
@@ -68,12 +48,12 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     $travelerMsgsCount = 0;
     ?>
     <?php foreach ($conversations as $message):?>
-<div class="row container-fluid">
-    <div class="col-md-9">
+        <div class="row container-fluid">
+            <div class="col-md-10 col-md-offset-1">
                 <?php echo $this->element('widget_conversation_online', array('message'=>$message['DriverTravelerConversation'], 'driver_name'=>'Usted'))?>
-    </div>
-    <br/>
-</div>
+            </div>
+            <br/>
+        </div>
 
         <?php 
         // Contar los mensajes del chofer y los mensajes del viajero
@@ -85,10 +65,9 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
     <?php if($driverMsgsCount == 0):?>
 <br/>
 <br/>
-<div class="col-md-6 col-md-offset-2">
+<div class="col-md-8 col-md-offset-2">
     <div class="alert alert-warning" style="display: inline-block"><?php echo __('Parece que aún no has respondido a esta solicitud :( ...')?></div>
 </div>
     <?php endif?>
-
 
 <?php endif?>

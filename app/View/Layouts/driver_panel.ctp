@@ -158,12 +158,8 @@ App::uses('Travel', 'Model')?>
 <div id="container">
         <?php echo $this->Session->flash('auth'); ?>
             <div id="content" class="container">
-                <div class="row" style="margin-top: 7em">
-                    <div class="col-md-9 text-center" style="margin-top: 10px">
-                        <h2>Datos de Conversaci&oacute;n</h2>                        
-                    </div>
-
-                </div>
+                <div class="row" style="margin-top: 9em"></div>
+                
                 <div class="row">
                     <div class="col-md-9">
                 <?php echo $this->Session->flash(); ?>
