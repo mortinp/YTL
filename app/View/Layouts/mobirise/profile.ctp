@@ -115,13 +115,13 @@ if($userLoggedIn) {
         $this->Html->script('popper/popper.min', array('inline' => false));
         $this->Html->script('tether/tether.min', array('inline' => false));
         $this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
-        $this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
+        //$this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
         $this->Html->script('dropdown/js/script.min', array('inline' => false));
         $this->Html->script('touchswipe/jquery.touch-swipe.min', array('inline' => false));
         $this->Html->script('masonry/masonry.pkgd.min', array('inline' => false));
         $this->Html->script('imagesloaded/imagesloaded.pkgd.min', array('inline' => false));
         $this->Html->script('bootstrapcarouselswipe/bootstrap-carousel-swipe', array('inline' => false));
-        $this->Html->script('vimeoplayer/jquery.mb.vimeo_player', array('inline' => false));
+        //$this->Html->script('vimeoplayer/jquery.mb.vimeo_player', array('inline' => false));
         $this->Html->script('sociallikes/social-likes', array('inline' => false));
         $this->Html->script('theme/js/script', array('inline' => false));
         $this->Html->script('slidervideo/script', array('inline' => false));

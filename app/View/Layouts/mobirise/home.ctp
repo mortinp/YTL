@@ -80,7 +80,7 @@ if($isLoggedIn) {
   <script src="assets/popper/popper.min.js"></script>
   <script src="assets/tether/tether.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <!--<script src="assets/smoothscroll/smooth-scroll.js"></script>-->
   <script src="assets/dropdown/js/script.min.js"></script>
   <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
   <script src="assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js"></script>

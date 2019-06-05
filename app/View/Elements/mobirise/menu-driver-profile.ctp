@@ -8,16 +8,6 @@ if($userLoggedIn) {
 }
 ?>
 
-<?php     
-    $other = array('en' => 'es', 'es' => 'en');
-    $lang = $this->Session->read('Config.language');
-
-    $lang_changed_url             = $this->request['pass'];
-    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
-    $lang_changed_url['?']        = $this->request->query;
-    $lang_changed_url['language'] = $other[$lang];
-?>
-
 
 <section class="menu cid-qTkzRZLJNu" once="menu" id="menu1-0">
 
@@ -43,12 +33,7 @@ if($userLoggedIn) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
                 <li class="nav-item pull-left">
-                    <?php $lang = SessionComponent::read('app.lang');?>
-                    <?php if($lang != null && $lang == 'en'):?>
-                        <?php echo $this->Html->link($this->Html->image('Spain.png', array('style'=>'max-width:22px')).'&nbsp;'.'Español', $lang_changed_url, array('class' => 'nav-link link text-white display-4', 'title'=>'Traducir al Español', 'escape'=>false)) ?>
-                    <?php else:?>
-                        <?php echo $this->Html->link($this->Html->image('UK.png').'&nbsp;'.'English', $lang_changed_url, array('class' => 'nav-link link text-white display-4', 'title'=>'Translate to English', 'escape'=>false)) ?>
-                    <?php endif;?>
+                    <?php echo $this->element('mobirise/widgets/lang-link')?>
                 </li>
                 <li class="nav-item">
                     <?php echo $this->Html->link('<span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span> '.__d('mobirise/default', 'Sobre Nosotros'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>

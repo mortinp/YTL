@@ -19,8 +19,8 @@ if($userLoggedIn) {
   <meta name="generator" content="Mobirise v4.8.6, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-  <meta name="description" content="<?php echo $page_description?>"/>
   <title><?php echo $page_title." | YoTeLlevo" ?></title>
+  <meta name="description" content="<?php echo $page_description?>"/>
   
   <?php
     // CSS
@@ -61,7 +61,7 @@ $this->Html->script('popper/popper.min', array('inline' => false));
 $this->Html->script('tether/tether.min', array('inline' => false));
 
 $this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
-$this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
+//$this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
 $this->Html->script('dropdown/js/script.min', array('inline' => false));
 $this->Html->script('touchswipe/jquery.touch-swipe.min', array('inline' => false));
 $this->Html->script('bootstrapcarouselswipe/bootstrap-carousel-swipe', array('inline' => false));
