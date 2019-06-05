@@ -40,7 +40,7 @@ class EmailConfig {
     
     public $no_responder = array(
         'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'YoTeLlevo'),
+        'from' => array('no-responder@yotellevocuba.com' => 'YoTeLlevo'),
         'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
@@ -49,12 +49,52 @@ class EmailConfig {
         'client' => null,
         'log' => false,
         //'charset' => 'utf-8',
-    );  
+    );
+    
+    public $contacto = array(
+        'transport' => 'Smtp',
+        'from' => array('contacto@yotellevocuba.com' => 'YoTeLlevo | Contacto'),
+        'host' => 'localhost',
+        'port' => 25, 
+        'timeout' => 30,
+        //'username' => '',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );
+    
+    public $soporte = array(
+        'transport' => 'Smtp',
+        'from' => array('soporte@yotellevocuba.com' => 'YoTeLlevo | Soporte'),
+        'host' => 'localhost',
+        'port' => 25, 
+        'timeout' => 30,
+        //'username' => '',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );    
+    
+    /*public $info = array(
+        'transport' => 'Smtp',
+        'from' => array('mproenza@grm.desoft.cu' => 'YoTeLlevo | Info'),
+        'host' => 'data',
+        'port' => 25, 
+        'timeout' => 30,
+        //'username' => '',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );*/
+    
     
     
     public $chofer = array(
         'transport' => 'Smtp',
-        'from' => array('chofer@yotellevocuba.com' => 'Chofer, YoTeLlevo'),
+        'from' => array('chofer@yotellevocuba.com' => 'YoTeLlevo | Chofer'),
         'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
@@ -67,137 +107,7 @@ class EmailConfig {
     
     public $viajero = array(
         'transport' => 'Smtp',
-        'from' => array('viajero@yotellevocuba.com' => 'Viajero, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $viaje = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'Nuevo Viaje, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $super = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'Martin, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $verificacion_viaje = array(
-        'transport' => 'Smtp',
-        'from' => array('verificacion-viaje@yotellevocuba.com' => 'Viaje Realizado'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $customer_assistant = array(
-        'transport' => 'Smtp',
-        'from' => array('ana@yotellevocuba.com' => 'Ana, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $customer_assistant_shr = array(
-        'transport' => 'Smtp',
-        'from' => array('ana@yotellevocuba.com' => 'Ana, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $shared_travel = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'Viaje compartido, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $mauth = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'MAuth, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $msolicitud = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'MSolicitud, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $mdirecto = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'MDirecto, YoTeLlevo'),
-        'host' => 'localhost',
-        'port' => 25, 
-        'timeout' => 30,
-        //'username' => '',
-        //'password' => '',
-        'client' => null,
-        'log' => false,
-        //'charset' => 'utf-8',
-    );
-    
-    public $mviajero = array(
-        'transport' => 'Smtp',
-        'from' => array('martin@yotellevocuba.com' => 'MViajero, YoTeLlevo'),
+        'from' => array('viajero@yotellevocuba.com' => 'YoTeLlevo | Viajero'),
         'host' => 'localhost',
         'port' => 25, 
         'timeout' => 30,
