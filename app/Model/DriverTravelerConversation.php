@@ -16,6 +16,15 @@ class DriverTravelerConversation extends AppModel {
             'fields'=>array('') // Vacio porque esto es solo para la counterCache
         ),
     );
+    
+    // API
+    public $actsAs = array(
+        'ApiSync.Syncronizable'=>array(
+            'sync_queue_table' => 'api_sync_queue_messages',
+            'key_field' => 'msg_id',
+            'conditions' => array('response_by' => 'traveler')
+        )
+    );
 }
 
 ?>

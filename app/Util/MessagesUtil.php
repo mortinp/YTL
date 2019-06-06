@@ -22,7 +22,7 @@
  * @param array  $attachments     ==> un arreglo de ajuntos, formato de cada adjunto: array(<nombre_de_archivo> => array('contents' => <contenido_del_adjunto>, 'mimeType' => <tipo_de_fichero>))
  * @return void, si falla se guarda un mensaje de error en 'conversations' log file
  */
-        public function sendMessage($from, $conversation, $sender, $body, array $attachments){
+        public function sendMessage($from, $conversation, $sender, $body, array $attachments) {
             $this->errorMessage = "Conversation Failed!";
             
             $this->prepareToGetData($from);

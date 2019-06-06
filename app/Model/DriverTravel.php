@@ -4,6 +4,15 @@ App::uses('TimeUtil', 'Util');
 
 class DriverTravel extends AppModel {
     
+    // API
+    public $actsAs = array(
+        'ApiSync.Syncronizable'=>array(
+            'sync_queue_table' => 'api_sync_queue_travels',
+            'key_field' => 'conversation_id',
+            'conditions' => array('notification_type' => 'A'/*DriverTravel::$NOTIFICATION_TYPE_AUTO*/)
+        )
+    );
+    
     // Notifications Types (CUIDADO: NO CAMBIAR - Lo uso debajo en las cache_count del belongsTo(Travel))
     public static $NOTIFICATION_TYPE_AUTO = 'A'; // Para los choferes que se notifican al crearse el viaje
     public static $NOTIFICATION_TYPE_BY_ADMIN = 'M'; // Para los choferes que se notifican manualmente por un administrador
