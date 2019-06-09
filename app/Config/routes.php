@@ -37,6 +37,8 @@
 	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         Router::connect('/:language/pages/*', array('controller' => 'pages', 'action' => 'display'), array('language' => 'en|es'));
         
+        Router::connect('/:language/taxi/*', array('controller'=>'drivers', 'action' => 'drivers_by_province'), array('language' => 'en|es'));
+        
         Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'reviews'), array('language' => 'en|es'));
         // Tambien tengo que poner esta de aqui abajo, para evitar tener que cambiar todos los links que referencian array('controller'=>'testimonials', 'action' => 'featured')
         Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'featured'), array('language' => 'en|es'));

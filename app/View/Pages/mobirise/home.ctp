@@ -21,16 +21,10 @@
                 </a>
             </div>
         </div>
-    </div>
-
-    
+    </div>    
 </section>
 
-<section class="features1 cid-r6QPNTAAQp" id="features1-9">
-    
-    
-
-    
+<section class="features1 cid-r6QPNTAAQp" id="features1-9">    
     <div class="container">
         <div class="media-container-row">
 
@@ -72,10 +66,7 @@
                 </div>
             </div>
 
-            
-
         </div>
-
     </div>
 
 </section>
@@ -86,21 +77,10 @@
         <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2"><?php echo __d('mobirise/homepage', 'Nuestros choferes están activos y reciben opiniones todo el tiempo')?></h2>
         <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5"><?php echo __d('mobirise/homepage', 'Mira opiniones actualizadas y fotos de los choferes. Decide si quieres contratar a alguno')?></h3>
         <div class="row media-row">
-            
-
-        <?php 
-
-            $a = $testimonials_sample;
-            /*$testimonials_sample = array(
-                array('Testimonials'=>array('image_filepath'=>'files/1507920756_osvaldo-small_jpg', 'user_name'=>'Walter Camarda', 'driver_name'=>'Osvaldo', 'text'=>'We spend a full week around Cuba with Osvaldo in his historical car.Everything was amazing and he was for us not only a driver but a professional guide and like a friend. He gave us a lot of good suggestions for places to be seen and very successfully proposals for good and typical restaurants. We are very satisfied of our choice and surely we suggest to all the people will make a holiday trip in Cuba to get in touch with him to get an extremely reliable driver and guide. He is very kind, professional, friendly and always perfectly on time. His car is aesthetically very nice and original but more extremely conformable inside thanks to modern options he added like AC, electrical windows, automatic control gear, radio etc. Many thanks to OSVALDO !!!!!!!!!!!!!!!')),
-                array('Testimonials'=>array('image_filepath'=>'files/1504788298_elmer-diego-netherlands-small_jpg', 'user_name'=>'Diego, Jasper, Martijn, Bas, Jorn', 'driver_name'=>'Elmer', 'text'=>'The best driver I ever experienced. Thankful, makes everything possible for his guests. I keep in contact with Elmer. Awesome guy!')),
-                array('Testimonials'=>array('image_filepath'=>'files/1490801832_20170318_090341mb_jpg', 'user_name'=>'Penny and Dave', 'driver_name'=>'Erio', 'text'=>'We had a superb time in Cuba and our 9 days with Erio driving us in The Beast were great. He is a good driver and mechanic as well as being hardworking, warm and generous, there was nothing that was too much trouble. It always adds to a journey to travel with a good soul and that is how we felt with Erio. Many thanks, Penny and Dave')),
-            );*/
-        ?>
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[0]['Testimonial'], 'driver'=>$testimonials_sample[0]['Driver']))?>
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[1]['Testimonial'], 'driver'=>$testimonials_sample[1]['Driver']))?>
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[2]['Testimonial'], 'driver'=>$testimonials_sample[2]['Driver']))?>
-            </div>    
+        </div>    
     </div>
 </section>
 

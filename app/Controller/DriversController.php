@@ -4,6 +4,7 @@ App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('DriverTravel', 'Model');
 App::uses('User', 'Model');
+App::uses('Locality', 'Model');
 
 class DriversController extends AppController {
     
@@ -239,6 +240,10 @@ class DriversController extends AppController {
         $this->set('conversations', $conversations);
         
                 
+    }
+    
+    public function drivers_by_province($slug) {
+        $this->set('localities', Locality::getAsSuggestions());
     }
 }
 
