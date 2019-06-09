@@ -1,11 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
-
-<?php
-$src = '';
-if (Configure::read('debug') > 0)
-    $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-$src .= '/' . str_replace('\\', '/', $testimonial['image_filepath']);
-?>
+<?php App::uses('PathUtil', 'Util')?>
 
 <div class="media-container-row" id="<?php echo $testimonial['id']; ?>">
     <div class="media-content px-3 align-self-center mbr-white py-2">
@@ -46,13 +40,7 @@ $src .= '/' . str_replace('\\', '/', $testimonial['image_filepath']);
     
     <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
         <div class="mbr-figure pl-lg-5" style="width: 100%;">
-            <?php
-            $src = '';
-            if (Configure::read('debug') > 0)
-                $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-            $src .= '/' . str_replace('\\', '/', $testimonial['image_filepath']);
-            ?>
-            <img src='<?php echo $src ?>' alt="" title=""/>
+            <img src='<?php echo PathUtil::getFullPath($testimonial['image_filepath']) ?>' alt="" title=""/>
         </div>
     <?php endif ?>
 

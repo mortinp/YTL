@@ -8,7 +8,7 @@
             <div class="col-md-10 align-center">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">Taxi &amp; Driver in Havana</h1>
                 
-                <p class="mbr-text pb-3 mbr-fonts-style display-5">Full time driver - Pick up at Havana airport - Tour around the island - Day tour to Vinales - Transfer from Havana to anywhere
+                <p class="mbr-text pb-3 mbr-fonts-style display-5">Full time driver - Pick up at Havana airport - Tour around the island - Day tour to Viñales - Transfer from Havana to anywhere
 <br>
 <br>29 active drivers</p>
                 
@@ -35,58 +35,62 @@
         <div class="user row">
           <div class="col-lg-3 col-md-4">
             <div class="user_image">
-              <img src="assets/images/20190419-170515-300x400.jpg" alt="" title="">
+              <img src="/yotellevo/assets/images/20190419-170515-300x400.jpg" alt="" title="">
             </div>
           </div>
           <div class="testimonials-caption col-lg-9 col-md-8">
             <div class="user_text ">
               <p class="mbr-fonts-style  display-7">
                  <strong>Eduardo Torres</strong><br><em><br></em>Lives in La Habana<br>
-12 reviews
-<br>27 hires, 61 customers<br><br>Capacity: <strong>4 pax</strong> 
-<br>Air conditioner<em><br></em></p>
+                12 reviews
+                <br>27 hires, 61 customers<br><br>Capacity: <strong>4 pax</strong> 
+                <br>Air conditioner<em><br></em></p>
             </div>
             
             <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">Taxi driver in Havana</div>
           </div>
         </div>
-      </div><div class="testimonials-item">
+      </div>
+        
+        <div class="testimonials-item">
         <div class="user row">
           <div class="col-lg-3 col-md-4">
             <div class="user_image">
-              <img src="assets/images/lexy-classic-car-cuba-2-300x225.jpg" alt="" title="">
+              <img src="/yotellevo/assets/images/lexy-classic-car-cuba-2-300x225.jpg" alt="" title="">
             </div>
           </div>
           <div class="testimonials-caption col-lg-9 col-md-8">
             <div class="user_text">
-              <p class="mbr-fonts-style  display-7"><strong>Lexy Bermudez</strong><br><br>7 opiniones
-<br>12 contratos, 33 clientes<br><br>Capacidad: <strong>4 pax</strong>
-<br>Aire acondicionado</p>
+                <p class="mbr-fonts-style  display-7"><strong>Lexy Bermudez</strong><br><br>7 opiniones
+                <br>12 contratos, 33 clientes<br><br>Capacidad: <strong>4 pax</strong>
+                <br>Aire acondicionado</p>
             </div>
             
             <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">Chofer de taxi en La Habana</div>
           </div>
         </div>
-      </div><div class="testimonials-item">
+      </div>
+        
+        <div class="testimonials-item">
         <div class="user row">
           <div class="col-lg-3 col-md-4">
             <div class="user_image">
-              <img src="assets/images/face1.jpg">
+              <img src="/yotellevo/assets/images/collage-510x383.jpg" alt="" title="">
             </div>
           </div>
           <div class="testimonials-caption col-lg-9 col-md-8">
             <div class="user_text">
-              <p class="mbr-fonts-style  display-7">
-                 <em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae nostrum, quos voluptas fugiat blanditiis, temporibus expedita cumque doloribus ea, officiis consequuntur repellat minus ad veritatis? Facere similique accusamus, accusantium sunt!"</em>
-              </p>
+                <p class="mbr-fonts-style  display-7"><strong>Lexy Bermudez</strong><br><br>7 opiniones
+                <br>12 contratos, 33 clientes<br><br>Capacidad: <strong>4 pax</strong>
+                <br>Aire acondicionado</p>
             </div>
             
-            <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">
-                 DEVELOPER
-            </div>
+            <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">Chofer de taxi en La Habana</div>
           </div>
         </div>
-      </div></div>
+        </div>
+            
+    </div>
   </div>
 </section>
 
