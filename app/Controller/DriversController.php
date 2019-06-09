@@ -243,6 +243,53 @@ class DriversController extends AppController {
         
                 
     }
+    
+    /*Nueva función para mostrar datos de choferes*/
+    public function view_drivers_data($province) {        
+        $this->loadModel('Province');
+        //tomemos el id de la provincia primero, con consultas simples
+        $provinceID = $this->Province->find('all',array('conditions'=>array('Province.name'=>$province)));
+        
+//        //Lo hacemos por partes, primero sacamos los choferes activos de la provincia
+//        $activesprov= $this->Driver->find('all',array('conditions'=>array('active'=>1,'province_id'=>$provinceID[0]['Province']['id'])));
+//       
+//       //Agrupemos los ids de los choferes validos
+//        $ids = array();
+//        foreach ($activesprov as $active) {
+//            $ids[] = $active['Driver']['id'];
+//        }
+//        
+//        //$drivers = $this->Driver->find('all',array('conditions'=>array('driver_id'=>$ids)));
+//        //Luego hacemos los filtros para lo demas
+//        
+//        $joins = array(
+//            array(
+//                'table'=>'Testimonials',
+//                'type'=>'left',
+//                'conditions'=>array('Driver.id'=>'Testimonials.driver_id')
+//                )
+//            
+//        );
+//        $this->Driver->virtualFields['review_count']='SELECT COUNT(DISTINCT (Drivers.id)) FROM Drivers JOIN Testimonials ON Drivers.id = Testimonials.driver_id';
+//        $finallist = $this->Driver->find('all',array('joins'=>$joins,'order'=>(['review_count' => 'DESC']),'conditions'=>array('Driver.id'=>$ids)));
+//         
+        $finallist = $this->Driver->query(
+                "SELECT *, COUNT(DISTINCT (t.id)) as review_count, COUNT(DISTINCT(Travels.id))as travel_count, SUM(DISTINCT(Travels.people_count)) as total_travelers "
+                . " FROM Drivers"
+                . " INNER JOIN Testimonials t ON Drivers.id = t.driver_id AND t.state='A'"
+                . " INNER JOIN Drivers_Travels ON Drivers.id = Drivers_Travels.driver_id"
+                . " INNER JOIN Travels ON Drivers_Travels.travel_id = Travels.id"
+                . " INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
+                  AND travels_conversations_meta.state = 'D'"
+                . " INNER JOIN Drivers_Profiles ON Drivers.id = Drivers_Profiles.driver_id  WHERE"
+                . " Drivers.province_id= ".$provinceID[0]['Province']['id']." GROUP BY Drivers.id ORDER BY review_count DESC");
+        
+        $this->set('drivers_data',$finallist);
+        $this->set('province',$province);
+        
+        
+        
+    }
 }
 
 ?>
