@@ -37,15 +37,16 @@ class Province extends AppModel {
         if($slug == null) return null;
         
         // Convertir slug a id
-        $pId = null;
+        $province = null;
         foreach (self::$provinces as $k=>$p) {
             if($p['slug'] == $slug) {
-                $pId = $k;
+                $province = $p;
+                $province['id'] = $k;
                 break;
             }
         }
         
-        return $pId;
+        return $province;
     }
     public static function getFeaturedActivityFromProvince($provinceId) {
         return __d('seo', self::$provinces[$provinceId]['featured_activity']);
