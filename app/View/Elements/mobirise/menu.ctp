@@ -8,22 +8,13 @@ if($userLoggedIn) {
 }
 ?>
 
-<?php     
-    $other = array('en' => 'es', 'es' => 'en');
-    $lang = $this->Session->read('Config.language');
-
-    $lang_changed_url             = $this->request['pass'];
-    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
-    $lang_changed_url['?']        = $this->request->query;
-    $lang_changed_url['language'] = $other[$lang];
-    
-    
+<?php 
     $mainCTA = __d('mobirise/default', 'Contactar choferes en Cuba');
     if(isset($cta)) $mainCTA = $cta;
 ?>
 
 
-<section class="menu cid-qTkzRZLJNu" once="menu" id="menu1-0">
+<section class="menu cid-r8XWEle1z2" once="menu" id="menu1-0">
 
     <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,21 +33,18 @@ if($userLoggedIn) {
                 <span class="navbar-caption-wrap">
                     <?php echo $this->Html->link('YO TE LLEVO - CUBA', '/'.SessionComponent::read('Config.language'), array('class'=>'navbar-caption text-white display-4'));?>
                 </span>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <?php echo $this->element('mobirise/widgets/lang-link')?>
+                    </li>
+                </ul>
+                
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                <li class="nav-item pull-left">
-                    <?php $lang = SessionComponent::read('app.lang');?>
-                    <?php if($lang != null && $lang == 'en'):?>
-                        <?php echo $this->Html->link($this->Html->image('Spain.png', array('style'=>'max-width:22px')).'&nbsp;'.'Español', $lang_changed_url, array('class' => 'nav-link link text-white display-4', 'title'=>'Traducir al Español', 'escape'=>false)) ?>
-                    <?php else:?>
-                        <?php echo $this->Html->link($this->Html->image('UK.png').'&nbsp;'.'English', $lang_changed_url, array('class' => 'nav-link link text-white display-4', 'title'=>'Translate to English', 'escape'=>false)) ?>
-                    <?php endif;?>
-                </li>
-                
                 <li class="nav-item">
-                    <?php echo $this->Html->link('<span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span> '.__d('mobirise/default', 'Sobre Nosotros'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
+                    <?php echo $this->Html->link(__d('mobirise/default', 'Opiniones de clientes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
                 </li>
             </ul>
             <div class="navbar-buttons mbr-section-btn">

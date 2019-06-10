@@ -54,7 +54,7 @@ $this->Html->script('web/assets/jquery/jquery.min', array('inline' => false));
 $this->Html->script('popper/popper.min', array('inline' => false));
 $this->Html->script('tether/tether.min', array('inline' => false));
 $this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
-$this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
+//$this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
 $this->Html->script('dropdown/js/script.min', array('inline' => false));
 
 $this->Html->script('theme/js/script', array('inline' => false));

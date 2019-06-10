@@ -65,9 +65,8 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php endif?>
             <br/>
             <br/>
-            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'left'));?>
+            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'bottom'));?>
         </div>
-        <br/>
         <br/>
         
         <div class="btn-wrapper">
@@ -94,7 +93,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php $flagged = $hasMetadata && $data['TravelConversationMeta']['flag_type'] != null? true:false?>
             <?php if($flagged) :?>
             
-            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $data['TravelConversationMeta']['flag_comment']);?>" data-placement="left">
+            <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $data['TravelConversationMeta']['flag_comment']);?>" data-placement="bottom">
                     <span class="input-group-addon">
                         <span class="label label-warning">
                             <a href="#!" class="open-form" data-form="form-flag-comment"><i class="glyphicon glyphicon-pushpin"></i> Pineado</a>
@@ -106,7 +105,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 </div>
             
             <?php else:?>
-                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'left', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
+                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
             <?php endif?>
             
             <div id="form-flag-comment" style="display: none">
@@ -119,14 +118,6 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php echo $this->element('conversation_toolbox_states'); ?>
         </div>
 
-        <div class="btn-wrapper">
-            <!-- TRAVEL DATE -->
-            <?php $fechaCambiada = isset ($data['DriverTravel']['original_date']) && $data['DriverTravel']['original_date'] != null;?>
-            <span class="alert alert-success" style="display: inline-block; margin-bottom: 0px">
-                <b><?php echo TimeUtil::prettyDate($travelDate)?></b>
-                <?php echo $this->element('form_travel_date_controls', array('travel'=>$data, 'keepOriginal'=>!$fechaCambiada, 'originalDate'=>strtotime($travelDate)))?>
-            </span>
-        </div>
     </div>
 </div>
 
@@ -145,15 +136,14 @@ echo $this->Js->writeBuffer(array('inline' => false));
 
 <style type="text/css">
     .control-panel{
-        right: 10px;
-        position: fixed;
+        right: 10px;        
         z-index: 10;
         top: 120px;
         padding: 0px;
 
     }
     .control-panel-frame {
-        width: 210px;
+        width: 200px;
     }
     
     .btn-group-vertical .btn {
@@ -162,18 +152,14 @@ echo $this->Js->writeBuffer(array('inline' => false));
     
     .btn-wrapper {
         margin-bottom: 10px;
-        padding: 10px;
-        border: #efefef solid 2px
+        padding: 10px;        
     }
     
     .btn-wrapper .btn {
-        min-width: 100%;
+        min-width: 100%!important;
     }
     
-    /* Esto es un hack para que el datepicker salga por delante del bootbox*/
-    .datepicker {
-        z-index: 99999 !important;
-    }
+   
 </style>
 
 <script type="text/javascript">

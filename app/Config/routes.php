@@ -37,6 +37,8 @@
 	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         Router::connect('/:language/pages/*', array('controller' => 'pages', 'action' => 'display'), array('language' => 'en|es'));
         
+        Router::connect('/:language/taxi/*', array('controller'=>'drivers', 'action' => 'drivers_by_province'), array('language' => 'en|es'));
+        
         Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'reviews'), array('language' => 'en|es'));
         // Tambien tengo que poner esta de aqui abajo, para evitar tener que cambiar todos los links que referencian array('controller'=>'testimonials', 'action' => 'featured')
         Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'featured'), array('language' => 'en|es'));
@@ -74,7 +76,8 @@
         
         Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
         
-        
+        /*Nueva ruta para prueba de visualizacion de datos de choferes*/
+        //Router::connect('/:language/drivers/view_drivers_data/:provid', array('controller' => 'drivers', 'action'=>'view_drivers_data'), array('language' => 'en|es','pass'=>array('provid')));
         
         //         
         //Router::connect('/:language/catalog-drivers-cuba/*', array('controller' => 'pages', 'action' => 'display', 'catalog-drivers-cuba'), array('language' => 'en|es'));

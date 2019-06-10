@@ -13,6 +13,10 @@
 <hr style="color:#efefef; background-color:#efefef; height:1px; max-height: 1px; border:none; margin-bottom: 10px;"/>
 
 <p>Viaje <big><b>#<?php echo DriverTravel::getIdentifier($driver_travel); ?></b></big> <b><?php echo $travel_hint; ?></b>.</p> 
+<p>
+    <a href="<?php  echo $this->Html->url(array('controller'=>'drivers','action'=>'messages', $driver_travel['id'], 'base'=>false), true);
+ ?>">Mira la conversación completa en nuestro sitio Web</a>
+</p>
 <p>A continuación puedes leer los <b>últimos <?php echo $messages_count?> mensajes</b> de la conversación:</p>
 
 

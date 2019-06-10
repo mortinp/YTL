@@ -2,10 +2,14 @@
 
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('DriverTravel', 'Model');
+App::uses('User', 'Model');
+App::uses('Locality', 'Model');
+App::uses('Province', 'Model');
 
 class DriversController extends AppController {
     
-    public $uses = array('Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User', 'Testimonial');
+    public $uses = array('DriverTravelerConversation',/*-*/ 'Driver', 'Locality', 'DriverLocality', 'DriverTravel', 'DriverProfile', 'DriverTravelByEmail', 'Travel', 'TravelByEmail', 'User', 'Testimonial', 'TravelConversationMeta', 'UserInteraction');
     
     public $components = array('TravelLogic', 'Paginator', 'RequestHandler');
     
@@ -13,7 +17,7 @@ class DriversController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('profile');
+        $this->Auth->allow('profile','messages');
     }
     
     public function index() {
@@ -129,14 +133,32 @@ class DriversController extends AppController {
             $this->layout = 'profile';
             $this->set('profile', $profile);
             
-            if(Configure::read('show_testimonials_in_profile')){        
-                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => 'Testimonial.created DESC') );
+            if(Configure::read('show_testimonials_in_profile')){
+                
+                /*Primero chequeamos si es una vista directa de testimonio*/
+                if($this->request->query('see-review')){
+                    //getting given testimonial
+                    $askedreview = $this->Testimonial->findById($this->request->query('see-review'));
+                    $highlighted = $askedreview;
+                    $this->set('highlighted',$highlighted);//Sending given review data for filling metadata
+                    //Getting specific values for virtual field adding                
+                    $haystack = array ('0'=>$askedreview['Testimonial']['id']);
+                    //Transforming in a semmicolon separated string                
+                    $askedreview = implode(',', $haystack);
+                } else $askedreview = '';//if direct profile view
+               
+                //Creating a virtual field for returning given testimonial (if given) into pagination
+                $this->Testimonial->virtualFields['in_review']=  "IF (Testimonial.id IN ('$askedreview'),0,1)";                
+                               
+                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => array('in_review'=>'asc'/*our given testimonial comes first*/,'Testimonial.created'=> 'desc')) );
+                
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
                     'Testimonial.state'=>Testimonial::$statesValues['approved']))
-                );
+                );   
                 
-                if($this->request->is('ajax')) {
+                                            
+                if($this->request->is('ajax')) {                    
                     $render = '/Elements';
                     if(Configure::read('App.theme') != null) $render .= '/'.Configure::read('App.theme');
                     $render .= '/ajax_testimonials_list';
@@ -204,6 +226,60 @@ class DriversController extends AppController {
         }
         
         return $fixedMessages;
+    }
+    
+    public function messages($conversationId) {
+        $this->layout = 'driver_panel';        
+       
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
+        $this->Driver->attachProfile($this->DriverTravel);
+        
+        $data = $this->DriverTravel->findById($conversationId);
+        $this->set('data', $data);
+               
+        $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);        
+        $this->set('conversations', $conversations);
+        
+                
+    }
+    
+    public function drivers_by_province($slug) {
+        $province = Province::_provinceFromSlug($slug);
+        
+        if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
+        
+        $driversData = $this->driversInProvince($province['id']);
+        
+        $this->set('drivers_data', $driversData);
+        $this->set('province', $province);
+        $this->set('localities', Locality::getAsSuggestions());
+    }
+    
+    /*Nueva función para mostrar datos de choferes*/
+    public function driversInProvince($provinceID) {   
+        $drivers = $this->Driver->query(
+                "SELECT *, COUNT(DISTINCT (t.id)) as review_count, COUNT(DISTINCT(Travels.id))as travel_count, SUM(DISTINCT(Travels.people_count)) as total_travelers "
+                . " FROM Drivers"
+                . " INNER JOIN Testimonials t ON Drivers.id = t.driver_id AND t.state='A'"
+                . " INNER JOIN Drivers_Travels ON Drivers.id = Drivers_Travels.driver_id"
+                . " INNER JOIN Travels ON Drivers_Travels.travel_id = Travels.id"
+                . " INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
+                  AND travels_conversations_meta.state IN ('D', 'P')"
+                . " INNER JOIN Drivers_Profiles ON Drivers.id = Drivers_Profiles.driver_id  WHERE"
+                . " Drivers.province_id= ".$provinceID." GROUP BY Drivers.id ORDER BY review_count DESC");
+        
+        return $drivers;
+    }
+    
+    public function view_drivers_data($slug) {
+        $province = Province::_provinceFromSlug($slug);
+        
+        if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
+        
+        $driversData = $this->driversInProvince($province['id']);
+        
+        $this->set('drivers_data', $driversData);
+        $this->set('province', $province);
     }
 }
 

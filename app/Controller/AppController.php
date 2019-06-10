@@ -109,6 +109,7 @@ class AppController extends Controller {
             array('controller'=>'testimonials', 'action'=>'reviews'),
             array('controller'=>'drivers', 'action'=>'profile'),
             array('controller'=>'travels', 'action'=>'pending'),
+            array('controller'=>'drivers', 'action'=>'drivers_by_province'),
             
         );
         

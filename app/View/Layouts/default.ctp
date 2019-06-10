@@ -239,7 +239,6 @@ if($userLoggedIn) {
             <div id="content" class="container-fluid">
                 
                 <?php echo $this->Session->flash(); ?>
-                
                 <?php echo $this->fetch('content'); ?>
                 
                 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>

@@ -1,5 +1,3 @@
-<?php echo $this->element('conversation_toolbox')?>
-
 <hr/>
 <span>
     <!-- COMMENTS -->
