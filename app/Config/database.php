@@ -67,7 +67,7 @@ class DATABASE_CONFIG {
         'host' => 'localhost',
         'login' => 'root',
         'password' => '',
-        'database' => 'yotellevo',
+        'database' => 'yotellevoserver2',
         'prefix' => '',
         'encoding' => 'utf8',
     );

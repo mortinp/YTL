@@ -6,9 +6,28 @@ class LocalitiesController extends AppController {
     
     public $uses = array('Locality', 'Province');
     
+    
+    public $components = array (
+        'Rest.Rest' => array(
+            'catchredir' => true,
+            'actions' => array(
+                'extract' => array(
+                    'index' => array('localities'),
+                ),
+            ),
+        ),
+    );
+    
+    
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index');
+    }
+    
     public function index() {
         $this->Locality->recursive = 0;
-        $this->set('localities', $this->Locality->find('all'));
+        $localities = $this->Locality->find('all');
+        $this->set('localities', $localities);
     }
 
     public function add() {

@@ -24,9 +24,7 @@
 
         Router::mapResources('api_users');
         Router::parseExtensions('json');
-        
-        
-	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+
         Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
         Router::connect('/:language/taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-cuba'), array('language' => 'en|es'));
         

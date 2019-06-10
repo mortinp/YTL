@@ -55,7 +55,25 @@ class AppController extends Controller {
             // Este mensaje de error hay que tenerlo traducido en default.po, porque la traducción la usa el AuthComponent -le hice una modificacion al AuthComponent de CakePHP para esto
             'authError' => '<div class="alert alert-danger alert-dismissable" style="text-align: center"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>No tienes permisos para visitar esa página.</div>'
         ),
-        'Cookie'
+        'Cookie',
+        
+        // API
+        'RequestHandler',
+        'Rest.Rest' => array(
+            'catchredir' => true, // Recommended unless you implement something yourself
+            'debug' => 0,
+            /*'actions' => array(
+                'view' => array(
+                    'extract' => array('server.Server' => 'servers.0'),
+                ),
+                'index' => array(
+                    'extract' => array('rows.{n}.Server' => 'servers'),
+                ),
+            ),*/
+            'log' => array(
+                'model' => null
+            )
+        ),
     );
 
     public function beforeFilter() {
