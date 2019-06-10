@@ -31,7 +31,7 @@
                     <?php echo $this->element('mobirise/widgets/lang-link')?>
                 </li>
                 <li class="nav-item">
-                    <?php echo $this->Html->link('<span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span> '.__d('mobirise/default', 'Sobre Nosotros'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
+                    <?php echo $this->Html->link(__d('mobirise/default', 'Sobre Nosotros'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
                 </li>
             </ul>
         </div>
