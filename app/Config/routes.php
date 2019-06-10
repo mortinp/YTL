@@ -21,11 +21,11 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-/**
- * Here, we are connecting '/' (base path) to controller called 'Pages',
- * its action called 'display', and we pass a param to select the view file
- * to use (in this case, /app/View/Pages/home.ctp)...
- */
+
+        Router::mapResources('api_users');
+        Router::parseExtensions('json');
+        
+        
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
         Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
         Router::connect('/:language/taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-cuba'), array('language' => 'en|es'));
