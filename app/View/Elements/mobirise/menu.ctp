@@ -33,16 +33,18 @@ if($userLoggedIn) {
                 <span class="navbar-caption-wrap">
                     <?php echo $this->Html->link('YO TE LLEVO - CUBA', '/'.SessionComponent::read('Config.language'), array('class'=>'navbar-caption text-white display-4'));?>
                 </span>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <?php echo $this->element('mobirise/widgets/lang-link')?>
+                    </li>
+                </ul>
+                
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                <li class="nav-item pull-left">
-                    <?php echo $this->element('mobirise/widgets/lang-link')?>
-                </li>
-                
                 <li class="nav-item">
-                    <?php echo $this->Html->link('<span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span> '.__d('mobirise/default', 'Sobre Nosotros'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
+                    <?php echo $this->Html->link(__d('mobirise/default', 'Opiniones de clientes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
                 </li>
             </ul>
             <div class="navbar-buttons mbr-section-btn">
