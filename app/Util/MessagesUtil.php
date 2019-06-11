@@ -49,7 +49,7 @@
                     
                     if($from == 'traveler') {
                         
-                        // MOBILE TEST
+                        /*// MOBILE TEST
                         $testEmail = Configure::read('mobile_test_email');            
                         if($driverTravel['Driver']['username'] == $testEmail) {
                             
@@ -66,13 +66,10 @@
                                 'mob_new_msg', 
                                 array('enqueue'=>false), 
                                 'text');
-                            /*$Email = new CakeEmail('mviajero');
-                            $Email->to($testEmail)->subject($conversation);
-                            $Email->send($fixedBody);*/
                         }
                         // ENDOF MOBILE TEST
                         
-                        else $OK = $this->messageTraveler2Driver($conversation, $attachments, $driverTravel);
+                        else*/ $OK = $this->messageTraveler2Driver($conversation, $attachments, $driverTravel);
                         
                     }
                     else $OK = $this->messageDriver2Traveler($conversation, $sender, $fixedBody, $attachments, $driverTravel, $msgId);

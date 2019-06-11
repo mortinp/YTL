@@ -23,7 +23,8 @@ class SyncronizableBehavior extends ModelBehavior {
         
             // Sanity checks
             if(!isset ($settings['sync_queue_table']) || $settings['sync_queue_table'] == null)  return;
-
+            
+            // Verificar las condiciones para guardar en la BD
             $conditionsOK = true;
             foreach ($settings['conditions'] as $key => $value) {
                 if($Model->data[$Model->alias][$key] != $value) {
@@ -34,7 +35,7 @@ class SyncronizableBehavior extends ModelBehavior {
 
             if($conditionsOK) {
 
-                // El objeto que voy a guardar en la BD
+                // Ponerle la llave al objeto que voy a guardar
                 $syncObject = array($settings['key_field'] => $Model->getLastInsertID());
 
                 $SyncTable = ClassRegistry::init('ApiSync.SyncObject');
