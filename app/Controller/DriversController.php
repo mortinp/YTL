@@ -251,22 +251,22 @@ class DriversController extends AppController {
         $driversData = $this->driversInProvince($province['id']);
         
         $this->set('drivers_data', $driversData);
-        $this->set('province', $province);
+        $this->set('province', $province['name']);
         $this->set('localities', Locality::getAsSuggestions());
     }
     
     /*Nueva función para mostrar datos de choferes*/
     public function driversInProvince($provinceID) {   
         $drivers = $this->Driver->query(
-                "SELECT *, COUNT(DISTINCT (t.id)) as review_count, COUNT(DISTINCT(Travels.id))as travel_count, SUM(DISTINCT(Travels.people_count)) as total_travelers "
-                . " FROM Drivers"
-                . " INNER JOIN Testimonials t ON Drivers.id = t.driver_id AND t.state='A'"
-                . " INNER JOIN Drivers_Travels ON Drivers.id = Drivers_Travels.driver_id"
-                . " INNER JOIN Travels ON Drivers_Travels.travel_id = Travels.id"
+                "SELECT *, COUNT(DISTINCT (t.id)) as review_count, COUNT(DISTINCT(travels.id))as travel_count, SUM(DISTINCT(travels.people_count)) as total_travelers "
+                . " FROM drivers"
+                . " INNER JOIN testimonials t ON drivers.id = t.driver_id AND t.state='A'"
+                . " INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id"
+                . " INNER JOIN travels ON drivers_travels.travel_id = travels.id"
                 . " INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
                   AND travels_conversations_meta.state IN ('D', 'P')"
-                . " INNER JOIN Drivers_Profiles ON Drivers.id = Drivers_Profiles.driver_id  WHERE"
-                . " Drivers.province_id= ".$provinceID." GROUP BY Drivers.id ORDER BY review_count DESC");
+                . " INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id  WHERE"
+                . " drivers.province_id= ".$provinceID." GROUP BY drivers.id ORDER BY t.created DESC, review_count DESC");
         
         return $drivers;
     }
@@ -279,7 +279,7 @@ class DriversController extends AppController {
         $driversData = $this->driversInProvince($province['id']);
         
         $this->set('drivers_data', $driversData);
-        $this->set('province', $province);
+        $this->set('province', $province['name']);
     }
 }
 

@@ -35,6 +35,8 @@ if($userLoggedIn) {
     $this->Html->css('socicon/css/styles', array('inline' => false));
     $this->Html->css('theme/css/style', array('inline' => false));
     $this->Html->css('mobirise/css/mbr-additional', array('inline' => false));
+    
+    $this->Html->css('web/assets/ont-awesome/css/font-awesome', array('inline' => false));
   ?>
   
   <?php
