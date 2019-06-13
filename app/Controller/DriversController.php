@@ -258,15 +258,33 @@ class DriversController extends AppController {
     /*Nueva función para mostrar datos de choferes*/
     public function driversInProvince($provinceID) {   
         $drivers = $this->Driver->query(
-                "SELECT *, COUNT(DISTINCT (t.id)) as review_count, COUNT(DISTINCT(Travels.id))as travel_count, SUM(DISTINCT(Travels.people_count)) as total_travelers "
-                . " FROM Drivers"
-                . " INNER JOIN Testimonials t ON Drivers.id = t.driver_id AND t.state='A'"
-                . " INNER JOIN Drivers_Travels ON Drivers.id = Drivers_Travels.driver_id"
-                . " INNER JOIN Travels ON Drivers_Travels.travel_id = Travels.id"
-                . " INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
-                  AND travels_conversations_meta.state IN ('D', 'P')"
-                . " INNER JOIN Drivers_Profiles ON Drivers.id = Drivers_Profiles.driver_id  WHERE"
-                . " Drivers.province_id= ".$provinceID." GROUP BY Drivers.id ORDER BY review_count DESC");
+                "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date
+
+                FROM travels
+
+                INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+
+                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.state IN ('D', 'P')
+
+                INNER JOIN drivers ON drivers.id = drivers_travels.driver_id AND drivers.active = true AND drivers.province_id=".$provinceID." 
+
+                INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id
+
+                LEFT JOIN (
+
+                SELECT drivers.id as driver_id, COUNT(testimonials.id) as review_count, max(testimonials.created) as latest_testimonial_date
+                FROM testimonials
+                INNER JOIN drivers ON drivers.id = testimonials.driver_id AND testimonials.state = 'A'
+                GROUP BY drivers.id
+                ORDER BY drivers.id
+
+                ) testimonials
+                ON testimonials.driver_id = drivers.id
+
+                GROUP BY drivers.id
+
+                ORDER BY testimonials.latest_testimonial_date DESC"
+                );
         
         return $drivers;
     }
@@ -279,7 +297,7 @@ class DriversController extends AppController {
         $driversData = $this->driversInProvince($province['id']);
         
         $this->set('drivers_data', $driversData);
-        $this->set('province', $province);
+        $this->set('province', $province['name']);
     }
 }
 
