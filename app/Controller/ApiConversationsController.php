@@ -16,7 +16,7 @@ class ApiConversationsController extends AppController {
         $user = array('id' => 145 /*Lenier*/);
         
         
-        // 1. Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
+        // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
         $idCondition = "";
         if($conversationId != null) $idCondition = "AND drivers_travels.id = '".$conversationId."'";
         $sql = "SELECT
@@ -237,9 +237,12 @@ class ApiConversationsController extends AppController {
         
         $synced = $this->markConversationsAsSynced($conversations);
         
+        $conv = null;
+        if(!empty($conversations)) $conv = $conversations[0]; // Aqui siempre va a venir una sola conversacion
+        
         $this->set(array(
             'success' => true,
-            'data' => $conversations,
+            'data' => $conv,
             'synced'=>$synced,
             '_serialize' => array('success', 'data', 'synced')
         ));

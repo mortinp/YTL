@@ -2,6 +2,15 @@
 App::uses('AppModel', 'Model');
 class DriverTravelerConversation extends AppModel {
     
+    // API
+    public $actsAs = array(
+        'ApiSync.Syncronizable'=>array(
+            'sync_queue_table' => 'api_sync_queue_messages',
+            'key_field' => 'msg_id',
+            'conditions' => array('response_by' => 'traveler')
+        )
+    );
+    
     public static $STATE_NONE = 'N';
     public static $STATE_TRAVEL_DONE = 'D';
     public static $STATE_TRAVEL_NOT_DONE = 'X';
@@ -17,14 +26,6 @@ class DriverTravelerConversation extends AppModel {
         ),
     );
     
-    // API
-    public $actsAs = array(
-        'ApiSync.Syncronizable'=>array(
-            'sync_queue_table' => 'api_sync_queue_messages',
-            'key_field' => 'msg_id',
-            'conditions' => array('response_by' => 'traveler')
-        )
-    );
 }
 
 ?>
