@@ -1,2 +1,8 @@
-msgid "Taxi &amp; Chofer en %s"
-msgstr "Taxi &amp; Driver in %s"
+msgid "Taxi & Chofer en %s"
+msgstr "Taxi & Driver in %s"
+
+msgid "%s choferes activos"
+msgstr "%s active drivers"
+
+msgid "Vive en %s"
+msgstr "Lives in %s"
