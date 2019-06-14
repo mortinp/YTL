@@ -41,6 +41,28 @@ class TravelLogicComponent extends Component {
             // Trabajar con el resultado y hacer todo lo que se debe hacer
             if (count($drivers) > 0) {
                 
+                /*
+                 * TODO: Esto es un hack para limpiar la lista de choferes a notificar, porque estamos teniendo un problema con el algoritmo.
+                 * PROBLEMA: Se repiten algunos choferes para notificar con una misma solicitud.
+                 * SOLUCION: Eliminar los choferes duplicados
+                 */
+                $driversNoDuplicate = array();
+                for($i=0;$i<count($drivers);$i++) {
+                    if(empty($driversNoDuplicate)) {
+                        $driversNoDuplicate[] = $drivers[$i];
+                        continue;
+                    }
+                    
+                    $driversUnmatched = 0;
+                    foreach($driversNoDuplicate as $d) {
+                        if($d['Driver']['id'] != $drivers[$i]['Driver']['id']) {
+                            $driversUnmatched++;
+                        }
+                    }
+                    if($driversUnmatched == count($driversNoDuplicate)) $driversNoDuplicate[] = $drivers[$i];
+                }
+                $drivers = $driversNoDuplicate;
+                
                 // Actualizar fecha de ultima notificacion del operador
                 $this->User = ClassRegistry::init('User');
                 $this->User->id = $operator['User']['id'];
