@@ -1,6 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
+App::uses('MessagesUtil', 'Util');
 
 class ApiConversationsController extends AppController {
     public $components = array('RequestHandler');
@@ -8,7 +9,7 @@ class ApiConversationsController extends AppController {
     public $uses = array('DriverTravel', 'ApiSync.SyncObject');
     
     public function beforeFilter() {
-        $this->Auth->allow('sync', 'newMessagesInConversation');
+        $this->Auth->allow('sync', 'newMessagesInConversation', 'newMessageToTraveler');
     }
     
     private function getConversationsToSync($conversationId = null) {
@@ -20,7 +21,7 @@ class ApiConversationsController extends AppController {
         $idCondition = "";
         if($conversationId != null) $idCondition = "AND drivers_travels.id = '".$conversationId."'";
         $sql = "SELECT
-                    api_sync_queue_messages.msg_id,
+                    api_sync_queue_2driver_conversations.msg_id,
                     driver_traveler_conversations.response_text,
                     driver_traveler_conversations.created as msg_created,
                     driver_traveler_conversations.attachments_ids,
@@ -35,14 +36,13 @@ class ApiConversationsController extends AppController {
                     travels.people_count as pax, 
                     travels.details,
                     travels.created as travel_created
-                    FROM api_sync_queue_messages
-                    INNER JOIN driver_traveler_conversations ON api_sync_queue_messages.msg_id = driver_traveler_conversations.id                                                                 
-                    INNER JOIN drivers_travels ON driver_traveler_conversations.conversation_id = drivers_travels.id
+                    FROM api_sync_queue_2driver_conversations
+                    INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id
+                    LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
                     LEFT JOIN travels ON drivers_travels.travel_id = travels.id
                     WHERE 
-                        drivers_travels.driver_id = ".$user['id']." 
-                        AND driver_traveler_conversations.response_by = 'traveler' 
-                        AND api_sync_queue_messages.sync_date IS NULL 
+                        drivers_travels.driver_id = ".$user['id']."
+                        AND api_sync_queue_2driver_conversations.sync_date IS NULL 
                         ".$idCondition."
                     ORDER BY conversation_id";
         
@@ -52,9 +52,10 @@ class ApiConversationsController extends AppController {
         $conversations = array();
         for ($index = 0; $index < count($conversationsToSync);) {
             
-            $current_conv = $conversationsToSync[$index]['drivers_travels']['conversation_id'];
+            // Coger la conversacion actual
+            $current_convId = $conversationsToSync[$index]['drivers_travels']['conversation_id'];
             
-            // Primero crear la travel_request si existes
+            // Primero crear la travel_request si existe
             $travelRequest = null;
             if($conversationsToSync[$index]['drivers_travels']['travel_id'] != null) {
                 $travelRequest = array(
@@ -64,7 +65,7 @@ class ApiConversationsController extends AppController {
                     'pax'=>$conversationsToSync[$index]['travels']['pax'],
                     'details'=>$conversationsToSync[$index]['travels']['details'],
                     'date'=>1000*strtotime($conversationsToSync[$index]['drivers_travels']['travel_date']),
-                    'created'=>1000*strtotime($conversationsToSync[$index]['travels']['travel_created']), 
+                    'created'=>1000*strtotime($conversationsToSync[$index]['travels']['travel_created']),
                 );
             }
             
@@ -81,27 +82,30 @@ class ApiConversationsController extends AppController {
             );
             
             // Adicionar los mensajes a la conversacion
-            while($index < count($conversationsToSync) && $conversationsToSync[$index]['drivers_travels']['conversation_id'] == $current_conv) {
+            while($index < count($conversationsToSync) && $conversationsToSync[$index]['drivers_travels']['conversation_id'] == $current_convId) {
                 
-                // Coger media
-                $media = array();
-                $hasMedia = $conversationsToSync[$index]['driver_traveler_conversations']['attachments_ids'] != null && $conversationsToSync[$index]['driver_traveler_conversations']['attachments_ids'] != '';
-                if($hasMedia) {
-                    $attachModel = ClassRegistry::init('EmailQueue.EmailAttachment');
-                    $atts = $attachModel->getAttachments($conversationsToSync[$index]['driver_traveler_conversations']['attachments_ids']);
-                    
-                    $media = array('url'=>$atts[0]['url']);
+                $isMessagePresent = $conversationsToSync[$index]['api_sync_queue_2driver_conversations']['msg_id'] != null;                
+                if($isMessagePresent) {
+                    // Coger media
+                    $media = array();
+                    $hasMedia = $conversationsToSync[$index]['driver_traveler_conversations']['attachments_ids'] != null && $conversationsToSync[$index]['driver_traveler_conversations']['attachments_ids'] != '';
+                    if($hasMedia) {
+                        $attachModel = ClassRegistry::init('EmailQueue.EmailAttachment');
+                        $atts = $attachModel->getAttachments($conversationsToSync[$index]['driver_traveler_conversations']['attachments_ids']);
+
+                        $media = array('url'=>$atts[0]['url']);
+                    }
+
+                    // Adicionar mensaje
+                    $conversations[count($conversations) - 1]['messages'][] = 
+                            array(
+                                'id'=>$conversationsToSync[$index]['api_sync_queue_2driver_conversations']['msg_id'], 
+                                'message'=>$conversationsToSync[$index]['driver_traveler_conversations']['response_text'],
+                                'created'=>1000*strtotime($conversationsToSync[$index]['driver_traveler_conversations']['msg_created']),
+                                'media'=>$media,
+                                //'hasMedia'=>$hasMedia
+                                );
                 }
-                
-                // Adicionar mensaje
-                $conversations[count($conversations) - 1]['messages'][] = 
-                        array(
-                            'id'=>$conversationsToSync[$index]['api_sync_queue_messages']['msg_id'], 
-                            'message'=>$conversationsToSync[$index]['driver_traveler_conversations']['response_text'],
-                            'created'=>1000*strtotime($conversationsToSync[$index]['driver_traveler_conversations']['msg_created']),
-                            'media'=>$media,
-                            //'hasMedia'=>$hasMedia
-                            );
                 
                 $index++;
             }
@@ -113,17 +117,21 @@ class ApiConversationsController extends AppController {
     private function markConversationsAsSynced($conversations) {
         // Marcar como sincronizados
         $SyncTable = ClassRegistry::init('ApiSync.SyncObject');
-        $SyncTable->useTable = 'api_sync_queue_messages';
+        $SyncTable->useTable = 'api_sync_queue_2driver_conversations';
         
         $synced = array();
         foreach ($conversations as $c) {
-            foreach ($c['messages'] as $m) {
-                $msgToUpdate = $SyncTable->find('first', array('conditions'=>array('msg_id'=>$m['id'])));
-                
-                $msgToUpdate['SyncObject']['sync_date'] = gmdate('Y-m-d H:i:s');
-                $SyncTable->save($msgToUpdate);
-                
-                $synced[] = $msgToUpdate;
+            
+            // Buscar todas las entradas en la cola de sincronizacion con el id de esta conversacion
+            $syncedEntries = $SyncTable->find('all', 
+                    array('conditions'=>array(
+                            'conversation_id'=>$c['id'])));
+            
+            // Actualizar todas las entradas
+            foreach($syncedEntries as $entry) {
+                $entry['SyncObject']['sync_date'] = gmdate('Y-m-d H:i:s');
+                $SyncTable->save($entry);
+                $synced[] = $entry;
             }
         }
         
@@ -245,6 +253,17 @@ class ApiConversationsController extends AppController {
             'data' => $conv,
             'synced'=>$synced,
             '_serialize' => array('success', 'data', 'synced')
+        ));
+    }
+    
+    public function newMessageToTraveler($conversationId) {
+        $mu = new MessagesUtil();
+        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $this->request->data['media']);
+        
+        $this->set(array(
+            'success' => true,
+            'data' => true,
+            '_serialize' => array('success', 'data')
         ));
     }
     

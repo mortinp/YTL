@@ -10,6 +10,7 @@ class SyncronizableBehavior extends ModelBehavior {
                 
                 'sync_queue_table' => null, // La tabla donde se debe salvar el objeto a sincronizar (i.e. messages o travels)
                 'key_field' => null,
+                'fields'=>array(),
                 'conditions' => array(),
             );
         }
@@ -22,7 +23,7 @@ class SyncronizableBehavior extends ModelBehavior {
             $settings = $this->settings[$Model->alias];
         
             // Sanity checks
-            if(!isset ($settings['sync_queue_table']) || $settings['sync_queue_table'] == null)  return;
+            if(!isset ($settings['sync_queue_table']) || $settings['sync_queue_table'] == null) return;
             
             // Verificar las condiciones para guardar en la BD
             $conditionsOK = true;
@@ -37,9 +38,17 @@ class SyncronizableBehavior extends ModelBehavior {
 
                 // Ponerle la llave al objeto que voy a guardar
                 $syncObject = array($settings['key_field'] => $Model->getLastInsertID());
+                
+                // Ponerle otros campos
+                foreach ($settings['fields'] as $key => $value) {
+                    //throw new Exception($key.' - '.$value.' = '.$Model->data[$Model->alias][$value]);
+                    $syncObject[$key] = $Model->data[$Model->alias][$value];
+                }
 
                 $SyncTable = ClassRegistry::init('ApiSync.SyncObject');
                 $SyncTable->useTable = $settings['sync_queue_table'];
+                
+                $SyncTable->create();
 
                 if(!$SyncTable->save($syncObject) ) throw new Exception();
             }

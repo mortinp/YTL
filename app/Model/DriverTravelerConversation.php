@@ -5,8 +5,9 @@ class DriverTravelerConversation extends AppModel {
     // API
     public $actsAs = array(
         'ApiSync.Syncronizable'=>array(
-            'sync_queue_table' => 'api_sync_queue_messages',
+            'sync_queue_table' => 'api_sync_queue_2driver_conversations',
             'key_field' => 'msg_id',
+            'fields'=>array('conversation_id'=>'conversation_id'),
             'conditions' => array('response_by' => 'traveler')
         )
     );

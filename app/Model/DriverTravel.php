@@ -7,9 +7,9 @@ class DriverTravel extends AppModel {
     // API
     public $actsAs = array(
         'ApiSync.Syncronizable'=>array(
-            'sync_queue_table' => 'api_sync_queue_travels',
+            'sync_queue_table' => 'api_sync_queue_2driver_conversations',
             'key_field' => 'conversation_id',
-            'conditions' => array('notification_type' => 'A'/*DriverTravel::$NOTIFICATION_TYPE_AUTO*/)
+            //'conditions' => array('notification_type' => 'A'/*DriverTravel::$NOTIFICATION_TYPE_AUTO*/)
         )
     );
     
