@@ -17,7 +17,7 @@ class DriversController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('profile','messages');
+        $this->Auth->allow('profile','messages', 'drivers_by_province');
     }
     
     public function index() {
@@ -183,6 +183,7 @@ class DriversController extends AppController {
         $endDate = $today;
         $iniDate = date('Y-m-d', strtotime("$endDate - 6 months"));
         if(!empty ($this->request->query)) {
+            
             //WARNING: A continuacion estoy asumiendo que las fechas vienen en formato dd-mm-yyyy
             
             $strIniDate = $this->request->query['date_ini'];
@@ -250,13 +251,23 @@ class DriversController extends AppController {
         
         $driversData = $this->driversInProvince($province['id']);
         
+        // Si no hay suficientes choferes en la provincia seleccionada, buscar choferes en provincias alternativas
+        $shouldLookForAlternativeDrivers = count($driversData) < 10 && isset($province['alternative_province']) && $province['alternative_province'] != null;
+        $altertativeDriversData = array();
+        if($shouldLookForAlternativeDrivers) {
+            $altertativeDriversData = $this->driversInProvince($province['alternative_province']);
+        }
+        
         $this->set('drivers_data', $driversData);
+        $this->set('alternative_drivers_data', $altertativeDriversData);
         $this->set('province', $province);
         $this->set('localities', Locality::getAsSuggestions());
+        
+        $this->layout = 'drivers_by_province';
     }
     
     /*Nueva función para mostrar datos de choferes*/
-    public function driversInProvince($provinceID) {   
+    private function driversInProvince($provinceID) {   
         $drivers = $this->Driver->query(
                 "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date
 
@@ -289,7 +300,7 @@ class DriversController extends AppController {
         return $drivers;
     }
     
-    public function view_drivers_data($slug) {
+    /*public function view_drivers_data($slug) {
         $province = Province::_provinceFromSlug($slug);
         
         if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
@@ -298,7 +309,7 @@ class DriversController extends AppController {
         
         $this->set('drivers_data', $driversData);
         $this->set('province', $province['name']);
-    }
+    }*/
 }
 
 ?>

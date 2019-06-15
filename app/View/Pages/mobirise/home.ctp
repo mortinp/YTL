@@ -13,7 +13,8 @@
                 <br>
                 <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Conoce a los choferes mientras intercambias correos')?>
                 <br>
-                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Mira fotos y opiniones de viajeros anteriores')?></p>
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Mira fotos y opiniones de viajeros anteriores')?>
+            </p>
             <div class="mbr-section-btn align-left">
                 <a class="btn btn-md btn-primary display-5" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                     <span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span>

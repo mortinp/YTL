@@ -1,4 +1,5 @@
 <?php App::uses('TimeUtil', 'Util')?>
+<?php App::uses('Province', 'Model')?>
 
 <section class="header1 cid-rss8alYxEU mbr-fullscreen" id="header16-3g">
 
@@ -10,7 +11,8 @@
             <div class="col-md-10 align-center">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1"><?php echo __d('mobirise/drivers_by_province', 'Taxi & Chofer en %s', '<span style="display: inline-block">'.__($province['name']).'</span>')?></h1>
 
-                <p class="mbr-text pb-3 mbr-fonts-style display-5">Taxi a tiempo completo - Recogida en aeropuerto de La Habana - Tour por toda Cuba - Tour de un día a Viñales - Traslados desde La Habana a cualquier destino
+                <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                    <?php echo Province::_servicesDescription($province['id'])?>
                     <br><br>
                     <strong><big><?php echo __d('mobirise/drivers_by_province', '%s choferes activos', count($drivers_data))?></big></strong>
                 </p>
@@ -23,10 +25,22 @@
 <section class="testimonials4 cid-rsmhu3OqyL" id="testimonials4-3c">
 
     <div class="container">
-
-        <h3 class="mbr-section-subtitle mbr-light pb-3 mbr-fonts-style mbr-white align-center display-5">Estos choferes están disponibles para contratarlos para tus recorridos en Cuba comenzando en La Habana. <strong>Puedes preguntarles directamente por precios desde sus perfiles.</strong><br>
-        </h3>
+        
         <div class="col-md-10 testimonials-container">
+            
+            <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Contacta a los choferes directamente')?>
+                <br>
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Averigua los precios para tus recorridos antes de llegar a la isla')?>
+                <br>
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Conoce a los choferes mientras intercambias correos')?>
+                <br>
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Mira fotos y opiniones de viajeros anteriores')?>
+            </p>
+            
+            <p class="mbr-text pb-3 align-center mbr-fonts-style display-6">
+                <?php echo __d('mobirise/drivers_by_province', 'Listando %s choferes que viven en %s, ordenados por fecha de última opinión recibida', count($drivers_data), __($province['name']))?>
+            </p>
 
             <?php foreach($drivers_data as $driver):?>
             <div class="testimonials-item">
@@ -43,7 +57,7 @@
                                 <br><br>
                                 <?php echo __d('mobirise/drivers_by_province', 'Vive en %s', $province['name'])?>
                                 <br>
-                                Capacidad: <strong><?php echo $driver['drivers']['max_people_count']?> pax</strong> 
+                                <?php echo __d('mobirise/drivers_by_province', 'Capacidad')?>: <strong><?php echo $driver['drivers']['max_people_count']?> pax</strong> 
                                 
                                 <?php if($driver['drivers']['has_air_conditioner']):?>
                                     <br>
@@ -69,13 +83,34 @@
                         </div>
 
                         <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">
-                            <?php echo $this->Html->link('Ver perfil', array('controller'=>'drivers', 'action'=>'profile', $driver['drivers_profiles']['driver_nick']), array('class'=>'btn-sm btn-success'))?>
+                            <?php echo $this->Html->link(__d('mobirise/drivers_by_province', 'Ver perfil'), array('controller'=>'drivers', 'action'=>'profile', $driver['drivers_profiles']['driver_nick']), array('class'=>'btn-sm btn-success'))?>
                         </div>
                     </div>
                 </div>
             </div>
             <?php endforeach?>
 
+        </div>
+    </div>
+</section>
+
+<!-- Poner el formulario de solicitud despues del nth testimonio -->
+<section class="mbr-section form1 cid-r6Ri3tnZFB" id="<?php echo __d('mobirise/default', 'solicitar')?>">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-12 col-lg-8">
+                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2"><?php echo __d('mobirise/testimonials', '¿Ya te gustan nuestros choferes?')?></h2>
+                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
+                <?php echo __d('mobirise/testimonials', 'Solicita presupuesto para tu viaje a varios de ellos.')?>
+                <br><?php echo __d('mobirise/homepage', 'Selecciona uno si así lo decides.')?></h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="media-container-column col-lg-8" data-form-type="formoid">
+                <?php echo $this->element('mobirise/travel-form')?>
+            </div>
         </div>
     </div>
 </section>
