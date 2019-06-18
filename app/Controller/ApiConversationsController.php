@@ -257,8 +257,10 @@ class ApiConversationsController extends AppController {
     }
     
     public function newMessageToTraveler($conversationId) {
-        $mu = new MessagesUtil();
-        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $this->request->data['media']);
+        //$mu = new MessagesUtil();
+        //$mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $this->request->data['media']);
+        
+        CakeLog::write('api', print_r($this->request->data, true));
         
         $this->set(array(
             'success' => true,
