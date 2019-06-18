@@ -6,3 +6,6 @@ msgstr "%s active drivers"
 
 msgid "Vive en %s"
 msgstr "Lives in %s"
+
+msgid "Taxi a tiempo completo - Recogida en aeropuerto de %s - Tour por toda Cuba - Tour de un día a Viñales - Traslados desde %s a cualquier destino"
+msgstr "Full time taxi - Pick ups in %s airport - All around Cuba - Daily tours to Viñales - Rides from %s to any destination"

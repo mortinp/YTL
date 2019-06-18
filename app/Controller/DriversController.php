@@ -258,7 +258,8 @@ class DriversController extends AppController {
     /*Nueva función para mostrar datos de choferes*/
     public function driversInProvince($provinceID) {   
         $drivers = $this->Driver->query(
-                "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date
+                "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date,
+                 testimonials.t_author, testimonials.t_body, testimonials.author_country
 
                 FROM travels
 
@@ -272,7 +273,7 @@ class DriversController extends AppController {
 
                 LEFT JOIN (
 
-                SELECT drivers.id as driver_id, COUNT(testimonials.id) as review_count, max(testimonials.created) as latest_testimonial_date
+                SELECT testimonials.author as t_author, testimonials.text as t_body, testimonials.country as author_country, drivers.id as driver_id, COUNT(testimonials.id) as review_count, max(testimonials.created) as latest_testimonial_date
                 FROM testimonials
                 INNER JOIN drivers ON drivers.id = testimonials.driver_id AND testimonials.state = 'A'
                 GROUP BY drivers.id
