@@ -1,3 +1,4 @@
+<?php App::uses('Province', 'Model')?>
 <div class="testimonials-item">
     <div class="user row">
         <div class="col-lg-3 col-md-4">
@@ -10,7 +11,7 @@
                 <p class="mbr-fonts-style  display-7">
                     <strong><?php echo $driver['drivers_profiles']['driver_name']?></strong>
                     <br><br>
-                    <?php echo __d('mobirise/drivers_by_province', 'Vive en %s', $province['name'])?>
+                    <?php echo __d('mobirise/drivers_by_province', 'Vive en %s', Province::$provinces[$driver['drivers']['province_id']]['name'])?>
                     <br>
                     <?php echo __d('mobirise/drivers_by_province', 'Capacidad')?>: <strong><?php echo $driver['drivers']['max_people_count']?> pax</strong> 
 
