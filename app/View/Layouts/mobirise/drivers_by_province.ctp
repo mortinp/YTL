@@ -1,59 +1,54 @@
+<?php App::uses('User', 'Model')?>
+<?php App::uses('Province', 'Model')?>
+
 <?php
-// INITIALIZE
-$isLoggedIn = AuthComponent::user('id') ? true : false;
+$userLoggedIn = AuthComponent::user('id') ? true : false;
 
-if($isLoggedIn) {
+if($userLoggedIn) {
     $user = AuthComponent::user();
-    
-    $role = $user['role'];
-    if($user['display_name'] != null) {
-        $splitName = explode('@', $user['display_name']);
-        if(count($splitName) > 1) $pretty_user_name = $splitName[0];
-        else $pretty_user_name = $user['display_name'];
-    } else {
-        $splitEmail = explode('@', $user['username']);
-        $pretty_user_name = $splitEmail[0];
-    }
-    if($role === 'admin' || $role === 'tester') $pretty_user_name.= ' (<b>'.$role.'</b>)';
-    //$pretty_user_date = date('M j, Y', strtotime($user['created']));
+    $userRole = $user['role'];
+    $pretty_user_name = User::prettyName($user, true);
 }
-
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+<html >
 <head>
+    
   <!-- Site made with Mobirise Website Builder v4.8.6, https://mobirise.com -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.8.6, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
   
   <?php
-    $url = $this->request['pass'];
-    $url = array_merge($url, $this->request['named']);
-    $url['language'] = Configure::read('Config.language');
+  $title = __d('mobirise/drivers_by_province', 'Taxi en %s, Cuba. Pregunta precios de taxi. Contrata taxi con chofer', __($province['name']));
+  $description = Province::_servicesDescription($province['id'])
   ?>
-  <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
-  
-  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-  <title><?php echo $page_title." | YoTeLlevo" ?></title>
-  <meta name="description" content="<?php echo $page_description?>"/>
+  <title><?php echo $title." | YoTeLlevo" ?></title>
+  <meta name="description" content="<?php echo $description?>"/>
   
   <!-- FACEBOOK SHARE -->        
-  <meta property="og:title" content="<?php echo substr($page_title, 0, 90)?>">
-  <meta property="og:image" content="/assets/images/1525113306-ismel-kimara-jpg-2000x1333.jpg">
-  <meta property="og:description" content="<?php echo $page_description?>">
+  <meta property="og:title" content="<?php echo substr($title, 0, 90)?>">
+  <meta property="og:image" content="/assets/images/linhao-zhang-228098-unsplash2-2000x1091.jpg">
+  <meta property="og:description" content="<?php echo $description?>">
   
-  
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="assets/tether/tether.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <?php
+    // CSS
+    $this->Html->css('web/assets/mobirise-icons/mobirise-icons', array('inline' => false));
+    $this->Html->css('tether/tether.min', array('inline' => false));
+    $this->Html->css('bootstrap/css/bootstrap.min', array('inline' => false));
+    
+    $this->Html->css('bootstrap/css/bootstrap-grid.min', array('inline' => false));
+    $this->Html->css('bootstrap/css/bootstrap-reboot.min', array('inline' => false));
+    $this->Html->css('dropdown/css/style', array('inline' => false));
+    
+    $this->Html->css('socicon/css/styles', array('inline' => false));
+    $this->Html->css('theme/css/style', array('inline' => false));
+    $this->Html->css('mobirise/css/mbr-additional', array('inline' => false));
+    
+    $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
+  ?>
   
   <?php
     // CSS
@@ -64,8 +59,6 @@ if($isLoggedIn) {
     echo $this->fetch('css');
   ?>
   
-  
-  
 </head>
 <body>
 
@@ -75,20 +68,21 @@ if($isLoggedIn) {
 
 <?php echo $this->element('mobirise/footer')?>
 
+<?php
+$this->Html->script('web/assets/jquery/jquery.min', array('inline' => false));
+$this->Html->script('popper/popper.min', array('inline' => false));
+$this->Html->script('tether/tether.min', array('inline' => false));
 
-  <script src="assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="assets/popper/popper.min.js"></script>
-  <script src="assets/tether/tether.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <!--<script src="assets/smoothscroll/smooth-scroll.js"></script>-->
-  <script src="assets/dropdown/js/script.min.js"></script>
-  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-  <script src="assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js"></script>
-  <script src="assets/mbr-clients-slider/mbr-clients-slider.js"></script>
-  <script src="assets/sociallikes/social-likes.js"></script>
-  <script src="assets/theme/js/script.js"></script>
-  <!--<script src="assets/formoid/formoid.min.js"></script>-->
-  
+$this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
+//$this->Html->script('smoothscroll/smooth-scroll', array('inline' => false));
+$this->Html->script('dropdown/js/script.min', array('inline' => false));
+$this->Html->script('touchswipe/jquery.touch-swipe.min', array('inline' => false));
+$this->Html->script('bootstrapcarouselswipe/bootstrap-carousel-swipe', array('inline' => false));
+$this->Html->script('mbr-clients-slider/mbr-clients-slider', array('inline' => false));
+$this->Html->script('sociallikes/social-likes', array('inline' => false));
+$this->Html->script('theme/js/script', array('inline' => false));
+?>
+    
 <?php
 
 $this->Html->script('datepicker/js/datepicker', array('inline' => false));
@@ -167,7 +161,7 @@ echo $this->fetch('script');
     //]]>
 </script>
 
-<?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
+<?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>
 <!-- Google Analytics -->
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -178,6 +172,7 @@ echo $this->fetch('script');
     ga('create', 'UA-60694533-1', 'auto');
     ga('send', 'pageview');
 </script>
+
 <?php endif;?>
   
   

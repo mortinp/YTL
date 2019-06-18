@@ -72,7 +72,8 @@ class TravelLogicComponent extends Component {
                 }
                  
                 if($OK) {
-                    // Correo del asistente de viajes - NO BORRAR NADA AQUI AUNQUE ESTE COMENTAREADO
+                    // NO BORRAR NADA AQUI AUNQUE ESTE COMENTAREADO
+                    // Correo del asistente de viajes - 
                     // Variante 1: Si el operador nunca ha atendido a este usuario, enviarle un correo de parte de este operador al usuario
                     /*$sendEmailFromAssistant = $operator[0]['user_ownership'] == 0;
                     if($sendEmailFromAssistant) {
