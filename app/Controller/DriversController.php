@@ -267,7 +267,7 @@ class DriversController extends AppController {
     }
     
     /*Nueva función para mostrar datos de choferes*/
-    private function driversInProvince($provinceID) {   
+    private function driversInProvince($provinceID) {
         $drivers = $this->Driver->query(
                 "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date
 

@@ -257,10 +257,18 @@ class ApiConversationsController extends AppController {
     }
     
     public function newMessageToTraveler($conversationId) {
-        //$mu = new MessagesUtil();
-        //$mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $this->request->data['media']);
+        $attachments = array();
+        if($_FILES['file']) {
+            $adjunto = $_FILES['file'];
         
-        CakeLog::write('api', print_r($this->request->data, true));
+            if($adjunto['name'] != '')
+                $attachments = array($adjunto['name'] => array('contents' => file_get_contents($adjunto['tmp_name']), 'mimetype' => $adjunto['type']));
+        }
+        
+        $mu = new MessagesUtil();
+        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $attachments);
+        
+        //CakeLog::write('api', print_r($this->request->data, true));
         
         $this->set(array(
             'success' => true,
