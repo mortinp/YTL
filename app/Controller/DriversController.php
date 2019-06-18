@@ -271,15 +271,15 @@ class DriversController extends AppController {
         $drivers = $this->Driver->query(
                 "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date
 
-                FROM travels
-
-                INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
-
+                FROM drivers
+                
+                INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id AND drivers.active = true AND drivers.province_id=".$provinceID." 
+                
+                INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id 
+                
                 INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.state IN ('D', 'P')
 
-                INNER JOIN drivers ON drivers.id = drivers_travels.driver_id AND drivers.active = true AND drivers.province_id=".$provinceID." 
-
-                INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id
+                LEFT JOIN travels ON travels.id = drivers_travels.travel_id
 
                 LEFT JOIN (
 

@@ -21,7 +21,7 @@ class Province extends AppModel {
     
     public static $provinces = array(
         1=>array('name'=>'Granma', 'slug'=>'granma', 'featured_activity'=>'Visita a la Sierra Maestra', 'airport'=>'Manzanillo'),
-        2=>array('name'=>'Santiago de Cuba', 'slug'=>'santiago-de-cuba', 'featured_activity'=>'Traslado a Baracoa', 'airport'=>'Santiago de Cuba'),
+        2=>array('name'=>'Santiago de Cuba', 'slug'=>'santiago-de-cuba', 'featured_activity'=>'Traslado a Baracoa', 'airport'=>'Santiago de Cuba', 'alternative_province'=>4),
         4=>array('name'=>'Holguín', 'slug'=>'holguin', 'featured_activity'=>'Traslado a Guardalavaca', 'airport'=>'Holguín'),
         5=>array('name'=>'La Habana', 'slug'=>'la-habana', 'featured_activity'=>'Tour de un día a Viñales', 'airport'=>'La Habana'),
         6=>array('name'=>'Varadero, Matanzas', 'slug'=>'varadero-matanzas', 'featured_activity'=>'Visita de un día a La Habana', 'airport'=>'Varadero', 'alternative_province'=>5),
@@ -30,7 +30,7 @@ class Province extends AppModel {
         9=>array('name'=>'Camaguey', 'slug'=>'camaguey', 'featured_activity'=>'Traslado a Trinidad', 'airport'=>'Camaguey'),
         10=>array('name'=>'Trinidad, Sancti Spíritus', 'slug'=>'trinidad-sancti-spiritus', 'featured_activity'=>'Visita a El Nicho', 'airport'=>false, 'alternative_province'=>11),
         11=>array('name'=>'Cienfuegos', 'slug'=>'cienfuegos', 'featured_activity'=>'Traslado a Trinidad', 'airport'=>false, 'alternative_province'=>10),
-        12=>array('name'=>'Ciego de Ávila', 'slug'=>'ciego-de-avila', 'featured_activity'=>'Recogida en Cayo Coco/Guillermo', 'airport'=>'Cayo Coco/Guillermo')
+        12=>array('name'=>'Ciego de Ávila', 'slug'=>'ciego-de-avila', 'featured_activity'=>'Transfers desde/hasta Cayo Coco y Guillermo', 'airport'=>'Cayo Coco')
     );
     public static function _provinceFromSlug($slug) {
         // Sanity checks

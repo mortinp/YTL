@@ -52,6 +52,12 @@ msgstr "See profile"
 msgid "Vive en %s"
 msgstr "Lives in %s"
 
+msgid "Oh oh, parece que %s choferes en %s no es mucho."
+msgstr "Oops, looks like %s drivers in %s is not a lot."
+
+msgid "Aquí hay otros %s que viven en %s, cerca de %s"
+msgstr "Here are other %s who live in %s, near to %s"
+
 msgid "Tour de un día a Viñales"
 msgstr "Day tour to Viñales"
 
@@ -63,3 +69,12 @@ msgstr "Trip to Baracoa"
 
 msgid "Traslado a Trinidad"
 msgstr "Trip to Trinidad"
+
+msgid "Traslado a La Habana"
+msgstr "Trip to Havana"
+
+msgid "Transfers desde/hasta Cayo Coco y Guillermo"
+msgstr "Transfers from/to Cayo Coco and Guillermo"
+
+msgid "Visita de un día a La Habana"
+msgstr "Day tour to Havana"
