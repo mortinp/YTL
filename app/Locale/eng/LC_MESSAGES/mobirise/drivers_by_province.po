@@ -78,3 +78,6 @@ msgstr "Transfers from/to Cayo Coco and Guillermo"
 
 msgid "Visita de un día a La Habana"
 msgstr "Day tour to Havana"
+
+msgid "Visita a El Nicho"
+msgstr "Day tour to El Nicho"

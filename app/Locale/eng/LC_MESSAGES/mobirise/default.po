@@ -55,4 +55,24 @@ msgstr "Customers Reviews"
 
 #: /home.ctp:27
 msgid "OPINAR SOBRE CHOFER"
-msgstr "REVIEW DRIVER"
+msgstr "REVIEW A DRIVER"
+
+#: /home.ctp:27
+msgid "Taxi en %s"
+msgstr "Taxi in %s"
+
+#: /home.ctp:27
+msgid "Sobre Nosotros"
+msgstr "About us"
+
+#: /home.ctp:27
+msgid "Enlaces"
+msgstr "Links"
+
+#: /home.ctp:27
+msgid "YoTeLlevo es una <b>comunidad de choferes de taxi privado en Cuba</b>. Los contactas antes de llegar a la isla y te dan sus precios para tus traslados en Cuba."
+msgstr "YoTeLlevo is a <b>community of private taxi drivers in Cuba</b>. You contact them before arriving in the island and they give you prices for your trips in Cuba."
+
+#: /home.ctp:27
+msgid "También somos los creadores de %s, un servicio de taxi compartido en Cuba."
+msgstr "We are also the creators of %s, a shared taxi service in Cuba."
