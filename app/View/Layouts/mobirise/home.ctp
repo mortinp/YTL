@@ -73,7 +73,7 @@ if($isLoggedIn) {
 
 <?php echo $this->fetch('content')?>
 
-<?php echo $this->element('mobirise/footer')?>
+<?php echo $this->element('mobirise/footer1')?>
 
 
   <script src="assets/web/assets/jquery/jquery.min.js"></script>
