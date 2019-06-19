@@ -108,7 +108,7 @@ if($userLoggedIn) {
 
     <?php echo $this->fetch('content') ?>
 
-    <?php echo $this->element('mobirise/footer') ?>
+    <?php echo $this->element('mobirise/footer1') ?>
 
     <?php
     // $this->Html->script('web/assets/jquery/jquery.min', array('inline' => false)); // Ya JQuery esta cargado arriba
