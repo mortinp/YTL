@@ -7,5 +7,74 @@ msgstr "%s active drivers"
 msgid "Vive en %s"
 msgstr "Lives in %s"
 
-msgid "Taxi a tiempo completo - Recogida en aeropuerto de %s - Tour por toda Cuba - Tour de un día a Viñales - Traslados desde %s a cualquier destino"
-msgstr "Full time taxi - Pick ups in %s airport - All around Cuba - Daily tours to Viñales - Rides from %s to any destination"
+msgid "Taxi en %s, Cuba. Pregunta precios de taxi. Contrata taxi con chofer"
+msgstr "Taxi in %s. Ask for prices. Hire a taxi with driver"
+
+msgid "Taxi a tiempo completo"
+msgstr "Full time taxi"
+
+msgid "Recogida en aeropuerto de %s"
+msgstr "Pick up at %s airport"
+
+msgid "Tour por toda Cuba"
+msgstr "Tour around Cuba"
+
+msgid "Traslados desde %s a cualquier destino"
+msgstr "Transfers from %s to any destination"
+
+msgid "Listando %s choferes que viven en %s, ordenados por fecha de última opinión recibida"
+msgstr "Listing %s drivers who live in %s, ordered by date of latest review received"
+
+msgid "Capacidad"
+msgstr "Capacity"
+
+msgid "Aire acondicionado"
+msgstr "Air conditioner"
+
+msgid "%s opiniones"
+msgstr "%s reviews"
+
+msgid "última el %s"
+msgstr "latest on %s"
+
+msgid "No tiene opiniones"
+msgstr "No reviews yet"
+
+msgid "%s contratos"
+msgstr "%s hires"
+
+msgid "%s clientes"
+msgstr "%s customers"
+
+msgid "Ver perfil"
+msgstr "See profile"
+
+msgid "Vive en %s"
+msgstr "Lives in %s"
+
+msgid "Oh oh, parece que %s choferes en %s no es mucho."
+msgstr "Oops, looks like %s drivers in %s is not a lot."
+
+msgid "Aquí hay otros %s que viven en %s, cerca de %s"
+msgstr "Here are other %s who live in %s, near to %s"
+
+msgid "Tour de un día a Viñales"
+msgstr "Day tour to Viñales"
+
+msgid "Traslado a Guardalavaca"
+msgstr "Trip to Guardalavaca"
+
+msgid "Traslado a Baracoa"
+msgstr "Trip to Baracoa"
+
+msgid "Traslado a Trinidad"
+msgstr "Trip to Trinidad"
+
+msgid "Traslado a La Habana"
+msgstr "Trip to Havana"
+
+msgid "Transfers desde/hasta Cayo Coco y Guillermo"
+msgstr "Transfers from/to Cayo Coco and Guillermo"
+
+msgid "Visita de un día a La Habana"
+msgstr "Day tour to Havana"
