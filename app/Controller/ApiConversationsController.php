@@ -258,7 +258,7 @@ class ApiConversationsController extends AppController {
     
     public function newMessageToTraveler($conversationId) {
         $attachments = array();
-        if($_FILES['file']) {
+        if(isset($_FILES['file']['name'])) {
             $adjunto = $_FILES['file'];
         
             if($adjunto['name'] != '')
