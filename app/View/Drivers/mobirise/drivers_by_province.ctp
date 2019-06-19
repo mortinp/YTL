@@ -10,11 +10,9 @@
         <div class="row justify-content-md-center">
             <div class="col-md-10 align-center">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1"><?php echo __d('mobirise/drivers_by_province', 'Taxi & Chofer en %s', '<span style="display: inline-block">'.__($province['name']).'</span>')?></h1>
-
+                <h2 class="mbr-text pb-3 mbr-fonts-style display-5"><?php echo Province::_servicesDescription($province['id'])?></h2>
                 <p class="mbr-text pb-3 mbr-fonts-style display-5">
-                    <?php echo Province::_servicesDescription($province['id'])?>
-                    <br><br>
-                    <strong><big><?php echo __d('mobirise/drivers_by_province', '%s choferes activos', count($drivers_data))?></big></strong>
+                    <br><strong><big><?php echo __d('mobirise/drivers_by_province', '%s choferes activos', count($drivers_data))?></big></strong>
                 </p>
             </div>
         </div>
@@ -23,9 +21,7 @@
 </section>
 
 <section class="testimonials4 cid-rsmhu3OqyL" id="testimonials4-3c">
-
     <div class="container">
-        
         <div class="col-md-10 testimonials-container">
             
             <p class="mbr-text pb-3 mbr-fonts-style display-5">
