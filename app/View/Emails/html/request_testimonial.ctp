@@ -17,7 +17,7 @@ $driver_code = $profile_data['driver_code'];
 
 <p><?php echo __d('user_email', 'Si tiene unos minutos puede escribir rápidamente un testimonio sobre %s aquí', $driver_name)?>:</p>
 
-<p><a href="http://yotellevocuba.com/testimonials/add/<?php echo $driver_code?>">http://yotellevocuba.com/o:<?php echo $driver_code?></a></p>
+<p><a href="https://yotellevocuba.com/testimonials/add/<?php echo $driver_code?>">https://yotellevocuba.com/<?php echo $driver_code?></a></p>
 
 <p><?php echo __d('user_email', 'Un testimonio se ve mucho mejor con una foto de su viaje; si tiene una a la mano sería genial que la pusiera junto con el comentario - aunque no es obligatorio, por supuesto')?> :)</p>
 

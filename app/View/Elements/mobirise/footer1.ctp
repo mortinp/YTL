@@ -11,10 +11,10 @@
                     <?php echo __d('mobirise/default', 'Sobre Nosotros')?>
                 </h5>
                 <p class="mbr-text">
-                    <?php echo __d('/mobirise/default', 'YoTeLlevo es una <b>comunidad de choferes de taxi privado en Cuba</b>. Los contactas antes de llegar a la isla y te dan sus precios para tus traslados en Cuba.')?>
+                    <?php echo __d('mobirise/default', 'YoTeLlevo es una <b>comunidad de choferes de taxi privado en Cuba</b>. Los contactas antes de llegar a la isla y te dan sus precios para tus traslados en Cuba.')?>
                 </p>
                 <p class="mbr-text">
-                    <?php echo __d('/mobirise/default', 'También somos los creadores de %s, un servicio de taxi compartido en Cuba.', '<a href="https://pickocar.com" class="text-white">PickoCar.com</a>')?>
+                    <?php echo __d('mobirise/default', 'También somos los creadores de %s, un servicio de taxi compartido en Cuba.', '<a href="https://pickocar.com" class="text-white">PickoCar.com</a>')?>
                 </p>
             </div>
             <div class="col-12 col-md-3 mbr-fonts-style display-7">

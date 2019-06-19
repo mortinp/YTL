@@ -25,7 +25,6 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 <?php $badgesMargin = -30; $badgesSpacing = 25;?>
 <?php if($hasMetadata):?>
 
-    
     <!-- VERIFICACION DE VIAJE -->
     <?php if($conversation['TravelConversationMeta']['received_confirmation_type'] != null):?>
         <!-- Verificacion recibida --> 
@@ -36,8 +35,10 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
                 </a>
             </span>
         </small>
+        
+    <!-- Pedido de confirmacion enviado al chofer --> 
     <?php elseif($hasMetadata && $conversation['TravelConversationMeta']['asked_confirmation']):?>
-        <!-- Pedido de confirmacion enviado al chofer -->    
+           
         <small>
             <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Pedido de confirmación del viaje enviado al chofer">
                 <i class="glyphicon glyphicon-share-alt"></i>
