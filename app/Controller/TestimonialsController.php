@@ -132,7 +132,7 @@ class TestimonialsController extends AppController {
         $this->render('all');
     }
 
-    public function add($driver_code, $conversation_id=null) {
+    public function add($driver_code, $conversation_id = null) {
         $driver_code = strtolower($driver_code); // El codigo siempre va a estar en lowercase en la BD. Ver DriversController::edit_profile
         
         // Buscar el perfil por el codigo del chofer
@@ -170,21 +170,14 @@ class TestimonialsController extends AppController {
                 $tid = $this->Testimonial->id;
                 $testimonial = $this->_getTestimonial($tid);
                 
-                //guardando en conversations_Meta el testimonio
-<<<<<<< HEAD
-                if($conversation_id!= NULL) {            
-=======
-               
->>>>>>> remotes/origin/yuni
-                $this->TravelConversationMeta->id = $conversation_id;
-                $meta = array();
+                //guardando en conversations_meta el testimonio
+                if($conversation_id != NULL) {
+                    $this->TravelConversationMeta->id = $conversation_id;
+                    $meta = array();
 
-                $meta['TravelConversationMeta']['testimonial_id'] = $tid;                
-                $this->TravelConversationMeta->save($meta);
-<<<<<<< HEAD
+                    $meta['TravelConversationMeta']['testimonial_id'] = $tid;                
+                    $this->TravelConversationMeta->save($meta);
                 }
-=======
->>>>>>> remotes/origin/yuni
                 
                 // Enviar correos al admin y al chofer
                 $OK = $this->_sendAdminMail($testimonial);

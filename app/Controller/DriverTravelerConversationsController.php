@@ -32,16 +32,15 @@ class DriverTravelerConversationsController extends AppController {
     public function view($conversationId) {
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));          
         $this->Driver->attachProfile($this->DriverTravel);
-        
-        $this->loadModel("Testimonial");
                 
         $data = $this->DriverTravel->findById($conversationId);
-        //para unir con el testimonio mejor y usar lo hecho
-        $testimonial=$this->Testimonial->find('all',array('conditions'=>array('Testimonial.conversation_id'=>$conversationId)));
-//        foreach($testimonial as $t){        
-//        $data = array_merge($data,$t); Esto deberia pinchar bien pero elimina el indice del profile, es raro!
-//        }
-        $data['Testimonial'] = $testimonial[0]['Testimonial'];
+        
+        // Para unir con el testimonio mejor y usar lo hecho
+        $this->loadModel("Testimonial");
+        $testimonial = $this->Testimonial->find('first', array('conditions'=>array('Testimonial.conversation_id'=>$conversationId)));
+        $testimonialExists = $testimonial != null && isset($testimonial['Testimonial']) && !empty($testimonial['Testimonial']);
+        if($testimonialExists) $data['Testimonial'] = $testimonial['Testimonial'];
+        
         $this->set('data', $data);        
         
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);

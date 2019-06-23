@@ -22,7 +22,7 @@ if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
                 if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
                 $src .= '/'.str_replace('\\', '/', $conversation['Driver']['DriverProfile']['avatar_filepath']);
             ?>
-            <img src="<?php echo $src?>" alt="<?php echo $conversation['Driver']['DriverProfile']['driver_name'].' - '.$conversation['Driver']['username']?>" class="info" title="<?php echo $conversation['Driver']['DriverProfile']['driver_name']?>" style="max-height: 40px; max-width: 40px"/>
+            <img src="<?php echo $src?>" alt="<?php echo $conversation['Driver']['DriverProfile']['driver_name']?>" class="info" title="<?php echo $conversation['Driver']['DriverProfile']['driver_name']?>" style="max-height: 40px; max-width: 40px"/>
         <?php endif;?>
         <span style="display: inline-block">
             <small>#<?php echo DriverTravel::getIdentifier($conversation); ?></small> 

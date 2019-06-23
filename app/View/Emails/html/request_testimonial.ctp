@@ -18,7 +18,7 @@ $conversationID = $profile_data['conversation'];
 
 <p><?php echo __d('user_email', 'Si tiene unos minutos puede escribir rápidamente un testimonio sobre %s aquí', $driver_name)?>:</p>
 
-<p><a href="https://yotellevocuba.com/testimonials/add/<?php echo $driver_code?>/<?php echo $conversationID ?>">https://yotellevocuba.com/<?php echo $driver_code?>/<?php echo $conversationID ?></a></p>
+<p><a href="https://yotellevocuba.com/testimonials/add/<?php echo $driver_code?>/<?php echo $conversationID ?>">https://yotellevocuba.com/<?php echo $driver_code?></a></p>
 
 <p><?php echo __d('user_email', 'Un testimonio se ve mucho mejor con una foto de su viaje; si tiene una a la mano sería genial que la pusiera junto con el comentario - aunque no es obligatorio, por supuesto')?> :)</p>
 
