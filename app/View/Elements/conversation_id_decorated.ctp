@@ -47,7 +47,13 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
     <?php endif?>
     
     <!-- TESTIMONIAL -->
-    <?php if($conversation['TravelConversationMeta']['testimonial_requested']):?> 
+    <?php if($conversation['TravelConversationMeta']['testimonial_id']):?> 
+        <small>
+            <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Testimonio recibido">                
+                <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'testimonials', 'action' => 'admin', $conversation['TravelConversationMeta']['testimonial_id']))?>"><i style="color: red!important" class="glyphicon glyphicon-heart"></i></a>
+            </span>
+        </small>    
+    <?php elseif($conversation['TravelConversationMeta']['testimonial_requested']):?> 
         <small>
             <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Solicitud de testimonio enviada al viajero">
                 <i class="glyphicon glyphicon-heart-empty"></i>
