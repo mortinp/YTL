@@ -1,9 +1,8 @@
 <?php
 
-App::uses('AppController', 'Controller');
+App::uses('ApiAppController', 'Controller');
 
-class ApiUsersController extends AppController {
-    public $components = array('RequestHandler');
+class ApiUsersController extends ApiAppController {
     
     public function beforeFilter() {
         $this->Auth->allow('token');
