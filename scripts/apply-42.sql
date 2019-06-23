@@ -1,1 +1,0 @@
-ALTER TABLE  `users` ADD  `shared_ride_offered` BOOLEAN NOT NULL DEFAULT  '0';

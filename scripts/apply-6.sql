@@ -1,4 +1,0 @@
-ALTER TABLE  `travels` ADD  `drivers_sent_by_admin_count` INT NOT NULL DEFAULT  '0' AFTER  `drivers_sent_count`;
-ALTER TABLE  `travels` ADD  `drivers_sent_by_user_count` INT NOT NULL DEFAULT  '0' AFTER  `drivers_sent_by_admin_count`;
-
-ALTER TABLE  `user_interactions` ADD  `context_values` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'Este campo es para guardar valores asociados a la interaccion, en forma de un texto que es el resultado de un json_encode. Ej. se puede guardar el viaje asociado a una interaccion para que el viajero ponga una review del viaje de la forma {travel_id: 193}' AFTER  `interaction_due`;

@@ -1,1 +1,0 @@
-UPDATE testimonials SET image_filepath='files/1506278293_elmer-virginia-small_jpg' WHERE id='59bae638-eed8-4965-bf49-02164f8fb177';
