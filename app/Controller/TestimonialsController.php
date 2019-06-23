@@ -15,10 +15,10 @@ class TestimonialsController extends AppController {
         $this->Auth->allow('enter_code', 'featured', 'view', 'reviews');
         if (isset($this->request->params['pass']['0'])) {
             if ($this->request->params['action'] == 'add') {
-                if (!isset($this->request->params['pass']['1']))
-                    $this->Auth->allow('add');
-                else
+                if (isset($this->request->params['pass']['1']))
                     $driver_travel_id = $this->request->params['pass']['1'];
+                    $this->Auth->allow('add');                
+                    
             }
             else if (in_array($this->request->params['action'], array('edit', 'preview'))) {
                 $testimonial_id = $this->request->params['pass']['0'];
@@ -37,7 +37,7 @@ class TestimonialsController extends AppController {
                     $user_requesting = AuthComponent::user('id');
 
                 if ($user_requesting == $user_real)
-                    $this->Auth->allow('add', 'edit', 'preview');
+                    $this->Auth->allow('edit', 'preview');
             }
         }
     }
@@ -132,7 +132,7 @@ class TestimonialsController extends AppController {
         $this->render('all');
     }
 
-    public function add($driver_code, $conversation_id = null) {
+    public function add($driver_code, $conversation_id=null) {
         $driver_code = strtolower($driver_code); // El codigo siempre va a estar en lowercase en la BD. Ver DriversController::edit_profile
         
         // Buscar el perfil por el codigo del chofer
@@ -159,7 +159,7 @@ class TestimonialsController extends AppController {
             
             $this->Testimonial->create();
 
-            $this->request->data['Testimonial']['driver_travel_id'] = $conversation_id;
+            $this->request->data['Testimonial']['conversation_id'] = $conversation_id;// estaba data['Testimonial']['driver_travel_id'] que no es correcto
             $this->request->data['Testimonial']['driver_id'] = $dp_data['DriverProfile']['driver_id'];
             $this->request->data['Testimonial']['validation_token'] = StringsUtil::getWeirdString();
             if( isset($user['User']['username']) )
@@ -169,6 +169,22 @@ class TestimonialsController extends AppController {
             if($OK) {
                 $tid = $this->Testimonial->id;
                 $testimonial = $this->_getTestimonial($tid);
+                
+                //guardando en conversations_Meta el testimonio
+<<<<<<< HEAD
+                if($conversation_id!= NULL) {            
+=======
+               
+>>>>>>> remotes/origin/yuni
+                $this->TravelConversationMeta->id = $conversation_id;
+                $meta = array();
+
+                $meta['TravelConversationMeta']['testimonial_id'] = $tid;                
+                $this->TravelConversationMeta->save($meta);
+<<<<<<< HEAD
+                }
+=======
+>>>>>>> remotes/origin/yuni
                 
                 // Enviar correos al admin y al chofer
                 $OK = $this->_sendAdminMail($testimonial);
@@ -416,7 +432,8 @@ class TestimonialsController extends AppController {
 
         $vars['profile_data'] =array(
             'driver_name'=>$data['Driver']['DriverProfile']['driver_name'],
-            'driver_code'=>$data['Driver']['DriverProfile']['driver_code']) ;
+            'driver_code'=>$data['Driver']['DriverProfile']['driver_code'],
+            'conversation'=>$conversationId) ;
 
         $datasource = $this->TravelConversationMeta->getDataSource();
         $datasource->begin();

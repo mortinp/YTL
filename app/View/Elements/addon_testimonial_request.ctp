@@ -12,7 +12,7 @@
 <div id="testimonial_addon">
     <span class="alert alert-warning" style="display: inline-block; width: 100%">
         <?php if($testimonial_received):?>
-            <b><i style='padding: 5px' class='glyphicon glyphicon-heart'></i> Testimonio recibido</b>
+            <b><i style='padding: 5px; color:red!important' class='glyphicon glyphicon-heart'></i> Testimonio recibido</b>
             <?php echo $this->Html->link('Ver »', array('controller' => 'testimonials', 'action' => 'admin', $data['Testimonial']['id']), array('target'=>'_blank'))?>
         <?php else:?>
             <div class="testimonial-ajax-toggle" style="display: <?php echo ($solicitado) ? 'inline-block' : 'none'; ?>">
