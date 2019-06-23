@@ -171,13 +171,20 @@ class TestimonialsController extends AppController {
                 $testimonial = $this->_getTestimonial($tid);
                 
                 //guardando en conversations_Meta el testimonio
+<<<<<<< HEAD
                 if($conversation_id!= NULL) {            
+=======
+               
+>>>>>>> remotes/origin/yuni
                 $this->TravelConversationMeta->id = $conversation_id;
                 $meta = array();
 
                 $meta['TravelConversationMeta']['testimonial_id'] = $tid;                
                 $this->TravelConversationMeta->save($meta);
+<<<<<<< HEAD
                 }
+=======
+>>>>>>> remotes/origin/yuni
                 
                 // Enviar correos al admin y al chofer
                 $OK = $this->_sendAdminMail($testimonial);
