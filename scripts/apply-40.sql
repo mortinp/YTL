@@ -1,1 +1,0 @@
-UPDATE testimonials SET image_filepath='files/1507920756_osvaldo-small_jpg' WHERE id='59d9e845-d420-4c9b-a32f-43e34f8fb177';

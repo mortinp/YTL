@@ -1,1 +1,0 @@
-ALTER TABLE  `drivers_travels` CHANGE  `user_id`  `user_id` BIGINT( 20 ) UNSIGNED NOT NULL;

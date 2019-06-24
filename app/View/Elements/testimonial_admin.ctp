@@ -84,9 +84,9 @@ $action = $this->request->params['action'];
                 <!-- Conversación -->
                 <td>
                         <?php if ($testimonial['conversation_id']): ?>  
-                        <a href="<?php echo $this->html->url($urlConversation, true); ?>" title="Ver Conversación">
-                        <?php echo $testimonial['conversation_id']; ?>
-                        </a>
+                    <a href="<?php echo $this->html->url($urlConversation, true); ?>" target="_blank">
+                        Ver conversación
+                    </a>
                     <?php
                     else:
                         echo $testimonial['email'];

@@ -30,11 +30,18 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function view($conversationId) {
-        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));          
         $this->Driver->attachProfile($this->DriverTravel);
-        
+                
         $data = $this->DriverTravel->findById($conversationId);
-        $this->set('data', $data);
+        
+        // Para unir con el testimonio mejor y usar lo hecho
+        $this->loadModel("Testimonial");
+        $testimonial = $this->Testimonial->find('first', array('conditions'=>array('Testimonial.conversation_id'=>$conversationId)));
+        $testimonialExists = $testimonial != null && isset($testimonial['Testimonial']) && !empty($testimonial['Testimonial']);
+        if($testimonialExists) $data['Testimonial'] = $testimonial['Testimonial'];
+        
+        $this->set('data', $data);        
         
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);
         $this->set('conversations', $conversations);

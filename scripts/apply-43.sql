@@ -1,1 +1,0 @@
-ALTER TABLE  `shared_travels` ADD  `original_date` DATE NULL AFTER  `date`;

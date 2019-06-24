@@ -36,10 +36,10 @@
            
            echo $this->Form->input('author', array( 'class' => 'form-control', 'label' => __d('testimonials', 'Tu nombre - incluye el de tus compañeros de viaje si quieres'), 'autofocus'=>true));
            
-           if( isset($external) && $external == true ) {
+           //if( isset($external) && $external == true ) {
                $value = $userLoggedIn? AuthComponent::user('username'):null;
                echo $this->Form->input('email', array('label' => __d('testimonials', 'Tu correo electrónico'), 'value'=>$value));
-           }
+           //}
                
            
            echo $this->Form->input('country', array('label' => __d('testimonials', '¿En qué sorprendente país vives?').' <span class="small text-muted">('.__d('testimonials', 'no obligatorio').')</span>'));
