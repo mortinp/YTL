@@ -26,10 +26,11 @@
         </p>
     <?php endif?>
         
-        <div class="col-md-9>"<p>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="btn" style="background-color: #003cb3" target="_blank"><span class="glyphicon glyphicon-share"></span><b>Comparte esta opinión sobre tí en tu muro de Facebook</b></a>
-            </p>
-        </div>
+        <br/>
+        <span class="social-button">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="facebook" target="_blank"><b>Comparte esta opinión sobre tí en tu muro de Facebook »</b></a>
+        </span>
+        
     
 </div>
 
