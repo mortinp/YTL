@@ -8,6 +8,8 @@ class ApiConversationsController extends ApiAppController {
     public $uses = array('DriverTravel', 'ApiSync.SyncObject');
     
     public function beforeFilter() {
+        parent::beforeFilter();
+        
         $this->Auth->allow('iniFetch', 'sync', 'newMessagesInConversation', 'newMessageToTraveler');
     }
     

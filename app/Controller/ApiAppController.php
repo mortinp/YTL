@@ -1,18 +1,18 @@
 <?php
-
 App::uses('Controller', 'Controller');
+App::uses('JwtTokenAuthenticate', 'JwtAuth.Controller/Component/Auth');
 
 class ApiAppController extends Controller {
     
     public $components = array(
         'RequestHandler',
         
-        'Auth' => array(
+        'Auth'/* => array(
             'authenticate' => array(
                 'JwtAuth.JwtToken' => array(
                     'fields' => array(
                         'username' => 'username',
-                        'password' => 'password',
+                        //'password' => 'password',
                         'token' => 'password',
                     ),
                     'parameter' => '_token',
@@ -21,7 +21,21 @@ class ApiAppController extends Controller {
                     'pepper' => 'xyzw',
                 ),
             ),
-        ),
+        ),*/
         
     );
+    
+    public function beforeFilter() {
+        $Collection = new ComponentCollection();
+        $this->TokenAuth = new JwtTokenAuthenticate($Collection, array(
+            'fields' => array(
+                    'username' => 'username',
+                    'token' => 'password',
+                ),
+                'parameter' => '_token',
+                'userModel' => 'Driver',
+                'scope' => array('Driver.active' => 1),
+                'pepper' => 'xyzw',
+        ));
+    }
 }

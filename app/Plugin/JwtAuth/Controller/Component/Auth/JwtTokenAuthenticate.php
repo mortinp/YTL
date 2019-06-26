@@ -1,6 +1,8 @@
 <?php
 App::uses('BaseAuthenticate', 'Controller/Component/Auth');
 
+//App::import('Vendor', 'JWT', array('file' => 'firebase' . DS . 'php-jwt' . DS . 'src' . DS . 'JWT.php'));
+
 /**
  * An authentication adapter for AuthComponent.  Provides the ability to authenticate using a Json Web Token
  *
@@ -126,7 +128,7 @@ class JwtTokenAuthenticate extends BaseAuthenticate
  */
 	public function _findUser($token, $password = null)
 	{
-		$token = JWT::decode($token, $this->settings['pepper'], array('HS256'));
+		$token = Firebase\JWT\JWT::decode($token, $this->settings['pepper'], array('HS256'));
 
 		if (isset($token->record)) {
 			// Trick to convert object of stdClass to array. Typecasting to
