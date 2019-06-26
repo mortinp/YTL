@@ -359,7 +359,8 @@ class TestimonialsController extends AppController {
     private function _sendEmailToDriver($testimonial) {
         $vars = array(
             'driver_name'=>$testimonial['Driver']['DriverProfile']['driver_name'],
-            'testimonial'=>$testimonial['Testimonial'],            
+            'testimonial'=>$testimonial['Testimonial'], 
+            'driver_nick'=>$testimonial['Driver']['DriverProfile']['driver_nick'],
         );
         return EmailsUtil::email(
                 $testimonial['Driver']['username'], 
