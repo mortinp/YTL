@@ -1,17 +1,19 @@
 <?php
 
+App::uses('Controller', 'Controller');
+
 class ApiAppController extends Controller {
     
     public $components = array(
         'RequestHandler',
         
-        /*'Auth' => array(
+        'Auth' => array(
             'authenticate' => array(
                 'JwtAuth.JwtToken' => array(
                     'fields' => array(
                         'username' => 'username',
                         'password' => 'password',
-                        'token' => 'public_key',
+                        'token' => 'password',
                     ),
                     'parameter' => '_token',
                     'userModel' => 'Driver',
@@ -19,7 +21,7 @@ class ApiAppController extends Controller {
                     'pepper' => 'xyzw',
                 ),
             ),
-        ),*/
+        ),
         
     );
 }

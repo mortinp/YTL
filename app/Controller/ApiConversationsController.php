@@ -3,7 +3,7 @@
 App::uses('ApiAppController', 'Controller');
 App::uses('MessagesUtil', 'Util');
 
-class ApiConversationsController extends ApiAppController {    
+class ApiConversationsController extends ApiAppController {
     
     public $uses = array('DriverTravel', 'ApiSync.SyncObject');
     
@@ -25,7 +25,7 @@ class ApiConversationsController extends ApiAppController {
         ));
     }
     private function getConversationsIniFetch() {
-        // TODO: $this->Auth->identify()... esta identificacion debe ser con la tabla drivers!!
+        // TODO: $this->Auth->identify()... esta identificacion debe ser con la tabla drivers!!!
         $user = array('id' => 145 /*Lenier*/);
         
         // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
@@ -33,8 +33,8 @@ class ApiConversationsController extends ApiAppController {
         $sql = $this->getSqlSelectFieldsForConversation()
             . " FROM drivers_travels
                 
-                INNER JOIN travels_conversations_meta 
-                ON travels_conversations_meta.conversation_id = drivers_travels.id 
+                INNER JOIN travels_conversations_meta
+                ON travels_conversations_meta.conversation_id = drivers_travels.id
                 AND travels_conversations_meta.following = true
                 AND drivers_travels.travel_date > ".$today
 
@@ -42,7 +42,7 @@ class ApiConversationsController extends ApiAppController {
                 
                 LEFT JOIN travels ON drivers_travels.travel_id = travels.id
                 
-                WHERE 
+                WHERE
                     drivers_travels.driver_id = ".$user['id']."
                         
                 ORDER BY conversation_id";
@@ -124,14 +124,20 @@ class ApiConversationsController extends ApiAppController {
     public function sync() {
         $conversations = $this->getConversationsToSync();
         
+        // Hack: Quitar campo estado
+        foreach ($conversations as &$value) {
+            unset($value['state']);
+        }
+        
         $synced = $this->markConversationsAsSynced($conversations);
         
         // RESPUESTA
         $this->set(array(
             'success' => true,
+            'synced_count' =>count($synced),
             'data' => $conversations,
             'synced' =>$synced,
-            '_serialize' => array('success', 'data', 'synced')
+            '_serialize' => array('success','synced_count', 'data', 'synced')
         ));
     }
     private function getConversationsToSync($conversationId = null) {
@@ -146,6 +152,7 @@ class ApiConversationsController extends ApiAppController {
                 INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id
                 LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
                 LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
                 WHERE 
                     drivers_travels.driver_id = ".$user['id']."
                     AND api_sync_queue_2driver_conversations.sync_date IS NULL 
@@ -226,63 +233,48 @@ class ApiConversationsController extends ApiAppController {
                     drivers_travels.travel_id, 
                     travels.origin, 
                     travels.destination, 
-                    travels.people_count as pax, 
+                    travels.people_count as pax,
                     travels.details,
                     travels.created as travel_created,
                     driver_traveler_conversations.id as msg_id,
                     driver_traveler_conversations.response_text,
                     driver_traveler_conversations.created as msg_created,
-                    driver_traveler_conversations.attachments_ids";
+                    driver_traveler_conversations.attachments_ids,
+                    travels_conversations_meta.state,
+                    travels_conversations_meta.following";
     }
     
     /*
-     * @param $conversationsToBuild: Un arreglo que al menos debe tener la siguiente estructura:
-     *  
-     * 
-        drivers_travels.id as conversation_id,
-        drivers_travels.identifier,
-        drivers_travels.notification_type,
-        drivers_travels.travel_date,
-        drivers_travels.created, 
-        drivers_travels.travel_id, 
-        travels.origin, 
-        travels.destination, 
-        travels.people_count as pax, 
-        travels.details,
-        travels.created as travel_created,
-        driver_traveler_conversations.id as msg_id,
-        driver_traveler_conversations.response_text,
-        driver_traveler_conversations.created as msg_created,
-        driver_traveler_conversations.attachments_ids,
+     * @param $conversationsToBuild: Un arreglo con datos que se ajustan a lo que devuelve getSqlSelectFieldsForConversation()
      */
     private function buildConversations($conversationsToBuild) {
         // Armar las conversaciones
         $conversations = array();
         for ($index = 0; $index < count($conversationsToBuild);) {
             
-            // Coger la conversacion actual
-            $current_convId = $conversationsToBuild[$index]['drivers_travels']['conversation_id'];
+            $c = $conversationsToBuild[$index];
             
             // Primero crear la travel_request si existe
             $travelRequest = null;
-            if($conversationsToBuild[$index]['drivers_travels']['travel_id'] != null) {
+            if($c['drivers_travels']['travel_id'] != null) {
                 $travelRequest = array(
-                    'id'=>$conversationsToBuild[$index]['drivers_travels']['travel_id'],
-                    'origin'=>$conversationsToBuild[$index]['travels']['origin'],
-                    'destination'=>$conversationsToBuild[$index]['travels']['destination'],
-                    'pax'=>$conversationsToBuild[$index]['travels']['pax'],
-                    'details'=>$conversationsToBuild[$index]['travels']['details'],
-                    'date'=>1000*strtotime($conversationsToBuild[$index]['drivers_travels']['travel_date']),
-                    'created'=>1000*strtotime($conversationsToBuild[$index]['travels']['travel_created']),
+                    'id'=>$c['drivers_travels']['travel_id'],
+                    'origin'=>$c['travels']['origin'],
+                    'destination'=>$c['travels']['destination'],
+                    'pax'=>$c['travels']['pax'],
+                    'details'=>$c['travels']['details'],
+                    'date'=>1000*strtotime($c['drivers_travels']['travel_date']),
+                    'created'=>1000*strtotime($c['travels']['travel_created']),
                 );
             }
             
             // Crear la conversacion con los mensajes listos para adicionar
             $conversations[] = array(
-                'id'=>$conversationsToBuild[$index]['drivers_travels']['conversation_id'],
-                'code'=> DriverTravel::getIdentifier($conversationsToBuild[$index]['drivers_travels']),
-                'travel_date'=>1000*strtotime($conversationsToBuild[$index]['drivers_travels']['travel_date']),
-                'created'=>1000*strtotime($conversationsToBuild[$index]['drivers_travels']['created']),
+                'id'=>$c['drivers_travels']['conversation_id'],
+                'code'=> DriverTravel::getIdentifier($c['drivers_travels']),
+                'travel_date'=>1000*strtotime($c['drivers_travels']['travel_date']),
+                'created'=>1000*strtotime($c['drivers_travels']['created']),
+                'state'=>self::calculateState($c['travels_conversations_meta']),
                 
                 'travel_request' => $travelRequest,
                 
@@ -290,16 +282,18 @@ class ApiConversationsController extends ApiAppController {
             );
             
             // Adicionar los mensajes a la conversacion
-            while($index < count($conversationsToBuild) && $conversationsToBuild[$index]['drivers_travels']['conversation_id'] == $current_convId) {
+            $current_convId = $c['drivers_travels']['conversation_id'];
+            $i = $index;
+            while($i < count($conversationsToBuild) && $conversationsToBuild[$i]['drivers_travels']['conversation_id'] == $current_convId) {
                 
-                $isMessagePresent = $conversationsToBuild[$index]['driver_traveler_conversations']['msg_id'] != null;                
+                $isMessagePresent = $conversationsToBuild[$i]['driver_traveler_conversations']['msg_id'] != null;                
                 if($isMessagePresent) {
                     // Coger media
                     $media = array();
-                    $hasMedia = $conversationsToBuild[$index]['driver_traveler_conversations']['attachments_ids'] != null && $conversationsToBuild[$index]['driver_traveler_conversations']['attachments_ids'] != '';
+                    $hasMedia = $conversationsToBuild[$i]['driver_traveler_conversations']['attachments_ids'] != null && $conversationsToBuild[$i]['driver_traveler_conversations']['attachments_ids'] != '';
                     if($hasMedia) {
                         $attachModel = ClassRegistry::init('EmailQueue.EmailAttachment');
-                        $atts = $attachModel->getAttachments($conversationsToBuild[$index]['driver_traveler_conversations']['attachments_ids']);
+                        $atts = $attachModel->getAttachments($conversationsToBuild[$i]['driver_traveler_conversations']['attachments_ids']);
 
                         $media = array('url'=>$atts[0]['url']);
                     }
@@ -307,19 +301,38 @@ class ApiConversationsController extends ApiAppController {
                     // Adicionar mensaje
                     $conversations[count($conversations) - 1]['messages'][] = 
                             array(
-                                'id'=>$conversationsToBuild[$index]['driver_traveler_conversations']['msg_id'], 
-                                'message'=>$conversationsToBuild[$index]['driver_traveler_conversations']['response_text'],
-                                'created'=>1000*strtotime($conversationsToBuild[$index]['driver_traveler_conversations']['msg_created']),
-                                'media'=>$media,
-                                //'hasMedia'=>$hasMedia
+                                'id'=>$conversationsToBuild[$i]['driver_traveler_conversations']['msg_id'], 
+                                'message'=>$conversationsToBuild[$i]['driver_traveler_conversations']['response_text'],
+                                'created'=>1000*strtotime($conversationsToBuild[$i]['driver_traveler_conversations']['msg_created']),
+                                'media'=>$media
                                 );
                 }
                 
-                $index++;
+                $i++;
             }
+            
+            $index = $i;
         }
         
         return $conversations;
+    }
+    
+    /*
+     * Convierte el estado de la conversacion a un número compatible con la app móvil, según el siguiente enum:
+     * UNCLASSIFIED: 0
+     * FOLLOWING: 1
+     * SCHEDULED: 2
+     * REJECTED: 3
+     * CANCELLED: 4
+     * COMPLETED: 5
+     * 
+     */
+    private static function calculateState($meta) {
+        if($meta['following']) return 2;
+        
+        // TODO: Otros estados
+        
+        return 0;
     }
     
     private function markConversationsAsSynced($conversations) {
