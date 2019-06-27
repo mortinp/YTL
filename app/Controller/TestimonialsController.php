@@ -290,6 +290,9 @@ class TestimonialsController extends AppController {
         $save_data = array('id' => $id, 'state' => $state, 'modified' => false);
         if ($this->Testimonial->save($save_data)) {
             $state_str = Testimonial::$states[$state];
+            //Aqui mandamos el email si es aprobado
+            if($state_str=='approved')
+            $this->_sendApprovedToDriver($data);
             if ($action == 'admin')
                 return $this->redirect(array('action' => "admin/$id"));
             else
@@ -368,6 +371,21 @@ class TestimonialsController extends AppController {
                 $vars, 
                 'super', 
                 'new_testimonial2driver', 
+                array('from_name'=>'Nuevo Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
+    }
+    
+    private function _sendApprovedToDriver($testimonial) {
+        $vars = array(
+            'driver_name'=>$testimonial['Driver']['DriverProfile']['driver_name'],
+            'testimonial'=>$testimonial['Testimonial'], 
+            'driver_nick'=>$testimonial['Driver']['DriverProfile']['driver_nick'],
+        );
+        return EmailsUtil::email(
+                $testimonial['Driver']['username'], 
+                'Tienes un nuevo testimonio en tu perfil', 
+                $vars, 
+                'super', 
+                'approved_testimonial2driver', 
                 array('from_name'=>'Nuevo Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
     }
 

@@ -24,13 +24,7 @@
             <?php $urlDef = array('controller' => 'testimonials', 'action' => 'view/' . $testimonial['id'], 'base'=>false) ?>
             <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para ver el testimonio en el sitio web</a>
         </p>
-    <?php endif?>
-        
-        <br/>
-        <span class="social-button">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="facebook" target="_blank"><b>Comparte esta opinión sobre tí en tu muro de Facebook »</b></a>
-        </span>
-        
+    <?php endif?>        
     
 </div>
 
