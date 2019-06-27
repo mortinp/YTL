@@ -125,7 +125,7 @@ class ApiConversationsController extends ApiAppController {
     public function sync($batchId) {
         $conversations = $this->getConversationsToSync($batchId);
         
-        // Hack: Quitar campo estado
+        // Hack: Quitar campo estado (aqui en el sync no hace falta)
         foreach ($conversations as &$value) {
             unset($value['state']);
         }
@@ -368,14 +368,6 @@ class ApiConversationsController extends ApiAppController {
         }
         
         return $synced;
-    }
-    
-    private function getUser() {
-        $user = $this->TokenAuth->getUser($this->request);
-        
-        if(!$user) throw new UnauthorizedException('No se pudo identificar el usuario');
-        
-        return $user;
     }
     
 }

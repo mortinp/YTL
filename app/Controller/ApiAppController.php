@@ -42,5 +42,14 @@ class ApiAppController extends Controller {
                 'scope' => array('Driver.active' => 1),
                 'pepper' => 'xyzw',
         ));
+        //$this->Auth = $this->TokenAuth;
+    }
+    
+    protected function getUser() {
+        $user = $this->TokenAuth->getUser($this->request);
+        
+        if(!$user) throw new UnauthorizedException('No se pudo identificar el usuario');
+        
+        return $user;
     }
 }
