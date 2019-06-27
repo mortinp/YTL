@@ -1,8 +1,6 @@
 <?php
 App::uses('BaseAuthenticate', 'Controller/Component/Auth');
 
-//App::import('Vendor', 'JWT', array('file' => 'firebase' . DS . 'php-jwt' . DS . 'src' . DS . 'JWT.php'));
-
 /**
  * An authentication adapter for AuthComponent.  Provides the ability to authenticate using a Json Web Token
  *

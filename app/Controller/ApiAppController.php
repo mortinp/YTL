@@ -2,6 +2,11 @@
 App::uses('Controller', 'Controller');
 App::uses('JwtTokenAuthenticate', 'JwtAuth.Controller/Component/Auth');
 
+App::import('Vendor', 'JWT', array('file' => 'firebase' . DS . 'php-jwt' . DS . 'src' . DS . 'JWT.php'));
+App::import('Vendor', 'SignatureInvalidException', array('file' => 'firebase' . DS . 'php-jwt' . DS . 'src' . DS . 'SignatureInvalidException.php'));
+//App::import('Vendor', 'JWT', array('file' => 'firebase' . DS . 'php-jwt' . DS . 'src' . DS . 'JWT.php'));
+//App::import('Vendor', 'JWT', array('file' => 'firebase' . DS . 'php-jwt' . DS . 'src' . DS . 'JWT.php'));
+
 class ApiAppController extends Controller {
     
     public $components = array(
@@ -28,7 +33,7 @@ class ApiAppController extends Controller {
     public function beforeFilter() {
         $Collection = new ComponentCollection();
         $this->TokenAuth = new JwtTokenAuthenticate($Collection, array(
-            'fields' => array(
+                'fields' => array(
                     'username' => 'username',
                     'token' => 'password',
                 ),

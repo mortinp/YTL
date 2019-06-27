@@ -1,5 +1,4 @@
 <?php
-
 App::uses('ApiAppController', 'Controller');
 App::uses('MessagesUtil', 'Util');
 
@@ -27,8 +26,8 @@ class ApiConversationsController extends ApiAppController {
         ));
     }
     private function getConversationsIniFetch() {
-        // TODO: $this->Auth->identify()... esta identificacion debe ser con la tabla drivers!!!
-        $user = array('id' => 145 /*Lenier*/);
+        
+        $user = $this->getUser();
         
         // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
         $today = date('Y-m-d', strtotime('today'));
@@ -38,7 +37,7 @@ class ApiConversationsController extends ApiAppController {
                 INNER JOIN travels_conversations_meta
                 ON travels_conversations_meta.conversation_id = drivers_travels.id
                 AND travels_conversations_meta.following = true
-                AND drivers_travels.travel_date > ".$today
+                AND drivers_travels.travel_date > '".$today."'"
 
             . " LEFT JOIN driver_traveler_conversations ON driver_traveler_conversations.conversation_id = drivers_travels.id
                 
@@ -123,8 +122,8 @@ class ApiConversationsController extends ApiAppController {
             ),
         );
      */
-    public function sync() {
-        $conversations = $this->getConversationsToSync();
+    public function sync($batchId) {
+        $conversations = $this->getConversationsToSync($batchId);
         
         // Hack: Quitar campo estado
         foreach ($conversations as &$value) {
@@ -142,9 +141,8 @@ class ApiConversationsController extends ApiAppController {
             '_serialize' => array('success','synced_count', 'data', 'synced')
         ));
     }
-    private function getConversationsToSync($conversationId = null) {
-        // TODO: $this->Auth->identify()... esta identificacion debe ser con la tabla drivers!!
-        $user = array('id' => 145 /*Lenier*/);
+    private function getConversationsToSync($batchId, $conversationId = null) {
+        $user = $this->getUser();
         
         // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
         $idCondition = "";
@@ -185,8 +183,9 @@ class ApiConversationsController extends ApiAppController {
             ),
         );
      */    
-    public function newMessagesInConversation($conversationId) {
-        $conversations = $this->getConversationsToSync($conversationId);
+    public function newMessagesInConversation($conversationId, $batchId) {
+        
+        $conversations = $this->getConversationsToSync($batchId, $conversationId);
         
         $synced = $this->markConversationsAsSynced($conversations);
         
@@ -202,6 +201,12 @@ class ApiConversationsController extends ApiAppController {
     }
     
     public function newMessageToTraveler($conversationId) {
+        
+        if(!$this->request->is('post')) throw new MethodNotAllowedException();
+        
+        $user = $this->getUser();
+        // TODO: Verificar que la conversacion sea del chofer
+        
         $attachments = array();
         if(isset($_FILES['file']['name'])) {
             $adjunto = $_FILES['file'];
@@ -241,6 +246,7 @@ class ApiConversationsController extends ApiAppController {
                     driver_traveler_conversations.id as msg_id,
                     driver_traveler_conversations.response_text,
                     driver_traveler_conversations.created as msg_created,
+                    driver_traveler_conversations.response_by,
                     driver_traveler_conversations.attachments_ids,
                     travels_conversations_meta.state,
                     travels_conversations_meta.following";
@@ -306,6 +312,7 @@ class ApiConversationsController extends ApiAppController {
                                 'id'=>$conversationsToBuild[$i]['driver_traveler_conversations']['msg_id'], 
                                 'message'=>$conversationsToBuild[$i]['driver_traveler_conversations']['response_text'],
                                 'created'=>1000*strtotime($conversationsToBuild[$i]['driver_traveler_conversations']['msg_created']),
+                                'sent_by_driver'=>$conversationsToBuild[$i]['driver_traveler_conversations']['response_by'] == 'driver'?true:false,
                                 'media'=>$media
                                 );
                 }
@@ -361,6 +368,14 @@ class ApiConversationsController extends ApiAppController {
         }
         
         return $synced;
+    }
+    
+    private function getUser() {
+        $user = $this->TokenAuth->getUser($this->request);
+        
+        if(!$user) throw new UnauthorizedException('No se pudo identificar el usuario');
+        
+        return $user;
     }
     
 }
