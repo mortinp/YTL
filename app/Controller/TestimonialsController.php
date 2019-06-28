@@ -289,7 +289,11 @@ class TestimonialsController extends AppController {
 
         $save_data = array('id' => $id, 'state' => $state, 'modified' => false);
         if ($this->Testimonial->save($save_data)) {
+            
+            // Enviar correo de aprobacion al chofer
             $state_str = Testimonial::$states[$state];
+            if($state_str == 'approved') $this->_sendApprovedToDriver($data);
+            
             if ($action == 'admin')
                 return $this->redirect(array('action' => "admin/$id"));
             else
@@ -359,7 +363,8 @@ class TestimonialsController extends AppController {
     private function _sendEmailToDriver($testimonial) {
         $vars = array(
             'driver_name'=>$testimonial['Driver']['DriverProfile']['driver_name'],
-            'testimonial'=>$testimonial['Testimonial'],            
+            'testimonial'=>$testimonial['Testimonial'], 
+            'driver_nick'=>$testimonial['Driver']['DriverProfile']['driver_nick'],
         );
         return EmailsUtil::email(
                 $testimonial['Driver']['username'], 
@@ -368,6 +373,21 @@ class TestimonialsController extends AppController {
                 'super', 
                 'new_testimonial2driver', 
                 array('from_name'=>'Nuevo Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
+    }
+    
+    private function _sendApprovedToDriver($testimonial) {
+        $vars = array(
+            'driver_name'=>$testimonial['Driver']['DriverProfile']['driver_name'],
+            'testimonial'=>$testimonial['Testimonial'], 
+            'driver_nick'=>$testimonial['Driver']['DriverProfile']['driver_nick'],
+        );
+        return EmailsUtil::email(
+                $testimonial['Driver']['username'], 
+                'Comparte esta opinión sobre tí en tu Facebook!', 
+                $vars, 
+                'super', 
+                'approved_testimonial2driver', 
+                array('from_name'=>'Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
     }
 
     public function admin($id) {
