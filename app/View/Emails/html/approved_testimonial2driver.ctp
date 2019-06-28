@@ -10,7 +10,7 @@
 
 <p>
     <span>
-        <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;"
+        <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;margin-top: 10px;margin-bottom: 10px;text-decoration: none"
             href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
             target="_blank">
             <b>Comparte esta opinión sobre tí en tu Facebook »</b>
@@ -34,7 +34,7 @@
         
     <br/>
     <span class="social-button">
-         <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;"
+         <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;margin-top: 10px;margin-bottom: 10px;text-decoration: none"
             href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
             target="_blank">
             <b>Comparte esta opinión sobre tí en tu Facebook »</b>
