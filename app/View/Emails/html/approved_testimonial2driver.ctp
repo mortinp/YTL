@@ -8,9 +8,9 @@
 
 <p><b>Le animamos a compartir esta opinión en su Facebook para que amigos y clientes interesados la puedan ver!</b></p>
 
-<p>
+<p style="margin-top: 10px;margin-bottom: 10px;">
     <span>
-        <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;margin-top: 10px;margin-bottom: 10px;text-decoration: none"
+        <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;text-decoration: none"
             href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
             target="_blank">
             <b>Comparte esta opinión sobre tí en tu Facebook »</b>
@@ -32,14 +32,15 @@
         <p><b>El testimonio tiene una foto!</b></p>
     <?php endif?>
         
-    <br/>
-    <span class="social-button">
-         <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;margin-top: 10px;margin-bottom: 10px;text-decoration: none"
-            href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
-            target="_blank">
-            <b>Comparte esta opinión sobre tí en tu Facebook »</b>
-        </a>
-    </span>
+    <p style="margin-top: 10px;margin-bottom: 10px;">
+        <span>
+            <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;text-decoration: none"
+                href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
+                target="_blank">
+                <b>Comparte esta opinión sobre tí en tu Facebook »</b>
+            </a>
+        </span>
+    <p/>
     
 </div>
 
