@@ -9,7 +9,7 @@
 <p><b>Le animamos a compartir esta opinión en su Facebook para que amigos y clientes interesados la puedan ver!</b></p>
 
 <p>
-    <span class="social-button">
+    <span style="padding:10px;background-color: #3b5998;color: #FFFFFF;">
         <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="facebook" target="_blank"><b>Comparte esta opinión sobre tí en tu Facebook »</b></a>
     </span>
 <p/>
