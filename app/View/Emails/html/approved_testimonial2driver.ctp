@@ -2,11 +2,21 @@
 
 <p>Hola <?php echo $driver_name?>,</p>
 
-<p>Acabamos de aprobar una opinión de clientes suyos!</p>
-
-<p>La opinión se encuentra pública en su perfil como una recomendación que verán otros clientes potenciales.</p>
+<p>Acabamos de aprobar una opinión de clientes suyos! Ahora se encuentra pública en su perfil como una recomendación que verán otros clientes potenciales.</p>
 
 <p>Tener opiniones positivas siempre ayuda a convencer a los viajeros, además de que son una prueba de la calidad de sus servicios y de su experiencia.</p>
+
+<p><b>Le animamos a compartir esta opinión en su Facebook para que amigos y clientes interesados la puedan ver!</b></p>
+
+<p style="margin-top: 10px;margin-bottom: 10px;">
+    <span>
+        <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;text-decoration: none"
+            href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
+            target="_blank">
+            <b>Comparte esta opinión sobre tí en tu Facebook »</b>
+        </a>
+    </span>
+<p/>
 
 <p>A continuación los detalles de la opinión:</p>
 
@@ -20,22 +30,30 @@
     <p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></p>
     <?php if ($testimonial['image_filepath']): ?>
         <p><b>El testimonio tiene una foto!</b></p>
-        <p>
-            <?php $urlDef = array('controller' => 'testimonials', 'action' => 'view/' . $testimonial['id'], 'base'=>false) ?>
-            <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para ver el testimonio en el sitio web</a>
-        </p>
     <?php endif?>
          <p>
             <?php $urlDef = array('controller' => 'testimonials', 'action' => 'reply/' . $testimonial['id'].'/'.$testimonial['driver_reply_token'], 'base'=>false) ?>
             <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para responder este testimonio</a>
         </p>
         
+<<<<<<< HEAD
         <br/>
         <span class="social-button">
         <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="facebook" target="_blank"><b>Comparte esta opinión sobre tí en tu muro de Facebook »</b></a>
         </span>        
        
         
+=======
+    <p style="margin-top: 10px;margin-bottom: 10px;">
+        <span>
+            <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;text-decoration: none"
+                href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
+                target="_blank">
+                <b>Comparte esta opinión sobre tí en tu Facebook »</b>
+            </a>
+        </span>
+    <p/>
+>>>>>>> 0847af76950a5e26c339c8485636e7d5666566dd
     
 </div>
 

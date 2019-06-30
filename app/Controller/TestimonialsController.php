@@ -291,10 +291,17 @@ class TestimonialsController extends AppController {
 
         $save_data = array('id' => $id, 'state' => $state, 'modified' => false);
         if ($this->Testimonial->save($save_data)) {
+            
+            // Enviar correo de aprobacion al chofer
             $state_str = Testimonial::$states[$state];
+<<<<<<< HEAD
             //Aqui mandamos el email si es aprobado            
             if($state_str=='approved')
             $this->_sendApprovedToDriver($data);
+=======
+            if($state_str == 'approved') $this->_sendApprovedToDriver($data);
+            
+>>>>>>> 0847af76950a5e26c339c8485636e7d5666566dd
             if ($action == 'admin')
                 return $this->redirect(array('action' => "admin/$id"));
             else
@@ -384,11 +391,11 @@ class TestimonialsController extends AppController {
         );
         return EmailsUtil::email(
                 $testimonial['Driver']['username'], 
-                'Tienes un nuevo testimonio en tu perfil', 
+                'Comparte esta opinión sobre tí en tu Facebook!', 
                 $vars, 
                 'super', 
                 'approved_testimonial2driver', 
-                array('from_name'=>'Nuevo Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
+                array('from_name'=>'Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
     }
 
     public function admin($id) {

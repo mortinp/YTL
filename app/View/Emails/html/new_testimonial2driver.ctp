@@ -4,9 +4,7 @@
 
 <p>Acabamos de recibir una opinión de clientes suyos!</p>
 
-<p>La opinión se encuentra en moderación, y en cuanto sea aprobada estará pública en su perfil como una recomendación que verán otros clientes potenciales.</p>
-
-<p>Tener opiniones positivas siempre ayuda a convencer a los viajeros, además de que son una prueba de la calidad de sus servicios y de su experiencia.</p>
+<p>La opinión se encuentra en moderación, y en cuanto sea aprobada estará pública en su perfil.</p>
 
 <p>A continuación los detalles de la opinión:</p>
 
@@ -20,12 +18,11 @@
     <p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></p>
     <?php if ($testimonial['image_filepath']): ?>
         <p><b>El testimonio tiene una foto!</b></p>
-        <p>
-            <?php $urlDef = array('controller' => 'testimonials', 'action' => 'view/' . $testimonial['id'], 'base'=>false) ?>
-            <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para ver el testimonio en el sitio web</a>
-        </p>
-    <?php endif?>        
-    
+    <?php endif?>   
+    <p>
+        <?php $urlDef = array('controller' => 'testimonials', 'action' => 'view/' . $testimonial['id'], 'base'=>false) ?>
+        <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para ver el testimonio en el sitio web</a>
+    </p>
 </div>
 
 <p>Saludos,</p>
