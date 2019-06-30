@@ -1,0 +1,1 @@
+CREATE TABLE `yotellevo`.`testimonials_replies` ( `id` SERIAL NOT NULL , `testimonial_id` CHAR(36) NOT NULL , `reply_text` TEXT NOT NULL , `reply_by` SET('driver','traveler') NOT NULL , `state` SET('P','A','R') NOT NULL DEFAULT 'P' , `created` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

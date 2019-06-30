@@ -12,7 +12,7 @@ class TestimonialsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
 
-        $this->Auth->allow('enter_code', 'featured', 'view', 'reviews');
+        $this->Auth->allow('enter_code', 'featured', 'view', 'reviews','reply');
         if (isset($this->request->params['pass']['0'])) {
             if ($this->request->params['action'] == 'add') {
                 if (isset($this->request->params['pass']['1']))
@@ -162,6 +162,7 @@ class TestimonialsController extends AppController {
             $this->request->data['Testimonial']['conversation_id'] = $conversation_id;// estaba data['Testimonial']['driver_travel_id'] que no es correcto
             $this->request->data['Testimonial']['driver_id'] = $dp_data['DriverProfile']['driver_id'];
             $this->request->data['Testimonial']['validation_token'] = StringsUtil::getWeirdString();
+            $this->request->data['Testimonial']['driver_reply_token'] = StringsUtil::getWeirdString();
             if( isset($user['User']['username']) )
                 $this->request->data['Testimonial']['email'] = $user['User']['username'];
             
@@ -280,7 +281,8 @@ class TestimonialsController extends AppController {
     }
 
     public function state_change($id, $state, $action = 'admin') {
-        $data = $this->Testimonial->findById($id);
+        $this->Driver->attachProfile($this->Testimonial);//Tuve que ponerlo porque no funcionaba el profile, no se por que (antes funcionaba)
+        $data = $this->Testimonial->findById($id);        
         if (!$data)
             throw new NotFoundException('No existe el testimonio solicitado');
 
@@ -290,7 +292,7 @@ class TestimonialsController extends AppController {
         $save_data = array('id' => $id, 'state' => $state, 'modified' => false);
         if ($this->Testimonial->save($save_data)) {
             $state_str = Testimonial::$states[$state];
-            //Aqui mandamos el email si es aprobado
+            //Aqui mandamos el email si es aprobado            
             if($state_str=='approved')
             $this->_sendApprovedToDriver($data);
             if ($action == 'admin')
@@ -374,7 +376,7 @@ class TestimonialsController extends AppController {
                 array('from_name'=>'Nuevo Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
     }
     
-    private function _sendApprovedToDriver($testimonial) {
+    private function _sendApprovedToDriver($testimonial) {        
         $vars = array(
             'driver_name'=>$testimonial['Driver']['DriverProfile']['driver_name'],
             'testimonial'=>$testimonial['Testimonial'], 
@@ -470,6 +472,56 @@ class TestimonialsController extends AppController {
         
         return $this->redirect($this->referer());
     }
+    
+    public function reply($testimonial_id, $driver_reply_token) {        
+        $this->layout = 'driver_panel';
+        //Verificando testimonio
+        $data = $this->Testimonial->findById($testimonial_id);
+        if (!$data)
+            throw new NotFoundException('No existe el testimonio solicitado');
+        else{
+            //verificamos si es el token correspondiente            
+            if (strcasecmp($data['Testimonial']['driver_reply_token'], $driver_reply_token)!=0) 
+                    throw new NotFoundException('Token inválido'); 
+            else{                
+                $driver = $this->Driver->find('all',array('conditions'=>array('Driver.id'=>
+                    $data['Testimonial']['driver_id']),'contain'=>['DriverProfile']));
+                $data = array_merge($data, $driver[0]);
+                $this->set('data', $data);
+            }         
+                           
+        }
+        
+        if ($this->request->is('post')) {             
+            //Verificando testimonio
+        $data = $this->Testimonial->findById($this->request->data['TestimonialsReply']['testimonial_id']);
+        if (!$data)            
+            throw new NotFoundException('No existe el testimonio solicitado');
+        else{
+            //verificamos si es el token correspondiente            
+            if (strcasecmp($data['Testimonial']['driver_reply_token'], $this->request->data['TestimonialsReply']['driver_reply_token'])!=0) 
+                    throw new NotFoundException('Token inválido');          
+                
+            else{
+                $this->loadModel('TestimonialsReply'); 
+                //Adicionando manualmente el reply_by
+                $this->request->data['TestimonialsReply']['reply_by'] = 'driver';
+                
+                $OK = $this->TestimonialsReply->save($this->request->data);
+                 if ($OK) $this->setSuccessMessage('Su respuesta ha sido enviada');
+                 else
+                     $this->setErrorMessage('Su respuesta no ha podido ser enviada');
+                
+                 return $this->redirect(array('action' => "reply/".$this->request->data['TestimonialsReply']['testimonial_id']."/".$this->request->data['TestimonialsReply']['driver_reply_token']));
+           }
+               
+        }
+            
+        }
+                
+    }
+    
+    
 }
 
 ?>

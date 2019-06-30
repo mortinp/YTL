@@ -1,0 +1,1 @@
+ALTER TABLE `testimonials` ADD `driver_reply_token` VARCHAR(32) NULL DEFAULT NULL AFTER `validation_token`;

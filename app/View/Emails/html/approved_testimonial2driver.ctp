@@ -25,11 +25,16 @@
             <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para ver el testimonio en el sitio web</a>
         </p>
     <?php endif?>
+         <p>
+            <?php $urlDef = array('controller' => 'testimonials', 'action' => 'reply/' . $testimonial['id'].'/'.$testimonial['driver_reply_token'], 'base'=>false) ?>
+            <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para responder este testimonio</a>
+        </p>
         
         <br/>
         <span class="social-button">
         <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="facebook" target="_blank"><b>Comparte esta opinión sobre tí en tu muro de Facebook »</b></a>
-        </span>
+        </span>        
+       
         
     
 </div>
