@@ -53,6 +53,49 @@ class ApiConversationsController extends ApiAppController {
         return $this->buildConversations($conversationsToSync);
     }
     
+    public function conversationsDaysAgo($numberOfDaysAgo) {
+        $conversations = $this->getConversationsDaysAgo($numberOfDaysAgo);
+        
+        $synced = $this->markConversationsAsSynced($conversations);
+        
+        // RESPUESTA
+        $this->set(array(
+            'success' => true,
+            'data' => $conversations,
+            'synced' =>$synced,
+            '_serialize' => array('success', 'data', 'synced')
+        ));
+    }
+    private function getConversationsDaysAgo($numberOfDaysAgo) {
+        
+        $user = $this->getUser();
+        
+        // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
+        if($numberOfDaysAgo == 0) $date = date('Y-m-d', strtotime('today'));
+        else $date = date('Y-m-d', strtotime($numberOfDaysAgo.' days ago'));
+        
+        $sql = $this->getSqlSelectFieldsForConversation()
+            . " FROM drivers_travels
+                
+                INNER JOIN travels_conversations_meta
+                ON travels_conversations_meta.conversation_id = drivers_travels.id
+                AND travels_conversations_meta.following = true
+                AND drivers_travels.travel_date >= '".$date."'"
+
+            . " LEFT JOIN driver_traveler_conversations ON driver_traveler_conversations.conversation_id = drivers_travels.id
+                
+                LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                
+                WHERE
+                    drivers_travels.driver_id = ".$user['id']."
+                        
+                ORDER BY conversation_id";
+        
+        $conversationsToSync = $this->DriverTravel->query($sql);
+        
+        return $this->buildConversations($conversationsToSync);
+    }
+    
     /*
      * EJEMPLO DE RESPUESTA
      * 

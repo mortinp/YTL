@@ -8,5 +8,3 @@ CREATE TABLE IF NOT EXISTS `api_sync_queue_2driver_conversations` (
   PRIMARY KEY (`id`),
   KEY `msg_id` (`msg_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-
-ALTER TABLE  `drivers` ADD  `mobile_app_active` BOOLEAN NOT NULL DEFAULT  '0';

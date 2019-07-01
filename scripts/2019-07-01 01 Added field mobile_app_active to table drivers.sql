@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers` ADD  `mobile_app_active` BOOLEAN NOT NULL DEFAULT  '0';

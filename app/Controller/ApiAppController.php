@@ -39,7 +39,7 @@ class ApiAppController extends Controller {
                 ),
                 'parameter' => '_token',
                 'userModel' => 'Driver',
-                'scope' => array('Driver.active' => 1),
+                'scope' => array('Driver.active' => 1, 'Driver.mobile_app_active' => 1),
                 'pepper' => 'xyzw',
         ));
         //$this->Auth = $this->TokenAuth;

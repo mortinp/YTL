@@ -65,7 +65,7 @@
                 <?php endif;?>
             </td>
             <td>
-                <?php echo $d['Driver']['username']?>
+                <?php echo $d['Driver']['username']?> <?php if($d['Driver']['mobile_app_active']):?><b style="color: red">APP</b><?php endif?>
                 <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-picture"></i> Ver Perfil', array('action'=>'profile/'.$d['DriverProfile']['driver_nick']), array('escape'=>false))?></div>
                 <div><?php echo $this->Html->link($d['Driver']['travel_count'].' viajes', array('action'=>'view_travels/'.$d['Driver']['id']))?></div>
             </td>
