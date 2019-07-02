@@ -282,7 +282,7 @@ class TestimonialsController extends AppController {
 
     public function state_change($id, $state, $action = 'admin') {
         $this->Driver->attachProfile($this->Testimonial);//Tuve que ponerlo porque no funcionaba el profile, no se por que (antes funcionaba)
-        $data = $this->Testimonial->findById($id);        
+        $data = $this->Testimonial->findById($id);
         if (!$data)
             throw new NotFoundException('No existe el testimonio solicitado');
 
@@ -294,14 +294,8 @@ class TestimonialsController extends AppController {
             
             // Enviar correo de aprobacion al chofer
             $state_str = Testimonial::$states[$state];
-<<<<<<< HEAD
-            //Aqui mandamos el email si es aprobado            
-            if($state_str=='approved')
-            $this->_sendApprovedToDriver($data);
-=======
             if($state_str == 'approved') $this->_sendApprovedToDriver($data);
             
->>>>>>> 0847af76950a5e26c339c8485636e7d5666566dd
             if ($action == 'admin')
                 return $this->redirect(array('action' => "admin/$id"));
             else
@@ -492,7 +486,7 @@ class TestimonialsController extends AppController {
                     throw new NotFoundException('Token inválido'); 
             else{                
                 $driver = $this->Driver->find('all',array('conditions'=>array('Driver.id'=>
-                    $data['Testimonial']['driver_id']),'contain'=>['DriverProfile']));
+                    $data['Testimonial']['driver_id']),'contain'=>array('DriverProfile')));
                 $data = array_merge($data, $driver[0]);
                 $this->set('data', $data);
             }         

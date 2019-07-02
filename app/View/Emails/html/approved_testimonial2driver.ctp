@@ -31,29 +31,19 @@
     <?php if ($testimonial['image_filepath']): ?>
         <p><b>El testimonio tiene una foto!</b></p>
     <?php endif?>
-         <p>
-            <?php $urlDef = array('controller' => 'testimonials', 'action' => 'reply/' . $testimonial['id'].'/'.$testimonial['driver_reply_token'], 'base'=>false) ?>
-            <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para responder este testimonio</a>
-        </p>
-        
-<<<<<<< HEAD
-        <br/>
-        <span class="social-button">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="facebook" target="_blank"><b>Comparte esta opinión sobre tí en tu muro de Facebook »</b></a>
-        </span>        
-       
-        
-=======
+
     <p style="margin-top: 10px;margin-bottom: 10px;">
-        <span>
-            <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;text-decoration: none"
-                href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
-                target="_blank">
-                <b>Comparte esta opinión sobre tí en tu Facebook »</b>
-            </a>
-        </span>
+        <a  style="padding:10px;background-color: #3b5998;color: #FFFFFF !important;text-decoration: none"
+            href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_nick,'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" >
+            <b>Comparte esta opinión sobre tí en tu Facebook »</b>
+        </a>
     <p/>
->>>>>>> 0847af76950a5e26c339c8485636e7d5666566dd
+    
+    <p>También puedes responder al cliente esta opinión:</p>
+    <p>
+        <?php $urlDef = array('controller' => 'testimonials', 'action' => 'reply/' . $testimonial['id'].'/'.$testimonial['driver_reply_token'], 'base'=>false) ?>
+        <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para responderle al cliente</a>
+    </p>
     
 </div>
 
