@@ -956,6 +956,10 @@ msgid "Mensaje enviado"
 msgstr "Message sent"
 
 #: View/Travel/view.ctp: oko
+msgid "Enviado desde %s"
+msgstr "Sent from %s"
+
+#: View/Travel/view.ctp: oko
 msgid "Esperando respuesta del chofer..."
 msgstr "Waiting a reply from the driver..."
 

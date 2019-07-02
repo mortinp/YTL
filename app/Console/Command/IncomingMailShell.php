@@ -59,7 +59,7 @@ class IncomingMailShell extends AppShell {
                 $this->out($conversation);
                 
                 $mu = new MessagesUtil();
-                $mu->sendMessage('traveler', $conversation, $sender, $body, $parser->attachments);
+                $mu->sendMessage('traveler', $conversation, $sender, $body, $parser->attachments, 'EML');
             } else {
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
@@ -100,7 +100,7 @@ class IncomingMailShell extends AppShell {
                 $this->out($conversation);
                 
                 $mu = new MessagesUtil();
-                $mu->sendMessage('driver', $conversation, $sender, $body, $parser->attachments);
+                $mu->sendMessage('driver', $conversation, $sender, $body, $parser->attachments, 'EML');
             } else {
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);
@@ -119,15 +119,15 @@ class IncomingMailShell extends AppShell {
             
         }
         
-        // MOBILE TEST
+        /*// MOBILE TEST
         else if($to === 'mviajero@'.Configure::read('domain_name')) {
             $conversation = $subject;
             $this->out($conversation);
 
             $mu = new MessagesUtil();
-            $mu->sendMessage('driver', $conversation, $sender, $body, $parser->attachments);            
+            $mu->sendMessage('driver', $conversation, $sender, $body, $parser->attachments, 'EML');
         }
-        // ENDOF MOBILE TEST
+        // ENDOF MOBILE TEST*/
         
         else if($to === 'verificacion-viaje@'.Configure::read('domain_name')) {
             

@@ -259,7 +259,7 @@ class ApiConversationsController extends ApiAppController {
         }
         
         $mu = new MessagesUtil();
-        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $attachments);
+        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $attachments, 'APP');
         
         //CakeLog::write('api', print_r($this->request->data, true));
         
