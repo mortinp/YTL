@@ -77,25 +77,9 @@ class EmailQueuesController extends AppController {
         
         $this->autoRender = false;
         
-        $ids = split('-', $ids);
+        $attachModel = ClassRegistry::init('EmailQueue.EmailAttachment'); // No pincha bien diciendo $this->EmailAttachment , no se por que...
         
-        $attachModel = ClassRegistry::init('EmailAttachment'); // No pincha bien diciendo $this->EmailAttachment , no se por que...
-
-        // TODO: Haacer esto con un IN en la consulta para hacerlo de una sola vez
-        $attachments = array();
-        foreach ($ids as $id) {
-            $attachments[] = $attachModel->findById($id);
-        }
-        
-        $fullBaseUrl = Configure::read('App.fullBaseUrl');
-        if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-        
-        // Acomodar el resultado de tal forma que sea manejable en javascript
-        $list = array();
-        foreach ($attachments as $a) {
-            $a['EmailAttachment']['url'] = $fullBaseUrl.'/'.str_replace('\\', '/', $a['EmailAttachment']['relfilepath']); // Adicionar este campo extra para poder renderear en la vista            
-            $list[] = $a['EmailAttachment'];
-        }
+        $list = $attachModel->getAttachments($ids);
         
         echo json_encode(array('attachments'=>$list));
     }

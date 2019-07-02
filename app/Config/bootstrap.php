@@ -117,6 +117,8 @@ CakePlugin::load('Operations');
 CakePlugin::load('SharedTravels');
 CakePlugin::load('Search');
 CakePlugin::load('TransactionalEmails');
+CakePlugin::load('ApiSync');
+CakePlugin::load('JwtAuth');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 Configure::write('Email.html', false);

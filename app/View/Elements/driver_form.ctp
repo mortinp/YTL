@@ -51,11 +51,15 @@ else
         ));
         
         echo $this->Form->checkbox('speaks_english').' Habla Inglés';
-        echo '<br/>';
-        echo '<br/>';
         
+        echo '<br/>';
+        echo '<br/>';
         echo $this->Form->checkbox('active').' Activo';
         echo $this->Form->checkbox('receive_requests').' Recibe solicitudes';
+        
+        echo '<br/>';
+        echo '<br/>';
+        echo $this->Form->checkbox('mobile_app_active').' Activar App Móvil';
         
         echo '<br/>';
         echo '<br/>';
