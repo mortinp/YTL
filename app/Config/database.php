@@ -66,7 +66,7 @@ class DATABASE_CONFIG {
         'persistent' => false,
         'host' => 'localhost',
         'login' => 'root',
-        'password' => 'conficuba',
+        'password' => '',
         'database' => 'yotellevo',
         'prefix' => '',
         'encoding' => 'utf8',
