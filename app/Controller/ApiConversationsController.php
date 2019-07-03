@@ -388,10 +388,10 @@ class ApiConversationsController extends ApiAppController {
     }
     
     private function markConversationsAsSynced($conversations) {
-        // Marcar como sincronizados
         $SyncTable = ClassRegistry::init('ApiSync.SyncObject');
         $SyncTable->useTable = 'api_sync_queue_2driver_conversations';
         
+        // Marcar como sincronizados
         $synced = array();
         foreach ($conversations as $c) {
             
