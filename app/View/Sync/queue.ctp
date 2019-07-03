@@ -11,6 +11,7 @@
         
         <th>sync_date</th>
         <th>batch_id</th>
+        <th>batch_id_attempts</th>
     </thead>
     <tbody> 
     <?php foreach ($queue as $q): ?>
@@ -25,6 +26,7 @@
             
             <td><?php echo $q['SyncObject']['sync_date']?></td>
             <td><?php echo $q['SyncObject']['batch_id']?></td>
+            <td><?php echo $q['SyncObject']['batch_id_retry_count']?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
