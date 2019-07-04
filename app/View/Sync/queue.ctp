@@ -1,3 +1,5 @@
+<?php App::uses('DriverTravel', 'Model') ?>
+
 <div><?php echo $this->Paginator->numbers(array('modulus'=>20));?></div>
 <table class='table table-striped table-hover'>
     <thead>
@@ -17,7 +19,7 @@
     <?php foreach ($queue as $q): ?>
         <tr>
             <td><?php echo $q['SyncObject']['id']?></td>
-            <td><?php echo $q['SyncObject']['conversation_id']?></td>
+            <td><?php echo $this->Html->link($q['SyncObject']['conversation_id'], DriverTravel::getConversationUrlArray($q['SyncObject']['conversation_id']))?></td>
             <td><?php echo $q['SyncObject']['msg_id']?></td>
             <td><?php echo $q['SyncObject']['created']?></td>
             
