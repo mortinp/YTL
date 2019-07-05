@@ -70,6 +70,10 @@ msgstr "from %s"
 msgid "Escrita el %s"
 msgstr "Written on %s"
 
+#: /home.ctp:27
+msgid "%s respondió el %s"
+msgstr "%s replied on %s"
+
 #: /featured.ctp:33
 msgid "Mira más historias"
 msgstr "See more stories"

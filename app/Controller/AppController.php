@@ -107,10 +107,10 @@ class AppController extends Controller {
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
             array('controller'=>'testimonials', 'action'=>'featured'),
             array('controller'=>'testimonials', 'action'=>'reviews'),
+            array('controller'=>'testimonials', 'action'=>'reply'),
             array('controller'=>'drivers', 'action'=>'profile'),
             array('controller'=>'travels', 'action'=>'pending'),
             array('controller'=>'drivers', 'action'=>'drivers_by_province'),
-            
         );
         
         $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);

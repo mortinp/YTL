@@ -407,7 +407,7 @@ class TestimonialsController extends AppController {
                 $reply['Testimonial']['Driver']['DriverProfile']['driver_name'].' respondió su opinión', 
                 $vars, 
                 'no_responder', 
-                'approved_testimonial_reply2traveler' 
+                'approved_testimonial_reply2traveler'
                 /*array('from_name'=>'Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com')*/);
     }
 
@@ -493,50 +493,42 @@ class TestimonialsController extends AppController {
         return $this->redirect($this->referer());
     }
     
-    public function reply($testimonial_id, $driver_reply_token) {        
-        $this->layout = 'driver_panel';
-        //Verificando testimonio
-        $data = $this->Testimonial->findById($testimonial_id);
-        if (!$data)
-            throw new NotFoundException('No existe el testimonio solicitado');
-        else{
-            //verificamos si es el token correspondiente            
-            if (strcasecmp($data['Testimonial']['driver_reply_token'], $driver_reply_token)!=0) 
-                    throw new NotFoundException('Token inválido'); 
-            else{                
-                $driver = $this->Driver->find('all',array('conditions'=>array('Driver.id'=>
-                    $data['Testimonial']['driver_id']),'contain'=>array('DriverProfile')));
-                $data = array_merge($data, $driver[0]);
-                $this->set('data', $data);
-            }         
-                           
+    public function reply($testimonial_id, $driver_reply_token) {
+        $this->layout = 'drivers_panel';
+        
+        if($this->request->is('post')) {
+            $testimonial_id = $this->request->data['TestimonialsReply']['testimonial_id'];
+            $driver_reply_token = $this->request->data['TestimonialsReply']['driver_reply_token'];
         }
         
-        if ($this->request->is('post')) {             
-            //Verificando testimonio
-        $data = $this->Testimonial->findById($this->request->data['TestimonialsReply']['testimonial_id']);
-        if (!$data)            
-            throw new NotFoundException('No existe el testimonio solicitado');
-        else{
-            //verificamos si es el token correspondiente            
-            if (strcasecmp($data['Testimonial']['driver_reply_token'], $this->request->data['TestimonialsReply']['driver_reply_token'])!=0) 
-                    throw new NotFoundException('Token inválido');          
-                
-            else{
-                $this->loadModel('TestimonialsReply'); 
-                //Adicionando manualmente el reply_by
-                $this->request->data['TestimonialsReply']['reply_by'] = 'driver';
-                
-                $OK = $this->TestimonialsReply->save($this->request->data);
-                 if ($OK) $this->setSuccessMessage('Su respuesta ha sido enviada');
-                 else
-                     $this->setErrorMessage('Su respuesta no ha podido ser enviada');
-                
-                 return $this->redirect(array('action' => "reply/".$this->request->data['TestimonialsReply']['testimonial_id']."/".$this->request->data['TestimonialsReply']['driver_reply_token']));
-           }
-               
-        }
+        $data = $this->Testimonial->findById($testimonial_id);
+        
+        // Sanity check
+        if (!$data) throw new NotFoundException('No existe el testimonio solicitado');
+        if (strcasecmp($data['Testimonial']['driver_reply_token'], $driver_reply_token) != 0) //verificamos si es el token correspondiente 
+            throw new NotFoundException('Token inválido');
+        
+        if ($this->request->is('post')) {
             
+            $this->loadModel('TestimonialsReply');
+            
+            //Adicionando manualmente el reply_by
+            $this->request->data['TestimonialsReply']['reply_by'] = 'driver';
+
+            $OK = $this->TestimonialsReply->save($this->request->data);
+            if ($OK) $this->setSuccessMessage('Su respuesta ha sido enviada');
+            else $this->setErrorMessage('Su respuesta no ha podido ser enviada');
+
+            return $this->redirect(array('action' => "reply/".$this->request->data['TestimonialsReply']['testimonial_id']."/".$this->request->data['TestimonialsReply']['driver_reply_token']));
+            
+        } else {                
+            $driver = $this->Driver->find('first', array(
+                'conditions'=>array(
+                    'Driver.id'=>$data['Testimonial']['driver_id']), 'contain'=>array('DriverProfile')
+                )
+            );
+            $data = array_merge($data, $driver);
+            $this->set('data', $data);
         }
                 
     }
@@ -587,7 +579,6 @@ class TestimonialsController extends AppController {
         }
         $this->setErrorMessage('No se pudo cambiar el estado');
     }
-    
     
 }
 
