@@ -391,6 +391,25 @@ class TestimonialsController extends AppController {
                 'approved_testimonial2driver', 
                 array('from_name'=>'Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com'));
     }
+    
+    private function _sendApprovedReplyToTraveler($reply) {
+
+        $vars = array(
+            'driver_name'=>$reply['Testimonial']['Driver']['DriverProfile']['driver_name'],
+            'testimonial'=>$reply['Testimonial'], 
+            'driver_nick'=>$reply['Testimonial']['Driver']['DriverProfile']['driver_nick'],
+            'traveler_name'=>$reply['Testimonial']['author'],
+            'reply'=>$reply,
+            
+        );
+        return EmailsUtil::email(
+                $reply['Testimonial']['email'], 
+                $reply['Testimonial']['Driver']['DriverProfile']['driver_name'].' respondió su opinión', 
+                $vars, 
+                'no_responder', 
+                'approved_testimonial_reply2traveler' 
+                /*array('from_name'=>'Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com')*/);
+    }
 
     public function admin($id) {
         $data = $this->Testimonial->findById($id);
@@ -520,6 +539,53 @@ class TestimonialsController extends AppController {
             
         }
                 
+    }
+    
+    public function replies($filtro = 'pending') {
+        $this->loadModel('TestimonialsReply');  
+        $this->TestimonialsReply->recursive = 3;
+        $this->Driver->attachProfile($this->Testimonial);
+        $this->TestimonialsReply->bindModel(array('belongsTo'=>array('Testimonial'))); 
+        $this->Testimonial->bindModel(array('belongsTo'=>array('Driver'))); 
+        
+       
+        $conditions = array();
+        if ($filtro != 'all')
+            $conditions = array('TestimonialsReply.state =' => TestimonialsReply::$statesValues[$filtro]);
+
+        $this->Paginator->settings = array('limit' => 10);
+        $replies = $this->Paginator->paginate('TestimonialsReply', $conditions);
+
+        $this->set('replies', $replies);
+        $this->set('filter_applied', $filtro);       
+
+        $this->render('all_replies');
+    }
+    
+    public function reply_state_change($id, $state, $action = 'admin') {        
+        $this->loadModel('TestimonialsReply');
+        $this->TestimonialsReply->recursive = 3;        
+        $data = $this->TestimonialsReply->findById($id);
+        if (!$data)
+            throw new NotFoundException('No existe la respuesta solicitada');
+
+        if (!in_array($state, TestimonialsReply::$statesValues))
+            throw new NotFoundException('El estado no es válido');
+
+        $save_data = array('id' => $id, 'state' => $state);
+        if ($this->TestimonialsReply->save($save_data)) {
+            
+            // Enviar correo al viajero
+            $state_str = TestimonialsReply::$states[$state];
+            //die(print_r($data));
+           if($state_str == 'approved') $this->_sendApprovedReplyToTraveler($data);
+            
+            if ($action == 'admin')
+                return $this->redirect(array('action' => "admin/$id"));
+            else
+                return $this->redirect(array('action' => "replies/$state_str#reply$id"));
+        }
+        $this->setErrorMessage('No se pudo cambiar el estado');
     }
     
     
