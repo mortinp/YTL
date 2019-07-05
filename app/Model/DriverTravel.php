@@ -199,6 +199,10 @@ class DriverTravel extends AppModel {
         return $user;
     }
     
+    public static function getConversationUrlArray($conversationId) {
+        return array('controller'=>'driver_traveler_conversations', 'action'=>'view', $conversationId);
+    }
+    
 }
 
 ?>

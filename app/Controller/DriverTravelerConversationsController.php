@@ -383,7 +383,7 @@ class DriverTravelerConversationsController extends AppController {
         
         $sender = $this->Auth->user('username');
         $mu = new MessagesUtil();
-        $msgId = $mu->sendMessage('traveler', $data['conversation_id'], $sender, $data['body'], $attachment);
+        $msgId = $mu->sendMessage('traveler', $data['conversation_id'], $sender, $data['body'], $attachment, 'WEB');
         
         // 
         $parts = preg_split('/highlight=message-[0-9]+/', $this->referer());

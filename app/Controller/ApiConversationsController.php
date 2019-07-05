@@ -15,7 +15,7 @@ class ApiConversationsController extends ApiAppController {
     public function iniFetch() {
         $conversations = $this->getConversationsIniFetch();
         
-        $synced = $this->markConversationsAsSynced($conversations);
+        $synced = $this->markConversationsAsSynced($conversations, -1);
         
         // RESPUESTA
         $this->set(array(
@@ -53,7 +53,7 @@ class ApiConversationsController extends ApiAppController {
         return $this->buildConversations($conversationsToSync);
     }
     
-    public function conversationsDaysAgo($numberOfDaysAgo) {
+    /*public function conversationsDaysAgo($numberOfDaysAgo) {
         $conversations = $this->getConversationsDaysAgo($numberOfDaysAgo);
         
         $synced = $this->markConversationsAsSynced($conversations);
@@ -94,7 +94,7 @@ class ApiConversationsController extends ApiAppController {
         $conversationsToSync = $this->DriverTravel->query($sql);
         
         return $this->buildConversations($conversationsToSync);
-    }
+    }*/
     
     /*
      * EJEMPLO DE RESPUESTA
@@ -173,7 +173,7 @@ class ApiConversationsController extends ApiAppController {
             unset($value['state']);
         }
         
-        $synced = $this->markConversationsAsSynced($conversations);
+        $synced = $this->markConversationsAsSynced($conversations, $batchId);
         
         // RESPUESTA
         $this->set(array(
@@ -198,7 +198,17 @@ class ApiConversationsController extends ApiAppController {
                 LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
                 WHERE 
                     drivers_travels.driver_id = ".$user['id']."
-                    AND api_sync_queue_2driver_conversations.sync_date IS NULL 
+                    
+                    AND (
+                        api_sync_queue_2driver_conversations.batch_id = ".$batchId."
+                        OR
+                        (
+                            api_sync_queue_2driver_conversations.batch_id IS NULL 
+                            AND 
+                            api_sync_queue_2driver_conversations.sync_date IS NULL 
+                        )                        
+                    )
+                    
                     ".$idCondition."
                 ORDER BY conversation_id";
         
@@ -230,7 +240,7 @@ class ApiConversationsController extends ApiAppController {
         
         $conversations = $this->getConversationsToSync($batchId, $conversationId);
         
-        $synced = $this->markConversationsAsSynced($conversations);
+        $synced = $this->markConversationsAsSynced($conversations, $batchId);
         
         $conv = null;
         if(!empty($conversations)) $conv = $conversations[0]; // Aqui siempre va a venir una sola conversacion
@@ -259,7 +269,7 @@ class ApiConversationsController extends ApiAppController {
         }
         
         $mu = new MessagesUtil();
-        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $attachments);
+        $mu->sendMessage('driver', $conversationId, null, $this->request->data['message'], $attachments, 'APP');
         
         //CakeLog::write('api', print_r($this->request->data, true));
         
@@ -387,11 +397,11 @@ class ApiConversationsController extends ApiAppController {
         return 0;
     }
     
-    private function markConversationsAsSynced($conversations) {
-        // Marcar como sincronizados
+    private function markConversationsAsSynced($conversations, $batchId = null) {
         $SyncTable = ClassRegistry::init('ApiSync.SyncObject');
         $SyncTable->useTable = 'api_sync_queue_2driver_conversations';
         
+        // Marcar como sincronizados
         $synced = array();
         foreach ($conversations as $c) {
             
@@ -399,12 +409,21 @@ class ApiConversationsController extends ApiAppController {
             $syncedEntries = $SyncTable->find('all', 
                     array('conditions'=>array(
                             'conversation_id'=>$c['id'],
-                            'sync_date IS NULL',
+                            '(batch_id = '.$batchId.'
+                                OR
+                                (
+                                    batch_id IS NULL 
+                                    AND 
+                                    sync_date IS NULL
+                                )
+                            )',
                     )));
             
             // Actualizar todas las entradas
             foreach($syncedEntries as $entry) {
                 $entry['SyncObject']['sync_date'] = gmdate('Y-m-d H:i:s');
+                $entry['SyncObject']['batch_id'] = $batchId;
+                $entry['SyncObject']['batch_id_retry_count'] = $entry['SyncObject']['batch_id_retry_count'] + 1;
                 $SyncTable->save($entry);
                 $synced[] = $entry;
             }

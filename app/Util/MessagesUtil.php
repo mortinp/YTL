@@ -21,9 +21,10 @@ class MessagesUtil {
 * @param email  $sender          ==> dirección de correo del que envía el mensaje
 * @param string $body            ==> texto del correo sin procesar
 * @param array  $attachments     ==> un arreglo de ajuntos, formato de cada adjunto: array(<nombre_de_archivo> => array('contents' => <contenido_del_adjunto>, 'mimeType' => <tipo_de_fichero>))
+ * @param string $messageSource            ==> De donde viene el mensaje (WEB, EML, APP): defaul UNK: Unknown
 * @return void, si falla se guarda un mensaje de error en 'conversations' log file
 */
-    public function sendMessage($from, $conversation, $sender, $body, array $attachments) {
+    public function sendMessage($from, $conversation, $sender, $body, array $attachments, $messageSource = 'UNK') {
         $this->errorMessage = "Conversation Failed!";
 
         $this->prepareToGetData($from);
@@ -40,7 +41,8 @@ class MessagesUtil {
             $OK = $this->DriverTravelerConversation->save(array(
                 'conversation_id'=> $conversation,
                 'response_by'=> $from,
-                'response_text'=> $fixedBody
+                'response_text'=> $fixedBody,
+                'msg_source'=>$messageSource
             ));
 
             if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo salvar la conversación en driver_traveler_conversations"; 

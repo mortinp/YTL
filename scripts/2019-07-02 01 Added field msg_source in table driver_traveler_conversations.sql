@@ -1,0 +1,1 @@
+ALTER TABLE `driver_traveler_conversations` ADD `msg_source` CHAR( 3 ) NULL AFTER `attachments_ids`;
