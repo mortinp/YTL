@@ -14,6 +14,8 @@ class Testimonial extends AppModel {
     
     public $belongsTo = array('Driver');
     
+    public $hasMany = array('TestimonialsReply');
+    
     public $actsAs = array('HardDiskSave' => array('hard_disk_save' => 'image', 'path_type' => 'relative'));
     
     public static $langs = array('es', 'en');

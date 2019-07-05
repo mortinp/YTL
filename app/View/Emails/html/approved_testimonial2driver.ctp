@@ -45,6 +45,8 @@
         <a href='<?php echo $this->Html->url($urlDef, true) ?>'>Click aquí para responderle al cliente</a>
     </p>
     
+    <p>Esta opinión será PUBLICADA junto al testimonio en tu perfil.</p>
+    
 </div>
 
 <p>Saludos,</p>

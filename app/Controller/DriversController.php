@@ -126,6 +126,7 @@ class DriversController extends AppController {
     public function profile($nick) {
         //if(Configure::read('show_testimonials_in_profile')) $this->Driver->loadTestimonials($this->DriverProfile);
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+        $this->loadModel('TestimonialsReply');
         
         $profile = $this->Driver->find('first', array('conditions'=>array('DriverProfile.driver_nick'=>$nick)));
         
@@ -150,11 +151,11 @@ class DriversController extends AppController {
                 //Creating a virtual field for returning given testimonial (if given) into pagination
                 $this->Testimonial->virtualFields['in_review']=  "IF (Testimonial.id IN ('$askedreview'),0,1)";                
                                
-                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => -1, 'order' => array('in_review'=>'asc'/*our given testimonial comes first*/,'Testimonial.created'=> 'desc')) );
+                $this->paginate = array( 'Testimonial' => array('limit' => 5, 'recursive' => 2, 'order' => array('in_review'=>'asc'/*our given testimonial comes first*/,'Testimonial.created'=> 'desc')) );
                 
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
-                    'Testimonial.state'=>Testimonial::$statesValues['approved']))
+                    'Testimonial.state'=>Testimonial::$statesValues['approved'] ))
                 );   
                 
                                             

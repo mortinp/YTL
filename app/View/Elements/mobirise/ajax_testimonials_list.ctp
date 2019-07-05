@@ -5,12 +5,18 @@
         'before' => $this->Js->get('#busy-indicator')->effect('fadeIn', array('buffer' => false)),
         'complete' => $this->Js->get('#busy-indicator')->effect('fadeOut', array('buffer' => false))
     ));
+    //die(print_r($testimonials));
 ?>
 
 <?php foreach($testimonials as $testimonial):?>
     <section class="testimonials3 cid-r6TeBtPTdm" id="testimonials3-o">
         <div class="container">
-            <?php echo $this->element('mobirise/testimonial-full', array('testimonial'=>$testimonial['Testimonial']))?>
+            <?php echo $this->element('mobirise/testimonial-full', array('testimonial'=>$testimonial['Testimonial'],'drv'=>$testimonial['Driver']))?>
+            <?php foreach($testimonial['TestimonialsReply'] as $reply):?>
+                <?php if(sizeof($reply)>0 && $reply['state']==TestimonialsReply::$statesValues['approved']): ?>
+               <?php echo $this->element('mobirise/testimonial-reply-full', array('reply'=>$reply,'driver'=>$testimonial['Driver']))?>
+                <?php endif; ?>
+            <?php endforeach;?>
         </div>
     </section>
 <?php endforeach;?>
