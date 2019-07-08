@@ -53,6 +53,13 @@
                     Ver Perfil
                   </a>  
               <?php endif; ?> </li>
+              <li>
+              <?php if( isset($urlPerfil) ): ?>
+                  <a href="<?php echo $this->html->url($urlPerfil, true); ?>" >
+                    <i class='glyphicon glyphicon-picture'></i>
+                    Ver Perfil
+                  </a>  
+              <?php endif; ?> </li>
            </ul>    
         </div>
       </div>    

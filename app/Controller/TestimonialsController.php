@@ -511,7 +511,7 @@ class TestimonialsController extends AppController {
         
         // Sanity check
         if (!$data) throw new NotFoundException('No existe el testimonio solicitado');
-        if (strcasecmp($data['Testimonial']['driver_reply_token'], $driver_reply_token) != 0) //verificamos si es el token correspondiente 
+        if ($data['Testimonial']['driver_reply_token'] != $driver_reply_token) //verificamos si es el token correspondiente 
             throw new NotFoundException('Token inválido');
         
         if ($this->request->is('post')) {

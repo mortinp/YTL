@@ -17,7 +17,8 @@ if (isset($driver_profile))
                 &nbsp;               
                 <?php echo $this->Html->link('permalink »', array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id'])), array('target'=>'_blank'))?>
                 &nbsp;
-                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="glyphicon glyphicon-share" target="_blank"></a>           
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver_profile['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" class="glyphicon glyphicon-share" target="_blank"></a>
+                <div>Token respuesta chofer: <?php echo $testimonial['driver_reply_token']?></div>
             </div>
         </div>
 
