@@ -223,7 +223,7 @@ if($userLoggedIn) {
 
         $(document).ready(function () {
             goTo('<?php echo $this->request->query['see-review']?>', 500, -70);//Here we goTo
-            $('#' + '<?php echo $this->request->query['see-review']?>').addClass('alert-dark');//Here we highlight
+            //$('#' + '<?php echo $this->request->query['see-review']?>').addClass('alert-dark');//Here we highlight
             //$('#star-' + '<?php echo $this->request->query['see-review']?>').attr('class', $('#star-' + '<?php echo $this->request->query['see-review']?>').attr('class') + ' fa fa-2x fa-star yellow');
         });
     <?php endif; ?>

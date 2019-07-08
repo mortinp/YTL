@@ -540,7 +540,6 @@ class TestimonialsController extends AppController {
         $this->TestimonialsReply->bindModel(array('belongsTo'=>array('Testimonial'))); 
         $this->Testimonial->bindModel(array('belongsTo'=>array('Driver'))); 
         
-       
         $conditions = array();
         if ($filtro != 'all')
             $conditions = array('TestimonialsReply.state =' => TestimonialsReply::$statesValues[$filtro]);
@@ -567,10 +566,10 @@ class TestimonialsController extends AppController {
         $save_data = array('id' => $id, 'state' => $state);
         if ($this->TestimonialsReply->save($save_data)) {
             
-            // Enviar correo al viajero
-            $state_str = TestimonialsReply::$states[$state];
-            //die(print_r($data));
-           if($state_str == 'approved') $this->_sendApprovedReplyToTraveler($data);
+           /*// Enviar correo al viajero
+           $state_str = TestimonialsReply::$states[$state];
+           //die(print_r($data));
+           if($state_str == 'approved') $this->_sendApprovedReplyToTraveler($data);*/
             
             if ($action == 'admin')
                 return $this->redirect(array('action' => "admin/$id"));
