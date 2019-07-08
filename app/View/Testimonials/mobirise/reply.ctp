@@ -65,7 +65,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
                         </p>
                     </span>
                     
-                    <img src="<?php echo PathUtil::getFullPath($data['DriverProfile']['avatar_filepath'])?>" style="max-width:60px"/>
+                    <img src="<?php echo PathUtil::getFullPath($data['DriverProfile']['avatar_filepath'])?>" style="max-width:60px;max-height:60px"/>
                     <?php echo $this->Form->create('TestimonialsReply', array('url' => array('controller' => 'testimonials', 'action' =>'reply', $data['Testimonial']['id'], $data['Testimonial']['driver_reply_token']))); ?>
                     <fieldset>
                         <?php
