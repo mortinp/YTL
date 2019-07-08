@@ -162,7 +162,7 @@ class TestimonialsController extends AppController {
             $this->request->data['Testimonial']['conversation_id'] = $conversation_id;// estaba data['Testimonial']['driver_travel_id'] que no es correcto
             $this->request->data['Testimonial']['driver_id'] = $dp_data['DriverProfile']['driver_id'];
             $this->request->data['Testimonial']['validation_token'] = StringsUtil::getWeirdString();
-            $this->request->data['Testimonial']['driver_reply_token'] = StringsUtil::getWeirdString();
+            //$this->request->data['Testimonial']['driver_reply_token'] = StringsUtil::getWeirdString();
             if( isset($user['User']['username']) )
                 $this->request->data['Testimonial']['email'] = $user['User']['username'];
             
@@ -290,10 +290,16 @@ class TestimonialsController extends AppController {
             throw new NotFoundException('El estado no es válido');
 
         $save_data = array('id' => $id, 'state' => $state, 'modified' => false);
+        
+        $state_str = Testimonial::$states[$state];
+        
+        // Generar el token para la respuesta del chofer
+        if($state_str == 'approved')
+            $save_data['driver_reply_token'] = StringsUtil::getWeirdString();
+        
         if ($this->Testimonial->save($save_data)) {
             
             // Enviar correo de aprobacion al chofer
-            $state_str = Testimonial::$states[$state];
             if($state_str == 'approved') $this->_sendApprovedToDriver($data);
             
             if ($action == 'admin')
