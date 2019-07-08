@@ -3,12 +3,6 @@
 
 <div class="media-container-row" id="<?php echo $testimonial['id']; ?>">
     
-    <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
-        <div class="mbr-figure pl-lg-5" style="width: 100%;">
-            <img src='<?php echo PathUtil::getFullPath($testimonial['image_filepath']) ?>' alt="" title=""/>
-        </div>
-    <?php endif ?>
-    
     <div class="media-content px-3 align-self-center mbr-white py-2">
         <p class="mbr-author-name pt-4 mb-2 mbr-fonts-style display-6">
             <?php echo $testimonial['author']?>
@@ -55,4 +49,10 @@
         </p>
         <?php endif;?>
     </div>
+    
+    <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
+        <div class="mbr-figure pl-lg-5" style="width: 100%;">
+            <img src='<?php echo PathUtil::getFullPath($testimonial['image_filepath']) ?>' alt="" title=""/>
+        </div>
+    <?php endif ?>
 </div>
