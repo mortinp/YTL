@@ -60,6 +60,7 @@ else
         echo '<br/>';
         echo '<br/>';
         echo $this->Form->checkbox('mobile_app_active').' Activar App Móvil';
+        echo $this->Form->checkbox('email_active').' Recibir por correo';
         
         echo '<br/>';
         echo '<br/>';

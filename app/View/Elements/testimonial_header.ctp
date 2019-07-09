@@ -40,26 +40,19 @@
         <div class="col-md-10">  
            <ul class="list-unstyled">
               <li> <?php echo "$nombreChofer"; ?> </li>
-             
-              <li> <?php if( in_array($role, array('admin', 'operator') ) )
+              <li> 
+                  <?php if( in_array($role, array('admin', 'operator') ) )
                       echo "<b>Email:</b> {$driver['username']}<br>";  
                    ?>
               </li>
-              
               <li>
-              <?php if( isset($urlPerfil) ): ?>
-                  <a href="<?php echo $this->html->url($urlPerfil, true); ?>" >
-                    <i class='glyphicon glyphicon-picture'></i>
-                    Ver Perfil
-                  </a>  
-              <?php endif; ?> </li>
-              <li>
-              <?php if( isset($urlPerfil) ): ?>
-                  <a href="<?php echo $this->html->url($urlPerfil, true); ?>" >
-                    <i class='glyphicon glyphicon-picture'></i>
-                    Ver Perfil
-                  </a>  
-              <?php endif; ?> </li>
+                <?php if( isset($urlPerfil) ): ?>
+                    <a href="<?php echo $this->html->url($urlPerfil, true); ?>" >
+                      <i class='glyphicon glyphicon-picture'></i>
+                      Ver Perfil
+                    </a>  
+                <?php endif; ?> 
+              </li>
            </ul>    
         </div>
       </div>    

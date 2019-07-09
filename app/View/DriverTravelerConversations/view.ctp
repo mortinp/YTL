@@ -119,8 +119,10 @@ $travelDate = DriverTravel::extractDate($data);
             </div>
             <div class="col-md-6 col-xs-12">
                 <div class="row">
-                    <div class="col-md-2"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($data)?></big></big></span></div>
-                    <div class="pull-left">
+                    <div class="col-md-2">
+                        <span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($data)?></big></big></span>
+                    </div>
+                    <div class="col-md-8">
                         <!-- SIGUIENDO -->
                         <?php if($data['TravelConversationMeta']['following']):?> 
                              <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>

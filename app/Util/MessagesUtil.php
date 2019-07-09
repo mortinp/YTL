@@ -104,6 +104,39 @@ class MessagesUtil {
 
         return $OK;
     }
+    
+    private function saveAllAttachments($attachmentsList) {
+        
+        $OK = true;
+        
+        $attachmentsExist = $attachmentsList != null && is_array($attachmentsList) && !empty ($attachmentsList);
+        if($attachmentsExist) {
+            
+            // Crear los attachments
+            $attachments = array();
+            foreach ($attachmentsList as $key => $value) {
+                $attachments[] = array('filename'=>$key, 'contents'=>$value['contents'], 'mimetype'=>$value['mimetype']);
+            }
+            
+            // Guardar los attachments            
+            $attachmentModel = ClassRegistry::init('EmailQueue.EmailAttachment');
+            $attIds = array();
+            foreach ($attachments as $a) {
+                $a = array('EmailAttachment'=>$a);
+
+                $attachmentModel->create();
+                $OK = $attachmentModel->save($a);
+                
+                if(!$OK) break;
+
+                $attIds[] = $attachmentModel->getLastInsertID();
+            }
+            
+            if($OK) $OK = $this->saveAttachments(array('attachments_ids'=>$attIds));
+        }
+        
+        return $OK;
+    }
 
     private function getMessagesInConversation($conversation){
         $msg_list = $this->DriverTravelerConversation->find('all', array(
@@ -116,35 +149,50 @@ class MessagesUtil {
         return $msg_list;
     }   
 
-    private function messageTraveler2Driver($conversation, array $attachments, &$driverTravel){;
-        $driverName = 'chofer';
-        if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
-            $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
+    private function messageTraveler2Driver($conversation, array $attachments, &$driverTravel) {
+        $OK = true;
+        
+        // Verificar si hay que enviar por correo
+        $sendMessageByEmail = !isset($driverTravel['Driver']['email_active']) || $driverTravel['Driver']['email_active'];
+        if($sendMessageByEmail) {
+            
+            // Setear el email al que hay que enviarle al chofer
+            $driverSentFromDifferentEmail = isset($driverTravel['DriverTravel']['last_driver_email']) && $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0;
+            if($driverSentFromDifferentEmail) $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
+            else $deliverTo = $driverTravel['Driver']['username'];
+            
+            // Setear el nombre del chofer
+            $driverName = 'chofer';
+            if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile']))
+                $driverName = Driver::shortenName($driverTravel['Driver']['DriverProfile']['driver_name']);
+            
+            // Obtener los mensajes de la conversacion
+            $messages = $this->getMessagesInConversation($conversation);
 
-        $messages = $this->getMessagesInConversation($conversation);
+            // El $returnData es para coger los ids de los attachments que hayan
+            $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
+            $OK = ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
+                $deliverTo,
+                array('conversation_id'=>$conversation, 'messages'=>$messages, 'messages_count'=>count($messages), 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
+                      'driver_travel'=>$driverTravel['DriverTravel']),
+                array(
+                    'template'=>'response_traveler2driver',
+                    'format'=>'html',
+                    'subject'=>MessagesUtil::getEmailSubject('driver', $driverTravel),
+                    'config'=>'viajero',
+                    'attachments'=>$attachments),
+                $returnData
+            );
+            if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo salvar en emails_queue"; 
 
-        if(isset ($driverTravel['DriverTravel']['last_driver_email']) && 
-                  $driverTravel['DriverTravel']['last_driver_email'] != null && strlen($driverTravel['DriverTravel']['last_driver_email']) != 0)
-            $deliverTo = $driverTravel['DriverTravel']['last_driver_email'];
-        else $deliverTo = $driverTravel['Driver']['username'];
-
-        // El $returnData es para coger los ids de los attachments que hayan
-        $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...
-        $OK = ClassRegistry::init('EmailQueue.EmailQueue')->enqueue(
-            $deliverTo,
-            array('conversation_id'=>$conversation, 'messages'=>$messages, 'messages_count'=>count($messages), 'travel'=>$driverTravel['Travel'], 'driver_name'=>$driverName,
-                  'driver_travel'=>$driverTravel['DriverTravel']),
-            array(
-                'template'=>'response_traveler2driver',
-                'format'=>'html',
-                'subject'=>MessagesUtil::getEmailSubject('driver', $driverTravel),
-                'config'=>'viajero',
-                'attachments'=>$attachments),
-            $returnData
-        );
-        if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo salvar en emails_queue"; 
-
-        if($OK) $OK = $this->saveAttachments($returnData); 
+            if($OK) $OK = $this->saveAttachments($returnData);
+        } 
+        
+        
+        else {
+            // Salvar los attachments
+            $OK = $this->saveAllAttachments($attachments);
+        }
 
         return $OK;
     }   

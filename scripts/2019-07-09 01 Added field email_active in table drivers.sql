@@ -1,0 +1,1 @@
+ALTER TABLE  `drivers` ADD  `email_active` BOOLEAN NOT NULL DEFAULT  '1';
