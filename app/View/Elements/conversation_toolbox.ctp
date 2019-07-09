@@ -27,6 +27,9 @@ $this->Html->script('jquery', array('inline' => false));
 $this->Js->set('operator', User::prettyName( AuthComponent::user() ));
 echo $this->Js->writeBuffer(array('inline' => false));
 
+if(isset ($data['User'])) $user = $data['User'];
+    else if(isset ($data['Travel']['User'])) $user = $data['Travel']['User'];
+
 ?>          
 
 <div class="control-panel">
@@ -65,7 +68,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
             <?php endif?>
             <br/>
             <br/>
-            <?php echo $this->Html->link('Ver otras conversaciones »', array('controller'=>'travels', 'action'=>'admin', $data['Travel']['id']), array('target'=>'_blank', 'title'=>'Ver las demás conversaciones de este viajero con otros choferes', 'class'=>'info', 'data-placement'=>'bottom'));?>
+            <a href="<?php echo $this->Html->url(array('plugin'=>'search', 'controller' => 'search','?'=>array('q'=>$user['username']))); ?>" title='Ver las demás conversaciones de este viajero con otros choferes' class='info' data-placement='bottom' target="_blank">Ver otras conversaciones »</a>
         </div>
         <br/>
         

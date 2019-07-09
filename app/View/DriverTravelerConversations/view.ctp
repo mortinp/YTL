@@ -94,6 +94,12 @@ $travelDate = DriverTravel::extractDate($data);
            
    }
 </style>
+<script type="text/javascript">
+    /*Logica para panel lateral inicialmente visible*/
+   $(document).ready(function() { 
+    $(".theme-config-box").toggleClass("show");
+    });
+</script>
 
 <?php $topPosition = 60?>
 <?php $fechaCambiada = isset ($data['DriverTravel']['original_date']) && $data['DriverTravel']['original_date'] != null;?>
@@ -112,7 +118,22 @@ $travelDate = DriverTravel::extractDate($data);
                 <div style="float: left;padding-left: 10px"><h4><?php echo $this->html->link($data['Driver']['DriverProfile']['driver_name'],array('controller'=>'drivers', 'action'=>'profile/'.$data['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank', 'style'=>'color:inherit')); ?></h4></div>
             </div>
             <div class="col-md-6 col-xs-12">
-                <span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($data)?></big></big></span>
+                <div class="row">
+                    <div class="col-md-2"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($data)?></big></big></span></div>
+                    <div class="pull-left">
+                        <!-- ESTADOS -->
+                        <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
+                            <?php if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
+                                <small><span class="label label-warning" style="margin-left:5px"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span></small>
+                            <?php elseif($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
+                                <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-usd"></i> Pagado</span></small>
+                           <?php endif?>                        
+                         <!-- SIGUIENDO -->
+                           <?php elseif($data['TravelConversationMeta']['following']):?> 
+                                <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>
+                           <?php endif?> 
+                    </div>
+                </div>
                 
                 <br/>
                 <?php echo TimeUtil::prettyDate($data['DriverTravel']['travel_date']) ?>
@@ -130,7 +151,7 @@ $travelDate = DriverTravel::extractDate($data);
 <div class="theme-config">
     <div class="theme-config-box">
         <div class="spin-icon alert alert-info">
-            <i id="box-menu" class="glyphicon glyphicon-chevron-left pull-left"></i>
+            <i id="box-menu" class="glyphicon glyphicon-chevron-right pull-left"></i>
         </div>
         <div class="skin-settings">            
             <div class="well">
