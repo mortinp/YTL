@@ -121,17 +121,20 @@ $travelDate = DriverTravel::extractDate($data);
                 <div class="row">
                     <div class="col-md-2"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($data)?></big></big></span></div>
                     <div class="pull-left">
+                        <!-- SIGUIENDO -->
+                        <?php if($data['TravelConversationMeta']['following']):?> 
+                             <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>
+                        <?php endif?> 
                         <!-- ESTADOS -->
                         <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
+                        
                             <?php if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
                                 <small><span class="label label-warning" style="margin-left:5px"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span></small>
                             <?php elseif($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
                                 <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-usd"></i> Pagado</span></small>
-                           <?php endif?>                        
-                         <!-- SIGUIENDO -->
-                           <?php elseif($data['TravelConversationMeta']['following']):?> 
-                                <small><span class="label label-info" style="margin-left:5px">Siguiendo</span></small>
-                           <?php endif?> 
+                            <?php endif?>                        
+                         
+                        <?php endif?>
                     </div>
                 </div>
                 
