@@ -131,7 +131,7 @@
 <?php foreach($testimonials as $i=>$data):?>
     <section class="testimonials3 cid-r6TeBtPTdm" id="testimonials3-o">
         <div class="container">
-            <?php echo $this->element('mobirise/testimonial-full', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver']))?>
+            <?php echo $this->element('mobirise/testimonial-full', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver'], 'linkToProfile'=>true))?>
         </div>
     </section>
 

@@ -1,6 +1,13 @@
 <?php App::uses('TimeUtil', 'Util')?>
 <?php App::uses('PathUtil', 'Util')?>
 
+<?php
+if(!isset($reviewShare)) $reviewShare = true;
+if(!isset($linkToProfile)) $linkToProfile = false;
+
+$hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driver['DriverProfile']);
+?>
+
 <div class="media-container-row" id="<?php echo $testimonial['id']; ?>">
     
     <div class="media-content px-3 align-self-center mbr-white py-2">
@@ -18,46 +25,54 @@
                 <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?>
             </span>
         </p>
-        <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath'])
-            $share_img=PathUtil::getFullPath($testimonial['image_filepath']);
-           else
-           $share_img=PathUtil::getFullPath($drv['DriverProfile']['featured_img_url'])
-        ?>
-        <p class="mbr-author-desc mbr-fonts-style display-4">Compartir: <a  style="padding:4px; padding-left: 7px;background-color: #073b4c;color: #FFFFFF !important;text-decoration: none;border-radius: 5px"
-            href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$drv['DriverProfile']['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
-            target="_blank">
-                <b><span class="fa fa-facebook"></span></b>
-            </a>&nbsp;            
-            <a  style="padding:4px;background-color: #073b4c;color: #FFFFFF !important;text-decoration: none;border-radius: 5px"
-            href="https://pinterest.com/pin/create/button/?url=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$drv['DriverProfile']['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>&media=<?php echo $share_img ?>&description=<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $testimonial['author'], $drv['DriverProfile']['driver_name']), 0, 120)?>" 
-            target="_blank">
-                <b><span class="fa fa-pinterest"></span></b>
-            </a>&nbsp;
-            <a  style="padding:4px;background-color: #073b4c;color: #FFFFFF !important;text-decoration: none;border-radius: 5px"
-            href="https://twitter.com/home?status=<?php echo $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$drv['DriverProfile']['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true) ?>" 
-            target="_blank">
-                <b><span class="fa fa-twitter"></span></b>
-            </a>
-        </p>
         
-        <?php if(isset($driver) && isset ($driver['DriverProfile']) && !empty($driver['DriverProfile'])):?>
-        <p class="mbr-author-desc mbr-fonts-style display-6">
-            <?php 
-            $driver_name = $driver['DriverProfile']['driver_name'];
+        <?php if($linkToProfile && $hasProfile):?>
+            <p class="mbr-author-desc mbr-fonts-style display-6">
+                <?php 
+                $driver_name = $driver['DriverProfile']['driver_name'];
+                $driver_avatar = PathUtil::getFullPath($driver['DriverProfile']['avatar_filepath']);
 
-            $fullBaseUrl = Configure::read('App.fullBaseUrl');
-            if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-
-            $driver_avatar = $fullBaseUrl.'/'.str_replace('\\', '/', $driver['DriverProfile']['avatar_filepath']);
-
-
-            if($driver['active']) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
-            else $driver_hint = '<b>'.$driver_name.'</b>';
-            ?>
-            <img src="<?php echo $driver_avatar?>" class="info" title="<?php echo $driver_name?>" style="max-width:60px"/>
-            <?php echo $this->Html->link(__d('mobirise/testimonials', 'Ver perfil de %s', $driver_name), array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('class'=>'btn btn-success display-4', 'escape'=>false))?>
-        </p>
+                if($driver['active']) $driver_hint = $this->Html->link('<code><big>'.$driver_name.'</big></code>', array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('escape'=>false));
+                else $driver_hint = '<b>'.$driver_name.'</b>';
+                ?>
+                <img src="<?php echo $driver_avatar?>" class="info" title="<?php echo $driver_name?>" style="max-width:60px"/>
+                <?php echo $this->Html->link(__d('mobirise/testimonials', 'Ver perfil de %s', $driver_name), array('controller'=>'drivers', 'action'=>'profile', $driver['DriverProfile']['driver_nick']), array('class'=>'btn btn-success display-4', 'escape'=>false))?>
+            </p>
         <?php endif;?>
+        
+        <?php if($reviewShare && $hasProfile):?>
+            <?php
+            $reviewHasImage = isset($testimonial['image_filepath']) && $testimonial['image_filepath'];
+            $share_img = 
+                $reviewHasImage?
+                    PathUtil::getFullPath($testimonial['image_filepath']):
+                    $driver['DriverProfile']['featured_img_url'];
+                    
+            $reviewUrl = $this->Html->url(array('language'=>$testimonial['lang'], 'controller' => 'drivers', 'action' => 'profile',$driver['DriverProfile']['driver_nick'],'?'=>array('see-review'=>$testimonial['id']), 'base'=>false), true);
+            ?>
+            <br>
+            <p class="mbr-author-desc mbr-fonts-style display-4">
+                <a  style="padding:4px; padding-left: 7px;background-color: #1877f2;color: #FFFFFF !important;text-decoration: none;border-radius:5px"
+                    href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $reviewUrl ?>" 
+                    target="_blank"
+                    title="Facebook">
+                    <b><small><span class="fa fa-facebook"></span></small></b>
+                </a>&nbsp;            
+                <a  style="padding:4px;background-color: #bd081c;color: #FFFFFF !important;text-decoration: none;border-radius:5px"
+                    href="https://pinterest.com/pin/create/button/?url=<?php echo $reviewUrl ?>&media=<?php echo $share_img ?>&description=<?php echo __d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $testimonial['author'], $driver['DriverProfile']['driver_name'])?>" 
+                    target="_blank"
+                    title="Pinterest">
+                    <b><small><span class="fa fa-pinterest"></span></small></b>
+                </a>&nbsp;
+                <a  style="padding:4px;background-color: #1da1f2;color: #FFFFFF !important;text-decoration: none;border-radius:5px"
+                    href="https://twitter.com/home?status=<?php echo $reviewUrl ?>" 
+                    target="_blank"
+                    title="Twitter">
+                    <b><small><span class="fa fa-twitter"></span></small></b>
+                </a>
+            </p>
+        <?php endif?>
+        
     </div>
     
     <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
