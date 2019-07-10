@@ -66,11 +66,11 @@ class EmailQueue extends AppModel {
         
         if (!is_array($to)) {
             $to = array($to);
-        }
+        }       
         
-        $attachments = array();        
-        
-        if(isset ($options['attachments']) && $options['attachments'] != null && is_array($options['attachments']) && !empty ($options['attachments'])) {
+        $attachmentsExist = isset ($options['attachments']) && $options['attachments'] != null && is_array($options['attachments']) && !empty ($options['attachments']);
+        if($attachmentsExist) {
+            $attachments = array();
             foreach ($options['attachments'] as $key => $value) {
                 $attachments[] = array('filename'=>$key, 'contents'=>$value['contents'], 'mimetype'=>$value['mimetype']);
             }
@@ -84,12 +84,9 @@ class EmailQueue extends AppModel {
             $email['EmailQueue']['to'] = $t;
             $this->create();
             
-            /*$email['EmailAttachment'] = $attachments;
-            $this->saveAssociated($email);*/
-            
             $OK = $this->save($email);
             
-            if($OK) {
+            if($OK && $attachmentsExist) {
                 $emailId = $this->getLastInsertID();
             
                 $attachmentModel = new EmailAttachment();

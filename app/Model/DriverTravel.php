@@ -47,7 +47,7 @@ class DriverTravel extends AppModel {
     
     public $belongsTo = array(
         'Driver' => array(
-            'fields'=>array('id', 'username', 'max_people_count'),
+            'fields'=>array('id', 'username', 'max_people_count', 'email_active'),
             'counterCache'=>'travel_count'
         ),
         'Travel'=>array(
