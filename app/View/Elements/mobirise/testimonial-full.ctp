@@ -2,7 +2,7 @@
 <?php App::uses('PathUtil', 'Util')?>
 
 <?php
-if(!isset($reviewShare)) $reviewShare = true;
+if(!isset($shareReview)) $shareReview = true;
 if(!isset($linkToProfile)) $linkToProfile = false;
 
 $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driver['DriverProfile']);
@@ -40,7 +40,7 @@ $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driv
             </p>
         <?php endif;?>
         
-        <?php if($reviewShare && $hasProfile):?>
+        <?php if($shareReview && $hasProfile):?>
             <?php
             $reviewHasImage = isset($testimonial['image_filepath']) && $testimonial['image_filepath'];
             $share_img = 

@@ -250,13 +250,13 @@ class DriversController extends AppController {
         
         if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
         
-        $driversData = $this->driversInProvince($province['id']);
+        $driversData = $this->Driver->getDriversCardsByProvince($province['id']);
         
         // Si no hay suficientes choferes en la provincia seleccionada, buscar choferes en provincias alternativas
         $shouldLookForAlternativeDrivers = count($driversData) < 10 && isset($province['alternative_province']) && $province['alternative_province'] != null;
         $altertativeDriversData = array();
         if($shouldLookForAlternativeDrivers) {
-            $altertativeDriversData = $this->driversInProvince($province['alternative_province']);
+            $altertativeDriversData = $this->Driver->getDriversCardsByProvince($province['alternative_province']);
         }
         
         $this->set('drivers_data', $driversData);
@@ -265,48 +265,6 @@ class DriversController extends AppController {
         $this->set('localities', Locality::getAsSuggestions());
         
         $this->layout = 'drivers_by_province';
-    }
-    
-    /*Nueva función para mostrar datos de choferes*/
-    private function driversInProvince($provinceID) {
-        $drivers = $this->Driver->query(
-                "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers, testimonials.review_count, testimonials.latest_testimonial_date,
-                 latest_testimonial.author, latest_testimonial.text, latest_testimonial.country
-
-                FROM drivers
-                
-                INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id AND drivers.active = true AND drivers.province_id=".$provinceID." 
-                
-                INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id 
-                
-                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.state IN ('D', 'P')
-
-                LEFT JOIN travels ON travels.id = drivers_travels.travel_id
-
-                LEFT JOIN (
-                    SELECT drivers.id as driver_id, COUNT(testimonials.id) as review_count, max(testimonials.created) as latest_testimonial_date
-                    FROM testimonials
-                    INNER JOIN drivers ON drivers.id = testimonials.driver_id AND testimonials.state = 'A'
-                    GROUP BY drivers.id
-                    ORDER BY drivers.id
-                ) testimonials
-                ON testimonials.driver_id = drivers.id
-                
-                LEFT JOIN (
-                    SELECT author, text, country, driver_id
-                    FROM testimonials
-                    WHERE lang = '".Configure::read('Config.language')."'
-                    GROUP BY driver_id
-                    ORDER BY created DESC
-                ) latest_testimonial
-                ON latest_testimonial.driver_id = drivers.id
-
-                GROUP BY drivers.id
-
-                ORDER BY testimonials.latest_testimonial_date DESC"
-                );
-        
-        return $drivers;
     }
     
     /*public function view_drivers_data($slug) {
