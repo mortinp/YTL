@@ -277,6 +277,34 @@ class DriversController extends AppController {
         $this->set('drivers_data', $driversData);
         $this->set('province', $province['name']);
     }*/
+    
+    public function next_to_notiffy($slug) {
+        $province = Province::_provinceFromSlug($slug);
+        
+        if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
+        
+        $driversData = $this->Driver->getNextToNotiffy($province['id']);
+        
+        // Si no hay suficientes choferes en la provincia seleccionada, buscar choferes en provincias alternativas
+        $shouldLookForAlternativeDrivers = count($driversData) < 3 && isset($province['alternative_province']) && $province['alternative_province'] != null;
+        $altertativeDriversData = array();
+        if($shouldLookForAlternativeDrivers) {
+            $altertativeDriversData = $this->Driver->getNextToNotiffy($province['alternative_province']);
+        }
+        /*Creamos el arreglo para retornar el resultado (supongo que solo necesitemos el email)
+         pero igualmente dejo la consulta vieja para que me digas tu, por si necesitamos algo*/
+        $drivers = array('drivers_data'=>$driversData,'alternative_drivers_data'=>$altertativeDriversData);
+       
+        return $drivers;       
+    }
+    
+    /*Funcion para probar en una vista*/
+    public function for_notiffy($province_name) {
+        
+       $result = $this->next_to_notiffy($province_name); 
+       
+       $this->set('drivers',$result);
+    }
 }
 
 ?>

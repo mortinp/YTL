@@ -193,6 +193,26 @@ class Driver extends AppModel {
                 ORDER BY testimonials.latest_testimonial_date DESC"
                 );
     }
+    
+    public function getNextToNotiffy($provinceID) {
+        return 
+        $this->query(
+                "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers
+
+                FROM drivers
+                
+                INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id AND drivers.active = true AND drivers.receive_requests = true AND drivers.province_id=".$provinceID." 
+                
+                INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id 
+
+                LEFT JOIN travels ON travels.id = drivers_travels.travel_id
+
+                GROUP BY drivers.id
+
+                ORDER BY drivers.last_notification_date ASC
+                LIMIT 5"
+                );
+    }
 }
 
 ?>
