@@ -136,6 +136,10 @@ class DriversController extends AppController {
             
             if(Configure::read('show_testimonials_in_profile')){
                 
+                $result = $this->next_to_notiffy(Province::_getSlug($profile['Province']['name'])); 
+                //die(print_r($result['drivers_data']));
+                $this->set('other_drivers',$result);
+                
                 /*Primero chequeamos si es una vista directa de testimonio*/
                 if($this->request->query('see-review')){
                     //getting given testimonial

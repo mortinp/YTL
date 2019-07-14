@@ -204,12 +204,14 @@ class Driver extends AppModel {
                 INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id AND drivers.active = true AND drivers.receive_requests = true AND drivers.province_id=".$provinceID." 
                 
                 INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id 
+                
+                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.state IN ('D', 'P')
 
                 LEFT JOIN travels ON travels.id = drivers_travels.travel_id
 
                 GROUP BY drivers.id
 
-                ORDER BY drivers.last_notification_date ASC
+                ORDER BY drivers.last_notification_date DESC
                 LIMIT 5"
                 );
     }
