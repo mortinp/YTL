@@ -29,5 +29,5 @@
 </p>
 
 <p>
-    <?php echo __d('user_email', 'El equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>.')?>
+    <?php echo __d('user_email', 'El equipo de <a href="https://yotellevocuba.com">YoTeLlevo</a>.')?>
 </p>

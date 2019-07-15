@@ -101,3 +101,11 @@ msgstr "Like our drivers already?"
 #: /featured.ctp:33
 msgid "Solicita presupuesto para tu viaje a varios de ellos."
 msgstr "Request a quote from some of them for the trip you want to do."
+
+#: /featured.ctp:33
+msgid "%s envió este mensaje respondiendo su comentario sobre su servicio"
+msgstr "%s sent this message replying your review about his service"
+
+#: /featured.ctp:33
+msgid "Mira la respuesta de %s el sitio web"
+msgstr "See %s's reply on the website"
