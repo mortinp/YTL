@@ -4,7 +4,7 @@
 
 
 <p><b><?php echo $driver_name ?></b>:</p>
-<p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $reply['TestimonialsReply']['reply_text']);?></p>
+<p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $reply_text);?></p>
     
 <br>
 <p style="margin-top: 10px;margin-bottom: 10px;">

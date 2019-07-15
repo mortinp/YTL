@@ -397,10 +397,10 @@ class TestimonialsController extends AppController {
 
         $vars = array(
             'driver_name'=>$reply['Testimonial']['Driver']['DriverProfile']['driver_name'],
-            'testimonial'=>$reply['Testimonial'], 
+            'testimonial'=>array('id'=>$reply['Testimonial']['id'], 'lang'=>$reply['Testimonial']['lang']),
             'driver_nick'=>$reply['Testimonial']['Driver']['DriverProfile']['driver_nick'],
             'traveler_name'=>$reply['Testimonial']['author'],
-            'reply'=>$reply,
+            'reply_text'=>$reply['TestimonialsReply']['reply_text'],
             
         );
         
