@@ -194,15 +194,23 @@ class Driver extends AppModel {
                 );
     }
     
-    public function getNextToNotiffy($provinceID) {
+    public function getNextToNotify($provinceID, $count = 6, $notThisDriverId = null) {
+        $notThisDriverCondition = '';
+        if($notThisDriverId != null) $notThisDriverCondition = 'AND drivers.id != '.$notThisDriverId;
+        
         return 
         $this->query(
                 "SELECT drivers_profiles.*, drivers.*, COUNT(travels.id) as travel_count, SUM(travels.people_count) as total_travelers
 
                 FROM drivers
                 
-                INNER JOIN drivers_profiles ON drivers.id = drivers_profiles.driver_id AND drivers.active = true AND drivers.receive_requests = true AND drivers.province_id=".$provinceID." 
-                
+                INNER JOIN drivers_profiles 
+                ON drivers.id = drivers_profiles.driver_id 
+                AND drivers.active = true 
+                AND drivers.receive_requests = true 
+                AND drivers.province_id=".$provinceID."
+                ".$notThisDriverCondition."
+                    
                 INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id 
                 
                 INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id AND travels_conversations_meta.state IN ('D', 'P')
@@ -211,8 +219,8 @@ class Driver extends AppModel {
 
                 GROUP BY drivers.id
 
-                ORDER BY drivers.last_notification_date DESC
-                LIMIT 5"
+                ORDER BY drivers.last_notification_date ASC
+                LIMIT ".$count
                 );
     }
 }

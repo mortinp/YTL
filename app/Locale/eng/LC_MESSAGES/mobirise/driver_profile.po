@@ -88,5 +88,5 @@ msgid "Ya tienes una conversación con %s"
 msgstr "You already have a conversation with  %s"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
-msgid "Puedes contactar en <strong>%s</strong> otros choferes y tener un viaje increible"
-msgstr "You can contact in <strong>%s</strong> other drivers for having an amazing travel"
+msgid "Mira otros choferes de taxi en %s"
+msgstr "See other taxi drivers in %s"

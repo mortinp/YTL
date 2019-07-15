@@ -49,23 +49,6 @@ class Province extends AppModel {
         return $province;
     }
     
-    
-    public static function _getSlug($Province) {
-        // Sanity checks
-        if($Province == null) return null;
-        
-        // Convertir provincia a slug
-        $slug = null;
-        foreach (self::$provinces as $k=>$p) {
-            if($p['name'] == $Province) {
-                $slug = $p['slug'];                
-                break;
-            }
-        }
-        
-        return $slug;
-    }
-    
     public static function _servicesDescription($provinceId) {
         $province = self::$provinces[$provinceId];
         

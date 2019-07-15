@@ -48,13 +48,8 @@ if($userLoggedIn) {
     $this->Html->css('mobirise/css/mbr-additional', array('inline' => false));
     
     $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
-  ?>
-  
-  <?php
-    // CSS
     $this->Html->css('datepicker/css/datepicker', array('inline' => false));
     $this->Html->css('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => false));
-    $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
     
     echo $this->fetch('css');
   ?>

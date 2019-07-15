@@ -136,9 +136,8 @@ class DriversController extends AppController {
             
             if(Configure::read('show_testimonials_in_profile')){
                 
-                $result = $this->next_to_notiffy(Province::_getSlug($profile['Province']['name'])); 
-                //die(print_r($result['drivers_data']));
-                $this->set('other_drivers',$result);
+                $result = $this->next_to_notify($profile['Province'], 6, $profile['Driver']['id']);
+                $this->set('other_drivers', $result);
                 
                 /*Primero chequeamos si es una vista directa de testimonio*/
                 if($this->request->query('see-review')){
@@ -282,12 +281,11 @@ class DriversController extends AppController {
         $this->set('province', $province['name']);
     }*/
     
-    public function next_to_notiffy($slug) {
-        $province = Province::_provinceFromSlug($slug);
+    private function next_to_notify($province, $count, $notThisDriverId = null) {
         
-        if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
+        //if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
         
-        $driversData = $this->Driver->getNextToNotiffy($province['id']);
+        $driversData = $this->Driver->getNextToNotify($province['id'], $count, $notThisDriverId);
         
         // Si no hay suficientes choferes en la provincia seleccionada, buscar choferes en provincias alternativas
         $shouldLookForAlternativeDrivers = count($driversData) < 3 && isset($province['alternative_province']) && $province['alternative_province'] != null;
@@ -300,14 +298,6 @@ class DriversController extends AppController {
         $drivers = array('drivers_data'=>$driversData,'alternative_drivers_data'=>$altertativeDriversData);
        
         return $drivers;       
-    }
-    
-    /*Funcion para probar en una vista*/
-    public function for_notiffy($province_name) {
-        
-       $result = $this->next_to_notiffy($province_name); 
-       
-       $this->set('drivers',$result);
     }
 }
 

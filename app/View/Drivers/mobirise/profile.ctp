@@ -216,17 +216,22 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
     </div>
 </section>
 <?php endif?>
-        <?php if(count($other_drivers['drivers_data'])>0): ?>
-        <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
-                    <?php echo __d('mobirise/driver_profile', 'Puedes contactar en <strong>%s</strong> otros choferes y tener un viaje increible', $profile['Province']['name'])?></h3> 
-            
-                <div class="row justify-content-center content-row">                    
-                        <?php foreach($other_drivers as $odriver):?>
-                            <?php foreach($odriver as $driver):?>                             
-                                <?php echo $this->element('mobirise/driver_card_tiny', compact($driver))?>
-                            <?php endforeach?> 
-                        <?php endforeach?>                
 
-                </div>
-       <?php endif;?><!--Hay que agregar la variante de choferes cercanos cuando haya pocos en el lugar, como los taxis por provincia--> 
+<?php if(count($other_drivers['drivers_data'])>0): ?>
+<section class="testimonials4 cid-rsmhu3OqyL">
+    <div class="container">
+        <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
+            <?php echo __d('mobirise/driver_profile', 'Mira otros choferes de taxi en %s', __($profile['Province']['name']))?>
+        </h3> 
+        <div class="row content-row">                    
+            <?php foreach($other_drivers as $odriver):?>
+                <?php foreach($odriver as $driver):?>                             
+                    <?php echo $this->element('mobirise/driver_card_tiny', compact($driver))?>
+                <?php endforeach?> 
+            <?php endforeach?>
+        </div>
+    </div>
+</section>
+<?php endif;?>
+
 <?php echo $this->element('mobirise/share-page')?>

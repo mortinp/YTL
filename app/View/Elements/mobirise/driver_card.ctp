@@ -3,7 +3,7 @@
     <div class="user row">
         <div class="col-lg-3 col-md-4">
             <div class="user_image">
-                <img src="<?php echo $driver['drivers_profiles']['featured_img_url']?>" alt="" title="">
+                <img src="<?php echo $driver['drivers_profiles']['featured_img_url']?>">
             </div>
         </div>
         <div class="testimonials-caption col-lg-3 col-md-4">
