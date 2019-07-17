@@ -54,6 +54,36 @@ if($isLoggedIn) {
   <link rel="stylesheet" href="assets/socicon/css/styles.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+      
+ <style type="text/css">
+     /*Picko car linker style*/
+#picko-linker {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 100;
+}
+#small-chat .badge {
+	position: absolute;
+	top: -3px;
+	right: -4px;
+}
+.open-small-chat {
+	height: 50px;
+	width: 50px;
+	display: block;
+	background: #00a29b;
+	padding: 9px 9px;
+	text-align: center;
+	color: #fff;
+	border-radius: 50%;
+}
+.open-small-chat:hover {
+	color: white;
+	background: #00a29b;
+}
+
+</style>
   
   <?php
     // CSS
@@ -72,6 +102,12 @@ if($isLoggedIn) {
 <?php echo $this->element('mobirise/menu')?>
 
 <?php echo $this->fetch('content')?>
+<!--Contenido del linker de picko car-->
+<div id="picko-linker">    
+    <div id="picko" class="open-small-chat" data-toggle="popover" data-placement="left" data-content="Need shared taxi?">
+        <img class="img-responsive" style="width:15px; heigh:15px; border-radius: 5px" src="assets/images/logo-big-notext.jpg">
+    </div>
+</div>
 
 <?php echo $this->element('mobirise/footer1')?>
 
@@ -87,8 +123,7 @@ if($isLoggedIn) {
   <script src="assets/mbr-clients-slider/mbr-clients-slider.js"></script>
   <script src="assets/sociallikes/social-likes.js"></script>
   <script src="assets/theme/js/script.js"></script>
-  <!--<script src="assets/formoid/formoid.min.js"></script>-->
-  
+  <!--<script src="assets/formoid/formoid.min.js"></script>-->  
 <?php
 
 $this->Html->script('datepicker/js/datepicker', array('inline' => false));
@@ -106,7 +141,22 @@ echo $this->fetch('script');
 ?>
 
 <script type="text/javascript">    
-    $(document).ready(function() {        
+    $(document).ready(function() {  
+        
+        /*Popover de picko linker*/
+      $(function(){
+            setTimeout(function(){
+            $("#picko")
+            .popover('show');}, 6000);
+
+            setTimeout(function(){
+            $("#picko")
+            .popover('hide');}, 15000);
+            
+        });
+        
+        
+        
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",
             language: '<?php echo Configure::read('Config.language')?>',
@@ -179,7 +229,7 @@ echo $this->fetch('script');
     ga('send', 'pageview');
 </script>
 <?php endif;?>
-  
-  
+
+
 </body>
 </html>
