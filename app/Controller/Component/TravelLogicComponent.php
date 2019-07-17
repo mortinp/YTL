@@ -256,17 +256,6 @@ class TravelLogicComponent extends Component {
      */
     
     public function sendTravelToDriver(array $driver, array $travel, $notificationType, $config = null) {
-        // Setup configurations
-        $template = 'new_travel';
-        $emailConfig = 'viaje';
-        $customVariables = array();
-        if($config != null && is_string($config)) $emailConfig = $config;
-        if($config != null && is_array($config)) {
-            if(isset ($config['template'])) $template = $config['template'];
-            if(isset ($config['email_config'])) $emailConfig = $config['email_config'];
-            if(isset ($config['custom_variables'])) $customVariables = $config['custom_variables'];
-        }
-        
         $OK = true;
         
         $this->DriverTravel->create();
@@ -278,6 +267,7 @@ class TravelLogicComponent extends Component {
             $driverTravel['notified_by'] = User::prettyName(AuthComponent::user());
         
         $OK = $this->DriverTravel->save(array('DriverTravel'=>$driverTravel));
+        if($OK) $conversationId = $this->DriverTravel->getLastInsertID();
 
         if($OK) {
             $this->Driver->id = $driver['Driver']['id'];
@@ -287,44 +277,42 @@ class TravelLogicComponent extends Component {
                     gmdate('Y-m-d H:i:s'));
         }
 
-        if($OK) {
-
-            $conversation = $this->DriverTravel->getLastInsertID();
+        /* SEND EMAIL */
+        if($OK && $driver['Driver']['email_active']) {
             
-            // MOBILE TEST
-            $testEmail = Configure::read('mobile_test_email');
-            if($driver['Driver']['username'] == $testEmail) {
-                EmailsUtil::email($testEmail, $conversation, array('travel' => $travel), 'msolicitud', 'mob_new_request', array('enqueue'=>false), 'text');
-                /*$Email = new CakeEmail('msolicitud');
-                $Email->to($testEmail)
-                      ->subject($conversation)
-                      ->template('mob_new_request')
-                      ->viewVars(array('travel' => $travel));
-
-                $Email->send();*/
-            }
-            // ENDOF MOBILE TEST
+            $this->sendNotificationEmailToDriver($driver, $travel, $conversationId, $config);
             
-            else {
-                $subject = $this->getNotificationEmailSubject($travel, $conversation);
-                if($driver['Driver']['username'] == 'yasmany.nolazco@nauta.cu') $subject = '[['.$conversation.']]'; // HACK: Esto es un hack para el correo de un chofer que esta cortando el asunto de los correos... es una prueba!!!
-
-                $driverName = 'chofer';
-                if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
-                    $driverName = Driver::shortenName($driver['Driver']['DriverProfile']['driver_name']);
-                else if(isset ($driver['DriverProfile']) && $driver['DriverProfile'] != null && !empty ($driver['DriverProfile']))
-                    $driverName = Driver::shortenName($driver['DriverProfile']['driver_name']);
-
-
-                $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName);
-                $variables = array_merge($variables, $customVariables);
-
-                EmailsUtil::email($driver['Driver']['username'], $subject, $variables, $emailConfig, $template);
+            /*// Setup email configurations
+            $template = 'new_travel';
+            $emailConfig = 'viaje';
+            $customVariables = array();
+            if($config != null && is_string($config)) $emailConfig = $config;
+            if($config != null && is_array($config)) {
+                if(isset ($config['template'])) $template = $config['template'];
+                if(isset ($config['email_config'])) $emailConfig = $config['email_config'];
+                if(isset ($config['custom_variables'])) $customVariables = $config['custom_variables'];
             }
+            
+            $subject = $this->getNotificationEmailSubject($travel, $conversation);
+            if($driver['Driver']['username'] == 'yasmany.nolazco@nauta.cu') $subject = '[['.$conversation.']]'; // HACK: Esto es un hack para el correo de un chofer que esta cortando el asunto de los correos... es una prueba!!!
+
+            $driverName = 'chofer';
+            if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
+                $driverName = Driver::shortenName($driver['Driver']['DriverProfile']['driver_name']);
+            else if(isset ($driver['DriverProfile']) && $driver['DriverProfile'] != null && !empty ($driver['DriverProfile']))
+                $driverName = Driver::shortenName($driver['DriverProfile']['driver_name']);
+
+
+            $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversation, 'driver_name'=>$driverName);
+            $variables = array_merge($variables, $customVariables);
+
+            EmailsUtil::email($driver['Driver']['username'], $subject, $variables, $emailConfig, $template);
+             * 
+             */
             
         }
         
-        if($OK) $OK = array('success'=>true, 'conversation_id'=>$conversation);
+        if($OK) $OK = array('success'=>true, 'conversation_id'=>$conversationId);
 
         return $OK;
     }
@@ -338,6 +326,33 @@ class TravelLogicComponent extends Component {
         $subject .= ' [['.$id.']]';
         
         return $subject;
+    }
+    private function sendNotificationEmailToDriver(array $driver, array $travel, $conversationId, $config = null) {
+        // Setup email configurations
+        $template = 'new_travel';
+        $emailConfig = 'viaje';
+        $customVariables = array();
+        if($config != null && is_string($config)) $emailConfig = $config;
+        if($config != null && is_array($config)) {
+            if(isset ($config['template'])) $template = $config['template'];
+            if(isset ($config['email_config'])) $emailConfig = $config['email_config'];
+            if(isset ($config['custom_variables'])) $customVariables = $config['custom_variables'];
+        }
+
+        $subject = $this->getNotificationEmailSubject($travel, $conversationId);
+        if($driver['Driver']['username'] == 'yasmany.nolazco@nauta.cu') $subject = '[['.$conversationId.']]'; // HACK: Esto es un hack para el correo de un chofer que esta cortando el asunto de los correos... es una prueba!!!
+
+        $driverName = 'chofer';
+        if(isset ($driver['Driver']['DriverProfile']) && $driver['Driver']['DriverProfile'] != null && !empty ($driver['Driver']['DriverProfile']))
+            $driverName = Driver::shortenName($driver['Driver']['DriverProfile']['driver_name']);
+        else if(isset ($driver['DriverProfile']) && $driver['DriverProfile'] != null && !empty ($driver['DriverProfile']))
+            $driverName = Driver::shortenName($driver['DriverProfile']['driver_name']);
+
+
+        $variables = array('travel' => $travel, 'showEmail'=>true, 'conversation_id'=>$conversationId, 'driver_name'=>$driverName);
+        $variables = array_merge($variables, $customVariables);
+
+        EmailsUtil::email($driver['Driver']['username'], $subject, $variables, $emailConfig, $template);
     }
     
     
