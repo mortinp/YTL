@@ -54,36 +54,6 @@ if($isLoggedIn) {
   <link rel="stylesheet" href="assets/socicon/css/styles.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-      
- <style type="text/css">
-     /*Picko car linker style*/
-#picko-linker {
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	z-index: 100;
-}
-#small-chat .badge {
-	position: absolute;
-	top: -3px;
-	right: -4px;
-}
-.open-small-chat {
-	height: 50px;
-	width: 50px;
-	display: block;
-	background: #00a29b;
-	padding: 9px 9px;
-	text-align: center;
-	color: #fff;
-	border-radius: 50%;
-}
-.open-small-chat:hover {
-	color: white;
-	background: #00a29b;
-}
-
-</style>
   
   <?php
     // CSS
@@ -102,12 +72,7 @@ if($isLoggedIn) {
 <?php echo $this->element('mobirise/menu')?>
 
 <?php echo $this->fetch('content')?>
-<!--Contenido del linker de picko car-->
-<div id="picko-linker">    
-    <div id="picko" class="open-small-chat" data-toggle="popover" data-placement="left" data-content="Need shared taxi?">
-        <img class="img-responsive" style="width:15px; heigh:15px; border-radius: 5px" src="assets/images/logo-big-notext.jpg">
-    </div>
-</div>
+<?php echo $this->element('addon_picko_linker')?>
 
 <?php echo $this->element('mobirise/footer1')?>
 
@@ -140,21 +105,28 @@ echo $this->fetch('script');
 
 ?>
 
-<script type="text/javascript">    
-    $(document).ready(function() {  
-        
-        /*Popover de picko linker*/
-      $(function(){
-            setTimeout(function(){
-            $("#picko")
-            .popover('show');}, 6000);
+<script type="text/javascript">  
+    
+    $(function(){
+   /*Popover de picko linker */
+    var $picko = $('.picko-linker');        
+    setTimeout(function(){       
+        $picko.css("visibility","visible");
+     }, 4500);
 
-            setTimeout(function(){
-            $("#picko")
-            .popover('hide');}, 15000);
-            
-        });
-        
+    
+    $picko.find('.dismiss').click(function () {
+        sessionStorage.setItem('picko-linker-dismissed', true);
+        $picko.removeClass('fadeInUpBig');
+        $picko.addClass('fadeOutDown');
+        setTimeout(function () {
+            $picko.remove();
+        }, 1000);
+    });
+    
+    });
+    
+    $(document).ready(function() {   
         
         
         $('.datepicker').datepicker({
