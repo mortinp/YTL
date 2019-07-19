@@ -70,7 +70,7 @@
             <div class="media-container-row mbr-white">
                 <div class="col-sm-6 copyright">
                     <p class="mbr-text mbr-fonts-style display-7">
-                        © Copyright 2018 Yo Te Llevo - Cuba
+                        © Copyright 2019 Yo Te Llevo - Cuba
                     </p>
                 </div>
                 <div class="col-md-6">

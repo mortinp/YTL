@@ -105,24 +105,19 @@ echo $this->fetch('script');
 
 ?>
 
-<script type="text/javascript">  
-    
-    $(function(){
-   /*Popover de picko linker */
-    var $picko = $('.picko-linker');        
-    setTimeout(function(){       
-        $picko.css("visibility","visible");        
-     }, 4500);
-
-    
-    $picko.find('.dismiss').click(function () {       
-        $picko.animate({opacity:'hide', heigh:'hide'},'slow');        
-    });
-    
-    });
+<script type="text/javascript">
     
     $(document).ready(function() {   
-        
+        /*Popover de picko linker */
+        picko = $('.picko-linker');
+        if(picko !== null) {
+            setTimeout(function(){       
+                picko.css("visibility","visible");        
+            }, 45000);
+            picko.find('.dismiss').click(function () {       
+                picko.animate({opacity:'hide', heigh:'hide'},'slow');        
+            });
+        }
         
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",

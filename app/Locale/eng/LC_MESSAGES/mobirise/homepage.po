@@ -142,3 +142,11 @@ msgstr "Our platform has been featured in the media as one of the leading online
 #: View/Pages/home.ctp:114
 msgid "solicitar"
 msgstr "request"
+
+#: View/Pages/home.ctp:114
+msgid "¿Compartirías tu taxi <br>con otros 2 pasajeros para <br><b>AHORRAR 50%</b>?"
+msgstr "Would you share your taxi <br>with other 2 passengers and <br><b>SAVE 50%</b>?"
+
+#: View/Pages/home.ctp:114
+msgid "Servicio de taxi colectivo en Cuba"
+msgstr "Shared taxi service in Cuba"

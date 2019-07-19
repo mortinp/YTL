@@ -5,33 +5,36 @@
     z-index: 999;
     position: fixed;
     width: 350px;
-    background: rgba(0, 0, 1, .8);
+    background: rgba(255, 255, 255, 1);
     bottom: 0;
     left: 0;
     margin-bottom: 2px;
     margin-left: 2px;
+    border: .5px solid #000;
 }
 
 .picko-linker p {
-    color: #EBAB0A;
+    /*color: #EBAB0A;*/
     font-size: 14px;
-    font-weight: 100;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .8);
+    /*font-weight: 100;*/
+    /*text-shadow: 0 1px 1px rgba(0, 0, 0, .8);*/
     margin-bottom: 6px;
+    text-align: center;
 }
 
 .picko-linker .btn-outline {
     background: transparent;
-    border: 1px solid #EBAB0A;
+    border: 1px solid #000;
     padding: 4px 18px;
     font-size: 12px;
-    color: #EBAB0A;
+    color: #000;
     text-transform: uppercase;
     transition: all .3s ease;
+    background: rgba(225, 149, 194, 1);
 }
 
 .picko-linker .btn-outline:hover {
-    background: #EBAB0A;
+    background: rgba(185, 65, 163, .9);
     color: #000;
 }
 
@@ -91,52 +94,61 @@
         text-align: center;
         width: 100%;
     }
+    
+    .picko-icon {
+        visibility: hidden;
+        height: 0px;
+    }
 }
 
 @-webkit-keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            -webkit-transform: translate3d(0, 50%, 0);
-            transform: translate3d(0, 50%, 0)
-        }
-        100% {
-            opacity: 1;
-            -webkit-transform: none;
-            transform: none
-        }
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 50%, 0);
+        transform: translate3d(0, 50%, 0)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 50%, 0);
+        transform: translate3d(0, 50%, 0)
     }
 
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            -webkit-transform: translate3d(0, 50%, 0);
-            transform: translate3d(0, 50%, 0)
-        }
-
-        100% {
-            opacity: 1;
-            -webkit-transform: none;
-            transform: none
-        }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none
     }
+}
 
 
 </style>
 <section class="picko-linker animated" style="visibility: hidden">
-    <div class="download-wrap">
-        <div class="left-part">
-            <img class="img-responsive" src="assets/images/logo43.png" alt="" width="64">
-        </div>
-        <div class="right-part">
-            <div class="inner">
-                <p>
-                    <b>Would you like to share your Taxi?</b>
-                </p>
-                <a class="btn btn-outline" href="https://pickocar.com/en/">Contact Us</a><br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2 picko-icon">
+                <img class="img-responsive mt-5" src="assets/images/logo43.png" alt="" style="max-height: 50px;">
             </div>
-        </div>
-        <div class="dismiss">
-            <span class="fa fa-close"></span>            
+            <div class="col-sm-10">
+                <div class="inner mt-4 center mr-3 pb-2" style="text-align: center">
+                    <p>
+                        <?php echo __d('mobirise/homepage', '¿Compartirías tu taxi <br>con otros 2 pasajeros para <br><b>AHORRAR 50%</b>?')?>
+                    </p>
+                    <a class="btn btn-outline" href="https://pickocar.com/<?php echo Configure::read('Config.language')?>" target="_blank">
+                        PickoCar - <?php echo __d('mobirise/homepage', 'Servicio de taxi colectivo en Cuba')?>
+                    </a>
+                </div>
+                <div class="dismiss">
+                    <span class="fa fa-close"></span>            
+                </div>
+            </div>
         </div>
     </div>
 </section>
