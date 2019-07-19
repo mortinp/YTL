@@ -13,7 +13,26 @@ class ApiConversationsController extends ApiAppController {
     }
     
     public function iniFetch() {
-        $conversations = $this->getConversationsIniFetch();
+        $relevantConversations = $this->getRelevantConversations();
+        
+        $conversationsInSyncQueue = $this->getConversationsInSyncQueue();
+        
+        // Eliminar duplicadas
+        $conversations = $relevantConversations;
+        foreach ($conversationsInSyncQueue as $sqc) {
+            $isDuplicate = false;
+            foreach ($relevantConversations as $rc) {
+                if($sqc['id'] == $rc['id']) {
+                    $isDuplicate = true;
+                    break;
+                }
+            }
+            
+            if(!$isDuplicate) {
+                unset($sqc['state']); // Quitarle el state a las conversaciones que no son relevantes
+                $conversations[] = $sqc;
+            }
+        }
         
         $synced = $this->markConversationsAsSynced($conversations, -1);
         
@@ -25,7 +44,7 @@ class ApiConversationsController extends ApiAppController {
             '_serialize' => array('success', 'data', 'synced')
         ));
     }
-    private function getConversationsIniFetch() {
+    private function getRelevantConversations() {
         
         $user = $this->getUser();
         
@@ -52,49 +71,25 @@ class ApiConversationsController extends ApiAppController {
         
         return $this->buildConversations($conversationsToSync);
     }
-    
-    /*public function conversationsDaysAgo($numberOfDaysAgo) {
-        $conversations = $this->getConversationsDaysAgo($numberOfDaysAgo);
-        
-        $synced = $this->markConversationsAsSynced($conversations);
-        
-        // RESPUESTA
-        $this->set(array(
-            'success' => true,
-            'data' => $conversations,
-            'synced' =>$synced,
-            '_serialize' => array('success', 'data', 'synced')
-        ));
-    }
-    private function getConversationsDaysAgo($numberOfDaysAgo) {
-        
+    private function getConversationsInSyncQueue() {
         $user = $this->getUser();
         
-        // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
-        if($numberOfDaysAgo == 0) $date = date('Y-m-d', strtotime('today'));
-        else $date = date('Y-m-d', strtotime($numberOfDaysAgo.' days ago'));
-        
         $sql = $this->getSqlSelectFieldsForConversation()
-            . " FROM drivers_travels
-                
-                INNER JOIN travels_conversations_meta
-                ON travels_conversations_meta.conversation_id = drivers_travels.id
-                AND travels_conversations_meta.following = true
-                AND drivers_travels.travel_date >= '".$date."'"
-
-            . " LEFT JOIN driver_traveler_conversations ON driver_traveler_conversations.conversation_id = drivers_travels.id
-                
+            . " FROM api_sync_queue_2driver_conversations
+                INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id
+                LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
                 LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
                 
-                WHERE
-                    drivers_travels.driver_id = ".$user['id']."
-                        
+                WHERE drivers_travels.driver_id = ".$user['id']."
+                    
                 ORDER BY conversation_id";
         
         $conversationsToSync = $this->DriverTravel->query($sql);
         
         return $this->buildConversations($conversationsToSync);
-    }*/
+    }
+    
     
     /*
      * EJEMPLO DE RESPUESTA
@@ -401,6 +396,9 @@ class ApiConversationsController extends ApiAppController {
         $SyncTable = ClassRegistry::init('ApiSync.SyncObject');
         $SyncTable->useTable = 'api_sync_queue_2driver_conversations';
         
+        // Si el batchId = -1, entonces marcar como synced todas las entradas de cada conversacion, sin tener en cuenta el batchId
+        $dismissBatchId = $batchId == -1?'true':'false';
+        
         // Marcar como sincronizados
         $synced = array();
         foreach ($conversations as $c) {
@@ -409,7 +407,7 @@ class ApiConversationsController extends ApiAppController {
             $syncedEntries = $SyncTable->find('all', 
                     array('conditions'=>array(
                             'conversation_id'=>$c['id'],
-                            '(batch_id = '.$batchId.'
+                            '('.$dismissBatchId.' OR batch_id = '.$batchId.'
                                 OR
                                 (
                                     batch_id IS NULL 

@@ -397,19 +397,26 @@ class TestimonialsController extends AppController {
 
         $vars = array(
             'driver_name'=>$reply['Testimonial']['Driver']['DriverProfile']['driver_name'],
-            'testimonial'=>$reply['Testimonial'], 
+            'testimonial'=>array('id'=>$reply['Testimonial']['id'], 'lang'=>$reply['Testimonial']['lang']),
             'driver_nick'=>$reply['Testimonial']['Driver']['DriverProfile']['driver_nick'],
             'traveler_name'=>$reply['Testimonial']['author'],
-            'reply'=>$reply,
+            'reply_text'=>$reply['TestimonialsReply']['reply_text'],
             
         );
+        
+        $lang = (isset($reply['Testimonial']['lang']))? 
+                $reply['Testimonial']['lang']
+                :'es';
+        $subject = $reply['Testimonial']['Driver']['DriverProfile']['driver_name'].' respondió su opinión';
+        if($lang == 'en') $subject = $reply['Testimonial']['Driver']['DriverProfile']['driver_name'].' replied your review';;
+        
         return EmailsUtil::email(
                 $reply['Testimonial']['email'], 
-                $reply['Testimonial']['Driver']['DriverProfile']['driver_name'].' respondió su opinión', 
+                $subject, 
                 $vars, 
                 'no_responder', 
-                'approved_testimonial_reply2traveler'
-                /*array('from_name'=>'Testimonio, YoTeLlevo', 'from_email'=>'martin@yotellevocuba.com')*/);
+                'approved_testimonial_reply2traveler',
+                array('lang'=>$lang));
     }
 
     public function admin($id) {
@@ -567,10 +574,9 @@ class TestimonialsController extends AppController {
         $save_data = array('id' => $id, 'state' => $state);
         if ($this->TestimonialsReply->save($save_data)) {
             
-           /*// Enviar correo al viajero
+           // Enviar correo al viajero
            $state_str = TestimonialsReply::$states[$state];
-           //die(print_r($data));
-           if($state_str == 'approved') $this->_sendApprovedReplyToTraveler($data);*/
+           if($state_str == 'approved') $this->_sendApprovedReplyToTraveler($data);
             
             if ($action == 'admin')
                 return $this->redirect(array('action' => "admin/$id"));

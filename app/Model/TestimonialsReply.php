@@ -1,17 +1,9 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * TestimonialsReply Model
- *
- */
-class TestimonialsReply extends AppModel {
 
-/**
- * Use database config
- *
- * @var string
- */
-	public $useDbConfig = 'mysql';
+class TestimonialsReply extends AppModel {
+    
+    public $order = 'TestimonialsReply.created DESC';
         
     public $belongsTo = array('Testimonial');
         

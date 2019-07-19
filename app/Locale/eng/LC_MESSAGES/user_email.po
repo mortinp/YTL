@@ -252,11 +252,12 @@ msgid "Disfrute mucho"
 msgstr "Enjoy"
 
 #: View/Emails/html/welcome_new.ctp:18
+msgid "El equipo de <a href="https://yotellevocuba.com">YoTeLlevo</a>."
+msgstr "The team at <a href="https://yotellevocuba.com">YoTeLlevo</a>."
+
+#: View/Emails/html/welcome_new.ctp:18
 msgid "El equipo de <a href="http://yotellevocuba.com">YoTeLlevo</a>."
 msgstr "The team at <a href="http://yotellevocuba.com">YoTeLlevo</a>."
-
-
-
 
 
 #: View/Emails/html/request_testimonial.ctp:18
