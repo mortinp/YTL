@@ -111,17 +111,12 @@ echo $this->fetch('script');
    /*Popover de picko linker */
     var $picko = $('.picko-linker');        
     setTimeout(function(){       
-        $picko.css("visibility","visible");
+        $picko.css("visibility","visible");        
      }, 4500);
 
     
-    $picko.find('.dismiss').click(function () {
-        sessionStorage.setItem('picko-linker-dismissed', true);
-        $picko.removeClass('fadeInUpBig');
-        $picko.addClass('fadeOutDown');
-        setTimeout(function () {
-            $picko.remove();
-        }, 1000);
+    $picko.find('.dismiss').click(function () {       
+        $picko.animate({opacity:'hide', heigh:'hide'},'slow');        
     });
     
     });

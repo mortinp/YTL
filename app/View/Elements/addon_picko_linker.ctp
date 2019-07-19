@@ -122,7 +122,7 @@
 
 
 </style>
-<section class="picko-linker animated fadeOutDown" style="visibility: hidden">
+<section class="picko-linker animated" style="visibility: hidden">
     <div class="download-wrap">
         <div class="left-part">
             <img class="img-responsive" src="assets/images/logo43.png" alt="" width="64">
