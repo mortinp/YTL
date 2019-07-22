@@ -64,7 +64,7 @@
             foreach($testimonials as $i=>$data):?>
                 <div>
                     <?php echo $this->element('testimonial_body', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver']/*, 'nameAsLink'=>false*/));?>
-                </div>
+                </div>               
             
                 <div>
                     <hr/>

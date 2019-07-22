@@ -62,7 +62,7 @@ class TestimonialsController extends AppController {
     public function featured($redirect = true) {
         if($redirect) return $this->redirect(array('action'=>'reviews', '?'=>$this->request->query), 301);
         
-        $this->Testimonial->recursive = 2;
+        $this->Testimonial->recursive = 4;
         
         //$this->Driver->unbindModel(array('belongsTo' => array('Province')));
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));

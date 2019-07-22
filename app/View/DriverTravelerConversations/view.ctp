@@ -94,13 +94,6 @@ $travelDate = DriverTravel::extractDate($data);
            
    }
 </style>
-<script type="text/javascript">
-    /*Logica para panel lateral inicialmente visible*/
-   $(document).ready(function() { 
-    $(".theme-config-box").toggleClass("show");
-    });
-</script>
-
 <?php $topPosition = 60?>
 <?php $fechaCambiada = isset ($data['DriverTravel']['original_date']) && $data['DriverTravel']['original_date'] != null;?>
         
@@ -156,7 +149,7 @@ $travelDate = DriverTravel::extractDate($data);
 <div class="theme-config">
     <div class="theme-config-box">
         <div class="spin-icon alert alert-info">
-            <i id="box-menu" class="glyphicon glyphicon-chevron-right pull-left"></i>
+            <i id="box-menu" class="glyphicon glyphicon-chevron-left pull-left"></i>
         </div>
         <div class="skin-settings">            
             <div class="well">
