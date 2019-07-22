@@ -206,7 +206,8 @@ class Driver extends AppModel {
                 
                 INNER JOIN drivers_profiles 
                 ON drivers.id = drivers_profiles.driver_id 
-                AND drivers.active = true 
+                AND drivers.active = true
+                AND drivers.receive_requests = true
                 AND drivers.receive_requests = true 
                 AND drivers.province_id=".$provinceID."
                 ".$notThisDriverCondition."

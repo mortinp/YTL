@@ -469,7 +469,7 @@ class UsersController extends AppController {
                 if($new) return $this->redirect (array('action' => 'register_welcome', $result['conversation_id']));
                 
                 $this->setInfoMessage($result['message']);
-                return $this->redirect( array('controller' => 'conversations') );
+                return $this->redirect( array('controller' => 'conversations', 'action'=>'messages', $result['conversation_id']) );
             }
             else $this->setErrorMessage ($result['message']);
         }
