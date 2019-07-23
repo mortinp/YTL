@@ -10,12 +10,11 @@
 <?php foreach($testimonials as $testimonial):?>
     <section class="testimonials3 cid-r6TeBtPTdm" id="testimonials3-o">
         <div class="container">
-            <?php echo $this->element('mobirise/testimonial-full', array('testimonial'=>$testimonial['Testimonial'], 'driver'=>$testimonial['Driver']))?>
-            <?php foreach($testimonial['TestimonialsReply'] as $reply):?>
-                <?php if(sizeof($reply)>0 && $reply['state']==TestimonialsReply::$statesValues['approved']): ?>
-               <?php echo $this->element('mobirise/testimonial-reply-full', array('reply'=>$reply,'driver'=>$testimonial['Driver']))?>
-                <?php endif; ?>
-            <?php endforeach;?>
+            <?php $hasReplies = isset($testimonial['TestimonialsReply']) && $testimonial['TestimonialsReply'] != null?>
+            <?php echo $this->element('mobirise/testimonial-full', 
+                            array('testimonial'=>$testimonial['Testimonial'], 
+                            'driver'=>$testimonial['Driver'],
+                            'driverReplies'=>$hasReplies?$testimonial['TestimonialsReply']:array()))?>
         </div>
     </section>
 <?php endforeach;?>

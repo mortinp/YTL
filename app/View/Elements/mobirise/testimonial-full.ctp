@@ -4,6 +4,8 @@
 <?php
 if(!isset($shareReview)) $shareReview = true;
 if(!isset($linkToProfile)) $linkToProfile = false;
+if(!isset($driverReplies)) $driverReplies = array();
+
 
 $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driver['DriverProfile']);
 ?>
@@ -81,3 +83,9 @@ $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driv
         </div>
     <?php endif ?>
 </div>
+
+<?php foreach($driverReplies as $reply):?>
+    <?php if(sizeof($reply)>0 && $reply['state'] == TestimonialsReply::$statesValues['approved']): ?>
+        <?php echo $this->element('mobirise/testimonial-reply-full', array('reply'=>$reply,'driver'=>$driver))?>
+    <?php endif; ?>
+<?php endforeach;?>

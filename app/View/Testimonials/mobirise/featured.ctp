@@ -131,12 +131,12 @@
 <?php foreach($testimonials as $i=>$data):?>
     <section class="testimonials3 cid-r6TeBtPTdm" id="testimonials3-o">
         <div class="container">
-            <?php echo $this->element('mobirise/testimonial-full', array('testimonial'=>$data['Testimonial'], 'driver'=>$data['Driver'], 'linkToProfile'=>true))?>
-        <?php foreach($data['TestimonialsReply'] as $reply):?>
-            <?php if(sizeof($reply)>0 && $reply['state']==TestimonialsReply::$statesValues['approved']): ?>
-            <?php echo $this->element('mobirise/testimonial-reply-full', array('reply'=>$reply,'driver'=>$data['Driver']))?>
-            <?php endif; ?>
-        <?php endforeach;?>
+            <?php $hasReplies = isset($data['TestimonialsReply']) && $data['TestimonialsReply'] != null?>
+            <?php echo $this->element('mobirise/testimonial-full', 
+                            array('testimonial'=>$data['Testimonial'], 
+                            'driver'=>$data['Driver'],
+                            'driverReplies'=>$hasReplies?$data['TestimonialsReply']:array(),
+                            'linkToProfile'=>true))?>
         </div>        
     </section>
 
