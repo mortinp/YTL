@@ -208,6 +208,7 @@ class Driver extends AppModel {
                 ON drivers.id = drivers_profiles.driver_id 
                 AND drivers.active = true
                 AND drivers.receive_requests = true
+                AND drivers.max_people_count <= 10
                 AND drivers.receive_requests = true 
                 AND drivers.province_id=".$provinceID."
                 ".$notThisDriverCondition."
