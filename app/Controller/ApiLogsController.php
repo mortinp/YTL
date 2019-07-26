@@ -38,8 +38,8 @@ class ApiLogsController extends ApiAppController {
         );
         
         $this->set(array(
-            'success' => $OK,
-            'data' => $OK,
+            'success' => true,
+            'data' => true,
             '_serialize' => array('success', 'data')
         ));
     }

@@ -43,7 +43,18 @@ if($userLoggedIn) {
         <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
         <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
         <?php endif?>
-        <meta property="og:description" content="<?php echo $description?>">                
+        <meta property="og:description" content="<?php echo $description?>">
+            
+        <!-- TWITTER SHARE -->   
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="<?php echo substr($title, 0, 120)?>">
+        <meta name="twitter:description" content="<?php echo $description?>">
+        <meta name="twitter:site" content="@yotellevocuba">
+        <meta name="twitter:creator" content="@yotellevocuba">
+        <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
+        <meta name="twitter:image:src" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
+        <?php endif?>
+        
     <?php endif; ?>
     <?php if($this->request->query('see-review')):?>                                             
             <?php                                                    
@@ -54,19 +65,25 @@ if($userLoggedIn) {
             if ($highlighted['Testimonial']['image_filepath']) $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $highlighted['Testimonial']['image_filepath']);
             else if ($profile['DriverProfile']['featured_img_url']) $fbImgUrl = $profile['DriverProfile']['featured_img_url'];
             else $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['DriverProfile']['avatar_filepath']);
+            
+            $currentFullUrl             = $this->request['pass'];
+            $currentFullUrl             = array_merge($currentFullUrl, $this->request['named']);
+            $currentFullUrl['?']        = $this->request->query;
+            $currentFullUrl['language'] = Configure::read('Config.language');
+            $currentFullUrl['base'] = false;
             ?>
             <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['Testimonial']['author'], $profile['DriverProfile']['driver_name']), 0, 120)?>">
             <meta property="og:image" content="<?php echo $fbImgUrl?>">
             <meta property="og:description" content="<?php echo substr($highlighted['Testimonial']['text'], 0, 300)?>...">
-
-            <?php
-                $currentFullUrl             = $this->request['pass'];
-                $currentFullUrl             = array_merge($currentFullUrl, $this->request['named']);
-                $currentFullUrl['?']        = $this->request->query;
-                $currentFullUrl['language'] = Configure::read('Config.language');
-                $currentFullUrl['base'] = false;
-            ?>
             <meta property="og:url" content="<?php echo $this->Html->url($currentFullUrl, true) ?>" />
+            
+            <!-- TWITTER SHARE -->   
+            <meta name="twitter:card" content="summary">
+            <meta name="twitter:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['Testimonial']['author'], $profile['DriverProfile']['driver_name']), 0, 70)?>">
+            <meta name="twitter:description" content="<?php echo substr($highlighted['Testimonial']['text'], 0, 200)?>...">
+            <meta name="twitter:site" content="@yotellevocuba">
+            <meta name="twitter:creator" content="@yotellevocuba">
+            <meta name="twitter:image:src" content="<?php echo $fbImgUrl?>">
     <?php endif; ?>
     <!--END FACEBOOK SHARE-->
 
