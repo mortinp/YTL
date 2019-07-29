@@ -67,7 +67,7 @@ $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driv
                     <b><small><span class="fa fa-pinterest"></span></small></b>
                 </a>&nbsp;
                 <a  style="padding:4px;background-color: #1da1f2;color: #FFFFFF !important;text-decoration: none;border-radius:5px"
-                    href="https://twitter.com/home?status=<?php echo $reviewUrl ?>" 
+                    href="https://twitter.com/intent/tweet?url=<?php echo $reviewUrl ?>" 
                     target="_blank"
                     title="Twitter">
                     <b><small><span class="fa fa-twitter"></span></small></b>
