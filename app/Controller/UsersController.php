@@ -461,8 +461,12 @@ class UsersController extends AppController {
         // Si el usuario esta logueado, simplemente mandar el mensaje y continuar
         if($this->Auth->loggedIn()){
             $conversation = array('DriverTravel' => $this->request->data['DriverTravel']);
-            $message      = $this->request->data['DriverTravelerConversation']['response_text'];
-            $result       = $this->DirectMessages->send_message($conversation, $message);
+            $message = $this->request->data['DriverTravelerConversation']['response_text'];
+            if($this->request->data['closed']){
+            $super = $this->request->data['closed'];
+            $result= $this->DirectMessages->send_message($conversation, $message,$super);
+            }else
+               $result = $this->DirectMessages->send_message($conversation, $message);  
             
             if($result['success']){
                 

@@ -8,7 +8,7 @@
          * Sería bueno mandar además un mensaje al usuario, para que tenga una forma de escribirle otro mensaje al chofer sin esperar su respuesta
          * o indicarle en la vista que debe esperar la respuesta del chofer
          */
-        public function send_message($conversation, $message){
+        public function send_message($conversation, $message,$expired=null){
             if(!$this->Auth->loggedIn())
                 return array('success' => false, 'message' => __d('drivers_travels', 'Debe entrar a YoTeLlevo antes de enviar su mensaje'));
             
@@ -22,6 +22,13 @@
             
             if( $DriverTravelModel->save($conversation) ){
                 $conversation['DriverTravel']['id'] = $DriverTravelModel->getLastInsertID();
+                
+                //Taking the child conversation id if messaging from expired
+                if ($expired) {                   
+                   $conv= $DriverTravelModel->findById($expired);
+                   $conv['DriverTravel']['child_conversation_id'] = $DriverTravelModel->getLastInsertID();
+                   $DriverTravelModel->save($conv);//modificamos la conversacion con el child_conversation_id
+                }
                 
                 $message = EmailsUtil::fixEmailBody(EmailsUtil::removeAllEmailAddresses($message));
                 
@@ -66,7 +73,7 @@
                     
                     if($OK) {   
                         $datasource->commit();
-                        return array('success' => true, 'message' => __('Su mensaje fue enviado satisfactoriamente'), 'conversation_id' => $DriverTravelModel->id);
+                        return array('success' => true, 'message' => __('Su mensaje fue enviado satisfactoriamente'), 'conversation_id' => $conversation['DriverTravel']['id']);
                     }    
                     else{
                         $datasource->rollback();

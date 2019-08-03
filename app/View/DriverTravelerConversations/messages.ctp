@@ -75,7 +75,13 @@
     <?php endif?>
     
     <div class="col-md-9 col-md-offset-1"><hr/></div>
-    
+    <?php 
+    //die(print_r($data));
+    //Calculos previos
+     $checkDate = date('Y-m-d', strtotime('today - 2 month'));
+     $traveldate = date('Y-m-d', strtotime($data['DriverTravel']['travel_date']));
+    ?>
+    <?php if($traveldate > $checkDate):  ?>   
     <!-- FORMULARIO PARA ENVIAR MENSAJE AL CHOFER  -->
     <div class="col-md-6 col-md-offset-4 well">
         <div class="">
@@ -98,6 +104,34 @@
             <?php echo $this->element('addon_scripts_send_form', array('formId'=>'DriverTravelerConversationForm', 'submitId'=>'DriverTravelerConversationSubmit'))?>
         </div>
     </div>
+        <?php else: ?>
+        <?php if($data['DriverTravel']['child_conversation_id']!=null): ?>
+       <div class="col-md-6 col-md-offset-4">
+           <div class="alert alert-warning" style="display: inline-block">
+           <p>Esta conversación está <b>cerrada</b> por haber expirado hace más de 2 meses y no se pueden enviar mensajes. Se ha generado una nueva conversación con el chofer.</p>
+           <p><?php echo $this->Html->link('ver nueva conversación »', array('controller' => 'conversations', 'action' => 'messages', $data['DriverTravel']['child_conversation_id']), array('target'=>'_blank'))?></p>
+           </div>
+       </div>
+        <?php else: ?>
+        <?php 
+          $profile = array('Driver'=>$data['Driver'],'DriverProfile'=>$data['Driver']['DriverProfile']);
+        ?>
+    <div class="col-md-6 col-md-offset-4 alert alert-warning" style="display: inline-block">
+       <p>Esta conversación está <b>cerrada</b> por haber expirado hace más de 2 meses y no se pueden enviar mensajes. Si desea realizar un nuevo viaje, especifique los datos iniciales debajo. Se creará una nueva conversación con el chofer.</p>
+   </div>
+    <div class="col-md-6 col-md-offset-4 well">
+        <!--SI ES VIEJO SE MANDA UNA SOICITUD DIRECTA-->        
+            <div class="row justify-content-center">
+                <div class="media-container-column col-lg-8" data-form-type="formoid">
+                    <?php echo $this->element('mobirise/form_write_to_driver', array('profile'=>$profile,'expired'=>true,'super'=>$data['DriverTravel']['id']))?>
+                                       
+                </div>
+            </div>  
+    </div>
+        <?php endif; ?>
+        <?php endif; ?>
+      
+    
 
 <?php endif?>
 

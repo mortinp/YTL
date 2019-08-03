@@ -52,15 +52,47 @@ if($userLoggedIn) {
         $this->Html->css('default-bundle', array('inline' => false));
         
         $this->Html->script('default-bundle', array('inline' => false));
-
+        $this->Html->css('/assets/datepicker/css/datepicker', array('inline' => false));
+              
         echo $this->fetch('meta');
-        echo $this->fetch('css');
+        echo $this->fetch('css');        
+        $this->Html->script('/assets/jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));
+        $this->Html->script('/assets/datepicker/js/datepicker', array('inline' => false));        
         echo $this->fetch('script');
+        
         ?>
         
         <script type="text/javascript">
             $(document).ready(function() {
                 
+                /*Logica para el mensaje directo en conv. cerrada*/
+                $('.datepicker').datepicker({
+                format: "dd/mm/yyyy",
+                language: '<?php echo Configure::read('Config.language')?>',
+                startDate: 'today',
+                todayBtn: "linked",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('#CDirectForm').validate({
+                wrapper: 'div',
+                errorClass: 'text-danger',
+                errorElement: 'div'
+            });
+
+
+            $('#CDirectForm').submit(function () {
+                if (!$(this).valid())
+                    return false;
+
+                //$('#TravelForm :input').prop('disabled', true);
+                //$('#TravelFormDiv').prop('disabled', true);
+
+                $('#CDirectSubmit').attr('disabled', true);
+                $('#CDirectSubmit').val('<?php echo __d('mobirise/default', 'Espera')?> ...');
+            });
+               /*---------------------------------------------------------------------------------*/ 
                 $.each($('.info'), function(pos, obj) {
                     var placement = 'bottom';
                     if($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');

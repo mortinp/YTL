@@ -24,11 +24,40 @@ class MessagesUtil {
  * @param string $messageSource            ==> De donde viene el mensaje (WEB, EML, APP): defaul UNK: Unknown
 * @return void, si falla se guarda un mensaje de error en 'conversations' log file
 */
-    public function sendMessage($from, $conversation, $sender, $body, array $attachments, $messageSource = 'UNK') {
+    public function sendMessage($from, $conversation, $sender, $body, array $attachments, $messageSource = 'UNK',$expired=null) {
         $this->errorMessage = "Conversation Failed!";
-
+        $passed = $conversation;//Para garantizar tener la conversacion antigua
         $this->prepareToGetData($from);
         $driverTravel = $this->DriverTravel->findById($conversation);
+        
+        if ($expired!=null) {            
+            
+            if($driverTravel['DriverTravel']['child_conversation_id']!=null){
+                //Si tiene child conversation se manda todo para esa conversacion hija
+                $conversation = $driverTravel['DriverTravel']['child_conversation_id'];
+            }
+            else{
+            
+                $new_travel_date =  date('Y-m-d', strtotime('today + 1 month'));
+                $new_travel = array('DriverTravel'=>array('travel_date'=> TimeUtil::dateFormatBeforeSave($new_travel_date),
+                    'notification_type'=>DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE,
+                    'last_driver_email'=> $driverTravel['DriverTravel']['last_driver_email'],
+                    'driver_id'=> $driverTravel['DriverTravel']['driver_id'],
+                    'user_id'=> $driverTravel['DriverTravel']['user_id'],
+                    'travel_id'=> null,)
+                );                        
+
+                $this->DriverTravel->create();
+                $OK = $this->DriverTravel->save($new_travel);//Guardamos la nueva conversacion
+                if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo salvar la nueva conversación en driver_travel"; 
+                $conversation = $this->DriverTravel->getLastInsertID();
+
+                $this->DriverTravel->create();
+                $this->DriverTravel->id = $passed;
+                $OK = $this->DriverTravel->saveField('child_conversation_id', $conversation, array('counterCache'=>false));//Le añadimos el child_conversation_id  
+                if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo actualizar el child_conversation_id de la conversación en driver_travel";
+            }
+        }
 
         if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
             $fixedBody = $this->getFixedBody($from, $body);
