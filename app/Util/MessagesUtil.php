@@ -35,6 +35,7 @@ class MessagesUtil {
             if($driverTravel['DriverTravel']['child_conversation_id']!=null){
                 //Si tiene child conversation se manda todo para esa conversacion hija
                 $conversation = $driverTravel['DriverTravel']['child_conversation_id'];
+                $driverTravel = $this->DriverTravel->findById($conversation);
             }
             else{
             
@@ -56,8 +57,11 @@ class MessagesUtil {
                 $this->DriverTravel->id = $passed;
                 $OK = $this->DriverTravel->saveField('child_conversation_id', $conversation, array('counterCache'=>false));//Le añadimos el child_conversation_id  
                 if(!$OK) $this->errorMessage = "Conversation Failed: No se pudo actualizar el child_conversation_id de la conversación en driver_travel";
+                $driverTravel = $this->DriverTravel->findById($conversation);
             }
         }
+        
+        //Recargamos los datos de
 
         if($driverTravel != null && is_array($driverTravel) && !empty ($driverTravel)) {
             $fixedBody = $this->getFixedBody($from, $body);
