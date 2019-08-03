@@ -39,6 +39,14 @@ if($isLoggedIn) {
   <title><?php echo $page_title." | YoTeLlevo" ?></title>
   <meta name="description" content="<?php echo $page_description?>"/>
   
+  <!-- TWITTER SHARE -->   
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo substr($page_title, 0, 70)?>">
+  <meta name="twitter:description" content="<?php echo $page_description?>">
+  <meta name="twitter:site" content="@yotellevocuba">
+  <meta name="twitter:creator" content="@yotellevocuba">
+  <meta name="twitter:image:src" content="/assets/images/1525113306-ismel-kimara-jpg-2000x1333.jpg">
+  
   <!-- FACEBOOK SHARE -->        
   <meta property="og:title" content="<?php echo substr($page_title, 0, 90)?>">
   <meta property="og:image" content="/assets/images/1525113306-ismel-kimara-jpg-2000x1333.jpg">
