@@ -17,6 +17,10 @@
         <?php else: ?>
             Mensaje directo #D<?php echo $travel['identifier']?> con fecha de inicio <?php echo TimeUtil::prettyDate($travel['driver_travel_date'])?>
         <?php endif; ?>
+        <p>
+            <a href="<?php  echo $this->Html->url(array('controller'=>'drivers','action'=>'messages', $travel['driver_travel_id'], 'base'=>false), true);
+         ?>">Mira esta conversación completa en nuestro sitio Web</a>
+        </p>
         
         
     </li>

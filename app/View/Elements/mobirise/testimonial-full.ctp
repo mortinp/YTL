@@ -22,6 +22,11 @@ $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driv
         <p class="mbr-author-desc mbr-fonts-style display-6 text-muted">
            <?php echo __d('mobirise/testimonials', 'Escrita el %s', TimeUtil::prettyDate($testimonial['created'], false))?>
         </p>
+        <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
+        <div class="mbr-figure pl-lg-5 d-xs-block d-sm-block d-lg-none d-md-block" style="width: 100%;">
+            <img class=""  src='<?php echo PathUtil::getFullPath($testimonial['image_filepath']) ?>' alt="" title=""/>
+        </div>
+    <?php endif ?>
         <p class="mbr-text testimonial-text mbr-fonts-style display-7">
             <span style="font-style: normal;">
                 <?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?>
@@ -78,7 +83,7 @@ $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driv
     </div>
     
     <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
-        <div class="mbr-figure pl-lg-5 hidden-md-down d-sm-none d-xs-none" style="width: 100%;">
+        <div class="mbr-figure pl-lg-5 d-none d-lg-block" style="width: 100%;">
             <img src='<?php echo PathUtil::getFullPath($testimonial['image_filepath']) ?>' alt="" title=""/>
         </div>
     <?php endif ?>

@@ -10,7 +10,7 @@ class RoutinesShell extends AppShell {
     public function email2drivers_travels_payment_due() {
         $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, 
                 travels.id as travel_id, travels.origin as travel_origin, travels.destination as travel_destination, travels.date as travel_date, 
-                drivers_travels.travel_date as driver_travel_date, drivers_travels.notification_type, drivers_travels.identifier
+                drivers_travels.travel_date as driver_travel_date, drivers_travels.notification_type, drivers_travels.identifier, drivers_travels.id as driver_travel_id
 
                 from drivers_travels
 
