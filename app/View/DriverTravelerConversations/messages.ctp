@@ -75,13 +75,8 @@
     <?php endif?>
     
     <div class="col-md-9 col-md-offset-1"><hr/></div>
-    <?php 
-    //die(print_r($data));
-    //Calculos previos
-     $checkDate = date('Y-m-d', strtotime('today - 2 month'));
-     $traveldate = date('Y-m-d', strtotime($data['DriverTravel']['travel_date']));
-    ?>
-    <?php if($traveldate > $checkDate):  ?>   
+    
+    <?php if(!DriverTravel::isClosed($data['DriverTravel'])):  ?>   
     <!-- FORMULARIO PARA ENVIAR MENSAJE AL CHOFER  -->
     <div class="col-md-6 col-md-offset-4 well">
         <div class="">
@@ -105,7 +100,7 @@
         </div>
     </div>
         <?php else: ?>
-        <?php if($data['DriverTravel']['child_conversation_id']!=null): ?>
+        <?php if($data['DriverTravel']['child_conversation_id'] != null): ?>
        <div class="col-md-6 col-md-offset-4">
            <div class="alert alert-warning" style="display: inline-block">
            <p>Esta conversación está <b>cerrada</b> por haber expirado hace más de 2 meses y no se pueden enviar mensajes. Se ha generado una nueva conversación con el chofer.</p>

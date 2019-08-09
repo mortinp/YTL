@@ -55,24 +55,16 @@ class IncomingMailShell extends AppShell {
         if($to === 'chofer@'.Configure::read('domain_name')) { 
             $parseOK = preg_match('#\[\[(.+?)\]\]#is', $subject, $matches);
             if($parseOK) {
-                $conversation = $matches[1];
-                $this->out($conversation);
-                /*Logic for catching closed and expired conversations*/
+                $conversationId = $matches[1];
+                $this->out($conversationId);
+                
+                // Find out if the conversation is closed
                 $DriverTravelModel = ClassRegistry::init('DriverTravel');
+                $conv = $DriverTravelModel->findById($conversationId);
                 
-                //Verifying if older than 2 months
-                $conv= $DriverTravelModel->findById($conversation);                
-                $checkDate = date('Y-m-d', strtotime('today - 2 month'));
-                $traveldate = date('Y-m-d', strtotime($conv['DriverTravel']['travel_date']));
+                $mu = new MessagesUtil();
+                $mu->sendMessage('traveler', $conversationId, $sender, $body, $parser->attachments, 'EML', DriverTravel::isClosed($conv['DriverTravel']));
                 
-                if($traveldate < $checkDate){
-                    $expired = $conversation;
-                    $mu = new MessagesUtil();
-                    $mu->sendMessage('traveler', $conversation, $sender, $body, $parser->attachments, 'EML',$expired);
-                }else{
-                    $mu = new MessagesUtil();
-                    $mu->sendMessage('traveler', $conversation, $sender, $body, $parser->attachments, 'EML');
-                }                
             } else {
                 CakeLog::write('conversations', "<span style='color:red'>Conversation Failed: No se pudo parsear el asunto</span>");
                 CakeLog::write('conversations', 'Conversation - Sender: '.$sender.' | Subject: '.$subject.' | Body: '.$body);

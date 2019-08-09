@@ -1,1 +1,0 @@
-ALTER TABLE `drivers_travels` ADD `child_conversation_id` CHAR(36) NOT NULL AFTER `user_id`;

@@ -78,7 +78,7 @@ $hasProfile = isset($driver) && isset ($driver['DriverProfile']) && !empty($driv
     </div>
     
     <?php if (isset($testimonial['image_filepath']) && $testimonial['image_filepath']): ?>
-        <div class="mbr-figure pl-lg-5" style="width: 100%;">
+        <div class="mbr-figure pl-lg-5 hidden-md-down d-sm-none d-xs-none" style="width: 100%;">
             <img src='<?php echo PathUtil::getFullPath($testimonial['image_filepath']) ?>' alt="" title=""/>
         </div>
     <?php endif ?>

@@ -46,25 +46,7 @@
                         $vars['driver_name'] = Driver::shortenName($driver['DriverProfile']['driver_name']);
                                         
                     
-                    $OK = true;                    
-
-                    // MOBILE TEST
-                    $testEmail = Configure::read('mobile_test_email');            
-                    if($conversation['DriverTravel']['last_driver_email'] == $testEmail) {
-                        // Ponerle el orden de este mensaje del cliente, que es 1 porque es el primer mensaje
-                        $conversation['DriverTravel']['c_message_order'] = 1;
-                        EmailsUtil::email(
-                                $testEmail, 
-                                $conversation['DriverTravel']['id'], 
-                                array('conversation' => $conversation['DriverTravel'], 'message'=>$message),
-                                'mdirecto', 
-                                'mob_new_direct_msg', 
-                                array('enqueue'=>false), 
-                                'text');
-                    }
-                    // ENDOF MOBILE TEST
-                    
-                    else $OK = EmailsUtil::email(
+                    $OK = EmailsUtil::email(
                             $conversation['DriverTravel']['last_driver_email'], 
                             'Mensaje directo'.' [['.$DriverTravelModel->id.']]',
                             $vars, 

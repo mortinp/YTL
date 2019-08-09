@@ -101,6 +101,10 @@ class DriverTravel extends AppModel {
         foreach ($results as $key => $val) {
             if (isset($val[$this->alias]['travel_date'])) {
                 $results[$key][$this->alias]['travel_date'] = TimeUtil::dateFormatAfterFind($val[$this->alias]['travel_date']);
+                
+                // Ponerle si está cerrada o no la conversacion
+                if(DriverTravel::isClosed($val[$this->alias])) $val[$this->alias]['is_closed'] = true;
+                else $val[$this->alias]['is_closed'] = true;
             }
         }
         return $results;
@@ -201,6 +205,18 @@ class DriverTravel extends AppModel {
     
     public static function getConversationUrlArray($conversationId) {
         return array('controller'=>'driver_traveler_conversations', 'action'=>'view', $conversationId);
+    }
+    
+    /**
+     * Returns true or false whether this conversation is closed (does not accept new messages)
+     */
+    public static function isClosed($conversation) {
+        if(isset($conversation['is_closed']) && $conversation['is_closed']) return true;
+        
+        $checkDate = strtotime('today - 2 month');
+        $traveldate = strtotime($conversation['travel_date']);
+               
+        return $traveldate < $checkDate;
     }
     
 }
