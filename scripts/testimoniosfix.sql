@@ -1,1 +1,1 @@
-UPDATE testimonials SET image_filepath='files/1557593620_eduardo-taxi-opinion-catalanas_jpeg' WHERE id='5cd6ef7e-6628-4afb-bda9-23144f8fb177';
+UPDATE testimonials SET image_filepath='files/1565363939_family-in-front-of-bus-travel-juan-carlos-cuba_jpeg' WHERE id='5d4d3199-22bc-4abc-9287-2a6b4f8fb177';
