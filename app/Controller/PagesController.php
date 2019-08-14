@@ -67,7 +67,38 @@ class PagesController extends AppController {
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         
         if($page === 'home' || $page === 'taxi-cuba' || $page === 'la-habana' || $page === 'welcome' || $page === 'price-drivers-cuba') {
-            if($page === 'home') $this->layout = 'home';
+            if($page === 'home') {
+                $this->layout = 'home';
+                
+                // STATS
+                $stats = $this->Session->read('App.stats');
+                if(!$stats) {
+                    $doneSQL = "SELECT COUNT( DISTINCT travels.id ) AS hires, SUM( travels.people_count ) AS people
+                                FROM travels
+                                INNER JOIN users ON travels.user_id = users.id
+                                AND users.role !=  'admin'
+                                AND users.role !=  'tester'
+                                INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+                                INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
+                                AND (
+                                travels_conversations_meta.state = 'D'
+                                OR travels_conversations_meta.state = 'P'
+                                )";
+
+                    $reviewsSQL = "SELECT COUNT( testimonials.id ) AS reviews
+                                FROM testimonials
+                                WHERE testimonials.state = 'A'";
+
+                    $done = $this->Testimonial->query($doneSQL);
+                    $reviews = $this->Testimonial->query($reviewsSQL);
+
+                    $stats = array('hires'=>$done[0][0]['hires'], 'people'=>$done[0][0]['people'], 'reviews'=>$reviews[0][0]['reviews']);
+
+                    $this->Session->write('App.stats', $stats);
+                }
+                
+                $this->set(compact('stats'));
+            }
             
             $this->set('localities', Locality::getAsSuggestions());
             
@@ -143,5 +174,4 @@ class PagesController extends AppController {
             }
         }
     }
-
 }
