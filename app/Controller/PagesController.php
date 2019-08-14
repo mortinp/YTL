@@ -75,7 +75,7 @@ class PagesController extends AppController {
             $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
 
             $lang = array(Configure::read('Config.language'));
-            $conditions = array('Testimonial.featured'=>true, 'Testimonial.lang'=>$lang, 'Testimonial.image_filepath IS NOT NULL', 'Testimonial.image_filepath !='=>'');
+            $conditions = array('Testimonial.featured'=>true, /*'Testimonial.lang'=>$lang,*/ 'Testimonial.image_filepath IS NOT NULL', 'Testimonial.image_filepath !='=>'');
             
             $testimonials_sample = $this->Testimonial->find('all', array('conditions'=>$conditions, 'order'=>array('Testimonial.created'=>'DESC'), 'limit'=>3));
 
