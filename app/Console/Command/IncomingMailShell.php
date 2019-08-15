@@ -1,6 +1,7 @@
 <?php
 
 App::uses('Travel', 'Model');
+App::uses('DriverTravel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('EmailsUtil', 'Util');
 App::uses('MessagesUtil', 'Util');

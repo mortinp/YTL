@@ -153,9 +153,11 @@ class DriversController extends AppController {
                
                 //Creating a virtual field for returning given testimonial (if given) into pagination
                 $this->Testimonial->virtualFields['in_review']=  "IF (Testimonial.id IN ('$askedreview'),0,1)";
-                //Logica para ver /profile/drivername/view:testimonial_count
-                if(!isset($this->passedArgs['view'])) $this->passedArgs['view'] = 5;      
-                $this->paginate = array( 'Testimonial' => array('limit' => $this->passedArgs['view'], 'recursive' => 2, 'order' => array('in_review'=>'asc'/*our given testimonial comes first*/,'Testimonial.created'=> 'desc')) );
+                
+                //Logica para ver /profile/drivername/reviews:testimonial_count
+                if(!isset($this->passedArgs['reviews'])) $this->passedArgs['reviews'] = 5;
+                
+                $this->paginate = array( 'Testimonial' => array('limit' => $this->passedArgs['reviews'], 'recursive' => 2, 'order' => array('in_review'=>'asc'/*our given testimonial comes first*/,'Testimonial.created'=> 'desc')) );
                 
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
