@@ -15,8 +15,8 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: /home.ctp:29
-msgid "La mayor comunidad de choferes privados en Cuba"
-msgstr "The biggest community of private drivers in Cuba"
+msgid "La mayor comunidad de choferes de taxi en Cuba"
+msgstr "The biggest community of taxi drivers in Cuba"
 
 #: /home.ctp:29
 msgid "Listos para darte precios para tus traslados y para ser contratados"
@@ -80,8 +80,8 @@ msgstr "See up to date reviews and pictures of the drivers. Decide whether you'd
 msgid "Lee historias de clientes anteriores y decide si quieres contratar a algún conductor"
 msgstr "Read stories from previous customers and decide whether you'd like to hire a driver"
 #: /home.ctp:83
-msgid "Las verás en los perfiles de los choferes y decidirás si quieres contratar a alguno"
-msgstr "You will see them in the drivers' profiles and will decide whether you'd like to hire one"
+msgid "Míralas en los perfiles de los choferes y decide si quieres contratar a alguno"
+msgstr "See them in the drivers' profiles and decide whether you'd like to hire one"
 
 #: /home.ctp:83
 msgid "y muchas más"
@@ -126,11 +126,11 @@ msgstr "Do an amazing trip with a driver in Cuba"
 
 #: View/Pages/home.ctp:100
 msgid "Comienza solicitando a varios choferes el precio para tus recorridos."
-msgstr "Start by asking some of them a quote for the trips you want to do."
+msgstr "Start by asking some of them a quote for your trips."
 
 #: View/Pages/home.ctp:100
-msgid "Selecciona uno si así lo decides."
-msgstr "Choose one if you decide to."
+msgid "Explícales la idea de lo que quieres hacer"
+msgstr "Explain the idea of what you want to do"
 
 #: View/Pages/home.ctp:103
 msgid "Envía esta solicitud a varios choferes ahora"

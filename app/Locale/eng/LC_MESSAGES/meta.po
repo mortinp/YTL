@@ -15,8 +15,8 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: Controller/AppController.php:169
-msgid "Contrata un chofer con auto en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
-msgstr "Hire a driver with car in Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
+msgid "Contrata taxi con chofer en Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba y más"
+msgstr "Hire taxi with driver in Cuba: La Habana, Varadero, Viñales, Trinidad, Santiago de Cuba and more"
 
 #: Controller/AppController.php:169
 msgid "Descubre choferes que operan en Cuba, recibe ofertas de precio directamente de ellos y contrata al mejor para tu viaje."

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="media-container-column mbr-white col-md-8">
             <h1 class="mbr-section-title align-left mbr-bold pb-3 mbr-fonts-style display-2">
-                <br><?php echo __d('mobirise/homepage', 'La mayor comunidad de choferes privados en Cuba')?>
+                <br><?php echo __d('mobirise/homepage', 'La mayor comunidad de choferes de taxi en Cuba')?>
             </h1>
             <h3 class="mbr-section-title align-left mbr-light pb-3 mbr-fonts-style display-5"><?php echo __d('mobirise/homepage', 'Listos para darte precios para tus traslados y para ser contratados')?></h3>
             <p class="mbr-text align-left pb-3 mbr-fonts-style display-5">
@@ -76,7 +76,7 @@
 <section class="features16 cid-r6QXtixtYd" id="features16-c">
     <div class="container align-center">
         <h2 class="pb-3 mbr-fonts-style mbr-section-title display-5"><?php echo __d('mobirise/homepage', '%s recomendaciones de viajeros como tú', $stats['reviews'])?></h2>
-        <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5"><?php echo __d('mobirise/homepage', 'Las verás en los perfiles de los choferes y decidirás si quieres contratar a alguno')?></h3>
+        <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5"><?php echo __d('mobirise/homepage', 'Míralas en los perfiles de los choferes y decide si quieres contratar a alguno')?></h3>
         <div class="row media-row">
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[0]['Testimonial'], 'driver'=>$testimonials_sample[0]['Driver']))?>
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[1]['Testimonial'], 'driver'=>$testimonials_sample[1]['Driver']))?>
@@ -138,7 +138,7 @@
                 <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2"><?php echo __d('mobirise/homepage', 'Haz un viaje sorprendente con tu chofer en Cuba')?></h2>
                 <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
                 <?php echo __d('mobirise/homepage', 'Comienza solicitando a varios choferes el precio para tus recorridos.')?>
-                <br><?php echo __d('mobirise/homepage', 'Selecciona uno si así lo decides.')?></h3>
+                <br><?php echo __d('mobirise/homepage', 'Explícales la idea de lo que quieres hacer')?></h3>
             </div>
         </div>
     </div>
