@@ -264,7 +264,6 @@ class TestimonialsController extends AppController {
         
         $this->redirect($this->referer().'#testimonial'.$id);
     }
-    
     public function unset_featured($id) {
         $OK = $this->change_field($id, 'featured', false);
         
