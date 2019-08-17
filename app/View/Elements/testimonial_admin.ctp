@@ -28,6 +28,12 @@ $action = $this->request->params['action'];
                     else echo $this->Form->button('Poner featured', array('class'=>'btn-info btn-sm', 'action'=>'set_featured/'.$testimonial['id']), true);
                     ?>
                 </th>
+                <th>
+                    <?php 
+                    if($testimonial['use_as_sample']) echo $this->Form->button('Quitar sample', array('class'=>'btn-danger btn-sm', 'action'=>'unset_sample/'.$testimonial['id']), true);
+                    else echo $this->Form->button('Poner como sample', array('class'=>'btn-info btn-sm', 'action'=>'set_sample/'.$testimonial['id']), true);
+                    ?>
+                </th>
             </tr>    
         </thead> 
 

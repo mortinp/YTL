@@ -24,8 +24,9 @@ if($userLoggedIn) {
         $url = $this->request['pass'];
         $url = array_merge($url, $this->request['named']);
         $url['language'] = Configure::read('Config.language');
+        $url['view'] = 20;
     ?>
-    <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
+    <link rel="canonical" href="<?php echo $this->Html->url($url, true) ?>"/>
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
 
     <?php

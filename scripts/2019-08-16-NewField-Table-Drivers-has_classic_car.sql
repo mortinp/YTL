@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `has_classic_car` BOOLEAN NOT NULL AFTER `has_modern_car`;
