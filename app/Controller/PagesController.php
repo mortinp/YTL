@@ -67,19 +67,15 @@ class PagesController extends AppController {
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         
         if($page === 'home' || $page === 'taxi-cuba' || $page === 'la-habana' || $page === 'welcome' || $page === 'price-drivers-cuba') {
-            if($page === 'home') $this->layout = 'home';
             
             $this->set('localities', Locality::getAsSuggestions());
             
-            $this->Testimonial->recursive = 2;
-            $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
-
-            $lang = array(Configure::read('Config.language'));
-            $conditions = array('Testimonial.featured'=>true, /*'Testimonial.lang'=>$lang,*/ 'Testimonial.image_filepath IS NOT NULL', 'Testimonial.image_filepath !='=>'');
-            
-            $testimonials_sample = $this->Testimonial->find('all', array('conditions'=>$conditions, 'order'=>array('Testimonial.created'=>'DESC'), 'limit'=>3));
-
-            $this->set(compact('testimonials_sample'));
+            if($page === 'home') {
+                $this->layout = 'home';
+                
+                $this->set('stats', $this->_getVanityStats());
+                $this->set('testimonials_sample', $this->Testimonial->getSample());
+            }
             
         } else if($page === 'catalog-drivers-cuba') {
             
@@ -143,5 +139,33 @@ class PagesController extends AppController {
             }
         }
     }
+    
+    private function _getVanityStats() {
+        // STATS
+        $stats = $this->Session->read('App.stats');
+        if(!$stats) {
+            $doneSQL = "SELECT COUNT( DISTINCT travels.id ) AS hires, SUM( travels.people_count ) AS people
+                        FROM travels
+                        INNER JOIN users ON travels.user_id = users.id
+                        AND users.role !=  'admin'
+                        AND users.role !=  'tester'
+                        INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+                        INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
+                        AND (
+                        travels_conversations_meta.state = 'D'
+                        OR travels_conversations_meta.state = 'P'
+                        )";
 
+            $reviewsSQL = "SELECT COUNT( testimonials.id ) AS reviews
+                        FROM testimonials
+                        WHERE testimonials.state = 'A'";
+
+            $done = $this->Testimonial->query($doneSQL);
+            $reviews = $this->Testimonial->query($reviewsSQL);
+
+            $stats = array('hires'=>$done[0][0]['hires'], 'people'=>$done[0][0]['people'], 'reviews'=>$reviews[0][0]['reviews']);
+        }
+        
+        return $stats;
+    }
 }

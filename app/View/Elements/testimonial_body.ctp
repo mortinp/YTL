@@ -49,7 +49,7 @@ if (!isset($nameAsLink)) $nameAsLink = true;
             <span style="font-size: 11pt"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $testimonial['text']);?></span>
 
             <?php if ($testimonial['image_filepath']): ?>
-                <div style="max-width:640px">
+            <div style="max-width:640px">
                     <br/>
                     <span><img src='<?php echo $src ?>' class='img-responsive' style='max-width: <?php echo $width?>%; max-height: <?php echo $height?>%'/></span>
                 </div>

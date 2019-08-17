@@ -15,8 +15,8 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: /home.ctp:29
-msgid "La mayor comunidad de choferes privados en Cuba"
-msgstr "The biggest community of private drivers in Cuba"
+msgid "La mayor comunidad de choferes de taxi en Cuba"
+msgstr "The biggest community of taxi drivers in Cuba"
 
 #: /home.ctp:29
 msgid "Listos para darte precios para tus traslados y para ser contratados"
@@ -27,12 +27,12 @@ msgid "Contacta a los choferes directamente"
 msgstr "Contact the drivers directly"
 
 #: /home.ctp:29
-msgid "Averigua los precios para tus recorridos antes de llegar a la isla"
+msgid "Averigua precios de tus traslados antes de llegar a la isla"
 msgstr "Learn the prices of your trips before you arrive in the island"
 
 #: /home.ctp:33
-msgid "Conoce a los choferes mientras intercambias correos"
-msgstr "Get to know the drivers while you exchange emails"
+msgid "Conoce a los choferes mientras intercambias mensajes"
+msgstr "Get to know the drivers while you exchange messages"
 
 #: /home.ctp:35
 msgid "Mira fotos y opiniones de viajeros anteriores"
@@ -63,16 +63,25 @@ msgid "<strong>Contrata al chofer que creas mejor</strong> de acuerdo a tu presu
 msgstr "<strong>Hire the driver you think is best</strong> according to your budget, special needs or just because you like the car. Make a friend to ride you anywhere in Cuba."
 
 #: /home.ctp:83
-msgid "Sí, solicitar ofertas a choferes en Cuba"
-msgstr "Yes, request quotes from drivers in Cuba"
+msgid "Solicitar ofertas a choferes en Cuba"
+msgstr "Request quotes from drivers in Cuba"
 
 #: /home.ctp:83
 msgid "Nuestros choferes están activos y reciben opiniones todo el tiempo"
 msgstr "Our drivers are active and being reviewed all the time"
+#: /home.ctp:83
+msgid "%s recomendaciones de viajeros como tú"
+msgstr "%s reviews from travelers like you"
 
 #: /home.ctp:83
 msgid "Mira opiniones actualizadas y fotos de los choferes. Decide si quieres contratar a alguno"
 msgstr "See up to date reviews and pictures of the drivers. Decide whether you'd like to hire one"
+#: /home.ctp:83
+msgid "Lee historias de clientes anteriores y decide si quieres contratar a algún conductor"
+msgstr "Read stories from previous customers and decide whether you'd like to hire a driver"
+#: /home.ctp:83
+msgid "Míralas en los perfiles de los choferes y decide si quieres contratar a alguno"
+msgstr "See them in the drivers' profiles and decide whether you'd like to hire one"
 
 #: /home.ctp:83
 msgid "y muchas más"
@@ -83,8 +92,8 @@ msgid "Mira opiniones recientes sobre nuestros choferes"
 msgstr "See the latest reviews about our drivers"
 
 #: /home.ctp:83
-msgid "Para todo tipo de servicios"
-msgstr "For every type of service"
+msgid "Taxi para todo tipo de servicios"
+msgstr "Taxi for every type of service"
 
 #: /home.ctp:83
 msgid "Recogida en aeropuerto, llegar directo a un destino, chofer a tiempo completo por varios días, tours alrededor de la isla... de todo"
@@ -117,11 +126,11 @@ msgstr "Do an amazing trip with a driver in Cuba"
 
 #: View/Pages/home.ctp:100
 msgid "Comienza solicitando a varios choferes el precio para tus recorridos."
-msgstr "Start by asking some of them a quote for the trips you want to do."
+msgstr "Start by asking some of them a quote for your trips."
 
 #: View/Pages/home.ctp:100
-msgid "Selecciona uno si así lo decides."
-msgstr "Choose one if you decide to."
+msgid "Explícales la idea de lo que quieres hacer"
+msgstr "Explain the idea of what you want to do"
 
 #: View/Pages/home.ctp:103
 msgid "Envía esta solicitud a varios choferes ahora"

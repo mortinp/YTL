@@ -3,52 +3,53 @@
 
     <div class="container">
         <div class="media-container-column mbr-white col-md-8">
-            <h1 class="mbr-section-title align-left mbr-bold pb-3 mbr-fonts-style display-1">
-                <br><?php echo __d('mobirise/homepage', 'La mayor comunidad de choferes privados en Cuba')?></h1>
-            <h3 class="mbr-section-subtitle align-left mbr-light pb-3 mbr-fonts-style display-2"><span style="font-style: normal;"><?php echo __d('mobirise/homepage', 'Listos para darte precios para tus traslados y para ser contratados')?></span></h3>
+            <h1 class="mbr-section-title align-left mbr-bold pb-3 mbr-fonts-style display-2">
+                <br><?php echo __d('mobirise/homepage', 'La mayor comunidad de choferes de taxi en Cuba')?>
+            </h1>
+            <h3 class="mbr-section-title align-left mbr-light pb-3 mbr-fonts-style display-5"><?php echo __d('mobirise/homepage', 'Listos para darte precios para tus traslados y para ser contratados')?></h3>
             <p class="mbr-text align-left pb-3 mbr-fonts-style display-5">
                 <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Contacta a los choferes directamente')?>
                 <br>
-                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Averigua los precios para tus recorridos antes de llegar a la isla')?>
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Averigua precios de tus traslados antes de llegar a la isla')?>
                 <br>
-                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Conoce a los choferes mientras intercambias correos')?>
+                <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Conoce a los choferes mientras intercambias mensajes')?>
                 <br>
                 <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Mira fotos y opiniones de viajeros anteriores')?>
             </p>
             <div class="mbr-section-btn align-left">
                 <a class="btn btn-md btn-primary display-5" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                     <span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span>
-                    <?php echo __d('mobirise/homepage', 'Sí, solicitar ofertas a choferes en Cuba')?>
+                    <?php echo __d('mobirise/homepage', 'Solicitar ofertas a choferes en Cuba')?>
                 </a>
             </div>
         </div>
     </div>    
 </section>
 
-<section class="features1 cid-r6QPNTAAQp" id="features1-9">    
+<section class="features1 cid-r6QPNTAAQp bg-white" id="features1-9">    
     <div class="container">
         <div class="media-container-row">
 
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-image-gallery"></span>
+                    <span class="mbr-iconfont mbri-image-gallery" style="font-size: 60px"></span>
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
                         <?php echo __d('mobirise/homepage', 'Múltiples contactos')?></h4>
-                    <p class="mbr-text mbr-fonts-style display-5">
+                    <p class="mbr-text mbr-fonts-style display-7">
                         <?php echo __d('mobirise/homepage', '<strong>Te ponemos en contacto directo con varios choferes en Cuba</strong> para que acuerdes tu viaje directamente con ellos via correo electrónico antes de llegar a la isla.')?></p>
                 </div>
             </div>
 
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-question"></span>
+                    <span class="mbr-iconfont mbri-question" style="font-size: 60px"></span>
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
                         <?php echo __d('mobirise/homepage', 'Averigua los precios')?></h4>
-                    <p class="mbr-text mbr-fonts-style display-5">
+                    <p class="mbr-text mbr-fonts-style display-7">
                         <?php echo __d('mobirise/homepage', '<strong>Los choferes te darán sus precios</strong> y tú puedes preguntar cualquier cosa relativa al viaje. Conoce un poco a los choferes mientras intercambian correos y ves sus fotos.')?>
                     </p>
                 </div>
@@ -56,12 +57,12 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-touch"></span>
+                    <span class="mbr-iconfont mbri-touch" style="font-size: 60px"></span>
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
                         <?php echo __d('mobirise/homepage', 'Encuentra a tu chofer')?></h4>
-                    <p class="mbr-text mbr-fonts-style display-5">
+                    <p class="mbr-text mbr-fonts-style display-7">
                         <?php echo __d('mobirise/homepage', '<strong>Contrata al chofer que creas mejor</strong> de acuerdo a tu presupuesto, necesidades especiales o porque te gusta su auto. Haz un amigo que te lleve a donde quieras ir.')?>
                     </p>
                 </div>
@@ -73,24 +74,20 @@
 </section>
 
 <section class="features16 cid-r6QXtixtYd" id="features16-c">
-    
     <div class="container align-center">
-        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2"><?php echo __d('mobirise/homepage', 'Nuestros choferes están activos y reciben opiniones todo el tiempo')?></h2>
-        <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5"><?php echo __d('mobirise/homepage', 'Mira opiniones actualizadas y fotos de los choferes. Decide si quieres contratar a alguno')?></h3>
+        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-5"><?php echo __d('mobirise/homepage', '%s recomendaciones de viajeros como tú', $stats['reviews'])?></h2>
+        <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5"><?php echo __d('mobirise/homepage', 'Míralas en los perfiles de los choferes y decide si quieres contratar a alguno')?></h3>
         <div class="row media-row">
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[0]['Testimonial'], 'driver'=>$testimonials_sample[0]['Driver']))?>
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[1]['Testimonial'], 'driver'=>$testimonials_sample[1]['Driver']))?>
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[2]['Testimonial'], 'driver'=>$testimonials_sample[2]['Driver']))?>
         </div>    
     </div>
-</section>
-
-<section class="mbr-section info1 cid-r6R9vBujqk" id="info1-d">
     <div class="container">
         <div class="row justify-content-center content-row">
             <div class="media-container-column col-12 col-lg-6 col-md-6">
                 <div class="mbr-section-btn py-4">
-                    <?php echo $this->Html->link(__d('mobirise/homepage', 'Mira opiniones recientes sobre nuestros choferes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'btn btn-success display-5'))?>
+                    <?php echo $this->Html->link(__d('mobirise/homepage', 'Mira opiniones recientes sobre nuestros choferes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'btn btn-success display-3'))?>
                 </div>
             </div>
         </div>
@@ -102,9 +99,10 @@
         <div class="inner-container" style="width: 100%;">
             <hr class="line" style="width: 25%;">
             <div class="section-text align-center mbr-fonts-style display-5">
-                <strong><?php echo __d('mobirise/homepage', 'Para todo tipo de servicios')?></strong>
+                <strong><?php echo __d('mobirise/homepage', 'Taxi para todo tipo de servicios')?></strong>
                 <br>
                 <?php echo __d('mobirise/homepage', 'Recogida en aeropuerto, llegar directo a un destino, chofer a tiempo completo por varios días, tours alrededor de la isla... de todo')?>
+                <br>
                 <br>
                 <strong><?php echo __d('mobirise/homepage', 'Desde y hasta cualquier lugar')?></strong>
                 <br>
@@ -140,7 +138,7 @@
                 <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2"><?php echo __d('mobirise/homepage', 'Haz un viaje sorprendente con tu chofer en Cuba')?></h2>
                 <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
                 <?php echo __d('mobirise/homepage', 'Comienza solicitando a varios choferes el precio para tus recorridos.')?>
-                <br><?php echo __d('mobirise/homepage', 'Selecciona uno si así lo decides.')?></h3>
+                <br><?php echo __d('mobirise/homepage', 'Explícales la idea de lo que quieres hacer')?></h3>
             </div>
         </div>
     </div>
