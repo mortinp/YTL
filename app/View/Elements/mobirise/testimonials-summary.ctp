@@ -14,17 +14,17 @@
         <div class="item-name px-2">
             <p class="mbr-fonts-style display-7"><?php echo __d('mobirise/testimonials', '%s sobre %s', $testimonial['author'], $driver['DriverProfile']['driver_name'])?><br><br></p>
             
-            <?php 
-            //$created_converted = strtotime($testimonial['created']);
+            <?php
+            /*
             $now = new DateTime(date('Y-m-d', time()));
             $daysPosted = $now->diff(new DateTime($testimonial['created']), true)->format('%a');
             
             if($daysPosted == 0) $daysPosted = __d('mobirise/testimonials', 'Hoy');
             else if($daysPosted == 1) $daysPosted = __d('mobirise/testimonials', 'Ayer');
             else $daysPosted = __d('mobirise/testimonials', 'Hace %s días', $daysPosted);
-            
+            */
             ?>
-            <p class="mbr-fonts-style display-6"><?php echo $daysPosted?><br><br></p>
+            <!--<p class="mbr-fonts-style display-6"><?php echo $daysPosted?><br><br></p>-->
             
         </div>
         <div class="item-role px-2">

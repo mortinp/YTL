@@ -1,1 +1,0 @@
-ALTER TABLE `testimonials` ADD `use_as_sample` BOOLEAN NOT NULL AFTER `featured`;

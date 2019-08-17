@@ -27,9 +27,21 @@ class Testimonial extends AppModel {
         $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
 
         $lang = array(Configure::read('Config.language'));
-        $conditions = array('Testimonial.featured'=>true, /*'Testimonial.lang'=>$lang,*/ 'Testimonial.image_filepath IS NOT NULL', 'Testimonial.image_filepath !='=>'');
+        $conditions = array('Testimonial.use_as_sample'=>true, 'Testimonial.lang'=>$lang, 'Testimonial.image_filepath IS NOT NULL', 'Testimonial.image_filepath !='=>'');
 
         $testimonials_sample = $this->find('all', array('conditions'=>$conditions, 'order'=>array('Testimonial.created'=>'DESC'), 'limit'=>$testimonialsCount));
+        
+        // Si no se encontraron como ejemplos, coger de los featured
+        if(count($testimonials_sample) < $testimonialsCount) {
+            $conditions['Testimonial.use_as_sample'] = false;
+            $conditions['Testimonial.featured'] = true;
+            
+            $testimonials_sample = $testimonials_sample
+                    + $this->find('all', array(
+                        'conditions'=>$conditions, 
+                        'order'=>array('Testimonial.created'=>'DESC'), 
+                        'limit'=>$testimonialsCount - count($testimonials_sample)));
+        }
 
         return $testimonials_sample;
     }

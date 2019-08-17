@@ -264,18 +264,6 @@ class TestimonialsController extends AppController {
         
         $this->redirect($this->referer().'#testimonial'.$id);
     }
-<<<<<<< HEAD
-    
-    public function set_sample($id) {
-        $OK = $this->change_field($id, 'use_as_sample', true);
-        
-        //if(!$OK)
-        
-        $this->redirect($this->referer().'#testimonial'.$id);
-    }
-    
-=======
->>>>>>> 977341fab500c5eca45b9c07ed9a4bd5c9c826d6
     public function unset_featured($id) {
         $OK = $this->change_field($id, 'featured', false);
         
@@ -284,6 +272,13 @@ class TestimonialsController extends AppController {
         $this->redirect($this->referer().'#testimonial'.$id);
     }
     
+    public function set_sample($id) {
+        $OK = $this->change_field($id, 'use_as_sample', true);
+        
+        //if(!$OK)
+        
+        $this->redirect($this->referer().'#testimonial'.$id);
+    }
     public function unset_sample($id) {
         $OK = $this->change_field($id, 'use_as_sample', false);
         

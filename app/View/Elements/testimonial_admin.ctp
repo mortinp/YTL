@@ -30,8 +30,8 @@ $action = $this->request->params['action'];
                 </th>
                 <th>
                     <?php 
-                    if($testimonial['use_as_sample']) echo $this->Form->button('Quitar sample', array('class'=>'btn-danger btn-sm', 'action'=>'unset_sample/'.$testimonial['id']), true);
-                    else echo $this->Form->button('Poner como sample', array('class'=>'btn-info btn-sm', 'action'=>'set_sample/'.$testimonial['id']), true);
+                    if($testimonial['use_as_sample']) echo $this->Form->button('Quitar de Homepage', array('class'=>'btn-danger btn-sm', 'action'=>'unset_sample/'.$testimonial['id']), true);
+                    else echo $this->Form->button('Mostrar en Homepage', array('class'=>'btn-info btn-sm', 'action'=>'set_sample/'.$testimonial['id']), true);
                     ?>
                 </th>
             </tr>    
@@ -80,19 +80,19 @@ $action = $this->request->params['action'];
 
                 <!-- Modificado -->
                 <td><?php
-                            if ($testimonial['modified'] != $testimonial['created'])
-                                echo "<span class='label label-warning'>{$testimonial['modified']}</span>";
-                            else
-                                echo $testimonial['modified'];
-                            ?>
+                    if ($testimonial['modified'] != $testimonial['created'])
+                        echo "<span class='label label-warning'>{$testimonial['modified']}</span>";
+                    else
+                        echo $testimonial['modified'];
+                    ?>
                 </td>
 
                 <!-- Conversación -->
                 <td>
-                        <?php if ($testimonial['conversation_id']): ?>  
-                    <a href="<?php echo $this->html->url($urlConversation, true); ?>" target="_blank">
-                        Ver conversación
-                    </a>
+                    <?php if ($testimonial['conversation_id']): ?>  
+                        <a href="<?php echo $this->html->url($urlConversation, true); ?>" target="_blank">
+                            Ver conversación
+                        </a>
                     <?php
                     else:
                         echo $testimonial['email'];

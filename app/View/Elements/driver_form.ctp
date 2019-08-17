@@ -37,7 +37,12 @@ else
         echo $this->Form->input('min_people_count', array('default' => 1, 'min' => 1, 'label' => 'Capacidad mínima'));        
         echo $this->Form->input('max_people_count', array('default' => 4, 'min' => 1, 'label' => 'Capacidad máxima'));
         
-        echo $this->Form->checkbox_group(array('has_modern_car'=>'Carro Moderno', 'has_classic_car'=>'Auto Clásico', 'has_air_conditioner'=>'Aire Acondicionado' ), array('header'=>'Características'));
+        echo $this->Form->checkbox_group(
+                array(
+                    'has_modern_car'=>'Carro Moderno', 
+                    'has_classic_car'=>'Auto Clásico', 
+                    'has_air_conditioner'=>'Aire Acondicionado' 
+                ), array('header'=>'Características'));
         
         echo $this->Form->input('description', array('label' => 'Descripción (nombre del chofer y marca del carro)'));
         
@@ -74,13 +79,3 @@ else
     </fieldset>
     <?php echo $this->Form->end(); ?>
 </div>
-<script type="text/javascript">
-    $("#DriverHasModernCar").on("click",function(){       
-        $("#DriverHasClassicCar").attr("checked",false);
-        
-    });
-    
-     $("#DriverHasClassicCar").on("click",function(){        
-        $("#DriverHasModernCar").attr("checked",false);        
-    });
-</script>
