@@ -13,14 +13,14 @@ class UsersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         
-        $this->Auth->allow( array('confirm_email', 'change_password', 'contact_driver') );
+        $this->Auth->allow( array('confirm_email', 'change_password', 'contact_driver', 'welcome') );
         
         if($this->Auth->loggedIn()) {
             $this->Auth->allow('logout', 'send_confirm_email', 'unsubscribe', 'register_welcome');
             
             if($this->justLoggedIn) $this->Auth->allow('login'); // la accion login se activa una sola vez por si el usuario se esta logueando (ver AppController)
             
-        } else $this->Auth->allow('login', 'register', 'register_and_create', 'forgot_password', 'send_change_password');
+        } else $this->Auth->allow('login', 'register', 'welcome', 'register_and_create', 'forgot_password', 'send_change_password');
     }
 
     public function isAuthorized($user) {
@@ -113,8 +113,9 @@ class UsersController extends AppController {
                 if($result['success']){
                     $datasource->commit();
                     if($this->do_login()) {
-                        $this->set('travel', $result['travel']);
-                        return $this->render('register_welcome');
+                        /*$this->set('travel', $result['travel']);
+                        return $this->render('register_welcome');*/
+                        return $this->redirect(array('action'=>'welcome', $result['travel']['Travel']['id']));
                     }
                 } else {
                     /**
@@ -135,7 +136,15 @@ class UsersController extends AppController {
                 $this->redirect($this->referer()/*array('controller'=>'travels', 'action'=>'view_pending/'.$pendingTravelId)*/);
             }
         }
-    } 
+    }
+    
+    public function welcome($travelId = null /*El id de la solicitud que se acaba de crear*/) {
+        $travel = $this->Travel->findById($travelId);
+        
+        if($travel == null || empty($travel)) throw new NotFoundException();
+        
+        $this->set(compact('travel'));
+    }
     
     private function do_register(&$user, $emailTemplate, $register_type) {
         $datasource = $this->User->getDataSource();

@@ -34,17 +34,14 @@ foreach (Travel::getPreferences() as $key => $value) {
 ?>
 
 <?php if(isset($userRole) && $userRole == 'admin'):?>
-<b>Creado:</b> 
-<span>
-    <?php echo TimeUtil::prettyDate($travel['PendingTravel']['created'])?>
+<span class="alert-warning">
+<b>Creado:</b> <?php echo TimeUtil::prettyDate($travel['PendingTravel']['created'])?>
 </span>
 <?php endif?>
 
 <div style="width: 100%">
-    <legend>
         <b><span id='travel-locality-label'><?php echo $travel['PendingTravel']['origin']?></span></b> - <b><span id='travel-where-label'><?php echo $travel['PendingTravel']['destination']?></span></b>        
         <div style="display:inline-block"><small class="text-muted"><span id='travel-prettypeoplecount-label'><?php echo $pretty_people_count?></span></small></div>
-    </legend>
 </div>
 
 <?php

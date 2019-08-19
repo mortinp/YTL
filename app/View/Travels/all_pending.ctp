@@ -8,7 +8,7 @@
             <br/>
             <ul style="list-style-type: none;padding: 0px">
             <?php foreach ($travels as $travel) :?>                
-                <li style="margin-bottom: 20px">
+                <li style="margin-bottom: 50px">
                     <?php echo $this->element('pending_travel', array('travel'=>$travel, 'actions'=>false))?>
                 </li>                
             <?php endforeach; ?>
