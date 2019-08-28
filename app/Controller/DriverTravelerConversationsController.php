@@ -15,7 +15,7 @@ class DriverTravelerConversationsController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('show_profile');
+        $this->Auth->allow('show_profile','messages');
     }
     
     public function isAuthorized($user) {

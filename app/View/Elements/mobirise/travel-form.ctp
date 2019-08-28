@@ -5,10 +5,10 @@
 if (!isset($do_ajax))
     $do_ajax = false;
 
-if(!isset ($intent)) $intent = 'add_pending';
+if(!isset ($intent)) $intent = 'register_and_create';
 if (!isset($form_action)) {
-    $form_action = 'add_pending';
-    $intent = 'add_pending';
+    $form_action = 'register_and_create';
+    $intent = 'register_and_create';
 }
 
 if (!isset($is_modal))
@@ -19,8 +19,8 @@ $destination = '';
 if(isset ($travel) && !empty ($travel)) {
     $saveButtonText = __d('pending_travel', 'Salvar Datos');
     
-    $origin = $travel['PendingTravel']['origin'];
-    $destination = $travel['PendingTravel']['destination'];
+    $origin = $travel['Travel']['origin'];
+    $destination = $travel['Travel']['destination'];
     
 } else {
     $saveButtonText = __d('pending_travel', 'Crear Anuncio');
@@ -28,8 +28,8 @@ if(isset ($travel) && !empty ($travel)) {
 ?>
 
 <?php echo $this->Session->flash(); ?>
-<?php echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'id'=>'TravelForm'));?>
-<input type="hidden" name="data[PendingTravel][id]" class="form-control" value="" id="TravelId"/>
+<?php echo $this->Form->create('Travel', array('default' => !$do_ajax, 'url' => array('controller' => 'users', 'action' => $form_action), 'id'=>'TravelForm'));?>
+<input type="hidden" name="data[Travel][id]" class="form-control" value="" id="TravelId"/>
 <div class="row row-sm-offset">
     <div class="col-md-6 multi-horizontal" data-for="name">
         <?php echo $this->Form->input('origin', array('type' => 'text', 'class'=>'locality-typeahead', 'label' => __d('pending_travel', 'Origen del Viaje').' <small class="text-muted">- '.__d('mobirise/pending_travel', 'ej. %s', 'La Habana, Varadero, Trinidad, Santiago de Cuba, etc.').'</small>', 'required'=>true, 'value'=>$origin/*, 'autofocus'=>'autofocus'*/));?>
@@ -51,7 +51,7 @@ if(isset ($travel) && !empty ($travel)) {
 
 <div class="form-group required">
     <label for="TravelDetails"><?php echo __d('pending_travel', 'Detalles del viaje')?></label>
-    <textarea name="data[PendingTravel][details]" class="form-control" placeholder="<?php echo __d('pending_travel', 'Cualquier detalle que quieras explicar')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
+    <textarea name="data[Travel][details]" class="form-control" placeholder="<?php echo __d('pending_travel', 'Cualquier detalle que quieras explicar')?>" cols="30" rows="6" id="TravelDetails" required="required"></textarea>
 </div>
 
 <div style="clear:both;overflow:auto;padding-bottom:20px">
@@ -59,12 +59,12 @@ if(isset ($travel) && !empty ($travel)) {
         <label><?php echo __d('pending_travel', 'Preferencias')?></label>
     </div>
     <div style="padding-right:10px;float:left">
-        <input type="hidden" name="data[PendingTravel][need_modern_car]" id="TravelNeedModernCar_" value="0"/>
-        <input type="checkbox" name="data[PendingTravel][need_modern_car]"  value="1" id="TravelNeedModernCar"/> <?php echo __d('pending_travel', 'Auto Moderno')?>
+        <input type="hidden" name="data[Travel][need_modern_car]" id="TravelNeedModernCar_" value="0"/>
+        <input type="checkbox" name="data[Travel][need_modern_car]"  value="1" id="TravelNeedModernCar"/> <?php echo __d('pending_travel', 'Auto Moderno')?>
     </div>
     <div style="padding-right:10px;float:left">
-        <input type="hidden" name="data[PendingTravel][need_air_conditioner]" id="TravelNeedAirConditioner_" value="0"/>
-        <input type="checkbox" name="data[PendingTravel][need_air_conditioner]"  value="1" id="TravelNeedAirConditioner"/> <?php echo __d('pending_travel', 'Aire Acondicionado')?>
+        <input type="hidden" name="data[Travel][need_air_conditioner]" id="TravelNeedAirConditioner_" value="0"/>
+        <input type="checkbox" name="data[Travel][need_air_conditioner]"  value="1" id="TravelNeedAirConditioner"/> <?php echo __d('pending_travel', 'Aire Acondicionado')?>
     </div>
 </div>
 

@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `pass_was_created_by_user` BOOLEAN NOT NULL DEFAULT FALSE AFTER `shared_ride_offered`;

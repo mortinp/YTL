@@ -3,12 +3,14 @@
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('DriverTravel', 'Model');
+App::uses('StringsUtil', 'Util');
 
 class UsersController extends AppController {
     
     public $uses = array('User', 'UserInteraction', 'Travel', 'DriverTravel', 'Locality', 'Driver', 'Operations.OpActionRule', 'DriverTravelerConversation');
     
-    public $components = array('TravelLogic', 'DirectMessages');
+    public $components = array('TravelLogic', 'DirectMessages','LocalityRouter', 'Paginator');
+    
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -96,9 +98,29 @@ class UsersController extends AppController {
         }
     } 
     
-    public function register_and_create($pendingTravelId) {
+    public function register_and_create() {
+           
         if ($this->request->is('post')) {
-            if($this->User->loginExists($this->request->data['User']['username'])) {
+            
+            $closest = $this->LocalityRouter->getMatch($this->request->data['Travel']['origin'], $this->request->data['Travel']['destination']);
+            
+            if($closest != null && !empty ($closest)) {                
+
+                if( isset($closest['origin']) )       $this->request->data['Travel']['origin_locality_id']      = $closest['origin']['locality_id'];			
+		if( isset($closest['destination']) )  $this->request->data['Travel']['destination_locality_id'] = $closest['destination']['locality_id'];
+		$this->request->data['Travel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
+                $this->request->data['Travel']['state'] = Travel::$STATE_UNCONFIRMED;
+                                           
+            } else {
+                CakeLog::write('travels_failed', 'Travel Failed (OLD add_pending) - Unknown origin and destination: '.$this->request->data['Travel']['origin'].' - '.$this->request->data['Travel']['destination']);
+                CakeLog::write('travels_failed', 'Created by: '.$this->request->data['Travel']['email']);
+                CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
+                $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
+                $this->redirect($this->referer().'#'.__d('mobirise/default', 'solicitar'));
+            }
+            
+                        
+            if($this->User->loginExists($this->request->data['Travel']['email'])) {
                 $this->setErrorMessage(__('Este correo electrónico ya está registrado en <em>YoTeLlevo</em>. Escribe una dirección diferente o <a href="%s">entra con tu cuenta</a>', Router::url(array('action'=>'login'))));// TODO: esta direccion estatica es un hack
                 return $this->redirect($this->referer());
             }
@@ -107,8 +129,9 @@ class UsersController extends AppController {
             $datasource->begin();
             
             $result = array('success' => true);
+            $this->request->data['User']= array('username'=>$this->request->data['Travel']['email'],'password'=> StringsUtil::getWeirdString()); 
             if( $this->do_register($this->request->data['User'], 'welcome_new', 'pending_travel_register_form') ){
-                $result = $this->TravelLogic->confirmPendingTravel($pendingTravelId, $this->request->data['User']['id']);
+                $result = $this->TravelLogic->confirmPendingTravel($this->request->data['Travel'],$this->request->data['User']['id']);
             
                 if($result['success']){
                     $datasource->commit();
@@ -135,7 +158,9 @@ class UsersController extends AppController {
                 $this->setErrorMessage(__($result['message']));
                 $this->redirect($this->referer()/*array('controller'=>'travels', 'action'=>'view_pending/'.$pendingTravelId)*/);
             }
-        }
+            
+        }      
+       
     }
     
     public function welcome($travelId = null /*El id de la solicitud que se acaba de crear*/) {
@@ -148,7 +173,7 @@ class UsersController extends AppController {
     
     private function do_register(&$user, $emailTemplate, $register_type) {
         $datasource = $this->User->getDataSource();
-        $datasource->begin();
+        $datasource->begin();        
         
         $this->request->data['User']['role'] = 'regular';
         $this->request->data['User']['active'] = true;

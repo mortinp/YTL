@@ -356,30 +356,22 @@ class TravelLogicComponent extends Component {
     }
     
     
-    public function confirmPendingTravel($travelId, $userId) {
+    public function confirmPendingTravel($travelData,$userId) {
         $OK = true;
-        $errorMessage = '';
-        if($travelId != null) {
-            
-            $this->PendingTravel = ClassRegistry::init('PendingTravel');
-            $this->Travel = ClassRegistry::init('Travel');
-            
-            $pending = $this->PendingTravel->findById($travelId);
-            
-            if($pending != null && !empty ($pending)) {
+        $errorMessage = '';        
+                        
+            $this->Travel = ClassRegistry::init('Travel');              
+                          
+                unset ($travelData['email']);
                 
-                unset ($pending['PendingTravel']['email']);
-                
-                $travel['Travel'] = $pending['PendingTravel'];
-                unset ($travel['Travel']['id']);
+                $travel['Travel'] = $travelData;                
                 
                 $travel['Travel']['user_id'] = $userId;
                 
                 $OK = $this->Travel->save($travel);
                 $travel['Travel']['id'] = $this->Travel->getLastInsertID();
                 $travel = $this->Travel->findById($travel['Travel']['id']);
-                
-                if($OK) $OK = $this->PendingTravel->delete($travelId);
+                                
                 
                 if($OK) $result = $this->confirmTravel($travel);
                 
@@ -388,17 +380,8 @@ class TravelLogicComponent extends Component {
                 if(!$result['success']) {
                     $OK = false;
                     $errorMessage = $result['message'];
-                }
-                
-            } else {
-                $OK = false;
-                $errorMessage = __('El viaje especificado no existe como pendiente.');
-            }
-            
-        } else {
-            $OK = false;
-            $errorMessage = __('No has especificado el viaje que quieres confirmar.');
-        }
+                }              
+              
         
         if($OK ) {
             return array('success'=>$OK, 'message'=>$errorMessage, 'travel'=>$travel);

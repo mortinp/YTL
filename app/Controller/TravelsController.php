@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('UsersController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('User', 'Model');
 App::uses('Travel', 'Model');
@@ -13,7 +14,7 @@ class TravelsController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        if(!$this->Auth->loggedIn()) $this->Auth->allow('add_pending', 'view_pending', 'pending', 'edit_pending');
+        if(!$this->Auth->loggedIn()) $this->Auth->allow('add_travel_new_user', 'view_pending', 'pending', 'edit_pending');
     }
     
     public function isAuthorized($user) {
@@ -314,38 +315,7 @@ class TravelsController extends AppController {
         
         $this->request->data = $travel;
     }
-    
-    public function add_pending() {
-        if ($this->request->is('post')) {
-            
-            $closest = $this->LocalityRouter->getMatch($this->request->data['PendingTravel']['origin'], $this->request->data['PendingTravel']['destination']);
-            
-            if($closest != null && !empty ($closest)) {
-                $this->PendingTravel->create();
-
-                if( isset($closest['origin']) )       $this->request->data['PendingTravel']['origin_locality_id']      = $closest['origin']['locality_id'];			
-		if( isset($closest['destination']) )  $this->request->data['PendingTravel']['destination_locality_id'] = $closest['destination']['locality_id'];
-		$this->request->data['PendingTravel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
-                $this->request->data['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
-                $this->request->data['PendingTravel']['created_from_ip'] = $this->request->clientIp();
-                
-                if ($this->PendingTravel->save($this->request->data)) {
-                    $id = $this->PendingTravel->getLastInsertID();
-                    return $this->redirect(array('action' => 'pending/' . $id));
-                }
-                $this->setErrorMessage(__('Error al crear el viaje'));                
-            } else {
-                CakeLog::write('travels_failed', 'Travel Failed (add_pending) - Unknown origin and destination: '.$this->request->data['PendingTravel']['origin'].' - '.$this->request->data['PendingTravel']['destination']);
-                CakeLog::write('travels_failed', 'Created by: '.$this->request->data['PendingTravel']['email']);
-                CakeLog::write('travels_failed', "<span style='color:blue'>---------------------------------------------------------------------------------------------------------</span>\n\n");
-                $this->setErrorMessage(__('El origen y el destino del viaje no son reconocidos.'));
-                $this->redirect($this->referer().'#'.__d('mobirise/default', 'solicitar'));
-            }
-        }
-        
-        $this->set('localities', $this->getLocalitiesList());
-    }
-    
+   /*        
     public function edit_pending($tId) {        
         if ($this->request->is('ajax')) {
             $this->autoRender = false;
@@ -387,7 +357,7 @@ class TravelsController extends AppController {
             $this->request->data['PendingTravel'] = $travel['PendingTravel'];
         }
     }
-    
+    */
     
     /**
      * ADMIN ACTIONS

@@ -60,7 +60,7 @@ $form_disabled = !User::canCreateTravel()/*AuthComponent::user('travel_count') >
 <?php else:?>
     <div>
         <div id='travel-ajax-message'></div>
-        <div id="TravelFormDiv">
+        <div id="TravelFormDiv">lll
         <?php echo $this->Form->create('PendingTravel', array('default' => !$do_ajax, 'url' => array('controller' => 'travels', 'action' => $form_action), 'id'=>'TravelForm'));?>
         <fieldset>
         <?php if(!$horizontal):?>

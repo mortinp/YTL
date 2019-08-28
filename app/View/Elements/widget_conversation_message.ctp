@@ -38,7 +38,7 @@ if($message['response_by'] == 'driver') {
             <?php endif?>
         </span>
         
-        <?php if(in_array($userRole, array('admin', 'operator')) && $message['read_by']):?>
+        <?php if(isset($userRole) && in_array($userRole, array('admin', 'operator')) && $message['read_by']):?>
             <small><code class="pull-right info" title="Leído por <?php echo $message['read_by']?>"><?php echo $message['read_by']?> <?php if($message['date_read'] != null) echo 'el '.TimeUtil::prettyDate($message['date_read'], false)?></code></small>
         <?php endif?>
     </div>
