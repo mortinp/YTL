@@ -103,9 +103,7 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             
             $closest = $this->LocalityRouter->getMatch($this->request->data['Travel']['origin'], $this->request->data['Travel']['destination']);
-            
-            if($closest != null && !empty ($closest)) {                
-
+            if($closest != null && !empty ($closest)) {
                 if( isset($closest['origin']) )       $this->request->data['Travel']['origin_locality_id']      = $closest['origin']['locality_id'];			
 		if( isset($closest['destination']) )  $this->request->data['Travel']['destination_locality_id'] = $closest['destination']['locality_id'];
 		$this->request->data['Travel']['direction'] = 2; //$closest['direction'];     // meaningless from now on
