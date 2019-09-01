@@ -23,9 +23,11 @@
             <div class="col-md-6 multi-horizontal" data-for="name">
                 <?php echo $this->Form->input("User.username", array("label" => __("Tu correo electrónico"), "type" => "email"));?>
             </div>
+            <!-- Eliminado en la variante actual, lo dejo para futuro si acaso
             <div class="col-md-6 multi-horizontal" data-for="email">
                 <?php echo $this->Form->input("User.password", array("label"=> __("Contraseña")));?>
             </div>
+            -->
         </div>
         <?php echo $this->Form->input('User.lang', array('type' => 'hidden', 'value'=>  Configure::read('Config.language')));?>
 

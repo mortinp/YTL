@@ -517,7 +517,10 @@ class UsersController extends AppController {
         }
         
         // Si es un nuevo usuario, registrarlo, loguearlo, mandar la bienvenida y enviar el mensaje
-        else if( $this->do_register($this->request->data['User'], 'welcome_new', 'driver_profile_msg_form') && $this->do_login() ) {
+        else {
+            //we create the password for the new user
+            $this->request->data['User']['password'] = StringsUtil::getWeirdString();
+            if( $this->do_register($this->request->data['User'], 'welcome_new', 'driver_profile_msg_form') && $this->do_login() ) {
             EmailsUtil::email(
                 $this->request->data['User']['username'], 
                 __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
@@ -527,10 +530,11 @@ class UsersController extends AppController {
                 array('lang'=>$this->request->data['User']['lang']));
             
             return $this->contact_driver (true);
-        }
-            
-        else
+        }else
             $this->setErrorMessage( __('Ocurrió un error registrando su usuario. Intente de nuevo.') );
+    }
+            
+        
             
         
         return $this->redirect( $this->referer().'#'.__d('mobirise/default', 'solicitar') );
