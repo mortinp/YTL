@@ -32,6 +32,21 @@ class DriverTravelsController extends AppController {
         
         $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions, 'order'=>$order));
         $this->set('driver_travels', $driver_travels);
+        
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));          
+        $this->Driver->attachProfile($this->DriverTravel);
+                
+        //Para la nueva vista de mensajes en chat
+        foreach ($driver_travels as $dt) {
+            $conversations[] =$this->DriverTravelerConversation->findAllByConversationId($dt['DriverTravel']['id']);
+            $travels[] = $dt; 
+        }
+        
+        $this->set('conversations', $conversations);
+        
+        $this->set('travels', $travels);
+        
+        $this->render('index_1');//temporan para vista de chat
     }
     
     public function view_filtered($filter = 'all') {
