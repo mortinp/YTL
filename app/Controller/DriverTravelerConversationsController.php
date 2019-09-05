@@ -374,6 +374,7 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function msg_to_driver(){  
+       // die(print_r($this->request->data));
         $data = $this->request->data['DriverTravelerConversation'];
         $adjunto = $data['adjunto'];
         
@@ -391,6 +392,37 @@ class DriverTravelerConversationsController extends AppController {
         if(count($parts) == 1)  $redirect .= '?highlight=message-'.$msgId;
         else                    $redirect .= '?highlight=message-'.$msgId . $parts[1];
         return $this->redirect($redirect);
+        
+        //return $this->redirect(array('action' => 'messages', $data['conversation_id']), '?highlight=message-'.$msgId);
+    }
+    /*Nueva funcionalidad por chat PRUEBA*/
+    public function chat_msg_to_driver(){  
+        //die(print_r($this->request->data));
+        $data = $this->request->data['DriverTravelerConversation'];
+        $adjunto = $data['adjunto'];
+        
+        
+        $attachment = array();
+        if($adjunto['name'] != '')
+            $attachment = array($adjunto['name'] => array('contents' => file_get_contents($adjunto['tmp_name']), 'mimetype' => $adjunto['type']));
+        
+        $sender = $this->Auth->user('username');
+        $mu = new MessagesUtil();
+        $msgId = $mu->sendMessage('traveler', $data['conversation_id'], $sender, $data['body'], $attachment, 'WEB');
+        
+        if($msgId==null){
+                $this->response->type('ajax');
+                $this->response->body('false');
+                return $this->response;
+        }
+        else
+        {
+           $this->response->type('ajax');
+                $this->response->body('true');
+                return $this->response; 
+        }
+            
+            
         
         //return $this->redirect(array('action' => 'messages', $data['conversation_id']), '?highlight=message-'.$msgId);
     }

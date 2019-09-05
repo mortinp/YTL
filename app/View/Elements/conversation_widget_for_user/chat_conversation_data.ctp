@@ -16,28 +16,42 @@ $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation
     if(isset ($conversation['Driver']['DriverProfile']) && $conversation['Driver']['DriverProfile'] != null && !empty ($conversation['Driver']['DriverProfile'])) :?>
         <?php
             $src = '';
-            if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-            $src .= '/'.str_replace('\\', '/', $conversation['Driver']['DriverProfile']['avatar_filepath']);
+            //if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
+            $src .='/ytl-last/yuni-clone/ytl'.'/'.str_replace('\\', '/', $conversation['Driver']['DriverProfile']['avatar_filepath']);
         ?>
-        <div class="chat_people">
-            <a data-toggle="tab" href="#tab-<?php echo $thread['id'] ?>"><div class="chat_img"> <img src="<?php echo $src; ?>" alt="<?php echo $conversation['Driver']['DriverProfile']['driver_name']?>"> </div></a>
+        <div class="chat_people row">
+            <div class="chat_img"><img src="<?php echo $src; ?>" alt="<?php echo $conversation['Driver']['DriverProfile']['driver_name']?>"></div>
+            <div class="chat_ib"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($conversation)?></big></big></span></div>
             <div class="chat_ib">
-              <h5><?php echo $conversation['Driver']['DriverProfile']['driver_name']?> <span class="chat_date"><?php echo $conversation['DriverTravel']['created']; ?></span></h5>
-              <p>alguna otra cosa...</p>
+              <h5><div class="hidden-xs"><?php echo $conversation['Driver']['DriverProfile']['driver_name']?></div>
+                  <span >                      
+                       <!-- CANTIDAD TOTAL DE MENSAJES --> 
+                        <?php if($thread['message_count'] > 0): // Respondido ?> 
+                                <small style="padding-left: 10px"><span class="label label-primary info" title="<?php echo __('%s mensajes', $thread['message_count'])?>"><?php echo $thread['message_count'];?></span></small>
+                        <?php endif?>
+                  </span></h5>
+              <p class="hidden-xs"><?php echo $this->html->link(__('Ver perfil de %s', $conversation['Driver']['DriverProfile']['driver_name'] ),array('controller'=>'drivers', 'action'=>'profile/'.$conversation['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank', 'style'=>'color:inherit')); ?></p>
             </div>
         </div>
     <?php else:?>
-        <img src="" class="info" title="No hay avatar para este chofer" style="max-height: 20px; max-width: 20px"/>
+        <div class="chat_people row">
+            <div class="chat_img"><img src="" class="info" title="No hay avatar para este chofer" style="max-height: 20px; max-width: 20px"/></div>
+            <div class="chat_ib"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($conversation)?></big></big></span></div>
+            <div class="chat_ib">
+                <h5><div class="hidden-xs"><?php echo $conversation['Driver']['DriverProfile']['driver_name']?></div>                
+                  <span class="chat_date">
+                      <span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($conversation)?></big></big></span>
+                       <!-- CANTIDAD TOTAL DE MENSAJES --> 
+                        <?php if($thread['message_count'] > 0): // Respondido ?> 
+                                <small style="padding-left: 10px"><span class="label label-primary info" title="<?php echo __('%s mensajes', $thread['message_count'])?>"><?php echo $thread['message_count'];?></span></small>
+                        <?php endif?>
+                  </span></h5>
+                <p class="hidden-xs"><?php echo $this->html->link(__('Ver perfil de %s', $conversation['Driver']['DriverProfile']['driver_name'] ),array('controller'=>'drivers', 'action'=>'profile/'.$conversation['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank', 'style'=>'color:inherit')); ?></p>
+            </div>
+        </div>        
     <?php endif;?>
-    
-    <?php echo $this->Html->link(__('Ver conversación con %s', '<code><big>'.$conversation['Driver']['DriverProfile']['driver_name'].'</big></code>' ), array('controller'=>'conversations', 'action'=>'messages/'.$thread['id']), array('style'=>'text-decoration:none','target'=>'_blank', 'escape'=>false));?>
         
-    <!-- CANTIDAD TOTAL DE MENSAJES --> 
-    <?php if($thread['message_count'] > 0): // Respondido ?> 
-            <small style="padding-left: 10px"><span class="label label-primary info" title="<?php echo __('%s mensajes', $thread['message_count'])?>"><?php echo $thread['message_count'];?></span></small>
-    <?php endif?>
-
-    <!-- MENSAJES SIN LEER --> 
+   <!-- MENSAJES SIN LEER --> 
     <!--<?php 
     $unread = 0;
     if($hasMetadata) {
