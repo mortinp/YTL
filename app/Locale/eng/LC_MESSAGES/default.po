@@ -860,6 +860,18 @@ msgid "Ver conversación con %s"
 msgstr "See conversation with %s"
 
 #: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
+msgid "Ver perfil de %s"
+msgstr "View %s's profile"
+
+#: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
+msgid "Todas las conversaciones"
+msgstr "All messages"
+
+#: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
+msgid "Escriba su mensaje"
+msgstr "Type a message"
+
+#: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
 msgid "%s mensajes"
 msgstr "%s messages"
 

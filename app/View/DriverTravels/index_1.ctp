@@ -181,7 +181,7 @@ img{ max-width:100%;}
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
-                <h4>All Messages</h4>
+                <h4><?php echo __("Todas las conversaciones"); ?></h4>
             </div>            
           </div>       
                 
@@ -250,6 +250,53 @@ img{ max-width:100%;}
             <div class="outgoing_msg">
               <div class="sent_msg">
                 <p><?php if($msgWasShortened) echo $fullText; else echo $shortText;?></p>
+               <!--Mostrando los adjuntos si hay-->
+        <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
+                    <?php $messageId = 'message-'.$message['id']?>
+                    <div class="alert">
+                        <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
+                            <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
+                        </a>
+                        <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
+                    </div>
+                    <script type="text/javascript">
+                        $('#show-attachments-<?php echo $messageId?>').click(function() {
+
+                            $.ajax({
+                                type: "POST",
+                                data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
+                                url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
+                                success: function(response) {
+                                    //alert(response);
+                                    response = JSON.parse(response);
+
+                                    var place = $('#attachments-<?php echo $messageId?>');
+                                    for (var a in response.attachments) {
+                                        var att = response.attachments[a];
+                                        if(att.mimetype.substr(0, 5) == 'image') {
+                                            place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/>');
+                                        } else if(att.mimetype == 'text/plain') {
+                                            place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                        } else {
+                                            place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                        }
+                                    }
+
+                                    $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
+
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    alert(jqXHR.responseText);
+                                },
+                                complete: function() {
+
+                                }
+                            });
+
+                        });
+                    </script>
+        
+      <?php endif?>                
                 <span class="time_date"><?php echo TimeUtil::prettyDate($message['created'], false); ?></span> </div>
             </div>
             <?php endif; ?>
@@ -267,7 +314,7 @@ img{ max-width:100%;}
                     <span class="fileinput-filename"></span>
                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                 </div>
-                    <?php echo $this->Form->input('body', array('cols'=>'3','rows'=>'3','class'=>'write_msg','label' => false, 'type' => 'textarea', 'id'=>'tab-'.$travels[$keyc]['DriverTravel']['id'],'placeholder'=>'Type a message')); ?>
+                    <?php echo $this->Form->input('body', array('cols'=>'3','rows'=>'3','class'=>'write_msg','label' => false, 'type' => 'textarea', 'id'=>'tab-'.$travels[$keyc]['DriverTravel']['id'],'placeholder'=>__("Escriba su mensaje"))); ?>
                 <button id="btn-<?php echo $travels[$keyc]['DriverTravel']['id'] ?>" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                 <?php echo $this->Form->end(); ?>  
             </div>
