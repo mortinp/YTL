@@ -30,10 +30,13 @@ if($userLoggedIn) {
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
 
     <?php
-    $title = __d('mobirise/driver_profile', 'Taxi en %s, Cuba: %s', $profile['Province']['name'], $profile['DriverProfile']['driver_name']) . ' - ' . __d('mobirise/driver_profile', 'Auto hasta %s capacidades', $profile['Driver']['max_people_count']);
-    if ($profile['Driver']['has_air_conditioner']) $title .= ' ' . __d('driver_profile', 'con aire acondicionado');
+    $title = __d('mobirise/driver_profile', 'Taxi en %s, Cuba: %s', $profile['Province']['name'], $profile['DriverProfile']['driver_name']);
 
-    $description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
+    $description = __d('mobirise/driver_profile', 'Taxi hasta %s capacidades', $profile['Driver']['max_people_count']);
+    if ($profile['Driver']['has_air_conditioner']) $description .= ' ' . __d('mobirise/driver_profile', 'con aire acondicionado');
+    $description .= '. '.__d('mobirise/driver_profile', 'Contacta a %s para acordar traslados en Cuba.', Driver::shortenName($profile['DriverProfile']['driver_name']));
+    
+    //$description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
     ?>
     <title><?php echo $title . ' | YoTeLlevo' ?></title>
     <meta name="description" content="<?php echo $description ?>"/>

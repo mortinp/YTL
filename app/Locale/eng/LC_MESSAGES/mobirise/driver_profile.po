@@ -31,6 +31,18 @@ msgid "Auto hasta %s pax"
 msgstr "Car up to %s pax"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Taxi hasta %s capacidades"
+msgstr "Taxi up to %s seats"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "con aire acondicionado"
+msgstr "with air conditioner"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Contacta a %s para acordar traslados en Cuba."
+msgstr "Contact %s to arrange your trips in Cuba."
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Aire acondicionado"
 msgstr "Air conditioner"
 
