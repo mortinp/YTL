@@ -189,8 +189,8 @@ img{ max-width:100%;}
         <?php if(count($driver_travels) > 0):?>          
           <div class="inbox_chat">
            <?php foreach ($driver_travels as $keyc=>$t): ?>
-            <div class="chat_list <?php if($keyc==0) echo 'active_chat'; ?>">
-                <a data-toggle="tab" href="#tab-<?php echo $t['DriverTravel']['id'] ?>">
+              <div id="head-<?php echo $t['DriverTravel']['id'] ?>" class="chat_list <?php if($keyc==0) echo 'active_chat'; ?>">
+                  <a id="link-<?php echo $t['DriverTravel']['id'] ?>" data-toggle="tab" href="#tab-<?php echo $t['DriverTravel']['id'] ?>">
                    <?php echo $this->element('conversation_widget_for_user/chat_conversation_data', array('conversation'=>$t)); ?>
                 </a>
             </div>            
@@ -325,14 +325,34 @@ img{ max-width:100%;}
       </div>    
       
     </div>
+         <script type="text/javascript">
+    /*Logica para activar la conversacion actual*/
+     var loc = location.href;
+      if(loc.indexOf('#')!=-1){          
+        
+        var ids=loc.split('#tab-');
+        
+        $('.inbox_chat > .chat_list').removeClass('active_chat');
+
+        $('#head-'+ids[1]).addClass('active_chat'); 
+
+        $('.tab-content > tab-pane').removeClass('active');
+        $('#tab-'+ids[1]).addClass('active');
+        $('#link-'+ids[1]).click();
+        
+    }
+    
+    
+                      
+         </script>
    <?php endif; ?>
+      
     </div>
 </div>
 </div>
 <script type="text/javascript">
 
-$(document).ready(function() {
-    
+$(document).ready(function() {    
  
 /*    
 $(".write_msg").on("keydown", function(e){
@@ -368,6 +388,22 @@ $(".msg_send_btn").click(function(){
                             "</div></div>").scrollTop(container.prop('scrollHeight'));
             
                          $('.input_msg_write #tab-'+id).val('');
+                        /*Logica para resetear la direccion al cambiar de chat*/
+                        /*NO ESTA FUNCIONANDO BIEN*/
+                         var loc = location.href;
+                          if(loc.indexOf('#')!=-1){
+                                                       
+                              location.href = loc.substring(0,loc.indexOf('#')-0);
+                              }
+                        /*----------------------------------------------------------*/
+                        /*Recarga javascript de la pagina con el tab a mostrar*/
+                              setTimeout(function(){
+                                  location.href = location+'#tab-'+id;
+                                  location.reload(); 
+                              },50);
+                              
+                              
+                             
                          
                    
                 }
@@ -384,8 +420,7 @@ $(".msg_send_btn").click(function(){
         
         }  
         
-//     location.href = location+'#tab-'+id;
-//     location.reload();   
+ 
 });
 
 });
