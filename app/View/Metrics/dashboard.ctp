@@ -34,11 +34,11 @@ foreach ($incomes as $inc) {
             <br/><br/>
             <div class="col-md-6">
                 <big><span class="label label-warning">Índice Realizados (Realizados / Expirados)</span></big>
-                <div><b><big><big><?php echo round($cantViajesRealizados*100 / $cantViajesExpirados, 0)?>%</big></big></b></div>
+                <div><b><big><big><?php echo round($cantViajesRealizados*100 / $cantViajesExpirados, 2)?>%</big></big></b></div>
             </div>
             <div class="col-md-6">
                 <big><span class="label label-success">Ingreso Medio por Viaje Realizado</span></big>
-                <div><b><big><big>$<?php echo round($paidAmount / $cantViajesRealizados, 0)?></big></big></b></div>
+                <div><b><big><big>$<?php echo round($paidAmount / $cantViajesRealizados, 2)?></big></big></b></div>
             </div>
         </div>
     </div>
