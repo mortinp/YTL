@@ -2,6 +2,27 @@
 App::uses('DriverTravelerConversation', 'Model');
 ?>
 
+<?php 
+$cantViajes = 0;
+$cantViajesExpirados = 0;
+$cantViajesRealizados = 0;
+$cantViajesRealizadosNoPagados = 0;
+foreach ($travels_count as $c) {
+    if(isset ($c['travels_created_count'])) $cantViajes += $c['travels_created_count'];
+    if(isset ($c['travels_expired_count'])) $cantViajesExpirados += $c['travels_expired_count'];
+    if(isset ($c['travels_done_count'])) $cantViajesRealizados += $c['travels_done_count'];
+    if(isset ($c['travels_done_not_paid_count'])) $cantViajesRealizadosNoPagados += $c['travels_done_not_paid_count'];
+}
+
+$paidAmount = 0;
+$savedAmount = 0;
+foreach ($incomes as $inc) {
+    $paidAmount += $inc['income'];
+    $savedAmount += $inc['income_saving'];
+}
+?>
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -9,25 +30,25 @@ App::uses('DriverTravelerConversation', 'Model');
             <br/>
             Período del <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_ini']?></span></big> al <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_end']?></span></big>
         </div>
+        <div class="col-md-8 col-md-offset-2" style="text-align: center">
+            <br/><br/>
+            <div class="col-md-6">
+                <big><span class="label label-warning">Índice Realizados (Realizados / Expirados)</span></big>
+                <div><b><big><big><?php echo round($cantViajesRealizados*100 / $cantViajesExpirados, 0)?>%</big></big></b></div>
+            </div>
+            <div class="col-md-6">
+                <big><span class="label label-success">Ingreso Medio por Viaje Realizado</span></big>
+                <div><b><big><big>$<?php echo round($paidAmount / $cantViajesRealizados, 0)?></big></big></b></div>
+            </div>
+        </div>
     </div>
     <br/>
+    <br/><br/>
     <div class="row">
         
         <div class="col-md-12" style="text-align: center">
             <legend>Viajes</legend>
             <br/>
-            <?php 
-            $cantViajes = 0;
-            $cantViajesExpirados = 0;
-            $cantViajesRealizados = 0;
-            $cantViajesRealizadosNoPagados = 0;
-            foreach ($travels_count as $c) {
-                if(isset ($c['travels_created_count'])) $cantViajes += $c['travels_created_count'];
-                if(isset ($c['travels_expired_count'])) $cantViajesExpirados += $c['travels_expired_count'];
-                if(isset ($c['travels_done_count'])) $cantViajesRealizados += $c['travels_done_count'];
-                if(isset ($c['travels_done_not_paid_count'])) $cantViajesRealizadosNoPagados += $c['travels_done_not_paid_count'];
-            }
-            ?>
             <div>
                 <big><span class="label label-primary"><?php echo $cantViajes?> solicitudes creadas</span></big>
                 <big><span class="label label-default info" title="Estas son solicitudes que la fecha de realización del viaje expira ese mes. Puede ser que la solicitud se haya creado antes."><?php echo $cantViajesExpirados?> solicitudes expiradas</span></big>
@@ -44,14 +65,6 @@ App::uses('DriverTravelerConversation', 'Model');
         <div class="col-md-12" style="text-align: center">
             <legend>Ganancias</legend>
             <br/>
-            <?php 
-            $paidAmount = 0;
-            $savedAmount = 0;
-            foreach ($incomes as $inc) {
-                $paidAmount += $inc['income'];
-                $savedAmount += $inc['income_saving'];
-            }
-            ?>
             <div>            
                 <big><span class="label label-success info" title="Esto es dinero en mano. No se cuentan viajes realizados de los que no hemos recibido el dinero."><i class="glyphicon glyphicon-usd"></i><?php echo $paidAmount?> de ingresos totales</span></big>
                 <?php if($userLoggedIn && $userRole == 'admin'):?><big><span class="label label-default"><i class="glyphicon glyphicon-usd"></i><?php echo $savedAmount?> de ahorro total</span></big><?php endif?>
