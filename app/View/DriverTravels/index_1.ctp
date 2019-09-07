@@ -326,21 +326,7 @@ img{ max-width:100%;}
       
     </div>
          <script type="text/javascript">
-    /*Logica para activar la conversacion actual*/
-     var loc = location.href;
-      if(loc.indexOf('#')!=-1){          
-        
-        var ids=loc.split('#tab-');
-        
-        $('.inbox_chat > .chat_list').removeClass('active_chat');
-
-        $('#head-'+ids[1]).addClass('active_chat'); 
-
-        $('.tab-content > tab-pane').removeClass('active');
-        $('#tab-'+ids[1]).addClass('active');
-        $('#link-'+ids[1]).click();
-        
-    }
+    
     
     
                       
@@ -354,11 +340,23 @@ img{ max-width:100%;}
 
 $(document).ready(function() {    
  
-/*    
-$(".write_msg").on("keydown", function(e){
+<?php if($this->request->query('show_conversation')): ?>
+     
+   /*Logica para activar la conversacion actual*/                    
+
+    $('.inbox_chat > .chat_list').removeClass('active_chat');
+
+    $('#head-'+'<?php echo $this->request->query('show_conversation') ?>').addClass('active_chat'); 
+
+    $('.tab-content > tab-pane').removeClass('active');
+    $('#tab-'+'<?php echo $this->request->query('show_conversation') ?>').addClass('active');
+    var cont =  $('#tab-'+'<?php echo $this->request->query('show_conversation') ?>'+' > .msg_history');
+    $('#link-'+'<?php echo $this->request->query('show_conversation') ?>').click();
     
-});*/
-        
+    cont.scrollTop(cont.prop('scrollHeight'))
+     
+  
+ <?php endif;?>  
       
         
        
@@ -381,29 +379,31 @@ $(".msg_send_btn").click(function(){
                 contentType: false,
                 processData: false,
                 success: function (msg) {
-                    if(msg=='true' || msg=='1'){                        
-                        container.append("<div class='outgoing_msg'>"+
-                          "<div class='sent_msg'>"+
-                            "<p>"+text+"</p>"+
-                            "</div></div>").scrollTop(container.prop('scrollHeight'));
+                    if(msg!='false'){
+                        container.html('');
+                        container.append(msg).scrollTop(container.prop('scrollHeight'));
             
-                         $('.input_msg_write #tab-'+id).val('');
-                        /*Logica para resetear la direccion al cambiar de chat*/
-                        /*NO ESTA FUNCIONANDO BIEN*/
-                         var loc = location.href;
-                          if(loc.indexOf('#')!=-1){
-                                                       
-                              location.href = loc.substring(0,loc.indexOf('#')-0);
-                              }
-                        /*----------------------------------------------------------*/
-                        /*Recarga javascript de la pagina con el tab a mostrar*/
-                              setTimeout(function(){
-                                  location.href = location+'#tab-'+id;
-                                  location.reload(); 
-                              },50);
-                              
-                              
-                             
+                         $('.input_msg_write #tab-'+id).val('');                         
+                         /*Logica para activar la conversacion actual*/                    
+
+                            $('.inbox_chat > .chat_list').removeClass('active_chat');
+
+                            $('#head-'+id).addClass('active_chat'); 
+
+                            $('.tab-content > tab-pane').removeClass('active');
+                            $('#tab-'+id).addClass('active');
+                            $('#link-'+id).click();
+
+                        
+                        /*Logica para resetear la direccion al cambiar de chat*/              
+//                         var loc = location.href;
+//                          
+//                        /*----------------------------------------------------------*/
+//                        /*Recarga javascript de la pagina con el tab a mostrar*/
+//                              setTimeout(function(){
+//                                  location.href = loc.substring(0,loc.indexOf('#')-0)+'#tab-'+id;
+//                                  location.reload(); 
+//                              },1);         
                          
                    
                 }
