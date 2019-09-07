@@ -30,16 +30,25 @@ foreach ($incomes as $inc) {
             <br/>
             Período del <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_ini']?></span></big> al <big><span class="label label-primary"><?php echo $this->request->data['DateRange']['date_end']?></span></big>
         </div>
-        <div class="col-md-8 col-md-offset-2" style="text-align: center">
+        <div class="col-md-8 col-md-offset-2">
             <br/><br/>
-            <div class="col-md-6">
-                <big><span class="label label-warning">Índice Realizados (Realizados / Expirados)</span></big>
-                <div><b><big><big><?php echo round($cantViajesRealizados*100 / $cantViajesExpirados, 2)?>%</big></big></b></div>
-            </div>
-            <div class="col-md-6">
-                <big><span class="label label-success">Ingreso Medio por Viaje Realizado</span></big>
-                <div><b><big><big>$<?php echo round($paidAmount / $cantViajesRealizados, 2)?></big></big></b></div>
-            </div>
+            <ul class="list-inline">
+                <li>
+                    <?php $indiceRealizados = round($cantViajesRealizados*100 / $cantViajesExpirados, 2)?>
+                    <big><span class="label label-warning">Índice Realizados (Realizados / Expirados)</span></big>
+                    <div><b><big><big><?php echo $indiceRealizados?>%</big></big></b></div>
+                </li>
+                <li>
+                    <?php $ingresoMedio = round($paidAmount / $cantViajesRealizados, 2)?>
+                    <big><span class="label label-success">Ingreso Medio por Viaje Realizado</span></big>
+                    <div><b><big><big>$<?php echo $ingresoMedio?></big></big></b></div>
+                </li>
+                <li>
+                    <?php $ingresoMedioXSolicitud?>
+                    <big><span class="label label-default">Valor de 1 Solicitud</span></big>
+                    <div><b><big><big>$<?php echo round($indiceRealizados * $ingresoMedio / 100, 2)?></big></big></b></div>
+                </li>
+            </ul>
         </div>
     </div>
     <br/>
