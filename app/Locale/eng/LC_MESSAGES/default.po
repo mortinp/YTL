@@ -864,7 +864,7 @@ msgid "Ver perfil de %s"
 msgstr "View %s's profile"
 
 #: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
-msgid "Todas las conversaciones"
+msgid "Conversaciones"
 msgstr "All messages"
 
 #: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko

@@ -13,19 +13,20 @@ img{ max-width:100%;}
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
   overflow: hidden;
-  width: 35%; border-right:1px solid #c4c4c4;
+  width: 30%; border-right:1px solid #c4c4c4;
 }
 .inbox_msg {
   border: 1px solid #c4c4c4;
   clear: both;
   overflow: hidden;
+  border-radius: 15px;
 }
 .top_spac{ margin: 20px 0 0;}
 
 
-.recent_heading {float: left; width:80%;}
+.recent_heading {float: left; width:100%;}
 
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+.headind_srch{ padding:10px 29px 10px 5px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
 .recent_heading h4 {
   color: #05728f;
@@ -47,12 +48,12 @@ img{ max-width:100%;}
 .chat_ib p{ font-size:14px; color:#989898; margin:auto}
 .chat_img {
   float: left;
-  width: 11%;
+  width: 25%;
 }
 .chat_ib {
   float: left;
   padding: 0 0 0 15px;
-  width: 88%;
+  width: 70%;
 }
 
 .chat_people{ overflow:hidden; clear:both;}
@@ -94,7 +95,7 @@ img{ max-width:100%;}
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
-  width: 60%;
+  width: 70%;
 }
 
  .sent_msg p {
@@ -108,7 +109,7 @@ img{ max-width:100%;}
 .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
 .sent_msg {
   float: right;
-  width: 56%;
+  width: 65%;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -144,8 +145,8 @@ img{ max-width:100%;}
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
-  height: 557px;
-  overflow-y: auto;
+  height: 570px;
+  overflow-y: auto;  
 }
 
 /*Necesitamos cargar ese css tomado de:*/
@@ -179,9 +180,9 @@ img{ max-width:100%;}
      <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
-          <div class="headind_srch">
+          <div class="headind_srch row">
             <div class="recent_heading">
-                <h4><?php echo __("Todas las conversaciones"); ?></h4>
+                <p class="col-md-12"><b><?php echo __("Conversaciones"); ?></b></p>
             </div>            
           </div>       
                 
@@ -324,13 +325,7 @@ img{ max-width:100%;}
         <?php endif; ?>
       </div>    
       
-    </div>
-         <script type="text/javascript">
-    
-    
-    
-                      
-         </script>
+    </div>         
    <?php endif; ?>
       
     </div>
@@ -354,6 +349,7 @@ $(document).ready(function() {
     $('#link-'+'<?php echo $this->request->query('show_conversation') ?>').click();
     
     cont.scrollTop(cont.prop('scrollHeight'))
+    $('.inbox_chat').scrollTop($('#head-<?php echo $this->request->query('show_conversation') ?>').prop('scrollHeight')+500);
      
   
  <?php endif;?>  

@@ -24,7 +24,7 @@ $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation
             <div class="chat_ib"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($conversation)?></big></big></span></div>
             <div class="chat_ib">
               <h5><div class="hidden-xs"><?php echo $conversation['Driver']['DriverProfile']['driver_name']?></div>
-                  <span >                      
+                  <span class="hidden-xs">                      
                        <!-- CANTIDAD TOTAL DE MENSAJES --> 
                         <?php if($thread['message_count'] > 0): // Respondido ?> 
                                 <small style="padding-left: 10px"><span class="label label-primary info" title="<?php echo __('%s mensajes', $thread['message_count'])?>"><?php echo $thread['message_count'];?></span></small>
