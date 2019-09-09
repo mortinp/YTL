@@ -35,7 +35,7 @@ $hasMetadata = (isset ($conversation['TravelConversationMeta']) && $conversation
         </div>
     <?php else:?>
         <div class="chat_people row">
-            <div class="chat_img"><img src="" class="info" title="No hay avatar para este chofer" style="max-height: 20px; max-width: 20px"/></div>
+            <div class="chat_img"><a href="<?php echo $this->Html->url(array('controller'=>'drivers', 'action'=>'profile/'.$conversation['Driver']['DriverProfile']['driver_nick'])); ?>" target="_blank"><img src="" class="info" title="No hay avatar para este chofer" style="max-height: 20px; max-width: 20px"/></a></div>
             <div class="chat_ib"><span><span class="text-muted">#</span><big><big><?php echo DriverTravel::getIdentifier($conversation)?></big></big></span></div>
             <div class="chat_ib">
                 <h5><div class="hidden-xs"><?php echo $conversation['Driver']['DriverProfile']['driver_name']?></div>                

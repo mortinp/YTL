@@ -868,6 +868,10 @@ msgid "Conversaciones"
 msgstr "All messages"
 
 #: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
+msgid "Fichero(s) adjunto(s): "
+msgstr "Attached file(s): "
+
+#: View/Elements/conversation_widget_for_user/conversation_data.ctp: oko
 msgid "Escriba su mensaje"
 msgstr "Type a message"
 

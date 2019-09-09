@@ -22,19 +22,19 @@ class DriverTravelsController extends AppController {
     }
     
     public function index() {
-        $this->DriverTravel->recursive = 2;        
+        $this->DriverTravel->recursive = 3;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $order = array('Travel.id'=>'DESC', 'Driver.id');
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));          
+        $this->Driver->attachProfile($this->DriverTravel);
         
         // Las conversaciones del usuario logueado y que al menos tengan 1 mensaje
         $conditions = array('DriverTravel.user_id' => $this->Auth->user('id'), 'DriverTravel.message_count >' =>0);
         
         
         $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions, 'order'=>$order));
-        $this->set('driver_travels', $driver_travels);
+        $this->set('driver_travels', $driver_travels);    
         
-        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));          
-        $this->Driver->attachProfile($this->DriverTravel);
                 
         //Para la nueva vista de mensajes en chat
         foreach ($driver_travels as $dt) {

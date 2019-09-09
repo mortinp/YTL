@@ -2,8 +2,11 @@
 <?php
 $this->Html->css('common/bootstrap-3.1.1-dist/css/bootstrap.css', array('inline' => false));
 $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
+$this->Html->css('toastr/toastr.min.css', array('inline' => false));
 $this->Html->script('common/jquery-1.9.0.min', array('inline' => false));
 $this->Html->script('common/bootstrap-3.1.1-dist/js/bootstrap.min', array('inline' => false));
+$this->Html->script('jasny/jasny-bootstrap.min', array('inline' => false));
+$this->Html->script('toastr/toastr.min', array('inline' => false));
 
 ?>
 <style type="text/css">
@@ -62,7 +65,7 @@ img{ max-width:100%;}
   margin: 0;
   padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px; overflow-y: scroll;}
+.inbox_chat { height: 650px; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
 
@@ -70,7 +73,14 @@ img{ max-width:100%;}
   display: inline-block;
   width: 6%;
 }
+
 .received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+ }
+.incoming_msg {
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
@@ -89,35 +99,49 @@ img{ max-width:100%;}
   color: #747474;
   display: block;
   font-size: 12px;
-  margin: 8px 0 0;
+  margin: 3px 0 0;
 }
-.received_withd_msg { width: 57%;}
+.received_withd_msg {word-wrap: break-word; overflow: hidden; width: 60%;}
 .mesgs {
   float: left;
-  padding: 30px 15px 0 25px;
+  padding: 30px 15px 0 5px;
   width: 70%;
 }
 
- .sent_msg p {
+ .sent_msg .msg-body {
   background: #05728f none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0; color:#fff;
   padding: 5px 10px 5px 12px;
-  width:100%;
+  width:98%;
 }
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+
+.msg-body a{
+    color:#fff;
+    margin-top: 5px;
+    font-stretch: ultra-expanded;
+    font-style: italic;
+}
+
+.outgoing_msg{overflow:hidden; margin:26px 0 26px;}
 .sent_msg {
   float: right;
   width: 65%;
+  word-wrap: break-word; overflow: hidden; 
 }
-.input_msg_write input {
+.input_msg_write textarea{
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
   color: #4c4c4c;
   font-size: 15px;
   min-height: 48px;
-  width: 100%;
+}
+
+.write_msg{
+   float: right;
+   width: 90%;
+   margin-bottom:10px;
 }
 
 .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
@@ -131,18 +155,29 @@ img{ max-width:100%;}
   height: 33px;
   position: absolute;
   right: 0;
-  top: 11px;
+  top: 30px;
   width: 33px;
 }
 .msg_attach_btn {
-    left: -45px;
-    cursor: pointer;
-  font-size: 17px;
-  height: 33px;
+  /*left: -20px;*/
+  cursor: pointer;
+  font-size: 10px;
+  /*height: 33px;
   position: absolute;
-  top: 11px;
-  width: 33px;
+  top: 30px;
+  width: 33px;*/
+  color: blue;
 }
+
+.msg_attach_btn .btn-file{
+    top: -70px;   
+    
+}
+
+@media (max-width: 720px) {
+        .msg_attach_btn .btn-file{left: -18px;}
+    }
+
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
   height: 570px;
@@ -160,7 +195,7 @@ img{ max-width:100%;}
 .fileinput{margin-bottom:9px;display:inline-block}.fileinput .form-control{padding-top:7px;padding-bottom:5px;display:inline-block;margin-bottom:0;vertical-align:middle;cursor:text}
 .fileinput .thumbnail{overflow:hidden;display:inline-block;margin-bottom:5px;vertical-align:middle;text-align:center}.fileinput .thumbnail>img{max-height:100%}.fileinput .btn{vertical-align:middle}
 .fileinput-exists .fileinput-new,.fileinput-new .fileinput-exists{display:none}.fileinput-inline .fileinput-controls{display:inline}
-.fileinput-filename{vertical-align:middle;display:inline-block;overflow:hidden}.form-control .fileinput-filename{vertical-align:bottom}.fileinput.input-group{display:table}.fileinput.input-group>*{position:relative;z-index:2}
+.fileinput-filename{font-size: 8px; vertical-align:middle;display:inline-block;overflow:hidden}.form-control .fileinput-filename{vertical-align:bottom}.fileinput.input-group{display:table}.fileinput.input-group>*{position:relative;z-index:2}
 .fileinput.input-group>.btn-file{z-index:1}.fileinput-new.input-group .btn-file,.fileinput-new .input-group .btn-file{border-radius:0 4px 4px 0}
 .fileinput-new.input-group .btn-file.btn-xs,.fileinput-new .input-group .btn-file.btn-xs,.fileinput-new.input-group .btn-file.btn-sm,.fileinput-new .input-group .btn-file.btn-sm{border-radius:0 3px 3px 0}.fileinput-new.input-group .btn-file.btn-lg,.fileinput-new .input-group .btn-file.btn-lg{border-radius:0 6px 6px 0}
 .form-group.has-warning .fileinput .fileinput-preview{color:#8a6d3b}.form-group.has-warning .fileinput .thumbnail{border-color:#faebcc}.form-group.has-error .fileinput .fileinput-preview{color:#a94442}.form-group.has-error .fileinput .thumbnail{border-color:#ebccd1}
@@ -191,10 +226,15 @@ img{ max-width:100%;}
           <div class="inbox_chat">
            <?php foreach ($driver_travels as $keyc=>$t): ?>
               <div id="head-<?php echo $t['DriverTravel']['id'] ?>" class="chat_list <?php if($keyc==0) echo 'active_chat'; ?>">
-                  <a id="link-<?php echo $t['DriverTravel']['id'] ?>" data-toggle="tab" href="#tab-<?php echo $t['DriverTravel']['id'] ?>">
+                  <a class="conversation-lnk" id="link-<?php echo $t['DriverTravel']['id'] ?>" data-toggle="tab" href="#tab-<?php echo $t['DriverTravel']['id'] ?>">
                    <?php echo $this->element('conversation_widget_for_user/chat_conversation_data', array('conversation'=>$t)); ?>
                 </a>
-            </div>            
+            </div>
+              <!--Esta div es para tomar datos del viaje y mostrar en el toastr-->
+              <?php $personW = __('persona');
+               $pretty_people_count = $t['Travel']['people_count']. ' '; ?>
+              <div style="display: none" id="info-<?php echo $t['DriverTravel']['id'] ?>"><?php if($t['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
+              else { if($t['Travel']['people_count'] > 0) $pretty_people_count .= $personW; else $pretty_people_count= "Sin detalles del viaje"; } echo $pretty_people_count; ?></div>
            <?php endforeach; ?>
           </div>
         <?php endif; ?>
@@ -238,67 +278,120 @@ img{ max-width:100%;}
            
             ?>
               <div class="incoming_msg_img">
-                  <img src="<?php echo $src ?>" alt="<?php echo $travels[$keyc]['Driver']['DriverProfile']['driver_name']; ?>"> 
+                  <img class="hidden-xs" src="<?php echo $src ?>" alt="<?php echo $travels[$keyc]['Driver']['DriverProfile']['driver_name']; ?>"> 
               </div>
            <?php endif; ?>
               <div class="received_msg">
                 <div class="received_withd_msg">
-                    <p><?php if($msgWasShortened) echo $fullText; else echo $shortText;?></p>
+                      <div class="msg-body"><?php if($msgWasShortened) echo $fullText; else echo $shortText;?>
+                              <!--Mostrando los adjuntos si hay-->
+                    <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
+                                <?php $messageId = 'message-'.$message['id']?>
+                                <div>
+                                    <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
+                                        <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
+                                    </a>
+                                    <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    $('#show-attachments-<?php echo $messageId?>').click(function() {
+
+                                        $.ajax({
+                                            type: "POST",
+                                            data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
+                                            url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
+                                            success: function(response) {
+                                                //alert(response);
+                                                response = JSON.parse(response);
+
+                                                var place = $('#attachments-<?php echo $messageId?>');
+                                                for (var a in response.attachments) {
+                                                    var att = response.attachments[a];
+                                                    if(att.mimetype.substr(0, 5) == 'image') {
+                                                        place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/>');
+                                                    } else if(att.mimetype == 'text/plain') {
+                                                        place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                                    } else {
+                                                        place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                                    }
+                                                }
+
+                                                $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
+
+                                            },
+                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                alert(jqXHR.responseText);
+                                            },
+                                            complete: function() {
+
+                                            }
+                                        });
+
+                                    });
+                                </script>
+
+                  <?php endif?>   
+               
+                </div> 
                   <span class="time_date"><?php echo TimeUtil::prettyDate($message['created'], false); ?></span></div>
               </div>
             </div>
             <?php else: ?>
             <div class="outgoing_msg">
               <div class="sent_msg">
-                <p><?php if($msgWasShortened) echo $fullText; else echo $shortText;?></p>
-               <!--Mostrando los adjuntos si hay-->
-        <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
-                    <?php $messageId = 'message-'.$message['id']?>
-                    <div class="alert">
-                        <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
-                            <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
-                        </a>
-                        <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
-                    </div>
-                    <script type="text/javascript">
-                        $('#show-attachments-<?php echo $messageId?>').click(function() {
+                  <div class="msg-body"><?php if($msgWasShortened) echo $fullText; else echo $shortText;?>
+                              <!--Mostrando los adjuntos si hay-->
+                    <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
+                                <?php $messageId = 'message-'.$message['id']?>
+                                <div>
+                                    <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
+                                        <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
+                                    </a>
+                                    <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    $('#show-attachments-<?php echo $messageId?>').click(function() {
 
-                            $.ajax({
-                                type: "POST",
-                                data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
-                                url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
-                                success: function(response) {
-                                    //alert(response);
-                                    response = JSON.parse(response);
+                                        $.ajax({
+                                            type: "POST",
+                                            data: $('#show-attachments-<?php echo $messageId?>').data('attachments-ids'),
+                                            url: '<?php echo $this->Html->url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))?>',
+                                            success: function(response) {
+                                                //alert(response);
+                                                response = JSON.parse(response);
 
-                                    var place = $('#attachments-<?php echo $messageId?>');
-                                    for (var a in response.attachments) {
-                                        var att = response.attachments[a];
-                                        if(att.mimetype.substr(0, 5) == 'image') {
-                                            place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/>');
-                                        } else if(att.mimetype == 'text/plain') {
-                                            place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
-                                        } else {
-                                            place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
-                                        }
-                                    }
+                                                var place = $('#attachments-<?php echo $messageId?>');
+                                                for (var a in response.attachments) {
+                                                    var att = response.attachments[a];
+                                                    if(att.mimetype.substr(0, 5) == 'image') {
+                                                        place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/>');
+                                                    } else if(att.mimetype == 'text/plain') {
+                                                        place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                                    } else {
+                                                        place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                                    }
+                                                }
 
-                                    $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
+                                                $('#attachments-<?php echo $messageId?>, #show-attachments-<?php echo $messageId?>').toggle();
 
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                    alert(jqXHR.responseText);
-                                },
-                                complete: function() {
+                                            },
+                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                alert(jqXHR.responseText);
+                                            },
+                                            complete: function() {
 
-                                }
-                            });
+                                            }
+                                        });
 
-                        });
-                    </script>
-        
-      <?php endif?>                
-                <span class="time_date"><?php echo TimeUtil::prettyDate($message['created'], false); ?></span> </div>
+                                    });
+                                </script>
+
+                  <?php endif?>   
+               
+                </div>
+                            
+                <span class="time_date"><?php echo TimeUtil::prettyDate($message['created'], false); ?></span> 
+              </div>
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
@@ -309,14 +402,14 @@ img{ max-width:100%;}
                 <?php
                 echo $this->Form->create('DriverTravelerConversation', array('type'=>'file', 'id'=>'DriverTravelerConversationForm-'.$travels[$keyc]['DriverTravel']['id'], 'url' => array('action' => 'chat_msg_to_driver')));
                 echo $this->Form->input('conversation_id', array('type' => 'hidden', 'value' => $travels[$keyc]['DriverTravel']['id']));
-                ?>
-                <div class="fileinput fileinput-new msg_attach_btn" data-provides="fileinput">
-                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><?php echo $this->Form->file('adjunto',array('id'=>'adjunto-'.$travels[$keyc]['DriverTravel']['id'],'multiple'=>'multiple')); ?></span>
-                    <span class="fileinput-filename"></span>
-                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                </div>
+                ?>                
                     <?php echo $this->Form->input('body', array('cols'=>'3','rows'=>'3','class'=>'write_msg','label' => false, 'type' => 'textarea', 'id'=>'tab-'.$travels[$keyc]['DriverTravel']['id'],'placeholder'=>__("Escriba su mensaje"))); ?>
                 <button id="btn-<?php echo $travels[$keyc]['DriverTravel']['id'] ?>" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                <div class="fileinput fileinput-new msg_attach_btn col-md-12" data-provides="fileinput">
+                    <span class="btn btn-default btn-file"><span class="fileinput-new"><i class="fa fa-paperclip"></i></span><span class="fileinput-exists"><i class="fa fa-copy"></i> </span><?php echo $this->Form->file('adjunto',array('id'=>'adjunto-'.$travels[$keyc]['DriverTravel']['id'],'multiple'=>'multiple')); ?></span>
+                    <?php echo __("Fichero(s) adjunto(s): "); ?><span class="fileinput-filename"></span>
+                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                </div>
                 <?php echo $this->Form->end(); ?>  
             </div>
           </div>            
@@ -333,11 +426,24 @@ img{ max-width:100%;}
 </div>
 <script type="text/javascript">
 
-$(document).ready(function() {    
+$(document).ready(function() { 
+  /*Logica para activar la conversacion actual al hacer click en ella*/  
+   $('.conversation-lnk').on("click",function(){ 
+    var fullid = $(this).attr('id')
+    var id = fullid.substring(5,fullid.length);     
+    $('#link-'+id).toggle();
+    $('.inbox_chat > .chat_list').removeClass('active_chat');
+    $('#head-'+id).addClass('active_chat');  
+    
+    // Display a success toast, with a title
+       toastr.info($('#info-'+id).html());
+     
+    });
+  
  
 <?php if($this->request->query('show_conversation')): ?>
      
-   /*Logica para activar la conversacion actual*/                    
+   /*Logica para activar la conversacion que viene por get*/                    
 
     $('.inbox_chat > .chat_list').removeClass('active_chat');
 
