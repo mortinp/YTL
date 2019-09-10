@@ -423,11 +423,12 @@ class DriverTravelerConversationsController extends AppController {
            $current = $this->DriverTravelerConversation->find( 'all',array('conditions' => array('conversation_id' => $this->request->data['DriverTravelerConversation']['conversation_id']) ) );
            
            $driverTravel = $this->DriverTravel->findById($this->request->data['DriverTravelerConversation']['conversation_id']); 
+           
            /*formating the response*/
            $output = '';
            foreach ($current as $key => $value){                 
-            foreach($value as $message){   
-                
+            foreach($value as $message){  
+             
                 $msgWasShortened = false;
                 $text = strip_tags(trim($message['response_text']));
 
@@ -447,84 +448,134 @@ class DriverTravelerConversationsController extends AppController {
 
                     $msgWasShortened = true;
                 }
-             
-            if($message ['response_by']=='driver'){
-            $output.="<div class='incoming_msg'>";               
-                  
-           if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile'])){
-          
-            $src = '';
-            // if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-            $src .= '/ytl-last/yuni-clone/ytl'.'/'.str_replace('\\', '/', $driverTravel['Driver']['DriverProfile']['avatar_filepath']);
-           
             
-             $output.= "<div class='incoming_msg_img'>".
-                  "<img src='".$src."' alt='".$driverTravel['Driver']['DriverProfile']['driver_name']."'> 
-              </div>";
-              }
-              $output.="<div class='received_msg'>".
-                "<div class='received_withd_msg'>".
-                    "<p>";
-               if($msgWasShortened) $output.= $fullText; else $output.= $shortText;
-               $output.="</p>";
-                  $output.="<span class'time_date'>".TimeUtil::prettyDate($message['created'], false)."</span></div>".
-              "</div>".
-            "</div>";
-            } else{
-            $output.="<div class='outgoing_msg'>".
-              "<div class='sent_msg'>".
-                "<p>";
-              if($msgWasShortened) $output.= $fullText; else $output.= $shortText;
-              $output.="</p>";
-               /*--Mostrando los adjuntos si hay--*/
-               if($message['attachments_ids'] != null && $message['attachments_ids'] != ''){
-                   $messageId = 'message-'.$message['id'];
-                    $output.="<div class='alert'>".
-                        "<a href='#!' id='show-attachments-".$messageId."' data-attachments-ids='".$message['attachments_ids']."'>".
-                            "<i class='glyphicon glyphicon-link'></i>". __('Ver adjuntos de este mensaje').
-                        "</a>
-                        <div id='attachments-".$messageId."' style='display:none'></div>
-                    </div>".
-                    "<script type='text/javascript'>".
-                        "$('#show-attachments-".$messageId."').click(function() {
+             if($message ['response_by']=='driver'){
+           $output='<div class="incoming_msg">';               
+                 
+           if(isset ($driverTravel['Driver']['DriverProfile']) && $driverTravel['Driver']['DriverProfile'] != null && !empty ($driverTravel['Driver']['DriverProfile'])){
+           
+                $src = '';
+                // if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
+                $src .= '/ytl-last/yuni-clone/ytl'.'/'.str_replace('\\', '/', $driverTravel['Driver']['DriverProfile']['avatar_filepath']);
 
-                            $.ajax({
-                                type: 'POST',
-                                data: $('#show-attachments-".$messageId."').data('attachments-ids'),
-                                url: '". Router::url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids']))."',
-                                success: function(response) {                                    
-                                    response = JSON.parse(response);
 
-                                    var place = $('#attachments-".$messageId."');
-                                    for (var a in response.attachments) {".
-//                                        var att = response.attachments[a];
-//                                        if(att.mimetype.substr(0, 5) == 'image') {
-//                                            place.append($('<img src=' + att.url + ' class='img-responsive'></img>')).append('<br/>');
-//                                        } else if(att.mimetype == 'text/plain') {
-//                                            place.append('<a href='+ att.url + '> <i class='glyphicon glyphicon-file'></i> ' + att.filename + '</a>').append('<br/>');
-//                                        } else {
-//                                            place.append('<a href='+ att.url + '> <i class='glyphicon glyphicon-file'></i> ' + att.filename + '</a>').append('<br/>');
-//                                        }
-                                    " }
+                  $output.='<div class="incoming_msg_img">
+                      <img class="hidden-xs" src="'.$src.'" alt="'.$driverTravel['Driver']['DriverProfile']['driver_name'].'"> 
+                  </div>';
+           }
+              $output.='<div class="received_msg">
+                <div class="received_withd_msg">
+                      <div class="msg-body">';
+                          if($msgWasShortened) $output.= $fullText; else $output.= $shortText;                              
+                            if($message['attachments_ids'] != null && $message['attachments_ids'] != ''){
+                                $messageId = 'message-'.$message['id'];
+                                $output.='<div>
+                                    <a href="#!" id="show-attachments-'.$messageId.'" data-attachments-ids="'.$message['attachments_ids'].'">
+                                        <i class="glyphicon glyphicon-link"></i>'.__('Ver adjuntos de este mensaje').
+                                    '</a>
+                                    <div id="attachments-'.$messageId.'" style="display:none"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    $("#show-attachments-'.$messageId.'").click(function() {
 
-                                    $('#attachments-".$messageId.", #show-attachments-".$messageId."').toggle();
+                                        $.ajax({
+                                            type: "POST",
+                                            data: $("#show-attachments-'.$messageId.'").data("attachments-ids"),
+                                            url: "'.Router::url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids'],'language'=>$driverTravel['User']['lang'])).'",
+                                            success: function(response) {
+                                                
+                                                response = JSON.parse(response);
 
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                    alert(jqXHR.responseText);
-                                },
-                                complete: function() {
+                                                var place = $("#attachments-'.$messageId.'");
+                                                for (var a in response.attachments) {
+                                                    var att = response.attachments[a];
+                                                    if(att.mimetype.substr(0, 5) == "image") {
+                                                        place.append($("<img src="+ att.url +" class=\'img-responsive\'></img>")).append("<br/>");
+                                                    } else if(att.mimetype == "text/plain") {
+                                                        place.append("<a href="+ att.url +"> <i class=\'glyphicon glyphicon-file\'></i> "+ att.filename + "</a>").append("<br/>");
+                                                    } else {
+                                                        place.append("<a href="+ att.url + "> <i class=\'glyphicon glyphicon-file\'></i> " + att.filename + "</a>").append("<br/>");
+                                                    }
+                                                }
 
-                                }
-                            });
+                                                $("#attachments-'.$messageId.' , #show-attachments-'.$messageId.'").toggle();
 
-                        });
-                    </script>";
-        
-               }                
-                $output.="<span class='time_date'>".TimeUtil::prettyDate($message['created'], false)."</span> </div>
-            </div>";
+                                            },
+                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                alert(jqXHR.responseText);
+                                            },
+                                            complete: function() {
+
+                                            }
+                                        });
+
+                                    });
+                                </script>';
+
+                            } 
+               
+               $output.='</div> 
+                  <span class="time_date">'.TimeUtil::prettyDate($message['created'], false).'</span></div>
+              </div>
+            </div>';
+             } else{
+            $output.='<div class="outgoing_msg">
+              <div class="sent_msg">
+                  <div class="msg-body">';
+                  if($msgWasShortened) $output.= $fullText; else $output.= $shortText;                  
+                    if($message['attachments_ids'] != null && $message['attachments_ids'] != ''){
+                                $messageId = 'message-'.$message['id'];
+                                $output.='<div>
+                                    <a href="#!" id="show-attachments-'.$messageId.'" data-attachments-ids="'.$message['attachments_ids'].'">
+                                        <i class="glyphicon glyphicon-link"></i>'.__('Ver adjuntos de este mensaje').
+                                    '</a>
+                                    <div id="attachments-'.$messageId.'" style="display:none"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    $("#show-attachments-'.$messageId.'").click(function() {
+
+                                        $.ajax({
+                                            type: "POST",
+                                            data: $("#show-attachments-'.$messageId.'").data("attachments-ids"),
+                                            url: "'.Router::url(array('controller'=>'email_queues', 'action'=>'get_attachments/'.$message['attachments_ids'],'language'=>$driverTravel['User']['lang'],)).'",
+                                            success: function(response) {
+                                                
+                                                response = JSON.parse(response);
+
+                                                var place = $("#attachments-'.$messageId.'");
+                                                for (var a in response.attachments) {
+                                                    var att = response.attachments[a];
+                                                    if(att.mimetype.substr(0, 5) == "image") {
+                                                        place.append($("<img src="+ att.url +" class=\'img-responsive\'></img>")).append("<br/>");
+                                                    } else if(att.mimetype == "text/plain") {
+                                                        place.append("<a href="+ att.url +"> <i class=\'glyphicon glyphicon-file\'></i> "+ att.filename + "</a>").append("<br/>");
+                                                    } else {
+                                                        place.append("<a href="+ att.url + "> <i class=\'glyphicon glyphicon-file\'></i> " + att.filename + "</a>").append("<br/>");
+                                                    }
+                                                }
+
+                                                $("#attachments-'.$messageId.' , #show-attachments-'.$messageId.'").toggle();
+
+                                            },
+                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                alert(jqXHR.responseText);
+                                            },
+                                            complete: function() {
+
+                                            }
+                                        });
+
+                                    });
+                                </script>';
+
+                            }   
+               
+                 $output.='</div> 
+                  <span class="time_date">'.TimeUtil::prettyDate($message['created'], false).'</span></div>
+              </div>
+            </div>';
             }
+                
             }
            }
            

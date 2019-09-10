@@ -78,7 +78,7 @@ img{ max-width:100%;}
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
-  width: 92%;
+  width: 92%;  
  }
 .incoming_msg {
   display: inline-block;
@@ -86,7 +86,7 @@ img{ max-width:100%;}
   vertical-align: top;
   width: 92%;
  }
- .received_withd_msg p {
+ .received_withd_msg .msg-body {
   background: #ebebeb none repeat scroll 0 0;
   border-radius: 3px;
   color: #646464;
@@ -283,7 +283,8 @@ img{ max-width:100%;}
            <?php endif; ?>
               <div class="received_msg">
                 <div class="received_withd_msg">
-                      <div class="msg-body"><?php if($msgWasShortened) echo $fullText; else echo $shortText;?>
+                      <div class="msg-body">
+                          <?php if($msgWasShortened) echo $fullText; else echo $shortText;?>
                               <!--Mostrando los adjuntos si hay-->
                     <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
                                 <?php $messageId = 'message-'.$message['id']?>
@@ -494,7 +495,7 @@ $(".msg_send_btn").click(function(){
 
                             $('.tab-content > tab-pane').removeClass('active');
                             $('#tab-'+id).addClass('active');
-                            $('#link-'+id).click();
+                            //$('#link-'+id).click(); Ya no es necesario
 
                         
                         /*Logica para resetear la direccion al cambiar de chat*/              
