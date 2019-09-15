@@ -177,6 +177,7 @@ img{ max-width:100%;}
 
 @media (max-width: 720px) {
         .msg_attach_btn .btn-file{left: -18px;}
+        .received_msg {margin-left: -40px}
     }
 
 .messaging { padding: 0 0 50px 0;}
