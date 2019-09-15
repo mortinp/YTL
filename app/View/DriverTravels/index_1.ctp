@@ -1,5 +1,6 @@
 <?php App::uses('TimeUtil', 'Util')?>
 <?php
+//$this->layout = 'driver_panel';
 $this->Html->css('common/bootstrap-3.1.1-dist/css/bootstrap.css', array('inline' => false));
 $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
 $this->Html->css('toastr/toastr.min.css', array('inline' => false));
@@ -67,7 +68,7 @@ img{ max-width:100%;}
 }
 .inbox_chat { height: 650px; overflow-y: scroll;}
 
-.active_chat{ background:#ebebeb;}
+.active_chat{ background:rgba(131, 143, 184, .2);}
 
 .incoming_msg_img {
   display: inline-block;
@@ -231,10 +232,34 @@ img{ max-width:100%;}
                 </a>
             </div>
               <!--Esta div es para tomar datos del viaje y mostrar en el toastr-->
-              <?php $personW = __('persona');
-               $pretty_people_count = $t['Travel']['people_count']. ' '; ?>
-              <div style="display: none" id="info-<?php echo $t['DriverTravel']['id'] ?>"><?php if($t['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
-              else { if($t['Travel']['people_count'] > 0) $pretty_people_count .= $personW; else $pretty_people_count= "Sin detalles del viaje"; } echo $pretty_people_count; ?></div>
+              <?php $personW = __('persona');?>
+              <?php $pretty_people_count = $t['Travel']['people_count']. ' '; ?>
+              <div id="modal-<?php echo $t['DriverTravel']['id'] ?>" class="modal fade" aria-hidden="true">
+                <div class="modal-dialog modal-sm">                    
+                    <div class="modal-content">
+                        <div class="modal-header bg-info">
+                            <span class="fa fa-info-circle fa-2x"> Detalles del viaje</span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-12 b-r"><h3 class="m-t-none m-b text-muted">#<?php echo DriverTravel::getIdentifier($t)?></h3>                                    
+                                </div>
+                                <div class="col-sm-12">
+                                    <p><?php if($t['Travel']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
+                                      else { if($t['Travel']['people_count'] > 0) $pretty_people_count .= $personW; else $pretty_people_count= "Sin detalles del viaje"; } 
+                                      echo "<p>".$pretty_people_count."</p>";
+                                      if($pretty_people_count>0) 
+                                      echo "<p><span class='fa fa-map-marker'></span> ".$t['Travel']['origin']." - <span class='fa fa-map-marker'></span> ".$t['Travel']['destination']."</p>";                      
+                                      ?></p>
+                                    <p class="hidden-lg"><?php echo $this->html->link(__('Ver perfil de %s', $t['Driver']['DriverProfile']['driver_name'] ),array('controller'=>'drivers', 'action'=>'profile/'.$t['Driver']['DriverProfile']['driver_nick']),array('target'=>'_blank', 'style'=>'color:inherit')); ?></p>
+
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+              </div>             
+             
            <?php endforeach; ?>
           </div>
         <?php endif; ?>
@@ -243,9 +268,12 @@ img{ max-width:100%;}
        <?php if(count($conversations)>0):  ?>        
         <?php foreach ($conversations as $keyc => $conversation): ?>          
         <div id="tab-<?php echo $travels[$keyc]['DriverTravel']['id'] ?>" class="mesgs tab-pane <?php if($keyc==0) echo 'active' ?>">
-        <div class="msg_history">            
-            <?php foreach ($conversation as $key => $value): ?>                    
-            <?php foreach($value as $message): ?>
+            <div class="incoming_msg" style="position: fixed">
+                <a data-toggle="modal" href="#modal-<?php echo $travels[$keyc]['DriverTravel']['id'] ?>" class="btn btn-default btn-xs">Ver detalles</a>
+            </div>
+            <div class="msg_history">            
+            <?php foreach ($conversation as $key => $value): ?>            
+            <?php foreach($value as $message): ?>            
             <?php 
                 $msgWasShortened = false;
                 $text = strip_tags(trim($message['response_text']));
@@ -436,6 +464,22 @@ $(document).ready(function() {
     $('.inbox_chat > .chat_list').removeClass('active_chat');
     $('#head-'+id).addClass('active_chat');  
     
+            toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "progressBar": false,
+          "preventDuplicates": true,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "4000",
+          "hideDuration": "10000",
+          "timeOut": "70000",
+          "extendedTimeOut": "10000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
     // Display a success toast, with a title
        toastr.info($('#info-'+id).html());
      
