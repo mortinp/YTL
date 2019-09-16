@@ -109,6 +109,8 @@ img{ max-width:100%;}
   width: 70%;
 }
 
+.details{margin-top: -28px}
+
  .sent_msg .msg-body {
   background: #05728f none repeat scroll 0 0;
   border-radius: 3px;
@@ -177,7 +179,7 @@ img{ max-width:100%;}
 
 @media (max-width: 720px) {
         .msg_attach_btn .btn-file{left: -18px;}
-        .received_msg {margin-left: -40px}
+        .received_msg {margin-left: -40px}        
     }
 
 .messaging { padding: 0 0 50px 0;}
@@ -269,7 +271,7 @@ img{ max-width:100%;}
        <?php if(count($conversations)>0):  ?>        
         <?php foreach ($conversations as $keyc => $conversation): ?>          
         <div id="tab-<?php echo $travels[$keyc]['DriverTravel']['id'] ?>" class="mesgs tab-pane <?php if($keyc==0) echo 'active' ?>">
-            <div class="incoming_msg" style="position: fixed">
+            <div class="incoming_msg details" style="position: fixed">
                 <a data-toggle="modal" href="#modal-<?php echo $travels[$keyc]['DriverTravel']['id'] ?>" class="btn btn-default btn-xs">Ver detalles</a>
             </div>
             <div class="msg_history">            
