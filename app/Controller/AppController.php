@@ -105,6 +105,7 @@ class AppController extends Controller {
         $applyThemeIn = array(
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
+            array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-prices-cuba', 'render'=>'taxi-prices-cuba'),
             array('controller'=>'testimonials', 'action'=>'featured'),
             array('controller'=>'testimonials', 'action'=>'reviews'),
             array('controller'=>'testimonials', 'action'=>'reply'),
