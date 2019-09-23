@@ -35,6 +35,14 @@ if($isLoggedIn) {
   ?>
   <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
   
+  <?php
+    // TODO: Coger bien el año actual
+    $currentYear = 2019;
+    $page_title = __d('meta', 'Precios de taxi en Cuba %s. Taxi para turismo', $currentYear);
+    $page_description = __d('meta', 'Conoce los precios actuales para tus traslados en Cuba directamente de conductores de taxi para turismo');
+
+    //$description = __d('driver_profile', 'Contacta a %s para acordar tus recorridos en Cuba. Recibe una oferta de precio directamente de él y decide si te gustaría contratarlo.', Driver::shortenName($profile['DriverProfile']['driver_name']));
+  ?>
   <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
   <title><?php echo $page_title." | YoTeLlevo" ?></title>
   <meta name="description" content="<?php echo $page_description?>"/>

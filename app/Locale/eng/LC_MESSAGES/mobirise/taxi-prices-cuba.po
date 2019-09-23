@@ -52,7 +52,7 @@ msgstr "No worries"
 
 #: /home.ctp:59
 msgid "Cuando recibes las ofertas puedes continuar comunicándote con los choferes que mejor te parezcan, pero <strong>no tienes que contratar a ninguno si no te parece bien</strong>."
-msgstr "Once you get the quotes,you can keep talking to the drivers you like best if you are interested, but <strong>you don't have to hire any one of them if you don't want to</strong>."
+msgstr "Once you get the quotes, you can keep talking to the drivers you like best if you are interested, but <strong>you don't have to hire any one of them if you don't want to</strong>."
 
 #: /home.ctp:35
 msgid "Inspírate con %s historias escritas sobre nuestros choferes por clientes anteriores"

@@ -22,6 +22,14 @@ msgstr "Taxi with driver in Cuba: Havana, Varadero, Viñales, Trinidad, Santiago
 msgid "Descubre choferes que operan en Cuba, recibe ofertas de precio directamente de ellos y contrata al mejor para tu viaje."
 msgstr "Discover drivers operating in Cuba, get price quotes directly from them and hire the best for your trip."
 
+#: View/Users/register_welcome.ctp:19
+msgid "Precios de taxi en Cuba %s. Taxi para turismo"
+msgstr "Taxi prices in Cuba %s. Taxi for tourism"
+
+#: View/Users/register_welcome.ctp:19
+msgid "Conoce los precios actuales para tus traslados en Cuba directamente de conductores de taxi para turismo"
+msgstr "Learn up-to-date prices for your rides in Cuba directly from active taxi drivers who work for tourism"
+
 #: Controller/AppController.php:173
 msgid "Contactar"
 msgstr "Contact"

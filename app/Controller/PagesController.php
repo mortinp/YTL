@@ -72,7 +72,7 @@ class PagesController extends AppController {
             $this->set('localities', Locality::getAsSuggestions());
             
             if($page === 'home') $this->layout = 'home';
-            else if($page === 'taxi-prices-cuba') $this->layout = 'home2';
+            else if($page === 'taxi-prices-cuba') $this->layout = 'home_taxi_prices';
             else $this->layout = 'home';
             
             $this->set('stats', $this->_getVanityStats());
