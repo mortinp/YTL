@@ -49,9 +49,13 @@
                 <p class="mbr-text">
                     <?php echo $this->Html->link(__d('mobirise/default', 'Taxi en %s', __('La Habana')), array('controller'=>'drivers', 'action'=>'drivers_by_province', 'la-habana'), array('class'=>'text-white')); ?>
                     <br>
+                    <?php echo $this->Html->link(__d('mobirise/default', 'Taxi en %s', 'Viñales'), array('controller'=>'drivers', 'action'=>'drivers_by_province', 'vinales-pinar-del-rio'), array('class'=>'text-white')); ?>
+                    <br>
                     <?php echo $this->Html->link(__d('mobirise/default', 'Taxi en %s', 'Varadero, Matanzas'), array('controller'=>'drivers', 'action'=>'drivers_by_province', 'varadero-matanzas'), array('class'=>'text-white')); ?>
                     <br>
                     <?php echo $this->Html->link(__d('mobirise/default', 'Taxi en %s', 'Trinidad, Santi Spíritus'), array('controller'=>'drivers', 'action'=>'drivers_by_province', 'trinidad-sancti-spiritus'), array('class'=>'text-white')); ?>
+                    <br>
+                    <?php echo $this->Html->link(__d('mobirise/default', 'Taxi en %s', 'Cienfuegos'), array('controller'=>'drivers', 'action'=>'drivers_by_province', 'cienfuegos'), array('class'=>'text-white')); ?>
                     <br>
                     <?php echo $this->Html->link(__d('mobirise/default', 'Taxi en %s', 'Cayo Coco/Guillermo'), array('controller'=>'drivers', 'action'=>'drivers_by_province', 'cayo-coco-guillermo-ciego-de-avila'), array('class'=>'text-white')); ?>
                     <br>
