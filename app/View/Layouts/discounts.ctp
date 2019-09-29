@@ -50,20 +50,59 @@ if($userLoggedIn) {
         $this->Html->meta('icon');
         
         $this->Html->css('default-bundle', array('inline' => false));
-        
+        $this->Html->css('common/bootstrapnew/css/bootstrap.css', array('inline' => false));
+        $this->Html->css('font-awesome/css/font-awesome.css', array('inline' => false));
+        $this->Html->css('typeaheadjs-bootstrapcss/typeahead.js-bootstrap', array('inline' => false));
+        $this->Html->css('clockpicker/clockpicker.css', array('inline' => false));
         $this->Html->script('default-bundle', array('inline' => false));
-        $this->Html->css('/assets/datepicker/css/datepicker', array('inline' => false));
-              
-        echo $this->fetch('meta');
-        echo $this->fetch('css');        
+        $this->Html->css('/assets/datepicker/css/datepicker', array('inline' => false));              
+        echo $this->fetch('meta');        
+        echo $this->fetch('css');          
         $this->Html->script('/assets/jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));
-        $this->Html->script('/assets/datepicker/js/datepicker', array('inline' => false));        
-        echo $this->fetch('script');
-        
-        ?>
+        $this->Html->script('/assets/datepicker/js/datepicker', array('inline' => false));
+        $this->Html->script('clockpicker/clockpicker.js', array('inline' => false)); 
+        $this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
+        echo $this->fetch('script');  
+    ?>
         
         <script type="text/javascript">
             $(document).ready(function() {
+                
+                // Crear los typeahead
+        $('input.driver-typeahead').typeahead({
+            valueKey: 'driver_id',
+            local: window.app.drivers,
+            template: function(datum) {
+                var display = datum.driver_id + ':';
+                if(datum.driver_name != null) display += ' <b> ' + datum.driver_name + ' </b>';// Los espacios entre las <b> y el nombre son importantes para poder matchear por el nombre
+                display += ' | ' + datum.driver_username;
+                display += ' | ' + ' <b> ' + datum.province_name + ' </b>';// Los espacios entre las <b> y la provincia son importantes para poder matchear por la provincia
+                display += ' | ' + datum.driver_pax + ' pax';
+
+                return display;
+            },
+            limit: 50
+        });
+        $('input.tt-hint').addClass('form-control');
+        $('.twitter-typeahead').css('display', 'block'); 
+        
+        
+        if($('.clockpicker').length >0){
+                function DisplayCurrentTime() { 
+                   var date = new Date(); 
+                   var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+                   var am_pm = date.getHours() >= 12 ? "PM" : "AM"; hours = hours < 10 ? "0" + hours : hours; 
+                   var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                   var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds(); 
+                   var time = hours + ":" + minutes + ":" + am_pm; 
+                   //time = hours + ":" + minutes + am_pm;
+                    return time; 
+                }
+       $('.clockpicker').clockpicker({
+           'default': DisplayCurrentTime()
+        , }).find('input').val(DisplayCurrentTime()) ;
+       }
+        
                 
                 /*Logica para el mensaje directo en conv. cerrada*/
                 $('.datepicker').datepicker({
