@@ -51,26 +51,33 @@ if($isLoggedIn) {
   <meta property="og:title" content="<?php echo substr($page_title, 0, 90)?>">
   <meta property="og:image" content="/assets/images/1525113306-ismel-kimara-jpg-2000x1333.jpg">
   <meta property="og:description" content="<?php echo $page_description?>">
+      
+<?php
+// CSS
+$this->Html->css('web/assets/mobirise-icons/mobirise-icons', array('inline' => false));
+
+$this->Html->css('tether/tether.min', array('inline' => false));
+
+$this->Html->css('bootstrap/css/bootstrap.min', array('inline' => false));
+$this->Html->css('bootstrap/css/bootstrap-grid.min', array('inline' => false));
+$this->Html->css('bootstrap/css/bootstrap-reboot.min', array('inline' => false));
+
+$this->Html->css('dropdown/css/style', array('inline' => false));    
+$this->Html->css('socicon/css/styles', array('inline' => false));
+$this->Html->css('theme/css/style', array('inline' => false));
+
+$this->Html->css('mobirise/css/mbr-additional', array('inline' => false));
+
+$this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
+?>
   
-  
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="assets/tether/tether.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  <?php
-    // CSS
-    $this->Html->css('datepicker/css/datepicker', array('inline' => false));
-    $this->Html->css('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => false));
-    $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
-    
-    echo $this->fetch('css');
-  ?>
+<?php
+// CSS
+$this->Html->css('datepicker/css/datepicker', array('inline' => false));
+$this->Html->css('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => false));
+
+echo $this->fetch('css');
+?>
   
   
   
@@ -84,19 +91,21 @@ if($isLoggedIn) {
 
 <?php echo $this->element('mobirise/footer1')?>
 
+<?php
+$this->Html->script('web/assets/jquery/jquery.min', array('inline' => false));
+$this->Html->script('popper/popper.min', array('inline' => false));
+$this->Html->script('tether/tether.min', array('inline' => false));
 
-  <script src="assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="assets/popper/popper.min.js"></script>
-  <script src="assets/tether/tether.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <!--<script src="assets/smoothscroll/smooth-scroll.js"></script>-->
-  <script src="assets/dropdown/js/script.min.js"></script>
-  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-  <script src="assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js"></script>
-  <script src="assets/mbr-clients-slider/mbr-clients-slider.js"></script>
-  <script src="assets/sociallikes/social-likes.js"></script>
-  <script src="assets/theme/js/script.js"></script>
-  <!--<script src="assets/formoid/formoid.min.js"></script>-->  
+$this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
+$this->Html->script('dropdown/js/script.min', array('inline' => false));
+$this->Html->script('touchswipe/jquery.touch-swipe.min', array('inline' => false));
+$this->Html->script('bootstrapcarouselswipe/bootstrap-carousel-swipe', array('inline' => false));
+$this->Html->script('mbr-clients-slider/mbr-clients-slider', array('inline' => false));
+$this->Html->script('sociallikes/social-likes', array('inline' => false));
+$this->Html->script('parallax/jarallax.min', array('inline' => false));
+$this->Html->script('theme/js/script', array('inline' => false));
+?>
+
 <?php
 
 $this->Html->script('datepicker/js/datepicker', array('inline' => false));

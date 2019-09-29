@@ -26,7 +26,7 @@ class Province extends AppModel {
         5=>array('name'=>'La Habana', 'slug'=>'la-habana', 'featured_activity'=>'Tour de un día a Viñales', 'airport'=>'La Habana'),
         6=>array('name'=>'Varadero, Matanzas', 'slug'=>'varadero-matanzas', 'featured_activity'=>'Visita de un día a La Habana', 'airport'=>'Varadero', 'alternative_province'=>5),
         7=>array('name'=>'Villa Clara', 'slug'=>'santa-clara-villa-clara', 'featured_activity'=>'Traslados en Santa Clara', 'airport'=>'Santa Clara'),
-        8=>array('name'=>'Viñales, Pinar del Río', 'slug'=>'vinales-pinar-del-rio', 'featured_activity'=>'Traslado a La Habana', 'airport'=>false),
+        8=>array('name'=>'Viñales, Pinar del Río', 'slug'=>'vinales-pinar-del-rio', 'featured_activity'=>'Traslado a La Habana', 'airport'=>false, 'alternative_province'=>5),
         9=>array('name'=>'Camaguey', 'slug'=>'camaguey', 'featured_activity'=>'Traslado a Trinidad', 'airport'=>'Camaguey'),
         10=>array('name'=>'Trinidad, Sancti Spíritus', 'slug'=>'trinidad-sancti-spiritus', 'featured_activity'=>'Visita a El Nicho', 'airport'=>false, 'alternative_province'=>11),
         11=>array('name'=>'Cienfuegos', 'slug'=>'cienfuegos', 'featured_activity'=>'Traslado a Trinidad', 'airport'=>false, 'alternative_province'=>10),

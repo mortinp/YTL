@@ -28,8 +28,11 @@
 
         Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
         Router::connect('/:language/taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-cuba'), array('language' => 'en|es'));
+        Router::connect('/:language/taxi-prices-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'en|es'));
+        Router::connect('/:language/cheap-taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'cheap-taxi-cuba'), array('language' => 'en|es'));
         
-        //Router::connect('/:language/catalog-drivers-cuba', array('controller' => 'pages', 'action' => 'display', 'catalog-drivers-cuba'), array('language' => 'en|es'));
+        Router::connect('/:language/opinion/*', array('controller' => 'testimonials', 'action'=>'add'), array('language' => 'en|es'));
+        
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

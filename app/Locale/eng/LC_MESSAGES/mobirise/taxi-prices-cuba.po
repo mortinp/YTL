@@ -1,0 +1,91 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:29
+msgid "¿Buscas opciones de traslados en Cuba?"
+msgstr "Looking for transportation options in Cuba?"
+
+#: /home.ctp:29
+msgid "Comienza tu búsqueda de mejores precios de taxi privado en Cuba aquí"
+msgstr "Start your research of private taxi prices in Cuba here"
+
+#: /home.ctp:29
+msgid "Conoce los precios directamente de conductores activos en el negocio de taxi para turismo en la isla"
+msgstr "Learn the prices directly from drivers currently active in the business of taxi for tourism in the island"
+
+#: /home.ctp:29
+msgid "Recibe ofertas de 5 choferes en menos de 12 horas"
+msgstr "Get quotes from 5 drivers in less than 12 hours"
+
+#: /home.ctp:33
+msgid "Fácil"
+msgstr "Easy"
+
+#: /home.ctp:35
+msgid "Simplemente <strong>envía tu idea</strong> de los recorridos que deseas realizar, y <strong>te conectaremos con múltiples conductores</strong> independientes acá en la isla y sus ofertas llegarán a tu inbox."
+msgstr "Just <strong>send your idea</strong> of the trips or rides you want to do, and <strong>we will connect you to multiple drivers</strong> here in the island so you can get quotes from them in your inbox."
+
+#: /home.ctp:35
+msgid "Rápido"
+msgstr "Fast"
+
+#: /home.ctp:50
+msgid "Recibirás <strong>múltiples ofertas en menos de 12 horas</strong>. Todo depende del momento en que los choferes abran su app móvil o su correo. Si están interesados, responderán enseguida."
+msgstr "You will <strong>get multiple quotes in less than 12 hours</strong>. It all depends on when our drivers open their app or email and see your request. If they are interested, they will reply right away."
+
+#: /home.ctp:35
+msgid "Sin compromisos"
+msgstr "No worries"
+
+#: /home.ctp:59
+msgid "Cuando recibes las ofertas puedes continuar comunicándote con los choferes que mejor te parezcan, pero <strong>no tienes que contratar a ninguno si no te parece bien</strong>."
+msgstr "Once you get the quotes, you can keep talking to the drivers you like best if you are interested, but <strong>you don't have to hire any one of them if you don't want to</strong>."
+
+#: /home.ctp:35
+msgid "Inspírate con %s historias escritas sobre nuestros choferes por clientes anteriores"
+msgstr "Get inspired with %s stories written about our drivers by previous customers"
+
+#: /home.ctp:68
+msgid "Podrás verlas en los perfiles de los choferes"
+msgstr "You can see them in the drivers' profiles"
+
+#: /home.ctp:83
+msgid "El chofer con quien viajas es importante y hace la diferencia"
+msgstr "The driver you travel with is important and makes the difference"
+
+#: /home.ctp:83
+msgid "Nuestros choferes son <strong>pilotos retirados</strong>, <strong>pescadores</strong>, <strong>comediantes</strong>, <strong>contadores</strong>, <strong>músicos</strong>, todos <strong>propietarios de un auto que nos ayudan a moverte por la isla</strong>. Conecta con tu chofer de la manera que prefieras."
+msgstr "Our drivers are <strong>retired pilots</strong>, <strong>fishermen</strong>, <strong>comedians</strong>, <strong>accountants</strong>, <strong>musicians</strong>, all of them <strong>owners of a car who help us move you around the island</strong>. Connect with your driver the way you prefer."
+
+#: /home.ctp:83
+msgid "Solicita presupuesto ahora"
+msgstr "Request quotes now"
+
+#: /home.ctp:83
+msgid "Solicita presupuesto para taxi en Cuba"
+msgstr "Request quotes for taxi in Cuba"
+
+#: /home.ctp:83
+msgid "Envía la idea de tus recorridos a nuestros choferes"
+msgstr "Send the idea of your trips to our drivers"
+
+#: /home.ctp:83
+msgid "¿Tienes amigos buscando opciones de traslados en Cuba?"
+msgstr "Know friends looking for transportation options in Cuba?"
+
+#: /home.ctp:83
+msgid "Comparte esta página y házles feliz su día"
+msgstr "Share this page and make their day"

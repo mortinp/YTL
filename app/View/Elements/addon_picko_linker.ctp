@@ -134,7 +134,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-2 picko-icon">
-                <img class="img-responsive mt-5" src="assets/images/logo43.png" alt="" style="max-height: 50px;">
+                <?php echo $this->Html->image('logo43.png', array('class'=>'img-responsive mt-5', 'style'=>'max-height: 50px;'))?>
             </div>
             <div class="col-sm-10">
                 <div class="inner mt-4 center mr-3 pb-2" style="text-align: center">

@@ -105,6 +105,8 @@ class AppController extends Controller {
         $applyThemeIn = array(
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
+            array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-prices-cuba', 'render'=>'taxi-prices-cuba'),
+            array('controller'=>'pages', 'action'=>'display', 'pass'=>'cheap-taxi-cuba', 'render'=>'cheap-taxi-cuba'),
             array('controller'=>'testimonials', 'action'=>'featured'),
             array('controller'=>'testimonials', 'action'=>'reviews'),
             array('controller'=>'testimonials', 'action'=>'reply'),
@@ -275,6 +277,7 @@ class AppController extends Controller {
             
             // Access to all
             'pages.display' =>array(
+                'taxi-prices-cuba'=>array('title'=>__d('meta', 'Precios de taxi en Cuba. Taxi para turismo'), 'description'=>__d('meta', 'Conoce los precios para tus traslados directamente de conductores de taxi para turismo en Cuba')), 
                 'taxi-cuba'=>array('title'=>__d('meta', 'Taxi con conductor en Cuba. A cualquier parte de la isla.'), 'description'=>__d('meta', 'YoTeLlevo es la mayor comunidad online de taxistas independientes en Cuba, listos para darte precios para tus traslados en la isla.')), 
                 'contact'=>array('title'=>__d('meta', 'Contactar'), 'description'=>__d('meta', 'Contáctanos para cualquier pregunta o duda sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')), 
                 'faq'=>array('title'=>__d('meta', 'Preguntas Frecuentes'), 'description'=>__d('meta', 'Preguntas y respuestas sobre cómo conseguir un taxi para moverte por Cuba usando YoTeLlevo')),
