@@ -1,6 +1,6 @@
 <div class="plan-header text-center pt-5">
     <div>
-        <img src='/yotellevo/files/1567442022_1491591629_avatar-frank-rojas_jpg' style="max-height: 40px;max-width: 40px"/> 
+        <img src='/files/1491591629_avatar-frank-rojas_jpg' style="max-height: 40px;max-width: 40px"/> 
         Frank Rojas ofrece:
     </div>
     <h3 class="plan-title mbr-fonts-style display-5">

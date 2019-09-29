@@ -29,7 +29,7 @@
         Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
         Router::connect('/:language/taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-cuba'), array('language' => 'en|es'));
         Router::connect('/:language/taxi-prices-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'en|es'));
-        Router::connect('/:language/cheap-taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'cheap-taxi-cuba'), array('language' => 'en|es'));
+        Router::connect('/:language/cheap-taxi-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'en|es'));
         
         Router::connect('/:language/opinion/*', array('controller' => 'testimonials', 'action'=>'add'), array('language' => 'en|es'));
         

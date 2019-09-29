@@ -7,7 +7,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
 
 ?>
 <div class="discountRides form container">
-<?php echo $this->Form->create('DiscountRide',['class'=>'col-md-8']); ?>
+<?php echo $this->Form->create('DiscountRide',array('class'=>'col-md-8')); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar viaje con descuento'); ?></legend>
                 <div class="row">

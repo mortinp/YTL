@@ -108,22 +108,8 @@ $this->Html->script('mbr-clients-slider/mbr-clients-slider', array('inline' => f
 $this->Html->script('sociallikes/social-likes', array('inline' => false));
 $this->Html->script('parallax/jarallax.min', array('inline' => false));
 $this->Html->script('theme/js/script', array('inline' => false));
-?>
-
-<?php
-
-$this->Html->script('datepicker/js/datepicker', array('inline' => false));
-
-$this->Html->script('jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));
-if(Configure::read('Config.language') != 'en') $this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure::read('Config.language'), array('inline' => false));
-
-$this->Html->script('typeaheadjs/js/typeahead-martin', array('inline' => false));
-
-$this->Js->set('localities', $localities);
-echo $this->Js->writeBuffer(array('inline' => false));
 
 echo $this->fetch('script');
-
 ?>
 
 <script type="text/javascript">
@@ -139,65 +125,7 @@ echo $this->fetch('script');
                 picko.animate({opacity:'hide', heigh:'hide'},'slow');        
             });
         }
-        
-        $('.datepicker').datepicker({
-            format: "dd/mm/yyyy",
-            language: '<?php echo Configure::read('Config.language')?>',
-            startDate: 'today',
-            todayBtn: "linked",
-            autoclose: true,
-            todayHighlight: true
-        });
-        
-        $('#TravelForm').validate({
-            wrapper: 'div',
-            errorClass: 'text-danger',
-            errorElement: 'div'
-        });  
-        
-        
-        $('#TravelForm').submit(function() {
-            if (!$(this).valid()) return false;
-
-            //$('#TravelForm :input').prop('disabled', true);
-            //$('#TravelFormDiv').prop('disabled', true);
-
-            $('#TravelSubmit').attr('disabled', true);
-            $('#TravelSubmit').val('<?php echo __d('mobirise/default', 'Espera')?> ...');
-        });
     })
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('input.locality-typeahead').typeahead({
-            valueKey: 'name',
-            local: window.app.localities,
-            limit: 20
-        })/*.on('typeahead:selected', function(event, datum) {
-            
-        })*/;
-        
-        $('input.tt-hint').addClass('form-control');
-        $('.twitter-typeahead').css('display', 'block');
-    });
-
-</script>
-
-<script type="text/javascript">
-    //<![CDATA[
-    function get_form( element )
-    {
-        while( element )
-        {
-            element = element.parentNode
-            if( element.tagName.toLowerCase() == "form" ) {
-                return element
-            }
-        }
-        return 0; //error: no form found in ancestors
-    }
-    //]]>
 </script>
 
 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>

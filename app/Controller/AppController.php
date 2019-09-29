@@ -35,6 +35,8 @@ App::uses('User', 'Model');
  */
 class AppController extends Controller {
     
+    public $uses = array('Dummy');
+    
     public $helpers = array(
         'Html' => array(
             'className' => 'EnhancedHtml'
@@ -106,13 +108,13 @@ class AppController extends Controller {
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-prices-cuba', 'render'=>'taxi-prices-cuba'),
-            array('controller'=>'pages', 'action'=>'display', 'pass'=>'cheap-taxi-cuba', 'render'=>'cheap-taxi-cuba'),
             array('controller'=>'testimonials', 'action'=>'featured'),
             array('controller'=>'testimonials', 'action'=>'reviews'),
             array('controller'=>'testimonials', 'action'=>'reply'),
             array('controller'=>'drivers', 'action'=>'profile'),
             array('controller'=>'travels', 'action'=>'pending'),
             array('controller'=>'drivers', 'action'=>'drivers_by_province'),
+            array('controller'=>'discount_rides', 'action'=>'home'),
         );
         
         $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);
@@ -384,5 +386,34 @@ class AppController extends Controller {
     
     protected function setSuccessMessage($message) {
         $this->Session->setFlash($message, 'success_message');
+    }
+    
+    protected function _getVanityStats() {
+        // STATS
+        $stats = $this->Session->read('App.stats');
+        if(!$stats) {
+            $doneSQL = "SELECT COUNT( DISTINCT travels.id ) AS hires, SUM( travels.people_count ) AS people
+                        FROM travels
+                        INNER JOIN users ON travels.user_id = users.id
+                        AND users.role !=  'admin'
+                        AND users.role !=  'tester'
+                        INNER JOIN drivers_travels ON travels.id = drivers_travels.travel_id
+                        INNER JOIN travels_conversations_meta ON drivers_travels.id = travels_conversations_meta.conversation_id
+                        AND (
+                        travels_conversations_meta.state = 'D'
+                        OR travels_conversations_meta.state = 'P'
+                        )";
+
+            $reviewsSQL = "SELECT COUNT( testimonials.id ) AS reviews
+                        FROM testimonials
+                        WHERE testimonials.state = 'A'";
+
+            $done = $this->Dummy->query($doneSQL);
+            $reviews = $this->Dummy->query($reviewsSQL);
+
+            $stats = array('hires'=>$done[0][0]['hires'], 'people'=>$done[0][0]['people'], 'reviews'=>$reviews[0][0]['reviews']);
+        }
+        
+        return $stats;
     }
 }
