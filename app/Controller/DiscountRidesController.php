@@ -25,6 +25,19 @@ class DiscountRidesController extends AppController {
         
         
         // TODO: Cargar viajes disponibles aquí
+        $this->DiscountRide->recursive = 3;
+        $discounts = $this->DiscountRide->find('all',array('order'=>array('DiscountRide.date'=>'ASC')));
+        //formatting the final result by dates
+        $discount_rides_by_date = array();
+        foreach ($discounts as $key => $value) {
+            $currdate = $value['DiscountRide']['date'];            
+            $discount_rides_by_date[$currdate][]=$value ;
+        }
+        
+        $this->set('discount_rides_by_date',$discount_rides_by_date);
+
+        
+       
         
         // Algunos datos que hacen falta en la vista
         $this->set('stats', $this->_getVanityStats());
