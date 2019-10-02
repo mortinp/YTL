@@ -20,7 +20,7 @@
         <ul class="list-group list-group-flush mbr-fonts-style display-7">
             <li class="list-group-item">
                 Fecha / Horario salida</li>
-            <li class="list-group-item"><strong>3 Octubre / <?php echo $discount['DiscountRide']['hour_min']; ?> - <?php echo $discount['DiscountRide']['hour_max']; ?></strong></li>
+            <li class="list-group-item"><strong><?php echo TimeUtil::prettyDateShort($discount['DiscountRide']['date']); ?> / <?php echo $discount['DiscountRide']['hour_min']; ?> - <?php echo $discount['DiscountRide']['hour_max']; ?></strong></li>
         </ul>
     </div>
     <div class="mbr-section-btn text-center py-4 pb-5"><?php echo $this->Html->link(__d('mobirise/testimonials', 'Contactar a %s', $discount['Driver']['DriverProfile']['driver_name']), array('controller'=>'drivers', 'action'=>'profile', $discount['Driver']['DriverProfile']['driver_nick']), array('class'=>'btn btn-success display-4', 'escape'=>false,'target'=>'_blank'))?></div>

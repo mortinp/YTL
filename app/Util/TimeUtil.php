@@ -22,6 +22,23 @@ class TimeUtil {
         return $pretty_date;
     }
     
+    public static function prettyDateShort($date, $dayOfWeek = true) {
+        
+        $date_converted = strtotime($date);
+        $day = date('j', $date_converted);
+        $month = __(TimeUtil::$months_es[date('n', $date_converted) - 1]);
+        $year = date('Y', $date_converted);
+        
+        $pretty_date = $day.' '.$month;
+        
+        if($dayOfWeek) {
+            $day_of_week = __(TimeUtil::$days_es[date('w', $date_converted)]);
+            $pretty_date .= ' ('.$day_of_week.')';
+        }
+        
+        return $pretty_date;
+    }
+    
     public static function wasBefore($timeInterval, $dateString, $timezone = null) {
         $tmp = str_replace(' ', '', $timeInterval);
         if (is_numeric($tmp)) {
