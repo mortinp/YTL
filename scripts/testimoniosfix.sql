@@ -1,1 +1,1 @@
-UPDATE testimonials SET image_filepath='files/1565363939_family-in-front-of-bus-travel-juan-carlos-cuba_jpeg' WHERE id='5d4d3199-22bc-4abc-9287-2a6b4f8fb177';
+UPDATE testimonials SET image_filepath='files/1570051429_selfie-guy-and-girls-blue-classic-car-cuba-1_jpg' WHERE id='5d950a8a-c3d0-4506-9e52-3b694f8fb177';

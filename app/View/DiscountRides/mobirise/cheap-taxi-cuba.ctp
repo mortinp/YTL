@@ -32,7 +32,7 @@
                 </h1>
                 
                 <p class="mbr-text pb-3 mbr-fonts-style display-5">
-                    <?php echo __d('mobirise/cheap_taxi', 'Hay ocasiones en que los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, cuando dejan clientes lejos y tienen que regresar a casa, o cuando tienen que recoger clientes y deben salir desde un punto lejano.<br>Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>.')?></p>
+                    <?php echo __d('mobirise/cheap_taxi', 'En ocasiones los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, cuando dejan clientes lejos y tienen que regresar a casa, o cuando tienen que recoger clientes y deben salir desde un punto lejano.<br>Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>.')?></p>
                 <div class="mbr-section-btn">
                     <a class="btn btn-md btn-black-outline display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">Ver las ofertas disponibles</a>
                 </div>
