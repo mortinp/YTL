@@ -24,7 +24,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                 <div class="row">
                     <div class="col-md-6">
                     <label>Entre</label>
-                    <div class="input-group clockpicker" data-autoclose="true">
+                    <div class="input-group"><!--class clockpicker data-autoclose="true"-->
                         <?php echo $this->Form->input('hour_min',array('label'=>'')); ?>
                         <span class="input-group-addon">
                             <span class="fa fa-clock-o"></span>
@@ -33,7 +33,7 @@ echo $this->Js->writeBuffer(array('inline' => false));
                     </div>
                     <div class="col-md-6">
                     <label>Y</label>
-                    <div class="input-group clockpicker" data-autoclose="true">
+                    <div class="input-group"><!--class clockpicker data-autoclose="true"-->
                         <?php echo $this->Form->input('hour_max',array('label'=>'')); ?>
                         <span class="input-group-addon">
                             <span class="fa fa-clock-o"></span>

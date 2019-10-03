@@ -71,5 +71,30 @@ class DiscountRidesController extends AppController {
             }
             $this->set('drivers', $this->Driver->getAsSuggestions()); 
     }
+    
+    public function edit($tId) {        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $active = $this->request->data['DiscountRide']['active'];
+            $discountRide = $this->DiscountRide->findById($tId);        
+            $this->request->data['DiscountRide'] = $discountRide['DiscountRide'];
+            $this->request->data['DiscountRide']['active']=$active;
+            $discountRide = $this->request->data;
+        }
+
+        $editing = $this->request->is('ajax') || $this->request->is('post') || $this->request->is('put');
+        if($editing) {
+            if($this->DiscountRide->save($discountRide)) {           
+                    $this->setSuccessMessage('El viaje con descuento ha sido modificado');
+                    return $this->redirect(array('action' => 'index'));
+                }
+                $this->setErrorMessage(__('Ocurrió un error actualizando este viaje con descuento. Intenta de nuevo.'));
+            
+        }
+        
+        $discountRide = $this->DiscountRide->findById($tId);
+        if (!$this->request->data) {
+            $this->request->data['DiscountRide'] = $discountRide['DiscountRide'];
+        }
+    }
 
 }

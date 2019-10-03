@@ -44,8 +44,8 @@ class DiscountRide extends AppModel {
 			),
 		),
 		'hour_min' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -54,8 +54,8 @@ class DiscountRide extends AppModel {
 			),
 		),
 		'hour_max' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,

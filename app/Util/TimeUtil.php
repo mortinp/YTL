@@ -78,5 +78,15 @@ class TimeUtil {
         return $now->diff(new DateTime($str_date), true)->format('%a');
     }
     
+    public static function AmPm($hour){
+     if($hour < 12) $meridian ="am."; else if($hour == 12) $meridian ="m."; else $meridian ="pm.";
+     
+     if($hour>12)
+         return bcsub($hour,12,0).' '.$meridian;
+     else
+         return $hour.' '.$meridian;
+    
+}
+    
 }
 ?>

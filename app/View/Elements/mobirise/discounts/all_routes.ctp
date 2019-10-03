@@ -4,7 +4,7 @@
         <a role="button" class="panel-title collapsed text-black" data-toggle="collapse" data-core="" href="#collapse<?php echo $date; ?>" aria-expanded="false" aria-controls="collapse1">
             <h4 class="mbr-fonts-style display-5">
                 <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
-                <b><?php echo $date; ?></b>
+                <b><?php echo TimeUtil::prettyDate($date,false); ?></b>
             </h4>
         </a>
     </div>
