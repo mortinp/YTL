@@ -269,12 +269,16 @@ msgid "Mil gracias por confiar en nosotros y en %s."
 msgstr "A thousand thanks for trusting us and %s."
 
 #: View/Emails/html/request_testimonial.ctp:18
-msgid "Queríamos aprovechar este correo y pedirle que si les gustó genuinamente su viaje con %s, por favor escriba una opinión sobre él en nuestro sitio. Eso sería de gran ayuda para él porque otros viajeros podrían inspirarse con su testimonio y sentirse más seguros al contratarlo."
-msgstr "We also wanted to use this email to ask that if you geniunely enjoyed your trip with %s, please write an opinion about him in our website. That would be of huge help for him because other travelers could be inspired by your review and feel safer hiring him."
+msgid "Queríamos aprovechar este correo y pedirle que si les gustó genuinamente su viaje, por favor escriba una opinión sobre él en nuestro sitio. Eso sería de gran ayuda porque otros viajeros podrían inspirarse con su testimonio y sentirse más seguros al contratarlo."
+msgstr "We also wanted to use this email to ask that if you geniunely enjoyed your trip, please write an opinion about him in our website. That would be of huge help because other travelers could be inspired by your review and feel safer hiring him."
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Si tiene unos minutos puede escribir rápidamente un testimonio sobre %s aquí"
 msgstr "If you have a couple minutes you can write a review about %s here"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Enviarle una opinión a %s"
+msgstr "Send a review to %s"
 
 #: View/Emails/html/request_testimonial.ctp:18
 msgid "Un testimonio se ve mucho mejor con una foto de su viaje; si tiene una a la mano sería genial que la pusiera junto con el comentario - aunque no es obligatorio, por supuesto"
