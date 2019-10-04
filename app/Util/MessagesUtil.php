@@ -79,6 +79,11 @@ class MessagesUtil {
 
             $datasource = $this->DriverTravelerConversation->getDataSource();
             $datasource->begin();
+            
+            // AVOID COMPETITION
+            if(isset($driverTravel['User']['username']) && $driverTravel['User']['username'] == 'cuber@cubertaxi.com') {
+                $fixedBody = 'Mensaje bloqueado!!!';
+            }
 
             $OK = $this->DriverTravelerConversation->save(array(
                 'conversation_id'=> $conversation,
