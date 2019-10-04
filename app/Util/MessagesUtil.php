@@ -289,6 +289,13 @@ class MessagesUtil {
             }
 
             $deliverTo = $driverTravel['User']['username'];
+            
+            // AVOID COMPETITION :)
+            if(strtolower($deliverTo) == 'cuber@cubertaxi.com') {
+                $conversation = 'BLOCKED';
+                $fixedBody = 'Hola Equipo de Cuber. Nos gusta su aplicación, pero no nos gusta la competencia deshonesta. No queremos tampoco que se obtengan los datos de nuestros choferes pues pueden ser usados para cualquier fin desconocido. Lo sentimos. Un saludo, el Equipo de YoTeLlevo';
+                //return false;
+            }
 
             // El $returnData es para coger los ids de los attachments que hayan
             $returnData = array(0); // Este 0 hay que ponerselo porque si no la referencia parece que es nula!!! esta raro esto pero bueno...

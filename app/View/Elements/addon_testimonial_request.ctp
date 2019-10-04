@@ -32,7 +32,9 @@
                     <li>No se han recibido quejas del cliente o del chofer.</li>
                 </ul>
                 <br/>
-   	       <?php echo $this->Form->button('<i style="padding: 5px" class="glyphicon glyphicon-heart-empty"></i> Solicitar testimonio al viajero', 
+                
+                <!--
+   	        <?php echo $this->Form->button('<i style="padding: 5px" class="glyphicon glyphicon-heart-empty"></i> Solicitar testimonio al viajero', 
                     array(
                           'class'=>'btn-warning btn btn-block',
                           'data-dtype' => 'text',
@@ -40,6 +42,21 @@
                           'id' => 'testimonial-ajax-btn'
                     ), array('escape'=>false));
                 ?>
+                -->
+                <?php echo $this->Form->create('Data', array('url' => array('controller' => 'testimonials', 'action' =>'request_testimonial', $data['DriverTravel']['id']))); ?>
+                    <fieldset>
+                    <?php
+                    //echo $this->Form->input('conversation_id', array('type'=>'hidden'));
+                    echo $this->Form->input('name', array('type'=>'text', 'label'=>'Nombre(s) de los viajeros'));
+
+                    $langs = ($data['Travel']['User']['lang'] == 'es')? array('es'=>'Español', 'en'=>'English'): array('en'=>'English', 'es'=>'Español');
+                    echo $this->Form->input('lang', array(
+                        'options' => $langs
+                    ));
+                    echo $this->Form->submit('Solicitar testimonio al viajero', array('class'=>'btn-info btn btn-block', 'confirm' => 'Está a punto de enviar un correo de solicitud de testimonio al viajero. ¿Desea continuar?'));
+                    ?>
+                    </fieldset>
+                <?php echo $this->Form->end(); ?>
             </div>
 	    
         <?php endif;?>										
