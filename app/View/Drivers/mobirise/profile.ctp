@@ -189,11 +189,51 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         </div>
     </div>
     <div class="container">
+     <?php if($this->request->query('discount') && $discount!=null): ?>
+        <?php $pickerdate = TimeUtil::dateFormatForPicker($discount['DiscountRide']['date']); echo "<script type='text/javascript'>var pickervalue='".$pickerdate."'; </script>"; ?>
+     <div class="row">
+         <div class="col-md-4" style="background: rgb(239, 239, 239);">
+            <div class="plan-header text-center pt-5">
+                <div>
+                    <img src="<?php echo $discount['Driver']['DriverProfile']['featured_img_url']?>" alt="" style="max-height: 40px;max-width: 40px"/> 
+                    <?php echo $discount['Driver']['DriverProfile']['driver_name'];   ?> ofrece:
+                </div>
+                <h3 class="plan-title mbr-fonts-style display-5">
+                    <br><br>
+                    <b><?php echo $discount['DiscountRide']['origin']; ?></b> > <b><?php echo $discount['DiscountRide']['destination']; ?></b></h3>
+                <div class="plan-price">
+                    <span class="price-value mbr-fonts-style display-5">
+                        $
+                    </span>
+                    <span class="price-figure mbr-fonts-style display-2">
+                        <?php echo $discount['DiscountRide']['price']; ?></span>
+                    <small class="price-term mbr-fonts-style display-7">CUC <br><b>hasta <?php echo $discount['Driver']['max_people_count']; ?> personas</b></small>
+                </div>
+            </div>
+            <div class="plan-body">
+                <div class="plan-list align-center">
+                    <ul class="list-group list-group-flush mbr-fonts-style display-7">
+                        <li class="list-group-item" style="background: rgb(239, 239, 239);">
+                            Fecha / Horario salida</li>
+                        <li class="list-group-item" style="background: rgb(239, 239, 239);"><strong><?php echo TimeUtil::prettyDateShort($discount['DiscountRide']['date'],false); ?> / <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_min']); ?> - <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_max']); ?></strong></li>
+                    </ul>
+                </div>
+            </div>
+            </div> 
+            <div class="col-md-7" data-form-type="formoid">
+                <?php echo $this->element('mobirise/form_write_to_driver')?>
+            </div>
+        </div>        
+        <script type="text/javascript">         
+           $("#DriverTravelerConversationResponseText").focus();           
+        </script>
+     <?php else: ?>
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8" data-form-type="formoid">
                 <?php echo $this->element('mobirise/form_write_to_driver')?>
             </div>
         </div>
+     <?php endif; ?>
     </div>
 </section>
 <?php else:?>

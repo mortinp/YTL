@@ -23,5 +23,5 @@
             <li class="list-group-item"><strong><?php echo TimeUtil::prettyDateShort($discount['DiscountRide']['date'],false); ?> / <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_min']); ?> - <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_max']); ?></strong></li>
         </ul>
     </div>
-    <div class="mbr-section-btn text-center py-4 pb-5"><?php echo $this->Html->link(__d('mobirise/testimonials', 'Contactar a %s', $discount['Driver']['DriverProfile']['driver_name']), array('controller'=>'drivers', 'action'=>'profile', $discount['Driver']['DriverProfile']['driver_nick']), array('class'=>'btn btn-success display-4', 'escape'=>false,'target'=>'_blank'))?></div>
+    <div class="mbr-section-btn text-center py-4 pb-5"><?php echo $this->Html->link(__d('mobirise/testimonials', 'Contactar a %s', $discount['Driver']['DriverProfile']['driver_name']), array('controller'=>'drivers', 'action'=>'profile', $discount['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$discount['DiscountRide']['id'])), array('class'=>'btn btn-success display-4', 'escape'=>false,'target'=>'_blank'))?></div>
 </div>

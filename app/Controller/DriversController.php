@@ -6,6 +6,7 @@ App::uses('DriverTravel', 'Model');
 App::uses('User', 'Model');
 App::uses('Locality', 'Model');
 App::uses('Province', 'Model');
+App::uses('TimeUtil', 'Util');
 
 class DriversController extends AppController {
     
@@ -138,6 +139,16 @@ class DriversController extends AppController {
                 
                 $result = $this->next_to_notify($profile['Province'], 6, $profile['Driver']['id']);
                 $this->set('other_drivers', $result);
+                
+                /*Chequeamos para cargar el viaje con descuento si hay*/
+                if($this->request->query('discount')){
+                    $this->loadModel('DiscountRide');
+                    $this->DiscountRide->recursive=3;
+                    $discount = $this->DiscountRide->find('all',array('conditions'=>array('DiscountRide.driver_id'=>$profile['Driver']['id'],'DiscountRide.id'=>$this->request->query('discount'))));
+                    if($discount==null) $discount[0]=null;//Artificio para si es invalido
+                    $this->set('discount',$discount[0]);
+                   
+                }
                 
                 /*Primero chequeamos si es una vista directa de testimonio*/
                 if($this->request->query('see-review')){

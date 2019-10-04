@@ -73,11 +73,9 @@ class DiscountRidesController extends AppController {
     }
     
     public function edit($tId) {        
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $active = $this->request->data['DiscountRide']['active'];
-            $discountRide = $this->DiscountRide->findById($tId);        
-            $this->request->data['DiscountRide'] = $discountRide['DiscountRide'];
-            $this->request->data['DiscountRide']['active']=$active;
+        if ($this->request->is('post') || $this->request->is('put')) {           
+                 
+            $this->request->data['DiscountRide']['id'] = $tId;            
             $discountRide = $this->request->data;
         }
 
