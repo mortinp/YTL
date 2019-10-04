@@ -66,7 +66,7 @@ class TimeUtil {
     }
     
     public static function dateFormatBeforeSave($date) {
-        $d = str_replace('-', '/', $date);
+        $d =  str_replace('-', '/', $date);
         $d = explode('/', $d);
         $newD = $d['2'].'-'.$d[1].'-'.$d[0];
         
@@ -87,6 +87,14 @@ class TimeUtil {
          return $hour.' '.$meridian;
     
 }
+
+public static function dateFormatForPicker($date) {
+        
+        $d = explode('-', $date);
+        $newD = $d['2'].'/'.$d[1].'/'.$d[0];
+        
+        return $newD;
+    }
     
 }
 ?>

@@ -164,15 +164,19 @@ if($userLoggedIn) {
     ?>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function () {            
             $('.datepicker').datepicker({
                 format: "dd/mm/yyyy",
                 language: '<?php echo Configure::read('Config.language')?>',
                 startDate: 'today',
                 todayBtn: "linked",
                 autoclose: true,
-                todayHighlight: true
+                todayHighlight: true,
+               
             });
+      <?php if($this->request->query('discount')): ?>
+            $('.datepicker').datepicker('setDate',pickervalue);
+      <?php endif; ?>      
 
             $('#CDirectForm').validate({
                 wrapper: 'div',
