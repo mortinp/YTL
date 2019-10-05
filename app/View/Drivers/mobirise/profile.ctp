@@ -100,23 +100,22 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                 <div class="mbr-gallery-layout-default">
                     <div>
                         <div>
-                                <?php $i = 0?>
-                                <?php foreach ($desc['pics'] as $pic):?>
-                                    <?php
-                                    $attr = '';
-                                    foreach ($pic as $prop=>$val) {
-                                        $attr .= $prop.'="'.$val.'" ';
-                                    }
-                                    ?>
-                                    <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="Responsive">
-                                        <div href="#lb-gallery1-11" data-slide-to="<?php echo $i?>" data-toggle="modal">
-                                            <img <?php echo $attr?> >
-                                            <span class="icon-focus"></span>
-                                        </div>
+                            <?php $i = 0?>
+                            <?php foreach ($desc['pics'] as $pic):?>
+                                <?php
+                                $attr = '';
+                                foreach ($pic as $prop=>$val) {
+                                    $attr .= $prop.'="'.$val.'" ';
+                                }
+                                ?>
+                                <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="Responsive">
+                                    <div href="#lb-gallery1-11" data-slide-to="<?php echo $i?>" data-toggle="modal">
+                                        <img <?php echo $attr?> >
+                                        <span class="icon-focus"></span>
                                     </div>
-                                    <?php $i++?>
-                                <?php endforeach?>
-                            
+                                </div>
+                                <?php $i++?>
+                            <?php endforeach?>
                             
                         </div>
                     </div>
@@ -189,41 +188,27 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         </div>
     </div>
     <div class="container">
-     <?php if($this->request->query('discount') && $discount!=null): ?>
+    <?php if($this->request->query('discount') && $discount!=null): ?>
         <?php $pickerdate = TimeUtil::dateFormatForPicker($discount['DiscountRide']['date']); echo "<script type='text/javascript'>var pickervalue='".$pickerdate."'; </script>"; ?>
-     <div class="row">
-         <div class="col-md-4" style="background: rgb(239, 239, 239);">
-            <div class="plan-header text-center pt-5">
-                <div>
-                    <img src="<?php echo $discount['Driver']['DriverProfile']['featured_img_url']?>" alt="" style="max-height: 40px;max-width: 40px"/> 
-                    <?php echo $discount['Driver']['DriverProfile']['driver_name'];   ?> ofrece:
-                </div>
-                <h3 class="plan-title mbr-fonts-style display-5">
-                    <br><br>
-                    <b><?php echo $discount['DiscountRide']['origin']; ?></b> > <b><?php echo $discount['DiscountRide']['destination']; ?></b></h3>
-                <div class="plan-price">
-                    <span class="price-value mbr-fonts-style display-5">
-                        $
-                    </span>
-                    <span class="price-figure mbr-fonts-style display-2">
-                        <?php echo $discount['DiscountRide']['price']; ?></span>
-                    <small class="price-term mbr-fonts-style display-7">CUC <br><b>hasta <?php echo $discount['Driver']['max_people_count']; ?> personas</b></small>
-                </div>
+        <div class="row cid-rDj8V5iu3T" style="background-color: white;padding:0px">
+            <div class="plan col-md-4 justify-content-center favorite">
+                <?php echo $this->element('mobirise/discounts/route_info', compact('discount') + array('showButton'=>false))?>
             </div>
-            <div class="plan-body">
-                <div class="plan-list align-center">
-                    <ul class="list-group list-group-flush mbr-fonts-style display-7">
-                        <li class="list-group-item" style="background: rgb(239, 239, 239);">
-                            Fecha / Horario salida</li>
-                        <li class="list-group-item" style="background: rgb(239, 239, 239);"><strong><?php echo TimeUtil::prettyDateShort($discount['DiscountRide']['date'],false); ?> / <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_min']); ?> - <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_max']); ?></strong></li>
-                    </ul>
-                </div>
-            </div>
+<<<<<<< HEAD
             </div> 
             <div class="col-md-7" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
                 <?php echo $this->element('mobirise/form_write_to_driver')?>
             </div>
         </div>
+=======
+            <div class="col-md-7 offset-md-1" data-form-type="formoid">
+                <?php echo $this->element('mobirise/form_write_to_driver')?>
+            </div>
+        </div>
+        <script type="text/javascript">         
+           $("#DriverTravelerConversationResponseText").focus();           
+        </script>
+>>>>>>> 423833da7c2f119cc46579acbedeb0cbdf8b9e39
      <?php else: ?>
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8" data-form-type="formoid">

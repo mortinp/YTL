@@ -480,39 +480,51 @@ class TestimonialsController extends AppController {
     public function request_testimonial($conversationId) {
         // TODO: Optimizar el cargado de datos, que sobran muchos en la consulta y en los parametros que se le pasan al correo
         
-        $this->DriverTravel->recursive = 2;
-        $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
-        $data = $this->DriverTravel->findById($conversationId);
-        if (!$data)
-            throw new NotFoundException('Conversación inválida.');
+        if($this->request->is('post')) {
+            
+            $this->DriverTravel->recursive = 2;
+            $this->Driver->unbindModel(array('hasAndBelongsToMany' => array('Locality')));
+            $data = $this->DriverTravel->findById($conversationId);
+            if (!$data)
+                throw new NotFoundException('Conversación inválida.');
+            
+            $vars = array();
+            $vars['profile_data'] =array(
+                'driver_name'=>$data['Driver']['DriverProfile']['driver_name'],
+                'driver_code'=>$data['Driver']['DriverProfile']['driver_code'],
+                'conversation'=>$conversationId,
+                );
+            if($this->request->data['Data']['name'] != null) $vars['traveler_name'] = $this->request->data['Data']['name'];
 
-        $vars['profile_data'] =array(
-            'driver_name'=>$data['Driver']['DriverProfile']['driver_name'],
-            'driver_code'=>$data['Driver']['DriverProfile']['driver_code'],
-            'conversation'=>$conversationId) ;
+            $datasource = $this->TravelConversationMeta->getDataSource();
+            $datasource->begin();
+            
+            // Coger el idioma del formulario que viene
+            $lang = (isset($this->request->data['Data']['lang']))?$this->request->data['Data']['lang']:$data['User']['lang'];
 
-        $datasource = $this->TravelConversationMeta->getDataSource();
-        $datasource->begin();
-        
-        $subject = 'Puedes agradecer a tu chofer, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', por su servicio aquí en Cuba';
-        if($data['User']['lang'] == 'en') $subject = 'You can thank your driver, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', for his service here in Cuba';
-        
-        $to = $data['User']['username'];
-        $OK = EmailsUtil::email($to, $subject, $vars, 'coo', 'request_testimonial', array('lang'=>$data['User']['lang']));
-        if ($OK) {
-            $this->TravelConversationMeta->id = $conversationId;
-            $OK = $this->TravelConversationMeta->saveField('testimonial_requested', true);
+            $subject = 'Puedes agradecer a tu chofer, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', por su servicio aquí en Cuba';
+            if($lang == 'en') $subject = 'You can thank your driver, '.Driver::shortenName($data['Driver']['DriverProfile']['driver_name']).', for his service here in Cuba';
+
+            $to = $data['User']['username'];
+            $OK = EmailsUtil::email($to, $subject, $vars, 'coo', 'request_testimonial', array('lang'=>$lang));
+            if ($OK) {
+                $this->TravelConversationMeta->id = $conversationId;
+                $OK = $this->TravelConversationMeta->saveField('testimonial_requested', true);
+            }
+
+            if ($OK) {
+                $this->setSuccessMessage('Pedido de testimonio enviado');
+                $datasource->commit();
+            } else {
+                $this->setErrorMessage('Falló el pedido de testimonio');
+                $datasource->rollback();
+            }
+
+            return $this->redirect($this->referer());
+            
         }
-
-        if ($OK) {
-            $this->setSuccessMessage('Pedido de testimonio enviado');
-            $datasource->commit();
-        } else {
-            $this->setErrorMessage('Falló el pedido de testimonio');
-            $datasource->rollback();
-        }
         
-        return $this->redirect($this->referer());
+        
     }
     
     public function reply($testimonial_id, $driver_reply_token) {
