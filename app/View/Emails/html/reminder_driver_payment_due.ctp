@@ -3,11 +3,12 @@
 
 <?php $driver_name = 'chofer'?>
 <?php if($data['Driver']['driver_name'] != null) $driver_name = $data['Driver']['driver_name']?>
-<div style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;color: #8a6d3b;background-color: #fcf8e3;border-color: #faebcc;">
-    <div><b>AVISO IMPORTANTE</b></div>
-    <div>Perdimos las tarjetas de pagos de las comisiones y tuvimos que cancelarlas.</div>
-    <div>Vamos a usar la siguiente tarjeta de BPA hasta nuevo aviso. Por favor transferir aquí:</div>
-    <div><b>9202 1299 7044 8837</b></div>
+<div style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;">
+    <div><b>NOTA IMPORTANTE</b></div>
+    <div>Ya tenemos nuevamente tarjeta oficial para el pago de las comisiones.</div>
+    <div>A partir de ahora, las transferencias debe realizarlas a este número:</div>
+    <div><b>9200 0699 9563 1805</b></div>
+    <div>Aquí arriba siempre va a aparecer el número de la tarjeta a la que usted debe realizar las trasferencias.</div>
 </div>
 
 <p>Hola <?php echo $driver_name?>,</p>
