@@ -220,13 +220,10 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                 </div>
             </div>
             </div> 
-            <div class="col-md-7" data-form-type="formoid">
+            <div class="col-md-7" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
                 <?php echo $this->element('mobirise/form_write_to_driver')?>
             </div>
-        </div>        
-        <script type="text/javascript">         
-           $("#DriverTravelerConversationResponseText").focus();           
-        </script>
+        </div>
      <?php else: ?>
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8" data-form-type="formoid">
