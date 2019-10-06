@@ -176,6 +176,8 @@ if($userLoggedIn) {
             });
       <?php if($this->request->query('discount')): ?>
             $('.datepicker').datepicker('setDate',pickervalue);
+            goTo('<?php echo $this->request->query['discount']?>', 500, -70);//Here we goTo
+            $("#DriverTravelerConversationResponseText").focus();
       <?php endif; ?>      
 
             $('#CDirectForm').validate({

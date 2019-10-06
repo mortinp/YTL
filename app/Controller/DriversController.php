@@ -144,7 +144,7 @@ class DriversController extends AppController {
                 if($this->request->query('discount')){
                     $this->loadModel('DiscountRide');
                     $this->DiscountRide->recursive=3;
-                    $discount = $this->DiscountRide->find('all',array('conditions'=>array('DiscountRide.driver_id'=>$profile['Driver']['id'],'DiscountRide.id'=>$this->request->query('discount'))));
+                    $discount = $this->DiscountRide->find('all',array('conditions'=>array('DiscountRide.driver_id'=>$profile['Driver']['id'],'DiscountRide.id'=>$this->request->query('discount'),'DiscountRide.active'=>1)));
                     if($discount==null) $discount[0]=null;//Artificio para si es invalido
                     $this->set('discount',$discount[0]);
                    
