@@ -100,7 +100,7 @@
                 <div class="clearfix"></div>
                 
                 <div id="bootstrap-accordion_3" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true">
-                    <?php echo $this->element('mobirise/discounts/all_routes',array('discounts'=>$discount_rides_by_date))?>
+                    <?php echo $this->element('mobirise/discounts/all_offers', array('discounts'=>$discount_rides_by_date))?>
                 </div>
                 
             </div>

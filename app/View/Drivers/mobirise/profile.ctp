@@ -190,12 +190,12 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
     <div class="container">
     <?php if($this->request->query('discount') && $discount!=null): ?>
         <?php $pickerdate = TimeUtil::dateFormatForPicker($discount['DiscountRide']['date']); echo "<script type='text/javascript'>var pickervalue='".$pickerdate."'; </script>"; ?>
-        <div class="row" style="background-color: white;padding:0px">
+        <div class="row cid-rDj8V5iu3T justify-content-center" style="background-color: white;padding:0px">
             <div class="plan col-md-4 justify-content-center favorite">
-                <?php echo $this->element('mobirise/discounts/route_info', compact('discount') + array('showButton'=>false))?>
+                <?php echo $this->element('mobirise/discounts/offer_info', compact('discount') + array('showButton'=>false))?>
             </div>
            
-            <div class="col-md-7" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
+            <div class="col-md-7 offset-md-1" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
                 <?php echo $this->element('mobirise/form_write_to_driver')?>
             </div>
         </div>
