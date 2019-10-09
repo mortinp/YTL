@@ -195,7 +195,7 @@ class RoutinesShell extends AppShell {
         $results = $this->Driver->query($query);
         
         foreach ($results as $data) {
-            EmailsUtil::email($data['drivers']['driver_email'], '¿Tienes que hacer algún recorrido sin clientes pronto?', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
+            EmailsUtil::email($data['drivers']['driver_email'], 'No vuelvas a viajar con tu taxi vacío', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
         }
     }
 
