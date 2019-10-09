@@ -75,6 +75,7 @@ class ApiConversationsController extends ApiAppController {
         $user = $this->getUser();
         
         $sql = $this->getSqlSelectFieldsForConversation()
+            //. ", api_sync_queue_2driver_conversations.batch_id" // Este campo es para saber si la conversacion fue sincronizada
             . " FROM api_sync_queue_2driver_conversations
                 INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id
                 LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
@@ -324,6 +325,13 @@ class ApiConversationsController extends ApiAppController {
                 );
             }
             
+            /*// Poner datos a la conversacion relacionados con la sync_queue
+            $syncData = null;
+            if($c['api_sync_queue_2driver_conversations']) {
+                if(isset($c['api_sync_queue_2driver_conversations']['batch_id']))
+                    $syncData['batch_id'] = $c['api_sync_queue_2driver_conversations']['batch_id'];
+            }*/
+            
             // Crear la conversacion con los mensajes listos para adicionar
             $conversations[] = array(
                 'id'=>$c['drivers_travels']['conversation_id'],
@@ -333,6 +341,8 @@ class ApiConversationsController extends ApiAppController {
                 'state'=>self::calculateState($c['travels_conversations_meta']),
                 
                 'travel_request' => $travelRequest,
+                
+                //'sync_data' => $syncData,
                 
                 'messages'=>array()
             );
@@ -382,6 +392,8 @@ class ApiConversationsController extends ApiAppController {
      * REJECTED: 3
      * CANCELLED: 4
      * COMPLETED: 5
+     * 
+     * NOTA: Esto debe cambiar si se hacen cambios en el enum en la app
      * 
      */
     private static function calculateState($meta) {
