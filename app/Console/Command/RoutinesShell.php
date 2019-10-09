@@ -5,7 +5,7 @@ App::uses('DriverTransactionalEmail', 'TransactionalEmails.Model');
 
 class RoutinesShell extends AppShell {
     
-    public $uses = array('Travel', 'TravelConversationMeta', 'TransactionalEmails.DriverTransactionalEmail');
+    public $uses = array('Travel','Driver', 'TravelConversationMeta', 'TransactionalEmails.DriverTransactionalEmail');
     
     public function email2drivers_travels_payment_due() {
         $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, 
@@ -224,6 +224,34 @@ class RoutinesShell extends AppShell {
             
         }
     }
+    
+     public function email2drivers_reminder_driver_discount_offer() {
+       
+        
+        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers_profiles.driver_code, drivers.username as driver_email
+                
+
+                from drivers
+
+                
+                inner join drivers_profiles 
+                on drivers_profiles.driver_id = drivers.id
+                and drivers_profiles.show_profile = 1
+                
+                where 
+                drivers.active = 1 
+                and drivers.province_id = 5
+                
+                ";
+        
+        $results = $this->Driver->query($query);
+        
+        foreach ($results as $data) {
+            EmailsUtil::email($data['drivers']['driver_email'], 'Solicitud de viajes con descuento', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
+        }
+    }
+    
+    
 }
 
 ?>
