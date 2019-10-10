@@ -177,9 +177,30 @@ class RoutinesShell extends AppShell {
     }
     
     
+    public function email2drivers_reminder_discount_offer() {
+        
+        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers_profiles.driver_code, drivers.username as driver_email
+
+                from drivers
+                
+                inner join drivers_profiles 
+                on drivers_profiles.driver_id = drivers.id
+                and drivers_profiles.show_profile = 1
+                
+                where 
+                drivers.active = 1
+                and drivers.province_id = 5
+                ";
+        
+        $results = $this->Driver->query($query);
+        
+        foreach ($results as $data) {
+            EmailsUtil::email($data['drivers']['driver_email'], 'No vuelvas a viajar con tu taxi vacío', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
+        }
+    }
 
     
-    public function ask_travels_confirmations() {
+    /*public function ask_travels_confirmations() {
         $daysToWait = 3; // Wait this number of days after the travel expires to ask for confirmation
         
         $someDaysBack = date('Y-m-d', strtotime('today - '.$daysToWait.' days'));
@@ -223,35 +244,7 @@ class RoutinesShell extends AppShell {
             if($OK) $datasource->commit(); else $datasource->rollback();
             
         }
-    }
-    
-     public function email2drivers_reminder_driver_discount_offer() {
-       
-        
-        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers_profiles.driver_code, drivers.username as driver_email
-                
-
-                from drivers
-
-                
-                inner join drivers_profiles 
-                on drivers_profiles.driver_id = drivers.id
-                and drivers_profiles.show_profile = 1
-                
-                where 
-                drivers.active = 1 
-                and drivers.province_id = 5
-                
-                ";
-        
-        $results = $this->Driver->query($query);
-        
-        foreach ($results as $data) {
-            EmailsUtil::email($data['drivers']['driver_email'], 'Solicitud de viajes con descuento', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
-        }
-    }
-    
-    
+    }*/
 }
 
 ?>
