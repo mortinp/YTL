@@ -166,6 +166,7 @@ class UsersController extends AppController {
         
         if($travel == null || empty($travel)) throw new NotFoundException();
         
+        $this->layout = 'transition';
         $this->set(compact('travel'));
     }
     
@@ -173,10 +174,11 @@ class UsersController extends AppController {
         $datasource = $this->User->getDataSource();
         $datasource->begin();        
         
-        $this->request->data['User']['role'] = 'regular';
-        $this->request->data['User']['active'] = true;
-        $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
-        $this->request->data['User']['register_type'] = $register_type;    
+        $user['role'] = 'regular';
+        $user['active'] = true;
+        $user['lang'] = Configure::read('Config.language');
+        $user['registered_from_ip'] = $this->request->clientIp();
+        $user['register_type'] = $register_type;    
         
         if( $this->User->save($user) ){
             $user['id'] = $this->User->getLastInsertID();
@@ -356,7 +358,7 @@ class UsersController extends AppController {
                     array('confirmation_code' => $code),
                     'no_responder', 
                     $emailTemplate, 
-                    array('lang'=>$user['lang'], 'enqueue'=>false));
+                    array('lang'=>$user['lang'], 'enqueue'=>true));
         } 
         
         return $OK;

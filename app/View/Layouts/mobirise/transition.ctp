@@ -36,6 +36,8 @@ if($userLoggedIn) {
     $this->Html->css('theme/css/style', array('inline' => false));
     $this->Html->css('mobirise/css/mbr-additional', array('inline' => false));
     
+    $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
+    
     echo $this->fetch('css');
   ?>
   
