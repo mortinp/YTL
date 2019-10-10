@@ -358,7 +358,7 @@ class UsersController extends AppController {
                     array('confirmation_code' => $code),
                     'no_responder', 
                     $emailTemplate, 
-                    array('lang'=>$user['lang'], 'enqueue'=>true));
+                    array('lang'=>$user['lang'], 'enqueue'=>false));
         } 
         
         return $OK;
