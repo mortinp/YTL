@@ -195,12 +195,26 @@ class UsersController extends AppController {
     public function profile() {
         if ($this->request->is('post')|| $this->request->is('put')) {
             $user = $this->request->data;
-            
+            $change_user=false;
             if(strlen($user['User']['password']) == 0) unset ($user['User']['password']);
+            if(strlen($user['User']['username']) == 0){
+               $this->request->data['User']['username'] = $user['User']['username'] = $this->Auth->user()['username'];
+                
+            }else{
+                $change_user = true;
+                $this->Session->write('Auth.User.username', $user['User']['username']);
+            }
             if($this->User->save($user)) {                
                 //$this->Session->write('Auth.User', $user['User']);
                 $this->Session->write('Auth.User.display_name', $user['User']['display_name']);
-                if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
+//                if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
+                //sending the email for user change and converstions summary
+                if($change_user==true){
+                   /*$today = date('Y-m-d', strtotime('today')); 
+                   $travels = $this->DriverTravel->find('all',array('conditions'=>array('user_id'=>$user['User']['id'],'travel_date<'=>$today))); 
+                    */
+                    
+                }else{}
                 
                 $this->setSuccessMessage('Tu nueva información ha sido guardada');
             } else {
