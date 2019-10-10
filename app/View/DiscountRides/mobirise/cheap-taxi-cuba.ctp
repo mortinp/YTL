@@ -9,7 +9,7 @@
                     <br><?php echo __d('mobirise/cheap_taxi', '¿Buscas taxi económico en Cuba?')?></h1>
                 <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-2"><strong>
                     <?php echo __d('mobirise/cheap_taxi', 'Encuentra taxi privado en Cuba por la mitad del precio estándar')?></strong></h3>
-                <p class="mbr-text align-center pb-3 mbr-fonts-style display-5"><?php echo __d('mobirise/cheap_taxi', 'Nuestros choferes hacen ofertas de 50% de descuento en algunas ocasiones. Nosotros las listamos aquí y tú puedes reservarlas')?></p>
+                <p class="mbr-text align-center pb-3 mbr-fonts-style display-5"><?php echo __d('mobirise/cheap_taxi', 'Nuestros choferes hacen ofertas de 50% de descuento en algunas ocasiones. Nosotros las listamos aquí y tú puedes reservarlas.')?></p>
                 <div class="mbr-section-btn align-center">
                     <a class="btn btn-md btn-secondary display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                         <span class="mbri-gift mbr-iconfont mbr-iconfont-btn"></span>
