@@ -1,0 +1,47 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-11-07 08:49-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home.ctp:29
+msgid "¡Qué bueno tenerte a bordo!"
+msgstr "It's awesome to have you onboard!"
+
+#: /home.ctp:29
+msgid "Tu solicitud ya está en el inbox de varios de nuestros choferes. Comenzarás a recibir sus respuestas MUY PRONTO."
+msgstr "Your request is already in some of our drivers' inboxes. You will start receiving their replies VERY SOON."
+
+#: /home.ctp:29
+msgid "Mira los detalles de tu solicitud"
+msgstr "See the details of your request"
+
+#: /home.ctp:35
+msgid "AVISO SOBRE %s"
+msgstr "WARNING ABOUT %s"
+
+#: /home.ctp:29
+msgid "Puede ser que no recibas las respuestas de los choferes en tu correo de %s."
+msgstr "You may not receive the drivers' replies in your %s."
+
+#: /home.ctp:29
+msgid "Hemos notado que <b>%s bloquea algunos de nuestros correos de notificaciones</b>."
+msgstr "We have noticed that <b>%s blocks some of our notification emails</b>."
+
+#: /home.ctp:33
+msgid "Te recomendamos <b>usar otra dirección de correo (Gmail, Yahoo u otro)</b> para recibir las respuestas, o adiciona <em>yotellevocuba.com</em> a la lista de destinatarios seguros en tu cuenta de %s."
+msgstr "We recommend you <b>use another email address (Gmail, Yahoo or other)</b> to receive the drivers' replies, or add <em>yotellevocuba.com</em> to your safe sender list in your %s account."
+
+#: /home.ctp:35
+msgid "Configura otra dirección de correo en tu perfil"
+msgstr "Configure another email address in your profile"

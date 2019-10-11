@@ -168,6 +168,7 @@ class UsersController extends AppController {
         
         if($travel == null || empty($travel)) throw new NotFoundException();
         
+        $this->layout = 'transition';
         $this->set(compact('travel'));
     }
     
@@ -175,10 +176,11 @@ class UsersController extends AppController {
         $datasource = $this->User->getDataSource();
         $datasource->begin();        
         
-        $this->request->data['User']['role'] = 'regular';
-        $this->request->data['User']['active'] = true;
-        $this->request->data['User']['registered_from_ip'] = $this->request->clientIp();
-        $this->request->data['User']['register_type'] = $register_type;    
+        $user['role'] = 'regular';
+        $user['active'] = true;
+        $user['lang'] = Configure::read('Config.language');
+        $user['registered_from_ip'] = $this->request->clientIp();
+        $user['register_type'] = $register_type;    
         
         if( $this->User->save($user) ){
             $user['id'] = $this->User->getLastInsertID();
@@ -197,22 +199,23 @@ class UsersController extends AppController {
     public function profile() {
         if ($this->request->is('post')|| $this->request->is('put')) {
             $user = $this->request->data;
-            $change_user=false;
+            
             if(strlen($user['User']['password']) == 0) unset ($user['User']['password']);
-            if(strlen($user['User']['username']) == 0){
-               $this->request->data['User']['username'] = $user['User']['username'] = $this->Auth->user()['username'];
-                
+            if(strlen($user['User']['username']) == 0) {
+                $u = $this->Auth->user();
+                $this->request->data['User']['username'] = $user['User']['username'] = $u['username'];
             }else{
-                $change_user = true;
                 $this->Session->write('Auth.User.username', $user['User']['username']);
             }
-            if($this->User->save($user)) {    
+              
+            $userEmailChanged = (strlen(trim($user['User']['username'])) > 0 && strcmp($this->request->data['User']['username'], $this->request->data['User']['old_username'])!=0) ?true:false;
+            if($this->User->save($user)) {                
                 //$this->Session->write('Auth.User', $user['User']);
                 $this->Session->write('Auth.User.display_name', $user['User']['display_name']);
-//                if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
-                //sending the email for user change and converstions summary
-                if($change_user==true){
-                   $this->DriverTravel->recursive=3;
+                //if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
+                //sending the email for user change and converstions summary                
+                if($userEmailChanged) {                    
+                    $this->DriverTravel->recursive=3;
                    $today = date('Y-m-d', strtotime('today')); 
                    $travels = $this->DriverTravel->find('all',array('conditions'=>array('DriverTravel.user_id'=>$user['User']['id'],'DriverTravel.travel_date >'=>$today,'DriverTravel.message_count >'=>0))); 
                    //die(print_r($travels[0]['Driver']));
@@ -230,19 +233,16 @@ class UsersController extends AppController {
                     'no_responder', 
                     'user_new_email_notification', 
                     array('lang'=>$this->Session->read('Auth.User.lang')));  
-                       
                    }
-                    
                 }
-                
                 $this->setSuccessMessage('Tu nueva información ha sido guardada');
-            } else {
+            } else {                
                 $this->setErrorMessage('Ocurrió un problema guardando la información. Intenta de nuevo.');
-            }
-        } else {
+            }        
+        }else{
             $this->request->data['User'] = $this->Auth->user();
         }
-    } 
+    }
     
     public function operations() {
         // Buscar las reglas que otros operadores me permiten

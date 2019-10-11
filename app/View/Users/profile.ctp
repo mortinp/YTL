@@ -6,11 +6,11 @@
         <?php echo $this->Form->create('User'); ?>
         <fieldset>
             <?php
-            echo $this->Form->input('username', array('type' => 'text','placeholder'=>$this->request->data['User']['username'].__(' (no modificar si no desea cambiar)'),'value'=>'','required'=>false));
+            echo $this->Form->input('username', array('label'=>__('Correo electrónico'), 'type' => 'text', 'placeholder'=>$this->request->data['User']['username'], 'value'=>$this->request->data['User']['username'], 'required'=>false));
             echo $this->Form->input('display_name', array('label' => __('Nombre'), 'type' => 'text', 'placeholder'=>__('Nombre vacío significa que quieres usar tu correo como nombre')));
             echo $this->Form->input('password', array('label'=>__('Contraseña'), 'placeholder'=>__('Contraseña vacía significa que no quieres cambiarla'), 'required'=>false));
             echo $this->Form->input('id', array('type' => 'hidden'));
-            
+            echo $this->Form->input('old_username', array('type' => 'hidden', 'value'=>$this->request->data['User']['username']));
             echo $this->Form->input('role', array('type' => 'hidden'));
             echo $this->Form->input('created', array('type' => 'hidden'));
             echo $this->Form->submit(__('Salvar'));

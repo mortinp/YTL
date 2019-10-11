@@ -1005,6 +1005,11 @@ msgid "varios"
 msgstr "some"
 
 #: View/Elements/pretty_message.ctp:9
+msgid "Correo electrónico"
+msgstr "Email"
+
+
+#: View/Elements/pretty_message.ctp:9
 msgid "Estamos haciendo un rediseño visual de nuestra plataforma y <b>esta página no está rediseñada todavía</b>... pero todo funciona bien"
 msgstr "We are doing a visual redesign of our platform and <b>this page is not redesigned yet</b>... but everything works fine"
 
