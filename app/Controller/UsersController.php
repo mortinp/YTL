@@ -4,6 +4,8 @@ App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('DriverTravel', 'Model');
 App::uses('StringsUtil', 'Util');
+App::uses('EmailsUtil', 'Util');
+App::uses('MessagesUtil', 'Util');
 
 class UsersController extends AppController {
     
@@ -204,17 +206,34 @@ class UsersController extends AppController {
                 $change_user = true;
                 $this->Session->write('Auth.User.username', $user['User']['username']);
             }
-            if($this->User->save($user)) {                
+            if($this->User->save($user)) {    
                 //$this->Session->write('Auth.User', $user['User']);
                 $this->Session->write('Auth.User.display_name', $user['User']['display_name']);
 //                if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
                 //sending the email for user change and converstions summary
                 if($change_user==true){
-                   /*$today = date('Y-m-d', strtotime('today')); 
-                   $travels = $this->DriverTravel->find('all',array('conditions'=>array('user_id'=>$user['User']['id'],'travel_date<'=>$today))); 
-                    */
+                   $this->DriverTravel->recursive=3;
+                   $today = date('Y-m-d', strtotime('today')); 
+                   $travels = $this->DriverTravel->find('all',array('conditions'=>array('DriverTravel.user_id'=>$user['User']['id'],'DriverTravel.travel_date >'=>$today,'DriverTravel.message_count >'=>0))); 
+                   //die(print_r($travels[0]['Driver']));
+                   if(sizeof($travels)>0){
+                   EmailsUtil::email(
+                    $user['User']['username'], 
+                    __d($user['User']['display_name'], 'Cambio de correo de contacto con YoTeLlevoCuba').'!',array('data'=>$travels,'user_name'=>$user['User']['username']),
+                    'no_responder', 
+                    'user_new_email_travel_list', 
+                    array('lang'=>$this->Session->read('Auth.User.lang')));
+                   }else{
+                     EmailsUtil::email(
+                    $user['User']['username'], 
+                    __d($user['User']['display_name'], 'Cambio de correo de contacto con YoTeLlevoCuba').'!',array('user_email'=>$user['User']['username']),
+                    'no_responder', 
+                    'user_new_email_notification', 
+                    array('lang'=>$this->Session->read('Auth.User.lang')));  
+                       
+                   }
                     
-                }else{}
+                }
                 
                 $this->setSuccessMessage('Tu nueva información ha sido guardada');
             } else {
