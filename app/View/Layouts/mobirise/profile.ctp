@@ -41,56 +41,59 @@ if($userLoggedIn) {
     <title><?php echo $title . ' | YoTeLlevo' ?></title>
     <meta name="description" content="<?php echo $description ?>"/>
 
-    <!-- FACEBOOK SHARE --> 
-    <?php if(!$this->request->query('see-review')): // WHY THIS?: we need to fill meta tags considering the way in wich profile is viewed. If not highlighting reviews, follow this way ?>
-        <meta property="og:title" content="<?php echo substr($title, 0, 120)?>">
-        <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
-        <meta property="og:image" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
-        <?php endif?>
-        <meta property="og:description" content="<?php echo $description?>">
-            
-        <!-- TWITTER SHARE -->   
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="<?php echo substr($title, 0, 120)?>">
-        <meta name="twitter:description" content="<?php echo $description?>">
-        <meta name="twitter:site" content="@yotellevocuba">
-        <meta name="twitter:creator" content="@yotellevocuba">
-        <?php if($profile['DriverProfile']['featured_img_url'] != null):?>
-        <meta name="twitter:image:src" content="<?php echo $profile['DriverProfile']['featured_img_url']?>">
-        <?php endif?>
+    <!-- SOCIAL SHARE -->
+    <?php
+    $socialTitle = $title;
+    $socialDescription = $description;
+    $socialImageUrl = $profile['DriverProfile']['featured_img_url'];
+    ?>
+    <?php if(isset($discount)):?>
+        <?php
+        $socialTitle = __d('mobirise/cheap_taxi', 'Taxi privado %s > %s por %s. Oferta de taxi económico en Cuba.', 
+                $discount['DiscountRide']['origin'], 
+                $discount['DiscountRide']['destination'],
+                '$'.$discount['DiscountRide']['price']);
+        $socialDescription = __d('mobirise/cheap_taxi', '%s oferta taxi privado %s > %s por %s el próximo %s. Mira los detalles de esta oferta económica en su perfil.',
+                $profile['DriverProfile']['driver_name'],
+                $discount['DiscountRide']['origin'], 
+                $discount['DiscountRide']['destination'],
+                '$'.$discount['DiscountRide']['price'],
+                TimeUtil::prettyDateShort($discount['DiscountRide']['date'], false));
+        ?>
+    <?php ?>
+    <?php elseif($this->request->query('see-review')):?>
+        <?php
+        $socialTitle = __d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['Testimonial']['author'], $profile['DriverProfile']['driver_name']);
+        $socialDescription = $highlighted['Testimonial']['text'];
         
-    <?php endif; ?>
-    <?php if($this->request->query('see-review')):?>                                             
-            <?php                                                    
-            $fbImgUrl = '';
-            $fullBaseUrl = Configure::read('App.fullBaseUrl');
-            if(Configure::read('debug') > 0) $fullBaseUrl .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-
-            if ($highlighted['Testimonial']['image_filepath']) $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $highlighted['Testimonial']['image_filepath']);
-            else if ($profile['DriverProfile']['featured_img_url']) $fbImgUrl = $profile['DriverProfile']['featured_img_url'];
-            else $fbImgUrl = $fullBaseUrl.'/'.str_replace('\\', '/', $profile['DriverProfile']['avatar_filepath']);
-            
-            $currentFullUrl             = $this->request['pass'];
-            $currentFullUrl             = array_merge($currentFullUrl, $this->request['named']);
-            $currentFullUrl['?']        = $this->request->query;
-            $currentFullUrl['language'] = Configure::read('Config.language');
-            $currentFullUrl['base'] = false;
-            ?>
-            <meta property="og:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['Testimonial']['author'], $profile['DriverProfile']['driver_name']), 0, 120)?>">
-            <meta property="og:image" content="<?php echo $fbImgUrl?>">
-            <meta property="og:description" content="<?php echo substr($highlighted['Testimonial']['text'], 0, 300)?>...">
-            <meta property="og:url" content="<?php echo $this->Html->url($currentFullUrl, true) ?>" />
-            
-            <!-- TWITTER SHARE -->   
-            <meta name="twitter:card" content="summary">
-            <meta name="twitter:title" content="<?php echo substr(__d('testimonials', 'Testimonio de %s sobre su chofer en Cuba, %s', $highlighted['Testimonial']['author'], $profile['DriverProfile']['driver_name']), 0, 70)?>">
-            <meta name="twitter:description" content="<?php echo substr($highlighted['Testimonial']['text'], 0, 200)?>...">
-            <meta name="twitter:site" content="@yotellevocuba">
-            <meta name="twitter:creator" content="@yotellevocuba">
-            <meta name="twitter:image:src" content="<?php echo $fbImgUrl?>">
-    <?php endif; ?>
-    <!--END FACEBOOK SHARE-->
-
+        if ($highlighted['Testimonial']['image_filepath']) $socialImageUrl = PathUtil::getFullPath($highlighted['Testimonial']['image_filepath']);
+        else if ($profile['DriverProfile']['featured_img_url']) $socialImageUrl = $profile['DriverProfile']['featured_img_url'];
+        else $socialImageUrl = PathUtil::getFullPath($profile['DriverProfile']['avatar_filepath']);
+        ?>
+    <?php endif?>
+    
+    <?php
+    $currentFullUrl             = $this->request['pass'];
+    $currentFullUrl             = array_merge($currentFullUrl, $this->request['named']);
+    $currentFullUrl['?']        = $this->request->query;
+    $currentFullUrl['language'] = Configure::read('Config.language');
+    $currentFullUrl['base'] = false;
+    ?>
+    
+    <!-- FACEBOOK SHARE -->  
+    <meta property="og:title" content="<?php echo substr($socialTitle, 0, 120)?>">
+    <meta property="og:description" content="<?php echo substr($socialDescription, 0, 300)?>">
+    <meta property="og:image" content="<?php echo $socialImageUrl?>">
+    <meta property="og:url" content="<?php echo $this->Html->url($currentFullUrl, true) ?>" />
+    
+    <!-- TWITTER SHARE -->   
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<?php echo substr($socialTitle, 0, 70)?>">
+    <meta name="twitter:description" content="<?php echo substr($socialDescription, 0, 200)?>">
+    <meta name="twitter:site" content="@yotellevocuba">
+    <meta name="twitter:creator" content="@yotellevocuba">
+    <meta name="twitter:image:src" content="<?php echo $socialImageUrl?>">
+    
     <?php
     // CSS
     $this->Html->css('web/assets/mobirise-icons/mobirise-icons', array('inline' => false));
@@ -176,7 +179,7 @@ if($userLoggedIn) {
             });
       <?php if($this->request->query('discount')): ?>
             $('.datepicker').datepicker('setDate',pickervalue);
-            goTo('<?php echo $this->request->query['discount']?>', 500, -70);//Here we goTo
+            goTo('<?php echo __d('mobirise/default', 'solicitar')?>', 500, 20);
             $("#DriverTravelerConversationResponseText").focus();
       <?php endif; ?>      
 
@@ -215,6 +218,23 @@ if($userLoggedIn) {
         }
         //]]>
     </script>
+    
+    <!--Getting a given review for highlight :) -->
+    <script type="text/javascript">
+        function goTo(id, time, offset) {
+            $('html, body').animate({
+                scrollTop: $('#' + id).offset().top + offset
+            }, time);
+        };
+
+    <?php if($this->request->query('see-review')): ?>
+
+        $(document).ready(function () {
+            goTo('<?php echo $this->request->query['see-review']?>', 500, -70);
+        });
+    <?php endif; ?>
+
+    </script>
 
     <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$userLoggedIn || $userRole === 'regular') ):?>
         <!-- Google Analytics -->
@@ -235,27 +255,6 @@ if($userLoggedIn) {
             ga('send', 'pageview');
         </script>
     <?php endif;?>
-
-
-
-    <!--Getting a given review for highlight :) -->
-    <script type="text/javascript">
-        function goTo(id, time, offset) {
-            $('html, body').animate({
-                scrollTop: $('#' + id).offset().top + offset
-            }, time);
-        };
-
-    <?php if($this->request->query('see-review')): ?>
-
-        $(document).ready(function () {
-            goTo('<?php echo $this->request->query['see-review']?>', 500, -70);//Here we goTo
-            //$('#' + '<?php echo $this->request->query['see-review']?>').addClass('alert-dark');//Here we highlight
-            //$('#star-' + '<?php echo $this->request->query['see-review']?>').attr('class', $('#star-' + '<?php echo $this->request->query['see-review']?>').attr('class') + ' fa fa-2x fa-star yellow');
-        });
-    <?php endif; ?>
-
-    </script>
 </body>
     
 </html>

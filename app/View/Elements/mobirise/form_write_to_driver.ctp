@@ -35,8 +35,8 @@
 
     <br>
     <span class="input-group-btn">
-        <input type="submit" class="btn btn-primary btn-form display-5" id="CDirectSubmit" 
-               value="<?php echo __d('mobirise/driver_profile', 'Enviar este mensaje a %s', Driver::shortenName($profile['DriverProfile']['driver_name']))?>. <?php echo __d('mobirise/driver_profile', 'Recibe una oferta y empieza a acordar tu viaje')?>"> 
+        <input type="submit" class="btn btn-primary btn-form btn-block display-5" id="CDirectSubmit" 
+               value="<?php echo __d('mobirise/driver_profile', 'Enviar este mensaje a %s', Driver::shortenName($profile['DriverProfile']['driver_name']))?>"> 
 
     </span>
 

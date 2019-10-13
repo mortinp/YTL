@@ -16,8 +16,10 @@ class DiscountRidesController extends AppController {
     public $components = array('TravelLogic', 'LocalityRouter', 'Paginator');
 
     public function beforeFilter() {
-           parent::beforeFilter();
-           if(!$this->Auth->loggedIn()) $this->Auth->allow('index');
+        parent::beforeFilter();
+        $this->Auth->allow('home');
+
+        //if(!$this->Auth->loggedIn()) $this->Auth->allow('index');
     }
 
     public function home() {
@@ -35,9 +37,6 @@ class DiscountRidesController extends AppController {
         }
         
         $this->set('discount_rides_by_date',$discount_rides_by_date);
-
-        
-       
         
         // Algunos datos que hacen falta en la vista
         $this->set('stats', $this->_getVanityStats());

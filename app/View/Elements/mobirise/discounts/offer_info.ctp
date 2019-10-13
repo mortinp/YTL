@@ -6,8 +6,8 @@ if(!isset($showButton)) $showButton = true;
 
 <div class="plan-header text-center pt-5">
     <div>
-        <img src="<?php echo PathUtil::getFullPath($discount['Driver']['DriverProfile']['avatar_filepath'])?>" alt="" style="max-height: 40px;max-width: 40px"/> 
-        <?php echo $discount['Driver']['DriverProfile']['driver_name'];   ?> ofrece:
+        <img src="<?php echo PathUtil::getFullPath($discount['Driver']['DriverProfile']['avatar_filepath'])?>" style="max-height: 40px;max-width: 40px"/> 
+        <?php echo __d('mobirise/cheap_taxi', '%s ofrece', $discount['Driver']['DriverProfile']['driver_name']);?>:
     </div>
     <h3 class="plan-title mbr-fonts-style display-5">
         <br><br>
@@ -15,14 +15,14 @@ if(!isset($showButton)) $showButton = true;
     <div class="plan-price">
         <span class="price-value mbr-fonts-style display-5">$</span>
         <span class="price-figure mbr-fonts-style display-2"><?php echo $discount['DiscountRide']['price']; ?></span>
-        <small class="price-term mbr-fonts-style display-7">CUC <br><b>hasta <?php echo $discount['Driver']['max_people_count']; ?> personas</b></small>
+        <small class="price-term mbr-fonts-style display-7">CUC <br><b><?php echo __d('mobirise/cheap_taxi', 'hasta %s personas', $discount['Driver']['max_people_count'])?></b></small>
     </div>
 </div>
 <div class="plan-body">
     <div class="plan-list align-center">
         <ul class="list-group list-group-flush mbr-fonts-style display-7">
-            <li class="list-group-item">Fecha / Horario salida</li>
-            <li class="list-group-item"><strong><?php echo TimeUtil::prettyDateShort($discount['DiscountRide']['date'],false); ?> / <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_min']); ?> - <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_max']); ?></strong></li>
+            <li class="list-group-item"><?php echo __d('mobirise/cheap_taxi', 'Sólo disponible')?>:<br><?php echo __d('mobirise/cheap_taxi', 'Fecha / Horario salida')?></li>
+            <li class="list-group-item"><strong><?php echo TimeUtil::prettyDateShort($discount['DiscountRide']['date'],false); ?> / <span style="display: inline-block"><?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_min'])?> .. <?php echo TimeUtil::AmPm($discount['DiscountRide']['hour_max'])?></span></strong></li>
         </ul>
     </div>
     <?php if($showButton):?>

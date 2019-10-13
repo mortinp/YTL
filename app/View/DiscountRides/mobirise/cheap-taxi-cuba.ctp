@@ -32,9 +32,14 @@
                 </h1>
                 
                 <p class="mbr-text pb-3 mbr-fonts-style display-5">
-                    <?php echo __d('mobirise/cheap_taxi', 'En ocasiones los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, cuando dejan clientes lejos y tienen que regresar a casa, o cuando tienen que recoger clientes y deben salir desde un punto lejano.<br>Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>.')?></p>
+                    <?php echo __d('mobirise/cheap_taxi', 'En ocasiones los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, <b>cuando dejan clientes lejos y tienen que regresar a casa</b>, o <b>cuando tienen que recoger clientes y deben salir desde un punto lejano</b>.')?>
+                    <br>
+                    <?php echo __d('mobirise/cheap_taxi', 'Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>.')?>
+                </p>
                 <div class="mbr-section-btn">
-                    <a class="btn btn-md btn-black-outline display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">Ver las ofertas disponibles</a>
+                    <a class="btn btn-md btn-black-outline display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
+                        <?php echo __d('mobirise/cheap_taxi', 'Ver ofertas disponibles')?>
+                    </a>
                 </div>
             </div>
         </div>
@@ -71,7 +76,7 @@
                 <div class="card-wrapper media-container-row">
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-5">
-                            <?php echo __d('mobirise/cheap_taxi', 'Directo con el chofer')?></h4>
+                            <?php echo __d('mobirise/cheap_taxi', 'Contacto directo con el chofer')?></h4>
                         <p class="mbr-text mbr-fonts-style display-7">
                             <?php echo __d('mobirise/cheap_taxi', 'Contacta directamente con el chofer para acordar cualquier detalle extra sobre el viaje.')?></p>
                     </div>
@@ -135,7 +140,7 @@
             <div class="col-12 align-center">
 
                 <h3 class="mbr-section-subtitle mbr-light mbr-fonts-style display-5">
-                    <?php echo __d('mobirise/cheap_taxipage', 'Nuestra plataforma ha sido mencionada en los medios como uno de los negocios online líderes en Cuba')?></h3>
+                    <?php echo __d('mobirise/homepage', 'Nuestra plataforma ha sido mencionada en los medios como uno de los negocios online líderes en Cuba')?></h3>
             </div>
         </div>
     </div>

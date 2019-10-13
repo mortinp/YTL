@@ -176,19 +176,37 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 <?php echo $this->element('mobirise/ajax_testimonials_list', compact('testimonials')); ?>
 
 <?php if(!$talkingToDriver):?>
+
+<?php
+$formSectionTitle = __d('mobirise/driver_profile', '¿Te interesa contratar un chofer privado en Cuba?');
+$formSectionSubtitle = __d('mobirise/driver_profile', '<strong>Contacta a %s</strong> y recibe una oferta directamente de él para el viaje que quieres hacer', $driver_short_name);
+
+$isShowingDiscount = $this->request->query('discount') && $discount != null;
+
+if($isShowingDiscount) {
+    $formSectionTitle = __d('mobirise/cheap_taxi', '%s ofrece:<br>Taxi privado <span style="display:inline-block">%s > %s</span><br>%s', 
+            $driver_name, 
+            '<strong>'.$discount['DiscountRide']['origin'].'</strong>',
+            '<strong>'.$discount['DiscountRide']['destination'].'</strong>',
+            '<strong>'.$discount['DiscountRide']['price'].' cuc'.'</strong>');
+    $formSectionSubtitle = __d('mobirise/cheap_taxi', '<strong>Contacta a %s</strong> y reserva este viaje para el próximo %s', 
+            $driver_short_name,
+            '<span style="display:inline-block"><strong>'.TimeUtil::prettyDate($discount['DiscountRide']['date'],false).'</strong></span>');
+}
+?>
 <section class="mbr-section form1 cid-r6WrVSFSDf" id="<?php echo __d('mobirise/default', 'solicitar')?>">
     <div class="container">
         <div class="row justify-content-center">
             <div class="title col-12 col-lg-8">
                 <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">
-                    <?php echo __d('mobirise/driver_profile', '¿Te interesa contratar un chofer privado en Cuba?')?></h2>
+                    <?php echo $formSectionTitle?></h2>
                 <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
-                    <?php echo __d('mobirise/driver_profile', '<strong>Contacta a %s</strong> y recibe una oferta directamente de él para el viaje que quieres hacer', $driver_short_name)?></h3>
+                    <?php echo $formSectionSubtitle?></h3>
             </div>
         </div>
     </div>
     <div class="container">
-    <?php if($this->request->query('discount') && $discount!=null): ?>
+    <?php if($isShowingDiscount): ?>
         <?php $pickerdate = TimeUtil::dateFormatForPicker($discount['DiscountRide']['date']); echo "<script type='text/javascript'>var pickervalue='".$pickerdate."'; </script>"; ?>
         <div class="row cid-rDj8V5iu3T justify-content-center" style="background-color: white;padding:0px">
             <div class="plan col-md-4 justify-content-center favorite">

@@ -34,62 +34,78 @@ msgstr "Our drivers make 50% discount ride offers in some occasions. We list the
 msgid "Ver traslados disponibles con 50% de descuento"
 msgstr "See available taxi offers with 50% discount"
 
-#: /home.ctp:33
-msgid "Fácil"
-msgstr "Easy"
+#: /home.ctp:29
+msgid "¿Por qué los choferes ofertan traslados con un descuento tan grande?"
+msgstr "Why do our drivers offer rides with such big discounts?"
 
-#: /home.ctp:35
-msgid "Simplemente <strong>envía tu idea</strong> de los recorridos que deseas realizar, y <strong>te conectaremos con múltiples conductores</strong> independientes acá en la isla y sus ofertas llegarán a tu inbox."
-msgstr "Just <strong>send your idea</strong> of the trips or rides you want to do, and <strong>we will connect you to multiple drivers</strong> here in the island so you can get quotes from them in your inbox."
+#: /home.ctp:29
+msgid "En ocasiones los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, <b>cuando dejan clientes lejos y tienen que regresar a casa</b>, o <b>cuando tienen que recoger clientes y deben salir desde un punto lejano</b>."
+msgstr "In some occasions, the drivers HAVE TO do some rides with an empty taxi. For example, <b>when they drop customers off far away and need to return back home</b>, or <b>when they need to pick up passengers and they need to depart from far away</b>."
 
-#: /home.ctp:35
-msgid "Rápido"
-msgstr "Fast"
+#: /home.ctp:29
+msgid "Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>."
+msgstr "When they don't have passengers for these rides, <b>the drivers prefer to take some passengers for at least half the price, and hence recover some expenses of that ride</b>."
 
-#: /home.ctp:50
-msgid "Recibirás <strong>múltiples ofertas en menos de 12 horas</strong>. Todo depende del momento en que los choferes abran su app móvil o su correo. Si están interesados, responderán enseguida."
-msgstr "You will <strong>get multiple quotes in less than 12 hours</strong>. It all depends on when our drivers open their app or email and see your request. If they are interested, they will reply right away."
+#: /home.ctp:29
+msgid "No hay que compartir taxi"
+msgstr "No need to share the taxi"
 
-#: /home.ctp:35
-msgid "Sin compromisos"
-msgstr "No worries"
+#: /home.ctp:29
+msgid "Recibirás un servicio de taxi privado sin tener que compartirlo con otros pasajeros."
+msgstr "This is a private taxi service, so you won't share the taxi with other passengers."
 
-#: /home.ctp:59
-msgid "Cuando recibes las ofertas puedes continuar comunicándote con los choferes que mejor te parezcan, pero <strong>no tienes que contratar a ninguno si no te parece bien</strong>."
-msgstr "Once you get the quotes, you can keep talking to the drivers you like best if you are interested, but <strong>you don't have to hire any one of them if you don't want to</strong>."
+#: /home.ctp:29
+msgid "Servicio puerta a puerta"
+msgstr "Door to door service"
 
-#: /home.ctp:35
-msgid "Inspírate con %s historias escritas sobre nuestros choferes por clientes anteriores"
-msgstr "Get inspired with %s stories written about our drivers by previous customers"
+#: /home.ctp:29
+msgid "El taxi te recoge en tu estancia u hotel y te lleva directamente hasta tu próximo destino."
+msgstr "The taxi picks you up at your accommodation or hotel and takes you directly to your next accommodation."
 
-#: /home.ctp:68
-msgid "Podrás verlas en los perfiles de los choferes"
-msgstr "You can see them in the drivers' profiles"
+#: /home.ctp:29
+msgid "Contacto directo con el chofer"
+msgstr "Direct contact with the driver"
+
+#: /home.ctp:29
+msgid "Contacta directamente con el chofer para acordar cualquier detalle extra sobre el viaje."
+msgstr "Contact directly with the driver making the offer to arrange any extra details about the trip."
+
+
+#### OFFER_INFO.CTP
+
+#: /home.ctp:29
+msgid "%s ofrece"
+msgstr "%s offers"
+
+#: /home.ctp:29
+msgid "hasta %s personas"
+msgstr "up to %s passengers"
+
+#: /home.ctp:29
+msgid "Sólo disponible"
+msgstr "Only available"
+
+#: /home.ctp:29
+msgid "Fecha / Horario salida"
+msgstr "Date / Departure"
+
+
+
+### DRIVER PROFILE
+#: /home.ctp:29
+msgid "%s ofrece:<br>Taxi privado <span style="display:inline-block">%s > %s</span><br>%s"
+msgstr "%s offers:<br>Private taxi <span style="display:inline-block">%s > %s</span><br>%s"
+
+#: /home.ctp:29
+msgid "<strong>Contacta a %s</strong> y reserva este viaje para el próximo %s"
+msgstr "<strong>Contact %s</strong> and book this trip for next %s"
+
+
+#### META
+#: /home.ctp:83
+msgid "Taxi privado %s > %s por %s. Oferta de taxi económico en Cuba."
+msgstr "Private taxi %s > %s for %s. Economic taxi in Cuba."
 
 #: /home.ctp:83
-msgid "El chofer con quien viajas es importante y hace la diferencia"
-msgstr "The driver you travel with is important and makes the difference"
-
-#: /home.ctp:83
-msgid "Nuestros choferes son <strong>pilotos retirados</strong>, <strong>pescadores</strong>, <strong>comediantes</strong>, <strong>contadores</strong>, <strong>músicos</strong>, todos <strong>propietarios de un auto que nos ayudan a moverte por la isla</strong>. Conecta con tu chofer de la manera que prefieras."
-msgstr "Our drivers are <strong>retired pilots</strong>, <strong>fishermen</strong>, <strong>comedians</strong>, <strong>accountants</strong>, <strong>musicians</strong>, all of them <strong>owners of a car who help us move you around the island</strong>. Connect with your driver the way you prefer."
-
-#: /home.ctp:83
-msgid "Solicita presupuesto ahora"
-msgstr "Request quotes now"
-
-#: /home.ctp:83
-msgid "Solicita presupuesto para taxi en Cuba"
-msgstr "Request quotes for taxi in Cuba"
-
-#: /home.ctp:83
-msgid "Envía la idea de tus recorridos a nuestros choferes"
-msgstr "Send the idea of your trips to our drivers"
-
-#: /home.ctp:83
-msgid "¿Tienes amigos buscando opciones de traslados en Cuba?"
-msgstr "Know friends looking for transportation options in Cuba?"
-
-#: /home.ctp:83
-msgid "Comparte esta página y házles feliz su día"
-msgstr "Share this page and make their day"
+msgid "%s oferta taxi privado %s > %s por %s el próximo %s. Mira los detalles de esta oferta económica en su perfil."
+msgstr "%s offers private taxi %s > %s for %s next %s. See the details of this affordable offer in his profile."
