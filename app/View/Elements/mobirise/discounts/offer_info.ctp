@@ -26,6 +26,6 @@ if(!isset($showButton)) $showButton = true;
         </ul>
     </div>
     <?php if($showButton):?>
-        <div class="mbr-section-btn text-center py-4 pb-5"><?php echo $this->Html->link(__d('mobirise/testimonials', 'Contactar a %s', $discount['Driver']['DriverProfile']['driver_name']), array('controller'=>'drivers', 'action'=>'profile', $discount['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$discount['DiscountRide']['id'])), array('class'=>'btn btn-success display-4', 'escape'=>false,'target'=>'_blank'))?></div>
+        <div class="mbr-section-btn text-center py-4 pb-5"><?php echo $this->Html->link(__d('mobirise/cheap_taxi', 'Contactar a %s para este traslado', $discount['Driver']['DriverProfile']['driver_name']), array('controller'=>'drivers', 'action'=>'profile', $discount['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$discount['DiscountRide']['id'])), array('class'=>'btn btn-success display-4', 'escape'=>false,'target'=>'_blank'))?></div>
     <?php endif?>
 </div>

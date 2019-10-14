@@ -36,8 +36,8 @@ if($isLoggedIn) {
   <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
   
   <?php
-    $page_title = __d('meta', 'Taxi barato en Cuba. Descuento hasta 50%');
-    $page_description = __d('meta', 'Nuestros choferes hacen ofertas de 50% de descuento en algunas ocasiones. Nosotros las listamos aquí y tú puedes reservarlas.');
+    $page_title = __d('meta', 'Taxi barato en Cuba | Descuento hasta 50%');
+    $page_description = __d('meta', 'Nuestros choferes hacen ofertas de 50% de descuento en algunas ocasiones. Nosotros las listamos aquí y tú puedes reservarlas. Encuentra estas promociones y ahorra dinero.');
   ?>
   <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
   <title><?php echo $page_title." | YoTeLlevo" ?></title>

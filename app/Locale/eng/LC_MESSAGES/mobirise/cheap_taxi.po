@@ -43,8 +43,8 @@ msgid "En ocasiones los choferes están obligados a realizar un recorrido con el
 msgstr "In some occasions, the drivers HAVE TO do some rides with an empty taxi. For example, <b>when they drop customers off far away and need to return back home</b>, or <b>when they need to pick up passengers and they need to depart from far away</b>."
 
 #: /home.ctp:29
-msgid "Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>."
-msgstr "When they don't have passengers for these rides, <b>the drivers prefer to take some passengers for at least half the price, and hence recover some expenses of that ride</b>."
+msgid "Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio y así amortiguar gastos de ese traslado</b>."
+msgstr "When they don't have passengers for these rides, <b>they prefer to take some passengers for at least half the price and recover some expenses of that ride</b>."
 
 #: /home.ctp:29
 msgid "No hay que compartir taxi"
@@ -70,6 +70,30 @@ msgstr "Direct contact with the driver"
 msgid "Contacta directamente con el chofer para acordar cualquier detalle extra sobre el viaje."
 msgstr "Contact directly with the driver making the offer to arrange any extra details about the trip."
 
+#: /home.ctp:29
+msgid "Encuentra tu oportunidad de ahorrar en taxi"
+msgstr "Find your opportunity to save in taxi"
+
+#: /home.ctp:29
+msgid "Busca según las fechas que necesitas trasladarte"
+msgstr "Search by the dates you need each ride"
+
+#: /home.ctp:29
+msgid "Todos los precios son totales, NO por persona"
+msgstr "All prices are total, NOT per person"
+
+#: /home.ctp:29
+msgid "Las fechas y horarios son fijos y no tienen modificación"
+msgstr "The dates and departure times are fixed and can not be changed"
+
+#: /home.ctp:29
+msgid "Trabajamos con una comunidad de geniales taxistas independientes en Cuba"
+msgstr "We work with a community of amazing independent taxi drivers in Cuba"
+
+#: /home.ctp:29
+msgid "Inspírate con %s historias escritas sobre nuestros choferes por clientes anteriores"
+msgstr "Get inspired by the %s stories written about our drivers by previous customers"
+
 
 #### OFFER_INFO.CTP
 
@@ -88,6 +112,10 @@ msgstr "Only available"
 #: /home.ctp:29
 msgid "Fecha / Horario salida"
 msgstr "Date / Departure"
+
+#: /home.ctp:29
+msgid "Contactar a %s para este traslado"
+msgstr "Contact %s for this ride"
 
 
 
