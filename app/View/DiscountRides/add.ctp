@@ -18,9 +18,12 @@ echo $this->Js->writeBuffer(array('inline' => false));
 		    echo $this->Form->input('destination',array('label'=>'Destino','placeholder'=>'Lugar, municipio o provincia')); ?>
                 </div>
                 <div class="row">
+                    <?php echo $this->Form->input('people_count',array('label'=>'Cantidad de viajeros','value'=>'4'));?>
+                </div>
+                <div class="row">
                     <?php echo $this->Form->input('date',array('type'=>'text','class'=>'datepicker','label'=>'Fecha'));?>
-                </div>  
-		
+                </div> 
+              
                 <div class="row">
                     <div class="col-md-6">
                     <label>Entre</label>

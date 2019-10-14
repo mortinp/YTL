@@ -11,7 +11,7 @@
             <br/>           
         </div>
         <table class='table table-striped table-hover'>
-            <thead><th>Chofer</th><th>Origen</th><th>Destino</th><th>Fecha</th><th>Rango de salida</th><th>Activo?</th><th>Precio</th><th>Reservado</th><th>Fecha Creado</th></thead>
+            <thead><th>Chofer</th><th>Origen</th><th>Destino</th><th>Fecha</th><th>Total viajeros</th><th>Rango de salida</th><th>Activo?</th><th>Precio</th><th>Reservado</th></thead>
             <tbody> 
             <?php if(!empty ($discountRides)): ?>
                 
@@ -46,6 +46,9 @@
                             <?php echo $pretty_date;?>
                         </td>
                         <td>
+                            <?php echo $conversation['DiscountRide']['people_count']; ?>
+                        </td>
+                        <td>
                             <?php  echo TimeUtil::AmPm($conversation['DiscountRide']['hour_min']).' - '. TimeUtil::AmPm($conversation['DiscountRide']['hour_max']); ?>
                         </td>
                         <td>
@@ -57,9 +60,7 @@
                         <td>
                             <?php $mostrar = ($conversation['DiscountRide']['is_booked']) ? "<span class='fa fa-check'></span>" :  "<span class='fa fa-times'></span>"; echo $mostrar;?>
                         </td>
-                        <td>
-                            <?php echo $conversation['DiscountRide']['created']; ?>
-                        </td>
+                        
                     </tr>                     
                 <?php endforeach; ?>               
 
