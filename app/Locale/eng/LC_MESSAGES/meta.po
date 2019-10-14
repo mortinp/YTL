@@ -209,3 +209,11 @@ msgstr "Comment by %author about a trip with %driver in Cuba"
 #: View/Users/register_welcome.ctp:19
 msgid "Choferes en Cuba: fotos y testimonios de viajeros"
 msgstr "Drivers in Cuba: pictures and testimonials from travelers"
+
+#: View/Users/register_welcome.ctp:19
+msgid "Taxi barato en Cuba | Descuento hasta 50%"
+msgstr "Cheap taxi in Cuba | Discounts of up to 50%"
+
+#: View/Users/register_welcome.ctp:19
+msgid "Nuestros choferes hacen ofertas de 50% de descuento en algunas ocasiones. Nosotros las listamos aquí y tú puedes reservarlas. Encuentra estas promociones y ahorra dinero."
+msgstr "Our drivers make 50% discount ride offers in some occasions. We list them here and you can book them. Find these promotions and save money."

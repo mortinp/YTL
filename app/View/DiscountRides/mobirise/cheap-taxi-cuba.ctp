@@ -34,7 +34,7 @@
                 <p class="mbr-text pb-3 mbr-fonts-style display-5">
                     <?php echo __d('mobirise/cheap_taxi', 'En ocasiones los choferes están obligados a realizar un recorrido con el taxi vacío. Por ejemplo, <b>cuando dejan clientes lejos y tienen que regresar a casa</b>, o <b>cuando tienen que recoger clientes y deben salir desde un punto lejano</b>.')?>
                     <br>
-                    <?php echo __d('mobirise/cheap_taxi', 'Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio, y amortiguar gastos de ese traslado</b>.')?>
+                    <?php echo __d('mobirise/cheap_taxi', 'Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio y así amortiguar gastos de ese traslado</b>.')?>
                 </p>
                 <div class="mbr-section-btn">
                     <a class="btn btn-md btn-black-outline display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
@@ -97,7 +97,7 @@
                         </h2>
                         <h3><?php echo __d('/mobirise/cheap_taxi', 'Busca según las fechas que necesitas trasladarte')?></h3>
                         <br/>
-                        <div><?php echo __d('/mobirise/cheap_taxi', 'Todos los precios son totales, NO por persona', 4)?></div>
+                        <div><?php echo __d('/mobirise/cheap_taxi', 'Todos los precios son totales, NO por persona')?></div>
                         <div><?php echo __d('/mobirise/cheap_taxi', 'Las fechas y horarios son fijos y no tienen modificación')?></div>
                         <br/>
                     </div>
@@ -115,7 +115,7 @@
 
 <section class="features16 cid-r6QXtixtYd" id="features16-c">
     <div class="container align-center">
-        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-5"><?php echo __d('mobirise/cheap_taxi', 'Trabajamos con una comunidad de taxistas independientes geniales')?></h2>
+        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-5"><?php echo __d('mobirise/cheap_taxi', 'Trabajamos con una comunidad de geniales taxistas independientes en Cuba')?></h2>
         <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5"><?php echo __d('mobirise/cheap_taxi', 'Inspírate con %s historias escritas sobre nuestros choferes por clientes anteriores', $stats['reviews'])?></h3>
         <div class="row media-row">
         <?php echo $this->element('mobirise/testimonials-summary', array('testimonial'=>$testimonials_sample[0]['Testimonial'], 'driver'=>$testimonials_sample[0]['Driver']))?>
@@ -127,7 +127,7 @@
         <div class="row justify-content-center content-row">
             <div class="media-container-column col-12 col-lg-6 col-md-6">
                 <div class="mbr-section-btn py-4">
-                    <?php echo $this->Html->link(__d('mobirise/cheap_taxipage', 'Mira opiniones recientes sobre nuestros choferes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'btn btn-md btn-success-outline display-3'))?>
+                    <?php echo $this->Html->link(__d('mobirise/homepage', 'Mira opiniones recientes sobre nuestros choferes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'btn btn-md btn-success-outline display-3'))?>
                 </div>
             </div>
         </div>
