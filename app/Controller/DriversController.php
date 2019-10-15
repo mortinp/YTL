@@ -145,9 +145,8 @@ class DriversController extends AppController {
                     $this->loadModel('DiscountRide');
                     $this->DiscountRide->recursive=3;
                     $discount = $this->DiscountRide->find('all',array('conditions'=>array('DiscountRide.driver_id'=>$profile['Driver']['id'],'DiscountRide.id'=>$this->request->query('discount'),'DiscountRide.active'=>1)));
-                    if($discount==null) $discount[0]=null;//Artificio para si es invalido
-                    $this->set('discount',$discount[0]);
-                   
+                    if($discount == null) $discount[0] = null;//Artificio para si es invalido
+                    $this->set('discount', $discount[0]);
                 }
                 
                 /*Primero chequeamos si es una vista directa de testimonio*/
@@ -173,8 +172,7 @@ class DriversController extends AppController {
                 $this->set( 'testimonials', $this->paginate('Testimonial', array(
                     'Testimonial.driver_id' => $profile['Driver']['id'], 
                     'Testimonial.state'=>Testimonial::$statesValues['approved'] ))
-                );   
-                
+                );
                                             
                 if($this->request->is('ajax')) {                    
                     $render = '/Elements';

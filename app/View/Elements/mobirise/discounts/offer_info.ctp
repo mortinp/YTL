@@ -15,7 +15,7 @@ if(!isset($showButton)) $showButton = true;
     <div class="plan-price">
         <span class="price-value mbr-fonts-style display-5">$</span>
         <span class="price-figure mbr-fonts-style display-2"><?php echo $discount['DiscountRide']['price']; ?></span>
-        <small class="price-term mbr-fonts-style display-7">CUC <br><b><?php echo __d('mobirise/cheap_taxi', 'hasta %s personas', $discount['Driver']['max_people_count'])?></b></small>
+        <small class="price-term mbr-fonts-style display-7">CUC <br><b><?php echo __d('mobirise/cheap_taxi', 'hasta %s personas', $discount['DiscountRide']['people_count'])?></b></small>
     </div>
 </div>
 <div class="plan-body">

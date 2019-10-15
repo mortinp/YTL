@@ -136,8 +136,7 @@ class UsersController extends AppController {
                 if($result['success']){
                     $datasource->commit();
                     if($this->do_login()) {
-                        /*$this->set('travel', $result['travel']);
-                        return $this->render('register_welcome');*/
+                        // BIENVENIDA: Aquí la bienvenida a un usuario nuevo
                         return $this->redirect(array('action'=>'welcome', $result['travel']['Travel']['id']));
                     }
                 } else {
@@ -213,26 +212,26 @@ class UsersController extends AppController {
                 //$this->Session->write('Auth.User', $user['User']);
                 $this->Session->write('Auth.User.display_name', $user['User']['display_name']);
                 //if(isset ($user['User']['password']))$this->Session->write('Auth.User.display_name', $user['User']['password']);
-                //sending the email for user change and converstions summary                
+                //sending the email for user change and converstions summary
                 if($userEmailChanged) {                    
-                    $this->DriverTravel->recursive=3;
-                   $today = date('Y-m-d', strtotime('today')); 
-                   $travels = $this->DriverTravel->find('all',array('conditions'=>array('DriverTravel.user_id'=>$user['User']['id'],'DriverTravel.travel_date >'=>$today,'DriverTravel.message_count >'=>0))); 
-                   //die(print_r($travels[0]['Driver']));
-                   if(sizeof($travels)>0){
-                   EmailsUtil::email(
-                    $user['User']['username'], 
-                    __d($user['User']['display_name'], 'Cambio de correo de contacto con YoTeLlevoCuba').'!',array('data'=>$travels,'user_name'=>$user['User']['username']),
-                    'no_responder', 
-                    'user_new_email_travel_list', 
-                    array('lang'=>$this->Session->read('Auth.User.lang')));
-                   }else{
-                     EmailsUtil::email(
-                    $user['User']['username'], 
-                    __d($user['User']['display_name'], 'Cambio de correo de contacto con YoTeLlevoCuba').'!',array('user_email'=>$user['User']['username']),
-                    'no_responder', 
-                    'user_new_email_notification', 
-                    array('lang'=>$this->Session->read('Auth.User.lang')));  
+                    $this->DriverTravel->recursive = 3;
+                    $today = date('Y-m-d', strtotime('today')); 
+                    $travels = $this->DriverTravel->find('all',array('conditions'=>array('DriverTravel.user_id'=>$user['User']['id'],'DriverTravel.travel_date >'=>$today,'DriverTravel.message_count >'=>0))); 
+                    //die(print_r($travels[0]['Driver']));
+                    if(sizeof($travels) > 0) {
+                        EmailsUtil::email(
+                            $user['User']['username'], 
+                            __d($user['User']['display_name'], 'Cambio de correo de contacto con YoTeLlevoCuba').'!',array('data'=>$travels, 'user_name'=>$user['User']['username']),
+                            'no_responder', 
+                            'user_new_email_travel_list', 
+                            array('lang'=>$this->Session->read('Auth.User.lang')));
+                   } else {
+                        EmailsUtil::email(
+                            $user['User']['username'], 
+                            __d($user['User']['display_name'], 'Cambio de correo de contacto con YoTeLlevoCuba').'!',array('user_email'=>$user['User']['username']),
+                            'no_responder', 
+                            'user_new_email_notification', 
+                            array('lang'=>$this->Session->read('Auth.User.lang')));  
                    }
                 }
                 $this->setSuccessMessage('Tu nueva información ha sido guardada');
@@ -535,6 +534,7 @@ class UsersController extends AppController {
             
             if($result['success']){
                 
+                // BIENVENIDA: Aquí la bienvenida a un usuario nuevo
                 if($new) return $this->redirect (array('action' => 'register_welcome', $result['conversation_id']));
                 
                 $this->setInfoMessage($result['message']);
@@ -554,21 +554,20 @@ class UsersController extends AppController {
             //we create the password for the new user
             $this->request->data['User']['password'] = StringsUtil::getWeirdString();
             if( $this->do_register($this->request->data['User'], 'welcome_new', 'driver_profile_msg_form') && $this->do_login() ) {
-            EmailsUtil::email(
-                $this->request->data['User']['username'], 
-                __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
-                array(),
-                'customer_assistant', 
-                'welcome_operator_general',
-                array('lang'=>$this->request->data['User']['lang']));
+                EmailsUtil::email(
+                    $this->request->data['User']['username'], 
+                    __d('user_email', 'Hola, soy su asistente de YoTeLlevo'), 
+                    array(),
+                    'customer_assistant', 
+                    'welcome_operator_general',
+                    array('lang'=>$this->request->data['User']['lang']));
+
+                return $this->contact_driver (true);
             
-            return $this->contact_driver (true);
-        }else
-            $this->setErrorMessage( __('Ocurrió un error registrando su usuario. Intente de nuevo.') );
-    }
-            
-        
-            
+            }else {
+                $this->setErrorMessage( __('Ocurrió un error registrando su usuario. Intente de nuevo.') );
+            }
+        }   
         
         return $this->redirect( $this->referer().'#'.__d('mobirise/default', 'solicitar') );
         //El redirect hace que se pierdan los datos del formulario... podria usar un query para volverlos a setear y luego enfocar el formulario

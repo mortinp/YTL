@@ -29,7 +29,7 @@ class DiscountRidesController extends AppController {
         // TODO: Cargar viajes disponibles aquí
         $this->DiscountRide->recursive = 3;
         $today = date('Y-m-d', strtotime('today')); 
-        $discounts = $this->DiscountRide->find('all',array('order'=>array('DiscountRide.date'=>'ASC'),'conditions'=>array('DiscountRide.active'=>1,'DiscountRide.date >'=>$today)));
+        $discounts = $this->DiscountRide->find('all',array('order'=>array('DiscountRide.date'=>'ASC'),'conditions'=>array('DiscountRide.active'=>1,'DiscountRide.date >='=>$today)));
         //formatting the final result by dates
         $discount_rides_by_date = array();
         foreach ($discounts as $key => $value) {
