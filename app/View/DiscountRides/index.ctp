@@ -11,7 +11,7 @@
             <br/>           
         </div>
         <table class='table table-striped table-hover'>
-            <thead><th>Chofer</th><th>Origen</th><th>Destino</th><th>Fecha</th><th>Total viajeros</th><th>Rango de salida</th><th>Activo?</th><th>Precio</th><th>Reservado</th></thead>
+            <thead><th>Chofer</th><th>Origen</th><th>Destino</th><th>Fecha</th><th>Total viajeros</th><th>Salida</th><th>Activo?</th><th>Precio</th><th>Reservado</th><th>Compartir</th></thead>
             <tbody> 
             <?php if(!empty ($discountRides)): ?>
                 
@@ -59,6 +59,16 @@
                         </td>
                         <td>
                             <?php $mostrar = ($conversation['DiscountRide']['is_booked']) ? "<span class='fa fa-check'></span>" :  "<span class='fa fa-times'></span>"; echo $mostrar;?>
+                        </td>
+                        <?php 
+                         $personW = __('persona');
+                            $pretty_people_count = $conversation['DiscountRide']['people_count']. ' ';
+                            if($conversation['DiscountRide']['people_count'] > 1) $pretty_people_count .= Inflector::pluralize ($personW);
+                            else $pretty_people_count .= $personW;
+                        ?>
+                         <td>
+                            <?php echo "<a class='btn btn-default btn-xs' href='https://www.facebook.com/sharer/sharer.php?u=".$this->html->url(array('controller'=>'drivers', 'action'=>'profile', $conversation['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$conversation['DiscountRide']['id'])))."'><span class='fa fa-facebook'></span>"
+                                    . "</a>&nbsp;<a href='https://twitter.com/intent/tweet?url=".$this->html->url(array('controller'=>'drivers', 'action'=>'profile', $conversation['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$conversation['DiscountRide']['id'])))."&text=".__d('view/DiscountRides/index','%s offers: Travel %s - %s for %s on %s only for $%s',$conversation['Driver']['DriverProfile']['driver_nick'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'],$pretty_people_count,TimeUtil::prettyDateShort($conversation['DiscountRide']['date']),$conversation['DiscountRide']['price'])."' class='btn btn-default btn-xs'><span class='fa fa-twitter'></span></a>";?>
                         </td>
                         
                     </tr>                     
