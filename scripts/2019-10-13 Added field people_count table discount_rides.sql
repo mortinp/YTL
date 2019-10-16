@@ -1,1 +1,0 @@
-ALTER TABLE `discount_rides` ADD `people_count` INT NOT NULL AFTER `destination`;

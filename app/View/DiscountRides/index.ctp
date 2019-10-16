@@ -49,7 +49,7 @@
                             <?php echo $conversation['DiscountRide']['people_count']; ?>
                         </td>
                         <td>
-                            <?php  echo TimeUtil::AmPm($conversation['DiscountRide']['hour_min']).' - '. TimeUtil::AmPm($conversation['DiscountRide']['hour_max']); ?>
+                            <?php  echo TimeUtil::AmPm($conversation['DiscountRide']['hour_min']).'-'. TimeUtil::AmPm($conversation['DiscountRide']['hour_max']); ?>
                         </td>
                         <td>
                             <?php $mostrar = ($conversation['DiscountRide']['active']) ? "<div id='".$conversation['DiscountRide']['id']."' class='btn btn-warning btn-xs statechanger'>Desactivar <span class='fa fa-times'></span></div><input type='hidden' name='active".$conversation['DiscountRide']['id']."' id='active".$conversation['DiscountRide']['id']."' value='0'>" :  "<div id='".$conversation['DiscountRide']['id']."' class='btn btn-success btn-xs statechanger'>Activar <span class='fa fa-check'></span></div><input type='hidden' name='active".$conversation['DiscountRide']['id']."' id='active".$conversation['DiscountRide']['id']."' value='1'>"; echo $mostrar;?>
@@ -68,7 +68,7 @@
                         ?>
                          <td>
                             <?php echo "<a class='btn btn-default btn-xs' href='https://www.facebook.com/sharer/sharer.php?u=".$this->html->url(array('controller'=>'drivers', 'action'=>'profile', $conversation['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$conversation['DiscountRide']['id'])))."'><span class='fa fa-facebook'></span>"
-                                    . "</a>&nbsp;<a href='https://twitter.com/intent/tweet?url=".$this->html->url(array('controller'=>'drivers', 'action'=>'profile', $conversation['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$conversation['DiscountRide']['id'])))."&text=".__d('view/DiscountRides/index','%s offers: Travel %s - %s for %s on %s only for $%s',$conversation['Driver']['DriverProfile']['driver_nick'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'],$pretty_people_count,TimeUtil::prettyDateShort($conversation['DiscountRide']['date']),$conversation['DiscountRide']['price'])."' class='btn btn-default btn-xs'><span class='fa fa-twitter'></span></a>";?>
+                                    . "</a>&nbsp;<a href='https://twitter.com/intent/tweet?url=".$this->html->url(array('controller'=>'drivers', 'action'=>'profile', $conversation['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$conversation['DiscountRide']['id'])))."&text=".__d('mobirise/cheap_taxi','%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s', $conversation['Driver']['DriverProfile']['driver_name'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'],TimeUtil::prettyDateShort($conversation['DiscountRide']['date'], false),$conversation['DiscountRide']['price'], $pretty_people_count)."' class='btn btn-default btn-xs'><span class='fa fa-twitter'></span></a>";?>
                         </td>
                         
                     </tr>                     

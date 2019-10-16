@@ -118,6 +118,12 @@ msgid "Contactar a %s para este traslado"
 msgstr "Contact %s for this ride"
 
 
+### ADMIN
+#: /home.ctp:29
+msgid "%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s"
+msgstr "%s offers private taxi %s - %s next %s for $%s, up to %s"
+
+
 
 ### DRIVER PROFILE
 #: /home.ctp:29
