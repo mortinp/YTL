@@ -70,8 +70,18 @@
                             <?php
                             $offerFullUrl = $this->Html->url(array('controller'=>'drivers', 'action'=>'profile', $conversation['Driver']['DriverProfile']['driver_nick'],'?'=>array('discount'=>$conversation['DiscountRide']['id']), 'base'=>false), true);
                             ?>
-                            <?php echo "<a class='btn btn-default btn-xs' href='https://www.facebook.com/sharer/sharer.php?u=".$offerFullUrl."'><span class='fa fa-facebook'></span>"
-                                    . "</a>&nbsp;<a href='https://twitter.com/intent/tweet?url=".$offerFullUrl."&text=".__d('mobirise/cheap_taxi','%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s', $conversation['Driver']['DriverProfile']['driver_name'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'],TimeUtil::prettyDateShort($conversation['DiscountRide']['date'], false),$conversation['DiscountRide']['price'], $pretty_people_count)."' class='btn btn-default btn-xs'><span class='fa fa-twitter'></span></a>";?>
+                            <a  class="btn btn-default btn-xs"
+                                href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $offerFullUrl ?>" 
+                                target="_blank"
+                                title="Facebook">
+                            <span class='fa fa-facebook'></span>
+                            </a>
+                             <a  class="btn btn-default btn-xs"
+                                href="https://twitter.com/intent/tweet?url=<?php echo $reviewUrl ?>&text=<?php echo __d('mobirise/cheap_taxi','%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s', $conversation['Driver']['DriverProfile']['driver_name'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'], TimeUtil::prettyDateShort($conversation['DiscountRide']['date'], false), $conversation['DiscountRide']['price'], $pretty_people_count) ?>" 
+                                target="_blank"
+                                title="Twitter">
+                                <span class="fa fa-twitter"></span>
+                            </a>
                         </td>
                         
                     </tr>                     
