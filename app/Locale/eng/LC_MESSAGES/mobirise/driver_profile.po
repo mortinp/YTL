@@ -80,6 +80,10 @@ msgid "Auto hasta %s capacidades"
 msgstr "Car up to %s seats"
 
 #: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Este chofer no puede ser contactado pues no está activo en nuestra plataforma actualmente"
+msgstr "This driver can not be contacted because he is currently not active in our platform"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Enviar este mensaje a %s"
 msgstr "Send this message to %s"
 

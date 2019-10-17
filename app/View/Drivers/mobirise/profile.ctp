@@ -3,6 +3,7 @@
 <?php 
 $driver_name = $profile['DriverProfile']['driver_name'];
 $driver_short_name = Driver::shortenName($driver_name);
+$driverIsActive = $profile['Driver']['active'];
 ?>
 
 <!-- TESTIMONIOS -->
@@ -176,76 +177,93 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
 <?php echo $this->element('mobirise/ajax_testimonials_list', compact('testimonials')); ?>
 
 <?php if(!$talkingToDriver):?>
-
-<?php
-$formSectionTitle = __d('mobirise/driver_profile', '¿Te interesa contratar un chofer privado en Cuba?');
-$formSectionSubtitle = __d('mobirise/driver_profile', '<strong>Contacta a %s</strong> y recibe una oferta directamente de él para el viaje que quieres hacer', $driver_short_name);
-
-$isShowingDiscount = $this->request->query('discount') && $discount != null;
-
-if($isShowingDiscount) {
-    $formSectionTitle = __d('mobirise/cheap_taxi', '%s ofrece:<br>Taxi privado <span style="display:inline-block">%s > %s</span><br>%s', 
-            $driver_name, 
-            '<strong>'.$discount['DiscountRide']['origin'].'</strong>',
-            '<strong>'.$discount['DiscountRide']['destination'].'</strong>',
-            '<strong>'.$discount['DiscountRide']['price'].' cuc'.'</strong>');
-    $formSectionSubtitle = __d('mobirise/cheap_taxi', '<strong>Contacta a %s</strong> y reserva este viaje para el próximo %s', 
-            $driver_short_name,
-            '<span style="display:inline-block"><strong>'.TimeUtil::prettyDate($discount['DiscountRide']['date'],false).'</strong></span>');
-}
-?>
-<section class="mbr-section form1 cid-r6WrVSFSDf" id="<?php echo __d('mobirise/default', 'solicitar')?>">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="title col-12 col-lg-8">
-                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-5">
-                    <?php echo $formSectionTitle?></h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
-                    <?php echo $formSectionSubtitle?></h3>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-    <?php if($isShowingDiscount): ?>
-        <?php $pickerdate = TimeUtil::dateFormatForPicker($discount['DiscountRide']['date']); echo "<script type='text/javascript'>var pickervalue='".$pickerdate."'; </script>"; ?>
-        <div class="row cid-rDj8V5iu3T justify-content-center" style="background-color: white;padding:0px">
-            <div class="plan col-md-4 justify-content-center favorite">
-                <?php echo $this->element('mobirise/discounts/offer_info', compact('discount') + array('showButton'=>false))?>
-            </div>
-           
-            <div class="col-12 d-md-none" style="height:50px"></div>
-            <div class="col-md-7 offset-md-1" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
-                <?php echo $this->element('mobirise/form_write_to_driver')?>
-            </div>
-        </div>
-       <?php else: ?>
-        <div class="row justify-content-center">
-            <div class="media-container-column col-lg-8" data-form-type="formoid">
-                <?php echo $this->element('mobirise/form_write_to_driver')?>
-            </div>
-        </div>
-     <?php endif; ?>
-    </div>
-</section>
-<?php else:?>
-<section class="mbr-section info1 cid-r6R9vBujqk" style="padding-top: 100px">
-    <div class="container">
-        <hr class="line" style="width: 25%;">
-        <div class="row justify-content-center content-row">
-            <div class="media-container-column title col-12 col-lg-7 col-md-6">
-                <p class="mbr-section-subtitle align-left mbr-light pb-3 mbr-fonts-style display-5">
-                    <?php echo __d('mobirise/driver_profile', 'Ya tienes una conversación con %s', $driver_short_name)?>
-                </p>
-            </div>
-            <div class="media-container-column col-12 col-lg-3 col-md-4">
-                <div class="mbr-section-btn align-right py-4">
-                    <?php echo $this->Html->link('<span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span> '.__d('mobirise/driver_profile', 'Ver mis mensajes con %s', $driver_short_name), array('controller'=>'conversations', 'action'=>'messages', $talkingToDriver), array('escape'=>false, 'class'=>'btn btn-sm btn-primary display-4'))?>
+    
+    <?php if(!$driverIsActive):?>
+        <section class="mbr-section info1 cid-r6R9vBujqk" id="<?php echo __d('mobirise/default', 'solicitar')?>" style="padding-top: 30px">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="alert alert-danger">
+                        <?php echo __d('mobirise/driver_profile', 'Este chofer no puede ser contactado pues no está activo en nuestra plataforma actualmente')?>
+                    </div>
                 </div>
             </div>
+        </section>
+    <?php else:?>
+        <?php
+        $formSectionTitle = __d('mobirise/driver_profile', '¿Te interesa contratar un chofer privado en Cuba?');
+        $formSectionSubtitle = __d('mobirise/driver_profile', '<strong>Contacta a %s</strong> y recibe una oferta directamente de él para el viaje que quieres hacer', $driver_short_name);
+
+        $isShowingDiscount = $this->request->query('discount') && $discount != null;
+
+        if($isShowingDiscount) {
+            $formSectionTitle = __d('mobirise/cheap_taxi', '%s ofrece:<br>Taxi privado <span style="display:inline-block">%s > %s</span><br>%s', 
+                    $driver_name, 
+                    '<strong>'.$discount['DiscountRide']['origin'].'</strong>',
+                    '<strong>'.$discount['DiscountRide']['destination'].'</strong>',
+                    '<strong>'.$discount['DiscountRide']['price'].' cuc'.'</strong>');
+            $formSectionSubtitle = __d('mobirise/cheap_taxi', '<strong>Contacta a %s</strong> y reserva este viaje para el próximo %s', 
+                    $driver_short_name,
+                    '<span style="display:inline-block"><strong>'.TimeUtil::prettyDate($discount['DiscountRide']['date'],false).'</strong></span>');
+        }
+        ?>
+        <section class="mbr-section form1 cid-r6WrVSFSDf" id="<?php echo __d('mobirise/default', 'solicitar')?>">
+            
+            <div class="container">
+                <div class="row justify-content-center content-row">
+                    <div class="title col-12 col-lg-8">
+                        <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-5">
+                            <?php echo $formSectionTitle?></h2>
+                        <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
+                            <?php echo $formSectionSubtitle?></h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                
+                <?php if($isShowingDiscount): ?>
+                    <?php $pickerdate = TimeUtil::dateFormatForPicker($discount['DiscountRide']['date']); echo "<script type='text/javascript'>var pickervalue='".$pickerdate."'; </script>"; ?>
+                    <div class="row cid-rDj8V5iu3T justify-content-center" style="background-color: white;padding:0px">
+                        <div class="plan col-md-4 justify-content-center favorite">
+                            <?php echo $this->element('mobirise/discounts/offer_info', compact('discount') + array('showButton'=>false))?>
+                        </div>
+
+                        <div class="col-12 d-md-none" style="height:50px"></div>
+                        <div class="col-md-7 offset-md-1" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
+                            <?php echo $this->element('mobirise/form_write_to_driver')?>
+                        </div>
+                    </div>
+                   <?php else: ?>
+                    <div class="row justify-content-center">
+                        <div class="media-container-column col-lg-8" data-form-type="formoid">
+                            <?php echo $this->element('mobirise/form_write_to_driver')?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+            </div>
+            
+        </section>
+    <?php endif; ?>
+<?php else:?>
+    <section class="mbr-section info1 cid-r6R9vBujqk" id="<?php echo __d('mobirise/default', 'solicitar')?>" sstyle="padding-top: 100px">
+        <div class="container">
+            <hr class="line" style="width: 25%;">
+            <div class="row justify-content-center content-row">
+                <div class="media-container-column title col-12 col-lg-7 col-md-6">
+                    <p class="mbr-section-subtitle align-left mbr-light pb-3 mbr-fonts-style display-5">
+                        <?php echo __d('mobirise/driver_profile', 'Ya tienes una conversación con %s', $driver_short_name)?>
+                    </p>
+                </div>
+                <div class="media-container-column col-12 col-lg-3 col-md-4">
+                    <div class="mbr-section-btn align-right py-4">
+                        <?php echo $this->Html->link('<span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span> '.__d('mobirise/driver_profile', 'Ver mis mensajes con %s', $driver_short_name), array('controller'=>'conversations', 'action'=>'messages', $talkingToDriver), array('escape'=>false, 'class'=>'btn btn-sm btn-primary display-4'))?>
+                    </div>
+                </div>
+            </div>
+            <hr class="line" style="width: 25%;">
         </div>
-        <hr class="line" style="width: 25%;">
-    </div>
-</section>
+    </section>
 <?php endif?>
 
 <?php if(count($other_drivers['drivers_data'])>0): ?>
