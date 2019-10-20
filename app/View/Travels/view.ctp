@@ -1,5 +1,6 @@
 <?php
 App::uses('Auth', 'Component');
+App::uses('Locality', 'Model');
 
 $isConfirmed = Travel::isConfirmed($travel['Travel']['state']);
 
@@ -70,7 +71,7 @@ $this->Html->script('jquery', array('inline' => false));
     
 $this->Js->set('travel', $travel);
 $this->Js->set('travels_preferences', Travel::getPreferences());
-$this->Js->set('localities', $localities);
+$this->Js->set('localities', Locality::getAsSuggestions());
 $this->Js->set('lang', SessionComponent::read('app.lang'));
 echo $this->Js->writeBuffer(array('inline' => false));
 ?>

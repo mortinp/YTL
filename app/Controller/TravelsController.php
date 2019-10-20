@@ -42,9 +42,7 @@ class TravelsController extends AppController {
         $travels = $this->Travel->find('all', array('conditions' => 
             array('user_id' => $this->Auth->user('id'))));
         
-        $this->set('travels', $travels);  
-        
-        $this->set('localities', $this->getLocalitiesList());
+        $this->set('travels', $travels);
     }
     
     // Admins only
@@ -120,8 +118,7 @@ class TravelsController extends AppController {
     
     public function view($id) {
         $travel = $this->Travel->findById($id);
-        
-        $this->set('localities', $this->getLocalitiesList());
+
         $this->set('travel', $travel);
         
         $this->request->data = $travel;
@@ -163,8 +160,6 @@ class TravelsController extends AppController {
                 $this->redirect($this->referer());
             }
         }
-        
-        $this->set('localities', $this->getLocalitiesList());
     } 
     
     public function confirm($id) {
@@ -298,7 +293,6 @@ class TravelsController extends AppController {
         $travel = $this->PendingTravel->findById($id);
         $travel['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
         
-        $this->set('localities', $this->getLocalitiesList());
         $this->set('travel', $travel);
         
         $this->request->data = $travel;
@@ -309,7 +303,6 @@ class TravelsController extends AppController {
         $travel = $this->PendingTravel->findById($id);
         $travel['PendingTravel']['state'] = Travel::$STATE_UNCONFIRMED;
         
-        $this->set('localities', $this->getLocalitiesList());
         $this->set('travel', $travel);
         
         $this->request->data = $travel;
@@ -343,8 +336,6 @@ class TravelsController extends AppController {
                 $this->redirect($this->referer().'#'.__d('mobirise/default', 'solicitar'));
             }
         }
-        
-        $this->set('localities', $this->getLocalitiesList());
     }      
     public function edit_pending($tId) {        
         if ($this->request->is('ajax')) {
@@ -481,19 +472,6 @@ class TravelsController extends AppController {
         
         $this->set('drivers', $this->Driver->getAsSuggestions());
     }
-    
-    
-    
-    /**
-     * AUX
-     */
-    
-    private function getLocalitiesList() {
-        return Locality::getAsSuggestions();
-    }
-    
-    
-    
     
     
     /**

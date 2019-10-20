@@ -58,7 +58,7 @@ class DriversController extends AppController {
             }
             $this->setErrorMessage('Ocurrió un error guardando el chofer.');
         }
-        $this->set('localities', $this->Driver->Locality->getAsList());
+        $this->set('localities', $this->Locality->getAsList());
         $this->set('provinces', $this->Driver->Province->find('list'));
         $this->set('operators', $this->User->getOperatorsList(true));
     }
@@ -277,7 +277,6 @@ class DriversController extends AppController {
         $this->set('drivers_data', $driversData);
         $this->set('alternative_drivers_data', $altertativeDriversData);
         $this->set('province', $province);
-        $this->set('localities', Locality::getAsSuggestions());
         
         $this->layout = 'drivers_by_province';
     }

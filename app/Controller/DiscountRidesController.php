@@ -52,7 +52,7 @@ class DiscountRidesController extends AppController {
         $this->paginate = array('order'=>array('DiscountRide.date'=>'ASC'),'limit'=>10);
         $conditions = array();
         $discountRides = $this->paginate('DiscountRide');
-
+        
         $this->set('discountRides', $discountRides);
     }
 

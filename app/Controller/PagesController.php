@@ -69,8 +69,6 @@ class PagesController extends AppController {
         $isLandingPage = in_array($page, array('home', 'taxi-prices-cuba', 'taxi-cuba', 'cheap-taxi-cuba') /*|| $page === 'la-habana' || $page === 'welcome' || $page === 'price-drivers-cuba'*/);
         if($isLandingPage) {
             
-            $this->set('localities', Locality::getAsSuggestions());
-            
             if($page === 'home') $this->layout = 'home';
             else if($page === 'taxi-prices-cuba') $this->layout = 'home_taxi_prices';
             else if($page === 'cheap-taxi-cuba') $this->layout = 'home_cheap_taxi';

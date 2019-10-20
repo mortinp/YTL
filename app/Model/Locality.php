@@ -61,6 +61,31 @@ class Locality extends AppModel {
         }        
         return $list;
     }
+    
+    public static $localites = array(
+        1=>array('name'=>'La Habana'),
+        2=>array('name'=>'Viñales'),
+        3=>array('name'=>'Varadero'),
+        4=>array('name'=>'Santa Clara'),
+        5=>array('name'=>'Cayo Santa María'),
+        6=>array('name'=>'Cienfuegos'),
+        7=>array('name'=>'Trinidad'),
+        8=>array('name'=>'Cayo Coco/Guillermo'),
+        9=>array('name'=>'Camagüey'),
+        10=>array('name'=>'Las Tunas'),
+        11=>array('name'=>'Bayamo'),
+        12=>array('name'=>'Holguín'),
+        13=>array('name'=>'Santiago de Cuba'),
+        14=>array('name'=>'Baracoa'),
+    );
+    public static function getLocalities() {
+        $locs = array();
+        foreach ($this::$localites as $id => $l) {
+            $locs[] = array('id'=>$id) + $l;
+        }
+        
+        return $locs;
+    }
 }
 
 ?>

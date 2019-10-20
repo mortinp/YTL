@@ -1,4 +1,5 @@
 <?php App::uses('User', 'Model')?>
+<?php App::uses('Locality', 'Model')?>
 
 <?php
 $userLoggedIn = AuthComponent::user('id') ? true : false;
@@ -92,7 +93,7 @@ if(Configure::read('Config.language') != 'en') $this->Html->script('jquery-valid
 
 $this->Html->script('typeaheadjs/js/typeahead-martin', array('inline' => false));
 
-$this->Js->set('localities', $localities);
+$this->Js->set('localities', Locality::getAsSuggestions());
 echo $this->Js->writeBuffer(array('inline' => false));
 
 echo $this->fetch('script');

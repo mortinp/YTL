@@ -1,5 +1,6 @@
 <?php App::uses('User', 'Model')?>
 <?php App::uses('Travel', 'Model')?>
+<?php App::uses('Locality', 'Model')?>
 
 <?php
 if (!isset($do_ajax))
@@ -143,7 +144,7 @@ $this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure:
 $this->Html->script('typeaheadjs/typeahead-martin', array('inline' => false));
 
 
-$this->Js->set('localities', $localities);
+$this->Js->set('localities', Locality::getAsSuggestions());
 echo $this->Js->writeBuffer(array('inline' => false));
 
 ?>

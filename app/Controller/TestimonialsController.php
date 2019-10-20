@@ -75,10 +75,7 @@ class TestimonialsController extends AppController {
         $conditions = array('Testimonial.featured'=>true, 'Testimonial.lang'=>$langs);
         
         $this->paginate = array('order'=>array('Testimonial.created'=>'DESC'), 'limit'=>30);
-        $this->set('testimonials', $this->paginate($conditions));
-        
-        $this->set('localities', Locality::getAsSuggestions());
-        
+        $this->set('testimonials', $this->paginate($conditions));        
         
         // STATS
         $stats = $this->Session->read('App.stats');
