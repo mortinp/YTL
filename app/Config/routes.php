@@ -28,22 +28,28 @@
 
         Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'), array('language' => 'en|es'));
         Router::connect('/:language/taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-cuba'), array('language' => 'en|es'));
-        Router::connect('/:language/taxi-prices-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'en|es'));
+        
+        Router::connect('/:language/taxi-prices-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'en'));
+        Router::connect('/:language/precios-taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'es'));
+        
+        Router::connect('/:language/taxi-economico-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'es'));
         Router::connect('/:language/cheap-taxi-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'en|es'));
+        
+        
+        Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'reviews'), array('language' => 'en'));
+        Router::connect('/:language/opiniones-taxi-cuba', array('controller'=>'testimonials', 'action' => 'reviews'), array('language' => 'es'));
+        // Tambien tengo que poner esta de aqui abajo, para evitar tener que cambiar todos los links que referencian array('controller'=>'testimonials', 'action' => 'featured')
+        Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'featured'), array('language' => 'en'));
+        Router::connect('/:language/opiniones-taxi-cuba', array('controller'=>'testimonials', 'action' => 'featured'), array('language' => 'es'));
+        
         
         Router::connect('/:language/opinion/*', array('controller' => 'testimonials', 'action'=>'add'), array('language' => 'en|es'));
         
-/**
- * ...and connect the rest of 'Pages' controller's urls.
- */
+
 	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         Router::connect('/:language/pages/*', array('controller' => 'pages', 'action' => 'display'), array('language' => 'en|es'));
         
         Router::connect('/:language/taxi/*', array('controller'=>'drivers', 'action' => 'drivers_by_province'), array('language' => 'en|es'));
-        
-        Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'reviews'), array('language' => 'en|es'));
-        // Tambien tengo que poner esta de aqui abajo, para evitar tener que cambiar todos los links que referencian array('controller'=>'testimonials', 'action' => 'featured')
-        Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'featured'), array('language' => 'en|es'));
         
         
         // Estas son rutas con alias para que los usuarios vean url mas bonitas...
