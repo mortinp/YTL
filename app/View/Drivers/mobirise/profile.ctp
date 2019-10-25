@@ -215,7 +215,7 @@ if($isShowingDiscount) {
            
             <div class="col-12 d-md-none" style="height:50px"></div>
             <div class="col-md-7 offset-md-1" id="<?php echo $discount['DiscountRide']['id']; ?>" data-form-type="formoid">
-                <?php echo $this->element('mobirise/form_write_to_driver')?>
+                <?php echo $this->element('mobirise/form_write_to_driver',array('discount_id'=>$discount['DiscountRide']['id']))?>
             </div>
         </div>
        <?php else: ?>

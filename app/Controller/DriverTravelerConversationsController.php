@@ -41,6 +41,15 @@ class DriverTravelerConversationsController extends AppController {
         $testimonialExists = $testimonial != null && isset($testimonial['Testimonial']) && !empty($testimonial['Testimonial']);
         if($testimonialExists) $data['Testimonial'] = $testimonial['Testimonial'];
         
+        /*Chequeamos para cargar el viaje con descuento*/
+                if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT){
+                    $this->loadModel('DiscountRide');
+                    $this->DiscountRide->recursive=3;
+                    $discount = $this->DiscountRide->find('all',array('conditions'=>array('DiscountRide.id'=>$data['DriverTravel']['discount_id'])));
+                    if($discount == null) $discount[0] = null;//Artificio para si es invalido
+                    $this->set('discount', $discount[0]);
+                }
+        
         $this->set('data', $data);        
         
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);

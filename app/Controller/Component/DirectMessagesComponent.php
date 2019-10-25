@@ -35,7 +35,7 @@
                 $message_to_driver = array('DriverTravelerConversation' => array(
                     'conversation_id' => $conversation['DriverTravel']['id'],
                     'response_by'     => 'traveler',
-                    'response_text'   => $message             
+                    'response_text'   => $message,             
                 ));
                 
                 if( $DriverTravelerConversationModel->save($message_to_driver) ){
@@ -45,7 +45,11 @@
                     if( isset($driver['DriverProfile']['driver_name']) )
                         $vars['driver_name'] = Driver::shortenName($driver['DriverProfile']['driver_name']);
                                         
+                    if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT){
+                    $vars['is_discount']=true;
+                    $vars['discount']=$conversation['DiscountRide'];
                     
+                   }
                     $OK = EmailsUtil::email(
                             $conversation['DriverTravel']['last_driver_email'], 
                             'Mensaje directo'.' [['.$DriverTravelModel->id.']]',
