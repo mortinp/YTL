@@ -1,20 +1,27 @@
-<?php echo $this->Session->flash();
+<?php
+$notificationType = DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE;
+
+$isDiscountOffer = isset($discount_id);
+if($isDiscountOffer) $notificationType = DriverTravel::$NOTIFICATION_TYPE_DISCOUNT;
 ?>
+<?php echo $this->Session->flash();?>
 <?php echo $this->Form->create('User', array('id' => 'CDirectForm', 'url' => array('controller' => 'users',  'action'=>'contact_driver'))); ?>
     <?php
     echo $this->Form->input('DriverTravel.driver_id', array('type' => 'hidden', 'value' => $profile['Driver']['id']));
-    echo $this->Form->input('DriverTravel.notification_type', array('type' => 'hidden', 'value' => DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE));
-    echo $this->Form->input('DriverTravel.last_driver_email', array('type' => 'hidden', 'value' => $profile['Driver']['username']));
-    //Para el caso de envio de mensaje directo en conversacion expirada
-    if(isset($expired))
-        echo "<input type='hidden' name='closed' id='closed' value='".$super."'>";
-    ?>
-        
-    <?php echo $this->Form->custom_date('DriverTravel.travel_date', array('label' => __('Fecha inicial del viaje'), 'dateFormat' => 'dd/mm/yyyy', 'class'=>'input-sm'));?>
     
-    <?php
+    echo $this->Form->input('DriverTravel.last_driver_email', array('type' => 'hidden', 'value' => $profile['Driver']['username']));
+    
+    //Para el caso de envio de mensaje directo en conversacion expirada
+    if(isset($expired)) echo "<input type='hidden' name='closed' id='closed' value='".$super."'>";
+    
+    if($isDiscountOffer) echo $this->Form->input('DriverTravel.discount_id', array('type' =>'hidden', 'value'=>$discount_id));
+
+    echo $this->Form->input('DriverTravel.notification_type', array('type' => 'hidden', 'value' => $notificationType));
+    
+    echo $this->Form->custom_date('DriverTravel.travel_date', array('label' => __('Fecha inicial del viaje'), 'dateFormat' => 'dd/mm/yyyy', 'class'=>'input-sm'));
+    
     echo $this->Form->input('DriverTravelerConversation.response_text', array('label' => __('Mensaje a %s sobre lo que quieres hacer', Driver::shortenName($profile['DriverProfile']['driver_name'])), 'type' => 'textarea', 'required' => 'required',
-                                    'placeholder' => __d('mobirise/driver_profile', 'Hola %s', Driver::shortenName($profile['DriverProfile']['driver_name'])).' ...'));        
+                                    'placeholder' => __d('mobirise/driver_profile', 'Hola %s', Driver::shortenName($profile['DriverProfile']['driver_name'])).' ...'));
     ?>
 
     <?php if(!$userLoggedIn):?>

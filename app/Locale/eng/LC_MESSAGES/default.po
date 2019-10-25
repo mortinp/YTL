@@ -948,6 +948,10 @@ msgid "Solicitud directa a %s"
 msgstr "Direct request to %s"
 
 #: View/Travel/view.ctp: oko
+msgid "Viaje en descuento con %s"
+msgstr "Discount ride with %s"
+
+#: View/Travel/view.ctp: oko
 msgid "Ver mis mensajes"
 msgstr "See my messages"
 

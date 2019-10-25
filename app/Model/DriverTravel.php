@@ -19,6 +19,7 @@ class DriverTravel extends AppModel {
     //public static $NOTIFICATION_TYPE_BY_USER = 'U'; // Para los choferes que el viajero decide notificar adicionalmente (ej. si nosotros le damos la opción)
     public static $NOTIFICATION_TYPE_PREARRANGED = 'R'; // Para los viajes que se le notifiquen a los choferes y hayan sido prearreglados (ej. para hacer un descuento)
     public static $NOTIFICATION_TYPE_DIRECT_MESSAGE = 'D'; // Para las conversaciones directas (sin un viaje asociado)
+    public static $NOTIFICATION_TYPE_DISCOUNT = 'H'; // Para las conversaciones de descuentos (Half price)
     
     
     // Filters
@@ -75,8 +76,10 @@ class DriverTravel extends AppModel {
     
     public function beforeSave($options = array()) {
         if( isset($this->data[$this->alias]['notification_type']) && 
-            $this->data[$this->alias]['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE &&
-            (!isset($this->data[$this->alias]['identifier']) || $this->data[$this->alias]['identifier'] == null) 
+            (($this->data[$this->alias]['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE &&
+            (!isset($this->data[$this->alias]['identifier']) || $this->data[$this->alias]['identifier'] == null)) ||
+               ( $this->data[$this->alias]['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT &&
+            (!isset($this->data[$this->alias]['identifier']) || $this->data[$this->alias]['identifier'] == null)) )
         ){
             $nuevo = $this->query ('select coalesce(max(identifier) + 1, 1) as new_id  from drivers_travels');        
             $this->data[$this->alias]['identifier'] = $nuevo[0][0]['new_id'];//1 + $this->find('count', array('conditions' => array('DriverTravel.notification_type' => DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGES)));
@@ -134,6 +137,8 @@ class DriverTravel extends AppModel {
             
             if(isset($cid['notification_type']) && $cid['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 $id = 'D'.$cid['identifier'];
+            else if(isset($cid['notification_type']) && $cid['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT)
+                $id = 'H'.$cid['identifier'];
             else if(isset($cid['travel_id']) && $cid['travel_id'] != null)
                 $id = $cid['travel_id'];
         } else {
@@ -175,7 +180,9 @@ class DriverTravel extends AppModel {
         if(isset($data['DriverTravel'])) $notificationType = $data['DriverTravel']['notification_type'];
         
         if($notificationType == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE) $date = $data['DriverTravel']['travel_date'];
-        else if(isset($data['Travel'])) $date = $data['Travel']['date'];
+        else  if($notificationType == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT) $date = $data['DriverTravel']['travel_date'];
+        else
+            if(isset($data['Travel'])) $date = $data['Travel']['date'];
         
         return $date;
     }

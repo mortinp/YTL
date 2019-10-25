@@ -1,5 +1,4 @@
 <?php App::uses('TimeUtil', 'Util')?>
-
 <?php echo Configure::read('email_message_separator')?>
 
 <?php if(!isset ($driver_name)) $driver_name = 'chofer'?>
@@ -8,11 +7,20 @@
     <p>
         Has recibido un nuevo mensaje directo de un viajero en nuestro sitio solicitando hacer un viaje contigo. Los detalles del viaje son los siguientes:
     </p>
+    <?php if($is_discount==true): ?>
+    <div style="border-left: #efefef solid 2px;padding-left: 15px">
+        <p>Viaje de oferta de <?php echo $discount['origin'] ?> - <?php echo $discount['destination'] ?></p>
+        <p><b>Fecha de inicio del viaje:</b> <?php echo TimeUtil::prettyDate(TimeUtil::dmY_to_Ymd($travel_date))?></p>
+        <p><b>Mensaje del viajero:</b></p>
+        <p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $message)?></p>        
+    </div>
+    <?php else: ?>
     <div style="border-left: #efefef solid 2px;padding-left: 15px">
         <p><b>Fecha de inicio del viaje:</b> <?php echo TimeUtil::prettyDate(TimeUtil::dmY_to_Ymd($travel_date))?></p>
         <p><b>Mensaje del viajero:</b></p>
         <p><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $message)?></p>        
     </div>
+    <?php endif; ?>
     
     <p>
         <em><b>NOTA: Este mensaje te llega sólo a tí y a más ningún chofer. Ya este cliente está interesado en hacer el viaje contigo.</b></em>
