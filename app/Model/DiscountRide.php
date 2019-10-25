@@ -100,4 +100,11 @@ class DiscountRide extends AppModel {
         }
         return $results;
     }
+    
+    public function findFullById($id) {
+        $this->recursive = 3;
+        $discount = $this->find('all', array('conditions'=>array('DiscountRide.id'=>$id)));
+        if($discount == null) $discount[0] = null;//Artificio para si es invalido
+        return $discount[0];
+    }
 }

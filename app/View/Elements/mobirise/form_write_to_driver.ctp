@@ -2,7 +2,7 @@
 $notificationType = DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE;
 
 $isDiscountOffer = isset($discount_id);
-if($isDiscountOffer) $notificationType = DriverTravel::$NOTIFICATION_TYPE_DISCOUNT;
+if($isDiscountOffer) $notificationType = DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST;
 ?>
 <?php echo $this->Session->flash();?>
 <?php echo $this->Form->create('User', array('id' => 'CDirectForm', 'url' => array('controller' => 'users',  'action'=>'contact_driver'))); ?>

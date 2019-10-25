@@ -44,12 +44,11 @@
                     $driver = $DriverModel->find('first', array('conditions' => array('Driver.id' => $conversation['DriverTravel']['driver_id'])));
                     if( isset($driver['DriverProfile']['driver_name']) )
                         $vars['driver_name'] = Driver::shortenName($driver['DriverProfile']['driver_name']);
-                                        
-                    if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT){
-                    $vars['is_discount']=true;
-                    $vars['discount']=$conversation['DiscountRide'];
+                    if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST){
+                        $vars['is_discount'] = true;
+                        $vars['discount'] = $conversation['DiscountRide'];
+                    }
                     
-                   }
                     $OK = EmailsUtil::email(
                             $conversation['DriverTravel']['last_driver_email'], 
                             'Mensaje directo'.' [['.$DriverTravelModel->id.']]',

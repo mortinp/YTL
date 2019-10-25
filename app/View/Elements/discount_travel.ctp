@@ -1,8 +1,6 @@
 <?php app::uses('TimeUtil', 'Util'); ?>
 <?php
     if(!isset($show_message)) $show_message = false;
-    if(!isset($show_perfil)) $show_perfil = true;
-    if(!isset($show_header)) $show_header = true;
     
     $message = isset($data['DriverTravelerConversation'][0]) ? $data['DriverTravelerConversation'][0] : null;
     $conversation = $data['DriverTravel'];
@@ -12,33 +10,27 @@
     
     $now = new DateTime(date('Y-m-d', time()));
     $daysPosted = $now->diff(new DateTime($message['created']), true)->format('%a');
-?>
+    
+    $pretty_date = TimeUtil::prettyDate($discount['DiscountRide']['date']);
+    $date_converted = strtotime($discount['DiscountRide']['date']);
 
-<?php if($show_header): ?>
-    <div>
-        <?php 
-        if(isset ($driver_profile) && $driver_profile != null && !empty ($driver_profile)) :?>
-            <?php
-                $src = '';
-                if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-                $src .= '/'.str_replace('\\', '/', $driver_profile['avatar_filepath']);
-            ?>
-            <img src="<?php echo $src?>" alt="<?php echo $driver_profile['driver_name']?>" class="info" title="<?php echo $driver_profile['driver_name']?>" style="max-width: 40px;max-height: 40px"/>
-            <?php echo __('Viaje en descuento con %s', '<big><code>'.$driver_name.'</code></big>')?>
-        <?php endif;?>
-        
+    $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
+    if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
+?>
+<div>
+    <h2>
+        <span style="display: inline-block">                     
+            <small><?php echo $discount['DiscountRide']['origin']. ' - '. $discount['DiscountRide']['destination']; ?></small>
+        </span> 
+    </h2>
+    <div class="plan-price">
+        <span class="price-value mbr-fonts-style display-5">$</span>
+        <span class="price-figure mbr-fonts-style display-2"><?php echo $discount['DiscountRide']['price']; ?></span>
+        <small class="price-term mbr-fonts-style display-7">CUC <br><b><?php echo __d('mobirise/cheap_taxi', 'hasta %s personas', $discount['DiscountRide']['people_count'])?></b></small>
     </div>
-    <hr/>
-<?php endif; ?>
-    
-<?php if($show_perfil): ?>
-    <p>
-        <span class="info" title="<?php echo __d('testimonials', 'Mira fotos de %s', $driver_name)?>">
-            <?php echo $this->Html->link(__d('testimonials', 'Ver el perfil de %s', $driver_name).' »', array('controller'=>'drivers', 'action'=>'profile/'.$driver_nick), array('target'=>'_blank', 'class'=>'text-warning'))?>
-        </span>
-    </p>
-<?php endif; ?>
-    
+</div>
+<hr/>
+
 <p> 
     <?php if($userLoggedIn && in_array($userRole, array('admin', 'operator'))):?>    
         <?php $fechaCambiada = isset ($conversation['original_date']) && $conversation['original_date'] != null;?>

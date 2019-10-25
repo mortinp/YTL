@@ -525,21 +525,21 @@ class UsersController extends AppController {
         // Si el usuario esta logueado, simplemente mandar el mensaje y continuar
         if($this->Auth->loggedIn()){
             $conversation = array('DriverTravel' => $this->request->data['DriverTravel']);
-            /*Si es un descuento hau que pasar los datos en el mensaje*/
-            if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT){
-                    $this->loadModel('DiscountRide');
-                    $this->DiscountRide->recursive=3;
-                    $discount = $this->DiscountRide->find('all',array('conditions'=>array('DiscountRide.id'=>$conversation['DriverTravel']['discount_id'])));
-                    if($discount == null) $discount[0] = null;//Artificio para si es invalido
-                    $conversation['DiscountRide']=$discount[0]['DiscountRide'];
-                   
+            
+            /* Si es un descuento hay que pasar los datos en el mensaje */
+            if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST) {
+                $this->loadModel('DiscountRide');
+                $discount = $this->DiscountRide->findFullById($conversation['DriverTravel']['discount_id']);
+                $conversation['DiscountRide'] = $discount['DiscountRide'];
             }
             
             $message = $this->request->data['DriverTravelerConversation']['response_text'];
-            if(isset($this->request->data['closed'])){
-            $super = $this->request->data['closed'];
-            $result= $this->DirectMessages->send_message($conversation, $message,$super);
-            }else
+            
+            $conversationIsExpired = isset($this->request->data['closed']);
+            if($conversationIsExpired) {
+                $super = $this->request->data['closed'];
+                $result = $this->DirectMessages->send_message($conversation, $message, $super);
+            } else
                $result = $this->DirectMessages->send_message($conversation, $message);  
             
             if($result['success']){

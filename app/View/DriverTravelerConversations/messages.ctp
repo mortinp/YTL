@@ -24,9 +24,14 @@
             <div style="float: left;padding-left: 10px" class="h5"><?php echo __('Tus mensajes con %s', '<code><big>'.$driverName.'</big></code>')?></div>
         <?php endif;?>
         
-        <div style="float: left;padding-left: 20px;padding-top: 9px"><span class="text-muted"><?php echo __('Solicitud')?> <small>#</small></span><?php echo DriverTravel::getIdentifier($data)?><?php if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT): ?>
-            - <span title="discount ride" class="badge" style="background: #B4E5FF"><span class="glyphicon glyphicon-gift" style="color:blue"></span></span>
-                <?php endif; ?></div>
+        <div style="float: left;padding-left: 20px;padding-top: 9px">
+            <span class="text-muted"><?php echo __('Solicitud')?> <small>#</small></span>
+            <?php echo DriverTravel::getIdentifier($data)?>
+        </div>
+        <?php if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST): ?>
+            <div style="padding-top: 9px">&nbsp;<span class="label label-success"><i class="glyphicon glyphicon-gift"></i> Promo</span></div>
+        <?php endif; ?>
+        
     </div>
 </div>
 <div style="height: 85px;"></div> <!-- Separator -->
@@ -35,25 +40,14 @@
 <!-- VIAJES Y CONTROLES -->
 <div class="row" style="top: 200px">
     <div class="col-md-6 col-md-offset-3">
-        <?php if ($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT): ?>
-          <?php echo $this->element('description_discount_travel',array('data'=>$data)); ?>
-        <?php endif; ?>
-        
         <?php
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));
-            else if ($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT)
-              echo $this->element('discount_travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>false));  
-              else
+            else if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST)
+                echo $this->element('discount_travel', array('travel'=>$data, 'details'=>true, 'actions'=>false, 'changeDate'=>false));  
+            else
                 echo $this->element('travel', array('travel'=>$data, 'details'=>true, 'showConversations'=>false, 'actions'=>false, 'changeDate'=>true));
         ?>
-        
-
-        
-        
-        
-        
-        
     </div>
 </div>
 
