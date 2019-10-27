@@ -87,7 +87,7 @@ msgid "Las fechas y horarios son fijos y no tienen modificación"
 msgstr "The dates and departure times are fixed and can not be changed"
 
 #: /home.ctp:29
-msgid "¿No encuentras todos los traslado que necesitas?"
+msgid "¿No encuentras todos los traslados que necesitas?"
 msgstr "Didn't find all the rides you need?"
 
 #: /home.ctp:29
