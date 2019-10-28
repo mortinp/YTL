@@ -48,7 +48,7 @@ class ApiConversationsController extends ApiAppController {
         
         $user = $this->getUser();
         
-        // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
+        // Buscar las conversaciones que se estan SIGUIENDO junto con sus mensajes
         $today = date('Y-m-d', strtotime('today'));
         $sql = $this->getSqlSelectFieldsForConversation()
             . " FROM drivers_travels
