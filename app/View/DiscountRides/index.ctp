@@ -77,7 +77,7 @@
                             <span class='fa fa-facebook'></span>
                             </a>
                              <a  class="btn btn-default btn-xs"
-                                href="https://twitter.com/intent/tweet?url=<?php echo $reviewUrl ?>&text=<?php echo __d('mobirise/cheap_taxi','%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s', $conversation['Driver']['DriverProfile']['driver_name'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'], TimeUtil::prettyDateShort($conversation['DiscountRide']['date'], false), $conversation['DiscountRide']['price'], $pretty_people_count) ?>" 
+                                href="https://twitter.com/intent/tweet?url=<?php echo $offerFullUrl ?>&text=<?php echo __d('mobirise/cheap_taxi','%s ofrece taxi privado %s - %s el próximo %s por $%s, hasta %s', $conversation['Driver']['DriverProfile']['driver_name'], $conversation['DiscountRide']['origin'], $conversation['DiscountRide']['destination'], TimeUtil::prettyDateShort($conversation['DiscountRide']['date'], false), $conversation['DiscountRide']['price'], $pretty_people_count) ?>" 
                                 target="_blank"
                                 title="Twitter">
                                 <span class="fa fa-twitter"></span>

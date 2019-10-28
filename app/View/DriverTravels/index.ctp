@@ -14,6 +14,11 @@
                         continue;
                     }
                     
+                    if($dt['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST) {
+                        $offer_messages[] = $dt;
+                        continue;
+                    }
+                    
                     if($travel == null) {
                         $travel = $dt;
                         $data[] = array('request'=>$travel, 'conversations'=>array());
@@ -30,12 +35,14 @@
                 ?>
                 <span>
                     <?php 
-                    if(count($data) > 0 && count($direct_messages))
-                        echo __('Tienes %s conversaciones en %s solicitudes de viajes y %s conversaciones directas', count($driver_travels), count($data),  count($direct_messages));
+                    if(count($data) > 0 && count($direct_messages) && count($offer_messages))
+                        echo __('Tienes %s conversaciones en %s solicitudes de viajes, %s conversaciones directas y %s conversaciones en ofertas', count($driver_travels), count($data),  count($direct_messages), count($offer_messages));
                     else if(count($data) > 0)
                         echo __('Tienes %s conversaciones en %s solicitudes de viajes', count($driver_travels), count($data));
                     else if(count($direct_messages) > 0)
-                        echo __('Tienes %s conversaciones directas', count($driver_travels), count($data));
+                        echo __('Tienes %s conversaciones directas', count($direct_messages), count($data));
+                    else if(count($offer_messages) > 0)
+                        echo __('Tienes %s conversaciones de ofertas', count($offer_messages), count($data));
                     ?>
                 </span>
                 <hr/>
@@ -71,6 +78,16 @@
                     
                     <?php
                     foreach ($direct_messages as $t) {
+                        echo '<li style="margin-bottom: 10px">';
+                        echo $this->element('conversation_widget_for_user/conversation_data', array('conversation'=>$t));
+                        echo '</li>';
+                    }
+                    ?>
+                    <!--Las ofertas al final-->
+                    </br>
+                    <p><?php echo __('Ofertas:')?></p>
+                    <?php
+                    foreach ($offer_messages as $t) {
                         echo '<li style="margin-bottom: 10px">';
                         echo $this->element('conversation_widget_for_user/conversation_data', array('conversation'=>$t));
                         echo '</li>';

@@ -83,6 +83,10 @@ class DriverTravelsController extends AppController {
             $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'));
             $conditions['TravelConversationMeta.archived'] = 1;
         }
+        else if($filter == DriverTravel::$SEARCH_DISCOUNT_OFFER) {
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'));
+            $conditions['DriverTravel.notification_type'] = DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST;
+        }
         
         if(AuthComponent::user('role') == 'operator')
             $this->DriverTravel->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id', 'action'=>'C')); // Restringir ver conversaciones

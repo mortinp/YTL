@@ -31,6 +31,7 @@ class DriverTravel extends AppModel {
     public static $SEARCH_PINNED = 'pinned';
     public static $SEARCH_ARCHIVED = 'archived';
     public static $SEARCH_DIRECT_MESSAGES = 'direct-messages';
+    public static $SEARCH_DISCOUNT_OFFER = 'discount-offers';
     public static $filtersForSearch = array(
         'all'=>array('label'=>'Todas', 'title'=>''), 
         'new-messages'=>array('label'=>'Nuevos Mensajes', 'title'=>''), 
@@ -39,7 +40,8 @@ class DriverTravel extends AppModel {
         'paid'=>array('label'=>'Pagados', 'title'=>''), 
         'pinned'=>array('label'=>'<i class="glyphicon glyphicon-pushpin"></i> Pineados', 'title'=>'Viajes que llevan una atención urgente. Revísalos cuanto antes!!!'), 
         'archived'=>array('label'=>'Archivados', 'title'=>''),
-        'direct-messages'=>array('label'=>'Mensajes Directos', 'title'=>''));
+        'direct-messages'=>array('label'=>'Mensajes Directos', 'title'=>''),
+        'discount-offers'=>array('label'=>'Ofertas', 'title'=>''));
     
     
     public $order = 'Driver.id';

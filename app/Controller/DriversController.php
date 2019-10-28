@@ -253,6 +253,11 @@ class DriversController extends AppController {
         
         $data = $this->DriverTravel->findById($conversationId);
         $this->set('data', $data);
+        /* Chequeamos para cargar el viaje con descuento */
+        if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST){
+            $this->loadModel('DiscountRide');
+            $this->set('discount', $this->DiscountRide->findFullById($data['DriverTravel']['discount_id']));
+        }
                
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);        
         $this->set('conversations', $conversations);

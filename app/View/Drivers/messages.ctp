@@ -32,6 +32,8 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
         <?php        
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));
+            else if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST)
+                echo $this->element('discount_travel', array('discount'=>$discount, 'show_header' => false, 'show_perfil' => false));
             else echo $this->element('travel', array('travel'=>$data, 'showConversations'=>false, 'actions'=>false));
         ?>       
     </div>

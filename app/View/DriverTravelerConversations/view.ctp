@@ -165,9 +165,6 @@ $travelDate = DriverTravel::extractDate($data);
 <!-- VIAJES Y CONTROLES -->
 <div class="row" style="margin-top: 110px">
     <div class="col-md-6 col-md-offset-3">
-         <?php if ($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST): ?>
-          <?php echo $this->element('description_discount_travel',array('data'=>$data)); ?>
-        <?php endif; ?>
         <?php
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));
