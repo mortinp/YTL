@@ -87,6 +87,22 @@ msgid "Las fechas y horarios son fijos y no tienen modificación"
 msgstr "The dates and departure times are fixed and can not be changed"
 
 #: /home.ctp:29
+msgid "¿No encuentras todos los traslados que necesitas?"
+msgstr "Didn't find all the rides you need?"
+
+#: /home.ctp:29
+msgid "Combina con nuestro <strong>servicio de taxi colectivo</strong> llamado %s. Diariamente organizamos traslados desde y hasta destinos como %s y otros."
+msgstr "Combine with our <strong>shared taxi service</strong> called %s. Everyday we organize rides from/to %s and other destinations."
+
+#: /home.ctp:29
+msgid "EXCELENTES PRECIOS"
+msgstr "AMAZING PRICES"
+
+#: /home.ctp:29
+msgid "Ver rutas y precios de taxi colectivo en PickoCar"
+msgstr "See routes and prices of shared taxi in PickoCar"
+
+#: /home.ctp:29
 msgid "Trabajamos con una comunidad de geniales taxistas independientes en Cuba"
 msgstr "We work with a community of amazing independent taxi drivers in Cuba"
 

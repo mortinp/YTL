@@ -36,6 +36,7 @@
                     <br>
                     <?php echo __d('mobirise/cheap_taxi', 'Cuando no tienen pasajeros contratados para estos recorridos, <b>los choferes prefieren al menos llevar a algunos por la mitad del precio y así amortiguar gastos de ese traslado</b>.')?>
                 </p>
+                
                 <div class="mbr-section-btn">
                     <a class="btn btn-md btn-black-outline display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                         <?php echo __d('mobirise/cheap_taxi', 'Ver ofertas disponibles')?>
@@ -111,6 +112,31 @@
             </div>
         </div>
     </div>
+</section>
+
+<section class="header1 cid-rG8CnrZkse" id="header16-4k">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10 align-center">
+                <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2">
+                    <?php echo __d('/mobirise/cheap_taxi', '¿No encuentras todos los traslados que necesitas?')?>
+                </h1>
+                
+                <p class="mbr-text pb-3 mbr-fonts-style display-5">
+                    <?php echo __d('/mobirise/cheap_taxi', 'Combina con nuestro <strong>servicio de taxi colectivo</strong> llamado %s. Diariamente organizamos traslados desde y hasta destinos como %s y otros.', '<strong>PickoCar</strong>', 'La Habana, Viñales, Varadero, Trinidad, Cienfuegos, Cayo Santa María, Cayo Coco/Guillermo')?>
+                    <br> 
+                    <strong><?php echo __d('/mobirise/cheap_taxi', 'EXCELENTES PRECIOS')?></strong>
+                </p>
+                <div class="mbr-section-btn">
+                    <a class="btn btn-md btn-success display-4" href="https://pickocar.com/<?php echo Configure::read('Config.language')?>" target="_blank">
+                        <span class="mbri-rocket mbr-iconfont mbr-iconfont-btn"></span>
+                        <big><b><?php echo __d('/mobirise/cheap_taxi', 'Ver rutas y precios de taxi colectivo en PickoCar')?></b></big>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <section class="features16 cid-r6QXtixtYd" id="features16-c">

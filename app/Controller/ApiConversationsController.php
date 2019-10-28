@@ -48,7 +48,7 @@ class ApiConversationsController extends ApiAppController {
         
         $user = $this->getUser();
         
-        // Buscar las conversaciones asociadas a los mensajes que vamos a sincronizar
+        // Buscar las conversaciones que se estan SIGUIENDO junto con sus mensajes
         $today = date('Y-m-d', strtotime('today'));
         $sql = $this->getSqlSelectFieldsForConversation()
             . " FROM drivers_travels
@@ -74,12 +74,16 @@ class ApiConversationsController extends ApiAppController {
     private function getConversationsInSyncQueue() {
         $user = $this->getUser();
         
+        // Vamos a coger solo las solicitudes que no hayan expirado
+        $today = date('Y-m-d', strtotime('today'));
+        
         $sql = $this->getSqlSelectFieldsForConversation()
             //. ", api_sync_queue_2driver_conversations.batch_id" // Este campo es para saber si la conversacion fue sincronizada
             . " FROM api_sync_queue_2driver_conversations
-                INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id
+                INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id 
+                    AND drivers_travels.travel_date >= '".$today."'
                 LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
-                LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                LEFT JOIN travels ON drivers_travels.travel_id = travels.id 
                 LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
                 
                 WHERE drivers_travels.driver_id = ".$user['id']."
