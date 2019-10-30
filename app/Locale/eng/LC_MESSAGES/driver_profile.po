@@ -174,3 +174,7 @@ msgstr "Pictures of %s"
 #: View/DriverTravelerConversations/show_profile.ctp:9
 msgid "Chofer de taxi en %s, Cuba"
 msgstr "Taxi driver in %s, Cuba"
+
+#: View/DriverTravelerConversations/show_profile.ctp:9
+msgid "Ver perfil de %s"
+msgstr "View profile of %s"

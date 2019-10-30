@@ -23,29 +23,26 @@
 <?php endif;?>
 <?php $topPosition = 60?>
 <div class="col-md-8 col-md-offset-2 main-header" id="main-header" style="z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 1px;">
-    <div style="width: 100%">
+    <div style="width: 100%;padding-top: 30px">
         <?php if($hasProfile):?>
             <div style="float: left">
-                <img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" class="info" style="max-height: 30px; max-width: 30px"/>
-            </div>
-        <div style="float: left;padding-left: 10px" class="h5">
-                
-                <?php echo __('Tus mensajes con %s', $driverName)?>
-                <div><br>
-                    <?php $linkToProfile = $this->Html->link('<code>'.__d('driver_profile', 'Ver perfil de ').'<big>'.$driverName.'</big>  »</code>', array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile', $data['DriverTravel']['id']), array('style'=>'color:inherit', 'class'=>'btn btn-md btn-default info', 'title'=>__('Mira fotos de %s', $driverName), 'escape'=>false))?>
-                    <?php echo $linkToProfile; ?>
-                </div>
+                <img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" class="info" style="max-height: 40px; max-width: 40px"/>
+                &nbsp;&nbsp;
+                <?php 
+                $linkToProfile = $this->Html->link('<big>'.__d('driver_profile', 'Ver perfil de %s', $driverName).'</big>', array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile', $data['DriverTravel']['id']), array('class'=>'btn btn-sm btn-success info', 'title'=>__('Mira fotos de %s', $driverName), 'escape'=>false));
+                echo $linkToProfile;
+                ?>
             </div>
         <?php else:?>
             <div style="float: left;padding-left: 10px" class="h5"><?php echo __('Tus mensajes con %s', '<code><big>'.$driverName.'</big></code>')?></div>
         <?php endif;?>
         
-        <div style="float: left;padding-left: 20px;padding-top: 9px;">
+        <div style="float:left;padding-left:20px;padding-top:9px;">
             <span class="text-muted"><?php echo __('Solicitud')?> <small>#</small></span>
             <?php echo DriverTravel::getIdentifier($data)?>
         </div>
         <?php if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST): ?>
-            <div style="padding-top: 9px">&nbsp;<span class="label label-success"><i class="glyphicon glyphicon-gift"></i> Promo</span></div>
+            <div style="float:left;padding-left:20px;padding-top:9px">&nbsp;<span class="label label-success"><i class="glyphicon glyphicon-gift"></i> Promo</span></div>
         <?php endif; ?>
         
     </div>
@@ -159,7 +156,6 @@
 <script type="text/javascript">
    
    /************** Logica para ocultar el panel superior****************/
-       
     var prevscroll=window.pageYOffset;
         // on scroll, let the interval function know the user has scrolled
         $(window).scroll(function(event){
@@ -172,12 +168,7 @@
            
            prevscroll = current;
         });
-        
-        
-        
-    
     /************** FIN Logica para ocultar el panel superior****************/
-    
     
     $(window).scroll(function(){
         $("#fixed").css("top", Math.max(50, <?php echo $topPosition?> - $(this).scrollTop()));
