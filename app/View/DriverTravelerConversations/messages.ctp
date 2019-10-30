@@ -1,3 +1,15 @@
+<style type="text/css">
+    /*Ocultar el panel superior*/
+    #main-header {      
+      transition: top 0.5s!important;
+      display: block;
+      background-color: white;
+      position: fixed;
+      z-index: 10;
+      top: 45px
+           
+   }
+</style>
 <?php $driverName = __('el chofer')?>
 <?php $hasProfile = isset ($data['Driver']['DriverProfile']) && $data['Driver']['DriverProfile'] != null && !empty ($data['Driver']['DriverProfile'])?>
 <?php if($hasProfile) :?>
@@ -10,21 +22,25 @@
     ?>
 <?php endif;?>
 <?php $topPosition = 60?>
-<div class="col-md-8 col-md-offset-2" id="fixed" style="position: fixed;top: <?php echo $topPosition?>px;z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 1px;">
+<div class="col-md-8 col-md-offset-2 main-header" id="main-header" style="z-index: 100;background-color: white;padding:10px;border-bottom: #efefef solid 1px;">
     <div style="width: 100%">
         <?php if($hasProfile):?>
             <div style="float: left">
                 <img src="<?php echo $src?>" title="<?php echo $data['Driver']['DriverProfile']['driver_name']?>" class="info" style="max-height: 30px; max-width: 30px"/>
             </div>
-            <div style="float: left;padding-left: 10px" class="h5">
-                <?php $linkToProfile = $this->Html->link('<code><big>'.$driverName.'</big> -'.__d('driver_profile', 'mira fotos').' »</code>', array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile', $data['DriverTravel']['id']), array('style'=>'color:inherit', 'class'=>'info', 'title'=>__('Mira fotos de %s', $driverName), 'escape'=>false))?>
-                <?php echo __('Tus mensajes con %s', $linkToProfile)?>
+        <div style="float: left;padding-left: 10px" class="h5">
+                
+                <?php echo __('Tus mensajes con %s', $driverName)?>
+                <div><br>
+                    <?php $linkToProfile = $this->Html->link('<code>'.__d('driver_profile', 'Ver perfil de ').'<big>'.$driverName.'</big>  »</code>', array('controller'=>'driver_traveler_conversations', 'action'=>'show_profile', $data['DriverTravel']['id']), array('style'=>'color:inherit', 'class'=>'btn btn-md btn-default info', 'title'=>__('Mira fotos de %s', $driverName), 'escape'=>false))?>
+                    <?php echo $linkToProfile; ?>
+                </div>
             </div>
         <?php else:?>
             <div style="float: left;padding-left: 10px" class="h5"><?php echo __('Tus mensajes con %s', '<code><big>'.$driverName.'</big></code>')?></div>
         <?php endif;?>
         
-        <div style="float: left;padding-left: 20px;padding-top: 9px">
+        <div style="float: left;padding-left: 20px;padding-top: 9px;">
             <span class="text-muted"><?php echo __('Solicitud')?> <small>#</small></span>
             <?php echo DriverTravel::getIdentifier($data)?>
         </div>
@@ -141,6 +157,28 @@
 <?php endif?>
 
 <script type="text/javascript">
+   
+   /************** Logica para ocultar el panel superior****************/
+       
+    var prevscroll=window.pageYOffset;
+        // on scroll, let the interval function know the user has scrolled
+        $(window).scroll(function(event){
+            var current = window.pageYOffset;
+            
+            if(prevscroll > current)
+                document.getElementById("main-header").style.top="45px";
+            else
+                document.getElementById("main-header").style.top="-150px";
+           
+           prevscroll = current;
+        });
+        
+        
+        
+    
+    /************** FIN Logica para ocultar el panel superior****************/
+    
+    
     $(window).scroll(function(){
         $("#fixed").css("top", Math.max(50, <?php echo $topPosition?> - $(this).scrollTop()));
     });
