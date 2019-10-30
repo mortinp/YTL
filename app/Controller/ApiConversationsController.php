@@ -15,7 +15,9 @@ class ApiConversationsController extends ApiAppController {
     public function iniFetch() {
         $relevantConversations = $this->getRelevantConversations();
         
-        $conversationsInSyncQueue = $this->getConversationsInSyncQueue();
+        // Vamos a coger solo las conversaciones que no hayan expirado (de hoy en adelante)
+        $today = date('Y-m-d', strtotime('today'));
+        $conversationsInSyncQueue = $this->getConversationsInSyncQueue($today);
         
         // Eliminar duplicadas
         $conversations = $relevantConversations;
@@ -35,6 +37,10 @@ class ApiConversationsController extends ApiAppController {
         }
         
         $synced = $this->markConversationsAsSynced($conversations, -1);
+        
+        // Marcar las conversaciones expiradas como sincronizadas en el iniFetch (batchId = -1)
+        $expiredConversations = $this->getConversationsInSyncQueue($today, -1);
+        $this->markConversationsAsSynced($expiredConversations, -1);
         
         // RESPUESTA
         $this->set(array(
@@ -71,17 +77,23 @@ class ApiConversationsController extends ApiAppController {
         
         return $this->buildConversations($conversationsToSync);
     }
-    private function getConversationsInSyncQueue() {
+    
+    /**
+     * @param $date: fecha de referencia para obtener los resultados
+     * @param: $searchDirection: 1 > desde $date hacia el futuro, -1 > fechas menores que $date
+     *
+     */
+    private function getConversationsInSyncQueue($date, $searchDirection = 1) {
         $user = $this->getUser();
         
-        // Vamos a coger solo las solicitudes que no hayan expirado
-        $today = date('Y-m-d', strtotime('today'));
+        $dateCondition = $searchDirection > 0?'>=':'<';
+        $dateCondition .= "'".$date."'";
         
         $sql = $this->getSqlSelectFieldsForConversation()
             //. ", api_sync_queue_2driver_conversations.batch_id" // Este campo es para saber si la conversacion fue sincronizada
             . " FROM api_sync_queue_2driver_conversations
                 INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id 
-                    AND drivers_travels.travel_date >= '".$today."'
+                    AND drivers_travels.travel_date ".$dateCondition." 
                 LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
                 LEFT JOIN travels ON drivers_travels.travel_id = travels.id 
                 LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
@@ -258,7 +270,6 @@ class ApiConversationsController extends ApiAppController {
         if(!$this->request->is('post')) throw new MethodNotAllowedException();
         
         $user = $this->getUser();
-        // TODO: Verificar que la conversacion sea del chofer
         
         $attachments = array();
         if(isset($_FILES['file']['name'])) {
