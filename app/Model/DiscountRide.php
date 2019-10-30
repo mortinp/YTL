@@ -101,9 +101,17 @@ class DiscountRide extends AppModel {
         return $results;
     }
     
-    public function findFullById($id) {
+    public function findFullById($id, $conditions = array()) {
         $this->recursive = 3;
-        $discount = $this->find('all', array('conditions'=>array('DiscountRide.id'=>$id)));
+        
+        // NOTA: Estas dos lineas se pueden borrar despues del 6 Noviembre 2019
+        if($id == '5db9a4f8-0bf8-4cc9-868c-0eeb4f8fb177') $id = 1;
+        else if($id == '5db5144e-9714-4a5f-9f27-6af14f8fb177') $id = 2;
+        //-------------------------------------------------------------------
+        
+        $conditions = array('DiscountRide.id'=>$id) + $conditions;
+        
+        $discount = $this->find('all', array('conditions'=>$conditions));
         if($discount == null) $discount[0] = null;//Artificio para si es invalido
         return $discount[0];
     }

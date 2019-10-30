@@ -8,7 +8,8 @@
             <h3>Viajes con descuento (<?php echo count($discountRides)?>)</h3>
             
             <div>Páginas: <?php echo $this->Paginator->numbers();?></div>
-            <br/>           
+            <br/>
+            <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Nueva Oferta', array('action'=>'add'), array('escape'=>false))?></div>
         </div>
         <table class='table table-striped table-hover'>
             <thead><th>Chofer</th><th>Origen</th><th>Destino</th><th>Fecha</th><th>Total viajeros</th><th>Salida</th><th>Activo?</th><th>Precio</th><th>Reservado</th><th>Compartir</th></thead>

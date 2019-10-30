@@ -203,7 +203,6 @@ if($userLoggedIn) {
                                                     <li><?php echo $this->Html->link('Respuestas a Testimonios', array('controller' => 'testimonials', 'action' => 'replies')) ?></li>
                                                     <li class="divider"></li>
                                                     <li><?php echo $this->Html->link('Descuentos', array('controller' => 'discount_rides', 'action' => 'index')) ?></li>
-                                                    <li><?php echo $this->Html->link('Adicionar viaje con descuento', array('controller' => 'discount_rides', 'action' => 'add')) ?></li>
                                                 </ul>
                                             </li>
                                             

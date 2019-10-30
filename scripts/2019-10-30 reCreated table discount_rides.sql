@@ -15,19 +15,10 @@ CREATE TABLE `discount_rides` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin AUTO_INCREMENT=1 ;
 
 ALTER TABLE  `discount_rides` 
   ADD INDEX  `drivers_discount_rides_fk` (  `driver_id` );
 
 ALTER TABLE  `discount_rides` 
   ADD FOREIGN KEY (  `driver_id` ) REFERENCES  `drivers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT ;
-  
-
-ALTER TABLE  `drivers_travels` ADD  `discount_id` BIGINT( 20 ) UNSIGNED NULL;
-
-ALTER TABLE  `drivers_travels` 
-  ADD INDEX  `discount_conversation_fk` (  `discount_id` );
-
-ALTER TABLE  `drivers_travels` 
-  ADD FOREIGN KEY (  `discount_id` ) REFERENCES  `discount_rides` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT ;
