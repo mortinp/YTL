@@ -34,7 +34,7 @@
                 <?php endif; ?>
             </div>
 
-            <?php if(count($direct_messages) > 0):?>
+            <?php if(isset($direct_messages) && count($direct_messages) > 0):?>
                 <div style="margin-top: 30px">
                     <p><b>SOLICITUDES DIRECTAS</b></p>
                     
@@ -43,6 +43,23 @@
 
                         <?php
                         foreach ($direct_messages as $t) {
+                            echo '<li style="margin-bottom: 80px">';
+                            echo $this->element('conversation_widget', array('conversation'=>$t));
+                            echo '</li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+            <?php endif?>
+            <?php if(isset($discount_messages) && count($discount_messages) > 0):?>
+                <div style="margin-top: 30px">
+                    <p><b>SOLICITUDES DE OFERTAS</b></p>
+                    
+
+                    <ul style="list-style-type: none;padding: 0px">
+
+                        <?php
+                        foreach ($discount_messages as $t) {
                             echo '<li style="margin-bottom: 80px">';
                             echo $this->element('conversation_widget', array('conversation'=>$t));
                             echo '</li>';

@@ -3,7 +3,7 @@
     App::uses('DriverTravel', 'Model');
     
     class SearchController extends AppController { 
-        public $uses = array('Search.Search', 'Travel', 'Driver', 'DriverTravel', 'Locality', 'User', 'DriverTravelerConversation');
+        public $uses = array('Search.Search', 'Travel', 'Driver', 'DriverTravel', 'Locality', 'User', 'DriverTravelerConversation','DiscountRide');
         public $components = array('Paginator');  
         
         public function index() {
@@ -27,6 +27,12 @@
 
                 $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions));
                 $this->set('direct_messages', $driver_travels);
+            } else if($case['case'] == 'OINT') {
+                $this->DriverTravel->recursive = 3;        
+                $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
+                
+                $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions));
+                $this->set('discount_messages', $driver_travels);
             }
             
             // Si es un correo, ademas cargar los mensajes directos
@@ -55,6 +61,12 @@
             if(strtoupper(substr($in, 0, 1)) == 'D'){
                 if( filter_var(substr($in, 1), FILTER_VALIDATE_INT) ) {
                     return array('case' => 'DINT', 'value' => $in);
+                }
+            }
+            
+            if(strtoupper(substr($in, 0, 1)) == 'O'){
+                if( filter_var(substr($in, 1), FILTER_VALIDATE_INT) ) {
+                    return array('case' => 'OINT', 'value' => $in);
                 }
             }
             
@@ -87,6 +99,10 @@
             
                 case 'DINT':
                     return array('DriverTravel.identifier' => substr($case['value'], 1), 'DriverTravel.notification_type' => DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE);
+                break;
+            
+                case 'OINT':
+                    return array('DriverTravel.identifier' => substr($case['value'], 1), 'DriverTravel.notification_type' => DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST);
                 break;
 
                 case 'DATE': case 'DMY_DATE':
