@@ -480,9 +480,8 @@ class ApiConversationsController extends ApiAppController {
      * UNCLASSIFIED: 0
      * FOLLOWING: 1
      * SCHEDULED: 2
-     * REJECTED: 3
-     * CANCELLED: 4
-     * COMPLETED: 5
+     * CANCELLED: 3
+     * COMPLETED: 4
      * 
      * NOTA: Esto debe cambiar si se hacen cambios en el enum en la app
      * 
