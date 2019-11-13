@@ -1,5 +1,6 @@
 <?php
     App::uses('EmailsUtil', 'Util');
+    App::uses('TravelConversationMeta', 'Model');
 
     class DirectMessagesComponent extends Component {
         public $components = array('Auth');
@@ -14,6 +15,7 @@
             
             $DriverTravelModel = ClassRegistry::init('DriverTravel');
             $DriverTravelerConversationModel = ClassRegistry::init('DriverTravelerConversation');
+            $TravelConversationMetaModel = ClassRegistry::init('TravelConversationMeta');//Para marcar following
             $datasource = $DriverTravelModel->getDataSource();
             $datasource->begin();
 
@@ -22,6 +24,22 @@
             
             if( $DriverTravelModel->save($conversation) ){
                 $conversation['DriverTravel']['id'] = $DriverTravelModel->getLastInsertID();
+                /*Trabajamos en su meta para marcar como following*/
+                if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST) { 
+                $meta = array();
+
+                $meta['TravelConversationMeta']['conversation_id'] = $conversation['DriverTravel']['id'];
+                $meta['TravelConversationMeta']['following'] = true;
+
+                $OK = true;
+                if (!$TravelConversationMetaModel->save($meta)) {
+                    if($this->request->is('ajax'))
+                        throw new BadRequestException('Ocurrió un error.');
+
+                    $OK = false;
+                    $this->setErrorMessage('Ocurrió un error.');
+                }
+                }
                 
                 //Taking the child conversation id if messaging from expired
                 if ($expired) {                   

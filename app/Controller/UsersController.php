@@ -531,6 +531,7 @@ class UsersController extends AppController {
                 $this->loadModel('DiscountRide');
                 $discount = $this->DiscountRide->findFullById($conversation['DriverTravel']['discount_id']);
                 $conversation['DiscountRide'] = $discount['DiscountRide'];
+                
             }
             
             $message = $this->request->data['DriverTravelerConversation']['response_text'];
