@@ -41,12 +41,16 @@ $travel_hint = '#'.DriverTravel::getIdentifier($driver_travel);
             $profile_path = $fullBaseUrl.'/driver_traveler_conversations/show_profile/'.$conversation_id;
             //$messages_path = $fullBaseUrl.'/conversations/messages/'.$conversation_id.'?highlight=message-'.$last_msg_id;
             ?>
-            <a href="<?php echo $profile_path/*$messages_path*/?>"><?php echo __d('conversation', 'Mira fotos de %s y su auto', $driver_intro)/*__d('conversation', 'Mira tus mensajes y fotos de %s y su auto', $driver_intro)*/?> »</a>
+            
+            <a  style="padding:10px;color: #333;background-color: #ebebeb;border-color: #adadad;text-decoration: none"
+                href="<?php echo $profile_path/*$messages_path*/?>"
+                target="_blank"><b><?php echo __d('conversation', 'Mira fotos de %s y su auto', $driver_intro)?> »</b>
+            </a>
         </p>
     <?php endif;?>
         
     <?php if($driver_avatar != null):?>
-    <p><img class="driver-avatar" src="<?php echo $driver_avatar?>" alt="<?php echo $driver['DriverProfile']['driver_name']?>"/></p>
+    <p><img class="driver-avatar" src="<?php echo $driver_avatar?>"/></p>
     <?php endif;?>
     
     <p><b><?php echo __d('conversation', '%s dice', $driver_intro)?>:</b></p>

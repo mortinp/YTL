@@ -73,10 +73,9 @@ class MessagesUtil {
         
         $conversationDataIsOK = $driverTravel != null && is_array($driverTravel) && !empty ($driverTravel);
         if($conversationDataIsOK) {
-            $fixedBody = $this->getFixedBody($from, $body);
-            if(Configure::read('cut_messages')) 
-                $fixedBody = EmailsUtil::splitBySeparator($fixedBody);
-
+            $fixedBody = EmailsUtil::splitBySeparator($body);            
+            $fixedBody = $this->getFixedBody($from, $fixedBody);
+            
             $datasource = $this->DriverTravelerConversation->getDataSource();
             $datasource->begin();
             
@@ -134,9 +133,9 @@ class MessagesUtil {
 
     private function getFixedBody($from, $body){
         if($from == 'traveler')
-            return EmailsUtil::fixEmailBody(EmailsUtil::removeAllEmailAddresses($body));
+            return EmailsUtil::fixEmailBody(EmailsUtil::removeAllContactInfo($body));
 
-        return EmailsUtil::fixEmailBody(EmailsUtil::removeAllUrls(EmailsUtil::removeAllEmailAddresses($body)));
+        return EmailsUtil::fixEmailBody(EmailsUtil::removeAllUrls(EmailsUtil::removeAllContactInfo($body)));
     }
 
     private function saveAttachments($returnData){

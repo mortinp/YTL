@@ -53,12 +53,23 @@ class EmailsUtil {
         return $fixedBody;
     }
     
+    public static function removeAllContactInfo($text) {
+        return EmailsUtil::removeAllEmailAddresses(
+                EmailsUtil::removeAllPhoneNumbers($text));
+    }
+    
     public static function removeAllEmailAddresses($text) {
-        $fixedText = $text;
-        
         $emailpattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
         $replacement = '['.__d('conversation', 'correo borrado').']';
-        $fixedText = preg_replace($emailpattern, $replacement, $fixedText);
+        $fixedText = preg_replace($emailpattern, $replacement, $text);
+        
+        return $fixedText;
+    }
+    
+    public static function removeAllPhoneNumbers($text) {
+        $phonepattern = "/([0-9]+[\- ]?(\s*-*[0-9]){7,})/";
+        $replacement = '['.__d('conversation', 'borrado').']';
+        $fixedText = preg_replace($phonepattern, $replacement, $text);
         
         return $fixedText;
     }
