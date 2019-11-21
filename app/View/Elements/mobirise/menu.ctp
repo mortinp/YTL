@@ -44,11 +44,20 @@ if($userLoggedIn) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
                 <li class="nav-item">
-                    <?php echo $this->Html->link(__d('mobirise/default', 'Opiniones de clientes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
+                    <?php echo $this->Html->link(__d('mobirise/default', 'Opiniones'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'nav-link link text-white display-4', 'escape'=>false)); ?>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link link text-white dropdown-toggle display-4" href="#" data-toggle="dropdown-submenu" aria-expanded="false">
+                        + <?php echo __('Servicios')?>
+                    </a>
+                    <div class="dropdown-menu">
+                        <?php echo $this->Html->link(__('Taxi privado con descuentos'), array('controller'=>'discount_rides', 'action'=>'home'), array('class'=>'text-white dropdown-item display-4')); ?>
+                        <a class="text-white dropdown-item display-4" href="https://pickocar.com/<?php echo Configure::read('Config.language');?>" aria-expanded="true" target="_blank"><?php echo __('Taxi compartido en PickoCar')?></a>
+                    </div>
                 </li>
             </ul>
             <div class="navbar-buttons mbr-section-btn">
-                <a class="btn btn-sm btn-primary display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
+                <a class="btn btn-sm btn-secondary display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                     <span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span>
                     <?php echo __d('mobirise/default', $mainCTA)?>
                 </a>

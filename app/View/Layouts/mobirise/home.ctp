@@ -98,6 +98,8 @@ $this->Html->script('popper/popper.min', array('inline' => false));
 $this->Html->script('tether/tether.min', array('inline' => false));
 
 $this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
+//$this->Html->script('dropdown/js/nav-dropdown', array('inline' => false));
+//$this->Html->script('dropdown/js/navbar-dropdown', array('inline' => false));
 $this->Html->script('dropdown/js/script.min', array('inline' => false));
 $this->Html->script('touchswipe/jquery.touch-swipe.min', array('inline' => false));
 $this->Html->script('bootstrapcarouselswipe/bootstrap-carousel-swipe', array('inline' => false));

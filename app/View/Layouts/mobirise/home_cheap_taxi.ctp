@@ -88,7 +88,7 @@ echo $this->fetch('css');
 </head>
 <body>
 
-<?php echo $this->element('mobirise/menu2', array('cta'=>__d('mobirise/cheap_taxi', 'Ver ofertas disponibles')))?>
+<?php echo $this->element('mobirise/menu', array('cta'=>__d('mobirise/cheap_taxi', 'Ver ofertas disponibles')))?>
 
 <?php echo $this->fetch('content')?>
 <?php echo $this->element('addon_picko_linker')?>

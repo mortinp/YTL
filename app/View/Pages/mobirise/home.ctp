@@ -17,7 +17,7 @@
                 <i class="fa fa-check"></i> <?php echo __d('mobirise/homepage', 'Mira fotos y opiniones de viajeros anteriores')?>
             </p>
             <div class="mbr-section-btn align-left">
-                <a class="btn btn-md btn-primary display-5" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
+                <a class="btn btn-md btn-secondary display-5" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                     <span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span>
                     <?php echo __d('mobirise/homepage', 'Solicitar ofertas a choferes en Cuba')?>
                 </a>
@@ -87,7 +87,7 @@
         <div class="row justify-content-center content-row">
             <div class="media-container-column col-12 col-lg-6 col-md-6">
                 <div class="mbr-section-btn py-4">
-                    <?php echo $this->Html->link(__d('mobirise/homepage', 'Mira opiniones recientes sobre nuestros choferes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'btn btn-success display-3'))?>
+                    <?php echo $this->Html->link(__d('mobirise/homepage', 'Mira opiniones recientes sobre nuestros choferes'), array('controller'=>'testimonials', 'action'=>'featured', '?'=>array('also'=>Configure::read('Config.language') == 'es'?'en':'es')), array('class'=>'btn btn-success-outline display-3'))?>
                 </div>
             </div>
         </div>
@@ -112,19 +112,18 @@
         </div>
 </section>
 
-<section class="mbr-section info2 cid-r6RhthSTKR" id="info2-e">
+<section class="mbr-section info3 cid-rCJesiT9iX mbr-parallax-background" id="info3-3z">
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);"></div>
     <div class="container">
-        <div class="row main justify-content-center">
-            <div class="media-container-column col-12 col-lg-3 col-md-4">
+        <div class="row justify-content-center">
+            <div class="media-container-column title col-12 col-md-10">
+                <h2 class="align-left mbr-bold mbr-white pb-3 mbr-fonts-style display-2"><?php echo __d('mobirise/taxi-prices-cuba', 'El chofer con quien viajas es importante y hace la diferencia')?></h2>
+                <h3 class="mbr-section-subtitle align-left mbr-light mbr-white pb-3 mbr-fonts-style display-5"><?php echo __d('mobirise/taxi-prices-cuba', 'Nuestros choferes son <strong>pilotos retirados</strong>, <strong>pescadores</strong>, <strong>comediantes</strong>, <strong>contadores</strong>, <strong>músicos</strong>, todos <strong>propietarios de un auto que nos ayudan a moverte por la isla</strong>. Conecta con tu chofer de la manera que prefieras.')?></h3>
+                
                 <div class="mbr-section-btn align-left py-4">
-                    <a class="btn btn-primary display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
+                    <a class="btn btn-secondary display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
                     <span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span>
-                    <?php echo __d('mobirise/homepage', 'Recibe ofertas de choferes en Cuba')?></a></div>
-            </div>
-            <div class="media-container-column title col-12 col-lg-7 col-md-6">
-                <h2 class="align-right mbr-bold mbr-white pb-3 mbr-fonts-style display-2">
-                    <?php echo __d('mobirise/homepage', 'Conoce a tu chofer')?></h2>
-                <h3 class="mbr-section-subtitle align-right mbr-light mbr-white mbr-fonts-style display-5"><?php echo __d('mobirise/homepage', 'El chofer con quien viajas es importante y hace la diferencia. Nuestros choferes son pilotos retirados, pescadores, comediantes, contadores, todos propietarios de un auto que nos ayudan a moverte por la isla. Conecta con tu chofer de la manera que prefieras.')?></h3>
+                    <?php echo __d('mobirise/taxi-prices-cuba', 'Solicita presupuesto ahora')?></a></div>
             </div>
         </div>
     </div>

@@ -85,10 +85,7 @@
 </section>
 
 <section class="mbr-section info3 cid-rCJesiT9iX mbr-parallax-background" id="info3-3z">
-
-    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
-    </div>
-
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="media-container-column title col-12 col-md-10">
