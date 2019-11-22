@@ -30,11 +30,11 @@ class DataCleanerController extends AppController {
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $this->DriverTravel->unbindModel(array('belongsTo'=>array('Travel'))); 
         $this->DriverTravel->bindModel(array('hasMany'=>array('DriverTravelerConversation'=>array('className'=>'DriverTravelerConversation','foreignKey'=>'conversation_id'))));
-        $six_months_ago = date('Y-m-d', strtotime("today - 3 month"));
+        $six_months_ago = date('Y-m-d', strtotime("today - 6 month"));
         $this->DriverTravel->recursive=4;
         
         
-        $result = $this->DriverTravel->find('all',array('conditions'=>array('DriverTravel.travel_date '=>"2016-08-07",
+        $result = $this->DriverTravel->find('all',array('conditions'=>array('DriverTravel.travel_date <='=>$six_months_ago,
             'DriverTravel.message_count <='=> 1 ),
             'joins' =>array(
                 array('table' => 'travels_conversations_meta',
@@ -85,54 +85,101 @@ class DataCleanerController extends AppController {
         
         /*Saving Data*/
        
-       print_r($driver_travel);//for checking into console
+//       print_r($driver_travel);//for checking into console
        $this->ArchiveDriversTravels->bindModel(array('hasMany'=>array('ArchiveDriversTravelerConversations'=>array('className'=>'ArchiveDriversTravelerConversations','foreignKey'=>'conversation_id'))));
        $this->ArchiveDriversTravels->bindModel(array('hasMany'=>array('ArchiveTravelsConversationsMeta'=>array('className'=>'ArchiveTravelsConversationsMeta','foreignKey'=>'conversation_id'))));
        $datasource = $this->ArchiveDriversTravels->getDataSource();
        $datasource->begin();
        
-//       foreach ($result as $value) {
-//           
-//           
-//               $OK = $this->ArchiveDriversTravels->saveAll($driver_travel);
-//               if (!$OK){
-//                     $datasource->rollback();
-//               break;}
-//              
-//           
-//       }
-//        $datasource->commit(); 
        /*Inserting and deleting (new datasourse for this last option)*/
-       $datasourceDelete = $this->DriverTravel->getDataSource();
-       $datasourceDelete->begin();
-              
-               $OK = $this->ArchiveDriversTravels->saveMany($driver_travel);
-              if(!empty(array_filter($driver_travel))) $okDel=$this->DriverTravel->deleteAll($driver_travel, false);
-               if (!$OK || !$okDel){
-                     $datasource->rollback();
-                     $datasourceDelete->rollback();
-                     
+       
+              $keyprefix='DriverTravel.';
+              if(!empty(array_filter($driver_travel)))  $OkSaveTravels = $this->ArchiveDriversTravels->saveMany($driver_travel);
+              else
+                  $OkSaveTravels=true;
+               /*Russian fuck for get it working*/
+               foreach ($driver_travel as $key => $value) {
+                   foreach ($value as $key2 => $value2) {
+                       if($key2=='id'){
+                       $value[$keyprefix.$key2]=$value[$key2];
+                       unset($value[$key2]);
+                       $driver_travel[$key]=$value[$keyprefix.$key2];
+                       }
+                       unset($value[$key2]);
+                   }
+                                  
                }
-              
+               /*END - Russian fuck for get it working*/
+               
+                 
                
              
-               $OK = $this->ArchiveDriverTravelerConversations->saveMany($conversation);
-              if(!empty(array_filter($conversation))) $okDel=$this->DriverTravelerConversation->deleteAll($conversation, false);
-               if (!$OK || !$okDel){
-                     $datasource->rollback();
-                     $datasourceDelete->rollback();
-                     
+              if(!empty(array_filter($conversation))) $OkSaveConversation = $this->ArchiveDriverTravelerConversations->saveMany($conversation);
+              else $OkSaveConversation=true;
+               /*Russian fuck for get it working*/
+               $keyprefix='DriverTravelerConversation.';
+               foreach ($conversation as $key => $value) {
+                   foreach ($value as $key2 => $value2) {
+                       if($key2=='id'){
+                       $value[$keyprefix.$key2]=$value[$key2];
+                       unset($value[$key2]);
+                       $conversation[$key]=$value[$keyprefix.$key2];
+                       }
+                      unset($value[$key2]); 
+                   }
+                                  
                }
-            
-               
-               $OK = $this->ArchiveTravelsConversationsMeta->saveMany($conversationMeta);    
-               if(!empty(array_filter($conversationMeta))) $okDel=$this->TravelConversationMeta->deleteAll($conversationMeta, false);
-               if (!$OK || !$okDel){
-                     $datasource->rollback();
-                     $datasourceDelete->rollback();
-                     
-               }
+               /*END - Russian fuck for get it working*/
               
+           
+               if(!empty(array_filter($conversationMeta))) $OkSaveMeta = $this->ArchiveTravelsConversationsMeta->saveMany($conversationMeta); 
+               else
+                   $OkSaveMeta=true;
+               /*Russian fuck for get it working*/
+               $keyprefix='TravelConversationMeta.';
+               foreach ($conversationMeta as $key => $value) {
+                   foreach ($value as $key2 => $value2) {
+                       if($key2=='conversation_id'){
+                       $value[$keyprefix.$key2]=$value[$key2];
+                       unset($value[$key2]);
+                       $conversationMeta[$key]=$value[$keyprefix.$key2];
+                       }
+                       unset($value[$key2]);
+                   }
+                               
+               }
+               /*END - Russian fuck for get it working*/
+              
+               
+               
+               if (!$OkSaveTravels || !$OkSaveConversation ||!$OkSaveMeta){
+                   echo "ERROR INSERTING";
+                     $datasource->rollback();   
+               }
+               
+               $datasourceDelete = $this->DriverTravel->getDataSource();
+               $datasourceDelete->begin();
+               
+
+              print_r($driver_travel);//for checking into console
+                if(!empty(array_filter($driver_travel))) $okDelTravels=$this->DriverTravel->deleteAll(['DriverTravel.id'=>$driver_travel],true);
+                else $okDelTravels=true;
+               
+               if(!empty(array_filter($conversation))) $okDelConversation=$this->DriverTravelerConversation->deleteAll(['DriverTravelerConversation.id'=>$conversation], true);
+               else $okDelConversation=true;
+               
+               if(!empty(array_filter($conversationMeta))) $okDelMeta=$this->TravelConversationMeta->deleteAll(['TravelConversationMeta.conversation_id'=>$conversationMeta], true);
+               else $okDelMeta=true;
+              
+               $log=$datasourceDelete->getLog(false,false);
+               debug($log);
+               
+                if (!$okDelTravels || !$okDelConversation || !$okDelMeta){
+                    echo "ERROR DEL";
+                     $datasource->rollback();
+                     $datasourceDelete->rollback();
+                     
+               }
      
                  $datasource->commit(); 
                  $datasourceDelete->commit();
