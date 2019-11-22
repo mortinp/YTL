@@ -12,33 +12,22 @@ class ApiConversationsController extends ApiAppController {
         $this->Auth->allow('iniFetch', 'sync', 'newMessagesInConversation', 'newMessageToTraveler');
     }
     
+    
+    // ***** INI FETCH *****
     public function iniFetch() {
         $relevantConversations = $this->getRelevantConversations();
         
-        // Vamos a coger solo las conversaciones que no hayan expirado (de hoy en adelante)
+        // Vamos a coger solo las conversaciones sincronizadas anteriormente cuya fecha de viaje no haya expirado (de hoy en adelante)
         $today = date('Y-m-d', strtotime('today'));
-        $conversationsInSyncQueue = $this->getConversationsInSyncQueue($today);
+        $conversationsInSyncQueue = $this->getFullConversations($this->getConversationsIdsInSyncQueue($today))/*$this->getConversationsInSyncQueue($today)*/;
         
         // Eliminar duplicadas
-        $conversations = $relevantConversations;
-        foreach ($conversationsInSyncQueue as $sqc) {
-            $isDuplicate = false;
-            foreach ($relevantConversations as $rc) {
-                if($sqc['id'] == $rc['id']) {
-                    $isDuplicate = true;
-                    break;
-                }
-            }
-            
-            if(!$isDuplicate) {
-                unset($sqc['state']); // Quitarle el state a las conversaciones que no son relevantes
-                $conversations[] = $sqc;
-            }
-        }
+        $conversations = $this->eliminateDuplicateConversations($relevantConversations, $conversationsInSyncQueue);
         
+        // Marcar como sincronizadas las conversaciones que vamos a enviar en el iniFetch
         $synced = $this->markConversationsAsSynced($conversations, -1);
         
-        // Marcar las conversaciones expiradas como sincronizadas en el iniFetch (batchId = -1)
+        // También marcar las conversaciones expiradas como sincronizadas en el iniFetch (batchId = -1) para que no se sincronicen más
         $expiredConversations = $this->getConversationsInSyncQueue($today, -1);
         $this->markConversationsAsSynced($expiredConversations, -1);
         
@@ -47,7 +36,8 @@ class ApiConversationsController extends ApiAppController {
             'success' => true,
             'data' => $conversations,
             'synced' =>$synced,
-            '_serialize' => array('success', 'data', 'synced')
+            'full' => $conversationsInSyncQueue,
+            '_serialize' => array('success', 'data', 'synced', 'full')
         ));
     }
     private function getRelevantConversations() {
@@ -67,6 +57,8 @@ class ApiConversationsController extends ApiAppController {
             . " LEFT JOIN driver_traveler_conversations ON driver_traveler_conversations.conversation_id = drivers_travels.id
                 
                 LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                
+                LEFT JOIN discount_rides ON drivers_travels.discount_id = discount_rides.id
                 
                 WHERE
                     drivers_travels.driver_id = ".$user['id']."
@@ -90,12 +82,14 @@ class ApiConversationsController extends ApiAppController {
         $dateCondition .= "'".$date."'";
         
         $sql = $this->getSqlSelectFieldsForConversation()
+                
             //. ", api_sync_queue_2driver_conversations.batch_id" // Este campo es para saber si la conversacion fue sincronizada
             . " FROM api_sync_queue_2driver_conversations
                 INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id 
                     AND drivers_travels.travel_date ".$dateCondition." 
                 LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
-                LEFT JOIN travels ON drivers_travels.travel_id = travels.id 
+                LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                LEFT JOIN discount_rides ON drivers_travels.discount_id = discount_rides.id
                 LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
                 
                 WHERE drivers_travels.driver_id = ".$user['id']."
@@ -107,6 +101,62 @@ class ApiConversationsController extends ApiAppController {
         return $this->buildConversations($conversationsToSync);
     }
     
+    private function getConversationsIdsInSyncQueue($date, $searchDirection = 1) {
+        $user = $this->getUser();
+        
+        $dateCondition = $searchDirection > 0?'>=':'<';
+        $dateCondition .= "'".$date."'";
+        
+        $sql = "SELECT DISTINCT (api_sync_queue_2driver_conversations.conversation_id) as conversation_id
+                FROM api_sync_queue_2driver_conversations
+                INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id 
+                    AND drivers_travels.travel_date ".$dateCondition."
+                        
+                WHERE drivers_travels.driver_id = ".$user['id']."
+                    
+                ORDER BY conversation_id";
+        
+        $conversationsIds = $this->DriverTravel->query($sql);
+        
+        return $conversationsIds;
+    }
+    private function getFullConversations(array $ids) {
+        $user = $this->getUser();
+        
+        // Convertir el arreglo de ids a la forma ('1', '2', '3', '4', '5')
+        $idsStr = '(';
+        $sep = '';
+        foreach ($ids as $id) {
+            $idsStr .= $sep."'".$id['api_sync_queue_2driver_conversations']['conversation_id']."'";
+            $sep = ',';
+        }
+        $idsStr .= ')';
+        
+        $sql = $this->getSqlSelectFieldsForConversation()
+                
+            . " FROM drivers_travels"
+            
+            . " LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id"
+                
+            . " LEFT JOIN driver_traveler_conversations ON driver_traveler_conversations.conversation_id = drivers_travels.id
+                
+                LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                
+                LEFT JOIN discount_rides ON drivers_travels.discount_id = discount_rides.id
+                
+                WHERE
+                    drivers_travels.driver_id = ".$user['id']." AND drivers_travels.id IN ".$idsStr
+                        
+            . " ORDER BY conversation_id";
+        
+        $conversationsToSync = $this->DriverTravel->query($sql);
+        
+        return $this->buildConversations($conversationsToSync);
+    }
+    // ***** INI FETCH (END) *****
+    
+    
+    // ***** SYNC *****
     
     /*
      * EJEMPLO DE RESPUESTA
@@ -203,10 +253,12 @@ class ApiConversationsController extends ApiAppController {
         $idCondition = "";
         if($conversationId != null) $idCondition = "AND drivers_travels.id = '".$conversationId."'";
         $sql = $this->getSqlSelectFieldsForConversation()
+                
             . " FROM api_sync_queue_2driver_conversations
                 INNER JOIN drivers_travels ON api_sync_queue_2driver_conversations.conversation_id = drivers_travels.id
                 LEFT JOIN driver_traveler_conversations ON api_sync_queue_2driver_conversations.msg_id = driver_traveler_conversations.id
                 LEFT JOIN travels ON drivers_travels.travel_id = travels.id
+                LEFT JOIN discount_rides ON drivers_travels.discount_id = discount_rides.id
                 LEFT JOIN travels_conversations_meta ON travels_conversations_meta.conversation_id = drivers_travels.id
                 WHERE 
                     drivers_travels.driver_id = ".$user['id']."
@@ -228,6 +280,7 @@ class ApiConversationsController extends ApiAppController {
         
         return $this->buildConversations($conversationsToSync);
     }
+    // ***** SYNC (END) *****
     
     /*
      * EJEMPLO DE RESPUESTA
@@ -289,7 +342,10 @@ class ApiConversationsController extends ApiAppController {
             'data' => true,
             '_serialize' => array('success', 'data')
         ));
-    }    
+    } 
+    
+    
+    // ***** AUX AND COMMON FUNCTIONS *****
     
     /*
      * Retorna la sentencia SQL que selecciona los campos indispensables para construir las conversaciones con buildConversations()
@@ -301,17 +357,25 @@ class ApiConversationsController extends ApiAppController {
                     drivers_travels.notification_type,
                     drivers_travels.travel_date,
                     drivers_travels.created, 
-                    drivers_travels.travel_id, 
+                    drivers_travels.travel_id,
+                    drivers_travels.discount_id,
+                    
                     travels.origin, 
                     travels.destination, 
                     travels.people_count as pax,
                     travels.details,
                     travels.created as travel_created,
+                    
+                    discount_rides.origin as promo_origin, 
+                    discount_rides.destination as promo_destination, 
+                    discount_rides.price as promo_price,
+                    
                     driver_traveler_conversations.id as msg_id,
                     driver_traveler_conversations.response_text,
                     driver_traveler_conversations.created as msg_created,
                     driver_traveler_conversations.response_by,
                     driver_traveler_conversations.attachments_ids,
+                    
                     travels_conversations_meta.state,
                     travels_conversations_meta.following";
     }
@@ -326,7 +390,7 @@ class ApiConversationsController extends ApiAppController {
             
             $c = $conversationsToBuild[$index];
             
-            // Primero crear la travel_request si existe
+            // Crear la travel_request si existe
             $travelRequest = null;
             if($c['drivers_travels']['travel_id'] != null) {
                 $travelRequest = array(
@@ -337,6 +401,17 @@ class ApiConversationsController extends ApiAppController {
                     'details'=>$c['travels']['details'],
                     'date'=>1000*strtotime($c['drivers_travels']['travel_date']),
                     'created'=>1000*strtotime($c['travels']['travel_created']),
+                );
+            }
+            
+            // Crear la promotion si existe
+            $promoRequest = null;
+            if($c['drivers_travels']['discount_id'] != null) {
+                $promoRequest = array(
+                    'id'=>$c['drivers_travels']['discount_id'],
+                    'origin'=>$c['discount_rides']['promo_origin'],
+                    'destination'=>$c['discount_rides']['promo_destination'],
+                    'price'=>$c['discount_rides']['promo_price'],
                 );
             }
             
@@ -356,6 +431,7 @@ class ApiConversationsController extends ApiAppController {
                 'state'=>self::calculateState($c['travels_conversations_meta']),
                 
                 'travel_request' => $travelRequest,
+                'promo_request' => $promoRequest,
                 
                 //'sync_data' => $syncData,
                 
@@ -404,9 +480,8 @@ class ApiConversationsController extends ApiAppController {
      * UNCLASSIFIED: 0
      * FOLLOWING: 1
      * SCHEDULED: 2
-     * REJECTED: 3
-     * CANCELLED: 4
-     * COMPLETED: 5
+     * CANCELLED: 3
+     * COMPLETED: 4
      * 
      * NOTA: Esto debe cambiar si se hacen cambios en el enum en la app
      * 
@@ -455,6 +530,26 @@ class ApiConversationsController extends ApiAppController {
         }
         
         return $synced;
+    }
+    
+    private function eliminateDuplicateConversations(array $conversations1, array $conversations2) {
+        $conversations = $conversations1;
+        foreach ($conversations2 as $sqc) {
+            $isDuplicate = false;
+            foreach ($conversations1 as $rc) {
+                if($sqc['id'] == $rc['id']) {
+                    $isDuplicate = true;
+                    break;
+                }
+            }
+            
+            if(!$isDuplicate) {
+                unset($sqc['state']); // Quitarle el state a las conversaciones que no son relevantes
+                $conversations[] = $sqc;
+            }
+        }
+        
+        return $conversations;
     }
     
 }

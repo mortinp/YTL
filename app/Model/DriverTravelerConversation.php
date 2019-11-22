@@ -27,6 +27,26 @@ class DriverTravelerConversation extends AppModel {
         ),
     );
     
+    public function afterFind($results, $primary = false) {
+        
+        // Quitarle este comportamiento por si se vuelve a usar el DriverTravel para alguna busqueda (ej. en la vista que genera esta accion, se llama a DriverTravel::getIdentifier(), que hace otra busqueda)
+        if(AuthComponent::user('role') == 'operator')
+            $this->Behaviors->unload('Operations.OperatorScope');
+        
+        $userIsAdmin = in_array(AuthComponent::user('role'), array('admin', 'operator'));
+        
+        // Quitarle todos los datos de contacto al mensaje si el usuario no es un admin
+        if(!$userIsAdmin) {
+            foreach ($results as $key => $val) {
+                if (isset($val[$this->alias]['response_text'])) {
+                    $results[$key][$this->alias]['response_text'] = EmailsUtil::removeAllContactInfo($results[$key][$this->alias]['response_text']);
+                }
+            }
+        }
+        
+        return $results;
+    }
+    
 }
 
 ?>

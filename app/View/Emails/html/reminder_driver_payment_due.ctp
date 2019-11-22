@@ -4,11 +4,16 @@
 <?php $driver_name = 'chofer'?>
 <?php if($data['Driver']['driver_name'] != null) $driver_name = $data['Driver']['driver_name']?>
 <div style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;">
-    <div><b>NOTA IMPORTANTE</b></div>
-    <div>Ya tenemos nuevamente tarjeta oficial para el pago de las comisiones.</div>
-    <div>A partir de ahora, las transferencias debe realizarlas a este número:</div>
+    <div><b>INFO PARA EL PAGO</b></div>
+    <div>Usted puede realizar el pago de las comisiones a cualquiera de las siguientes tarjetas:</div>
+    <div>-----</div>
+    <div>Tarjeta de BANDEC:</div>
     <div><b>9200 0699 9563 1805</b></div>
-    <div>Aquí arriba siempre va a aparecer el número de la tarjeta a la que usted debe realizar las trasferencias.</div>
+    <div>-----</div>
+    <div>Tarjeta de BANCO METROPOLITANO:</div>
+    <div><b>9200 9598 7527 5956</b></div>
+    <div>-----</div>
+    <div>Para nosotros verificar usted debe decirnos el monto de la transferencia, la fecha y el desglose por cada uno de los viajes pagados.</div>
 </div>
 
 <p>Hola <?php echo $driver_name?>,</p>

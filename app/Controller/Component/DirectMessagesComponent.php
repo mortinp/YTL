@@ -48,12 +48,12 @@
                    $DriverTravelModel->save($conv);//modificamos la conversacion con el child_conversation_id
                 }
                 
-                $message = EmailsUtil::fixEmailBody(EmailsUtil::removeAllEmailAddresses($message));
+                $message = EmailsUtil::fixEmailBody(EmailsUtil::removeAllContactInfo($message));
                 
                 $message_to_driver = array('DriverTravelerConversation' => array(
                     'conversation_id' => $conversation['DriverTravel']['id'],
                     'response_by'     => 'traveler',
-                    'response_text'   => $message,             
+                    'response_text'   => $message,
                 ));
                 
                 if( $DriverTravelerConversationModel->save($message_to_driver) ){

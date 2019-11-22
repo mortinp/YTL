@@ -5,6 +5,7 @@
             
                 <?php
                 $direct_messages = array();
+                $offer_messages = array();
                 $travel = null;
                 $data = array();
                 $index = 0;
@@ -84,15 +85,17 @@
                     }
                     ?>
                     <!--Las ofertas al final-->
-                    </br>
-                    <p><?php echo __('Ofertas:')?></p>
-                    <?php
-                    foreach ($offer_messages as $t) {
-                        echo '<li style="margin-bottom: 10px">';
-                        echo $this->element('conversation_widget_for_user/conversation_data', array('conversation'=>$t));
-                        echo '</li>';
-                    }
-                    ?>
+                    <?php if(count($offer_messages) > 0):?>
+                        </br>
+                        <p><?php echo __('Ofertas:')?></p>
+                        <?php
+                        foreach ($offer_messages as $t) {
+                            echo '<li style="margin-bottom: 10px">';
+                            echo $this->element('conversation_widget_for_user/conversation_data', array('conversation'=>$t));
+                            echo '</li>';
+                        }
+                        ?>
+                    <?php endif?>
                 </ul>
                 <?php endif?>
                 

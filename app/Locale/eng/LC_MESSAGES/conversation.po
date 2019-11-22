@@ -80,6 +80,10 @@ msgstr "email deleted"
 msgid "url borrada"
 msgstr "url deleted"
 
+#: Console/Command/IncomingMailShell.php:317
+msgid "borrado"
+msgstr "deleted"
+
 #: Console/Command/IncomingMailShell.php:253
 msgid "imagen borrada"
 msgstr "image deleted"

@@ -93,7 +93,7 @@ echo $this->fetch('css');
 </head>
 <body>
 
-<?php echo $this->element('mobirise/menu2')?>
+<?php echo $this->element('mobirise/menu')?>
 
 <?php echo $this->fetch('content')?>
 <?php echo $this->element('addon_picko_linker')?>

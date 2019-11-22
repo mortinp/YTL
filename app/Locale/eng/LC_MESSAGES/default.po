@@ -1026,3 +1026,15 @@ msgstr "Make%20sure%20you%20hire%20a%20nice%20%23driver%20with%20a%20%23car%20in
 #: View/DiscountRides/index.ctp:71
 msgid "%s ofrece: Viaje %s - %s para %s el %s solo por $%s"
 msgstr "%s offers: Travel %s - %s for %s on %s only for $%s"
+
+#: /home.ctp:27
+msgid "Servicios"
+msgstr "Services"
+
+#: /home.ctp:27
+msgid "Taxi privado con descuentos"
+msgstr "Private taxi with discounts"
+
+#: /home.ctp:27
+msgid "Taxi compartido en PickoCar"
+msgstr "Shared taxi at PickoCar"

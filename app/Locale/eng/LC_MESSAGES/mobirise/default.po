@@ -50,8 +50,8 @@ msgid "TESTIMONIOS"
 msgstr "TESTIMONIALS"
 
 #: /home.ctp:27
-msgid "Opiniones de clientes"
-msgstr "Customers Reviews"
+msgid "Opiniones"
+msgstr "Reviews"
 
 #: /home.ctp:27
 msgid "OPINAR SOBRE CHOFER"

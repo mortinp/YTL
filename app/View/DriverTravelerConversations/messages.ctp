@@ -101,15 +101,14 @@
     
     <?php if(!DriverTravel::isClosed($data['DriverTravel'])):  ?>   
     <!-- FORMULARIO PARA ENVIAR MENSAJE AL CHOFER  -->
-    <div class="col-md-6 col-md-offset-4 well">
+    <div class="col-md-6 col-md-offset-4">
         <div class="">
-            <span><?php echo __d('conversation', 'Envía un mensaje a %s', '<big><code>'.$driverName.'</code></big>')?></span>
-            <hr/>
+            <br/>
             <?php
                echo $this->Form->create('DriverTravelerConversation', array('type'=>'file', 'id'=>'DriverTravelerConversationForm', 'url' => array('action' => 'msg_to_driver')));
                echo $this->Form->input('conversation_id', array('type' => 'hidden', 'value' => $data['DriverTravel']['id']));
 
-               echo $this->Form->input('body', array('label' => false, 'type' => 'textarea', 'required' => 'required'));
+               echo $this->Form->input('body', array('label' => __d('conversation', 'Envía un mensaje a %s', '<big><code>'.$driverName.'</code></big>'), 'type' => 'textarea', 'required' => 'required'));
 
                echo '<br/>';
                echo $this->Form->label('adjunto', __d('conversation', 'Adjuntar archivo (foto, pdf o txt | 2MB máx.)'));
