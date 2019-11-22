@@ -13,7 +13,7 @@
             
             $this->set('case', $case);
             
-            if($case['case'] != 'DINT') {
+            if(!in_array($case['case'], array('DINT', 'OINT'))) {
                 Travel::prepareFullConversations($this);
                 $this->Paginator->settings = array(
                     'limit' => 20, 
@@ -27,6 +27,7 @@
 
                 $driver_travels = $this->DriverTravel->find('all', array('conditions'=>$conditions));
                 $this->set('direct_messages', $driver_travels);
+                
             } else if($case['case'] == 'OINT') {
                 $this->DriverTravel->recursive = 3;        
                 $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));

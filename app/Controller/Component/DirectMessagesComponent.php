@@ -15,7 +15,7 @@
             
             $DriverTravelModel = ClassRegistry::init('DriverTravel');
             $DriverTravelerConversationModel = ClassRegistry::init('DriverTravelerConversation');
-            $TravelConversationMetaModel = ClassRegistry::init('TravelConversationMeta');//Para marcar following
+            $TravelConversationMetaModel = ClassRegistry::init('TravelConversationMeta');
             $datasource = $DriverTravelModel->getDataSource();
             $datasource->begin();
 
@@ -24,21 +24,15 @@
             
             if( $DriverTravelModel->save($conversation) ){
                 $conversation['DriverTravel']['id'] = $DriverTravelModel->getLastInsertID();
-                /*Trabajamos en su meta para marcar como following*/
+                
+                // Trabajamos en su meta para marcar como following si es una oferta
                 if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST) { 
-                $meta = array();
+                    $meta = array();
+                    $meta['TravelConversationMeta']['conversation_id'] = $conversation['DriverTravel']['id'];
+                    $meta['TravelConversationMeta']['following'] = true;
 
-                $meta['TravelConversationMeta']['conversation_id'] = $conversation['DriverTravel']['id'];
-                $meta['TravelConversationMeta']['following'] = true;
-
-                $OK = true;
-                if (!$TravelConversationMetaModel->save($meta)) {
-                    if($this->request->is('ajax'))
-                        throw new BadRequestException('Ocurrió un error.');
-
-                    $OK = false;
-                    $this->setErrorMessage('Ocurrió un error.');
-                }
+                    $OK = $TravelConversationMetaModel->save($meta);
+                    if (!$OK) $this->setErrorMessage('Ocurrió un error.');
                 }
                 
                 //Taking the child conversation id if messaging from expired
