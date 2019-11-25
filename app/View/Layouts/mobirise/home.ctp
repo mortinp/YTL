@@ -41,7 +41,7 @@ if($isLoggedIn) {
   <meta name="description" content="<?php echo $page_description?>"/>
   
   <!-- TWITTER SHARE -->   
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="<?php echo substr($page_title, 0, 70)?>">
   <meta name="twitter:description" content="<?php echo $page_description?>">
   <meta name="twitter:site" content="@yotellevocuba">
