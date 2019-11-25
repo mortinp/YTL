@@ -163,14 +163,21 @@ class DriverTravelsController extends AppController {
             
             $lang = (isset($this->request->data['Data']['lang']))?$this->request->data['Data']['lang']:$data['User']['lang'];
 
-            $subject = 'Mejores precios para un taxi en Cuba';
-            if($lang == 'en') $subject = 'Better prices for a taxi in Cuba';
+            $subject = 'Una sugerencia para economizar en sus traslados en Cuba';
+            if($lang == 'en') $subject = 'A suggestion to do cheaper rides in Cuba';
 
             $to = $data['User']['username'];
-            $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'offer_shared_ride', array('lang'=>$lang));
+            $OK = EmailsUtil::email($to, $subject, $vars, 'super', 'offer_shared_ride', 
+                    array(
+                        'lang'=>$lang, 
+                        'from_email'=>'martin@yotellevocuba.com',
+                        'from_name'=>'Martin, YoTeLlevo'));
             if ($OK) {
-                $this->User->id = $data['User']['id'];
-                $OK = $this->User->saveField('shared_ride_offered', true);
+                $userIsAdmin = $data['User']['role'] == 'admin';
+                if(!$userIsAdmin) {
+                    $this->User->id = $data['User']['id'];
+                    $OK = $this->User->saveField('shared_ride_offered', true);
+                }
             }
 
             if ($OK) {

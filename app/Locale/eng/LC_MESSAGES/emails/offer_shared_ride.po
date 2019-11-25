@@ -1,0 +1,51 @@
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Soy %s de YoTeLlevoCuba.com, el sitio web donde han estado buscando un taxi con chofer para hacer algunos traslados acá en Cuba."
+msgstr "This is %s from YoTeLlevoCuba.com, the website where you have been looking to hire a taxi with driver to do some trips here in Cuba."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Quería en este correo darles las gracias por usar nuestro servicio. MUCHÍSIMAS GRACIAS!... y además quería ofrecerles una pequeña ayuda."
+msgstr "In this email I wanted to thank you for using our service. THANK YOU VERY MUCH!... and also hopefully provide a little help."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Les comento que recientemente lanzamos <b>un nuevo servicio de taxi compartido que es mucho más económico que un taxi privado</b>. La idea es que siendo ustedes %s personas, harían cada traslado con %s y así se ahorrarían el %s del precio total en cada traslado."
+msgstr "I want to let you know that we recently launched <b>a new shared taxi service which is a lot more affordable than a private taxi</b>. The idea is that, since you are %s people, you would do each ride with %s and you would save %s of the total price in each ride."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "¿Qué les parece? Un taxi compartido puede ser una buena alternativa."
+msgstr "What do you think? A shared taxi could be a great alternative."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Si les interesara compartir el taxi y hacer traslados más económicos, podrían ver la página web y los precios aquí debajo (nuestro nuevo servicio se llama PickoCar):"
+msgstr "If you are willing to share your taxi and do each ride more affordably, you can check the website and the prices below (our new service is named PickoCar):"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Valorar opción y precios de taxi compartido en Cuba"
+msgstr "See shared taxi option and its prices in Cuba"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Debo adicionar además que en este servicio se les recoge en su casa de alquiler u hotel donde se hospeden. Es similar a lo que ofertamos en YoTeLlevo, pero compartiendo el taxi con otros pasajeros."
+msgstr "I must add that in this service the taxi will pick you up at the guest-house or hotel you are staying. It is similar to what we offer at YoTeLlevo, only you share your taxi with other passengers."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Creo que podría ser una buena opción, por eso se las recomiendo."
+msgstr "I think it could be a good option for you. That's why I'm recommending it."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Déjenme saber por favor cualquier pregunta que tengan, %s. Estaré encantado de poderles ayudar."
+msgstr "Please let me know any questions you have, %s. I'll be very glad to be able to help."
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "Saludos cordiales desde Cuba y les deseo un magnífico viaje a la isla!"
+msgstr "Kind regards from Cuba and I wish you have a magnificent trip to the island!"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "otros %s pasajeros"
+msgstr "other %s passengers"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "otro pasajero"
+msgstr "one more passenger"
+
+#: View/Emails/html/request_testimonial.ctp:18
+msgid "%s y el equipo de %s"
+msgstr "%s and the team at %s"
