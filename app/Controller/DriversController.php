@@ -18,7 +18,7 @@ class DriversController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('profile','messages', 'drivers_by_province');
+        $this->Auth->allow('profile','messages', 'drivers_by_province','add_offer');
     }
     
     public function index() {
@@ -262,6 +262,22 @@ class DriversController extends AppController {
                
         $conversations = $this->DriverTravelerConversation->findAllByConversationId($conversationId);        
         $this->set('conversations', $conversations);
+        
+                
+    }
+    
+    public function add_offer($conversationId) {
+        $this->layout = 'driver_discount';        
+       
+        $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
+        $this->Driver->attachProfile($this->DriverTravel);
+        
+        $data = $this->DriverTravel->findById($conversationId);
+        if(empty($data)){
+        $data = array('error'=>true);
+        
+        }
+        $this->set('data', $data);
         
                 
     }

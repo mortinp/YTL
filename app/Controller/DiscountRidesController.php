@@ -17,7 +17,7 @@ class DiscountRidesController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('home');
+        $this->Auth->allow('home','add');
 
         //if(!$this->Auth->loggedIn()) $this->Auth->allow('index');
     }
@@ -64,7 +64,10 @@ class DiscountRidesController extends AppController {
                  $discountRide = $this->request->data; 
                 if($this->DiscountRide->save($discountRide)) {      
                     $this->setSuccessMessage('El nuevo viaje con descuento ha sido creado');
+                    $userLoggedIn = AuthComponent::user('id') ? true : false; 
+                    if($userLoggedIn)
                     return $this->redirect(array('action' => 'index'));
+                    else return $this->redirect($this->referer());
                 } else {
                     $this->setErrorMessage('Ocurrió un problema guardando la información del viaje. Intenta de nuevo.');
                 }
