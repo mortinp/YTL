@@ -15,9 +15,9 @@ App::uses('StringsUtil', 'Util');
  *
  * @author Yuniel
  */
-class DriverTokenShell extends AppShell{
+class DriverTokenShell extends AppShell {
     //put your code here
-     public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation');
+    //public $uses = array('User', 'DriverTravel', 'Driver', 'DriverTravelerConversation');
     
     /**
      * Set all drivers token
@@ -25,17 +25,13 @@ class DriverTokenShell extends AppShell{
      * @access public
      */
     public function main() {
-       $this->DriverModel = ClassRegistry::init('Driver'); 
-       
-       $drivers = $this->DriverModel->find('all',array('conditions'=>array('Driver.driver_discount_token'=>"")/*,'limit'=>1*/));
-       
-       
-       foreach ($drivers as $driver) {
-           $driver['Driver']['driver_discount_token'] = StringsUtil::getWeirdString();
-           $this->DriverModel->save($driver);
-           print_r($driver);
-       }
-        
-        
+        $this->DriverModel = ClassRegistry::init('Driver'); 
+
+        $drivers = $this->DriverModel->find('all',array('conditions'=>array('Driver.web_auth_token IS NULL')));
+
+        foreach ($drivers as $driver) {
+            $driver['Driver']['web_auth_token'] = StringsUtil::getWeirdString();
+            $this->DriverModel->save($driver);
+        }
     }
 }

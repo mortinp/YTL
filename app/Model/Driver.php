@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('Testimonial', 'Model');
+App::uses('AuthComponent', 'Controller/Component');
 ?>
 <?php
 

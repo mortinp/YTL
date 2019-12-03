@@ -11,20 +11,17 @@ App::uses('TimeUtil', 'Util');
  */
 class DiscountRidesController extends AppController {
 
-    public $uses = array('Travel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus','DiscountRide', 'Testimonial');
+    public $uses = array('Travel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus', 'DiscountRide', 'Testimonial');
 
-    public $components = array('TravelLogic', 'LocalityRouter', 'Paginator','Discount');
+    public $components = array('TravelLogic', 'LocalityRouter', 'Paginator', 'Discount');
 
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('home','add');
-
-        //if(!$this->Auth->loggedIn()) $this->Auth->allow('index');
     }
 
     public function home() {
         $this->layout = 'home_cheap_taxi';
-        
         
         // TODO: Cargar viajes disponibles aquí
         $this->DiscountRide->recursive = 3;
@@ -37,7 +34,7 @@ class DiscountRidesController extends AppController {
             $discount_rides_by_date[$currdate][]=$value ;
         }
         
-        $this->set('discount_rides_by_date',$discount_rides_by_date);
+        $this->set('discount_rides_by_date', $discount_rides_by_date);
         
         // Algunos datos que hacen falta en la vista
         $this->set('stats', $this->_getVanityStats());
@@ -50,38 +47,38 @@ class DiscountRidesController extends AppController {
     public function index() {
         $this->DiscountRide->recursive = 3;        
         $this->paginate = array('order'=>array('DiscountRide.date'=>'ASC'),'limit'=>10);
-        $conditions = array();
+        
         $discountRides = $this->paginate('DiscountRide');
         
         $this->set('discountRides', $discountRides);
     }
 
-    public function add(){
+    public function add() {
 
-        if ($this->request->is('post')|| $this->request->is('put')) {           
+        if ($this->request->is('post')|| $this->request->is('put')) {
 
                 $this->request->data['DiscountRide']['date'] = TimeUtil::dateFormatBeforeSave($this->request->data['DiscountRide']['date']);
-                 $discountRide = $this->request->data;
+                $discountRide = $this->request->data;
                  
-                 /*Hack para no tener que modificar el driver-typeahead*/
-                 if(empty($discountRide['DiscountRide']['driver_discount_token'])){
+                 /* Hack para no tener que modificar el driver-typeahead */
+                /*$driver = $this->_getDriverFromFormData($discountRide['DiscountRide']);
+                 if(empty($discountRide['DiscountRide']['web_auth_token'])){
                      $driver = $this->Driver->findById($discountRide['DiscountRide']['driver_id']);
                      
-                     $discountRide['DiscountRide']['driver_discount_token'] = $driver['Driver']['driver_discount_token'];
+                     $discountRide['DiscountRide']['web_auth_token'] = $driver['Driver']['web_auth_token'];
+                 }*/
+                 /* Fin Hack */
+                $driver = $this->Driver->findById($discountRide['DiscountRide']['driver_id']);
                      
-                 }
-                 /*Fin Hack*/
-                     
-                if($this->Discount->add_discount_offer($discountRide['DiscountRide']['driver_discount_token'],$discountRide)) {      
+                if($this->Discount->add_discount_offer($driver, $discountRide)) {
                     $this->setSuccessMessage('El nuevo viaje con descuento ha sido creado');
+                    
                     $userLoggedIn = AuthComponent::user('id') ? true : false; 
-                    if($userLoggedIn)
-                    return $this->redirect(array('action' => 'index'));
+                    if($userLoggedIn) return $this->redirect(array('controller'=>'discount_rides', 'action' => 'index'));
                     else return $this->redirect($this->referer());
                 } else {
                     $this->setErrorMessage('Ocurrió un problema guardando la información del viaje con descuento. Intenta de nuevo.');
                     return $this->redirect($this->referer());
-                    
                 }
             }
             $this->set('drivers', $this->Driver->getAsSuggestions()); 

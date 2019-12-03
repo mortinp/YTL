@@ -48,20 +48,6 @@ class RoutinesShell extends AppShell {
         foreach ($travels as $data) {
             EmailsUtil::email($data['Driver']['driver_email'], 'Recordatorio de viajes por pagar', array('data'=>$data), 'super', 'reminder_driver_payment_due');
         }
-        
-        /*// Loguear el reminder para debuguear
-        $logEntry = '<b>Reminder Payment Due</b><br/><br/>';
-        foreach ($travels as $data) {
-            $logEntry .= 'Chofer: '.$data['Driver']['driver_id'];
-            $logEntry .= '<br/>Viajes:<br/>';
-            
-            foreach ($data['Travel'] as $t) {
-                $logEntry .= $t['travel_id'].' '.$t['travel_origin'].' - '.$t['travel_destination'].'<br/>';
-            }
-            
-            $logEntry .= '<br/>';
-        }
-        CakeLog::write('cron', $logEntry);*/
     }
     
     
@@ -179,65 +165,23 @@ class RoutinesShell extends AppShell {
     
     public function email2drivers_reminder_discount_offer() {
         
-//        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers_profiles.driver_code, drivers.username as driver_email
-//
-//                from drivers
-//                
-//                inner join drivers_profiles 
-//                on drivers_profiles.driver_id = drivers.id
-//                and drivers_profiles.show_profile = 1
-//                
-//                where 
-//                drivers.active = 1
-//                and drivers.province_id = 5
-//                ";
-//        
-//        $results = $this->Driver->query($query);
-//         foreach ($results as $data) {
-//            EmailsUtil::email($data['drivers']['driver_email'], 'No vuelvas a viajar con tu taxi vacío', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
-//        }
-        $next_30_days = date('Y-m-d', strtotime("today + 30 days"));
-        $today = date('Y-m-d', strtotime("today - 3 month"));
-        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers.username as driver_email, 
-                travels.id as travel_id, travels.origin as travel_origin, travels.destination as travel_destination, travels.date as travel_date, 
-                drivers_travels.travel_date as driver_travel_date, drivers_travels.notification_type, drivers_travels.identifier, drivers_travels.id as driver_travel_id
+        $query = "select drivers.id as driver_id, drivers_profiles.driver_name, drivers_profiles.driver_code, drivers.username as driver_email
 
-                from drivers_travels
-
-                inner join travels_conversations_meta on travels_conversations_meta.conversation_id = drivers_travels.id
-
-                inner join drivers on drivers.id = drivers_travels.driver_id
-
-                left join travels on travels.id = drivers_travels.travel_id
-
-                left join drivers_profiles on drivers_profiles.driver_id = drivers.id
-
-                where travels_conversations_meta.following = '1' and travels_conversations_meta.archived = false and drivers_travels.notification_type!='O' and drivers_travels.travel_date >='".$today."' and drivers_travels.travel_date <='".$next_30_days.
-
-                "' order by drivers.id, travels.date asc";
+                from drivers
+                
+                inner join drivers_profiles 
+                on drivers_profiles.driver_id = drivers.id
+                and drivers_profiles.show_profile = 1
+                
+                where 
+                drivers.active = 1
+                and drivers.province_id = 5
+                ";
         
-        $results = $this->Travel->query($query);
+        $results = $this->Driver->query($query);
         
-        $travels = array();
-        for ($index = 0; $index < count($results);) {
-            $current_driver = $results[$index]['drivers']['driver_id'];
-            
-            $travels[] = array(
-                'Driver'=>array_merge($results[$index]['drivers'], $results[$index]['drivers_profiles']),
-                'Travel'=>array()
-            );
-            
-            while($index < count($results) && $results[$index]['drivers']['driver_id'] == $current_driver) {
-                $travels[count($travels) - 1]['Travel'][] = array_merge($results[$index]['travels'], $results[$index]['drivers_travels']);
-                $index++;
-            }
-        }
-        
-   
-       print_r($travels); //die();
-        
-        foreach ($travels as $data) {
-            EmailsUtil::email($data['Driver']['driver_email'], 'No vuelvas a viajar con tu taxi vacío', array('data'=>$data), 'super', 'reminder_driver_discount_offer');
+        foreach ($results as $data) {
+            EmailsUtil::email($data['drivers']['driver_email'], 'No vuelvas a viajar con tu taxi vacío', array('driver_name'=>$data['drivers_profiles']['driver_name']), 'super', 'reminder_driver_discount_offer');
         }
     }
 

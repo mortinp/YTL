@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `web_auth_token` VARCHAR( 250 ) NULL AFTER `password`;

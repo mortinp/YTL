@@ -19,19 +19,20 @@ App::uses('DiscountRides', 'Model');
 class DiscountComponent extends Component{
     //put your code here
     
-    public function add_discount_offer($driver_token,$offer) {
-        $this->Driver = ClassRegistry::init('Driver');
-        $this->DiscountRide = ClassRegistry::init('DiscountRide');
+    public $uses = array('DiscountRide');
+    
+    public function add_discount_offer($driver, $offer) {
+        // Reacomodar datos para trabajar mas facil debajo
+        if(isset($offer['DiscountRide'])) $offer = $offer['DiscountRide'];
+        if(isset($driver['Driver'])) $driver = $driver['Driver'];
         
-        /*If driver token is invalid return false*/
-        $real = $this->Driver->find('all',array('conditions'=>array('Driver.driver_discount_token'=>$driver_token)) );
-        if($real==null)
-            return false;
+        // Asignar chofer a la oferta
+        $offer['driver_id'] = $driver['id'];
         
-        if($this->DiscountRide->save($offer))
-            return true;
-        else
-            return false;   
+        $discountsModel = ClassRegistry::init('DiscountRide');
+        if(!$discountsModel->save($offer)) return false;
+        
+        return true;
         
     }
 }

@@ -53,10 +53,10 @@ class DriversController extends AppController {
             
             //$this->request->data['Driver']['role'] = 'driver';
             if ($this->Driver->saveAssociated($this->request->data)) {
-                $this->setInfoMessage('El chofer se guardÃƒÂ³ exitosamente.');
+                $this->setInfoMessage('El chofer se guardó exitosamente.');
                 return $this->redirect(array('action' => 'index'));                
             }
-            $this->setErrorMessage('OcurriÃƒÂ³ un error guardando el chofer.');
+            $this->setErrorMessage('Ocurrió un error guardando el chofer.');
         }
         $this->set('localities', $this->Locality->getAsList());
         $this->set('provinces', $this->Driver->Province->find('list'));
@@ -66,17 +66,17 @@ class DriversController extends AppController {
     public function edit($id = null) {
         $this->Driver->id = $id;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer invÃƒÂ¡lido.');
+            throw new NotFoundException('Chofer inválido.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             
             if(strlen($this->request->data['Driver']['password']) == 0) unset ($this->request->data['Driver']['password']);
             
             if ($this->Driver->saveAll($this->request->data)) {
-                $this->setInfoMessage('El chofer se guardÃƒÂ³ exitosamente.');
+                $this->setInfoMessage('El chofer se guaró exitosamente.');
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->setErrorMessage('OcurriÃƒÂ³ un error salvando el chofer');
+            $this->setErrorMessage('Ocurrió un error salvando el chofer');
         } else {
             $this->request->data = $this->Driver->read(null, $id);
             unset($this->request->data['Driver']['password']);
@@ -93,9 +93,9 @@ class DriversController extends AppController {
             throw new NotFoundException('Invalid driver');
         }
         if ($this->Driver->delete()) {
-            $this->setInfoMessage('El chofer se eliminÃƒÂ³ exitosamente.');
+            $this->setInfoMessage('El chofer se eliminó exitosamente.');
         } else {
-            $this->setErrorMessage('OcurriÃƒÂ³ un error eliminando el chofer');
+            $this->setErrorMessage('Ocurrió un error eliminando el chofer');
         }
         
         return $this->redirect(array('action' => 'index'));
@@ -104,14 +104,14 @@ class DriversController extends AppController {
     public function edit_profile($id = null) {
         $this->Driver->id = $id;
         if (!$this->Driver->exists()) {
-            throw new NotFoundException('Chofer invÃƒÂ¡lido.');
+            throw new NotFoundException('Chofer inválido.');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['DriverProfile']['driver_id'] = $id;
             $this->request->data['DriverProfile']['driver_code'] = strtolower($this->request->data['DriverProfile']['driver_code']); // Salvar el codigo siempre lowercase
             
             if($this->DriverProfile->save($this->request->data)) {
-                $this->setInfoMessage('El perfil  se guardÃƒÂ³ exitosamente.');
+                $this->setInfoMessage('El perfil  se guardó exitosamente.');
                 return $this->redirect(array('action'=>'profile/'.$this->request->data['DriverProfile']['driver_nick']));
             }
         }
@@ -272,13 +272,11 @@ class DriversController extends AppController {
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));        
         $this->Driver->attachProfile($this->DriverTravel);
         
-        $data = $this->Driver->find('all',array('conditions'=>array('Driver.driver_discount_token'=>$driver_token)) );
+        $driver = $this->Driver->find('all', array('conditions'=>array('Driver.web_auth_token'=>$driver_token)) );
         
-        if(empty($data)){
-        $data = array('error'=>true);
+        if(empty($driver_token)) throw new NotFoundException();
         
-        }
-        $this->set('data', $data[0]);           
+        $this->set('driver', $driver[0]);           
     }
     
     public function drivers_by_province($slug) {
