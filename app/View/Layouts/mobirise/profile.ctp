@@ -87,7 +87,7 @@ if($userLoggedIn) {
     <meta property="og:url" content="<?php echo $this->Html->url($currentFullUrl, true) ?>" />
     
     <!-- TWITTER SHARE -->   
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo substr($socialTitle, 0, 70)?>">
     <meta name="twitter:description" content="<?php echo substr($socialDescription, 0, 200)?>">
     <meta name="twitter:site" content="@yotellevocuba">

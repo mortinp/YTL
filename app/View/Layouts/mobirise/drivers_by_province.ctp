@@ -34,6 +34,14 @@ if($userLoggedIn) {
   <meta property="og:image" content="/assets/images/linhao-zhang-228098-unsplash2-2000x1091.jpg">
   <meta property="og:description" content="<?php echo $description?>">
   
+  <!-- TWITTER SHARE -->   
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo substr($title, 0, 70)?>">
+    <meta name="twitter:description" content="<?php echo substr($description, 0, 200)?>">
+    <meta name="twitter:site" content="@yotellevocuba">
+    <meta name="twitter:creator" content="@yotellevocuba">
+    <meta name="twitter:image:src" content="/assets/images/linhao-zhang-228098-unsplash2-2000x1091.jpg">
+  
   <?php
     // CSS
     $this->Html->css('web/assets/mobirise-icons/mobirise-icons', array('inline' => false));
