@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `driver_discount_token` CHAR(36) NOT NULL AFTER `role`;

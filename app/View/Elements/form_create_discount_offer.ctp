@@ -9,6 +9,7 @@
                 <?php else: ?>
                  <?php echo $this->Form->input('driver_id', array('type' => 'hidden', 'class'=>"driver-typeahead", 'label' => 'Chofer', 'value'=>$data['Driver']['id'])); ?>
                  <?php echo $this->Form->input('active', array('type' => 'hidden','value'=>'0')); ?>
+                 <?php echo $this->Form->input('driver_discount_token', array('type' => 'hidden', 'value'=>$data['Driver']['driver_discount_token'])); ?>
                 <?php endif; ?>
                 </div>
                 <div class="row">

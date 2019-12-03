@@ -13,7 +13,7 @@ class DiscountRidesController extends AppController {
 
     public $uses = array('Travel', 'Locality', 'Driver', 'User', 'DriverLocality', 'Province', 'LocalityThesaurus','DiscountRide', 'Testimonial');
 
-    public $components = array('TravelLogic', 'LocalityRouter', 'Paginator');
+    public $components = array('TravelLogic', 'LocalityRouter', 'Paginator','Discount');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -61,15 +61,27 @@ class DiscountRidesController extends AppController {
         if ($this->request->is('post')|| $this->request->is('put')) {           
 
                 $this->request->data['DiscountRide']['date'] = TimeUtil::dateFormatBeforeSave($this->request->data['DiscountRide']['date']);
-                 $discountRide = $this->request->data; 
-                if($this->DiscountRide->save($discountRide)) {      
+                 $discountRide = $this->request->data;
+                 
+                 /*Hack para no tener que modificar el driver-typeahead*/
+                 if(empty($discountRide['DiscountRide']['driver_discount_token'])){
+                     $driver = $this->Driver->findById($discountRide['DiscountRide']['driver_id']);
+                     
+                     $discountRide['DiscountRide']['driver_discount_token'] = $driver['Driver']['driver_discount_token'];
+                     
+                 }
+                 /*Fin Hack*/
+                     
+                if($this->Discount->add_discount_offer($discountRide['DiscountRide']['driver_discount_token'],$discountRide)) {      
                     $this->setSuccessMessage('El nuevo viaje con descuento ha sido creado');
                     $userLoggedIn = AuthComponent::user('id') ? true : false; 
                     if($userLoggedIn)
                     return $this->redirect(array('action' => 'index'));
                     else return $this->redirect($this->referer());
                 } else {
-                    $this->setErrorMessage('Ocurrió un problema guardando la información del viaje. Intenta de nuevo.');
+                    $this->setErrorMessage('Ocurrió un problema guardando la información del viaje con descuento. Intenta de nuevo.');
+                    return $this->redirect($this->referer());
+                    
                 }
             }
             $this->set('drivers', $this->Driver->getAsSuggestions()); 

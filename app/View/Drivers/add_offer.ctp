@@ -7,14 +7,14 @@
 <?php endif; ?>
 <?php
 $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['username'].')</small>'?>
-<?php $hasProfile = isset ($data['Driver']['DriverProfile']) && $data['Driver']['DriverProfile'] != null && !empty ($data['Driver']['DriverProfile'])?>
+<?php $hasProfile = isset ($data['DriverProfile']) && $data['DriverProfile'] != null && !empty ($data['DriverProfile'])?>
 <?php if($hasProfile) :?>
     <?php
         $src = '';
         if(Configure::read('debug') > 0) $src .= '/yotellevo'; // HACK: para poder trabajar en mi PC y que pinche en el server tambien
-        $src .= '/'.str_replace('\\', '/', $data['Driver']['DriverProfile']['avatar_filepath']);
+        $src .= '/'.str_replace('\\', '/', $data['DriverProfile']['avatar_filepath']);
         
-        $driverName = $data['Driver']['DriverProfile']['driver_name'];
+        $driverName = $data['DriverProfile']['driver_name'];
     ?>
 <?php endif;?>
 
@@ -25,7 +25,7 @@ $driverName = 'el chofer'.' <small class="text-muted">('.$data['Driver']['userna
             <div class="nav-link center" style="padding: 20px">
                 <?php if($hasProfile):?><img src="<?php echo $src?>" style="max-height:30px;max-width:30px"/><?php endif;?>
                 <?php echo 'Hola '.$driverName.'! ' ?>
-                <?php echo $this->html->link('Vea su perfil',array('controller'=>'drivers', 'action'=>'profile', $data['Driver']['DriverProfile']['driver_nick'])); ?>
+                <?php echo $this->html->link('Vea su perfil',array('controller'=>'drivers', 'action'=>'profile', $data['DriverProfile']['driver_nick'])); ?>
             </div>    
 
         </nav>
