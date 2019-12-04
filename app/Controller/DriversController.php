@@ -7,6 +7,7 @@ App::uses('User', 'Model');
 App::uses('Locality', 'Model');
 App::uses('Province', 'Model');
 App::uses('TimeUtil', 'Util');
+App::uses('StringsUtil', 'Util');
 
 class DriversController extends AppController {
     
@@ -50,6 +51,7 @@ class DriversController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             
             $this->Driver->create();
+            $this->request->data['Driver']['web_auth_token'] = StringsUtil::getWeirdString();
             
             //$this->request->data['Driver']['role'] = 'driver';
             if ($this->Driver->saveAssociated($this->request->data)) {
