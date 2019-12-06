@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `blocked` BOOLEAN NOT NULL DEFAULT FALSE AFTER `active`;
