@@ -96,12 +96,38 @@ class DriverTravelerConversationsController extends AppController {
         $this->redirect(array('action' => 'view/'.$conversationId));
     }
     
+    
+    
     public function unfollow($conversationId) {
         $this->tag($conversationId, 'following', false);
         
         if($this->request->is('ajax')){
             $this->autoRender = false;
             echo json_encode(array('unfollow'));
+            return;
+        }
+        
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+     public function block($conversationId, $block = false) {
+        $this->tag($conversationId, 'allow_blocked', false);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            echo json_encode(array('block'));
+            return;
+        }
+        
+        $this->redirect(array('action' => 'view/'.$conversationId));
+    }
+    
+     public function unblock($conversationId) {
+        $this->tag($conversationId, 'allow_blocked', true);
+        
+        if($this->request->is('ajax')){
+            $this->autoRender = false;
+            echo json_encode(array('unblock'));
             return;
         }
         
