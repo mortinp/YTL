@@ -80,7 +80,7 @@ class MessagesUtil {
             $datasource->begin();
             
             // AVOID COMPETITION
-            if(isset($driverTravel['User']['username']) && $driverTravel['User']['username'] == 'cuber@cubertaxi.com') {
+            if( (isset($driverTravel['User']['username']) && $driverTravel['User']['username'] == 'cuber@cubertaxi.com') || $this->blockDriver($driverTravel['Driver'])) {//Si esta bloqueado se almacena mensaje de bloqueado
                 $fixedBody = 'Mensaje bloqueado!!!';
             }
 
@@ -342,6 +342,17 @@ class MessagesUtil {
 
     private function blockDriver($driver) {
         $driverBlocked = false;
+        
+        /*If driver is blocked we must tell him travelers wont receive emails from him*/
+        if($driver['blocked']){
+            
+            $Email = new CakeEmail('super');
+            $Email->to($driver['username'])
+                  ->subject('Usted está bloqueado');
+            $Email->send('Hola '.$driver['DriverProfile']['driver_name'].', usted está bloqueado en YoTeLlevo. Lo sentimos, sus mensaje no le llegarán a sus clientes mientras permanezca bloqueado. Comuníquese con nosotros al 54530482 o respondiendo este correo.');
+
+            $driverBlocked = true;
+        }
 
         /*// Bloquear a Juan
         if($driver['id'] == 71) {
