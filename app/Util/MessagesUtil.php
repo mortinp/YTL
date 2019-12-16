@@ -245,8 +245,7 @@ class MessagesUtil {
 
     private function messageDriver2Traveler($conversation, $sender, $fixedBody, array $attachments, &$driverTravel, $lastMsgId){
         $OK = true;
-
-        if($this->blockDriver($driverTravel['Driver'])) return false;
+        if($this->blockDriver($driverTravel['Driver']) && $driverTravel['TravelConversationMeta']['allow_blocked']==0) return false;
 
         $mustUpdateLastDriverEmail = 
                 $sender != null && 

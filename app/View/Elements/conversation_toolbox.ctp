@@ -2,6 +2,7 @@
 <?php App::uses('DriverTravel', 'Model')?>
 
 <?php 
+$driverBlocked = $data['Driver']['blocked'];
 $hasMetadata = (isset ($data['TravelConversationMeta']) && $data['TravelConversationMeta'] != null && !empty ($data['TravelConversationMeta']) && strlen(implode($data['TravelConversationMeta'])) != 0);
 
 $now = new DateTime(date('Y-m-d', time()));
@@ -91,7 +92,26 @@ if(isset ($data['User'])) $user = $data['User'];
             </div>
             
             <br/>
+            <?php if($driverBlocked==1): ?>
+             <!-- ALLOW / DISALLOW BLOCKED -->
+            <?php $following = $data['TravelConversationMeta']['allow_blocked']==0? true: false;?>
+           
+            <div class="input-group info block" title="Esta conversación está bloqueada" data-placement="left" style="display: <?php echo ($following) ? 'table' : 'none'; ?>">
+                <span class="input-group-addon">
+                    <span class="label label-info">Deslbloquear</span>
+                </span>
+                <span class="input-group-btn">
+                    <?php echo $this->Form->button('<i class="glyphicon glyphicon-lock" style="color:green"></i>', array('class'=>'btn-default block-btn', 'data-url' => $this->Html->url(array('action' => 'unblock', $data['DriverTravel']['id']), true)), true);?>
+                </span>
+            </div>
+
+            <div class="input-group info block" style="display: <?php echo ($following) ? 'none' : 'table'; ?>">
+                <?php echo $this->Form->button('Bloquear <i class="glyphicon glyphicon-lock"></i>', array('class'=>'btn-default block-btn', 'data-url' => $this->Html->url(array('action' => 'block', $data['DriverTravel']['id']), false)), true);?>
+                <br/>
+            </div>
             
+            <br/>
+            <?php endif; ?>
             <!-- FLAG / UNFLAG -->
             <?php $flagged = $hasMetadata && $data['TravelConversationMeta']['flag_type'] != null? true:false?>
             <?php if($flagged) :?>
@@ -211,6 +231,12 @@ echo $this->Js->writeBuffer(array('inline' => false));
             $('#travel_verification_div').css('display', 'inline-block');
     }
     
+     function blockSuccess(response){
+        $(".block").toggle();
+        
+       
+    }
+    
     function readSuccess(response){
         var operator = window.app.operator;
         $('#unreadMessages').after('&nbsp;No mensajes nuevos').remove();
@@ -220,5 +246,6 @@ echo $this->Js->writeBuffer(array('inline' => false));
     }
     
     ajaxifyButton($('.follow-btn'), followSuccess, onError);
+    ajaxifyButton($('.block-btn'), blockSuccess, onError);
     ajaxifyButton($('#ajax-leer'), readSuccess, onError);
  </script>

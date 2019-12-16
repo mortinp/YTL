@@ -86,6 +86,9 @@ class DriverTravelsController extends AppController {
         else if($filter == DriverTravel::$SEARCH_DISCOUNT_OFFER) {
             $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'));
             $conditions['DriverTravel.notification_type'] = DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST;
+        }else if($filter == DriverTravel::$SEARCH_BLOCKED) {
+            $this->paginate = array('order'=>array('DriverTravel.travel_date'=>'ASC'));
+            $conditions['Driver.blocked']=1;
         }
         
         if(AuthComponent::user('role') == 'operator')
