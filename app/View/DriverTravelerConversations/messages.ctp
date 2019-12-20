@@ -121,6 +121,36 @@
             <?php echo $this->element('addon_scripts_send_form', array('formId'=>'DriverTravelerConversationForm', 'submitId'=>'DriverTravelerConversationSubmit'))?>
         </div>
     </div>
+   <!--Formulario para conformacion y cambio de fechas por el viajero-->
+    <?php if($driverMsgsCount >0 && $travelerMsgsCount>0):?> 
+    <?php if($data['TravelConversationMeta']['confirmed_by_traveler']==0):?>      
+       <div class="col-md-6 col-md-offset-3 alert alert-success" style="display: inline-block; margin-top:20px">
+           <h3><?php echo __d('default','Usted puede confirmar su viaje ahora'); ?></h3><br>
+            <?php echo $this->element('mobirise/form_confirm_by_user',array('conversation_id'=>$data['DriverTravel']['id'])); ?>
+       </div>
+    <?php else: ?><!--Si ya esta confirmado poder desconfirmar-->
+      <div class="col-md-6 col-md-offset-3 alert alert-success" style="display: inline-block; margin-top:20px">
+           <h3><?php echo __d('default','Su viaje está confirmado'); ?></h3><br>                   
+                
+                     <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-ok-sign"></i> <?php echo TimeUtil::prettyDate($data['TravelConversationMeta']['date_confirmed']); ?></span></small> 
+                  
+            <?php echo $this->Form->create('TravelConversationMeta', array('id' => 'CDirectForm', 'url' => array('controller' => 'driver_traveler_conversations',  'action'=>'unconfirm_travel'))); ?>
+            <?php
+            echo $this->Form->input('conversation_id', array('type' => 'hidden', 'value' => $data['DriverTravel']['id']));
+            
+            ?>
+
+            <br>
+            <span class="input-group-btn">
+                <input type="submit" class="btn btn-warning btn-form btn-block display-5" id="CDirectSubmit" 
+                       value="<?php echo __d('default', 'QUITAR CONFIRMACIÓN')?>"> 
+
+            </span>
+
+<?php echo $this->Form->end(); ?>
+       </div>
+    <?php endif; ?><!--Para confirmar/desconfirmar-->
+    <?php endif; ?><!--Para la confirmacion-->
         <?php else: ?>
         <?php if($data['DriverTravel']['child_conversation_id'] != null): ?>
        <div class="col-md-6 col-md-offset-4">
@@ -151,6 +181,7 @@
     
 
 <?php endif?>
+
 
 <script type="text/javascript">
    

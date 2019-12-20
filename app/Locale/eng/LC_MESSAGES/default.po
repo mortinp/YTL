@@ -295,6 +295,26 @@ msgid "Fecha inicial del viaje"
 msgstr "Starting date of the travel"
 
 #: View/Elements/travel.ctp:57
+msgid "Nueva fecha de viaje (solo si cambia)"
+msgstr "New travel date (empty if no change)"
+
+#: View/Elements/travel.ctp:57
+msgid "CONFIRMAR VIAJE"
+msgstr "CONFIRM TRAVEL"
+
+#: View/Elements/travel.ctp:57
+msgid "QUITAR CONFIRMACIÓN"
+msgstr "UNCONFIRM TRAVEL"
+
+#: View/Elements/travel.ctp:57
+msgid "Usted puede confirmar su viaje ahora"
+msgstr "You can now confirm your travel"
+
+#: View/Elements/travel.ctp:57
+msgid "Su viaje está confirmado"
+msgstr "Your travel is confirmed"
+
+#: View/Elements/travel.ctp:57
 msgid "Mensaje a %s sobre lo que quieres hacer"
 msgstr "Message to %s about what you want to do"
 

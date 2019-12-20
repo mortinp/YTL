@@ -130,6 +130,12 @@ $travelDate = DriverTravel::extractDate($data);
                             <?php endif?>                        
                          
                         <?php endif?>
+                        <!-- ESTADO DE CONFORMACION POR EL VIAJERO -->
+                        <?php if($data['TravelConversationMeta']['confirmed_by_traveler']==true):?>                        
+                            
+                                <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-ok-sign"></i> Confirmado</span></small>                                     
+                         
+                        <?php endif?>
                     </div>
                 </div>
                 
@@ -165,6 +171,12 @@ $travelDate = DriverTravel::extractDate($data);
 <!-- VIAJES Y CONTROLES -->
 <div class="row" style="margin-top: 110px">
     <div class="col-md-6 col-md-offset-3">
+        <!-- ESTADO DE CONFORMACION POR EL VIAJERO -->
+                        <?php if($data['TravelConversationMeta']['confirmed_by_traveler']==true):?>                      
+                           
+                            <small><span class="label label-success" style="margin-left:5px; margin-bottom: 10px;"><i class="glyphicon glyphicon-ok-sign"></i> <?php echo TimeUtil::prettyDate($data['TravelConversationMeta']['date_confirmed']); ?></span></small>                                     
+                         
+                        <?php endif?>
         <?php
             if($data['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE)
                 echo $this->element('direct_message', array('data'=>$data, 'show_header' => false, 'show_perfil' => false));

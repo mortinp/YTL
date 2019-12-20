@@ -7,6 +7,7 @@ App::uses('DriverTravelerConversation', 'Model');
 App::uses('User', 'Model');
 App::uses('EmailsUtil', 'Util');
 App::uses('MessagesUtil', 'Util');
+App::uses('TimeUtil', 'Util');
 
 
 class DriverTravelerConversationsController extends AppController {
@@ -425,6 +426,31 @@ class DriverTravelerConversationsController extends AppController {
         return $this->redirect($redirect);
         
         //return $this->redirect(array('action' => 'messages', $data['conversation_id']), '?highlight=message-'.$msgId);
+    }
+    
+    public function confirm_travel() {
+       
+       $travelData = $this->DriverTravel->findById($this->request->data['TravelConversationMeta']['conversation_id']);
+       $OKconfirm = $this->tag($this->request->data['TravelConversationMeta']['conversation_id'], 'confirmed_by_traveler', true);
+       $this->tag($this->request->data['TravelConversationMeta']['conversation_id'], 'following', true);
+       if(!empty($this->request->data['TravelConversationMeta']['date_confirmed']))
+           $OKdate = $this->tag($this->request->data['TravelConversationMeta']['conversation_id'], 'date_confirmed', TimeUtil::dateFormatBeforeSave ($this->request->data['TravelConversationMeta']['date_confirmed']));
+       else
+           $OKdate = $this->tag($this->request->data['TravelConversationMeta']['conversation_id'], 'date_confirmed', TimeUtil::dateFormatBeforeSave ($travelData['DriverTravel']['travel_date']));
+        if($OKdate && $OKconfirm){
+            $this->setInfoMessage('Se ha confirmado el viaje exitosamente.');
+            return $this->redirect($this->referer());
+        }
+        
+    }
+    public function unconfirm_travel() {
+       
+       $OKconfirm = $this->tag($this->request->data['TravelConversationMeta']['conversation_id'], 'confirmed_by_traveler', false);
+       if($OKconfirm){
+            $this->setInfoMessage('Se ha desconfirmado el viaje exitosamente.');
+            return $this->redirect($this->referer());
+        }
+        
     }
     
 }
