@@ -163,7 +163,7 @@
 
     <div class="container">
         <div class="carousel slide" data-ride="carousel" role="listbox" data-interval="false">
-            <div class="carousel-inner" data-visible="5">
+            <div class="carousel-inner" data-visible="6">
                 
             <div class="carousel-item ">
                     <div class="media-container-row">
@@ -181,7 +181,17 @@
                             </div>
                         </div>
                     </div>
-                </div><div class="carousel-item ">
+                </div>
+                <div class="carousel-item ">
+                    <div class="media-container-row">
+                        <div class="col-md-12">
+                            <div class="wrap-img ">
+                                <a href="https://whynotcuba.com/taxi-cuba/" target="_blank"><img src="assets/images/whynotcuba-logo.png" class="img-responsive clients-img" alt="" title=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item ">
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
@@ -189,7 +199,8 @@
                             </div>
                         </div>
                     </div>
-                </div><div class="carousel-item ">
+                </div>
+                <div class="carousel-item ">
                     <div class="media-container-row">
                         <div class="col-md-12">
                             <div class="wrap-img ">
