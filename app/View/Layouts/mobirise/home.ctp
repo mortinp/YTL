@@ -155,8 +155,15 @@ echo $this->fetch('script');
         });  
         
         
-        $('#TravelForm').submit(function() {
+        $('#TravelForm').submit(function() {     
+            
             if (!$(this).valid()) return false;
+            
+            if(!$('#accept').checked){                
+                $('#terms').addClass('bg-danger');
+                $('#terms').focus();
+                return false;
+            }    
 
             //$('#TravelForm :input').prop('disabled', true);
             //$('#TravelFormDiv').prop('disabled', true);

@@ -71,6 +71,7 @@ if(isset ($travel) && !empty ($travel)) {
 <?php echo $this->Form->input('email', array('label' => __d('pending_travel', 'Tu correo electrónico'), 'type' => 'email', 'placeholder' => __d('pending_travel', 'Los choferes te contactarán a este correo')));?>
 
 <br>
+<div id="terms"><input type="checkbox" id="accept" name="accept"/> Acepta los <b><a style="color: blue" data-toggle="modal" data-target="#myModal4">Términos y Condiciones</a></b> para el uso de YoTeLlevoCuba.</div>
 <span class="input-group-btn">
     <input type="submit" class="btn btn-primary btn-form display-5" id="TravelSubmit" 
            value="<?php echo __d('mobirise/homepage', 'Envía esta solicitud a varios choferes ahora')?>. <?php echo __d('mobirise/homepage', 'Recibe ofertas de ellos')?>"> 

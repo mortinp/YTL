@@ -148,6 +148,82 @@
             </div>
         </div>
     </div>
+<style type="text/css">
+.modal-content {
+	background-clip: padding-box;
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	outline: 0 none;
+	position: relative;
+}
+.modal-dialog {
+	z-index: 2200;
+}
+.modal-body {
+	padding: 20px 30px 30px 30px;
+}
+.inmodal .modal-body {
+	background: #f8fafb;
+}
+.inmodal .modal-header {
+	padding: 30px 15px;
+	text-align: center;
+}
+.animated.modal.fade .modal-dialog {
+	-webkit-transform: none;
+	-ms-transform: none;
+	-o-transform: none;
+	transform: none;
+}
+.inmodal .modal-title {
+	font-size: 26px;
+}
+.inmodal .modal-icon {
+	font-size: 84px;
+	color: #e2e3e3;
+}
+.modal-footer {
+	margin-top: 0;
+}
+</style>                            
+                            <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog animated bounceInRight">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <i class="fa fa-legal modal-icon"></i>
+                                            <h4 class="modal-title">Términos y Condiciones para el USO de la Plataforma YoTeLlevoCuba</h4>
+                                            
+                                        </div>
+                                        <div class="modal-body" style="overflow-y:auto">
+                                            <p>YoTellevoCuba, como plataforma que permite el intercambio de mensajes e información entre personas, establece para su uso los siguientes Términos y Condiciones:</p>
+                                            <ul>
+                                            <li>No utilizar términos, frases, vocablos o palabras que pueden ofender o dañar directa o indirectamente a otra persona, sea viajero o chofer.</li>
+                                            <li>Respetar la diferencia de criterios, ideas, libertad de expresión e intereses y afinidades de todos los usuarios de la plataforma.</li>
+                                            <li>Establecer la comunicación con cualquier persona en base al respeto mútuo, la sinceridad y honestidad, así como la validez de todo tipo de información ofrecida, incluyendo la información personal.</li>
+                                            <li>Reconocer el carácter de medio de comunicación entre viajeros y choferes que cumple la plataforma YoTeLlevoCuba, y por tanto la no responsabilidad ante el incumplimiento de los acuerdos planteados en las conversaciones entre viajeros y choferes; teniendo en cuenta los deberes y obligaciones de los choferes que integran la plataforma.</li>
+                                            <li>Reconocer el derecho de YoTellevoCuba de reservarse cualquier acción necesaria ante el incumplimiento de algunas de las obligaciones o condiciones aquí descritas por parte de cualquier usuario.</li>
+                                            </ul>
+                                            <p>Deberes y obligaciones de los viajeros durante la comunicación previa y la realización del viaje:</p>
+                                            <ul>
+                                            <li>Tratar de manera respetuosa, amable y cordial al chofer en todo momento, bajo cualquier circunstancia o situación.</li>
+                                            <li>Cumplir todo acuerdo tomado con el chofer durante la solicitud y planificación del viaje, así como con las especificaciones plasmadas en la solicitud inicial, en caso de no haber sido cambiadas en acuerdo mutuo.</li>
+                                            <li>Notificar de manera urgente a los operadores de YoTeLlevoCuba y/o a las autoridades correspondientes en caso de que lo amerite, ante situaciones de agresión o daño, verbal o físico, por parte del chofer, manteniendo siempre una postura de respeto.</li>
+                                            <li>Exigir por el cumplimiento de lo pactado para la realización del viaje y notificar inmediatamente a los operadores de YoTellevoCuba cualquier alteración de parte del chofer, previamente analizado con este.</li>
+                                            <li>Cumplir con las obligaciones de pago o de otra índole contraídas mediante los acuerdos previos con el chofer en la planificación del viaje.</li>
+                                            <li>No causar ningún daño, prejuicio o vejación, como consecuencia de un acto directo o indirecto o violación de las leyes de la República de Cuba al chofer, el cual será eximido de cualquier responsabilidad ante tales actos.</li>
+                                            <li>En caso de necesidad de modificación de los acuerdos tomados durante la planificación del viaje, se debe negociar directamente con el chofer, con tiempo previo suficiente y bajo la premisa de la no necesaria aceptación por parte de este.</li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 </section>
 
 <section class="clients cid-r78OCrmB2F" id="clients-23">
