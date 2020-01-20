@@ -117,4 +117,28 @@ class EmailConfig {
         'log' => false,
         //'charset' => 'utf-8',
     );
+	public $super = array(
+        'transport' => 'Smtp',
+        'from' => array('martin@yotellevocuba.com' => 'YoTeLlevo | Viajero'),
+        'host' => 'localhost',
+        'port' => 25, 
+        'timeout' => 30,
+        'username' => 'postmaster',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );
+    public $customer_assistant = array(
+        'transport' => 'Smtp',
+        'from' => array('martin@yotellevocuba.com' => 'YoTeLlevo | Viajero'),
+        'host' => 'localhost',
+        'port' => 25, 
+        'timeout' => 30,
+        'username' => 'postmaster',
+        //'password' => '',
+        'client' => null,
+        'log' => false,
+        //'charset' => 'utf-8',
+    );
 }
