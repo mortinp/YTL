@@ -46,7 +46,7 @@ class UnpaidTravelsShell extends AppShell {
 
                 left join drivers_profiles on drivers_profiles.driver_id = drivers.id
 
-                where drivers_travels.travel_date >'2016-12-01' and (datediff('".$now."',drivers_travels.travel_date) >= 25) and (datediff('".$now."',drivers_travels.travel_date) < 30)
+                where  travels_conversations_meta.state='D' and drivers_travels.travel_date >'2016-12-01' and (datediff('".$now."',drivers_travels.travel_date) >= 25) and (datediff('".$now."',drivers_travels.travel_date) < 30)
 
                 order by drivers.id, travels.date asc";
         
