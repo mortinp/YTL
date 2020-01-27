@@ -33,6 +33,17 @@ class DriversController extends AppController {
         
     }
     
+    public function blocked() {
+        $this->Driver->recursive = 1;
+        $this->Driver->bindModel(array('belongsTo'=>array('User'=>array('foreignKey'=>'operator_id', 'fields'=>array('id', 'username', 'display_name', 'role')))));
+        
+        /*if(AuthComponent::user('role') == 'operator')
+            $this->Driver->Behaviors->load('Operations.OperatorScope', array('match'=>'Driver.operator_id'));*/
+        
+        $this->set('drivers', $this->Driver->find('all',array('conditions'=>array('Driver.blocked'=>1),'order'=>'Driver.date_blocked ASC')));
+        
+    }
+    
     public function view_travels($driverId) {
         $this->set('driver', $this->Driver->findById($driverId));
         

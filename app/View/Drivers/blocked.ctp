@@ -2,7 +2,7 @@
     
     <!-- Resumen de cantidad de testimonios por choferes -->
     <div>
-        <b>Choferes activos por provincias:</b>
+        <b>Choferes bloqueados por provincias:</b>
         <?php
         $results = array();
         foreach($drivers as $d) {
@@ -30,10 +30,8 @@
 </div>
 
 <div style="float:left;padding-right:20px"><?php echo count($drivers)?> choferes</div>
-<div style="float:left"><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Nuevo Chofer', array('action'=>'add'), array('escape'=>false))?></div>
-<div style="float:left;margin-left: 5px"><?php echo $this->Html->link('<i class="glyphicon glyphicon-lock"></i> Ver Bloqueados', array('action'=>'blocked'), array('escape'=>false))?></div>
 <table class='table table-striped table-hover'>
-    <thead><th></th><th>ID</th><th>Código</th><th>Correo</th><th>PAX</th><th>Moderno</th><th>A/C</th><th>Inglés</th><th>Descripción</th><th>Provincia</th><th>Localidades</th><th>Operador</th><th>Fecha Registro</th><th>Token</th></thead>
+    <thead><th></th><th>ID</th><th>Código</th><th>Correo</th><th>PAX</th><th>Moderno</th><th>A/C</th><th>Inglés</th><th>Descripción</th><th>Provincia</th><th>Localidades</th><th>Operador</th><th>Fecha BLOQUEO</th><th>Token</th></thead>
     <tbody> 
     <?php foreach ($drivers as $d): ?>
         <?php $hasProfile = isset($d['DriverProfile']) && !empty ($d['DriverProfile']) && $d['DriverProfile']['driver_nick'] != null?>
@@ -86,7 +84,7 @@
                 ?>
             </td>
             <td><?php echo User::prettyName($d['User'])?></td>
-            <td><?php echo $d['Driver']['created']?></td>
+            <td><?php echo $d['Driver']['date_blocked']?></td>
             <td><?php echo $d['Driver']['web_auth_token']?></td>
             
         </tr>

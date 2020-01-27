@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `date_blocked` DATE NOT NULL AFTER `blocked`;
