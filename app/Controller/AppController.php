@@ -116,6 +116,7 @@ class AppController extends Controller {
             array('controller'=>'travels', 'action'=>'pending'),
             array('controller'=>'drivers', 'action'=>'drivers_by_province'),
             array('controller'=>'discount_rides', 'action'=>'home'),
+            array('controller'=>'activities', 'action'=>'display'),
         );
         
         $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);

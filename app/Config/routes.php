@@ -45,6 +45,8 @@
         
         Router::connect('/:language/opinion/*', array('controller' => 'testimonials', 'action'=>'add'), array('language' => 'en|es'));
         
+        Router::connect('/:language/a/*', array('controller' => 'activities', 'action'=>'display'), array('language' => 'en|es'));
+        
 
 	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         Router::connect('/:language/pages/*', array('controller' => 'pages', 'action' => 'display'), array('language' => 'en|es'));
