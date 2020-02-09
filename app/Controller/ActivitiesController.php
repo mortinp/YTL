@@ -7,10 +7,17 @@ class ActivitiesController extends AppController {
     
      public $uses = array('Driver', 'Activity', 'User','ActivityDriverSubscription' );
      
-     public function index() {
+     public function index() {       
        $activities = array();  
-         foreach (Activity::$activities as $element) {
-            $activities[] = $element;
+       $this->ActivityDriverSubscription->recursive=3;
+         foreach (Activity::$activities as $key=>$element) {
+            $subscription = $this->ActivityDriverSubscription->find('all',array('conditions'=>array('activity_id'=>$key)));
+            if (count($subscription)>0){
+                $subscription['Activity']=$element;
+                $activities[] = $subscription;
+            }
+            
+            
          }      
         
         $this->set('activities', $activities);

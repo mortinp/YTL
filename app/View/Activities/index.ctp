@@ -12,26 +12,33 @@
             <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Nueva Actividad', array('action'=>'add'), array('escape'=>false))?></div>
         </div>
         <table class='table table-striped table-hover'>
-            <thead><th>Descripción</th><th>Fecha</th><th>Acciones</th><th>Compartir</th></thead>
+            <thead><th>Descripción</th><th>Fecha</th><th>Choferes</th><th>Acciones</th><th>Compartir</th></thead>
             <tbody> 
             <?php if(!empty ($activities)): ?>
                 
                 <br/>     
-                <?php foreach ($activities as $key=>$activity) :?>
+                <?php foreach ($activities as $key=>$activity) :?>                
                 <?php
-                $pretty_date = TimeUtil::prettyDate($activity['date']);
-                $date_converted = strtotime($activity['date']);
+                $pretty_date = TimeUtil::prettyDate($activity['Activity']['date']);
+                $date_converted = strtotime($activity['Activity']['date']);
 
                 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
                 if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
                 ?>
                 <tr class="info">                                               
                         <td>
-                            <small><?php echo $activity['name']; ?></small>
+                            <small><?php echo $activity['Activity']['name']; ?></small>
                         </td>
                         <td>
                             <?php echo $pretty_date;?>
                         </td> 
+                        <td>
+                            <?php foreach ($activity as $subscription): ?>
+                            <?php if(isset($subscription['Driver'])): ?>
+                            <span class="btn btn-xs btn-info" title="<?php echo "Hace el viaje por: $".$subscription['ActivityDriverSubscription']['price'] ?>"><b><?php echo $subscription['Driver']['DriverProfile']['driver_name'];?></b>&nbsp;<button class="close"><span aria-hidden="true">&times;</span></button></span>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+                        </td>
                         <td>
                            <?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Chofer', array('action'=>'add_drivers/'.$key), array('escape'=>false))?> 
                         </td>
