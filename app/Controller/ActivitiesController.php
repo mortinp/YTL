@@ -16,6 +16,11 @@ class ActivitiesController extends AppController {
                 $subscription['Activity']=$element;
                 $activities[] = $subscription;
             }
+            else{
+                $subscription=array('Activity'=>$element);
+                $activities[] = $subscription;
+            }
+                
             
             
          }      
