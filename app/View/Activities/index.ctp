@@ -35,7 +35,7 @@
                         <td>
                             <?php foreach ($activity as $subscription): ?>
                             <?php if(isset($subscription['Driver'])): ?>
-                            <span class="btn btn-xs btn-info" title="<?php echo "Hace el viaje por: $".$subscription['ActivityDriverSubscription']['price'] ?>"><b><?php echo $subscription['Driver']['DriverProfile']['driver_name'];?></b>&nbsp;<button class="close"><span aria-hidden="true">&times;</span></button></span>
+                            <span class="btn btn-xs btn-info" title="<?php echo "Hace el viaje por: $".$subscription['ActivityDriverSubscription']['price'] ?>"><b><?php echo $subscription['Driver']['DriverProfile']['driver_name'];?></b>&nbsp;<?php echo $this->Html->link('<button class="close"><span aria-hidden="true">&times;</span></button>', array('action'=>'remove_driver/'.$subscription['ActivityDriverSubscription']['id']), array('escape'=>false))?></span>
                             <?php endif; ?>
                             <?php endforeach; ?>
                         </td>

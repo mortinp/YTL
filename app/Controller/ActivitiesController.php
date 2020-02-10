@@ -59,6 +59,20 @@ class ActivitiesController extends AppController {
         
         
     }
+    
+     public function remove_driver($id = null) {
+        $this->ActivityDriverSubscription->id = $id;
+        if (!$this->ActivityDriverSubscription->exists()) {
+            throw new NotFoundException('Invalid subscription');
+        }
+        if ($this->ActivityDriverSubscription->delete()) {
+            $this->setInfoMessage('El chofer se eliminó exitosamente.');
+        } else {
+            $this->setErrorMessage('Ocurrió un error eliminando el chofer');
+        }
+        
+        return $this->redirect(array('action' => 'index'));
+    }
 }
 
 ?>
