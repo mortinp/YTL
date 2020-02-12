@@ -45,7 +45,6 @@
         
         Router::connect('/:language/opinion/*', array('controller' => 'testimonials', 'action'=>'add'), array('language' => 'en|es'));
         
-        Router::connect('/:language/a/*', array('controller' => 'activities', 'action'=>'display'), array('language' => 'en|es'));
         
 
 	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
@@ -85,6 +84,11 @@
         Router::connect('/:language/shared_travels', array('plugin'=>'shared_travels', 'controller' => 'shared_travels'), array('language' => 'en|es'));
         
         Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
+        
+        Router::connect('/:language/activities', array('plugin'=>'activities','controller' => 'activities'), array('language' => 'en|es'));
+        Router::connect('/:language/activities/:action/*', array('plugin'=>'activities','controller' => 'activities'), array('language' => 'en|es'));
+        
+        Router::connect('/:language/a/*', array('plugin'=>'activities','controller' => 'activities', 'action'=>'display'), array('language' => 'en|es'));
         
         /*Nueva ruta para prueba de visualizacion de datos de choferes*/
         //Router::connect('/:language/drivers/view_drivers_data/:provid', array('controller' => 'drivers', 'action'=>'view_drivers_data'), array('language' => 'en|es','pass'=>array('provid')));

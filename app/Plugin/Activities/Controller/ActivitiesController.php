@@ -1,11 +1,11 @@
 <?php
 
 App::uses('AppController', 'Controller');
-App::uses('Activity', 'Model');
+App::uses('Activity', 'Activities.Model');
 
 class ActivitiesController extends AppController {
     
-     public $uses = array('Driver', 'Activity', 'User','ActivityDriverSubscription' );
+     public $uses = array('Driver', 'Activities.Activity', 'User','ActivityDriverSubscription' );
      
      public function index() {       
        $activities = array();  
@@ -31,11 +31,17 @@ class ActivitiesController extends AppController {
     
     public function display($activitySlug) {        
         $activity = null;
-        foreach (Activity::$activities as $a) {
-            if($a['slug'] == $activitySlug) {
-                $activity = $a;
+        foreach (Activity::$activities as $key=>$a) {
+            if($a['slug'] == $activitySlug) {                
+                $subscription = $this->ActivityDriverSubscription->find('all',array('conditions'=>array('activity_id'=>$key)));
+                if (count($subscription)>0){                
+                    $a['Subscriptions']=$subscription;                   
+
+                }
+            $activity = $a;
                 break;
             }
+            
         }
         
         if($activity == null) throw new NotFoundException();

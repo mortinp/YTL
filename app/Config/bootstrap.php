@@ -120,6 +120,7 @@ CakePlugin::load('TransactionalEmails');
 CakePlugin::load('ApiSync');
 CakePlugin::load('JwtAuth');
 CakePlugin::load('DataCleaner');
+CakePlugin::load('Activities');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 Configure::write('Email.html', false);
