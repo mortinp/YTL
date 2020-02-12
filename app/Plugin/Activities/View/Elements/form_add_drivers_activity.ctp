@@ -1,5 +1,5 @@
 <div class="discountRides form">
-<?php echo $this->Form->create('ActivityDriverSubscription',array('url' => array('controller' => 'Activities', 'action' =>'add_drivers'),'class'=>'col-md-6 col-md-offset-3')); ?>
+<?php echo $this->Form->create('ActivityDriverSubscription',array('url' => array('plugin'=>'activities', 'controller' => 'activities', 'action' =>'add_drivers'),'class'=>'col-md-6 col-md-offset-3')); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar chofer a Actividad'); ?></legend>
                 <div class="row">
