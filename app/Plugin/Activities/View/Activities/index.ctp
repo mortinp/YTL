@@ -13,7 +13,6 @@
         </div>
         <div class="col-md-12">
         <?php if(!empty ($activities)): ?>
-            
         <?php foreach ($activities as $key=>$activity) :?>  
         <div class="well">  
                 <?php
@@ -32,6 +31,7 @@
             <thead><th>Fecha</th><th>Chofer</th><th>Precio</th><th>Acciones</th><th>Compartir</th></thead>            
              <tbody>
              <?php foreach ($activity['Subscriptions'] as $subscription): ?>   
+
                 <tr>
             <td>
                 <?php echo $pretty_date;?>
@@ -44,6 +44,7 @@
                     </td>
                     <td>
                         <?php echo $this->Html->link('<span class="btn btn-xs btn-danger"><button class="close"><span aria-hidden="true">&times;</span></button></span>', array('action'=>'remove_driver/'.$subscription['ActivityDriverSubscription']['id']), array('escape'=>false))?>
+
                     </td>
                     <td>
 
