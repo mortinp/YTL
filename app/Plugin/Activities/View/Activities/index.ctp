@@ -11,13 +11,10 @@
             <br/>
             <div><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Nueva Actividad', array('action'=>'add'), array('escape'=>false))?></div>
         </div>
-        <table class='table table-striped table-hover'>
-            <thead><th>Descripción</th><th>Fecha</th><th>Choferes</th><th>Acciones</th><th>Compartir</th></thead>
-            <tbody> 
-            <?php if(!empty ($activities)): ?>
-                
-                <br/>     
-                <?php foreach ($activities as $key=>$activity) :?>                
+        <div class="col-md-12">
+        <?php if(!empty ($activities)): ?>
+        <?php foreach ($activities as $key=>$activity) :?>  
+        <div class="well">  
                 <?php
                 $pretty_date = TimeUtil::prettyDate($activity['Activity']['date']);
                 $date_converted = strtotime($activity['Activity']['date']);
@@ -25,37 +22,51 @@
                 $expired = CakeTime::isPast($date_converted) && !CakeTime::isToday($date_converted);
                 if($expired) $pretty_date .= ' <span class="badge">Expirado</span>';
                 ?>
-                <tr class="info">                                               
-                        <td>
-                            <small><?php echo $activity['Activity']['name']; ?></small>
-                        </td>
-                        <td>
-                            <?php echo $pretty_date;?>
-                        </td> 
-                        <td>
-                            <?php foreach ($activity as $subscription): ?>
-                            <?php if(isset($subscription['Driver'])): ?>
-                            <span class="btn btn-xs btn-info" title="<?php echo "Hace el viaje por: $".$subscription['ActivityDriverSubscription']['price'] ?>"><b><?php echo $subscription['Driver']['DriverProfile']['driver_name'];?></b>&nbsp;<?php echo $this->Html->link('<button class="close"><span aria-hidden="true">&times;</span></button>', array('action'=>'remove_driver/'.$subscription['ActivityDriverSubscription']['id']), array('escape'=>false))?></span>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-                        </td>
-                        <td>
-                           <?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Chofer', array('action'=>'add_drivers/'.$key), array('escape'=>false))?> 
-                        </td>
-                        <td>
-                           Poner en facebook 
-                        </td>
-                        
-                    </tr>                     
-                <?php endforeach; ?>               
+            <h4><?php echo $activity['Activity']['name']; ?></h4>
+        
+          <?php echo $this->Html->link('<i class="glyphicon glyphicon-plus-sign"></i> Chofer', array('action'=>'add_drivers/'.$key), array('escape'=>false))?> 
+       
+             <table class='table table-striped table-hover'>
+            <thead><th>Fecha</th><th>Chofer</th><th>Precio</th><th>Acciones</th><th>Compartir</th></thead>            
+             <tbody>
+                <?php foreach ($activity as $subscription): ?>
+            <?php if(isset($subscription['Driver'])): ?>
+          
+                <tr>
+            <td>
+                <?php echo $pretty_date;?>
+                    </td>
+                    <td>
+                        <b><?php echo $subscription['Driver']['DriverProfile']['driver_name'];?></b>
+                    </td>
+                    <td>
+                        <?php echo $subscription['ActivityDriverSubscription']['price'] ?>
+                    </td>
+                    <td>
+                        <?php echo $this->Html->link('<span class="btn btn-xs btn-info"><button class="close"><span aria-hidden="true">&times;</span></button></span>', array('action'=>'remove_driver/'.$subscription['ActivityDriverSubscription']['id']), array('escape'=>false))?>
+                    </td>
+                    <td>
 
-                <br/>
+                    </td>
+                </tr> 
+                <?php else: ?>
+                <p>No hay choferes subscritos</p>
+            
+               <?php endif; ?>
+              <?php endforeach; ?>
+                </tbody>
+           </table> 
+            
+          </div>                          
+        <?php endforeach; ?>               
 
+               
+        
         <?php else :?>
             No hay viajes con descuentos
         <?php endif; ?>
-        </tbody>
-        </table>
+        </div>    
+        
             <div>Páginas: <?php /*echo $this->Paginator->numbers();*/?></div>
         
         
