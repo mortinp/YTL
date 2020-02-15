@@ -12,14 +12,18 @@ class ActivitiesController extends AppController {
        $this->ActivityDriverSubscription->recursive=3;
          foreach (Activity::$activities as $key=>$element) {
             $subscription = $this->ActivityDriverSubscription->find('all',array('conditions'=>array('activity_id'=>$key)));
-            if (count($subscription)>0){
-                $subscription['Activity']=$element;
-            } else{
-                $subscription=array('Activity'=>$element);
+            $subscriptions=array();
+            if (count($subscription)>0){               
+                
+                foreach ($subscription as $value) {
+                   $subscriptions[]=$value; 
+                }
+                
             }
             
-            $activities[] = $subscription;
-         }      
+            $activities[$key] = array('Activity'=>$element,'Subscriptions'=>$subscriptions);
+         }
+        
         
         $this->set('activities', $activities);
      }
