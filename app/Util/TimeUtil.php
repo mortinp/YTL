@@ -82,11 +82,20 @@ class TimeUtil {
      if($hour < 12) $meridian ="am"; else if($hour == 12) $meridian ="pm"; else $meridian ="pm";
      
      if($hour>12)
-         return bcsub($hour,12,0).' '.$meridian;
+        return bcsub($hour,12,0).' '.$meridian;
      else
-         return $hour.' '.$meridian;
+        return $hour.' '.$meridian;
+    }
     
-}
+    public static function getTimeAmPM($time) {
+        $d = 'am';
+        if($time > 12) {
+            $time -= 12;
+            $d = 'pm';
+        } else if( $time == 12) $d = 'pm';
+        
+        return $time.' '.$d;
+    }
 
 public static function dateFormatForPicker($date) {
         

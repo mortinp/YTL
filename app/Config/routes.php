@@ -32,8 +32,12 @@
         Router::connect('/:language/taxi-prices-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'en'));
         Router::connect('/:language/precios-taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'es'));
         
+        Router::connect('/:language/marketplace', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts', 'action' => 'home'), array('language' => 'en|es'));
+        
         Router::connect('/:language/taxi-economico-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'es'));
         Router::connect('/:language/cheap-taxi-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'en|es'));
+        
+        
         
         
         Router::connect('/:language/taxi-driver-cuba-reviews', array('controller'=>'testimonials', 'action' => 'reviews'), array('language' => 'en'));
@@ -64,6 +68,9 @@
         
         
         // Plugins urls
+        Router::connect('/:language/taxi_posts/:action/*', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts'), array('language' => 'en|es'));
+        Router::connect('/:language/taxi_posts', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts'), array('language' => 'en|es'));
+        
         Router::connect('/:language/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
         Router::connect('/:language/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
         

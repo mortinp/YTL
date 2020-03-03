@@ -109,6 +109,7 @@ class AppController extends Controller {
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'home', 'render'=>'home'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-cuba', 'render'=>'taxi-cuba'),
             array('controller'=>'pages', 'action'=>'display', 'pass'=>'taxi-prices-cuba', 'render'=>'taxi-prices-cuba'),
+            //array('controller'=>'pages', 'action'=>'display', 'pass'=>'marketplace-for-casas', 'render'=>'marketplace-for-casas'),
             array('controller'=>'testimonials', 'action'=>'featured'),
             array('controller'=>'testimonials', 'action'=>'reviews'),
             array('controller'=>'testimonials', 'action'=>'reply'),
@@ -117,6 +118,7 @@ class AppController extends Controller {
             array('controller'=>'drivers', 'action'=>'drivers_by_province'),
             array('controller'=>'discount_rides', 'action'=>'home'),
             array('controller'=>'activities', 'action'=>'display'),
+            array('controller'=>'taxi_available_posts', 'action'=>'home'),
         );
         
         $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);
