@@ -10,19 +10,15 @@
     <div class="plan-list align-center">
         <ul class="list-group list-group-flush mbr-fonts-style display-7">
             <li class="list-group-item">
-                <small><?php echo __d('mobirise/cheap_taxi', 'Disponible a partir de:')?></small>
+                <small><?php echo __d('mobirise/cheap_taxi', 'Disponible %s a partir de:', '<b><big>'.TimeUtil::prettyDateShort($discount['TaxiAvailablePost']['date'],false).'</big></b>' )?></small>
                 <br>
-                <!--<small><?php echo __d('mobirise/cheap_taxi', 'Fecha / Horario')?></small>
-                <br>-->
-                <b><?php echo TimeUtil::prettyDateShort($discount['TaxiAvailablePost']['date'],false);?></b> 
-                /
                 <span style="display: inline-block">
-                    <b>
-                    <?php echo TimeUtil::AmPm($discount['TaxiAvailablePost']['time_available_start'])?> 
+                    
+                    <b><?php echo TimeUtil::AmPm($discount['TaxiAvailablePost']['time_available_start'])?></b>
                     <?php if($discount['TaxiAvailablePost']['time_available_end'] != null):?>
-                        .. <?php echo TimeUtil::AmPm($discount['TaxiAvailablePost']['time_available_end'])?>
+                        .. <b><?php echo TimeUtil::AmPm($discount['TaxiAvailablePost']['time_available_end'])?></b>
                     <?php endif?>
-                    </b>
+                    
                 </span>
             </li>
             <li class="list-group-item">
