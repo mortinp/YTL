@@ -1,7 +1,7 @@
-<div class="plan-header text-center pt-5" style="padding-top: 0px !important">
+<div class="plan-header text-center pt-5" style="padding-top: 10px !important">
+    <div><small>Taxi disponible</small></div>
     <h3 class="plan-title mbr-fonts-style display-5">
-        <br><br>
-        <b><?php echo TaxiAvailablePost::$localities[$discount['TaxiAvailablePost']['origin_id']]; ?></b> > <b><?php echo TaxiAvailablePost::$localities[$discount['TaxiAvailablePost']['destination_id']]; ?></b></h3>
+        <small><b><?php echo TaxiAvailablePost::$localities[$discount['TaxiAvailablePost']['origin_id']]['name']; ?></b> > <b><?php echo TaxiAvailablePost::$localities[$discount['TaxiAvailablePost']['destination_id']]['name']; ?></b></small></h3>
     <div class="plan-price">
         <small class="price-term mbr-fonts-style display-7"><b><?php echo __d('mobirise/cheap_taxi', 'hasta %s personas', $discount['TaxiAvailablePost']['max_pax'])?></b></small>
     </div>

@@ -33,6 +33,7 @@
         Router::connect('/:language/precios-taxi-cuba', array('controller' => 'pages', 'action' => 'display', 'taxi-prices-cuba'), array('language' => 'es'));
         
         Router::connect('/:language/marketplace', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts', 'action' => 'home'), array('language' => 'en|es'));
+        Router::connect('/:language/marketplace/taxi-disponible', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts', 'action' => 'add_new_offer'), array('language' => 'en|es'));
         
         Router::connect('/:language/taxi-economico-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'es'));
         Router::connect('/:language/cheap-taxi-cuba', array('controller' => 'discount_rides', 'action' => 'home'), array('language' => 'en|es'));

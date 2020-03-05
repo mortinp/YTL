@@ -24,6 +24,24 @@ class TaxiAvailablePostsController extends AppController {
         }
     }
     
+    public function add_new_offer() {
+        if($this->request->is('post')) {
+            
+            if($this->Auth->loggedIn()) $this->request->data['TaxiAvailablePost']['created_by'] = $this->Auth->user('role');
+            
+            // Some fixes
+            if($this->request->data['TaxiAvailablePost']['time_available_end'] == -1)
+                $this->request->data['TaxiAvailablePost']['time_available_end'] = null;
+            
+            if($this->TaxiAvailablePost->save($this->request->data)) {
+                $this->setSuccessMessage('Nueva disponibilida de taxi agregada');
+                return $this->redirect(array('action'=>'gracias'));
+            }
+        }
+        
+        $this->layout = 'marketplace';
+    }
+    
     public function home() {
         $this->layout = 'marketplace';
         

@@ -110,7 +110,7 @@
                         <h2 class="mbr-section-title pb-5 mbr-fonts-style display-2">
                             <?php echo __d('/mobirise/cheap_taxi', 'Gestiona un taxi para tus clientes aquí')?>
                         </h2>
-                        <h3><?php echo __d('/mobirise/cheap_taxi', 'Busca según las fechas y horarios que ellos necesitan')?></h3>
+                        <h3><?php echo __d('/mobirise/cheap_taxi', 'Busca los taxis disponibles según las fechas, horarios y rutas')?></h3>
                         <br/>
                         <div><?php echo __d('/mobirise/cheap_taxi', 'Acuerda el precio directo con el chofer y pacta la ganancia para cada uno')?></div>
                         <br/>
