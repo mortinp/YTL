@@ -6,7 +6,7 @@ class TaxiAvailablePostsController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('home','add');
+        $this->Auth->allow('home', 'add_new_offer', 'thanks');
     }
     
     public function add() {
