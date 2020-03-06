@@ -123,7 +123,7 @@ echo $this->fetch('script');
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",
             language: '<?php echo Configure::read('Config.language')?>',
-            startDate: '+1d',
+            startDate: 'today',
             todayBtn: "linked",
             autoclose: true,
             todayHighlight: true
