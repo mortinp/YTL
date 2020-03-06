@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('StringsUtil', 'Util');
 
 class TaxiAvailablePostsController extends AppController {
     
@@ -11,6 +12,9 @@ class TaxiAvailablePostsController extends AppController {
     public function add() {
         if($this->request->is('post')) {
             
+            // Poner algunos datos extra
+            $tokenId = StringsUtil::getWeirdString();
+            $this->request->data['TaxiAvailablePost']['token_id'] = $tokenId;
             if($this->Auth->loggedIn()) $this->request->data['TaxiAvailablePost']['created_by'] = $this->Auth->user('role');
             
             // Some fixes
@@ -27,6 +31,9 @@ class TaxiAvailablePostsController extends AppController {
     public function add_new_offer() {
         if($this->request->is('post')) {
             
+            // Poner algunos datos extra
+            $tokenId = StringsUtil::getWeirdString();
+            $this->request->data['TaxiAvailablePost']['token_id'] = $tokenId;
             if($this->Auth->loggedIn()) $this->request->data['TaxiAvailablePost']['created_by'] = $this->Auth->user('role');
             
             // Some fixes
@@ -35,16 +42,20 @@ class TaxiAvailablePostsController extends AppController {
             
             if($this->TaxiAvailablePost->save($this->request->data)) {
                 $this->setSuccessMessage('Nueva disponibilida de taxi agregada');
-                return $this->redirect(array('action'=>'gracias'));
+                return $this->redirect(array('action'=>'thanks', $tokenId));
             }
         }
         
-        $this->layout = 'marketplace';
+        $this->layout = 'add_new_offer';
+    }
+    
+    public function thanks($token) {
+        
+        $this->layout = 'add_new_offer';
+
     }
     
     public function home() {
-        $this->layout = 'marketplace';
-        
         $today = date('Y-m-d', strtotime('today')); 
         $taxisAvailable = $this->TaxiAvailablePost->find('all',array('order'=>array('TaxiAvailablePost.date'=>'ASC', 'TaxiAvailablePost.origin_id', 'TaxiAvailablePost.destination_id'),'conditions'=>array('TaxiAvailablePost.date >='=>$today)));
         //formatting the final result by dates
@@ -56,10 +67,7 @@ class TaxiAvailablePostsController extends AppController {
         
         $this->set('taxis_available', $taxisAvailableByDate);
         
-        /*// Algunos datos que hacen falta en la vista
-        $this->set('stats', $this->_getVanityStats());
-        $this->set('testimonials_sample', $this->Testimonial->getSample());*/
-        
+        $this->layout = 'home';
         $this->render('marketplace-for-casas');
     }
 }

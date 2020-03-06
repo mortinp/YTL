@@ -98,8 +98,36 @@ class BootstrapFormHelper extends FormHelper {
         $defaultOptions = array( 
             'class'=>'form-control'
         );
+        
+        $output = '';
+        
+        if(isset($options['addon-before'])) {
+            $defaultOptions += array(
+                'div'=>'input-group', 
+                'before'=>$options['addon-before']);
+            if($options['label']) {
+                $output .= $this->label($caption, $options['label']);
+                $options['label'] = false;
+            }
+            else $output .= $this->label($caption, $options['label']);
+            
+            unset($options['addon-before']);
+        }
+        if(isset($options['addon-after'])) {
+            $defaultOptions += array(
+                'div'=>'input-group', 
+                'after'=>$options['addon-after']);
+            if($options['label']) {
+                $output .= $this->label($caption, $options['label']);
+                $options['label'] = false;
+            }
+            else $output .= $this->label($caption, $options['label']);
+            
+            unset($options['addon-after']);
+        }
+        
         $options = array_merge_recursive($defaultOptions, $options);
-        $result = parent::input($caption, $options);
+        $output .= parent::input($caption, $options);
         
         /* Hacer cosas específicas para cada tipo de input >>> */
         
@@ -112,14 +140,14 @@ class BootstrapFormHelper extends FormHelper {
                 // Para selects multiples, hacer un hack para que los valores se pasen como un arreglo al servidor
                 // Source: http://stackoverflow.com/questions/12354848/cakephp-select-multiple-only-passing-first-value/12355224#12355224
                 if($options[$index] == 'multiple') {
-                    $result = str_replace('['.$caption.']', '['.$caption.'][]', $result);
+                    $output = str_replace('['.$caption.']', '['.$caption.'][]', $output);
                     break;
                 }
             }
             
         }
         
-        return $result;
+        return $output;
     }
     
     public function inputs($fields = null, $blacklist = null, $options = array()) {

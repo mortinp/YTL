@@ -36,11 +36,11 @@ if($isLoggedIn) {
   <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
   
   <?php
-    $page_title = __d('meta', 'Gestiona taxi para turistas en Cuba y gana comisión');
+    $page_title = __d('meta', 'Taxi disponible para turistas');
     $page_description = __d('meta', 'Encuentra traslados que ofrecen taxistas de turismo en Cuba y contáctalos para acordar un taxi para tus clientes a bajo precio');
   ?>
   <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-  <title><?php echo $page_title." | YoTeLlevo" ?></title>
+  <title><?php echo $page_title." | YoTeLlevo Marketplace" ?></title>
   <meta name="description" content="<?php echo $page_description?>"/>
   
   <!-- TWITTER SHARE -->   
@@ -88,7 +88,7 @@ echo $this->fetch('css');
 </head>
 <body>
 
-<?php echo $this->element('menu_marketplace', array('cta'=>__d('mobirise/cheap_taxi', 'Ver ofertas disponibles')))?>
+<?php echo $this->element('menu_default', array('transparent'=>false))?>
 
 <?php echo $this->fetch('content')?>
 
@@ -107,9 +107,43 @@ $this->Html->script('mbr-clients-slider/mbr-clients-slider', array('inline' => f
 $this->Html->script('sociallikes/social-likes', array('inline' => false));
 $this->Html->script('parallax/jarallax.min', array('inline' => false));
 $this->Html->script('theme/js/script', array('inline' => false));
+?>
+    
+<?php
+$this->Html->script('datepicker/js/datepicker', array('inline' => false));
+
+$this->Html->script('jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));
+if(Configure::read('Config.language') != 'en') $this->Html->script('jquery-validation-1.10.0/localization/messages_'.Configure::read('Config.language'), array('inline' => false));
 
 echo $this->fetch('script');
 ?>
+    
+<script type="text/javascript">
+    $(document).ready(function() {        
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: '<?php echo Configure::read('Config.language')?>',
+            startDate: '+1d',
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true
+        });
+        
+        $('#TravelForm').validate({
+            wrapper: 'div',
+            errorClass: 'text-danger',
+            errorElement: 'div'
+        });  
+        
+        
+        $('#MainForm').submit(function() {
+            if (!$(this).valid()) return false;
+
+            $('#MainFormSubmit').attr('disabled', true);
+            $('#MainFormSubmit').val('<?php echo __d('mobirise/default', 'Espera')?> ...');
+        });
+    })
+</script>
 
 <?php if( ROOT != 'C:\wamp\www\yotellevo' && (!$isLoggedIn || $role === 'regular') ):?>
 <!-- Google Analytics -->

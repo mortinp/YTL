@@ -3,7 +3,7 @@
     <h3 class="plan-title mbr-fonts-style display-5">
         <small><b><?php echo TaxiAvailablePost::$localities[$discount['TaxiAvailablePost']['origin_id']]['name']; ?></b> > <b><?php echo TaxiAvailablePost::$localities[$discount['TaxiAvailablePost']['destination_id']]['name']; ?></b></small></h3>
     <div class="plan-price">
-        <small class="price-term mbr-fonts-style display-7"><b><?php echo __d('mobirise/cheap_taxi', 'hasta %s personas', $discount['TaxiAvailablePost']['max_pax'])?></b></small>
+        <small class="price-term mbr-fonts-style display-7"><?php echo __d('mobirise/cheap_taxi', 'hasta <b>%s personas</b>', $discount['TaxiAvailablePost']['max_pax'])?></small>
     </div>
 </div>
 <div class="plan-body">

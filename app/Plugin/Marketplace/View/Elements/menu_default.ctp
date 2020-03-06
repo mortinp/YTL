@@ -11,12 +11,6 @@ if(!isset($transparent)) {
 }
 ?>
 
-<?php 
-    $mainCTA = __d('mobirise/default', 'Contactar choferes en Cuba');
-    if(isset($cta)) $mainCTA = $cta;
-?>
-
-
 <section class="menu cid-r8XWEle1z2" once="menu" id="menu1-0">
 
     <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color <?php if($transparent):?>transparent<?php endif?>">
@@ -37,14 +31,6 @@ if(!isset($transparent)) {
                     <?php echo $this->Html->link('YO TE LLEVO - CUBA', '/'.SessionComponent::read('Config.language'), array('class'=>'navbar-caption text-white display-4'));?>
                 </span>                
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-buttons mbr-section-btn">
-                <a class="btn btn-sm btn-secondary display-4" href="#<?php echo __d('mobirise/default', 'solicitar')?>">
-                    <span class="mbri-cust-feedback mbr-iconfont mbr-iconfont-btn"></span>
-                    <?php echo __d('mobirise/default', $mainCTA)?>
-                </a>
-            </div>            
         </div>
     </nav>
 </section>
