@@ -36,8 +36,8 @@ if($isLoggedIn) {
   <link rel="canonical" href="<?php echo $this->Html->url($url, true)?>"/>
   
   <?php
-    $page_title = __d('meta', 'Taxi disponible para turistas');
-    $page_description = __d('meta', 'Encuentra traslados que ofrecen taxistas de turismo en Cuba y contáctalos para acordar un taxi para tus clientes a bajo precio');
+    $page_title = 'Taxi disponible para turistas';
+    $page_description = 'Publica tu taxi como disponible y encuentra clientes rápido y fácil';
   ?>
   <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
   <title><?php echo $page_title." | YoTeLlevo Marketplace" ?></title>
