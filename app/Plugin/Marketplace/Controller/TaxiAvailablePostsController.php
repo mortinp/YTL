@@ -57,7 +57,13 @@ class TaxiAvailablePostsController extends AppController {
     
     public function home() {
         $today = date('Y-m-d', strtotime('today')); 
-        $taxisAvailable = $this->TaxiAvailablePost->find('all',array('order'=>array('TaxiAvailablePost.date'=>'ASC', 'TaxiAvailablePost.origin_id', 'TaxiAvailablePost.destination_id'),'conditions'=>array('TaxiAvailablePost.date >='=>$today)));
+        $taxisAvailable = $this->TaxiAvailablePost->find('all',array(
+            'order'=>array(
+                'TaxiAvailablePost.date'=>'ASC', 
+                'TaxiAvailablePost.origin_id', 
+                'TaxiAvailablePost.destination_id',
+                'TaxiAvailablePost.time_available_start'),
+            'conditions'=>array('TaxiAvailablePost.date >='=>$today)));
         //formatting the final result by dates
         $taxisAvailableByDate = array();
         foreach ($taxisAvailable as $key => $value) {

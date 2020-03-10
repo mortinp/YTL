@@ -107,13 +107,15 @@
             <div class="col-12">
                 <div class="section-head text-center space30">
                     <div class="section-head text-center space30">
-                        <h2 class="mbr-section-title pb-5 mbr-fonts-style display-2">
+                        <h2 class="mbr-section-title pb-3 mbr-fonts-style display-2">
                             <?php echo __d('/mobirise/cheap_taxi', 'Gestiona un taxi para tus clientes aquí')?>
                         </h2>
-                        <h3><?php echo __d('/mobirise/cheap_taxi', 'Busca los taxis disponibles según las fechas, horarios y rutas')?></h3>
+                        <div style="border: gray solid 1px;padding: 10px; display: inline-block; margin-bottom: 10px"><b><?php echo __d('/mobirise/cheap_taxi', 'Es GRATIS contactar al chofer. NO cobramos comisión.')?></b></div>
+                        <br/><br/>
+                        <h5><?php echo __d('/mobirise/cheap_taxi', 'Busca los taxis disponibles según las fechas, horarios y rutas')?></h5>
                         <br/>
-                        <div><?php echo __d('/mobirise/cheap_taxi', 'Acuerda el precio directo con el chofer y pacta la ganancia para cada uno')?></div>
-                        <br/>
+                        
+                        
                     </div>
                 </div>
                 <div class="clearfix"></div>

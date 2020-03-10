@@ -70,8 +70,8 @@
         
         
         // Plugins urls
-        Router::connect('/:language/taxi_posts/:action/*', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts'), array('language' => 'en|es'));
-        Router::connect('/:language/taxi_posts', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts'), array('language' => 'en|es'));
+        Router::connect('/:language/marketplace/:action/*', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts'), array('language' => 'en|es'));
+        Router::connect('/:language/marketplace', array('plugin'=>'marketplace', 'controller' => 'taxi_available_posts'), array('language' => 'en|es'));
         
         Router::connect('/:language/email_queues/:action/*', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
         Router::connect('/:language/email_queues', array('plugin'=>'email_queue', 'controller' => 'email_queues'), array('language' => 'en|es'));
