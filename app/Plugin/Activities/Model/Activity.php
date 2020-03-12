@@ -28,6 +28,9 @@ class Activity extends AppModel {
             'date'=>'2020-03-04'
         )
     );
+    public function findById($id) {
+        return $activities[$id];       
+    }
 }
 
 ?>

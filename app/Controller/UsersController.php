@@ -6,6 +6,7 @@ App::uses('DriverTravel', 'Model');
 App::uses('StringsUtil', 'Util');
 App::uses('EmailsUtil', 'Util');
 App::uses('MessagesUtil', 'Util');
+App::uses('Activity', 'Activities.Model');
 
 class UsersController extends AppController {
     
@@ -521,7 +522,7 @@ class UsersController extends AppController {
     
     
     public function contact_driver($new = false){
-        
+              
         // Si el usuario esta logueado, simplemente mandar el mensaje y continuar
         if($this->Auth->loggedIn()){
             $conversation = array('DriverTravel' => $this->request->data['DriverTravel']);
@@ -544,7 +545,31 @@ class UsersController extends AppController {
                $result = $this->DirectMessages->send_message($conversation, $message);  
             
             if($result['success']){
-                
+             /*Trabajamos aqui las actividades (Se puede separar)*/   
+                if(isset($this->request->data['User']['offer_id'])){
+                    $slug=null;
+                    $this->loadModel('ActivityDriverSubscription');
+                    $subscription=$this->ActivityDriverSubscription->findById($this->request->data['User']['offer_id']);
+                    
+                     foreach (Activity::$activities as $key=>$a) {
+                         if($key==$subscription['ActivityDriverSubscription']['activity_id']){
+                            $slug=$a['slug'];
+                         }
+                     }
+                     $lastoffer = $this->request->data['User']['offer_id'];
+                     $current_visited = CakeSession::read('visited');
+                     if(empty($current_visited)){
+                         $visited = array();
+                         $visited[]=$lastoffer;
+                         CakeSession::write('visited', $visited);
+                     }
+                     else{
+                         $current_visited[]=$lastoffer;
+                         CakeSession::write('visited', $current_visited);
+                     }
+                    return $this->redirect (array('controller' => 'a/'.$slug));
+                }
+               /*------------ FIN ACTIVIDADES -----------------------------------*/ 
                 // BIENVENIDA: Aquí la bienvenida a un usuario nuevo
                 if($new) return $this->redirect (array('action' => 'register_welcome', $result['conversation_id']));
                 

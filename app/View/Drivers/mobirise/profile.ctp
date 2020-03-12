@@ -193,7 +193,11 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         $formSectionTitle = __d('mobirise/driver_profile', '¿Te interesa contratar un chofer privado en Cuba?');
         $formSectionSubtitle = __d('mobirise/driver_profile', '<strong>Contacta a %s</strong> y recibe una oferta directamente de él para el viaje que quieres hacer', $driver_short_name);
 
-        $isShowingDiscount = $this->request->query('discount') && $discount != null;
+        $isShowingDiscount = $this->request->query('discount') && $discount != null;        
+         
+        
+        $isShowingActivity = $this->request->query('activity_offer') && $offer != null;
+        if(isset($offer)) $offer = $offer[0];
 
         if($isShowingDiscount) {
             $formSectionTitle = __d('mobirise/cheap_taxi', '%s ofrece:<br>Taxi privado <span style="display:inline-block">%s > %s</span><br>%s', 
@@ -234,11 +238,25 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                         </div>
                     </div>
                    <?php else: ?>
+                  <?php if($isShowingActivity):  ?><!--Tratamiento de actividades en el contacto-->                 
+                   <div class="row cid-rDj8V5iu3T justify-content-center" style="background-color: white;padding:0px">
+                        <div class="plan col-md-4 justify-content-center favorite">
+                            <h3 class="text-center"><?php echo __d('mobirise/default','Para esta actividad'); ?></h3>
+                            <?php echo $this->element('Activities.mobirise/offers/offer_info', compact('offer') + array('showButton'=>false))?>
+                        </div>
+
+                        <div class="col-12 d-md-none" style="height:50px"></div>
+                        <div class="col-md-7 offset-md-1" id="<?php echo $offer['ActivityDriverSubscription']['id']; ?>" data-form-type="formoid">
+                            <?php echo $this->element('mobirise/form_write_to_driver', array('offer_id'=>$offer['ActivityDriverSubscription']['id']))?>
+                        </div>
+                   </div>
+                  <?php else: ?>
                     <div class="row justify-content-center">
                         <div class="media-container-column col-lg-8" data-form-type="formoid">
                             <?php echo $this->element('mobirise/form_write_to_driver')?>
                         </div>
                     </div>
+                <?php endif; ?>
                 <?php endif; ?>
 
             </div>

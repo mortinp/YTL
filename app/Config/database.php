@@ -66,7 +66,17 @@ class DATABASE_CONFIG {
         'persistent' => false,
         'host' => 'localhost',
         'login' => 'root',
-        'password' => '',
+        'password' => 'conficuba',
+        'database' => 'yotellevo',
+        'prefix' => '',
+        'encoding' => 'utf8',
+    );
+    public $default = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'root',
+        'password' => 'conficuba',
         'database' => 'yotellevo',
         'prefix' => '',
         'encoding' => 'utf8',

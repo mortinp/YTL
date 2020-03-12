@@ -177,11 +177,19 @@ if($userLoggedIn) {
                 todayHighlight: true,
                
             });
+   
       <?php if($this->request->query('discount')): ?>
             $('.datepicker').datepicker('setDate',pickervalue);
             goTo('<?php echo __d('mobirise/default', 'solicitar')?>', 500, 20);
             $("#DriverTravelerConversationResponseText").focus();
-      <?php endif; ?>      
+      <?php endif; ?>  
+      /*Elementos para controlar el flujo de reserva de actividades*/
+       <?php if($this->request->query('activity_offer')): ?>            
+            goTo('<?php echo __d('mobirise/default', 'solicitar')?>', 500, 20);
+            $("#DriverTravelerConversationResponseText").focus();
+      <?php endif; ?>        
+           
+           
 
             $('#CDirectForm').validate({
                 wrapper: 'div',

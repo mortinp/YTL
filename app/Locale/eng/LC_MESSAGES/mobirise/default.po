@@ -76,3 +76,7 @@ msgstr "YoTeLlevo is a <b>community of private taxi drivers in Cuba</b>. You con
 #: /home.ctp:27
 msgid "También somos los creadores de %s, un servicio de taxi compartido en Cuba."
 msgstr "We are also the creators of %s, a shared taxi service in Cuba."
+
+#: /Drivers/mobirise/profile.ctp:244
+msgid "Para esta actividad"
+msgstr "For this activity"

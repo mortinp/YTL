@@ -20,6 +20,7 @@ class DriverTravel extends AppModel {
     public static $NOTIFICATION_TYPE_PREARRANGED = 'R'; // Para los viajes que se le notifiquen a los choferes y hayan sido prearreglados (ej. para hacer un descuento)
     public static $NOTIFICATION_TYPE_DIRECT_MESSAGE = 'D'; // Para las conversaciones directas (sin un viaje asociado)
     public static $NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST = 'O'; // Para las ofertas de descuento
+    public static $NOTIFICATION_TYPE_ACTIVITY_OFFER_REQUEST = 'B'; // Para las ofertas de descuento
     
     
     // Filters
@@ -32,6 +33,7 @@ class DriverTravel extends AppModel {
     public static $SEARCH_ARCHIVED = 'archived';
     public static $SEARCH_DIRECT_MESSAGES = 'direct-messages';
     public static $SEARCH_DISCOUNT_OFFER = 'discount-offers';
+    public static $SEARCH_ACTIVITY_OFFER = 'activity-offers';//Nuevo tipo de notificacion
     public static $filtersForSearch = array(
         'all'=>array('label'=>'Todas', 'title'=>''), 
         'new-messages'=>array('label'=>'Nuevos Mensajes', 'title'=>''), 

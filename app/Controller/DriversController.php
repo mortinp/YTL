@@ -140,6 +140,16 @@ class DriversController extends AppController {
                 $result = $this->next_to_notify($profile['Province'], 6, $profile['Driver']['id']);
                 $this->set('other_drivers', $result);
                 
+                 /* Chequeamos para cargar ofertas de activiades si hay */
+                if($this->request->query('activity_offer')) {
+                    $this->loadModel('ActivityDriverSubscription');
+                    $this->ActivityDriverSubscription->recursive=3;
+                    $this->set('offer',
+                            $this->ActivityDriverSubscription->find('all',                                    
+                                    array('conditions'=> array('ActivityDriverSubscription.id'=>$this->request->query('activity_offer'),'driver_id'=>$profile['Driver']['id'])))
+                            );
+                }
+                
                 /* Chequeamos para cargar el viaje con descuento si hay */
                 if($this->request->query('discount')) {
                     $this->loadModel('DiscountRide');

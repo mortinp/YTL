@@ -30,13 +30,17 @@ class ActivitiesController extends AppController {
     
     public function display($activitySlug) {        
         $activity = null;
-        foreach (Activity::$activities as $key=>$a) {
+        $this->layout = 'home';
+        $this->ActivityDriverSubscription->recursive=3;
+        $act=array();
+        foreach (Activity::$activities as $key=>$a) {            
             if($a['slug'] == $activitySlug) {                
                 $subscription = $this->ActivityDriverSubscription->find('all',array('conditions'=>array('activity_id'=>$key)));
-                if (count($subscription) > 0){                
-                    $a['Subscriptions'] = $subscription;
+                if (count($subscription) > 0){ 
+                    $act[$key]['Activity']=$a;
+                    $act[$key]['Subscriptions'] = $subscription;
                 }
-                $activity = $a;
+                $activity = $act;
                 break;
             }
             
@@ -46,8 +50,8 @@ class ActivitiesController extends AppController {
         
         $this->set(compact('activity'));
         
-        $this->layout = 'activity';
-        $this->render($activity['display_page']);
+        //$this->layout = 'activity';
+        $this->render($activity[$key]['Activity']['display_page']);
     }
     
     public function add_drivers($activity) {  

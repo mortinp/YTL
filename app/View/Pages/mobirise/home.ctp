@@ -1,3 +1,5 @@
+<!-- Eliminamos la sesion de reservas de actividades -->
+<?php CakeSession::delete('visited'); ?>
 <section class="header9 cid-r6QOX37jx2 mbr-fullscreen" id="header9-7">
     <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(35, 35, 35);"></div>
 
