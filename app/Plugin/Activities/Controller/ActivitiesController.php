@@ -30,7 +30,7 @@ class ActivitiesController extends AppController {
     
     public function display($activitySlug) {        
         $activity = null;
-        $this->layout = 'home';
+        $this->layout = 'activity';
         $this->ActivityDriverSubscription->recursive=3;
         $act=array();
         foreach (Activity::$activities as $key=>$a) {            
