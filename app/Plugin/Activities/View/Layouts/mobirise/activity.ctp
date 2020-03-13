@@ -187,6 +187,16 @@ echo $this->fetch('script');
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
     });
+    
+    <?php if($this->Session->check('visited')): ?>
+               
+           <?php $current_visited = CakeSession::read('visited'); ?>
+           <?php foreach($current_visited as $value): ?>
+               alert('<?php echo $value; ?>');
+            $('#offer<?php echo $value; ?>').fadeTo('slow',.6);
+            $('#offer<?php echo $value; ?>').append('<div style="position: absolute; top: 0; left:0; width: 100%; height: 100%; z-index: 2; opacity: 0.4; filter: alpha(opacity=50)"></div>');
+           <?php endforeach; ?>
+   <?php endif; ?> 
 
 </script>
 
