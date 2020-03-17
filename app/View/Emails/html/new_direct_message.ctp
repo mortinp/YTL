@@ -7,7 +7,12 @@
     <p>
         Has recibido un nuevo mensaje directo de un viajero en nuestro sitio solicitando hacer un viaje contigo. Los detalles del viaje son los siguientes:
     </p>
-    <?php if($is_discount==true): ?>
+    <?php if(isset($is_activity) && $is_activity==true): ?>
+    <p>
+        Este mensaje está asociado a la actividad: <?php echo $activity['name'] ?>.
+    </p>
+    <?php endif; ?>
+    <?php if(isset($is_discount) && $is_discount==true): ?>
     <div style="border-left: #efefef solid 2px;padding-left: 15px">
         <p>Viaje de oferta de <?php echo $discount['origin'] ?> - <?php echo $discount['destination'] ?></p>
         <p><b>Fecha de inicio del viaje:</b> <?php echo TimeUtil::prettyDate(TimeUtil::dmY_to_Ymd($travel_date))?></p>

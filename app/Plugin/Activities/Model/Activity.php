@@ -26,6 +26,12 @@ class Activity extends AppModel {
             'slug'=>'taxi-santa-clara-cayo-santa-maria',
             'display_page'=>'taxi-scl-csm',
             'date'=>'2020-03-04'
+        ),
+        3=>array(
+            'name'=>'Tour por La Habana',
+            'slug'=>'daytour-havana',
+            'display_page'=>'daytour-hav',
+            'date'=>'2020-03-04'
         )
     );
     public function findById($id) {

@@ -61,6 +61,12 @@
                         $vars['discount'] = $conversation['DiscountRide'];
                     }
                     
+                    /*Enviar datos de actividad si lo es*/
+                    if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_ACTIVITY_OFFER_REQUEST){
+                        $vars['is_activity'] = true;
+                        $vars['activity'] = $conversation['Activity'];
+                    }
+                    
                     $OK = EmailsUtil::email(
                             $conversation['DriverTravel']['last_driver_email'], 
                             'Mensaje directo'.' [['.$DriverTravelModel->id.']]',

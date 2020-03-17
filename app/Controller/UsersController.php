@@ -535,6 +535,20 @@ class UsersController extends AppController {
                 
             }
             
+            /* Si es una actividad hay que pasar los datos en el mensaje */
+            if($conversation['DriverTravel']['notification_type'] == DriverTravel::$NOTIFICATION_TYPE_ACTIVITY_OFFER_REQUEST) {
+                $this->loadModel('ActivityDriverSubscription');
+                    $subscription=$this->ActivityDriverSubscription->findById($this->request->data['User']['offer_id']);
+                    $activity = null;
+                     foreach (Activity::$activities as $key=>$a) {
+                         if($key==$subscription['ActivityDriverSubscription']['activity_id']){
+                            $activity=$a;
+                         }
+                     }
+                $conversation['Activity'] = $activity;
+                
+            }
+            
             $message = $this->request->data['DriverTravelerConversation']['response_text'];
             
             $conversationIsExpired = isset($this->request->data['closed']);

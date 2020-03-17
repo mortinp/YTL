@@ -85,7 +85,7 @@ echo $this->fetch('css');
 </head>
 <body>
 
-<?php //echo $this->element('mobirise/menu')?>
+<?php echo $this->element('mobirise/menu')?>
 
 <?php echo $this->fetch('content')?>
 <?php //echo $this->element('addon_picko_linker')?>
@@ -191,8 +191,7 @@ echo $this->fetch('script');
     <?php if($this->Session->check('visited')): ?>
                
            <?php $current_visited = CakeSession::read('visited'); ?>
-           <?php foreach($current_visited as $value): ?>
-               alert('<?php echo $value; ?>');
+           <?php foreach($current_visited as $value): ?>               
             $('#offer<?php echo $value; ?>').fadeTo('slow',.6);
             $('#offer<?php echo $value; ?>').append('<div style="position: absolute; top: 0; left:0; width: 100%; height: 100%; z-index: 2; opacity: 0.4; filter: alpha(opacity=50)"></div>');
            <?php endforeach; ?>
