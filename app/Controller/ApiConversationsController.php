@@ -340,6 +340,7 @@ class ApiConversationsController extends ApiAppController {
         $this->set(array(
             'success' => true,
             'data' => true,
+            //'file'=>$_FILES,
             '_serialize' => array('success', 'data')
         ));
     } 
@@ -487,7 +488,7 @@ class ApiConversationsController extends ApiAppController {
      * 
      */
     private static function calculateState($meta) {
-        if($meta['following']) return 2;
+        if($meta['following']) return 2; // Enviar como SCHEDULED
         
         // TODO: Otros estados
         
@@ -501,7 +502,7 @@ class ApiConversationsController extends ApiAppController {
         // Si el batchId = -1, entonces marcar como synced todas las entradas de cada conversacion, sin tener en cuenta el batchId
         $dismissBatchId = $batchId == -1?'true':'false';
         
-        // Marcar como sincronizados
+        // Obtener las entradas que vamos a marcar como leidas
         $synced = array();
         foreach ($conversations as $c) {
             
@@ -519,15 +520,18 @@ class ApiConversationsController extends ApiAppController {
                             )',
                     )));
             
-            // Actualizar todas las entradas
+            // Poner datos de la sincronizacion (batch_id, sync_date, etc)
             foreach($syncedEntries as $entry) {
-                $entry['SyncObject']['sync_date'] = gmdate('Y-m-d H:i:s');
+                
                 $entry['SyncObject']['batch_id'] = $batchId;
                 $entry['SyncObject']['batch_id_retry_count'] = $entry['SyncObject']['batch_id_retry_count'] + 1;
-                $SyncTable->save($entry);
+                $entry['SyncObject']['sync_date'] = gmdate('Y-m-d H:i:s');
+                
                 $synced[] = $entry;
             }
         }
+        
+        if(!empty($synced)) $SyncTable->saveAll($synced);
         
         return $synced;
     }
