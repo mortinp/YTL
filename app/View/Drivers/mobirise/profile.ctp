@@ -234,11 +234,19 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
                         </div>
                     </div>
                    <?php else: ?>
+                   <?php if($profile['Driver']['for_tours']==1): ?>
+                     <div class="row justify-content-center">
+                        <div class="media-container-column col-lg-8" data-form-type="formoid">
+                            <?php echo $this->element('mobirise/form_write_to_driver',array('tour'=>true))?>
+                        </div>
+                    </div>
+                    <?php else: ?>
                     <div class="row justify-content-center">
                         <div class="media-container-column col-lg-8" data-form-type="formoid">
                             <?php echo $this->element('mobirise/form_write_to_driver')?>
                         </div>
                     </div>
+                   <?php endif; ?>  
                 <?php endif; ?>
 
             </div>

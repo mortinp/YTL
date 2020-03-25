@@ -1,0 +1,1 @@
+ALTER TABLE `drivers` ADD `for_tours` BOOLEAN NOT NULL DEFAULT FALSE AFTER `mobile_app_active`, ADD `tour_price` DOUBLE NOT NULL AFTER `for_tours`;

@@ -2,6 +2,9 @@
 $notificationType = DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE;
 
 $isDiscountOffer = isset($discount_id);
+$isTour=isset($tour);
+
+if($isTour) $notificationType = DriverTravel::$NOTIFICATION_TYPE_TOUR_REQUEST;            
 if($isDiscountOffer) $notificationType = DriverTravel::$NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST;
 ?>
 <?php echo $this->Session->flash();?>

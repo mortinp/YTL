@@ -150,7 +150,8 @@ class TravelLogicComponent extends Component {
         $primary_conditions = array(
             'DriverLocality.locality_id'=> array($travel['Travel']['origin_locality_id'], $travel['Travel']['destination_locality_id']),
             'Driver.active'             => true,
-            'Driver.receive_requests'   => true // Solo los choferes que esten registrados para recibir solicitudes
+            'Driver.receive_requests'   => true, // Solo los choferes que esten registrados para recibir solicitudes
+            'Driver.for_tours'   => false // Debemos ignorar los que son vintage para tours (PLUGIN PARA TOURS)
         );
         
         if(isset ($travel['Travel']['people_count'])) {

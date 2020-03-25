@@ -95,6 +95,9 @@
         
         Router::connect('/:language/casas/:action/*', array('plugin'=>'casas', 'controller' => 'casas'), array('language' => 'en|es'));
         
+        Router::connect('/:language/tours/:action/*', array('plugin'=>'vintage', 'controller' => 'vintage'), array('language' => 'en|es'));
+        Router::connect('/:language/tours', array('plugin'=>'vintage', 'controller' => 'vintage'), array('language' => 'en|es'));
+        
         /*Nueva ruta para prueba de visualizacion de datos de choferes*/
         //Router::connect('/:language/drivers/view_drivers_data/:provid', array('controller' => 'drivers', 'action'=>'view_drivers_data'), array('language' => 'en|es','pass'=>array('provid')));
         

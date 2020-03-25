@@ -121,6 +121,7 @@ CakePlugin::load('ApiSync');
 CakePlugin::load('JwtAuth');
 CakePlugin::load('DataCleaner');
 CakePlugin::load('Marketplace');
+CakePlugin::load('Vintage');
 
 Configure::write('Exception.renderer', 'EnhancedExceptionRenderer');
 Configure::write('Email.html', false);

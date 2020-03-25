@@ -66,7 +66,7 @@ $this->Html->css('bootstrap/css/bootstrap-reboot.min', array('inline' => false))
 $this->Html->css('dropdown/css/style', array('inline' => false));    
 $this->Html->css('socicon/css/styles', array('inline' => false));
 $this->Html->css('theme/css/style', array('inline' => false));
-
+$this->Html->css('gallery/style.css', array('inline' => false));
 $this->Html->css('mobirise/css/mbr-additional', array('inline' => false));
 
 $this->Html->css('font-awesome/css/font-awesome.min', array('inline' => false));
@@ -85,7 +85,7 @@ echo $this->fetch('css');
 </head>
 <body>
 
-<?php //echo $this->element('mobirise/menu')?>
+<?php echo $this->element('mobirise/menu')?>
 
 <?php echo $this->fetch('content')?>
 <?php //echo $this->element('addon_picko_linker')?>
@@ -100,13 +100,20 @@ $this->Html->script('tether/tether.min', array('inline' => false));
 $this->Html->script('bootstrap/js/bootstrap.min', array('inline' => false));
 //$this->Html->script('dropdown/js/nav-dropdown', array('inline' => false));
 //$this->Html->script('dropdown/js/navbar-dropdown', array('inline' => false));
+$this->Html->script('smoothscroll/smooth-scroll.js', array('inline' => false));
 $this->Html->script('dropdown/js/script.min', array('inline' => false));
 $this->Html->script('touchswipe/jquery.touch-swipe.min', array('inline' => false));
 $this->Html->script('bootstrapcarouselswipe/bootstrap-carousel-swipe', array('inline' => false));
 $this->Html->script('mbr-clients-slider/mbr-clients-slider', array('inline' => false));
 $this->Html->script('sociallikes/social-likes', array('inline' => false));
+ $this->Html->script('vimeoplayer/jquery.mb.vimeo_player.js', array('inline' => false));
+ $this->Html->script('masonry/masonry.pkgd.min.js', array('inline' => false));
+ $this->Html->script('imagesloaded/imagesloaded.pkgd.min.js', array('inline' => false));
 $this->Html->script('parallax/jarallax.min', array('inline' => false));
 $this->Html->script('theme/js/script', array('inline' => false));
+ $this->Html->script('slidervideo/script.js', array('inline' => false));
+ $this->Html->script('gallery/player.min.js', array('inline' => false));
+$this->Html->script('gallery/script.js', array('inline' => false));
 ?>
 
 <?php
@@ -180,6 +187,15 @@ echo $this->fetch('script');
         $('input.tt-hint').addClass('form-control');
         $('.twitter-typeahead').css('display', 'block');
     });
+    
+    <?php if($this->Session->check('visited')): ?>
+               
+           <?php $current_visited = CakeSession::read('visited'); ?>
+           <?php foreach($current_visited as $value): ?>               
+            $('#offer<?php echo $value; ?>').fadeTo('slow',.6);
+            $('#offer<?php echo $value; ?>').append('<div style="position: absolute; top: 0; left:0; width: 100%; height: 100%; z-index: 2; opacity: 0.4; filter: alpha(opacity=50)"></div>');
+           <?php endforeach; ?>
+   <?php endif; ?> 
 
 </script>
 

@@ -121,6 +121,7 @@ class AppController extends Controller {
             array('controller'=>'taxi_available_posts', 'action'=>'home'),
             array('controller'=>'taxi_available_posts', 'action'=>'add_new_offer'),
             array('controller'=>'taxi_available_posts', 'action'=>'thanks'),
+            array('controller'=>'vintage', 'action'=>'vintage_car_tour_havana'),
         );
         
         $current = array('controller'=>$this->request->controller, 'action'=>$this->request->action);

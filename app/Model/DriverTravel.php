@@ -20,6 +20,7 @@ class DriverTravel extends AppModel {
     public static $NOTIFICATION_TYPE_PREARRANGED = 'R'; // Para los viajes que se le notifiquen a los choferes y hayan sido prearreglados (ej. para hacer un descuento)
     public static $NOTIFICATION_TYPE_DIRECT_MESSAGE = 'D'; // Para las conversaciones directas (sin un viaje asociado)
     public static $NOTIFICATION_TYPE_DISCOUNT_OFFER_REQUEST = 'O'; // Para las ofertas de descuento
+    public static $NOTIFICATION_TYPE_TOUR_REQUEST = 'T'; // Para los vintage cars
     
     
     // Filters
