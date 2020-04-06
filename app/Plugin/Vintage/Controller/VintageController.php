@@ -14,6 +14,8 @@
 class VintageController extends AppController{
     //put your code here
     
+    public $uses = array('Driver', 'User' );
+    
      public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('vintage_car_tour_havana');
@@ -21,5 +23,8 @@ class VintageController extends AppController{
     
     public function vintage_car_tour_havana() {
         $this->layout = 'activity';
+        $this->Driver->recursive=2;
+        $options = $this->Driver->find('all',array('conditions'=>array('Driver.for_tours'=>true)));
+        $this->set('options', $options);
     }
 }

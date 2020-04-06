@@ -28,7 +28,7 @@
 
 </section>
 
-<?php if(isset($activity[0]['Subscriptions'])): ?>
+<?php if(sizeof($options)>0): ?>
 <section class="features16 cid-r6QXtixtYd" id="features16-c">
     
     
@@ -36,15 +36,14 @@
     <div class="container align-center">
         <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2">See here some of our drivers offers</h2>
         <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5">Choose that one that be more convenient for you...</h3>
-        <div class="row media-row">
-            
-        <?php foreach($activity as $key=>$act): ?>
+        <div class="row media-row">   
+        
            
-            <div id="bootstrap-accordion_3" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true">
-                    <?php echo $this->element('mobirise/offers/all_offers', array('discounts'=>$act['Subscriptions']))?>
-            </div>
             
-         <?php endforeach; ?>
+                    <?php echo $this->element('mobirise/vintage/all_offers', array('offers'=>$options))?>
+            
+            
+        
         </div>    
     </div>
 </section>
