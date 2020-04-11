@@ -181,12 +181,12 @@ class UsersController extends AppController {
         $user['registered_from_ip'] = $this->request->clientIp();
         $user['register_type'] = $register_type;    
         
-        if( $this->User->save($user) ){
+        if( $this->User->save($user) ){ 
             $user['id'] = $this->User->getLastInsertID();
             if( $this->do_send_confirm_email($user, $emailTemplate) ){
                 $datasource->commit();
                 return true;
-            }
+            }       
             $datasource->rollback();
             return false;
         }
@@ -367,7 +367,7 @@ class UsersController extends AppController {
         $code = $this->UserInteraction->getInteractionCode($user['id'], UserInteraction::$INTERACTION_TYPE_CONFIRM_EMAIL);
         $OK = $code != null;
         
-        if($OK) {
+        if($OK) {        
             $OK = EmailsUtil::email(
                     $user['username'], 
                     __d('user_email', 'Bienvenid@, que encuentre un buen chofer en Cuba').'!', 
@@ -555,7 +555,7 @@ class UsersController extends AppController {
         }
         
         // Si no está logueado, pero el usuario existe, intentar loguearse con la contraseña y mandar el mensaje
-        else if( $this->User->loginExists( $this->request->data['User']['username'] ) ){
+        else if( $this->User->loginExists( $this->request->data['User']['username'] ) ){            
             if( $this->do_login() )  return $this->contact_driver ();
             else $this->setErrorMessage( __('Verifique su contraseña e intente nuevamente.') );
         }

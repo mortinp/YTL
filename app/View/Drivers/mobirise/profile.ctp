@@ -5,7 +5,6 @@ $driver_name = $profile['DriverProfile']['driver_name'];
 $driver_short_name = Driver::shortenName($driver_name);
 $driverIsActive = $profile['Driver']['active'];
 ?>
-
 <!-- TESTIMONIOS -->
 <?php
 $testimonialsCount = $this->request->paging['Testimonial']['count'];
@@ -295,10 +294,41 @@ $hasTestimonials = $testimonials != null && count($testimonials) > 0;
         <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">
             <?php echo __d('mobirise/driver_profile', 'Mira otros choferes de taxi en %s', __($profile['Province']['name']))?>
         </h3> 
-        <div class="row content-row">                    
+        <div class="row content-row">            
             <?php foreach($other_drivers as $odriver):?>
-                <?php foreach($odriver as $driver):?>                             
+                <?php foreach($odriver as $driver):?> 
+                 <?php $profile['Driver']=$driver['drivers'];
+                       $profile['DriverProfile']=$driver['drivers_profiles'];
+                 ?>
+                 <?php if($profile['Driver']['for_tours']==1): ?>
+                    <div id="contactModal<?php echo $driver['drivers_profiles']['driver_id']; ?>" class="modal fade">
+                                            <div  class="modal-lg modal-dialog" role="dialog">
+                                                <div class="modal-content">                                        
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                        
+
+                                                    </div>
+                                                    <div class="modal-body">                                                    
+
+                                                       <div class="row justify-content-center">
+                                                            <div class="media-container-column col-lg-8" data-form-type="formoid">
+                                                                <?php echo $this->element('mobirise/form_write_to_driver',array('profile'=>$profile))?>
+                                                            </div>                                                           
+                                                       </div>
+
+
+                                                    </div>                                        
+                                            </div>
+                                        </div>
+                    </div>
+                 <?php endif; ?>
+                   <?php if($profile['Driver']['for_tours']==1): ?> 
+                     <?php $tour=$profile['Driver']['for_tours']; ?>
+                     <?php echo $this->element('mobirise/driver_card_tiny',array('tour'=>$tour,'driver'=>$driver))?>
+                   <?php else: ?>
                     <?php echo $this->element('mobirise/driver_card_tiny', compact($driver))?>
+                   <?php endif; ?>
                 <?php endforeach?> 
             <?php endforeach?>
         </div>

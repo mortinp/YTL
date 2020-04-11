@@ -28,6 +28,11 @@
 
             <div class="user_desk mbr-light mbr-fonts-style align-left pt-2 display-7">
                 <?php echo $this->Html->link(__d('mobirise/drivers_by_province', 'Ver perfil'), array('controller'=>'drivers', 'action'=>'profile', $driver['drivers_profiles']['driver_nick']), array('class'=>'btn-sm btn-success'))?>
+                <br> 
+                <br>
+                <?php if(isset($tour)): ?>
+                  <a class="btn-sm btn-primary" data-toggle="modal" data-target="#contactModal<?php echo $driver['drivers_profiles']['driver_id']; ?>"><span class="fa fa- fa-send"></span> Contactar </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

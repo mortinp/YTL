@@ -137,7 +137,7 @@ class DriversController extends AppController {
             
             if(Configure::read('show_testimonials_in_profile')){
                 
-                $result = $this->next_to_notify($profile['Province'], 6, $profile['Driver']['id']);
+                $result = $this->next_to_notify($profile['Province'], 6, $profile['Driver']['id'],$profile['Driver']['for_tours']);
                 $this->set('other_drivers', $result);
                 
                 /* Chequeamos para cargar el viaje con descuento si hay */
@@ -311,11 +311,11 @@ class DriversController extends AppController {
         $this->set('province', $province['name']);
     }*/
     
-    private function next_to_notify($province, $count, $notThisDriverId = null) {
+    private function next_to_notify($province, $count, $notThisDriverId = null, $forTour=false) {
         
         //if($province === null) throw new NotFoundException(__d('error', 'La provincia no existe'));
         
-        $driversData = $this->Driver->getNextToNotify($province['id'], $count, $notThisDriverId);
+        $driversData = $this->Driver->getNextToNotify($province['id'], $count, $notThisDriverId,$forTour);
         
         // Si no hay suficientes choferes en la provincia seleccionada, buscar choferes en provincias alternativas
         $shouldLookForAlternativeDrivers = count($driversData) < 3 && isset($province['alternative_province']) && $province['alternative_province'] != null;

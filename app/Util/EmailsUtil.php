@@ -18,7 +18,7 @@ class EmailsUtil {
                     $to,
                     $vars,
                     $options);
-        } else {
+        } else {               
             // Send email and redirect to a welcome page
             $Email = new CakeEmail($config);
             $Email->template($template)
@@ -28,7 +28,7 @@ class EmailsUtil {
             ->subject($subject);
             try {
                 $Email->send();
-            } catch ( Exception $e ) {
+            } catch ( Exception $e ) {             
                 $OK = false;
             }
         }

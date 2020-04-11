@@ -1,6 +1,5 @@
 <?php
 $notificationType = DriverTravel::$NOTIFICATION_TYPE_DIRECT_MESSAGE;
-
 $isDiscountOffer = isset($discount_id);
 $isTour=isset($tour);
 

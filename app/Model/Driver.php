@@ -195,9 +195,11 @@ class Driver extends AppModel {
                 );
     }
     
-    public function getNextToNotify($provinceID, $count = 6, $notThisDriverId = null) {
+    public function getNextToNotify($provinceID, $count = 6, $notThisDriverId = null, $tour=false) {
         $notThisDriverCondition = '';
         if($notThisDriverId != null) $notThisDriverCondition = 'AND drivers.id != '.$notThisDriverId;
+         $isForTourCondition = '';
+        if($tour) $isForTourCondition = 'AND drivers.for_tours = '.$tour;
         
         return 
         $this->query(
@@ -213,6 +215,7 @@ class Driver extends AppModel {
                 AND drivers.receive_requests = true 
                 AND drivers.province_id=".$provinceID."
                 ".$notThisDriverCondition."
+                ".$isForTourCondition."
                     
                 INNER JOIN drivers_travels ON drivers.id = drivers_travels.driver_id 
                 
