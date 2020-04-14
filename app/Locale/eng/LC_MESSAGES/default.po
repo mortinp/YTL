@@ -1038,3 +1038,7 @@ msgstr "Private taxi with discounts"
 #: /home.ctp:27
 msgid "Taxi compartido en PickoCar"
 msgstr "Shared taxi at PickoCar"
+
+#: /home.ctp:27
+msgid "Cuba está<br><b style="color: orangered">CERRADA a turismo</b> debido a COVID-19<br>Cuídate!"
+msgstr "Cuba is<br><b style="color: orangered">CLOSED to toursim</b> due to COVID-19<br>Take care!"

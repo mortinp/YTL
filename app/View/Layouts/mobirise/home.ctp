@@ -79,12 +79,12 @@ $this->Html->css('typeaheadjs/css/typeahead.js-bootstrap', array('inline' => fal
 
 echo $this->fetch('css');
 ?>
-  
-  
-  
+      
 </head>
 <body>
 
+<?php echo $this->element('covid19/ribbon')?>
+    
 <?php echo $this->element('mobirise/menu')?>
 
 <?php echo $this->fetch('content')?>
