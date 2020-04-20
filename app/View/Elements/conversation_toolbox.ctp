@@ -77,7 +77,7 @@ if(isset ($data['User'])) $user = $data['User'];
             <?php $following = $hasMetadata? $data['TravelConversationMeta']['following']: false;?>
             
             <div class="input-group info follow" title="Esta conversación se está Siguiendo" data-placement="left" style="display: <?php echo ($following) ? 'table' : 'none'; ?>">
-                <span class="input-group-addon">
+                <span class="input-group-addon" style="background-color: rgba(0,0,0,0)">
                     <span class="label label-info">Siguiendo</span>
                 </span>
                 <span class="input-group-btn">
@@ -99,7 +99,7 @@ if(isset ($data['User'])) $user = $data['User'];
             <div class="input-group info" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $data['TravelConversationMeta']['flag_comment']);?>" data-placement="bottom">
                     <span class="input-group-addon">
                         <span class="label label-warning">
-                            <a href="#!" class="open-form" data-form="form-flag-comment"><i class="glyphicon glyphicon-pushpin"></i> Pineado</a>
+                            <a href="#!" class="open-form" data-form="form-flag-comment"><i class="fa fa-thumb-tack"></i> Pineado</a>
                         </span>
                     </span>
                     <span class="input-group-btn">
@@ -108,7 +108,7 @@ if(isset ($data['User'])) $user = $data['User'];
                 </div>
             
             <?php else:?>
-                <?php echo $this->Form->static_button('<i class="glyphicon glyphicon-pushpin"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
+                <?php echo $this->Form->static_button('<i class="fa fa-thumb-tack"></i> Pinear', array('class'=>'btn-warning open-form info', 'data-form'=>'form-flag-comment', 'data-placement'=>'bottom', 'title'=>'Pinea este viaje para darle un seguimiento especial: si hay problemas, si te parece importante, si lo estás gestionando personalmente, etc.'));?>
             <?php endif?>
             
             <div id="form-flag-comment" style="display: none">

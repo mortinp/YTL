@@ -30,6 +30,7 @@ class DriverTravelerConversationsController extends AppController {
     }
     
     public function view($conversationId) {
+        $this->layout="Admin/admin";
         $this->DriverTravel->bindModel(array('belongsTo'=>array('Travel')));          
         $this->Driver->attachProfile($this->DriverTravel);
                 

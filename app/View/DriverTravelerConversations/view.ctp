@@ -36,7 +36,7 @@ $travelDate = DriverTravel::extractDate($data);
     .theme-config-box {
         margin-right: -220px;
         position: relative;        
-        transition-duration: 0.4s;
+        transition-duration: 0.4s;        
 
     }
     .theme-config-box.show {
@@ -124,9 +124,9 @@ $travelDate = DriverTravel::extractDate($data);
                         <?php if($data['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
                         
                             <?php if($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-                                <small><span class="label label-warning" style="margin-left:5px"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span></small>
+                                <small><span class="label label-warning" style="margin-left:5px"><i class="fa fa-thumbs-up"></i> Realizado</span></small>
                             <?php elseif($data['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-                                <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-usd"></i> Pagado</span></small>
+                                <small><span class="label label-success" style="margin-left:5px"><i class="fa fa-dollar"></i> Pagado</span></small>
                             <?php endif?>                        
                          
                         <?php endif?>
@@ -152,7 +152,7 @@ $travelDate = DriverTravel::extractDate($data);
 <div class="theme-config">
     <div class="theme-config-box">
         <div class="spin-icon alert alert-info">
-            <i id="box-menu" class="glyphicon glyphicon-chevron-left pull-left"></i>
+            <i style="margin-top:-7px; margin-left: 3px" id="box-menu" class="fa fa-angle-double-left pull-left fa-2x"></i>
         </div>
         <div class="skin-settings">            
             <div class="well">
@@ -224,10 +224,10 @@ $travelDate = DriverTravel::extractDate($data);
 	// SKIN Select
     $('.spin-icon').click(function () {		
         $(".theme-config-box").toggleClass("show");
-        if ($("#box-menu").hasClass('glyphicon glyphicon-chevron-left'))
-            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-right');
+        if ($("#box-menu").hasClass('fa fa-angle-double-left'))
+            $("#box-menu").attr('class', 'fa fa-angle-double-right fa-2x');
         else
-            $("#box-menu").attr('class', 'glyphicon glyphicon-chevron-left');
+            $("#box-menu").attr('class', 'fa fa-angle-double-left fa-2x');
     });
 
     
