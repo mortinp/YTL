@@ -54,7 +54,7 @@ $travelDate = DriverTravel::extractDate($data);
         /*color: #fff;*/
         cursor: pointer;
         /*opacity: .8;*/
-        height: 35px;
+        height: 50px;
     }
     .skin-settings {
         width: 220px;
@@ -152,7 +152,7 @@ $travelDate = DriverTravel::extractDate($data);
 <div class="theme-config">
     <div class="theme-config-box">
         <div class="spin-icon alert alert-info">
-            <i style="margin-top:-7px; margin-left: 3px" id="box-menu" class="fa fa-angle-double-left pull-left fa-2x"></i>
+            <i style="margin-left: 2px" id="box-menu" class="fa fa-gear pull-left fa-2x"></i>
         </div>
         <div class="skin-settings">            
             <div class="well">
@@ -224,10 +224,10 @@ $travelDate = DriverTravel::extractDate($data);
 	// SKIN Select
     $('.spin-icon').click(function () {		
         $(".theme-config-box").toggleClass("show");
-        if ($("#box-menu").hasClass('fa fa-angle-double-left'))
-            $("#box-menu").attr('class', 'fa fa-angle-double-right fa-2x');
+        if ($("#box-menu").hasClass('fa fa-angle-double-right'))
+            $("#box-menu").attr('class', 'fa fa-gear fa-2x');
         else
-            $("#box-menu").attr('class', 'fa fa-angle-double-left fa-2x');
+            $("#box-menu").attr('class', 'fa fa-angle-double-right fa-2x');
     });
 
     
