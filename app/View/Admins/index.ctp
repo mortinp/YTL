@@ -4,7 +4,6 @@
  var active2 = 'panel';
 </script>
 <?php
-$userLoggedIn = AuthComponent::user('id') ? true : false;
 
 if($userLoggedIn) {
     $user = AuthComponent::user();

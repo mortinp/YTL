@@ -31,7 +31,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
         <small>
             <span title='<b>Confirmación de Viaje:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($conversation['TravelConversationMeta']['received_confirmation_details']));?>' class="label label-info info" data-trigger="click" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;">
                 <a href="#!">
-                    <i class="glyphicon glyphicon-envelope"></i>
+                    <i class="fa fa-envelope"></i>
                 </a>
             </span>
         </small>
@@ -41,7 +41,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
            
         <small>
             <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Pedido de confirmación del viaje enviado al chofer">
-                <i class="glyphicon glyphicon-share-alt"></i>
+                <i class="fa fa-share-alt"></i>
             </span>
         </small>
     <?php endif?>
@@ -50,13 +50,13 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
     <?php if($conversation['TravelConversationMeta']['testimonial_id']):?> 
         <small>
             <span class="label info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Ver testimonio recibido">                
-                <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'testimonials', 'action' => 'admin', $conversation['TravelConversationMeta']['testimonial_id']))?>"><big><i style="color: red !important" class="glyphicon glyphicon-heart"></i></big></a>
+                <a target="_blank" href="<?php echo $this->Html->url(array('controller' => 'testimonials', 'action' => 'admin', $conversation['TravelConversationMeta']['testimonial_id']))?>"><big><i style="color: red !important" class="fa fa-heart"></i></big></a>
             </span>
         </small>    
     <?php elseif($conversation['TravelConversationMeta']['testimonial_requested']):?> 
         <small>
             <span class="label label-default info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="Solicitud de testimonio enviada al viajero">
-                <i class="glyphicon glyphicon-heart-empty"></i>
+                <i class="fa fa-heart-o"></i>
             </span>
         </small>
     <?php endif?>
@@ -65,7 +65,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
     <?php if($conversation['TravelConversationMeta']['flag_type']):?>
         <small>
             <span class="label label-warning info" style="float:left;margin-left: <?php echo $badgesMargin; $badgesMargin-=$badgesSpacing?>px;" title="<b>Comentario Pin:</b><br/><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", $conversation['TravelConversationMeta']['flag_comment']);?>">
-                <i class="glyphicon glyphicon-pushpin"></i>
+                <i class="fa fa-thumb-tack"></i>
             </span>
         </small>
     <?php endif?>
@@ -76,7 +76,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
         
         <div style="float:right;padding-right: 10px">
             <?php if($conversation['TravelConversationMeta']['archived']):?>
-                <?php echo $this->Html->link('<i class="glyphicon glyphicon-export"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'unarchive/'.$thread['id']), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
+                <?php echo $this->Html->link('<i class="fa fa-cloud-download"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'unarchive/'.$thread['id']), array('escape'=>false, 'title'=>'Sacar del archivo', 'class'=>'info'))?>
             <?php endif?>
 
             <?php if(!$conversation['TravelConversationMeta']['archived'] && 
@@ -86,7 +86,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
                             (isset ($conversation['Travel']) && $conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE && TimeUtil::wasBefore('15 days', strtotime($travelDate)))
                         ) 
                     ):?>
-                <?php echo $this->Html->link('<i class="glyphicon glyphicon-import"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
+                <?php echo $this->Html->link('<i class="fa fa-cloud-upload"></i>', array('controller'=>'driver_traveler_conversations', 'action'=>'archive/'.$thread['id']), array('escape'=>false, 'title'=>'Archivar este viaje', 'class'=>'info text-danger'))?>
             <?php endif?>
         </div>
     <?php endif?>
@@ -113,7 +113,7 @@ echo $this->Html->link($thread['id'], array('controller'=>'driver_traveler_conve
 <!-- ARRANGEMENTS -->
 <?php if(isset ($conversation['TravelConversationMeta']['arrangement']) && !empty($conversation['TravelConversationMeta']['arrangement'])):?>
 <div style="float:right;padding-right: 10px">
-    <span class="info" title="<b>Acuerdo:</b> <?php echo $conversation['TravelConversationMeta']['arrangement']?>"><i class="glyphicon glyphicon-link"></i></span>
+    <span class="info" title="<b>Acuerdo:</b> <?php echo $conversation['TravelConversationMeta']['arrangement']?>"><i class="fa fa-link"></i></span>
 </div>
 <?php endif?>
 
@@ -149,9 +149,9 @@ if($hasMetadata) {
     <!-- ESTADOS -->
     <?php if($conversation['TravelConversationMeta']['state'] != DriverTravelerConversation::$STATE_NONE):?>
         <?php if($conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_DONE):?>
-            <small><span class="label label-warning" style="margin-left:5px"><i class="glyphicon glyphicon-thumbs-up"></i> Realizado</span></small>
+            <small><span class="label label-warning" style="margin-left:5px"><i class="fa fa-thumbs-up"></i> Realizado</span></small>
         <?php elseif($conversation['TravelConversationMeta']['state'] == DriverTravelerConversation::$STATE_TRAVEL_PAID):?>
-            <small><span class="label label-success" style="margin-left:5px"><i class="glyphicon glyphicon-usd"></i> Pagado</span></small>
+            <small><span class="label label-success" style="margin-left:5px"><i class="fa fa-dollar"></i> Pagado</span></small>
         <?php endif?>
     <?php endif?>
 <?php endif?>

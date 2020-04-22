@@ -56,7 +56,7 @@ foreach (Travel::getPreferences() as $key => $value) {
         <!-- DATOS DEL USUARIO Y OTROS DATOS IMPORTANTES -->
         <div>
             <span><span class="text-muted">#</span><big><big><?php echo $travel['Travel']['id']?></big></big></span>
-            &nbsp;<i class="glyphicon glyphicon-user text-muted"></i>
+            &nbsp;<i class="fa fa-user text-muted"></i>
             <?php echo $user['username'];?> <span class="text-muted">hace </span><?php echo $daysPosted?> <span class="text-muted">días</span>
             
             <?php if($userLoggedIn && $userRole == 'admin'):?>
@@ -202,7 +202,7 @@ foreach (Travel::getPreferences() as $key => $value) {
         
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
-            '<i class="glyphicon glyphicon-trash"></i> '.__('Eliminar'), 
+            '<i class="fa fa-trash"></i> '.__('Eliminar'), 
             array('controller'=>'travels', 'action'=>'delete/'.$travel['Travel']['id']), 
                 array('escape'=>false, 'class'=>'text-danger', 'title'=>__('Eliminar este viaje'), 'confirm'=>__('¿Estás seguro que quieres eliminar este viaje?')));?>
         </li>
@@ -210,7 +210,7 @@ foreach (Travel::getPreferences() as $key => $value) {
         <?php if(!$expired):?>
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
-            '<i class="glyphicon glyphicon-share-alt"></i> <b>'.__('Confirmar').'</b>',
+            '<i class="fa fa-share-alt"></i> <b>'.__('Confirmar').'</b>',
             array('controller'=>'travels', 'action'=>'confirm/'.$travel['Travel']['id']), 
                 array('escape'=>false, 'title'=>__('Confirmar y Enviar este viaje a los choferes')));?>
         </li>
@@ -218,7 +218,7 @@ foreach (Travel::getPreferences() as $key => $value) {
     <?php elseif(AuthComponent::user('role') === 'admin'):?>
         <li style="padding-right: 10px;display: inline-block">
         <?php echo $this->Html->link(
-            '<i class="glyphicon glyphicon-trash"></i> '.__('Eliminar'), 
+            '<i class="fa fa-trash"></i> '.__('Eliminar'), 
             array('controller'=>'travels', 'action'=>'delete/'.$travel['Travel']['id']), 
                 array('escape'=>false, 'class'=>'text-danger', 'title'=>__('Eliminar este viaje'), 'confirm'=>__('¿Estás seguro que quieres eliminar este viaje?')));?>
         </li>

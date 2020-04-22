@@ -12,7 +12,7 @@ if(!empty($comments)) {
 ?>
 
 <span id="comments-set-<?php echo $thread['id']?>" style="display: inline-block">
-    <a href="#!" title="<?php echo $title?>" class="edit-comments-<?php echo $thread['id']?>" style="text-decoration: none"><span class="info" title="<?php echo $comments?>"><i class="glyphicon glyphicon-comment <?php echo $colorClass?>"></i></span></a>
+    <a href="#!" title="<?php echo $title?>" class="edit-comments-<?php echo $thread['id']?>" style="text-decoration: none"><span class="info" title="<?php echo $comments?>"><i class="fa fa-comment <?php echo $colorClass?>"></i></span></a>
 </span>
 <span id="comments-cancel-<?php echo $thread['id']?>" style="display:none">
     <a href="#!" class="cancel-edit-comments-<?php echo $thread['id']?>">&ndash; cancelar</a>

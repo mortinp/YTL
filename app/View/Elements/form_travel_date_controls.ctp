@@ -5,7 +5,7 @@
     <a href="#!" class="cancel-edit-date-change-<?php echo $travel['DriverTravel']['id']?>">&ndash; <?php echo __('cancelar')?></a>
 </span>
 <div id='date-change-form-<?php echo $travel['DriverTravel']['id']?>' style="display:none">
-    <span class="alert alert-warning" style="display: inline-block"><i class="glyphicon glyphicon-warning-sign"></i> Modificar la fecha solo si en las conversaciones se ha comprobado que el viaje es para una fecha distinta a la que el viajero había puesto en la solicitud.</span>
+    <span class="alert alert-warning" style="display: inline-block"><i class="fa fa-warning"></i> Modificar la fecha solo si en las conversaciones se ha comprobado que el viaje es para una fecha distinta a la que el viajero había puesto en la solicitud.</span>
     <br/>
     <?php echo $this->Form->create('DriverTravel', array('url' => array('controller' => 'driver_travels', 'action' => 'change_date/'.$travel['DriverTravel']['id'])));?>
     <fieldset>

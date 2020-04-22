@@ -30,9 +30,9 @@ $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
 <div id='conversation-alerts'>
     <?php if(!$expired && $following && CakeTime::isWithinNext('2 weeks',  strtotime($travelDate))):?>
         <?php if($hasMessages && $daysLastMessage > 15):?>
-            <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-warning-sign"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Toma las precauciones necesarias!</b></span>
+            <span class="alert alert-warning" style="display: inline-block; width: 100%"><i class="fa fa-warning"></i> No hay mensajes nuevos <span class="badge">hace <?php echo $daysLastMessage?> días</span> y el viaje es <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Toma las precauciones necesarias!</b></span>
         <?php else: ?>
-            <span class="alert alert-info" style="display: inline-block; width: 100%"><i class="glyphicon glyphicon-exclamation-sign"></i> Este viaje debe comenzar <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Verifica que todo esté listo!</b></span>
+            <span class="alert alert-info" style="display: inline-block; width: 100%"><i class="fa fa-exclamation"></i> Este viaje debe comenzar <span class="label label-success">dentro de <?php echo $daysToGo?> días</span>. <b>Verifica que todo esté listo!</b></span>
         <?php endif?>
     <?php endif?>
 </div>
@@ -57,7 +57,7 @@ $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
         <p>Si crees que debes verificar este viaje, da click en el siguiente botón.</p>
         <br/>
 
-        <?php echo $this->Form->button('<i class="glyphicon glyphicon-share-alt"></i> Enviar correo de verificación al chofer', array(
+        <?php echo $this->Form->button('<i class="fa fa-share-alt"></i> Enviar correo de verificación al chofer', array(
             'controller' => 'driver_traveler_conversations', 'action' => 'ask_confirmation_to_driver/'.$data['DriverTravel']['id'],
             'class'=>'btn-info btn-block',
             'escape'=>false,
@@ -72,7 +72,7 @@ $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
         
         <?php if($hasMetadata && $data['TravelConversationMeta']['received_confirmation_type'] != null):?> <!-- Confirmacion recibida -->
             <span class="alert alert-warning" style="display: inline-block; width: 100%">
-                <i class="glyphicon glyphicon-envelope"></i> Confirmación de viaje recibida:
+                <i class="fa fa-envelope"></i> Confirmación de viaje recibida:
                 <br/>
                 <br/>
                 <div class="well"><?php echo preg_replace("/(\r\n|\n|\r)/", "<br/>", strip_tags($data['TravelConversationMeta']['received_confirmation_details']));?></div>
@@ -83,7 +83,7 @@ $daysToGo = $now->diff(new DateTime($travelDate), true)->format('%a');
 
     <?php $showMessage = $asked_confirmation && (!$hasMetadata || $data['TravelConversationMeta']['received_confirmation_type'] === null) && !$is_done; ?>
     <span class="alert alert-warning verification-ajax-toggle" style="display: <?php echo ($showMessage) ? 'inline-block' : 'none'; ?>; width: 100%">
-        <i class="glyphicon glyphicon-share-alt"></i> Pedido de confirmación del viaje enviado al chofer. Esperando respuesta...
+        <i class="fa fa-share-alt"></i> Pedido de confirmación del viaje enviado al chofer. Esperando respuesta...
     </span>
                 
     

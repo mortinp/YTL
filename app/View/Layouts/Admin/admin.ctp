@@ -25,6 +25,20 @@ setlocale(LC_ALL, "en_US.utf8");
 
 
 ?>
+<?php
+$userLoggedIn = AuthComponent::user('id') ? true : false;
+
+?>
+
+<?php     
+    $other = array('en' => 'es', 'es' => 'en');
+    $lang = $this->Session->read('Config.language');
+ 
+    $lang_changed_url             = $this->request['pass'];
+    $lang_changed_url             = array_merge($lang_changed_url, $this->request['named']);
+    $lang_changed_url['?']        = $this->request->query;
+    $lang_changed_url['language'] = $other[$lang];
+?>
 
 <html>
 	<head>
@@ -72,30 +86,34 @@ setlocale(LC_ALL, "en_US.utf8");
         <!-- Jasny  -->
 	<?= $this->Html->css("admin/plugins/jasny/jasny-bootstrap.min.css") ?>
         
+        <!--Datepicker-->
+        <?= $this->Html->css('/assets/datepicker/css/datepicker'); ?>
+        
         
         
         <!-- jQuery -->
 	<?= $this->Html->script("admin/jquery-3.1.1.min.js") ?>
 	
 	<!-- Bootstrap -->
-	<?= $this->Html->script("admin/bootstrap.min.js") ?>
+	<?= $this->Html->script("admin/bootstrap.min.js") ?>        
         
-        <?= $this->Html->script('/assets/datepicker/js/datepicker', array('inline' => false)); ?>
+        
+        <?= $this->Html->script('/assets/datepicker/js/datepicker'); ?>
         
         <?= $this->Html->script('/assets/jquery-validation-1.10.0/dist/jquery.validate.min', array('inline' => false));?>
         
-        <?= $this->Html->css('/assets/datepicker/css/datepicker', array('inline' => false)); ?>
-	
-
-	
-        <?php
-          $dir = $this->request->webroot;
-            echo "<script> home ='$dir'; </script>";
-        ?>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                
-                /*Logica para el mensaje directo en conv. cerrada*/
+        <?php echo $this->fetch('scripts'); ?>
+        
+        <!-- Admin Main -->        
+        <?= $this->Html->script("admin/plugins/metisMenu/jquery.metisMenu.js") ?>
+        <?= $this->Html->script("admin/plugins/slimscroll/jquery.slimscroll.min.js") ?>        
+	<?= $this->Html->script("admin/inspinia.js") ?>
+        <?= $this->Html->script("admin/plugins/pace/pace.min.js") ?>
+        
+        <script>
+        $(document).ready(function(){
+            
+            /*Logica para el mensaje directo en conv. cerrada*/
                 $('.datepicker').datepicker({
                 format: "dd/mm/yyyy",
                 /*language: '<?php /*echo Configure::read('Config.language')*/?>',*/
@@ -105,16 +123,16 @@ setlocale(LC_ALL, "en_US.utf8");
                 todayHighlight: true
             });
 
-            $('#CDirectForm').validate({
+            /*$('#CDirectForm').validate({
                 wrapper: 'div',
                 errorClass: 'text-danger',
                 errorElement: 'div'
-            });
+            });*/
 
 
             $('#CDirectForm').submit(function () {
-                if (!$(this).valid())
-                    return false;
+               /* if (!$(this).valid())
+                    return false;*/
 
                 //$('#TravelForm :input').prop('disabled', true);
                 //$('#TravelFormDiv').prop('disabled', true);
@@ -130,8 +148,15 @@ setlocale(LC_ALL, "en_US.utf8");
                 });
                 
                 //$('.info').tooltip({placement:'bottom', html:true});
-            })
-        </script>
+                });
+         </script>
+	
+
+	
+        <?php
+          $dir = $this->request->webroot;
+            echo "<script> home ='$dir'; </script>";
+        ?>
 	</head>
 	<body>
 		
@@ -157,13 +182,16 @@ setlocale(LC_ALL, "en_US.utf8");
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="profile.html">Profile</a></li>                                
                                 <li class="divider"></li>
+                                <?php if($userLoggedIn): ?>
                                 <li><a href="<?php echo $this->request->webroot; ?>users/logout">Logout</a></li>
+                                <?php endif; ?>
                             </ul>
                         </div>
                         <div class="logo-element">
                             YTL
                         </div>
                     </li>
+                    <?php if( ($userLoggedIn && $userRole === 'admin') ):?>
                     <li id="main" class="active">
                         <a href="<?php echo $this->request->webroot; ?>admin">
                             <i class="fa fa-th-large"></i>
@@ -175,7 +203,15 @@ setlocale(LC_ALL, "en_US.utf8");
                             <li id="users"><a href="<?php echo $this->request->webroot; ?>users">Users</a></li>
                             <li id="roles"><a href="<?php echo $this->request->webroot; ?>roles">Roles</a></li>                            
                         </ul>
-                    </li>                    
+                    </li>
+                    <li id="members">
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Equipo</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li id="all-members"><a href="<?php echo $this->request->webroot; ?>team">View all</a></li>                                              
+                        </ul>
+                    </li> 
+                    <?php endif; ?>
+                    <?php if( ($userLoggedIn && ($userRole === 'operator' || $userRole === 'admin') ) ):?>
                     <li id="messages">
                         <a href="<?php echo $this->request->webroot; ?>contact">
                             <i class="fa fa-envelope"></i>
@@ -197,21 +233,15 @@ setlocale(LC_ALL, "en_US.utf8");
                             <li id="all"><a href="<?php echo $this->request->webroot; ?>testimonials">View all</a></li>                            
                             <li id="filtered"><a href="<?php echo $this->request->webroot; ?>testimonials/view_filtered">View rejected</a></li>                            
                         </ul>
-                    </li>
-                    <li id="members">
-                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Equipo</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li id="all-members"><a href="<?php echo $this->request->webroot; ?>team">View all</a></li>                                              
-                        </ul>
-                    </li> 
+                    </li>                    
                     <li id="works">
                         <a href="#"><i class="fa fa-car"></i> <span class="nav-label">Viajes</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li id="all-works"><a href="<?php echo $this->request->webroot; ?>work">View all</a></li>                         
                                                         
                         </ul>
-                    </li> 
-                                        
+                    </li>                    
+                 <?php endif; ?>                
                 </ul>
             </div>
         </nav>
@@ -319,22 +349,13 @@ setlocale(LC_ALL, "en_US.utf8");
     </div>
         
 	
-	
-	
-	
-
-	<!-- Admin Main -->        
-        <?= $this->Html->script("admin/plugins/metisMenu/jquery.metisMenu.js") ?>
-        <?= $this->Html->script("admin/plugins/slimscroll/jquery.slimscroll.min.js") ?>        
-	<?= $this->Html->script("admin/inspinia.js") ?>
-        <?= $this->Html->script("admin/plugins/pace/pace.min.js") ?>
         
         <!-- Peity -->
         <?= $this->Html->script("admin/plugins/peity/jquery.peity.min.js") ?>
         
         
         <!-- jQuery UI -->
-        <?= $this->Html->script("admin/plugins/jquery-ui/jquery-ui.min.js") ?> 
+        <?php /*$this->Html->script("admin/plugins/jquery-ui/jquery-ui.min.js")*/ ?> 
         
         <!-- iCheck -->
         <?= $this->Html->script("admin/plugins/iCheck/icheck.min.js") ?> 
@@ -348,6 +369,8 @@ setlocale(LC_ALL, "en_US.utf8");
         <!-- Sweetalert -->
 	<?= $this->Html->script("admin/sweetalert/sweetalert.min.js") ?>
         
+        
+        
         <script type="text/javascript">                
                /*  $('.nav > li').removeClass('active');
                  $('#'+active).addClass('active');
@@ -356,6 +379,42 @@ setlocale(LC_ALL, "en_US.utf8");
         </script>
         <script>
         $(document).ready(function(){
+            
+            /*Logica para el mensaje directo en conv. cerrada*/
+                $('.datepicker').datepicker({
+                format: "dd/mm/yyyy",
+                /*language: '<?php /*echo Configure::read('Config.language')*/?>',*/
+                startDate: 'today',
+                todayBtn: "linked",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            /*$('#CDirectForm').validate({
+                wrapper: 'div',
+                errorClass: 'text-danger',
+                errorElement: 'div'
+            });*/
+
+
+            $('#CDirectForm').submit(function () {
+               /* if (!$(this).valid())
+                    return false;*/
+
+                //$('#TravelForm :input').prop('disabled', true);
+                //$('#TravelFormDiv').prop('disabled', true);
+
+                $('#CDirectSubmit').attr('disabled', true);
+                $('#CDirectSubmit').val('<?php echo __d('mobirise/default', 'Espera')?> ...');
+            });
+               /*---------------------------------------------------------------------------------*/ 
+                $.each($('.info'), function(pos, obj) {
+                    var placement = 'bottom';
+                    if($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');
+                    $(obj).tooltip({placement:placement, html:true});
+                });
+                
+                //$('.info').tooltip({placement:'bottom', html:true});
             
            /*Checkbox personalized and check event*/             
             $('.i-checks').iCheck({

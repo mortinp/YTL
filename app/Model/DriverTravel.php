@@ -39,7 +39,7 @@ class DriverTravel extends AppModel {
         'following'=>array('label'=>'Siguiendo', 'title'=>''), 
         'done'=>array('label'=>'Realizados', 'title'=>''), 
         'paid'=>array('label'=>'Pagados', 'title'=>''), 
-        'pinned'=>array('label'=>'<i class="glyphicon glyphicon-pushpin"></i> Pineados', 'title'=>'Viajes que llevan una atención urgente. Revísalos cuanto antes!!!'), 
+        'pinned'=>array('label'=>'<i class="fa fa-thumb-tack"></i> Pineados', 'title'=>'Viajes que llevan una atención urgente. Revísalos cuanto antes!!!'), 
         'archived'=>array('label'=>'Archivados', 'title'=>''),
         'direct-messages'=>array('label'=>'Mensajes Directos', 'title'=>''),
         'discount-offers'=>array('label'=>'Ofertas', 'title'=>''));

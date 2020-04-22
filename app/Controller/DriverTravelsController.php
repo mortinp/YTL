@@ -22,6 +22,7 @@ class DriverTravelsController extends AppController {
     }
     
     public function index() {
+        $this->layout="Admin/admin";
         $this->DriverTravel->recursive = 2;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $order = array('Travel.id'=>'DESC', 'Driver.id');
@@ -35,6 +36,7 @@ class DriverTravelsController extends AppController {
     }
     
     public function view_filtered($filter = 'all') {
+        $this->layout="Admin/admin";
         $this->DriverTravel->recursive = 2;        
         $this->Driver->unbindModel(array('hasAndBelongsToMany'=>array('Locality')));
         $conditions = array();

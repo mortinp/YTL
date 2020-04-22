@@ -125,11 +125,10 @@ if(isset ($data['User'])) $user = $data['User'];
 </div>
 
 <?php
-$this->Html->css('bootstrap', array('inline' => false));
-$this->Html->css('vitalets-bootstrap-datepicker/datepicker.min', array('inline' => false));
 
-$this->Html->script('jquery', array('inline' => false));
-$this->Html->script('bootstrap', array('inline' => false));
+
+
+
 $this->Html->script('bootbox/bootbox', array('inline' => false));
 $this->Html->script('vitalets-bootstrap-datepicker/bootstrap-datepicker.min', array('inline' => false));
 

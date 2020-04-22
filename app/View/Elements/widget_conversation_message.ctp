@@ -5,7 +5,7 @@
 <?php
 if($message['response_by'] == 'driver') {
     $label = (isset($driver_name))? $driver_name:__('Chofer');
-    $class = 'col-md-8 alert bg-info';
+    $class = 'col-md-8 alert contact-box';
 } else {
     $label = __('Tú');
     $class = 'col-md-8 col-md-offset-4 well';
@@ -47,7 +47,7 @@ if($message['response_by'] == 'driver') {
     <?php if($message['attachments_ids'] != null && $message['attachments_ids'] != ''):?>
         <div class="alert">
             <a href="#!" id="show-attachments-<?php echo $messageId?>" data-attachments-ids="<?php echo $message['attachments_ids']?>">
-                <i class="glyphicon glyphicon-link"></i> <?php echo __('Ver adjuntos de este mensaje')?>
+                <i class="fa fa-paperclip"></i> <?php echo __('Ver adjuntos de este mensaje')?>
             </a>
             <div id="attachments-<?php echo $messageId?>" style="display:none"></div>
         </div>
@@ -68,9 +68,9 @@ if($message['response_by'] == 'driver') {
                             if(att.mimetype.substr(0, 5) == 'image') {
                                 place.append($('<img src="' + att.url + '" class="img-responsive"></img>')).append('<br/>');
                             } else if(att.mimetype == 'text/plain') {
-                                place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                place.append('<a href="'+ att.url + '"> <i class="fa fa-file"></i> ' + att.filename + '</a>').append('<br/>');
                             } else {
-                                place.append('<a href="'+ att.url + '"> <i class="glyphicon glyphicon-file"></i> ' + att.filename + '</a>').append('<br/>');
+                                place.append('<a href="'+ att.url + '"> <i class="fa fa-file"></i> ' + att.filename + '</a>').append('<br/>');
                             }
                         }
 
