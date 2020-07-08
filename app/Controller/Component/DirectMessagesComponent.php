@@ -22,7 +22,7 @@
             $DriverTravelModel->order = null;  //$conversation['DriverTravel']['travel_id'] = null;
             $conversation['DriverTravel']['user_id'] = $this->Auth->user('id');
             
-            if( $DriverTravelModel->save($conversation) ){
+            if( $DriverTravelModel->save($conversation) ) {
                 $conversation['DriverTravel']['id'] = $DriverTravelModel->getLastInsertID();
                 
                 // Trabajamos en su meta para marcar como following si es una oferta

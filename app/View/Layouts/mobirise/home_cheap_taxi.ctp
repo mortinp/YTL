@@ -87,7 +87,7 @@ echo $this->fetch('css');
   
 </head>
 <body>
-<?php echo $this->element('covid19/ribbon')?>
+<?php //echo $this->element('covid19/ribbon')?>
 
 <?php echo $this->element('mobirise/menu', array('cta'=>__d('mobirise/cheap_taxi', 'Ver ofertas disponibles')))?>
 

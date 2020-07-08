@@ -452,8 +452,8 @@ class ApiConversationsController extends ApiAppController {
                     if($hasMedia) {
                         $attachModel = ClassRegistry::init('EmailQueue.EmailAttachment');
                         $atts = $attachModel->getAttachments($conversationsToBuild[$i]['driver_traveler_conversations']['attachments_ids']);
-
-                        $media = array('url'=>$atts[0]['url']);
+                          
+                        $media = array('url'=>$atts[0]['url']);// TODO: Aqui solo se está enviando el primer adjunto!!
                     }
 
                     // Adicionar mensaje

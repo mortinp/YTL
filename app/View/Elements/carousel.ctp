@@ -14,7 +14,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
         <?php foreach($travels as $i => $travel): ?> 
-            <div class="item<?php if($i == 0) echo ' active' ?>">
+            <div class="item <?php if($i == 0) echo 'active' ?>">
                 <?php echo $this->element('travel', array('travel'=>$travel, 'actions'=>$actions, 'details'=>$details)); ?>
             </div>
          <?php endforeach; ?>
