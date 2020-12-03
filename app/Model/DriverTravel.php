@@ -73,7 +73,13 @@ class DriverTravel extends AppModel {
          
     
     public $validate = array(
-        'travel_date' => array('rule' => 'notEmpty')
+        'travel_date' => array(
+            'isDate' => array(
+                'rule' => array('date', array('dmy', 'ymd')),
+                'message' => 'La fecha tiene un formato incorrecto.',
+                'required' => true
+            )
+        )
     );
     
     public function beforeSave($options = array()) {

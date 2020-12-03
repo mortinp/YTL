@@ -15,11 +15,13 @@ class ApiConversationsController extends ApiAppController {
     
     // ***** INI FETCH *****
     public function iniFetch() {
+        //throw new NotFoundException();
+        
         $relevantConversations = $this->getRelevantConversations();
         
         // Vamos a coger solo las conversaciones sincronizadas anteriormente cuya fecha de viaje no haya expirado (de hoy en adelante)
         $today = date('Y-m-d', strtotime('today'));
-        $conversationsInSyncQueue = $this->getFullConversations($this->getConversationsIdsInSyncQueue($today))/*$this->getConversationsInSyncQueue($today)*/;
+        $conversationsInSyncQueue = $this->getFullConversations($this->getConversationsIdsInSyncQueue($today));
         
         // Eliminar duplicadas
         $conversations = $this->eliminateDuplicateConversations($relevantConversations, $conversationsInSyncQueue);
@@ -27,7 +29,7 @@ class ApiConversationsController extends ApiAppController {
         // Marcar como sincronizadas las conversaciones que vamos a enviar en el iniFetch
         $synced = $this->markConversationsAsSynced($conversations, -1);
         
-        // También marcar las conversaciones expiradas como sincronizadas en el iniFetch (batchId = -1) para que no se sincronicen más
+        // También marcar las conversaciones que estan expiradas en la sync_queue como sincronizadas (batchId = -1) para que no se sincronicen más
         $expiredConversations = $this->getConversationsInSyncQueue($today, -1);
         $this->markConversationsAsSynced($expiredConversations, -1);
         
@@ -121,6 +123,9 @@ class ApiConversationsController extends ApiAppController {
         return $conversationsIds;
     }
     private function getFullConversations(array $ids) {
+        // Sanity check
+        if($ids == null || empty($ids)) return array();
+        
         $user = $this->getUser();
         
         // Convertir el arreglo de ids a la forma ('1', '2', '3', '4', '5')
@@ -340,7 +345,6 @@ class ApiConversationsController extends ApiAppController {
         $this->set(array(
             'success' => true,
             'data' => true,
-            //'file'=>$_FILES,
             '_serialize' => array('success', 'data')
         ));
     } 
